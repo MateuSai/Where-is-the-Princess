@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dcxpm7x8lmgsb"
-path="res://.godot/imported/Battle Axe.png-2f190b06d011f6fc34ad5d1f1329e0c5.ctex"
+uid="uid://dv23ariebhak2"
+path="res://.godot/imported/dagger.png-a51762ba3b043bb274c98a04b954d136.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Battle Axe.png"
-dest_files=["res://.godot/imported/Battle Axe.png-2f190b06d011f6fc34ad5d1f1329e0c5.ctex"]
+source_file="res://Art/weapons/dagger.png"
+dest_files=["res://.godot/imported/dagger.png-a51762ba3b043bb274c98a04b954d136.ctex"]
 
 [params]
 

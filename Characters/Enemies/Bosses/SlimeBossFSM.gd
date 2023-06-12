@@ -11,18 +11,18 @@ func _init() -> void:
 	_add_state("jump")
 	_add_state("hurt")
 	_add_state("dead")
-	
-	
+
+
 func _ready() -> void:
 	set_state(states.idle)
-	
-	
+
+
 func _state_logic(_delta: float) -> void:
 	if state == states.jump:
 		parent.chase()
 		parent.move()
-		
-		
+
+
 func _get_transition() -> int:
 	match state:
 		states.idle:
@@ -35,8 +35,8 @@ func _get_transition() -> int:
 			if not animation_player.is_playing():
 				return states.idle
 	return -1
-	
-	
+
+
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
 		states.idle:
@@ -50,8 +50,8 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			animation_player.play("hurt")
 		states.dead:
 			animation_player.play("dead")
-			
-			
+
+
 func _exit_state(state_exited: int) -> void:
 	if state_exited == states.jump:
 		can_jump = false

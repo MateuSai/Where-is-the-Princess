@@ -23,8 +23,9 @@ func _ready() -> void:
 
 func _restore_previous_state() -> void:
 	self.hp = SavedData.hp
-	for weapon in SavedData.weapons:
-		weapon = weapon.duplicate()
+	for weapon_stat in SavedData.weapon_stats:
+		var weapon: Weapon = load(weapon_stat.weapon_path).instantiate()
+		weapon.stats = weapon_stat
 		weapon.position = Vector2.ZERO
 		weapons.add_child(weapon)
 		weapon.hide()
@@ -91,8 +92,8 @@ func _switch_weapon(direction: int) -> void:
 	emit_signal("weapon_switched", prev_index, index)
 
 
-func pick_up_weapon(weapon: Node2D) -> void:
-	SavedData.weapons.append(weapon.duplicate())
+func pick_up_weapon(weapon: Weapon) -> void:
+	SavedData.weapon_stats.append(weapon.stats)
 	var prev_index: int = SavedData.equipped_weapon_index
 	var new_index: int = weapons.get_child_count()
 	SavedData.equipped_weapon_index = new_index

@@ -10,6 +10,8 @@ class_name Weapon
 
 var can_active_ability: bool = true
 
+var stats: WeaponStats = null
+
 var tween: Tween = null
 @onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
 @onready var hitbox: Area2D = get_node("Node2D/Sprite2D/Hitbox")
@@ -24,6 +26,9 @@ func _ready() -> void:
 	if not on_floor:
 		player_detector.set_collision_mask_value(1, false)
 		player_detector.set_collision_mask_value(2, false)
+
+	if stats == null:
+		stats = WeaponStats.new(scene_file_path)
 
 	connect("draw", _on_show)
 	connect("hidden", _on_hide)

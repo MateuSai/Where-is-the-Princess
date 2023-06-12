@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://11vumvfkaknm"
-path="res://.godot/imported/Arrow.png-b56f04d1758996141f2ed93e732b5504.ctex"
+uid="uid://s5t2yqaddhot"
+path="res://.godot/imported/Hammer.png-9ab1b7ea04523fdf9bf6d18260c702b2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Arrow.png"
-dest_files=["res://.godot/imported/Arrow.png-b56f04d1758996141f2ed93e732b5504.ctex"]
+source_file="res://Art/weapons/Hammer.png"
+dest_files=["res://.godot/imported/Hammer.png-9ab1b7ea04523fdf9bf6d18260c702b2.ctex"]
 
 [params]
 
