@@ -11,5 +11,4 @@ res://Weapons/Sword.tscn
 res://Weapons/Crossbow.tscn
 res://Weapons/BattleAxe.tscn
 res://Weapons/WarHammer.tscn
-res://Characters/Player/Player.gd
-res://Characters/Enemies/Bosses/SlimeBossFSM.gd
+res://Characters/Character.tscn

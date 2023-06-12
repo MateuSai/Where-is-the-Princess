@@ -1,9 +1,9 @@
 2a60927148abd1d33b818b535e306557
-::res://::1686589648
-default_env.tres::Environment::5179211862111076438::1686589582::0::1::::<><>::
+::res://::1686592844
+default_env.tres::Environment::5179211862111076438::1686592809::0::1::::<><>::
 export_presets.cfg::TextFile::-1::1684338977::0::1::::<><>::
 Game.gd::GDScript::-1::1685267589::0::1::::<>Node2D<>::
-Game.tscn::PackedScene::1468640664539443410::1686589581::0::1::::<><>::uid://dftvfv1jceskv<>res://Game.gd<>res://Rooms.gd<>uid://df3cenyvvexih<>uid://c535uh5i7hsc8<>res://UI.gd
+Game.tscn::PackedScene::1468640664539443410::1686592808::0::1::::<><>::uid://dftvfv1jceskv<>res://Game.gd<>res://Rooms.gd<>uid://df3cenyvvexih<>uid://c535uh5i7hsc8<>res://UI.gd
 icon.png::CompressedTexture2D::4865007586017637991::1684338977::1684931697::1::::<><>::
 InventoryItem.gd::GDScript::-1::1686145145::0::1::::<>TextureRect<>::
 InventoryItem.tscn::PackedScene::-1::1686588798::0::1::::<><>::uid://s5t2yqaddhot<>res://InventoryItem.gd
@@ -11,7 +11,7 @@ PlayAnimation.gd::GDScript::-1::1684931689::0::1::::<>Sprite2D<>::
 README.md::TextFile::-1::1684338977::0::1::::<><>::
 Rooms.gd::GDScript::-1::1685876962::0::1::::<>Node2D<>::
 UI.gd::GDScript::-1::1685267443::0::1::::<>CanvasLayer<>::
-::res://Art/::1686588797
+::res://Art/::1686592230
 Dust.png::CompressedTexture2D::3985494548650643238::1684338977::1684931697::1::::<><>::
 knight_armor_02_spritesheet.png::CompressedTexture2D::609193949821004078::1686587986::1686588759::1::::<><>::
 progress bar.png::CompressedTexture2D::6938166893716064869::1684338977::1684931697::1::::<><>::
@@ -57,6 +57,9 @@ teleportW.png::CompressedTexture2D::3307563138298243867::1684338977::1684931697:
 weakenB.png::CompressedTexture2D::5371241998237914015::1684338977::1684931697::1::::<><>::
 weakenW.png::CompressedTexture2D::4692212874120482196::1684338977::1684931697::1::::<><>::
 white.png::CompressedTexture2D::4635118380832461308::1684338977::1684931697::1::::<><>::
+::res://Art/player/::1686592254
+armor_02.png::CompressedTexture2D::5501334186410569559::1686592251::1686592254::1::::<><>::
+no_armor.png::CompressedTexture2D::3645871010607691706::1686592232::1686592254::1::::<><>::
 ::res://Art/v1.1 dungeon crawler 16x16 pixel pack/::1686585960
 full spritesheet.png::CompressedTexture2D::617241263202285079::1684338977::1684931697::1::::<><>::
 full tilemap.png::CompressedTexture2D::9064515279251467040::1684338977::1684931697::1::::<><>::
@@ -270,40 +273,40 @@ Hammer.png::CompressedTexture2D::1326533642685780819::1684338977::1686588798::1:
 SavedData.gd::GDScript::-1::1686589410::0::1::::<>Node<>::
 SceneTransistor.gd::GDScript::-1::1686589339::0::1::::<>CanvasLayer<>::
 SceneTransistor.tscn::PackedScene::-1::1684931689::0::1::::<><>::res://Autoloads/SceneTransistor.gd
-::res://Characters/::1686305629
-Character.gd::GDScript::-1::1684932892::0::1::::Character<>CharacterBody2D<>res://Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f0.png::
-Character.tscn::PackedScene::2886886804447395425::1686305629::0::1::::<><>::res://Characters/Character.gd<>res://Characters/FSM.gd
+::res://Characters/::1686592809
+Character.gd::GDScript::-1::1686592506::0::1::::Character<>CharacterBody2D<>res://Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f0.png::
+Character.tscn::PackedScene::2886886804447395425::1686592809::0::1::::<><>::res://Characters/Character.gd<>res://Characters/FSM.gd
 FSM.gd::GDScript::-1::1684932229::0::1::::FiniteStateMachine<>Node<>::
 Hitbox.gd::GDScript::-1::1686153784::0::1::::Hitbox<>Area2D<>::
 HitEffect.tscn::PackedScene::-1::1684931689::0::1::::<><>::res://Art/v1.1 dungeon crawler 16x16 pixel pack/effects (new)/hit_effect_anim_spritesheet.png<>res://PlayAnimation.gd
-::res://Characters/Enemies/::1686589582
+::res://Characters/Enemies/::1686592808
 Enemy.gd::GDScript::-1::1685887434::0::1::::Enemy<>Character<>res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/goblin/goblin_idle_anim_f0.png::
-Enemy.tscn::PackedScene::7892635749973288013::1686589582::0::1::::<><>::uid://bheousdjxqa14<>res://Characters/Enemies/Enemy.gd
+Enemy.tscn::PackedScene::7892635749973288013::1686592808::0::1::::<><>::uid://bheousdjxqa14<>res://Characters/Enemies/Enemy.gd
 SpawnExplosion.gd::GDScript::-1::1685282141::0::1::::<>AnimatedSprite2D<>::
 SpawnExplosion.tscn::PackedScene::2343542468092587912::1686214662::0::1::::<><>::uid://5s650l0opflc<>res://Characters/Enemies/SpawnExplosion.gd
-::res://Characters/Enemies/Bosses/::1684338977
+::res://Characters/Enemies/Bosses/::1686589956
 SlimeBoss.gd::GDScript::-1::1684931689::0::1::::<>Enemy<>::
 SlimeBoss.tscn::PackedScene::-1::1684931689::0::1::::<><>::res://Characters/Enemies/Enemy.tscn<>res://Art/v1.1 dungeon crawler 16x16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_spritesheet.png<>res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/slime/slime_run_spritesheeet.png<>res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/slime/slime_idle_spritesheet.png<>res://Characters/Hitbox.gd<>res://Art/slime shadow.png<>res://Characters/Enemies/Bosses/SlimeBossFSM.gd<>res://Characters/Enemies/Bosses/SlimeBoss.gd
-SlimeBossFSM.gd::GDScript::-1::1684931689::0::1::::<>FiniteStateMachine<>::
+SlimeBossFSM.gd::GDScript::-1::1686589956::0::1::::<>FiniteStateMachine<>::
 ::res://Characters/Enemies/Flying Creature/::1686305629
 FlyingCreature.gd::GDScript::-1::1684931689::0::1::::<>Enemy<>::
 FlyingCreature.tscn::PackedScene::345207477942905613::1686305629::0::1::::<><>::uid://dkpis7w2h85hp<>uid://d0bfixe0mujtg<>res://Characters/Enemies/Flying Creature/FlyingCreatureFSM.gd<>uid://5s650l0opflc<>res://Characters/Hitbox.gd<>res://Characters/Enemies/Flying Creature/FlyingCreature.gd
 FlyingCreatureFSM.gd::GDScript::-1::1684931689::0::1::::<>FiniteStateMachine<>::
-::res://Characters/Enemies/Goblin/::1686589582
+::res://Characters/Enemies/Goblin/::1686592809
 Goblin.gd::GDScript::-1::1685887434::0::1::::<>Enemy<>::
-Goblin.tscn::PackedScene::7980872892091302941::1686589582::0::1::::<><>::uid://dkpis7w2h85hp<>uid://6nmcbyj7hu8v<>uid://g4wrospvmdxf<>uid://5s650l0opflc<>res://Characters/Enemies/Goblin/Goblin.gd<>res://Characters/Enemies/Goblin/GoblinFSM.gd
+Goblin.tscn::PackedScene::7980872892091302941::1686592808::0::1::::<><>::uid://dkpis7w2h85hp<>uid://6nmcbyj7hu8v<>uid://g4wrospvmdxf<>uid://5s650l0opflc<>res://Characters/Enemies/Goblin/Goblin.gd<>res://Characters/Enemies/Goblin/GoblinFSM.gd
 GoblinFSM.gd::GDScript::-1::1684931689::0::1::::<>FiniteStateMachine<>::
-ThrowableKnife.tscn::PackedScene::12691399977073048::1686589582::0::1::::<><>::uid://gwe3pqdm131b
-::res://Characters/Player/::1686589582
+ThrowableKnife.tscn::PackedScene::12691399977073048::1686592809::0::1::::<><>::uid://gwe3pqdm131b
+::res://Characters/Player/::1686592834
 Dust.tscn::PackedScene::-1::1684931689::0::1::::<><>::res://Art/Dust.png<>res://PlayAnimation.gd
-Player.gd::GDScript::-1::1686589445::0::1::::<>Character<>::
-Player.tscn::PackedScene::7550714575981258769::1686589582::0::1::::<><>::uid://bheousdjxqa14<>uid://kfcieplqn3ap<>uid://beuxbt1hqtnxl<>res://Characters/Player/Player.gd<>res://Characters/Player/PlayerFSM.gd<>uid://bn6jjdha1ecvj<>uid://5s650l0opflc
+Player.gd::GDScript::-1::1686592530::0::1::::<>Character<>::
+Player.tscn::PackedScene::7550714575981258769::1686592834::0::1::::<><>::uid://bheousdjxqa14<>res://Characters/Player/Player.gd<>uid://br7c70c5injos<>res://Characters/Player/PlayerFSM.gd<>uid://bn6jjdha1ecvj
 PlayerFSM.gd::GDScript::-1::1684931689::0::1::::<>FiniteStateMachine<>::
 White.gdshader::Shader::-1::1685460946::0::1::::<><>::
 ::res://Items/::1685802722
 HealthPotion.gd::GDScript::-1::1685447050::0::1::::<>Area2D<>::
 HealthPotion.tscn::PackedScene::3284236637449305252::1685802722::0::1::::<><>::res://Items/HealthPotion.gd<>uid://c1bbrf7qwjsk8
-::res://Rooms/::1686589637
+::res://Rooms/::1686592808
 EndRoom0.tscn::PackedScene::-1::1684931689::0::1::::<><>::res://Rooms/Room.tscn<>res://Rooms/Furniture and Traps/Stairs.tscn<>res://Rooms/Furniture and Traps/Torch.tscn
 Room0.tscn::PackedScene::3934135497710019020::1686145212::0::1::::<><>::uid://7oeqdu22e1q5<>res://Rooms/Furniture and Traps/Door.tscn
 Room1.tscn::PackedScene::8456090338724695658::1686305629::0::1::::<><>::uid://7oeqdu22e1q5<>uid://r88elkkvv60o<>res://Rooms/Furniture and Traps/Torch.tscn
@@ -311,7 +314,7 @@ Room2.tscn::PackedScene::963688144108461155::1686145212::0::1::::<><>::uid://7oe
 Room3.tscn::PackedScene::7316143633150807063::1686214662::0::1::::<><>::uid://7oeqdu22e1q5<>res://Rooms/Furniture and Traps/Door.tscn<>uid://dmay3kb4dokgj
 Room4.tscn::PackedScene::1591085149126104679::1686145212::0::1::::<><>::uid://7oeqdu22e1q5<>res://Rooms/Furniture and Traps/Door.tscn
 Room.gd::GDScript::-1::1686230590::0::1::::DungeonRoom<>Node2D<>::
-Room.tscn::PackedScene::2275215915376581462::1686589582::0::1::::<><>::uid://b6ahcd27jnf2v<>res://Rooms/Room.gd
+Room.tscn::PackedScene::2275215915376581462::1686592808::0::1::::<><>::uid://b6ahcd27jnf2v<>res://Rooms/Room.gd
 RoomWithWeapon0.tscn::PackedScene::7704945809659651536::1686145212::0::1::::<><>::uid://bb4btkq81dag<>res://Rooms/Furniture and Traps/Door.tscn
 RoomWithWeapon.gd::GDScript::-1::1684931689::0::1::::<>DungeonRoom<>::
 RoomWithWeapon.tscn::PackedScene::74016814140012658::1686145212::0::1::::<><>::uid://7oeqdu22e1q5<>res://Rooms/RoomWithWeapon.gd
@@ -320,7 +323,7 @@ SpawnRoom0.tscn::PackedScene::8110583869408908631::1686214662::0::1::::<><>::uid
 SpawnRoom1.tscn::PackedScene::-1::1684931689::0::1::::<><>::res://Rooms/Room.tscn<>res://Rooms/Furniture and Traps/Door.tscn<>res://Rooms/Furniture and Traps/Torch.tscn<>res://Weapons/Crossbow.tscn
 SpecialRoom0.tscn::PackedScene::6849657786539639252::1686214662::0::1::::<><>::uid://7oeqdu22e1q5<>uid://dh1lljshplw3y<>uid://dsqgtpyy4hu5w<>res://Rooms/Furniture and Traps/Door.tscn
 SpecialRoom1.tscn::PackedScene::2030668395901596301::1686214662::0::1::::<><>::uid://7oeqdu22e1q5<>res://Rooms/Furniture and Traps/Door.tscn<>uid://dmay3kb4dokgj<>uid://bm155ruyh7phk
-TileSet.tres::TileSet::4562703627755527927::1686589637::0::1::::<><>::uid://d2e6iidvt8eo3
+TileSet.tres::TileSet::4562703627755527927::1686589674::0::1::::<><>::uid://d2e6iidvt8eo3
 ::res://Rooms/Furniture and Traps/::1686305629
 Door.gd::GDScript::-1::1684931689::0::1::::<>StaticBody2D<>::
 Door.tscn::PackedScene::1263346205355611156::1686305629::0::1::::<><>::res://Rooms/Furniture and Traps/Door.gd<>uid://bebupc443w3u<>uid://b68bxf20bccdo
@@ -333,18 +336,18 @@ Torch.tscn::PackedScene::-1::1684931689::0::1::::<><>::res://Art/TorchLight.png<
 charged_attack.png::CompressedTexture2D::3741020348963529583::1684338977::1684931697::1::::<><>::
 slime boss.png::CompressedTexture2D::5650804934844797431::1684338977::1684931697::1::::<><>::
 spikes.png::CompressedTexture2D::750452344387674904::1684338977::1684931697::1::::<><>::
-::res://Weapons/::1686589582
+::res://Weapons/::1686592809
 Arrow.tscn::PackedScene::-1::1686588795::0::1::::<><>::uid://gwe3pqdm131b<>uid://11vumvfkaknm
-BattleAxe.tscn::PackedScene::4956680634488356929::1686589582::0::1::::<><>::uid://jvc34qam0obx<>res://Characters/Player/White.gdshader<>uid://dcxpm7x8lmgsb
+BattleAxe.tscn::PackedScene::4956680634488356929::1686592809::0::1::::<><>::uid://jvc34qam0obx<>res://Characters/Player/White.gdshader<>uid://dcxpm7x8lmgsb
 Crossbow.gd::GDScript::-1::1686231852::0::1::::<>Weapon<>::
-Crossbow.tscn::PackedScene::3978382569769084293::1686589582::0::1::::<><>::uid://jvc34qam0obx<>res://Weapons/Crossbow.gd<>res://Characters/Player/White.gdshader<>uid://bn21fhm5o3tep<>uid://c8n4t3xhxp8yj
+Crossbow.tscn::PackedScene::3978382569769084293::1686592809::0::1::::<><>::uid://jvc34qam0obx<>res://Weapons/Crossbow.gd<>res://Characters/Player/White.gdshader<>uid://bn21fhm5o3tep<>uid://c8n4t3xhxp8yj
 Projectile.gd::GDScript::-1::1686216651::0::1::::<>Hitbox<>::
 Projectile.tscn::PackedScene::466843055338432597::1686305629::0::1::::<><>::uid://b7d5isgmaelfl<>res://Weapons/Projectile.gd
-Sword.tscn::PackedScene::3363434054862003675::1686589582::0::1::::<><>::uid://jvc34qam0obx<>uid://evihltxw1ud3<>uid://dfnyu2au1agfw<>res://Characters/Player/White.gdshader<>uid://d1e3hlbucgbfq
+Sword.tscn::PackedScene::3363434054862003675::1686592809::0::1::::<><>::uid://jvc34qam0obx<>uid://evihltxw1ud3<>uid://dfnyu2au1agfw<>res://Characters/Player/White.gdshader<>uid://d1e3hlbucgbfq
 sword_active_ability.tres::Animation::8457749372834387051::1686145086::0::1::::<><>::
 UI.gd::GDScript::-1::1684935369::0::1::::<>CanvasLayer<>::
-WarHammer.tscn::PackedScene::3984123396354728633::1686589582::0::1::::<><>::uid://jvc34qam0obx<>res://Characters/Player/White.gdshader<>uid://s5t2yqaddhot
+WarHammer.tscn::PackedScene::3984123396354728633::1686592809::0::1::::<><>::uid://jvc34qam0obx<>res://Characters/Player/White.gdshader<>uid://s5t2yqaddhot
 Weapon.gd::GDScript::-1::1686589294::0::1::::Weapon<>Node2D<>res://Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/weapon_sword_1.png::
-Weapon.tscn::PackedScene::675224509703476473::1686589582::0::1::::<><>::res://Characters/Player/White.gdshader<>res://Weapons/Weapon.gd<>res://Weapons/WeaponHitbox.gd<>uid://b7bjytio6a77m<>res://Weapons/UI.gd
+Weapon.tscn::PackedScene::675224509703476473::1686592809::0::1::::<><>::res://Characters/Player/White.gdshader<>res://Weapons/Weapon.gd<>res://Weapons/WeaponHitbox.gd<>uid://b7bjytio6a77m<>res://Weapons/UI.gd
 WeaponHitbox.gd::GDScript::-1::1684931689::0::1::::<>Hitbox<>::
 WeaponStats.gd::GDScript::-1::1686589551::0::1::::WeaponStats<>Resource<>::

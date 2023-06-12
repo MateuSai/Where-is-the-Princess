@@ -18,6 +18,7 @@ signal hp_changed(new_hp)
 
 @onready var state_machine: Node = get_node("FiniteStateMachine")
 @onready var animated_sprite: AnimatedSprite2D = get_node("AnimatedSprite2D")
+@onready var sprite: Sprite2D = get_node("Sprite2D")
 
 var mov_direction: Vector2 = Vector2.ZERO
 

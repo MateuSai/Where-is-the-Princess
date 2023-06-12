@@ -42,10 +42,10 @@ func _restore_previous_state() -> void:
 func _process(_delta: float) -> void:
 	var mouse_direction: Vector2 = (get_global_mouse_position() - global_position).normalized()
 
-	if mouse_direction.x > 0 and animated_sprite.flip_h:
-		animated_sprite.flip_h = false
-	elif mouse_direction.x < 0 and not animated_sprite.flip_h:
-		animated_sprite.flip_h = true
+	if mouse_direction.x > 0 and sprite.flip_h:
+		sprite.flip_h = false
+	elif mouse_direction.x < 0 and not sprite.flip_h:
+		sprite.flip_h = true
 
 	current_weapon.move(mouse_direction)
 
