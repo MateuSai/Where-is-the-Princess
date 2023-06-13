@@ -2,25 +2,25 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bm5mjf55e0dg1"
-path="res://.godot/imported/full_tilemap_albedo.png-d4f60262a34600f26fd91abe1fe84d44.ctex"
+uid="uid://bb8a2nhqq8y5l"
+path="res://.godot/imported/light_fire.png-913359b2338469795d58f574f42fd562.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full_tilemap_albedo.png"
-dest_files=["res://.godot/imported/full_tilemap_albedo.png-d4f60262a34600f26fd91abe1fe84d44.ctex"]
+source_file="res://Art/light_fire.png"
+dest_files=["res://.godot/imported/light_fire.png-913359b2338469795d58f574f42fd562.ctex"]
 
 [params]
 
-compress/mode=3
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
-compress/channel_pack=1
+compress/channel_pack=0
 mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0

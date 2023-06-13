@@ -1,46 +1,68 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=10 format=3 uid="uid://e63ahn7ldumi"]
 
-[ext_resource path="res://Art/TorchLight.png" type="Texture2D" id=1]
-[ext_resource path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/torch_spritesheet.png" type="Texture2D" id=2]
+[ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/light_fire.png" id="1_lk8e2"]
+[ext_resource type="Texture2D" uid="uid://r7wtgfupv22u" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/torch_spritesheet.png" id="2"]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 16, 16 )
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("2")
+region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 2 )
-region = Rect2( 16, 0, 16, 16 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("2")
+region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 2 )
-region = Rect2( 32, 0, 16, 16 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("2")
+region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 2 )
-region = Rect2( 48, 0, 16, 16 )
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("2")
+region = Rect2(48, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 2 )
-region = Rect2( 64, 0, 16, 16 )
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("2")
+region = Rect2(64, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 2 )
-region = Rect2( 80, 0, 16, 16 )
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("2")
+region = Rect2(80, 0, 16, 16)
 
-[sub_resource type="SpriteFrames" id=7]
-animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+[sub_resource type="SpriteFrames" id="7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("1")
+}, {
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}, {
+"duration": 1.0,
+"texture": SubResource("5")
+}, {
+"duration": 1.0,
+"texture": SubResource("6")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 8.0
-} ]
+}]
 
 [node name="Torch" type="PointLight2D"]
-texture = ExtResource( 1 )
-color = Color( 0.862745, 0.423529, 0.101961, 1 )
+color = Color(0.701961, 0.478431, 0.219608, 1)
+energy = 1.5
 shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+texture = ExtResource("1_lk8e2")
+texture_scale = 0.7
+height = 10.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-frames = SubResource( 7 )
-frame = 5
-playing = true
+sprite_frames = SubResource("7")
+autoplay = "default"
+frame_progress = 0.307575

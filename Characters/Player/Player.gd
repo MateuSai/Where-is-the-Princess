@@ -14,6 +14,8 @@ signal weapon_droped(index)
 @onready var weapons: Node2D = get_node("Weapons")
 @onready var dust_position: Marker2D = get_node("DustPosition")
 
+@onready var animation_tree_state_machine: AnimationNodeStateMachinePlayback = get_node("AnimationTree").get("parameters/playback")
+
 
 func _ready() -> void:
 	emit_signal("weapon_picked_up", weapons.get_child(0).get_texture())

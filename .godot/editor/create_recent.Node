@@ -1,2 +1,6 @@
+AnimationTree
+CanvasModulate
+WorldEnvironment
+DirectionalLight2D
 Sprite2D
 NavigationAgent2D
