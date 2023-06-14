@@ -1,16 +1,18 @@
 @icon("res://Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/weapon_sword_1.png")
-
-extends Node2D
-class_name Weapon
+class_name Weapon extends Node2D
 
 @export var on_floor: bool = false
 
 @export var ranged_weapon: bool = false
 @export var rotation_offset: int = 0
 
+@export var condition_degrade_by_attack: float = 50
+
 var can_active_ability: bool = true
 
 var stats: WeaponStats = null
+
+signal condition_changed(weapon: Weapon, new_condition: float)
 
 var tween: Tween = null
 @onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
@@ -30,6 +32,8 @@ func _ready() -> void:
 	if stats == null:
 		stats = WeaponStats.new(scene_file_path)
 
+	stats.connect("condition_changed", _on_condition_changed)
+
 	connect("draw", _on_show)
 	connect("hidden", _on_hide)
 
@@ -39,7 +43,7 @@ func get_input() -> void:
 		animation_player.play("charge")
 	elif Input.is_action_just_released("ui_attack"):
 		if animation_player.is_playing() and animation_player.current_animation == "charge":
-			animation_player.play("attack")
+			attack()
 		elif charge_particles.emitting:
 			animation_player.play("strong_attack")
 	elif Input.is_action_just_pressed("ui_active_ability") and animation_player.has_animation("active_ability") and not is_busy() and can_active_ability:
@@ -60,6 +64,11 @@ func move(mouse_direction: Vector2) -> void:
 				scale.y = -1
 			elif scale.y == -1 and mouse_direction.x > 0:
 				scale.y = 1
+
+
+func attack() -> void:
+	animation_player.play("attack")
+	stats.set_condition(stats.condition - condition_degrade_by_attack)
 
 
 func cancel_attack() -> void:
@@ -98,6 +107,10 @@ func _on_Tween_tween_completed() -> void:
 
 func _on_CoolDownTimer_timeout() -> void:
 	can_active_ability = true
+
+
+func _on_condition_changed(new_condition: float) -> void:
+	emit_signal("condition_changed", self, new_condition)
 
 
 func _on_show() -> void:

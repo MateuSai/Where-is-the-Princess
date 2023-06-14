@@ -32,11 +32,15 @@ func _on_Player_weapon_switched(prev_index: int, new_index: int) -> void:
 	inventory.get_child(new_index).select()
 
 
-func _on_Player_weapon_picked_up(weapon_texture: Texture2D) -> void:
-	var new_inventory_item: TextureRect = INVENTORY_ITEM_SCENE.instantiate()
+func _on_Player_weapon_picked_up(weapon: Weapon) -> void:
+	var new_inventory_item: Control = INVENTORY_ITEM_SCENE.instantiate()
 	inventory.add_child(new_inventory_item)
-	new_inventory_item.initialize(weapon_texture)
+	new_inventory_item.initialize(weapon.get_texture(), weapon.stats.condition)
 
 
 func _on_Player_weapon_droped(index: int) -> void:
 	inventory.get_child(index).queue_free()
+
+
+func _on_player_weapon_condition_changed(weapon: Weapon, new_value: float) -> void:
+	inventory.get_child(weapon.get_index()).update_condition(new_value)

@@ -15,5 +15,9 @@ res://Characters/Character.tscn
 res://Rooms/SpawnRoom1.tscn
 res://Rooms/SpawnRoom0.tscn
 res://Rooms/Furniture and Traps/Torch.tscn
+res://InventoryItem.tscn
+res://InventoryItem.gd
+res://Weapons/WeaponStats.gd
 res://Characters/Player/Player.gd
-res://Characters/Player/PlayerFSM.gd
+res://Weapons/Weapon.gd
+res://UI.gd

@@ -6,9 +6,10 @@ enum {UP, DOWN}
 
 var current_weapon: Node2D
 
-signal weapon_switched(prev_index, new_index)
-signal weapon_picked_up(weapon_texture)
-signal weapon_droped(index)
+signal weapon_switched(prev_index: int, new_index: int)
+signal weapon_picked_up(weapon: Weapon)
+signal weapon_droped(index: int)
+signal weapon_condition_changed(weapon: Weapon, new_value: float)
 
 @onready var parent: Node2D = get_parent()
 @onready var weapons: Node2D = get_node("Weapons")
@@ -18,7 +19,7 @@ signal weapon_droped(index)
 
 
 func _ready() -> void:
-	emit_signal("weapon_picked_up", weapons.get_child(0).get_texture())
+	emit_signal("weapon_picked_up", weapons.get_child(0))
 
 	_restore_previous_state()
 
@@ -32,7 +33,9 @@ func _restore_previous_state() -> void:
 		weapons.add_child(weapon)
 		weapon.hide()
 
-		emit_signal("weapon_picked_up", weapon.get_texture())
+		weapon.connect("condition_changed", _on_weapon_condition_changed)
+
+		emit_signal("weapon_picked_up", weapon)
 		emit_signal("weapon_switched", weapons.get_child_count() - 2, weapons.get_child_count() - 1)
 
 	current_weapon = weapons.get_child(SavedData.equipped_weapon_index)
@@ -106,7 +109,9 @@ func pick_up_weapon(weapon: Weapon) -> void:
 	current_weapon.cancel_attack()
 	current_weapon = weapon
 
-	emit_signal("weapon_picked_up", weapon.get_texture())
+	weapon.connect("condition_changed", _on_weapon_condition_changed)
+
+	emit_signal("weapon_picked_up", weapon)
 	emit_signal("weapon_switched", prev_index, new_index)
 
 
@@ -127,6 +132,18 @@ func _drop_weapon() -> void:
 	weapon_to_drop.interpolate_pos(position, position + throw_dir * 50)
 
 
+func _destroy_weapon() -> void:
+	SavedData.weapon_stats.remove_at(current_weapon.get_index() - 1)
+	var weapon_to_drop: Node2D = current_weapon
+	_switch_weapon(UP)
+
+	emit_signal("weapon_droped", weapon_to_drop.get_index())
+
+	weapons.call_deferred("remove_child", weapon_to_drop)
+	get_parent().call_deferred("add_child", weapon_to_drop)
+	weapon_to_drop.queue_free()
+
+
 func cancel_attack() -> void:
 	current_weapon.cancel_attack()
 
@@ -142,3 +159,11 @@ func switch_camera() -> void:
 	main_scene_camera.position = position
 	main_scene_camera.current = true
 	get_node("Camera2D").current = false
+
+
+func _on_weapon_condition_changed(weapon: Weapon, new_condition: float) -> void:
+	assert(weapon == current_weapon)
+	if new_condition == 0:
+		_destroy_weapon()
+	else:
+		emit_signal("weapon_condition_changed", weapon, new_condition)

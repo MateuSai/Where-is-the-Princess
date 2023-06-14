@@ -2,8 +2,8 @@ extends FiniteStateMachine
 
 var can_jump: bool = false
 
-@onready var jump_timer: Timer = parent.get_node("JumpTimer")
-@onready var hitbox: Area2D = parent.get_node("Hitbox")
+@onready var jump_timer: Timer = get_parent().get_node("JumpTimer")
+@onready var hitbox: Area2D = get_parent().get_node("Hitbox")
 
 
 func _init() -> void:
@@ -43,8 +43,8 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			animation_player.play("idle")
 		states.jump:
 			if is_instance_valid(parent.player):
-				parent.path = [parent.global_position, parent.player.position]
-				hitbox.knockback_direction = (parent.path[1] - parent.path[0]).normalized()
+				parent.navigation_agent.target_position = parent.player.position
+				hitbox.knockback_direction = (parent.player.position - parent.global_position).normalized()
 			animation_player.play("jump")
 		states.hurt:
 			animation_player.play("hurt")
