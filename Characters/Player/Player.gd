@@ -1,4 +1,4 @@
-extends Character
+class_name Player extends Character
 
 const DUST_SCENE: PackedScene = preload("res://Characters/Player/Dust.tscn")
 

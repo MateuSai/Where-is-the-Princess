@@ -502,6 +502,10 @@ _data = {
 }
 
 [node name="Sword" instance=ExtResource("1")]
+on_floor = null
+ranged_weapon = null
+rotation_offset = null
+condition_degrade_by_attack = null
 
 [node name="Sprite2D" parent="Node2D" index="0"]
 material = SubResource("6")
