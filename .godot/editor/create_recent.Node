@@ -1,5 +1,7 @@
-TileMap
+Label
+Marker2D
 Node2D
+TileMap
 TextureProgressBar
 TextureRect
 Control

@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=10 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="2"]
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
 [ext_resource type="Texture2D" uid="uid://df3cenyvvexih" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/ui (new)/health_ui.png" id="5"]
 [ext_resource type="Texture2D" uid="uid://c535uh5i7hsc8" path="res://Art/progress bar.png" id="6"]
+[ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="6_ml8df"]
 [ext_resource type="Script" path="res://UI.gd" id="7"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
@@ -13,6 +14,9 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
+light_mode = 1
 
 [node name="Game" type="Node2D"]
 texture_filter = 1
@@ -53,7 +57,10 @@ layout_mode = 2
 script = ExtResource("4")
 num_levels = 3
 
-[node name="TileMap" type="TileMap" parent="Rooms"]
+[node name="CorridorTileMap" type="TileMap" parent="Rooms"]
+z_index = 1
+material = SubResource("CanvasItemMaterial_jgpg2")
+tile_set = ExtResource("6_ml8df")
 format = 2
 
 [node name="Player" parent="." instance=ExtResource("2")]

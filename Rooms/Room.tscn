@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://7oeqdu22e1q5"]
+[gd_scene load_steps=4 format=3 uid="uid://7oeqdu22e1q5"]
 
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="1"]
 [ext_resource type="Script" path="res://Rooms/Room.gd" id="2"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4loq4"]
+light_mode = 1
 
 [node name="Room" type="Node2D"]
 script = ExtResource("2")
@@ -44,5 +47,10 @@ layer_2/tile_data = PackedInt32Array()
 [node name="PlayerDetector" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
+
+[node name="DebugRoomId" type="Label" parent="."]
+material = SubResource("CanvasItemMaterial_4loq4")
+offset_right = 40.0
+offset_bottom = 23.0
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]
