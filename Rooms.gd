@@ -168,28 +168,57 @@ func _create_corridors() -> void:
 
 	for id in mst_astar.get_point_count():
 		for connection_with in mst_astar.get_point_connections(id):
-			var dif: Vector2i = room_centers[connection_with] - room_centers[id]
+			var dif: Vector2 = room_centers[connection_with] - room_centers[id]
 			if debug:
 				print("Connecting " + str(id) + " with " + str(connection_with) + "...")
 				print("\tdif is " + str(dif) + " pixels")
 			if abs(dif.x) < TILE_SIZE * 8:
 				if debug:
 					print("\tCreating vertical corridor...")
-				var above: Node = rooms[id if dif.y > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.DOWN)
-				var below: Node = rooms[connection_with if dif.y > 0 else id].get_random_entry(DungeonRoom.EntryDirection.UP)
-				if above == null or below == null:
-					printerr("\tImplement something here")
-				else:
+				if rooms[id if dif.y > 0 else connection_with].has_entry(DungeonRoom.EntryDirection.DOWN) and rooms[connection_with if dif.y > 0 else id].has_entry(DungeonRoom.EntryDirection.UP):
+					var above: Node = rooms[id if dif.y > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.DOWN)
+					var below: Node = rooms[connection_with if dif.y > 0 else id].get_random_entry(DungeonRoom.EntryDirection.UP)
 					_create_vertical_corridor(above, below)
+				else:
+					printerr("\tImplement something here")
 			elif abs(dif.y) < TILE_SIZE * 8:
 				if debug:
 					print("\tCreating horizontal corridor...")
-					var left: Node = rooms[id if dif.x > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.RIGHT)
-					var right: Node = rooms[connection_with if dif.x > 0 else id].get_random_entry(DungeonRoom.EntryDirection.LEFT)
-					if left == null or right == null:
-						printerr("\tImplement something here")
-					else:
+					if rooms[id if dif.x > 0 else connection_with].has_entry(DungeonRoom.EntryDirection.RIGHT) and rooms[connection_with if dif.x > 0 else id].has_entry(DungeonRoom.EntryDirection.LEFT):
+						var left: Node = rooms[id if dif.x > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.RIGHT)
+						var right: Node = rooms[connection_with if dif.x > 0 else id].get_random_entry(DungeonRoom.EntryDirection.LEFT)
 						_create_horizontal_corridor(left, right)
+					else:
+						printerr("\tImplement something here")
+			else:
+				if debug:
+					print("\tCreating l corridor...")
+				var rand: int = randi() % 2
+				if dif.x > 0 and dif.y > 0:
+					var directions: Array[Array] = [[DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.UP], [DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.LEFT]]
+					if rooms[id].has_entry(directions[rand][0]) and rooms[id].has_entry(directions[rand][1]):
+						_create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[id].get_random_entry(directions[rand][1]), dif)
+					else:
+						printerr("\tImplement something here")
+				elif dif.x > 0 and dif.y < 0:
+					var directions: Array[Array] = [[DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.DOWN], [DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.LEFT]]
+					if rooms[id].has_entry(directions[rand][0]) and rooms[id].has_entry(directions[rand][1]):
+						_create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[id].get_random_entry(directions[rand][1]), dif)
+					else:
+						printerr("\tImplement something here")
+				elif dif.x < 0 and dif.y > 0:
+					var directions: Array[Array] = [[DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.UP], [DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.RIGHT]]
+					if rooms[id].has_entry(directions[rand][0]) and rooms[id].has_entry(directions[rand][1]):
+						_create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[id].get_random_entry(directions[rand][1]), dif)
+					else:
+						printerr("\tImplement something here")
+				else: # dif.x < 0 and dif.y < 0
+					var directions: Array[Array] = [[DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.DOWN], [DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.RIGHT]]
+					if rooms[id].has_entry(directions[rand][0]) and rooms[id].has_entry(directions[rand][1]):
+						_create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[id].get_random_entry(directions[rand][1]), dif)
+					else:
+						printerr("\tImplement something here")
+
 			mst_astar.disconnect_points(id, connection_with)
 
 
@@ -202,7 +231,7 @@ func _create_vertical_corridor(above: Node, below: Node) -> void:
 	var above_tiles: Array[Vector2i] = [corridor_tile_map.local_to_map(above.get_child(0).global_position), corridor_tile_map.local_to_map(above.get_child(1).global_position)]
 	var below_tiles: Array[Vector2i] = [corridor_tile_map.local_to_map(below.get_child(0).global_position), corridor_tile_map.local_to_map(below.get_child(1).global_position)]
 
-	var y_start: int = above_tiles[0].y
+	# var y_start: int = above_tiles[0].y
 	var dis: int = below_tiles[0].y - above_tiles[0].y
 	var center: int = floor((dis) / 2.0)
 
@@ -241,7 +270,7 @@ func _create_horizontal_corridor(left: Node, right: Node) -> void:
 	var left_tiles: Array[Vector2i] = [corridor_tile_map.local_to_map(left.get_child(0).global_position), corridor_tile_map.local_to_map(left.get_child(1).global_position)]
 	var right_tiles: Array[Vector2i] = [corridor_tile_map.local_to_map(right.get_child(0).global_position), corridor_tile_map.local_to_map(right.get_child(1).global_position)]
 
-	var x_start: int = left_tiles[0].x
+	# var x_start: int = left_tiles[0].x
 	var dis: int = right_tiles[0].x - left_tiles[0].x
 	var center: int = floor((dis) / 2.0)
 
@@ -270,6 +299,22 @@ func _create_horizontal_corridor(left: Node, right: Node) -> void:
 			corridor_tile_map.set_cell(0, left_tiles[0] + Vector2i.RIGHT * center + (i) * Vector2i.DOWN, 40, FLOOR_TILE_COOR)
 			corridor_tile_map.set_cell(0, left_tiles[0] + Vector2i.RIGHT + Vector2i.RIGHT * center + (i) * Vector2i.DOWN, 40, FLOOR_TILE_COOR)
 			await get_tree().create_timer(add_tile_group_time).timeout
+
+
+func _create_l_corridor(from: Node, to: Node, dif: Vector2) -> void:
+	assert(from.get_child_count() == 2 and to.get_child_count() == 2)
+
+	var from_tiles: Array[Vector2i] = [corridor_tile_map.local_to_map(from.get_child(0).global_position), corridor_tile_map.local_to_map(from.get_child(1).global_position)]
+	var to_tiles: Array[Vector2i] = [corridor_tile_map.local_to_map(to.get_child(0).global_position), corridor_tile_map.local_to_map(to.get_child(1).global_position)]
+
+	if dif.x > 0 and dif.y > 0:
+		pass
+	elif dif.x > 0 and dif.y < 0:
+		pass
+	elif dif.x < 0 and dif.y > 0:
+		pass
+	else: # dif.x < 0 and dif.y < 0
+		pass
 
 
 func _draw() -> void:

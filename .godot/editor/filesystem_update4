@@ -16,3 +16,4 @@ res://Weapons/BattleAxe.tscn
 res://Weapons/WarHammer.tscn
 res://Rooms/Furniture and Traps/Torch.tscn
 res://InventoryItem.tscn
+res://Rooms/Room.gd
