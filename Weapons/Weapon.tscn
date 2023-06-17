@@ -21,6 +21,7 @@ angular_velocity_max = 40.0
 turbulence_enabled = true
 
 [node name="Weapon" type="Node2D"]
+texture_filter = 1
 script = ExtResource("2")
 on_floor = null
 ranged_weapon = null
