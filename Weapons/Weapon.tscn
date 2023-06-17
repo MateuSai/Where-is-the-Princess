@@ -21,8 +21,11 @@ angular_velocity_max = 40.0
 turbulence_enabled = true
 
 [node name="Weapon" type="Node2D"]
-texture_filter = 1
 script = ExtResource("2")
+on_floor = null
+ranged_weapon = null
+rotation_offset = null
+condition_degrade_by_attack = null
 
 [node name="Node2D" type="Node2D" parent="."]
 rotation = -1.5708
