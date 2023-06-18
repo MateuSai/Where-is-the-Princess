@@ -135,7 +135,7 @@ tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-2.99999, -4.00001)]
+"values": [Vector2(-4.99999, -4.00002)]
 }
 
 [sub_resource type="Animation" id="Animation_y7sh3"]
@@ -349,7 +349,7 @@ tracks/7/keys = {
 "times": PackedFloat32Array(0, 0.15, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(-2.99999, -4.00001), Vector2(-2.00002, 6.99999), Vector2(-2.99999, -4.00001)]
+"values": [Vector2(-5, -4), Vector2(-2.00002, 6.99999), Vector2(-5, -4)]
 }
 
 [sub_resource type="Animation" id="Animation_0lr4t"]
@@ -487,7 +487,7 @@ condition_degrade_by_attack = 50.0
 
 [node name="Sprite2D" parent="Node2D" index="0"]
 material = SubResource("6")
-position = Vector2(-2.99999, -4.00001)
+position = Vector2(-4.99999, -4.00002)
 rotation = 1.78722
 texture = ExtResource("3_vxd16")
 
