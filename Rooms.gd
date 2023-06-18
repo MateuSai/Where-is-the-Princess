@@ -10,14 +10,21 @@ const TILE_SIZE: int = 16
 const ATLAS_ID: int = 40
 const FLOOR_TILE_COOR: Vector2i = Vector2i(3, 1)
 const FULL_WALL_COORDS: Array[Vector2i] = [Vector2i(6, 4), Vector2i(7, 4), Vector2i(8, 4), Vector2i(6, 5), Vector2i(7, 5), Vector2i(8, 5)]
-const UPPER_WALL_COOR: Vector2i = Vector2i(2, 6)
+const UPPER_WALL_COOR: Vector2i = Vector2i(2, 7)
+const BOTTOM_WALL_COOR: Vector2i = Vector2i(2, 6)
+const LEFT_WALL_COOR: Vector2i = Vector2i(4, 5)
+const RIGHT_WALL_COOR: Vector2i = Vector2i(3, 5)
+const UPPER_WALL_LEFT_COOR: Vector2i = Vector2i(1, 7)
+const UPPER_WALL_RIGHT_COOR: Vector2i = Vector2i(5, 7)
+
+signal generation_completed()
 
 var rooms: Array[DungeonRoom] = []
 var start_room: DungeonRoom
 var end_room: DungeonRoom
 var mst_astar: AStar2D = null
 # DEBUG
-@export var debug: bool = true
+@onready var debug: bool = get_parent().debug
 @export var pause_between_steps: float = 1.5
 @export var add_tile_group_time: float = 0.06
 var room_centers: Array[Vector2] = []
@@ -25,7 +32,7 @@ var delaunay_indices: PackedInt32Array
 
 @export var num_levels: int = 5
 
-@onready var player: CharacterBody2D = get_parent().get_node("Player")
+# @onready var player: CharacterBody2D = get_parent().get_node("Player")
 
 @onready var corridor_tile_map: TileMap = get_node("CorridorTileMap")
 
@@ -177,13 +184,30 @@ func _create_corridors() -> void:
 
 	# CORRIDOR WALLS
 	corridor_tile_map.set_cells_terrain_connect(0, corridor_tile_map.get_used_cells(0), 0, 0)
+
 	for room in rooms:
 		for used_entry in room.used_entries:
 			for pos_node in used_entry.get_children():
-				corridor_tile_map.set_cell(0, corridor_tile_map.local_to_map(pos_node.global_position))
+				corridor_tile_map.erase_cell(0, corridor_tile_map.local_to_map(pos_node.global_position))
+
 	for cell_pos in corridor_tile_map.get_used_cells(0):
 		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FULL_WALL_COORDS:
-			corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_COOR)
+			if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.UP) == RIGHT_WALL_COOR:
+				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_LEFT_COOR)
+			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.UP) == LEFT_WALL_COOR:
+				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_RIGHT_COOR)
+			else:
+				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_COOR)
+			await get_tree().create_timer(add_tile_group_time).timeout
+		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) == FLOOR_TILE_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) != FLOOR_TILE_COOR:
+			corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, BOTTOM_WALL_COOR)
+			await get_tree().create_timer(add_tile_group_time).timeout
+
+	if debug:
+		await get_tree().process_frame
+		await get_tree().create_timer(pause_between_steps * 2).timeout
+
+	emit_signal("generation_completed")
 
 
 func _add_tiles() -> void:
@@ -261,30 +285,35 @@ func _create_vertical_corridor(above: Node, below: Node) -> void:
 		corridor_tile_map.set_cell(0, above_tiles[0] + Vector2i.DOWN * i, 40, FLOOR_TILE_COOR)
 		corridor_tile_map.set_cell(0, above_tiles[1] + Vector2i.DOWN * i, 40, FLOOR_TILE_COOR)
 		#corridor_tile_map.set_cell(0, above_tiles[1] + Vector2i.DOWN * i + Vector2i.RIGHT, 40, FLOOR_TILE_COOR)
-		await get_tree().create_timer(add_tile_group_time).timeout
+		if debug:
+			await get_tree().create_timer(add_tile_group_time).timeout
 
 	for i in range(1, dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1):
 		#corridor_tile_map.set_cell(0, below_tiles[0] + Vector2i.UP * i + Vector2i.LEFT, 40, FLOOR_TILE_COOR)
 		corridor_tile_map.set_cell(0, below_tiles[0] + Vector2i.UP * i, 40, FLOOR_TILE_COOR)
 		corridor_tile_map.set_cell(0, below_tiles[1] + Vector2i.UP * i, 40, FLOOR_TILE_COOR)
 		#corridor_tile_map.set_cell(0, below_tiles[1] + Vector2i.UP * i + Vector2i.RIGHT, 40, FLOOR_TILE_COOR)
-		await get_tree().create_timer(add_tile_group_time).timeout
+		if debug:
+			await get_tree().create_timer(add_tile_group_time).timeout
 
 	if above_tiles[0].x > below_tiles[0].x:
 		for i in above_tiles[1].x - below_tiles[0].x + 1:
 			corridor_tile_map.set_cell(0, above_tiles[1] + Vector2i.DOWN * center + (i) * Vector2i.LEFT, 40, FLOOR_TILE_COOR)
 			corridor_tile_map.set_cell(0, above_tiles[1] + Vector2i.DOWN + Vector2i.DOWN * center + (i) * Vector2i.LEFT, 40, FLOOR_TILE_COOR)
-			await get_tree().create_timer(add_tile_group_time).timeout
+			if debug:
+				await get_tree().create_timer(add_tile_group_time).timeout
 	elif above_tiles[0].x < below_tiles[0].x:
 		for i in below_tiles[0].x - above_tiles[1].x + 3:
 			corridor_tile_map.set_cell(0, above_tiles[0] + Vector2i.DOWN * center + (i) * Vector2i.RIGHT, 40, FLOOR_TILE_COOR)
 			corridor_tile_map.set_cell(0, above_tiles[0] + Vector2i.DOWN + Vector2i.DOWN * center + (i) * Vector2i.RIGHT, 40, FLOOR_TILE_COOR)
-			await get_tree().create_timer(add_tile_group_time).timeout
+			if debug:
+				await get_tree().create_timer(add_tile_group_time).timeout
 	else:
 		for i in MIN_TILES_TO_MAKE_DESVIATION:
 			corridor_tile_map.set_cell(0, above_tiles[0] + Vector2i.DOWN * center + (i) * Vector2i.RIGHT, 40, FLOOR_TILE_COOR)
 			corridor_tile_map.set_cell(0, above_tiles[0] + Vector2i.DOWN + Vector2i.DOWN * center + (i) * Vector2i.RIGHT, 40, FLOOR_TILE_COOR)
-			await get_tree().create_timer(add_tile_group_time).timeout
+			if debug:
+				await get_tree().create_timer(add_tile_group_time).timeout
 
 
 func _create_horizontal_corridor(left: Node, right: Node) -> void:
