@@ -7,9 +7,10 @@ const END_ROOMS: Array[PackedScene] = [preload("res://Rooms/EndRoom0.tscn")]
 const SLIME_BOSS_SCENE: PackedScene = preload("res://Rooms/SlimeBossRoom.tscn")
 
 const TILE_SIZE: int = 16
+const ATLAS_ID: int = 40
 const FLOOR_TILE_COOR: Vector2i = Vector2i(3, 1)
-const RIGHT_WALL_TILE_COOR: int = 5
-const LEFT_WALL_TILE_COOR: int = 6
+const FULL_WALL_COORDS: Array[Vector2i] = [Vector2i(6, 4), Vector2i(7, 4), Vector2i(8, 4), Vector2i(6, 5), Vector2i(7, 5), Vector2i(8, 5)]
+const UPPER_WALL_COOR: Vector2i = Vector2i(2, 6)
 
 var rooms: Array[DungeonRoom] = []
 var start_room: DungeonRoom
@@ -176,8 +177,13 @@ func _create_corridors() -> void:
 
 	# CORRIDOR WALLS
 	corridor_tile_map.set_cells_terrain_connect(0, corridor_tile_map.get_used_cells(0), 0, 0)
-	for cell_pos in corridor_tile_map.get_used_cells_by_id(0, 40, FLOOR_TILE_COOR):
-		pass
+	for room in rooms:
+		for used_entry in room.used_entries:
+			for pos_node in used_entry.get_children():
+				corridor_tile_map.set_cell(0, corridor_tile_map.local_to_map(pos_node.global_position))
+	for cell_pos in corridor_tile_map.get_used_cells(0):
+		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FULL_WALL_COORDS:
+			corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_COOR)
 
 
 func _add_tiles() -> void:
@@ -293,12 +299,12 @@ func _create_horizontal_corridor(left: Node, right: Node) -> void:
 	var dis: int = right_tiles[0].x - left_tiles[0].x
 	var center: int = floor((dis) / 2.0)
 
-	for i in center:
+	for i in range(1, center):
 		corridor_tile_map.set_cell(0, left_tiles[0] + Vector2i.RIGHT * i, 40, FLOOR_TILE_COOR)
 		corridor_tile_map.set_cell(0, left_tiles[1] + Vector2i.RIGHT * i, 40, FLOOR_TILE_COOR)
 		await get_tree().create_timer(add_tile_group_time).timeout
 
-	for i in dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1:
+	for i in range(1, dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1):
 		corridor_tile_map.set_cell(0, right_tiles[0] + Vector2i.LEFT * i, 40, FLOOR_TILE_COOR)
 		corridor_tile_map.set_cell(0, right_tiles[1] + Vector2i.LEFT * i, 40, FLOOR_TILE_COOR)
 		await get_tree().create_timer(add_tile_group_time).timeout
@@ -350,7 +356,7 @@ func _create_l_corridor(from: Node, to: Node, from_dir: DungeonRoom.EntryDirecti
 			corridor_tile_map.set_cell(0, Vector2i(vertical_entry_tiles[1].x, y_coord), 40, FLOOR_TILE_COOR)
 			await get_tree().create_timer(add_tile_group_time).timeout
 
-		var x_coord: int = horizontal_entry_tiles[0].x
+		var x_coord: int = horizontal_entry_tiles[0].x + (-1 if horizontal_dir == DungeonRoom.EntryDirection.LEFT else 1)
 		while x_coord != (vertical_entry_tiles[1].x):
 			corridor_tile_map.set_cell(0, Vector2i(x_coord, horizontal_entry_tiles[0].y), 40, FLOOR_TILE_COOR)
 			corridor_tile_map.set_cell(0, Vector2i(x_coord, horizontal_entry_tiles[1].y), 40, FLOOR_TILE_COOR)

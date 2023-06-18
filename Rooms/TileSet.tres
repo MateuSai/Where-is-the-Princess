@@ -2246,7 +2246,6 @@ use_texture_padding = false
 8:2/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_amrjx")
 6:4/0 = 0
 6:4/0/terrain_set = 0
-6:4/0/probability = 2.0
 6:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 6:4/0/physics_layer_0/angular_velocity = 0.0
 6:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)

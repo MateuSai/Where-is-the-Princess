@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
 [ext_resource type="Texture2D" uid="uid://br7c70c5injos" path="res://Art/player/no_armor.png" id="4_kfgmg"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerFSM.gd" id="5"]
-[ext_resource type="PackedScene" uid="uid://bn6jjdha1ecvj" path="res://Weapons/Sword.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://du6ftrdvu5wq0" path="res://Weapons/Dagger.tscn" id="5_nk70o"]
 
 [sub_resource type="CircleShape2D" id="18"]
 radius = 4.0
@@ -280,8 +280,7 @@ shape = SubResource("18")
 
 [node name="Weapons" type="Node2D" parent="." index="4"]
 
-[node name="Sword" parent="Weapons" index="0" instance=ExtResource("6")]
-visible = false
+[node name="Dagger" parent="Weapons" index="0" instance=ExtResource("5_nk70o")]
 
 [node name="Camera2D" type="Camera2D" parent="." index="5"]
 zoom = Vector2(0.3, 0.3)
