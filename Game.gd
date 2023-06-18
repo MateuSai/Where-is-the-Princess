@@ -2,7 +2,8 @@ extends Node2D
 
 
 func _init() -> void:
-	randomize()
+	pass
+	# randomize()
 
 
 func _input(event: InputEvent) -> void:

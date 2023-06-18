@@ -52,18 +52,18 @@ func separation_steering(rooms: Array[DungeonRoom], delta: float) -> bool:
 
 func has_entry(dir: EntryDirection) -> bool:
 	var direction_entries: Array[Node] = entries[dir].get_children()
-	for entry in used_entries:
-		if direction_entries.has(entry):
-			direction_entries.erase(entry)
+#	for entry in used_entries:
+#		if direction_entries.has(entry):
+#			direction_entries.erase(entry)
 
 	return direction_entries.size() > 0
 
 
 func get_random_entry(dir: EntryDirection) -> Node:
 	var direction_entries: Array[Node] = entries[dir].get_children()
-	for entry in used_entries:
-		if direction_entries.has(entry):
-			direction_entries.erase(entry)
+#	for entry in used_entries:
+#		if direction_entries.has(entry):
+#			direction_entries.erase(entry)
 
 	if direction_entries.is_empty():
 		return null
