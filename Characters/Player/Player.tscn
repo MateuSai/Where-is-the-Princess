@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
 [ext_resource type="Texture2D" uid="uid://br7c70c5injos" path="res://Art/player/no_armor.png" id="4_kfgmg"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerFSM.gd" id="5"]
-[ext_resource type="PackedScene" uid="uid://du6ftrdvu5wq0" path="res://Weapons/Dagger.tscn" id="5_nk70o"]
+[ext_resource type="PackedScene" uid="uid://bw0adahejc8e2" path="res://Weapons/Dagger.tscn" id="5_nk70o"]
 [ext_resource type="Script" path="res://UI.gd" id="6_0nng8"]
 [ext_resource type="Texture2D" uid="uid://df3cenyvvexih" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/ui (new)/health_ui.png" id="7_mynin"]
 [ext_resource type="Texture2D" uid="uid://c535uh5i7hsc8" path="res://Art/progress bar.png" id="8_mgo6t"]
