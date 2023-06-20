@@ -80,21 +80,24 @@ func get_random_entry(dir: EntryDirection) -> Node:
 		return rand_entry
 
 
-func add_doors_and_walls() -> void:
+func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 	for dir in [EntryDirection.LEFT, EntryDirection.RIGHT]:
 		for entry in entries[dir].get_children():
 			if entry in used_entries:
 				var vertical_door: Door = VERTICAL_DOOR.instantiate()
-				vertical_door.position = entry.position
-				add_child(vertical_door)
+				vertical_door.position = floor(entry.position / 16) * 16 + Vector2(0, Rooms.TILE_SIZE)
+				door_container.add_child(vertical_door)
 			else:
 				pass
 	for dir in [EntryDirection.UP, EntryDirection.DOWN]:
 		for entry in entries[dir].get_children():
 			if entry in used_entries:
 				var horizontal_door: Door = HORIZONTAL_DOOR.instantiate()
-				horizontal_door.position = entry.position
-				add_child(horizontal_door)
+				horizontal_door.position = floor(entry.position / 16) * 16 + Vector2(Rooms.TILE_SIZE, Rooms.TILE_SIZE)
+				door_container.add_child(horizontal_door)
+				if dir == EntryDirection.UP:
+					corridor_tilemap.erase_cell(1, corridor_tilemap.local_to_map(entry.global_position) + Vector2i.UP)
+					corridor_tilemap.erase_cell(1, corridor_tilemap.local_to_map(entry.global_position) + Vector2i.UP + Vector2i.RIGHT)
 			else:
 				pass
 

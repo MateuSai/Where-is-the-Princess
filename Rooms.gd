@@ -182,7 +182,7 @@ func _create_corridors() -> void:
 		await get_tree().process_frame
 		await get_tree().create_timer(pause_between_steps).timeout
 
-	await _add_tiles()
+	_add_floor_tiles()
 
 	# await add_tiles.call()
 	if debug:
@@ -205,17 +205,19 @@ func _create_corridors() -> void:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_RIGHT_COOR)
 			else:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_COOR)
-			await get_tree().create_timer(add_tile_group_time).timeout
+			if debug:
+				await get_tree().create_timer(add_tile_group_time).timeout
 		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) == FLOOR_TILE_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) != FLOOR_TILE_COOR:
 			corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, BOTTOM_WALL_COOR)
-			await get_tree().create_timer(add_tile_group_time).timeout
+			if debug:
+				await get_tree().create_timer(add_tile_group_time).timeout
 
 	if debug:
 		await get_tree().process_frame
 		await get_tree().create_timer(pause_between_steps).timeout
 
 	for room in rooms:
-		room.add_doors_and_walls()
+		room.add_doors_and_walls(corridor_tile_map)
 
 	if debug:
 		await get_tree().process_frame
@@ -224,7 +226,7 @@ func _create_corridors() -> void:
 	emit_signal("generation_completed")
 
 
-func _add_tiles() -> void:
+func _add_floor_tiles() -> void:
 	for id in mst_astar.get_point_count():
 		for connection_with in mst_astar.get_point_connections(id):
 			var dif: Vector2 = room_centers[connection_with] - room_centers[id]
@@ -237,18 +239,18 @@ func _add_tiles() -> void:
 				if rooms[id if dif.y > 0 else connection_with].has_entry(DungeonRoom.EntryDirection.DOWN) and rooms[connection_with if dif.y > 0 else id].has_entry(DungeonRoom.EntryDirection.UP):
 					var above: Node = rooms[id if dif.y > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.DOWN)
 					var below: Node = rooms[connection_with if dif.y > 0 else id].get_random_entry(DungeonRoom.EntryDirection.UP)
-					await _create_vertical_corridor(above, below)
+					_create_vertical_corridor(above, below)
 				else:
 					printerr("\tImplement something here")
 			elif abs(dif.y) < TILE_SIZE * 8:
 				if debug:
 					print("\tCreating horizontal corridor...")
-					if rooms[id if dif.x > 0 else connection_with].has_entry(DungeonRoom.EntryDirection.RIGHT) and rooms[connection_with if dif.x > 0 else id].has_entry(DungeonRoom.EntryDirection.LEFT):
-						var left: Node = rooms[id if dif.x > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.RIGHT)
-						var right: Node = rooms[connection_with if dif.x > 0 else id].get_random_entry(DungeonRoom.EntryDirection.LEFT)
-						await _create_horizontal_corridor(left, right)
-					else:
-						printerr("\tImplement something here")
+				if rooms[id if dif.x > 0 else connection_with].has_entry(DungeonRoom.EntryDirection.RIGHT) and rooms[connection_with if dif.x > 0 else id].has_entry(DungeonRoom.EntryDirection.LEFT):
+					var left: Node = rooms[id if dif.x > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.RIGHT)
+					var right: Node = rooms[connection_with if dif.x > 0 else id].get_random_entry(DungeonRoom.EntryDirection.LEFT)
+					_create_horizontal_corridor(left, right)
+				else:
+					printerr("\tImplement something here")
 			else:
 				if debug:
 					print("\tCreating l corridor...")
@@ -290,11 +292,11 @@ func _add_tiles() -> void:
 func _analyze_and_create_l_corridor(id: int, connection_with: int, directions: Array[Array]) -> void:
 	var rand: int = randi() % 2
 	if rooms[id].has_entry(directions[rand][0]) and rooms[connection_with].has_entry(directions[rand][1]) and _check_entry_positions(id, connection_with, directions[rand][0], directions[rand][1]):
-		await _create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[connection_with].get_random_entry(directions[rand][1]), directions[rand][0], directions[rand][1])
+		_create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[connection_with].get_random_entry(directions[rand][1]), directions[rand][0], directions[rand][1])
 	else:
 		rand = (int(rand == 0))
 		if rooms[id].has_entry(directions[rand][0]) and rooms[connection_with].has_entry(directions[rand][1]) and _check_entry_positions(id, connection_with, directions[rand][0], directions[rand][1]):
-			await _create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[connection_with].get_random_entry(directions[rand][1]), directions[rand][0], directions[rand][1])
+			_create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[connection_with].get_random_entry(directions[rand][1]), directions[rand][0], directions[rand][1])
 		else:
 			printerr("\tI tried both possible directions, but it's impossible to create l corridor")
 
@@ -373,28 +375,33 @@ func _create_horizontal_corridor(left: Node, right: Node) -> void:
 	for i in range(1, center):
 		corridor_tile_map.set_cell(0, left_tiles[0] + Vector2i.RIGHT * i, 40, FLOOR_TILE_COOR)
 		corridor_tile_map.set_cell(0, left_tiles[1] + Vector2i.RIGHT * i, 40, FLOOR_TILE_COOR)
-		await get_tree().create_timer(add_tile_group_time).timeout
+		if debug:
+			await get_tree().create_timer(add_tile_group_time).timeout
 
 	for i in range(1, dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1):
 		corridor_tile_map.set_cell(0, right_tiles[0] + Vector2i.LEFT * i, 40, FLOOR_TILE_COOR)
 		corridor_tile_map.set_cell(0, right_tiles[1] + Vector2i.LEFT * i, 40, FLOOR_TILE_COOR)
-		await get_tree().create_timer(add_tile_group_time).timeout
+		if debug:
+			await get_tree().create_timer(add_tile_group_time).timeout
 
 	if left_tiles[0].y > right_tiles[0].y:
 		for i in left_tiles[1].y - right_tiles[0].y + 1:
 			corridor_tile_map.set_cell(0, left_tiles[1] + Vector2i.RIGHT * center + (i) * Vector2i.UP, 40, FLOOR_TILE_COOR)
 			corridor_tile_map.set_cell(0, left_tiles[1] + Vector2i.RIGHT + Vector2i.RIGHT * center + (i) * Vector2i.UP, 40, FLOOR_TILE_COOR)
-			await get_tree().create_timer(add_tile_group_time).timeout
+			if debug:
+				await get_tree().create_timer(add_tile_group_time).timeout
 	elif left_tiles[0].y < right_tiles[0].y:
 		for i in right_tiles[0].y - left_tiles[1].y + 3:
 			corridor_tile_map.set_cell(0, left_tiles[0] + Vector2i.RIGHT * center + (i) * Vector2i.DOWN, 40, FLOOR_TILE_COOR)
 			corridor_tile_map.set_cell(0, left_tiles[0] + Vector2i.RIGHT + Vector2i.RIGHT * center + (i) * Vector2i.DOWN, 40, FLOOR_TILE_COOR)
-			await get_tree().create_timer(add_tile_group_time).timeout
+			if debug:
+				await get_tree().create_timer(add_tile_group_time).timeout
 	else:
 		for i in MIN_TILES_TO_MAKE_DESVIATION:
 			corridor_tile_map.set_cell(0, left_tiles[0] + Vector2i.RIGHT * center + (i) * Vector2i.DOWN, 40, FLOOR_TILE_COOR)
 			corridor_tile_map.set_cell(0, left_tiles[0] + Vector2i.RIGHT + Vector2i.RIGHT * center + (i) * Vector2i.DOWN, 40, FLOOR_TILE_COOR)
-			await get_tree().create_timer(add_tile_group_time).timeout
+			if debug:
+				await get_tree().create_timer(add_tile_group_time).timeout
 
 
 func _create_l_corridor(from: Node, to: Node, from_dir: DungeonRoom.EntryDirection, to_dir: DungeonRoom.EntryDirection) -> void:
@@ -425,14 +432,16 @@ func _create_l_corridor(from: Node, to: Node, from_dir: DungeonRoom.EntryDirecti
 			y_coord += (-1 if vertical_dir == DungeonRoom.EntryDirection.UP else 1)
 			corridor_tile_map.set_cell(0, Vector2i(vertical_entry_tiles[0].x, y_coord), 40, FLOOR_TILE_COOR)
 			corridor_tile_map.set_cell(0, Vector2i(vertical_entry_tiles[1].x, y_coord), 40, FLOOR_TILE_COOR)
-			await get_tree().create_timer(add_tile_group_time).timeout
+			if debug:
+				await get_tree().create_timer(add_tile_group_time).timeout
 
 		var x_coord: int = horizontal_entry_tiles[0].x + (-1 if horizontal_dir == DungeonRoom.EntryDirection.LEFT else 1)
 		while x_coord != (vertical_entry_tiles[1].x):
 			corridor_tile_map.set_cell(0, Vector2i(x_coord, horizontal_entry_tiles[0].y), 40, FLOOR_TILE_COOR)
 			corridor_tile_map.set_cell(0, Vector2i(x_coord, horizontal_entry_tiles[1].y), 40, FLOOR_TILE_COOR)
 			x_coord += (-1 if horizontal_dir == DungeonRoom.EntryDirection.LEFT else 1)
-			await get_tree().create_timer(add_tile_group_time).timeout
+			if debug:
+				await get_tree().create_timer(add_tile_group_time).timeout
 
 
 func _draw() -> void:
