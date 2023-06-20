@@ -85,7 +85,12 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 		for entry in entries[dir].get_children():
 			if entry in used_entries:
 				var vertical_door: Door = VERTICAL_DOOR.instantiate()
-				vertical_door.position = floor(entry.position / 16) * 16 + Vector2(0, Rooms.TILE_SIZE)
+				vertical_door.position = floor(entry.position / 16) * 16
+				if dir == EntryDirection.LEFT:
+					vertical_door.position += Vector2(18, 6)
+				else:
+					vertical_door.position += Vector2(-2, 4)
+					vertical_door.scale.x = -1
 				door_container.add_child(vertical_door)
 			else:
 				pass

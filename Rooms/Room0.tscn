@@ -18,7 +18,7 @@ layer_3/modulate = Color(1, 1, 1, 1)
 layer_3/y_sort_enabled = false
 layer_3/y_sort_origin = 0
 layer_3/z_index = 2
-layer_3/tile_data = PackedInt32Array(327680, 327720, 6)
+layer_3/tile_data = PackedInt32Array(327680, 327720, 6, 393230, 65576, 6)
 
 [node name="VerticalEntry" parent="Entries/Left" index="0" instance=ExtResource("2_5rduf")]
 position = Vector2(9, 71)
