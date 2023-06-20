@@ -10,6 +10,9 @@ const ENEMY_SCENES: Dictionary = {
 	"GOBLIN": preload("res://Characters/Enemies/Goblin/Goblin.tscn"), "SLIME_BOSS": preload("res://Characters/Enemies/Bosses/SlimeBoss.tscn")
 }
 
+const HORIZONTAL_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/HorizontalDoor.tscn")
+const VERTICAL_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/VerticalDoor.tscn")
+
 var num_enemies: int
 
 var float_position: Vector2
@@ -59,6 +62,10 @@ func has_entry(dir: EntryDirection) -> bool:
 	return direction_entries.size() > 0
 
 
+func get_entry_position(dir: EntryDirection) -> Vector2:
+	return entries[dir].get_children()[0].global_position
+
+
 func get_random_entry(dir: EntryDirection) -> Node:
 	var direction_entries: Array[Node] = entries[dir].get_children()
 #	for entry in used_entries:
@@ -71,6 +78,25 @@ func get_random_entry(dir: EntryDirection) -> Node:
 		var rand_entry: Node = direction_entries[randi() % direction_entries.size()]
 		used_entries.push_back(rand_entry)
 		return rand_entry
+
+
+func add_doors_and_walls() -> void:
+	for dir in [EntryDirection.LEFT, EntryDirection.RIGHT]:
+		for entry in entries[dir].get_children():
+			if entry in used_entries:
+				var vertical_door: Door = VERTICAL_DOOR.instantiate()
+				vertical_door.position = entry.position
+				add_child(vertical_door)
+			else:
+				pass
+	for dir in [EntryDirection.UP, EntryDirection.DOWN]:
+		for entry in entries[dir].get_children():
+			if entry in used_entries:
+				var horizontal_door: Door = HORIZONTAL_DOOR.instantiate()
+				horizontal_door.position = entry.position
+				add_child(horizontal_door)
+			else:
+				pass
 
 
 func _on_enemy_killed() -> void:

@@ -1,0 +1,114 @@
+[gd_scene load_steps=8 format=3 uid="uid://borcavlvgnkkx"]
+
+[ext_resource type="PackedScene" uid="uid://r88elkkvv60o" path="res://Rooms/Furniture and Traps/Door.tscn" id="1_0xtgx"]
+[ext_resource type="Texture2D" uid="uid://dpjpd68fkp7f2" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/lateral door.png" id="2_yjr15"]
+
+[sub_resource type="Animation" id="Animation_slkxl"]
+resource_name = "open"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LightOccluder2D:occluder_light_mask")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_1s8qq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LightOccluder2D:occluder_light_mask")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5g1ds"]
+_data = {
+"RESET": SubResource("Animation_1s8qq"),
+"open": SubResource("Animation_slkxl")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3u3ws"]
+size = Vector2(9, 32)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_035jx"]
+polygon = PackedVector2Array(-9, -16, -9, 16, 0, 16, 0, -16)
+
+[node name="VerticalDoor" instance=ExtResource("1_0xtgx")]
+texture_filter = 1
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_yjr15")
+hframes = 9
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_5g1ds")
+}
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(-4.5, 0)
+shape = SubResource("RectangleShape2D_3u3ws")
+
+[node name="LightOccluder2D" parent="." index="3"]
+occluder = SubResource("OccluderPolygon2D_035jx")
