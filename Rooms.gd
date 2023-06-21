@@ -1,7 +1,7 @@
 class_name Rooms extends Node2D
 
 const SPAWN_ROOMS: Array[PackedScene] = [preload("res://Rooms/SpawnRoom0.tscn"), preload("res://Rooms/SpawnRoom1.tscn")]
-const INTERMEDIATE_ROOMS: Array[PackedScene] = [preload("res://Rooms/Room0.tscn"), preload("res://Rooms/Room1.tscn"), preload("res://Rooms/Room2.tscn"), preload("res://Rooms/Room3.tscn"), preload("res://Rooms/Room4.tscn")]
+const INTERMEDIATE_ROOMS: Array[PackedScene] = [preload("res://Rooms/Room0.tscn"), preload("res://Rooms/middle_room_1_0.tscn")]
 const SPECIAL_ROOMS: Array[PackedScene] = [preload("res://Rooms/SpecialRoom0.tscn"), preload("res://Rooms/SpecialRoom1.tscn")]
 const END_ROOMS: Array[PackedScene] = [preload("res://Rooms/EndRoom0.tscn")]
 const SLIME_BOSS_SCENE: PackedScene = preload("res://Rooms/SlimeBossRoom.tscn")
@@ -14,6 +14,8 @@ const FLOOR_TILE_COOR: Vector2i = Vector2i(3, 1)
 const FULL_WALL_COORDS: Array[Vector2i] = [Vector2i(6, 4), Vector2i(7, 4), Vector2i(8, 4), Vector2i(6, 5), Vector2i(7, 5), Vector2i(8, 5)]
 const UPPER_WALL_COOR: Vector2i = Vector2i(2, 7)
 const BOTTOM_WALL_COOR: Vector2i = Vector2i(2, 6)
+const LEFT_BOTTOM_WALL_COOR: Vector2i = Vector2i(1, 6)
+const RIGHT_BOTTOM_WALL_COOR: Vector2i = Vector2i(5, 6)
 const LEFT_WALL_COOR: Vector2i = Vector2i(4, 5)
 const RIGHT_WALL_COOR: Vector2i = Vector2i(3, 5)
 const UPPER_WALL_LEFT_COOR: Vector2i = Vector2i(1, 7)
@@ -75,8 +77,8 @@ func _spawn_rooms() -> void:
 	end_room = END_ROOMS[randi() % END_ROOMS.size()].instantiate()
 	rooms.push_back(end_room)
 	for i in 10:
-		rooms.push_back(INTERMEDIATE_ROOMS[0].instantiate())
-		#rooms.push_back(INTERMEDIATE_ROOMS[randi() % INTERMEDIATE_ROOMS.size()].instantiate())
+		#rooms.push_back(INTERMEDIATE_ROOMS[0].instantiate())
+		rooms.push_back(INTERMEDIATE_ROOMS[randi() % INTERMEDIATE_ROOMS.size()].instantiate())
 
 	var start_room_pos: Vector2 = _get_random_point_in_circle(SPAWN_CIRCLE_RADIUS)
 	rooms[0].float_position = start_room_pos # rooms[0] es la habitación de spawn
@@ -90,45 +92,6 @@ func _spawn_rooms() -> void:
 			room.get_node("DebugRoomId").text = str(rooms.find(room))
 
 	set_physics_process(true)
-
-#	var previous_room: Node2D
-#	var special_room_spawned: bool = false
-#
-#	for i in num_levels:
-#		var room: Node2D
-#
-#		if i == 0:
-#			room = SPAWN_ROOMS[randi() % SPAWN_ROOMS.size()].instantiate()
-#			player.position = room.get_node("PlayerSpawnPos").position
-#		else:
-#			if i == num_levels - 1:
-#				room = END_ROOMS[randi() % END_ROOMS.size()].instantiate()
-#			else:
-#				if SavedData.num_floor == 3:
-#					room = SLIME_BOSS_SCENE.instantiate()
-#				else:
-#					if (randi() % 3 == 0 and not special_room_spawned) or (i == num_levels - 2 and not special_room_spawned):
-#						room = SPECIAL_ROOMS[randi() % SPECIAL_ROOMS.size()].instantiate()
-#						special_room_spawned = true
-#					else:
-#						room = INTERMEDIATE_ROOMS[randi() % INTERMEDIATE_ROOMS.size()].instantiate()
-#
-#			var previous_room_tilemap: TileMap = previous_room.get_node("TileMap")
-#			var previous_room_door: StaticBody2D = previous_room.get_node("Doors/Door")
-#			var exit_tile_pos: Vector2i = previous_room_tilemap.local_to_map(previous_room_door.position) + Vector2i.UP * 2
-#
-#			var corridor_height: int = randi() % 5 + 2
-#			for y in corridor_height:
-#				previous_room_tilemap.set_cell(0, exit_tile_pos + Vector2i(-2, -y), LEFT_WALL_TILE_INDEX, Vector2i.ZERO)
-#				previous_room_tilemap.set_cell(0, exit_tile_pos + Vector2i(-1, -y), FLOOR_TILE_INDEX, Vector2i.ZERO)
-#				previous_room_tilemap.set_cell(0, exit_tile_pos + Vector2i(0, -y), FLOOR_TILE_INDEX, Vector2i.ZERO)
-#				previous_room_tilemap.set_cell(0, exit_tile_pos + Vector2i(1, -y), RIGHT_WALL_TILE_INDEX, Vector2i.ZERO)
-#
-#			var room_tilemap: TileMap = room.get_node("TileMap")
-#			room.position = previous_room_door.global_position + Vector2.UP * room_tilemap.get_used_rect().size.y * TILE_SIZE + Vector2.UP * (1 + corridor_height) * TILE_SIZE + Vector2.LEFT * room_tilemap.local_to_map(room.get_node("Entrance/Position2D2").position).x * TILE_SIZE
-#
-#		add_child(room)
-#		previous_room = room
 
 
 func _create_corridors() -> void:
@@ -191,7 +154,7 @@ func _create_corridors() -> void:
 		await get_tree().process_frame
 		await get_tree().create_timer(pause_between_steps).timeout
 
-	_add_floor_tiles()
+	await _add_floor_tiles()
 
 	# await add_tiles.call()
 	if debug:
@@ -217,7 +180,12 @@ func _create_corridors() -> void:
 			if debug:
 				await get_tree().create_timer(add_tile_group_time).timeout
 		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) == FLOOR_TILE_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) != FLOOR_TILE_COOR:
-			corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, BOTTOM_WALL_COOR)
+			if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == RIGHT_WALL_COOR:
+				corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, LEFT_BOTTOM_WALL_COOR)
+			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == LEFT_WALL_COOR:
+				corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, RIGHT_BOTTOM_WALL_COOR)
+			else:
+				corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, BOTTOM_WALL_COOR)
 			if debug:
 				await get_tree().create_timer(add_tile_group_time).timeout
 
@@ -248,7 +216,7 @@ func _add_floor_tiles() -> void:
 				if rooms[id if dif.y > 0 else connection_with].has_entry(DungeonRoom.EntryDirection.DOWN) and rooms[connection_with if dif.y > 0 else id].has_entry(DungeonRoom.EntryDirection.UP):
 					var above: Node = rooms[id if dif.y > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.DOWN)
 					var below: Node = rooms[connection_with if dif.y > 0 else id].get_random_entry(DungeonRoom.EntryDirection.UP)
-					_create_vertical_corridor(above, below)
+					await _create_vertical_corridor(above, below)
 				else:
 					printerr("\tImplement something here")
 			elif abs(dif.y) < TILE_SIZE * 8:
@@ -257,7 +225,7 @@ func _add_floor_tiles() -> void:
 				if rooms[id if dif.x > 0 else connection_with].has_entry(DungeonRoom.EntryDirection.RIGHT) and rooms[connection_with if dif.x > 0 else id].has_entry(DungeonRoom.EntryDirection.LEFT):
 					var left: Node = rooms[id if dif.x > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.RIGHT)
 					var right: Node = rooms[connection_with if dif.x > 0 else id].get_random_entry(DungeonRoom.EntryDirection.LEFT)
-					_create_horizontal_corridor(left, right)
+					await _create_horizontal_corridor(left, right)
 				else:
 					printerr("\tImplement something here")
 			else:
@@ -268,28 +236,28 @@ func _add_floor_tiles() -> void:
 #					rand = (int(rand == 0))
 				if dif.x > 0 and dif.y > 0:
 					var directions: Array[Array] = [[DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.UP], [DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.LEFT]]
-					_analyze_and_create_l_corridor(id, connection_with, directions)
+					await _analyze_and_create_l_corridor(id, connection_with, directions)
 #					if rooms[id].has_entry(directions[rand][0]) and rooms[connection_with].has_entry(directions[rand][1]):
 #						await _create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[connection_with].get_random_entry(directions[rand][1]), directions[rand][0], directions[rand][1])
 #					else:
 #						printerr("\tImplement something here")
 				elif dif.x > 0 and dif.y < 0:
 					var directions: Array[Array] = [[DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.DOWN], [DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.LEFT]]
-					_analyze_and_create_l_corridor(id, connection_with, directions)
+					await _analyze_and_create_l_corridor(id, connection_with, directions)
 #					if rooms[id].has_entry(directions[rand][0]) and rooms[connection_with].has_entry(directions[rand][1]):
 #						await _create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[connection_with].get_random_entry(directions[rand][1]), directions[rand][0], directions[rand][1])
 #					else:
 #						printerr("\tImplement something here")
 				elif dif.x < 0 and dif.y > 0:
 					var directions: Array[Array] = [[DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.UP], [DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.RIGHT]]
-					_analyze_and_create_l_corridor(id, connection_with, directions)
+					await _analyze_and_create_l_corridor(id, connection_with, directions)
 #					if rooms[id].has_entry(directions[rand][0]) and rooms[connection_with].has_entry(directions[rand][1]):
 #						await _create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[connection_with].get_random_entry(directions[rand][1]), directions[rand][0], directions[rand][1])
 #					else:
 #						printerr("\tImplement something here")
 				else: # dif.x < 0 and dif.y < 0
 					var directions: Array[Array] = [[DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.DOWN], [DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.RIGHT]]
-					_analyze_and_create_l_corridor(id, connection_with, directions)
+					await _analyze_and_create_l_corridor(id, connection_with, directions)
 #					if rooms[id].has_entry(directions[rand][0]) and rooms[connection_with].has_entry(directions[rand][1]):
 #						await _create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[connection_with].get_random_entry(directions[rand][1]), directions[rand][0], directions[rand][1])
 #					else:
@@ -301,11 +269,11 @@ func _add_floor_tiles() -> void:
 func _analyze_and_create_l_corridor(id: int, connection_with: int, directions: Array[Array]) -> void:
 	var rand: int = randi() % 2
 	if rooms[id].has_entry(directions[rand][0]) and rooms[connection_with].has_entry(directions[rand][1]) and _check_entry_positions(id, connection_with, directions[rand][0], directions[rand][1]):
-		_create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[connection_with].get_random_entry(directions[rand][1]), directions[rand][0], directions[rand][1])
+		await _create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[connection_with].get_random_entry(directions[rand][1]), directions[rand][0], directions[rand][1])
 	else:
 		rand = (int(rand == 0))
 		if rooms[id].has_entry(directions[rand][0]) and rooms[connection_with].has_entry(directions[rand][1]) and _check_entry_positions(id, connection_with, directions[rand][0], directions[rand][1]):
-			_create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[connection_with].get_random_entry(directions[rand][1]), directions[rand][0], directions[rand][1])
+			await _create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[connection_with].get_random_entry(directions[rand][1]), directions[rand][0], directions[rand][1])
 		else:
 			printerr("\tI tried both possible directions, but it's impossible to create l corridor")
 

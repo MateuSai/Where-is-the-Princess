@@ -77,6 +77,10 @@ func get_input() -> void:
 	current_weapon.get_input()
 
 
+func add_coin() -> void:
+	SavedData.coins += 1
+
+
 func _switch_weapon(direction: int) -> void:
 	var prev_index: int = current_weapon.get_index()
 	var index: int = prev_index
