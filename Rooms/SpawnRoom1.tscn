@@ -1,12 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwvfmedx3ewhp"]
+[gd_scene load_steps=5 format=3 uid="uid://cwvfmedx3ewhp"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1"]
-[ext_resource type="PackedScene" uid="uid://r88elkkvv60o" path="res://Rooms/Furniture and Traps/Door.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="2_2qnyw"]
 [ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://bwxfm550sp8u8" path="res://Weapons/Crossbow.tscn" id="4"]
-
-[sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(32, 24)
 
 [node name="SpawnRoom1" instance=ExtResource("1")]
 
@@ -15,22 +12,18 @@ layer_0/tile_data = PackedInt32Array(0, 7, 0, 1, 1, 0, 2, 1, 0, 3, 13, 0, 4, 14,
 layer_1/tile_data = PackedInt32Array(655367, 131112, 6, 655368, 131112, 6, 589830, 327720, 6, 524293, 327720, 6, 589833, 65576, 6, 524298, 65576, 6, 327694, 131112, 6, 327693, 131112, 6, 327692, 131112, 6, 327681, 131112, 6, 327682, 131112, 6, 327683, 131112, 6, 327684, 327720, 6, 327691, 65576, 6, 327685, 131112, 7, 327687, 458792, 6, 327688, 524328, 6, 327689, 131112, 7, 327690, 131112, 7, 327686, 131112, 7)
 layer_2/tile_data = PackedInt32Array(196619, 40, 1, 196620, 65576, 1)
 
-[node name="Door" parent="Doors" index="0" instance=ExtResource("2")]
-position = Vector2(80, 16)
+[node name="HorizontalEntry" parent="Entries/Up" index="0" instance=ExtResource("2_2qnyw")]
+position = Vector2(70, 7)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector" index="0"]
-position = Vector2(80, 56)
-shape = SubResource("1")
-
-[node name="PlayerSpawnPos" type="Marker2D" parent="." index="6"]
+[node name="PlayerSpawnPos" type="Marker2D" parent="." index="5"]
 position = Vector2(128, 144)
 
-[node name="Torch" parent="." index="7" instance=ExtResource("3")]
+[node name="Torch" parent="." index="6" instance=ExtResource("3")]
 position = Vector2(56, 24)
 
-[node name="Torch2" parent="." index="8" instance=ExtResource("3")]
+[node name="Torch2" parent="." index="7" instance=ExtResource("3")]
 position = Vector2(168, 104)
 
-[node name="Crossbow" parent="." index="9" instance=ExtResource("4")]
+[node name="Crossbow" parent="." index="8" instance=ExtResource("4")]
 position = Vector2(166, 70)
 on_floor = true

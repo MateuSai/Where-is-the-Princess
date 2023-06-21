@@ -1,5 +1,4 @@
-extends Node2D
-class_name DungeonRoom
+class_name DungeonRoom extends Node2D
 
 @export var boss_room: bool = false
 
@@ -31,7 +30,6 @@ var used_entries: Array[Node] = []
 @onready var entries: Array[Node] = [get_node("Entries/Left"), get_node("Entries/Up"), get_node("Entries/Right"), get_node("Entries/Down")]
 @onready var door_container: Node2D = get_node("Doors")
 @onready var enemy_positions_container: Node2D = get_node("EnemyPositions")
-@onready var player_detector: Area2D = get_node("PlayerDetector")
 
 
 func _ready() -> void:
@@ -93,7 +91,20 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 					vertical_door.scale.x = -1
 				door_container.add_child(vertical_door)
 			else:
-				pass
+				var tile_positions: Array[Vector2i] = []
+				tile_positions.push_back(tilemap.local_to_map(entry.position + entry.get_child(0).position))
+				tile_positions.push_back(tilemap.local_to_map(entry.position + entry.get_child(1).position))
+				tilemap.erase_cell(3, tile_positions[1])
+				if dir == EntryDirection.LEFT:
+					tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, Rooms.ATLAS_ID, Rooms.LEFT_WALL_COOR)
+					tilemap.set_cell(0, tile_positions[0] + Vector2i.UP, Rooms.ATLAS_ID, Rooms.LEFT_WALL_COOR)
+					tilemap.set_cell(0, tile_positions[0], Rooms.ATLAS_ID, Rooms.LEFT_WALL_COOR)
+					tilemap.set_cell(0, tile_positions[1], Rooms.ATLAS_ID, Rooms.LEFT_WALL_COOR)
+				else:
+					tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, Rooms.ATLAS_ID, Rooms.RIGHT_WALL_COOR)
+					tilemap.set_cell(0, tile_positions[0] + Vector2i.UP, Rooms.ATLAS_ID, Rooms.RIGHT_WALL_COOR)
+					tilemap.set_cell(0, tile_positions[0], Rooms.ATLAS_ID, Rooms.RIGHT_WALL_COOR)
+					tilemap.set_cell(0, tile_positions[1], Rooms.ATLAS_ID, Rooms.RIGHT_WALL_COOR)
 	for dir in [EntryDirection.UP, EntryDirection.DOWN]:
 		for entry in entries[dir].get_children():
 			if entry in used_entries:
@@ -104,7 +115,24 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 					corridor_tilemap.erase_cell(1, corridor_tilemap.local_to_map(entry.global_position) + Vector2i.UP)
 					corridor_tilemap.erase_cell(1, corridor_tilemap.local_to_map(entry.global_position) + Vector2i.UP + Vector2i.RIGHT)
 			else:
-				pass
+				var tile_positions: Array[Vector2i] = []
+				tile_positions.push_back(tilemap.local_to_map(entry.position + entry.get_child(0).position))
+				tile_positions.push_back(tilemap.local_to_map(entry.position + entry.get_child(1).position))
+				if dir == EntryDirection.UP:
+					tilemap.set_cell(0, tile_positions[0] + Vector2i.LEFT, Rooms.ATLAS_ID, Rooms.UPPER_WALL_COOR)
+					tilemap.set_cell(0, tile_positions[0], Rooms.ATLAS_ID, Rooms.UPPER_WALL_COOR)
+					tilemap.set_cell(0, tile_positions[1], Rooms.ATLAS_ID, Rooms.UPPER_WALL_COOR)
+					tilemap.set_cell(0, tile_positions[1] + Vector2i.RIGHT, Rooms.ATLAS_ID, Rooms.UPPER_WALL_COOR)
+					tilemap.set_cell(0, tile_positions[0] + Vector2i.DOWN, Rooms.ATLAS_ID, Rooms.FULL_WALL_COORDS[randi() % Rooms.FULL_WALL_COORDS.size()])
+					tilemap.set_cell(0, tile_positions[1] + Vector2i.DOWN, Rooms.ATLAS_ID, Rooms.FULL_WALL_COORDS[randi() % Rooms.FULL_WALL_COORDS.size()])
+				else:
+					tilemap.set_cell(1, tile_positions[0] + Vector2i.LEFT, Rooms.ATLAS_ID, Rooms.BOTTOM_WALL_COOR)
+					tilemap.set_cell(1, tile_positions[0], Rooms.ATLAS_ID, Rooms.BOTTOM_WALL_COOR)
+					tilemap.set_cell(1, tile_positions[1], Rooms.ATLAS_ID, Rooms.BOTTOM_WALL_COOR)
+					tilemap.set_cell(1, tile_positions[1] + Vector2i.RIGHT, Rooms.ATLAS_ID, Rooms.BOTTOM_WALL_COOR)
+
+	for door in door_container.get_children():
+		door.player_entered_room.connect(_on_player_entered_room)
 
 
 func _on_enemy_killed() -> void:
@@ -119,7 +147,8 @@ func _open_doors() -> void:
 
 
 func _close_entrance() -> void:
-	pass
+	for door in door_container.get_children():
+		door.close()
 #	for entry_position in entrance.get_children():
 #		tilemap.set_cell(1, tilemap.local_to_map(entry_position.position), 1, Vector2i.ZERO)
 #		tilemap.set_cell(1, tilemap.local_to_map(entry_position.position) + Vector2i.DOWN, 2, Vector2i.ZERO)
@@ -145,8 +174,7 @@ func _spawn_enemies() -> void:
 
 
 
-func _on_PlayerDetector_body_entered(_body: CharacterBody2D) -> void:
-	player_detector.queue_free()
+func _on_player_entered_room() -> void:
 	if num_enemies > 0:
 		_close_entrance()
 		_spawn_enemies()

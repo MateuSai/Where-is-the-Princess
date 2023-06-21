@@ -10,6 +10,7 @@ light_mode = 1
 [node name="Game" type="Node2D"]
 texture_filter = 1
 script = ExtResource("3")
+debug = false
 
 [node name="Rooms" type="Node2D" parent="."]
 script = ExtResource("4")
@@ -25,7 +26,7 @@ layer_1/enabled = true
 layer_1/modulate = Color(1, 1, 1, 1)
 layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
-layer_1/z_index = 0
+layer_1/z_index = 1
 layer_1/tile_data = PackedInt32Array()
 
 [node name="Camera2D" type="Camera2D" parent="."]

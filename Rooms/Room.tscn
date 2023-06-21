@@ -1,14 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://7oeqdu22e1q5"]
 
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="1"]
-[ext_resource type="Script" path="res://Rooms/Room.gd" id="1_0ki40"]
+[ext_resource type="Script" path="res://Rooms/Room.gd" id="1_sxmgt"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4loq4"]
 light_mode = 1
 
 [node name="Room" type="Node2D"]
 texture_filter = 1
-script = ExtResource("1_0ki40")
+script = ExtResource("1_sxmgt")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("1")
@@ -28,6 +28,13 @@ layer_2/y_sort_enabled = false
 layer_2/y_sort_origin = 0
 layer_2/z_index = 0
 layer_2/tile_data = PackedInt32Array()
+layer_3/name = "Walls on top of vertical doors"
+layer_3/enabled = true
+layer_3/modulate = Color(1, 1, 1, 1)
+layer_3/y_sort_enabled = false
+layer_3/y_sort_origin = 0
+layer_3/z_index = 2
+layer_3/tile_data = PackedInt32Array()
 
 [node name="Entries" type="Node2D" parent="."]
 
@@ -45,13 +52,7 @@ layer_2/tile_data = PackedInt32Array()
 
 [node name="Traps" type="Node2D" parent="."]
 
-[node name="PlayerDetector" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
-
 [node name="DebugRoomId" type="Label" parent="."]
 material = SubResource("CanvasItemMaterial_4loq4")
 offset_right = 40.0
 offset_bottom = 23.0
-
-[connection signal="body_entered" from="PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]

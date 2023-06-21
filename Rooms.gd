@@ -42,6 +42,15 @@ var delaunay_indices: PackedInt32Array
 func _ready() -> void:
 	set_physics_process(false)
 
+	if debug:
+		corridor_tile_map.z_index = 1
+		var corridor_material: CanvasItemMaterial = CanvasItemMaterial.new()
+		corridor_material.light_mode = CanvasItemMaterial.LIGHT_MODE_UNSHADED
+		corridor_tile_map.material = corridor_material
+	else:
+		corridor_tile_map.z_index = 0
+		corridor_tile_map.material = null
+
 	SavedData.num_floor += 1
 	if SavedData.num_floor == 3:
 		num_levels = 3
