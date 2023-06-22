@@ -1,7 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://dntym1kohsmig"]
+[gd_scene load_steps=3 format=3 uid="uid://dntym1kohsmig"]
 
 [ext_resource type="Texture2D" uid="uid://bqnejaid7enre" path="res://Art/obstacles and dangers/saw_spender.png" id="1_wjr0b"]
+[ext_resource type="Script" path="res://Rooms/Furniture and Traps/SawSpender.gd" id="2_6t6k4"]
 
 [node name="SawSpender" type="Sprite2D"]
 texture_filter = 1
 texture = ExtResource("1_wjr0b")
+script = ExtResource("2_6t6k4")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

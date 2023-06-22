@@ -12,11 +12,15 @@ signal weapon_droped(index: int)
 signal weapon_condition_changed(weapon: Weapon, new_value: float)
 
 var passive_items: Array[PassiveItem] = []
+signal passive_item_picked_up(item: PassiveItem)
+
+#var sm
 
 @onready var parent: Node2D = get_parent()
 @onready var weapons: Node2D = get_node("Weapons")
 @onready var dust_position: Marker2D = get_node("DustPosition")
 
+@onready var animation_tree: AnimationTree = get_node("AnimationTree")
 @onready var animation_tree_state_machine: AnimationNodeStateMachinePlayback = get_node("AnimationTree").get("parameters/playback")
 
 
@@ -24,6 +28,33 @@ func _ready() -> void:
 	emit_signal("weapon_picked_up", weapons.get_child(0))
 
 	_restore_previous_state()
+
+#	var state_machine: StateMachine = StateMachine.new()
+#	state_machine.add_state(State.new("idle", func() -> String:
+#		if velocity.length() > 10:
+#			return "move"
+#		return ""
+#	, func() -> void:
+#		get_input()
+#		move()
+#		animation_tree.set("parameters/" + "idle" + "/blend_position", (get_global_mouse_position() - global_position).normalized().y)
+#	, func() -> void:
+#		animation_tree_state_machine.travel("idle")
+#	))
+#	state_machine.add_state(State.new("move", func() -> String:
+#		if velocity.length() < 10:
+#				return "idle"
+#		return ""
+#	, func() -> void:
+#		get_input()
+#		move()
+#		animation_tree.set("parameters/" + "move" + "/blend_position", (get_global_mouse_position() - global_position).normalized().y)
+#	, func() -> void:
+#		animation_tree_state_machine.travel("move")
+#	))
+#
+#	sm = state_machine
+#	sm.set_current_state(sm.states["idle"])
 
 
 func _restore_previous_state() -> void:
@@ -47,6 +78,7 @@ func _restore_previous_state() -> void:
 
 
 func _process(_delta: float) -> void:
+	# sm.update(_delta)
 	var mouse_direction: Vector2 = (get_global_mouse_position() - global_position).normalized()
 
 	if mouse_direction.x > 0 and sprite.flip_h:
@@ -86,6 +118,7 @@ func add_coin() -> void:
 func pick_up_passive_item(item: PassiveItem) -> void:
 	passive_items.push_back(item)
 	item.equip(self)
+	emit_signal("passive_item_picked_up", item)
 
 
 func _switch_weapon(direction: int) -> void:

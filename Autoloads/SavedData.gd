@@ -1,11 +1,22 @@
 extends Node
 
+const USER_FOLDER: String = "user://"
+const ROOMS_FOLDER_NAME: String = "rooms/"
+
 var num_floor: int = 0
 
 var hp: int = 4
 var weapon_stats: Array[WeaponStats] = []
 var equipped_weapon_index: int = 0
 var coins: int = 0
+
+
+func _ready() -> void:
+	var user_dir: DirAccess = DirAccess.open(USER_FOLDER)
+	assert(user_dir) # Siempre deberiamos poder abrir el directorio del usuario
+	if not user_dir.dir_exists(ROOMS_FOLDER_NAME):
+		print("Can't find the rooms directory, creating it...")
+		user_dir.make_dir(ROOMS_FOLDER_NAME)
 
 
 func reset_data() -> void:
