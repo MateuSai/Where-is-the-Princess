@@ -1,4 +1,4 @@
-extends Hitbox
+class_name Projectile extends Hitbox
 
 var enemy_exited: bool = false
 

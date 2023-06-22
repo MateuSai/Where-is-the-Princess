@@ -1,5 +1,4 @@
-extends Area2D
-class_name Hitbox
+class_name Hitbox extends Area2D
 
 @export var damage: int = 1
 var knockback_direction: Vector2 = Vector2.ZERO
@@ -7,13 +6,13 @@ var knockback_direction: Vector2 = Vector2.ZERO
 
 var body_inside: bool = false
 
-@onready var collision_shape: CollisionShape2D = get_child(0)
+@onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
 @onready var timer: Timer = Timer.new()
 
 
-func _init() -> void:
-	var __ = connect("body_entered", Callable(self, "_on_body_entered"))
-	__ = connect("body_exited", Callable(self, "_on_body_exited"))
+func _enter_tree() -> void:
+	body_entered.connect(_on_body_entered)
+	body_exited.connect(_on_body_exited)
 
 
 func _ready() -> void:

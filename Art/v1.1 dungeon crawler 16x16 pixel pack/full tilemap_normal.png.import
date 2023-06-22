@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjvla06er0imw"
-path="res://.godot/imported/full_tilemap_albedo.png-d4f60262a34600f26fd91abe1fe84d44.ctex"
+uid="uid://b8m3k7y0o00wn"
+path="res://.godot/imported/full tilemap_normal.png-81ebdc842727b62e48b07df605b4a38d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full_tilemap_albedo.png"
-dest_files=["res://.godot/imported/full_tilemap_albedo.png-d4f60262a34600f26fd91abe1fe84d44.ctex"]
+source_file="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full tilemap_normal.png"
+dest_files=["res://.godot/imported/full tilemap_normal.png-81ebdc842727b62e48b07df605b4a38d.ctex"]
 
 [params]
 

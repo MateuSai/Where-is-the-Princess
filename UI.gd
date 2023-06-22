@@ -8,7 +8,7 @@ var max_hp: int = 4
 
 @onready var player: CharacterBody2D = get_parent()
 
-@onready var health_bar: TextureProgressBar = get_node("HealthBar")
+@onready var health_bar: TextureProgressBar = get_node("MarginContainer/VBoxContainer/HealthBar")
 @onready var inventory: HBoxContainer = get_node("PanelContainer/Inventory")
 
 

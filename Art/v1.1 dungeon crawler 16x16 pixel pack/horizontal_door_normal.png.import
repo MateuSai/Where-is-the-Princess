@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjvla06er0imw"
-path="res://.godot/imported/full_tilemap_albedo.png-d4f60262a34600f26fd91abe1fe84d44.ctex"
+uid="uid://bvvmfifrcqokb"
+path="res://.godot/imported/horizontal_door_normal.png-0ce2165688e37a032def3f043281318f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full_tilemap_albedo.png"
-dest_files=["res://.godot/imported/full_tilemap_albedo.png-d4f60262a34600f26fd91abe1fe84d44.ctex"]
+source_file="res://Art/v1.1 dungeon crawler 16x16 pixel pack/horizontal_door_normal.png"
+dest_files=["res://.godot/imported/horizontal_door_normal.png-0ce2165688e37a032def3f043281318f.ctex"]
 
 [params]
 
@@ -27,7 +27,7 @@ roughness/mode=0
 roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
-process/normal_map_invert_y=false
+process/normal_map_invert_y=true
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
