@@ -147,6 +147,22 @@ height = 8.0
 radius = 4.0
 height = 8.0
 
+[sub_resource type="Animation" id="Animation_jvy4w"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="Animation" id="19"]
 resource_name = "dead"
 length = 0.6
@@ -358,22 +374,6 @@ tracks/3/keys = {
 "values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, -8), Vector2(0, -8), Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_jvy4w"]
-resource_name = "RESET"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_o6k1d"]
 _data = {
 "RESET": SubResource("Animation_jvy4w"),
@@ -392,20 +392,20 @@ hp = 8
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("7")
 
-[node name="Sprite2D" parent="." index="1"]
-modulate = Color(1, 1, 1, 0.705882)
-texture = ExtResource("6")
-
-[node name="AnimatedSprite2D" parent="." index="2"]
+[node name="AnimatedSprite2D" parent="." index="1"]
 sprite_frames = SubResource("17")
 animation = &"jump"
 
-[node name="CollisionShape2D" parent="." index="4"]
+[node name="Sprite2D" parent="." index="2"]
+modulate = Color(1, 1, 1, 0.705882)
+texture = ExtResource("6")
+
+[node name="CollisionShape2D" parent="." index="3"]
 position = Vector2(0, 3)
 rotation = 1.5708
 shape = SubResource("18")
 
-[node name="PathTimer" parent="." index="5"]
+[node name="PathTimer" parent="." index="4"]
 autostart = false
 
 [node name="JumpTimer" type="Timer" parent="." index="6"]
@@ -425,7 +425,7 @@ position = Vector2(0, 3)
 rotation = 1.5708
 shape = SubResource("23")
 
-[node name="AnimationPlayer" parent="." index="9"]
+[node name="AnimationPlayer" parent="." index="8"]
 libraries = {
 "": SubResource("AnimationLibrary_o6k1d")
 }

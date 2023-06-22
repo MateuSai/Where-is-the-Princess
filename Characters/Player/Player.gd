@@ -11,6 +11,8 @@ signal weapon_picked_up(weapon: Weapon)
 signal weapon_droped(index: int)
 signal weapon_condition_changed(weapon: Weapon, new_value: float)
 
+var passive_items: Array[PassiveItem] = []
+
 @onready var parent: Node2D = get_parent()
 @onready var weapons: Node2D = get_node("Weapons")
 @onready var dust_position: Marker2D = get_node("DustPosition")
@@ -79,6 +81,11 @@ func get_input() -> void:
 
 func add_coin() -> void:
 	SavedData.coins += 1
+
+
+func pick_up_passive_item(item: PassiveItem) -> void:
+	passive_items.push_back(item)
+	item.equip(self)
 
 
 func _switch_weapon(direction: int) -> void:

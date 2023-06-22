@@ -3,6 +3,7 @@ class_name Enemy extends Character
 
 const COIN_SCENE: PackedScene = preload("res://Items/Coin.tscn")
 
+@onready var room: DungeonRoom = get_parent()
 @onready var player: CharacterBody2D = get_tree().current_scene.get_node("Player")
 @onready var path_timer: Timer = get_node("PathTimer")
 @onready var navigation_agent: NavigationAgent2D = get_node("NavigationAgent2D")
@@ -15,6 +16,7 @@ func _ready() -> void:
 func _exit_tree() -> void:
 	for i in 3:
 		var coin: Coin = COIN_SCENE.instantiate()
+		room.room_cleared.connect(coin.go_to_player)
 		coin.position = global_position
 		get_tree().current_scene.add_child(coin)
 

@@ -17,9 +17,13 @@ const BOTTOM_WALL_COOR: Vector2i = Vector2i(2, 6)
 const LEFT_BOTTOM_WALL_COOR: Vector2i = Vector2i(1, 6)
 const RIGHT_BOTTOM_WALL_COOR: Vector2i = Vector2i(5, 6)
 const LEFT_WALL_COOR: Vector2i = Vector2i(4, 5)
+const LAST_LEFT_WALL_COOR: Vector2i = Vector2i(4, 6)
 const RIGHT_WALL_COOR: Vector2i = Vector2i(3, 5)
+const LAST_RIGHT_WALL_COOR: Vector2i = Vector2i(3, 6)
 const UPPER_WALL_LEFT_COOR: Vector2i = Vector2i(1, 7)
 const UPPER_WALL_RIGHT_COOR: Vector2i = Vector2i(5, 7)
+const UPPER_WALL_RIGHT_CORNER_COOR: Vector2i = Vector2i(3, 4)
+const UPPER_WALL_LEFT_CORNER_COOR: Vector2i = Vector2i(4, 4)
 
 signal generation_completed()
 
@@ -164,10 +168,13 @@ func _create_corridors() -> void:
 	# CORRIDOR WALLS
 	corridor_tile_map.set_cells_terrain_connect(0, corridor_tile_map.get_used_cells(0), 0, 0)
 
+	var entry_cells: Array[Vector2i] = []
 	for room in rooms:
 		for used_entry in room.used_entries:
 			for pos_node in used_entry.get_children():
-				corridor_tile_map.erase_cell(0, corridor_tile_map.local_to_map(pos_node.global_position))
+				var cell: Vector2i = corridor_tile_map.local_to_map(pos_node.global_position)
+				corridor_tile_map.erase_cell(0, cell)
+				entry_cells.push_back(cell)
 
 	for cell_pos in corridor_tile_map.get_used_cells(0):
 		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FULL_WALL_COORDS:
@@ -177,8 +184,13 @@ func _create_corridors() -> void:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_RIGHT_COOR)
 			else:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_COOR)
-			if debug:
-				await get_tree().create_timer(add_tile_group_time).timeout
+
+			if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) == Vector2i(-1, -1):
+				corridor_tile_map.set_cell(0, cell_pos + Vector2i.RIGHT, ATLAS_ID, RIGHT_WALL_COOR)
+				corridor_tile_map.set_cell(0, cell_pos + Vector2i.RIGHT + Vector2i.UP, ATLAS_ID, UPPER_WALL_RIGHT_CORNER_COOR)
+			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) == Vector2i(-1, -1):
+				corridor_tile_map.set_cell(0, cell_pos + Vector2i.LEFT, ATLAS_ID, LEFT_WALL_COOR)
+				corridor_tile_map.set_cell(0, cell_pos + Vector2i.LEFT + Vector2i.UP, ATLAS_ID, UPPER_WALL_LEFT_CORNER_COOR)
 		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) == FLOOR_TILE_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) != FLOOR_TILE_COOR:
 			if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == RIGHT_WALL_COOR:
 				corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, LEFT_BOTTOM_WALL_COOR)
@@ -186,7 +198,12 @@ func _create_corridors() -> void:
 				corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, RIGHT_BOTTOM_WALL_COOR)
 			else:
 				corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, BOTTOM_WALL_COOR)
-			if debug:
+		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) == LEFT_WALL_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == Vector2i(-1, -1) and not entry_cells.has(cell_pos + Vector2i.ONE):
+			corridor_tile_map.set_cell(0, cell_pos, ATLAS_ID, LAST_LEFT_WALL_COOR)
+		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) == RIGHT_WALL_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == Vector2i(-1, -1)and not entry_cells.has(cell_pos + Vector2i.DOWN + Vector2i.LEFT):
+			corridor_tile_map.set_cell(0, cell_pos, ATLAS_ID, LAST_RIGHT_WALL_COOR)
+
+		if debug:
 				await get_tree().create_timer(add_tile_group_time).timeout
 
 	if debug:

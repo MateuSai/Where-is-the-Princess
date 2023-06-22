@@ -24,8 +24,10 @@ enum EntryDirection {
 }
 var used_entries: Array[Node] = []
 
+signal room_cleared()
+
 @onready var tilemap: TileMap = get_node("TileMap")
-@onready var vector_to_center: Vector2 = tilemap.get_used_rect().position * 16 + tilemap.get_used_rect().size * Rooms.TILE_SIZE / 2
+@onready var vector_to_center: Vector2 = tilemap.get_used_rect().position * Rooms.TILE_SIZE + tilemap.get_used_rect().size * Rooms.TILE_SIZE / 2
 @onready var min_separation: float = vector_to_center.length() * 2 * 1
 @onready var entries: Array[Node] = [get_node("Entries/Left"), get_node("Entries/Up"), get_node("Entries/Right"), get_node("Entries/Down")]
 @onready var door_container: Node2D = get_node("Doors")
@@ -138,6 +140,7 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 func _on_enemy_killed() -> void:
 	num_enemies -= 1
 	if num_enemies == 0:
+		emit_signal("room_cleared")
 		_open_doors()
 
 
@@ -179,5 +182,6 @@ func _on_player_entered_room() -> void:
 		_close_entrance()
 		_spawn_enemies()
 	else:
-		_close_entrance()
-		_open_doors()
+		pass
+		#_close_entrance()
+		#_open_doors()
