@@ -10,7 +10,6 @@ light_mode = 1
 [node name="Game" type="Node2D"]
 texture_filter = 1
 script = ExtResource("3")
-debug = false
 
 [node name="Rooms" type="Node2D" parent="."]
 script = ExtResource("4")

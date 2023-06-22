@@ -33,8 +33,8 @@ var end_room: DungeonRoom
 var mst_astar: AStar2D = null
 # DEBUG
 @onready var debug: bool = get_parent().debug
-@export var pause_between_steps: float = 1.5
-@export var add_tile_group_time: float = 0.06
+@export var pause_between_steps: float = 1.2
+@export var add_tile_group_time: float = 0.03
 var room_centers: Array[Vector2] = []
 var delaunay_indices: PackedInt32Array
 

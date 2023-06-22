@@ -28,7 +28,7 @@ signal room_cleared()
 
 @onready var tilemap: TileMap = get_node("TileMap")
 @onready var vector_to_center: Vector2 = tilemap.get_used_rect().position * Rooms.TILE_SIZE + tilemap.get_used_rect().size * Rooms.TILE_SIZE / 2
-@onready var min_separation: float = vector_to_center.length() * 2 * 1
+@onready var min_separation: float = (vector_to_center - Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE)).length() * 2 * 1
 @onready var entries: Array[Node] = [get_node("Entries/Left"), get_node("Entries/Up"), get_node("Entries/Right"), get_node("Entries/Down")]
 @onready var door_container: Node2D = get_node("Doors")
 @onready var enemy_positions_container: Node2D = get_node("EnemyPositions")
@@ -36,6 +36,11 @@ signal room_cleared()
 
 func _ready() -> void:
 	num_enemies = enemy_positions_container.get_child_count()
+
+
+func _draw() -> void:
+	if get_parent().get_parent().debug:
+		draw_circle(vector_to_center, (vector_to_center - Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE)).length(), Color.RED)
 
 
 func separation_steering(rooms: Array[DungeonRoom], delta: float) -> bool:
