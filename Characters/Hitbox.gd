@@ -10,15 +10,13 @@ var body_inside: bool = false
 @onready var timer: Timer = Timer.new()
 
 
-func _enter_tree() -> void:
-	body_entered.connect(_on_body_entered)
-	body_exited.connect(_on_body_exited)
-
-
 func _ready() -> void:
 	assert(collision_shape != null)
 	timer.wait_time = 1
 	add_child(timer)
+
+	body_entered.connect(_on_body_entered)
+	body_exited.connect(_on_body_exited)
 
 
 func _on_body_entered(body: Node2D) -> void:

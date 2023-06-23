@@ -52,7 +52,7 @@ func separation_steering(rooms: Array[DungeonRoom], delta: float) -> bool:
 		if vector_to_room.length() < min_separation:
 			dir += vector_to_room * (vector_to_room.length() - min_separation)
 
-	float_position += dir.normalized() * 500 * delta
+	float_position += dir.normalized() * 500 * randf_range(0.9, 1.1) * delta
 	position = round(float_position/Rooms.TILE_SIZE) * Rooms.TILE_SIZE
 
 	return dir == Vector2.ZERO

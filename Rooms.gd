@@ -33,10 +33,15 @@ var end_room: DungeonRoom
 var mst_astar: AStar2D = null
 # DEBUG
 @onready var debug: bool = get_parent().debug
+@export var debug_check_entry_positions: bool = false
 @export var pause_between_steps: float = 1.2
-@export var add_tile_group_time: float = 0.03
+@export var add_tile_group_time: float = 0.02
 var room_centers: Array[Vector2] = []
 var delaunay_indices: PackedInt32Array
+# Tengo que declarar esto aquí porque esta wea culiada no me deja dibujar fuera de _draw
+var vertical_corridor_rect: Rect2
+var horizontal_corridor_rect: Rect2
+var room_rect: Rect2
 
 @export var num_levels: int = 5
 
@@ -80,9 +85,11 @@ func _spawn_rooms() -> void:
 	rooms.push_back(start_room)
 	end_room = END_ROOMS[randi() % END_ROOMS.size()].instantiate()
 	rooms.push_back(end_room)
+	var inter_rooms: Array[PackedScene] = INTERMEDIATE_ROOMS.duplicate(true)
+	inter_rooms.append_array(SavedData.custom_rooms)
 	for i in 10:
 		#rooms.push_back(INTERMEDIATE_ROOMS[0].instantiate())
-		rooms.push_back(INTERMEDIATE_ROOMS[randi() % INTERMEDIATE_ROOMS.size()].instantiate())
+		rooms.push_back(inter_rooms[randi() % inter_rooms.size()].instantiate())
 
 	var start_room_pos: Vector2 = _get_random_point_in_circle(SPAWN_CIRCLE_RADIUS)
 	rooms[0].float_position = start_room_pos # rooms[0] es la habitación de spawn
@@ -285,11 +292,11 @@ func _add_floor_tiles() -> void:
 
 func _analyze_and_create_l_corridor(id: int, connection_with: int, directions: Array[Array]) -> void:
 	var rand: int = randi() % 2
-	if rooms[id].has_entry(directions[rand][0]) and rooms[connection_with].has_entry(directions[rand][1]) and _check_entry_positions(id, connection_with, directions[rand][0], directions[rand][1]):
+	if rooms[id].has_entry(directions[rand][0]) and rooms[connection_with].has_entry(directions[rand][1]) and await _check_entry_positions(id, connection_with, directions[rand][0], directions[rand][1]):
 		await _create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[connection_with].get_random_entry(directions[rand][1]), directions[rand][0], directions[rand][1])
 	else:
 		rand = (int(rand == 0))
-		if rooms[id].has_entry(directions[rand][0]) and rooms[connection_with].has_entry(directions[rand][1]) and _check_entry_positions(id, connection_with, directions[rand][0], directions[rand][1]):
+		if rooms[id].has_entry(directions[rand][0]) and rooms[connection_with].has_entry(directions[rand][1]) and await _check_entry_positions(id, connection_with, directions[rand][0], directions[rand][1]):
 			await _create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[connection_with].get_random_entry(directions[rand][1]), directions[rand][0], directions[rand][1])
 		else:
 			printerr("\tI tried both possible directions, but it's impossible to create l corridor")
@@ -299,10 +306,42 @@ func _check_entry_positions(id: int, connection_with: int, id_dir: DungeonRoom.E
 	var id_entry_position: Vector2 = rooms[id].get_entry_position(id_dir)
 	var connection_with_entry_position: Vector2 = rooms[connection_with].get_entry_position(connection_with_dir)
 
-	if id_dir == DungeonRoom.EntryDirection.RIGHT or connection_with_dir == DungeonRoom.EntryDirection.LEFT:
-		return id_entry_position.x < (connection_with_entry_position.x - TILE_SIZE * 2)
+#	var vertical_corridor_rect: Rect2
+#	var horizontal_corridor_rect: Rect2
+	if id_dir == DungeonRoom.EntryDirection.UP or id_dir == DungeonRoom.EntryDirection.DOWN:
+		vertical_corridor_rect = Rect2(id_entry_position.x - 32, id_entry_position.y, TILE_SIZE * 4, connection_with_entry_position.y - id_entry_position.y)
+		horizontal_corridor_rect = Rect2(connection_with_entry_position.x, connection_with_entry_position.y - 32, id_entry_position.x - connection_with_entry_position.x, TILE_SIZE * 4)
 	else:
-		return connection_with_entry_position.x < (id_entry_position.x - TILE_SIZE * 2)
+		vertical_corridor_rect = Rect2(connection_with_entry_position.x - 32, connection_with_entry_position.y, TILE_SIZE * 4, id_entry_position.y - connection_with_entry_position.y)
+		horizontal_corridor_rect = Rect2(id_entry_position.x, id_entry_position.y - 32, connection_with_entry_position.x - id_entry_position.x, TILE_SIZE * 4)
+
+	for room in rooms:
+		if room == rooms[id] or room == rooms[connection_with]:
+			continue # Para que no detecta las habitaciones que se conectan, solo las otras
+
+		room_rect = Rect2(Vector2i(room.position) + (room.tilemap.get_used_rect().position * 16), (room.tilemap.get_used_rect().size * 16))
+		# print("Room " + str(rooms.find(room)) + "  " + str(room_rect))
+
+		if debug_check_entry_positions:
+			queue_redraw()
+			await get_tree().create_timer(0.6).timeout
+		if room_rect.intersects(vertical_corridor_rect.abs()) or room_rect.intersects(horizontal_corridor_rect.abs()):
+			return false
+
+	if id_dir == DungeonRoom.EntryDirection.RIGHT or connection_with_dir == DungeonRoom.EntryDirection.LEFT:
+		if not id_entry_position.x < (connection_with_entry_position.x - TILE_SIZE * 1):
+			return false
+	else:
+		if not connection_with_entry_position.x < (id_entry_position.x - TILE_SIZE * 1):
+			return false
+	if id_dir == DungeonRoom.EntryDirection.DOWN or connection_with_dir == DungeonRoom.EntryDirection.UP:
+		if not id_entry_position.y < (connection_with_entry_position.y - TILE_SIZE * 1):
+			return false
+	else:
+		if not connection_with_entry_position.y < (id_entry_position.y - TILE_SIZE * 1):
+			return false
+
+	return true
 
 
 # above and below are entries, with 2 children
@@ -448,6 +487,10 @@ func _draw() -> void:
 		for i in mst_astar.get_point_count():
 			for j in mst_astar.get_point_connections(i):
 				draw_line(room_centers[room_centers.find(mst_astar.get_point_position(i))], room_centers[room_centers.find(mst_astar.get_point_position(j))], Color.YELLOW, 7)
+
+	draw_rect(vertical_corridor_rect, Color.DEEP_SKY_BLUE, true)
+	draw_rect(horizontal_corridor_rect, Color.DEEP_SKY_BLUE, true)
+	draw_rect(room_rect, Color.WEB_MAROON, true)
 
 
 func _get_random_point_in_circle(radius: float) -> Vector2:

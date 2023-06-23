@@ -7,6 +7,7 @@
 light_mode = 1
 
 [node name="Room" type="Node2D"]
+show_behind_parent = true
 texture_filter = 1
 script = ExtResource("1_26tq0")
 
@@ -53,6 +54,8 @@ layer_3/tile_data = PackedInt32Array()
 [node name="Traps" type="Node2D" parent="."]
 
 [node name="DebugRoomId" type="Label" parent="."]
+z_index = 4
 material = SubResource("CanvasItemMaterial_4loq4")
 offset_right = 40.0
 offset_bottom = 23.0
+theme_override_font_sizes/font_size = 64

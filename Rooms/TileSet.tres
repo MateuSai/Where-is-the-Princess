@@ -1,7 +1,7 @@
 [gd_resource type="TileSet" load_steps=45 format=3 uid="uid://b6ahcd27jnf2v"]
 
 [ext_resource type="Texture2D" uid="uid://d2e6iidvt8eo3" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full tilemap.png" id="1"]
-[ext_resource type="Texture2D" uid="uid://bm5mjf55e0dg1" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full_tilemap_albedo.png" id="2_fun5j"]
+[ext_resource type="Texture2D" uid="uid://bbir3nubd0hb" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full_tilemap_albedo.png" id="2_fun5j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3377j"]
 texture = ExtResource("1")

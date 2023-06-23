@@ -13,7 +13,7 @@ func _ready() -> void:
 	var __ = connect("tree_exited", Callable(get_parent(), "_on_enemy_killed"))
 
 
-func _exit_tree() -> void:
+func spawn_loot() -> void:
 	for i in 3:
 		var coin: Coin = COIN_SCENE.instantiate()
 		room.room_cleared.connect(coin.go_to_player)

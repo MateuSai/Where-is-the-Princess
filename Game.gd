@@ -13,12 +13,12 @@ func _init() -> void:
 	var rand_seed: int = randi()
 	print("Seed: " + str(rand_seed))
 	seed(rand_seed)
-	# seed(235564565)
+	# seed(4170514499)
 
 
 func _ready() -> void:
 	if debug:
-		camera.zoom = Vector2(0.25, 0.25)
+		camera.zoom = Vector2(0.2, 0.2)
 
 	await rooms.generation_completed
 

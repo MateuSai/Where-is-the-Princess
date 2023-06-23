@@ -9,5 +9,5 @@ height = 15.5564
 
 [node name="ThrowableKnife" instance=ExtResource("1")]
 
-[node name="CollisionShape2D" parent="." index="0"]
+[node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CapsuleShape2D_br7x4")
