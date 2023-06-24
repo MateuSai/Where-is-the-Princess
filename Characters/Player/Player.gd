@@ -14,7 +14,11 @@ signal weapon_condition_changed(weapon: Weapon, new_value: float)
 var passive_items: Array[PassiveItem] = []
 signal passive_item_picked_up(item: PassiveItem)
 
+var armor: Armor = NoArmor.new() : set = set_armor
+
 #var sm
+
+# @onready var armor_sprite: Sprite2D = get_node("ArmorSprite")
 
 @onready var parent: Node2D = get_parent()
 @onready var weapons: Node2D = get_node("Weapons")
@@ -28,6 +32,8 @@ func _ready() -> void:
 	emit_signal("weapon_picked_up", weapons.get_child(0))
 
 	_restore_previous_state()
+
+	set_armor(KnightArmor.new())
 
 #	var state_machine: StateMachine = StateMachine.new()
 #	state_machine.add_state(State.new("idle", func() -> String:
@@ -203,6 +209,13 @@ func switch_camera() -> void:
 	main_scene_camera.position = position
 	main_scene_camera.current = true
 	get_node("Camera2D").current = false
+
+
+func set_armor(new_armor: Armor) -> void:
+	if new_armor == armor:
+		return
+	armor = new_armor
+	sprite.texture = armor.sprite_sheet
 
 
 func _on_weapon_condition_changed(weapon: Weapon, new_condition: float) -> void:

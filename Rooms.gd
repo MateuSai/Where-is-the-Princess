@@ -71,9 +71,16 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var no_more_rooms_moving: bool = true
 
+	var dirs: Array[Vector2] = []
 	for room in rooms:
-		if not room.separation_steering(rooms, delta):
+		var dir: Vector2 = room.get_separation_steering_dir(rooms)
+		dirs.push_back(dir)
+		if dir != Vector2.ZERO:
 			no_more_rooms_moving = false
+	for i in rooms.size():
+		var room: DungeonRoom = rooms[i]
+		room.float_position += dirs[i] * 0.1 * delta
+		room.position = round(room.float_position/TILE_SIZE) * TILE_SIZE
 
 	if no_more_rooms_moving:
 		set_physics_process(false)
@@ -121,8 +128,11 @@ func _create_corridors() -> void:
 	var delaunay_astar: AStar2D = AStar2D.new()
 	for i in room_centers.size():
 		delaunay_astar.add_point(i, room_centers[i])
-	for i in delaunay_indices.size() - 1:
+	for i in delaunay_indices.size() / 3.0:
+		i = i * 3
 		delaunay_astar.connect_points(delaunay_indices[i], delaunay_indices[i+1])
+		delaunay_astar.connect_points(delaunay_indices[i+1], delaunay_indices[i+2])
+		delaunay_astar.connect_points(delaunay_indices[i+2], delaunay_indices[i])
 
 	mst_astar = AStar2D.new()
 	mst_astar.add_point(mst_astar.get_available_point_id(), room_centers[0])
@@ -155,10 +165,28 @@ func _create_corridors() -> void:
 		delaunay_astar.set_point_disabled(room_centers.find(min_p))
 		#rooms_not_used.remove_at(rooms_not_used.find(min_p))
 
-#	for i in mst_astar.get_point_count():
-#		print(str(i) + "  " + str(mst_astar.get_point_connections(i)))
+	if debug:
+		queue_redraw()
+		await get_tree().process_frame
+		await get_tree().create_timer(pause_between_steps).timeout
 
-	# print(astar.get_id_path(rooms.find(start_room), rooms.find(end_room)))
+	# Añadimos alguna conexion extra
+	for id in delaunay_astar.get_point_count():
+		delaunay_astar.set_point_disabled(id, false)
+	var points_that_could_be_connected: Array[Array] = []
+	for id in delaunay_astar.get_point_count():
+		for id2 in range(id + 1, delaunay_astar.get_point_count()):
+			# print(str(id) + ": " + str(delaunay_astar.get_point_connections(id)))
+			if delaunay_astar.get_point_connections(id).has(id2) and not mst_astar.get_point_connections(id).has(id2) and not points_that_could_be_connected.has([id, id2]) and not points_that_could_be_connected.has([id2, id]):
+				points_that_could_be_connected.push_back([id, id2])
+	if debug:
+		print("Connections not used after mst: " + str(points_that_could_be_connected))
+
+	var number_of_extra_connections: int = round(points_that_could_be_connected.size() * 0.2)
+	for i in number_of_extra_connections:
+		var rand: int = randi() % points_that_could_be_connected.size()
+		mst_astar.connect_points(points_that_could_be_connected[rand][0], points_that_could_be_connected[rand][1])
+		points_that_could_be_connected.remove_at(rand)
 
 	if debug:
 		queue_redraw()
