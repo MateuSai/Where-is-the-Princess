@@ -4,9 +4,12 @@ const PLAYER_SCENE: PackedScene = preload("res://Characters/Player/Player.tscn")
 
 @export var debug: bool = true
 
+var generation_thread: Thread = null
+
 # @onready var ui: MainUi = get_node("UI")
 @onready var rooms: Rooms = get_node("Rooms")
 @onready var camera: Camera2D = get_node("Camera2D")
+@onready var generating_dungeon_canvas_layer: CanvasLayer = get_node("GeneratingDungeonCanvasLayer")
 
 
 func _init() -> void:
@@ -19,6 +22,19 @@ func _init() -> void:
 func _ready() -> void:
 	if debug:
 		camera.zoom = Vector2(0.2, 0.2)
+
+	if debug:
+		generating_dungeon_canvas_layer.hide()
+		rooms.spawn_rooms()
+	else:
+		generating_dungeon_canvas_layer.show()
+		generation_thread = Thread.new()
+		generation_thread.start(rooms.spawn_rooms)
+		rooms.generation_completed.connect(func():
+			generation_thread.wait_to_finish()
+			generation_thread = null
+			generating_dungeon_canvas_layer.hide()
+		)
 
 	await rooms.generation_completed
 
@@ -37,3 +53,8 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_focus_next"):
 		get_tree().paused = true
+
+
+func _exit_tree() -> void:
+	if generation_thread:
+		generation_thread.wait_to_finish()

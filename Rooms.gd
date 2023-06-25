@@ -65,7 +65,6 @@ func _ready() -> void:
 	SavedData.num_floor += 1
 	if SavedData.num_floor == 3:
 		num_levels = 3
-	_spawn_rooms()
 
 
 func _physics_process(delta: float) -> void:
@@ -91,7 +90,7 @@ func _physics_process(delta: float) -> void:
 		_create_corridors()
 
 
-func _spawn_rooms() -> void:
+func spawn_rooms() -> void:
 	start_room = SPAWN_ROOMS[randi() % SPAWN_ROOMS.size()].instantiate()
 	rooms.push_back(start_room)
 	end_room = END_ROOMS[randi() % END_ROOMS.size()].instantiate()

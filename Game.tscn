@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=6 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
+[ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="4_usvbv"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="6_ml8df"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
@@ -10,6 +11,7 @@ light_mode = 1
 [node name="Game" type="Node2D"]
 texture_filter = 1
 script = ExtResource("3")
+debug = false
 
 [node name="Rooms" type="Node2D" parent="."]
 script = ExtResource("4")
@@ -32,3 +34,29 @@ layer_1/tile_data = PackedInt32Array()
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.294118, 0.294118, 0.294118, 1)
+
+[node name="GeneratingDungeonCanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="GeneratingDungeonCanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.137255, 0.137255, 0.137255, 1)
+
+[node name="Label" type="Label" parent="GeneratingDungeonCanvasLayer"]
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.5
+offset_top = -13.0
+offset_right = 80.5
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_usvbv")
+text = "Generating Dungeon"

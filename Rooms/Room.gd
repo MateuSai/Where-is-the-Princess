@@ -194,20 +194,21 @@ func _on_player_entered_room() -> void:
 		#_open_doors()
 
 
-func get_random_circle_spawn_point(radius: float) -> Vector2:
+func get_random_circle_spawn_point(circle_radius: float) -> Vector2:
 	var directions_with_entry: Array[EntryDirection] = []
-	for dir in [EntryDirection.UP, EntryDirection.RIGHT, EntryDirection.DOWN, EntryDirection.LEFT]:
+	for dir in [EntryDirection.LEFT, EntryDirection.UP, EntryDirection.RIGHT, EntryDirection.DOWN]:
 		if has_entry(dir):
 			directions_with_entry.push_back(dir)
 
 	if directions_with_entry.size() == 4:
-		return Vector2.RIGHT.rotated(randf_range(0, 2 * PI) * randf_range(0, radius))
+		return Vector2.RIGHT.rotated(randf_range(0, 2 * PI) * randf_range(0, circle_radius))
 	else:
 		var entries_dir: Vector2 = Vector2.ZERO
 		for dir in directions_with_entry:
-			entries_dir += [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT][dir]
+			entries_dir += [Vector2.LEFT, Vector2.UP, Vector2.RIGHT, Vector2.DOWN][dir]
 		entries_dir *= -1
-		return Vector2.RIGHT.rotated(randf_range(entries_dir.angle() - PI/8, entries_dir.angle() + PI/8)) * radius
+		print(name + " " + str(entries_dir) + " " + str(directions_with_entry))
+		return Vector2.RIGHT.rotated(randf_range(entries_dir.angle() - PI/8, entries_dir.angle() + PI/8)) * circle_radius
 
 #	var t: float = 2 * PI * randf()
 #	var u: float = randf() + randf()
