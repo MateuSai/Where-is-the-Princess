@@ -2,6 +2,7 @@ extends Node
 
 const USER_FOLDER: String = "user://"
 const ROOMS_FOLDER_NAME: String = "rooms/"
+const ARMORS_FOLDER_NAME: String = "armors/"
 
 var num_floor: int = 0
 
@@ -19,15 +20,20 @@ func _ready() -> void:
 	if not user_dir.dir_exists(ROOMS_FOLDER_NAME):
 		print("Can't find the rooms directory, creating it...")
 		user_dir.make_dir(ROOMS_FOLDER_NAME)
+	if not user_dir.dir_exists(ARMORS_FOLDER_NAME):
+		print("Can't find the armors directory, creating it...")
+		user_dir.make_dir(ARMORS_FOLDER_NAME)
+
+
+func get_user_rooms() -> void:
+	var rooms_folder: DirAccess = DirAccess.open(USER_FOLDER + ROOMS_FOLDER_NAME)
+	if not rooms_folder:
+		printerr("Error opening rooms folder!!")
 	else:
-		var rooms_folder: DirAccess = DirAccess.open(USER_FOLDER + ROOMS_FOLDER_NAME)
-		if not rooms_folder:
-			printerr("Error opening rooms folder!!")
-		else:
-			for file_name in rooms_folder.get_files():
-				print(file_name)
-				var room: PackedScene = load(USER_FOLDER + ROOMS_FOLDER_NAME + file_name)
-				custom_rooms.push_back(room)
+		for file_name in rooms_folder.get_files():
+			print(file_name)
+			var room: PackedScene = load(USER_FOLDER + ROOMS_FOLDER_NAME + file_name)
+			custom_rooms.push_back(room)
 
 
 func reset_data() -> void:

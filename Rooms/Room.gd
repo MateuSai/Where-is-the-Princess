@@ -28,7 +28,7 @@ signal room_cleared()
 
 @onready var tilemap: TileMap = get_node("TileMap")
 @onready var vector_to_center: Vector2 = tilemap.get_used_rect().position * Rooms.TILE_SIZE + tilemap.get_used_rect().size * Rooms.TILE_SIZE / 2
-@onready var min_separation: float = (vector_to_center - Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE)).length() * 2 * 1
+@onready var radius: float = (vector_to_center - Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE)).length() * 1
 @onready var entries: Array[Node] = [get_node("Entries/Left"), get_node("Entries/Up"), get_node("Entries/Right"), get_node("Entries/Down")]
 @onready var door_container: Node2D = get_node("Doors")
 @onready var enemy_positions_container: Node2D = get_node("EnemyPositions")
@@ -43,17 +43,17 @@ func _draw() -> void:
 		draw_circle(vector_to_center, (vector_to_center - Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE)).length(), Color.RED)
 
 
-func get_separation_steering_dir(rooms: Array[DungeonRoom]) -> Vector2:
+func get_separation_steering_dir(rooms: Array[DungeonRoom], delta: float) -> Vector2:
 	var dir: Vector2 = Vector2.ZERO
 	for room in rooms:
 		if room == self:
 			continue
 		var vector_to_room: Vector2 = (room.position + room.vector_to_center) - (position + vector_to_center)
-		if vector_to_room.length() < min_separation:
-			dir += vector_to_room * (vector_to_room.length() - min_separation)
+		if vector_to_room.length() < (radius + room.radius):
+			dir += vector_to_room * (vector_to_room.length() - radius - room.radius)
 
-	#float_position += dir.normalized() * 500 * randf_range(0.9, 1.1) * delta
-	#position = round(float_position/Rooms.TILE_SIZE) * Rooms.TILE_SIZE
+	float_position += dir.normalized() * 500 * randf_range(0.9, 1.1) * delta
+	position = round(float_position/Rooms.TILE_SIZE) * Rooms.TILE_SIZE
 
 	return dir
 

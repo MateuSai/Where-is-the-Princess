@@ -71,16 +71,20 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	var no_more_rooms_moving: bool = true
 
-	var dirs: Array[Vector2] = []
+	#var dirs: Array[Vector2] = []
 	for room in rooms:
-		var dir: Vector2 = room.get_separation_steering_dir(rooms)
-		dirs.push_back(dir)
+		var dir: Vector2 = room.get_separation_steering_dir(rooms, delta)
+		#dirs.push_back(dir)
 		if dir != Vector2.ZERO:
 			no_more_rooms_moving = false
-	for i in rooms.size():
-		var room: DungeonRoom = rooms[i]
-		room.float_position += dirs[i] * 0.1 * delta
-		room.position = round(room.float_position/TILE_SIZE) * TILE_SIZE
+#	for i in rooms.size():
+#		var room: DungeonRoom = rooms[i]
+#		room.float_position += dirs[i] * 0.01 * delta
+#		room.position = round(room.float_position/TILE_SIZE) * TILE_SIZE
+
+#	for i in dirs.size():
+#		if dirs[i] != Vector2.ZERO:
+#			print(str(i) + ": " + str(dirs[i]))
 
 	if no_more_rooms_moving:
 		set_physics_process(false)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://7oeqdu22e1q5"]
 
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="1"]
-[ext_resource type="Script" path="res://Rooms/Room.gd" id="1_26tq0"]
+[ext_resource type="Script" path="res://Rooms/Room.gd" id="1_lm4q1"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4loq4"]
 light_mode = 1
@@ -9,7 +9,7 @@ light_mode = 1
 [node name="Room" type="Node2D"]
 show_behind_parent = true
 texture_filter = 1
-script = ExtResource("1_26tq0")
+script = ExtResource("1_lm4q1")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("1")
