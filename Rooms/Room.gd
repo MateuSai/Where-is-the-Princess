@@ -24,7 +24,8 @@ enum EntryDirection {
 }
 var used_entries: Array[Node] = []
 
-signal room_cleared()
+signal closed()
+signal cleared()
 
 @onready var tilemap: TileMap = get_node("TileMap")
 @onready var vector_to_center: Vector2 = tilemap.get_used_rect().position * Rooms.TILE_SIZE + tilemap.get_used_rect().size * Rooms.TILE_SIZE / 2
@@ -145,7 +146,7 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 func _on_enemy_killed() -> void:
 	num_enemies -= 1
 	if num_enemies == 0:
-		emit_signal("room_cleared")
+		cleared.emit()
 		_open_doors()
 
 
@@ -186,7 +187,34 @@ func _on_player_entered_room() -> void:
 	if num_enemies > 0:
 		_close_entrance()
 		_spawn_enemies()
+		closed.emit()
 	else:
 		pass
 		#_close_entrance()
 		#_open_doors()
+
+
+func get_random_circle_spawn_point(radius: float) -> Vector2:
+	var directions_with_entry: Array[EntryDirection] = []
+	for dir in [EntryDirection.UP, EntryDirection.RIGHT, EntryDirection.DOWN, EntryDirection.LEFT]:
+		if has_entry(dir):
+			directions_with_entry.push_back(dir)
+
+	if directions_with_entry.size() == 4:
+		return Vector2.RIGHT.rotated(randf_range(0, 2 * PI) * randf_range(0, radius))
+	else:
+		var entries_dir: Vector2 = Vector2.ZERO
+		for dir in directions_with_entry:
+			entries_dir += [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT][dir]
+		entries_dir *= -1
+		return Vector2.RIGHT.rotated(randf_range(entries_dir.angle() - PI/8, entries_dir.angle() + PI/8)) * radius
+
+#	var t: float = 2 * PI * randf()
+#	var u: float = randf() + randf()
+#	var r = null
+#	if u > 1:
+#		r = 2 - u
+#	else:
+#		r = u
+#
+#	return Vector2(radius * r * cos(t), radius * r * sin(t))

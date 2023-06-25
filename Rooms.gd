@@ -102,17 +102,20 @@ func _spawn_rooms() -> void:
 		#rooms.push_back(INTERMEDIATE_ROOMS[0].instantiate())
 		rooms.push_back(inter_rooms[randi() % inter_rooms.size()].instantiate())
 
-	var start_room_pos: Vector2 = _get_random_point_in_circle(SPAWN_CIRCLE_RADIUS)
+	for room in rooms:
+		add_child(room)
+	var start_room_pos: Vector2 = start_room.get_random_circle_spawn_point(SPAWN_CIRCLE_RADIUS)
 	rooms[0].float_position = start_room_pos # rooms[0] es la habitación de spawn
 	rooms[1].float_position = start_room_pos * -1 # rooms[1] es la habitación de salida
 	for room in rooms:
 		# Ya que ya hemos posicionado start y end antes
 		if not room in [start_room, end_room]:
-			room.float_position = _get_random_point_in_circle(SPAWN_CIRCLE_RADIUS)
-		add_child(room)
+			room.float_position = room.get_random_circle_spawn_point(SPAWN_CIRCLE_RADIUS)
+		# add_child(room)
 		if debug:
 			room.get_node("DebugRoomId").text = str(rooms.find(room))
 
+	# return
 	set_physics_process(true)
 
 
@@ -224,10 +227,10 @@ func _create_corridors() -> void:
 			else:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_COOR)
 
-			if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) == Vector2i(-1, -1):
+			if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) == Vector2i(-1, -1) and not entry_cells.has(cell_pos + Vector2i.RIGHT + Vector2i.DOWN):
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.RIGHT, ATLAS_ID, RIGHT_WALL_COOR)
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.RIGHT + Vector2i.UP, ATLAS_ID, UPPER_WALL_RIGHT_CORNER_COOR)
-			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) == Vector2i(-1, -1):
+			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) == Vector2i(-1, -1) and not entry_cells.has(cell_pos + Vector2i.LEFT + Vector2i.DOWN):
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.LEFT, ATLAS_ID, LEFT_WALL_COOR)
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.LEFT + Vector2i.UP, ATLAS_ID, UPPER_WALL_LEFT_CORNER_COOR)
 		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) == FLOOR_TILE_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) != FLOOR_TILE_COOR:
@@ -287,37 +290,18 @@ func _add_floor_tiles() -> void:
 			else:
 				if debug:
 					print("\tCreating l corridor...")
-#				var rand: int = randi() % 2
-#				var change_rand: Callable = func():
-#					rand = (int(rand == 0))
 				if dif.x > 0 and dif.y > 0:
 					var directions: Array[Array] = [[DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.UP], [DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.LEFT]]
 					await _analyze_and_create_l_corridor(id, connection_with, directions)
-#					if rooms[id].has_entry(directions[rand][0]) and rooms[connection_with].has_entry(directions[rand][1]):
-#						await _create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[connection_with].get_random_entry(directions[rand][1]), directions[rand][0], directions[rand][1])
-#					else:
-#						printerr("\tImplement something here")
 				elif dif.x > 0 and dif.y < 0:
 					var directions: Array[Array] = [[DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.DOWN], [DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.LEFT]]
 					await _analyze_and_create_l_corridor(id, connection_with, directions)
-#					if rooms[id].has_entry(directions[rand][0]) and rooms[connection_with].has_entry(directions[rand][1]):
-#						await _create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[connection_with].get_random_entry(directions[rand][1]), directions[rand][0], directions[rand][1])
-#					else:
-#						printerr("\tImplement something here")
 				elif dif.x < 0 and dif.y > 0:
 					var directions: Array[Array] = [[DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.UP], [DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.RIGHT]]
 					await _analyze_and_create_l_corridor(id, connection_with, directions)
-#					if rooms[id].has_entry(directions[rand][0]) and rooms[connection_with].has_entry(directions[rand][1]):
-#						await _create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[connection_with].get_random_entry(directions[rand][1]), directions[rand][0], directions[rand][1])
-#					else:
-#						printerr("\tImplement something here")
 				else: # dif.x < 0 and dif.y < 0
 					var directions: Array[Array] = [[DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.DOWN], [DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.RIGHT]]
 					await _analyze_and_create_l_corridor(id, connection_with, directions)
-#					if rooms[id].has_entry(directions[rand][0]) and rooms[connection_with].has_entry(directions[rand][1]):
-#						await _create_l_corridor(rooms[id].get_random_entry(directions[rand][0]), rooms[connection_with].get_random_entry(directions[rand][1]), directions[rand][0], directions[rand][1])
-#					else:
-#						printerr("\tImplement something here")
 
 			mst_astar.disconnect_points(id, connection_with)
 
@@ -361,16 +345,16 @@ func _check_entry_positions(id: int, connection_with: int, id_dir: DungeonRoom.E
 			return false
 
 	if id_dir == DungeonRoom.EntryDirection.RIGHT or connection_with_dir == DungeonRoom.EntryDirection.LEFT:
-		if not id_entry_position.x < (connection_with_entry_position.x - TILE_SIZE * 1):
+		if not id_entry_position.x < (connection_with_entry_position.x - TILE_SIZE * 2):
 			return false
 	else:
-		if not connection_with_entry_position.x < (id_entry_position.x - TILE_SIZE * 1):
+		if not connection_with_entry_position.x < (id_entry_position.x - TILE_SIZE * 2):
 			return false
 	if id_dir == DungeonRoom.EntryDirection.DOWN or connection_with_dir == DungeonRoom.EntryDirection.UP:
-		if not id_entry_position.y < (connection_with_entry_position.y - TILE_SIZE * 1):
+		if not id_entry_position.y < (connection_with_entry_position.y - TILE_SIZE * 2):
 			return false
 	else:
-		if not connection_with_entry_position.y < (id_entry_position.y - TILE_SIZE * 1):
+		if not connection_with_entry_position.y < (id_entry_position.y - TILE_SIZE * 2):
 			return false
 
 	return true
@@ -525,13 +509,13 @@ func _draw() -> void:
 	draw_rect(room_rect, Color.WEB_MAROON, true)
 
 
-func _get_random_point_in_circle(radius: float) -> Vector2:
-	var t: float = 2 * PI * randf()
-	var u: float = randf() + randf()
-	var r = null
-	if u > 1:
-		r = 2 - u
-	else:
-		r = u
-
-	return Vector2(radius * r * cos(t), radius * r * sin(t))
+#func _get_random_point_in_circle(radius: float) -> Vector2:
+#	var t: float = 2 * PI * randf()
+#	var u: float = randf() + randf()
+#	var r = null
+#	if u > 1:
+#		r = 2 - u
+#	else:
+#		r = u
+#
+#	return Vector2(radius * r * cos(t), radius * r * sin(t))

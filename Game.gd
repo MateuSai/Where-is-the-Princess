@@ -13,7 +13,7 @@ func _init() -> void:
 	var rand_seed: int = randi()
 	print("Seed: " + str(rand_seed))
 	seed(rand_seed)
-	# seed(3022822453)
+	# seed(222833946)
 
 
 func _ready() -> void:

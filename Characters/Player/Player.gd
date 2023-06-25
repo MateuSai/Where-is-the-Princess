@@ -24,6 +24,7 @@ var armor: Armor = NoArmor.new() : set = set_armor
 @onready var weapons: Node2D = get_node("Weapons")
 @onready var dust_position: Marker2D = get_node("DustPosition")
 
+@onready var jump_animation_player: AnimationPlayer = get_node("JumpAnimationPlayer")
 @onready var animation_tree: AnimationTree = get_node("AnimationTree")
 @onready var animation_tree_state_machine: AnimationNodeStateMachinePlayback = get_node("AnimationTree").get("parameters/playback")
 
@@ -33,7 +34,7 @@ func _ready() -> void:
 
 	_restore_previous_state()
 
-	set_armor(KnightArmor.new())
+	# set_armor(KnightArmor.new())
 
 #	var state_machine: StateMachine = StateMachine.new()
 #	state_machine.add_state(State.new("idle", func() -> String:
@@ -115,6 +116,9 @@ func get_input() -> void:
 			_drop_weapon()
 
 	current_weapon.get_input()
+
+	if Input.is_action_just_pressed("ui_armor_ability") and armor.is_able_to_use_ability:
+		armor.use_ability(self)
 
 
 func add_coin() -> void:
@@ -224,3 +228,7 @@ func _on_weapon_condition_changed(weapon: Weapon, new_condition: float) -> void:
 		_destroy_weapon()
 	else:
 		emit_signal("weapon_condition_changed", weapon, new_condition)
+
+
+func jump() -> void:
+	jump_animation_player.play("jump")

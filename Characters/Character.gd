@@ -7,6 +7,7 @@ const HIT_EFFECT_SCENE: PackedScene = preload("res://Characters/HitEffect.tscn")
 
 const FRICTION: float = 0.15
 
+var invincible: bool = false
 @export var max_hp: int = 2
 @export var hp: int = 2: set = set_hp
 signal hp_changed(new_hp)
@@ -35,6 +36,9 @@ func move() -> void:
 
 
 func take_damage(dam: int, dir: Vector2, force: int) -> void:
+	if invincible:
+		return
+
 	if state_machine.state != state_machine.states.hurt and state_machine.state != state_machine.states.dead:
 		_spawn_hit_effect()
 		self.hp -= dam

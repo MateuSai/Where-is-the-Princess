@@ -16,7 +16,7 @@ func _ready() -> void:
 func spawn_loot() -> void:
 	for i in 3:
 		var coin: Coin = COIN_SCENE.instantiate()
-		room.room_cleared.connect(coin.go_to_player)
+		room.cleared.connect(coin.go_to_player)
 		coin.position = global_position
 		get_tree().current_scene.add_child(coin)
 

@@ -5,6 +5,12 @@ const SAW_SCENE: PackedScene = preload("res://Weapons/Saw.tscn")
 @onready var timer: Timer = get_node("Timer")
 
 
+func _ready() -> void:
+	var room: DungeonRoom = owner
+	room.closed.connect(func(): timer.start())
+	room.cleared.connect(func(): timer.stop())
+
+
 func _on_timer_timeout() -> void:
 	var saw: Saw = SAW_SCENE.instantiate()
 	#saw.position = position
