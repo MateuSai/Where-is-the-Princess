@@ -1,0 +1,143 @@
+[gd_scene load_steps=21 format=3 uid="uid://cwb0heh4qdkh8"]
+
+[ext_resource type="Script" path="res://Rooms/Chest.gd" id="1_7hiks"]
+[ext_resource type="Shader" path="res://Shaders/Outline.gdshader" id="1_wkqy5"]
+[ext_resource type="Texture2D" uid="uid://d12c48adyyo6i" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/chest_closed_anim_f0.png" id="2_qmjgh"]
+[ext_resource type="Texture2D" uid="uid://60nxx4fjigi2" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/chest_closed_anim_f1.png" id="3_5b1t1"]
+[ext_resource type="Texture2D" uid="uid://u8osgjt213qv" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/chest_closed_anim_f2.png" id="4_108i8"]
+[ext_resource type="Texture2D" uid="uid://bv1uj267afye3" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/chest_closed_anim_f3.png" id="5_emcl6"]
+[ext_resource type="Texture2D" uid="uid://b0xwiq5cg6y6y" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/chest_closed_anim_f4.png" id="6_0dq6j"]
+[ext_resource type="Texture2D" uid="uid://1fa7h3xgq6lh" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/chest_closed_anim_f5.png" id="7_7tgjd"]
+[ext_resource type="Texture2D" uid="uid://cjdjskaeaox64" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/chest_closed_anim_f6.png" id="8_noxsy"]
+[ext_resource type="Texture2D" uid="uid://g0f5eg46p0eg" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/chest_closed_anim_f7.png" id="9_n37h4"]
+[ext_resource type="Texture2D" uid="uid://lqnxtcgavclb" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/chest_open.png" id="10_5dvtw"]
+[ext_resource type="Script" path="res://InteractArea.gd" id="12_gnivr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_utqfl"]
+shader = ExtResource("1_wkqy5")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_teoxo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_qmjgh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5b1t1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_108i8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_emcl6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_0dq6j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_7tgjd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_noxsy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_n37h4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_5dvtw")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yrks0"]
+size = Vector2(16, 9)
+
+[sub_resource type="Animation" id="Animation_5oejn"]
+resource_name = "closed_animation"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5, 1.6, 1.7, 1.8, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_ra10b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_2qjsl"]
+resource_name = "open"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_74sc2"]
+_data = {
+"RESET": SubResource("Animation_ra10b"),
+"closed_animation": SubResource("Animation_5oejn"),
+"open": SubResource("Animation_2qjsl")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_moqwn"]
+radius = 15.0
+
+[node name="Chest" type="StaticBody2D"]
+script = ExtResource("1_7hiks")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_utqfl")
+sprite_frames = SubResource("SpriteFrames_teoxo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_yrks0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "closed_animation"
+libraries = {
+"": SubResource("AnimationLibrary_74sc2")
+}
+
+[node name="InteractArea" type="Area2D" parent="."]
+script = ExtResource("12_gnivr")
+path_to_sprite = NodePath("../Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+shape = SubResource("CircleShape2D_moqwn")

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwbyvwhi2vuv1"]
+[gd_scene load_steps=7 format=3 uid="uid://bwbyvwhi2vuv1"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_5rduf"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_yxmqw"]
 [ext_resource type="PackedScene" uid="uid://byvx738gj6tok" path="res://Items/ItemOnFloor.tscn" id="4_kq78f"]
 [ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="5_2a82i"]
+[ext_resource type="PackedScene" uid="uid://cwb0heh4qdkh8" path="res://Rooms/Chest.tscn" id="6_jogd0"]
 
 [node name="Room0" instance=ExtResource("1")]
 
@@ -36,3 +37,6 @@ position = Vector2(151, 89)
 
 [node name="Torch" parent="." index="7" instance=ExtResource("5_2a82i")]
 position = Vector2(20, 49)
+
+[node name="Chest" parent="." index="8" instance=ExtResource("6_jogd0")]
+position = Vector2(184, 43)

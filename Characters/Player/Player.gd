@@ -34,7 +34,7 @@ func _ready() -> void:
 
 	_restore_previous_state()
 
-	# set_armor(KnightArmor.new())
+	set_armor(KnightArmor.new())
 
 #	var state_machine: StateMachine = StateMachine.new()
 #	state_machine.add_state(State.new("idle", func() -> String:
