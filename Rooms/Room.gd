@@ -207,7 +207,7 @@ func get_random_circle_spawn_point(circle_radius: float) -> Vector2:
 		for dir in directions_with_entry:
 			entries_dir += [Vector2.LEFT, Vector2.UP, Vector2.RIGHT, Vector2.DOWN][dir]
 		entries_dir *= -1
-		print(name + " " + str(entries_dir) + " " + str(directions_with_entry))
+		#print(name + " " + str(entries_dir) + " " + str(directions_with_entry))
 		return Vector2.RIGHT.rotated(randf_range(entries_dir.angle() - PI/8, entries_dir.angle() + PI/8)) * circle_radius
 
 #	var t: float = 2 * PI * randf()
