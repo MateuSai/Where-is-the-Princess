@@ -9,7 +9,17 @@ var projectile_speed: int = 200
 
 var distance_to_player: float
 
+@onready var eye_grow_sprite: Sprite2D = get_node("EyeGrowSprite")
+@onready var swap_cooldown_timer: Timer = $SwapCooldownTimer
 @onready var aim_raycast: RayCast2D = get_node("AimRayCast")
+
+
+func _ready() -> void:
+	eye_grow_sprite.hide()
+	swap_cooldown_timer.start()
+	swap_cooldown_timer.timeout.connect(func():
+		eye_grow_sprite.show()
+	)
 
 
 func _on_PathTimer_timeout() -> void:
@@ -35,6 +45,7 @@ func _throw_knife(angle_offset: float = 0) -> void:
 
 
 func swap_and_throw_knives() -> void:
+	eye_grow_sprite.hide()
 	_swap()
 	_throw_knife()
 	_throw_knife(PI/6)
@@ -48,3 +59,8 @@ func _swap() -> void:
 	global_position = player_pos
 	await get_tree().process_frame
 	collision_shape.disabled = false
+
+
+func _on_change_dir() -> void:
+	super()
+	eye_grow_sprite.flip_h = !eye_grow_sprite.flip_h

@@ -27,9 +27,13 @@ func chase() -> void:
 		mov_direction = vector_to_next_point
 
 		if vector_to_next_point.x > 0 and sprite.flip_h:
-			sprite.flip_h = false
+			_on_change_dir()
 		elif vector_to_next_point.x < 0 and not sprite.flip_h:
-			sprite.flip_h = true
+			_on_change_dir()
+
+
+func _on_change_dir() -> void:
+	sprite.flip_h = !sprite.flip_h
 
 
 func _on_PathTimer_timeout() -> void:
