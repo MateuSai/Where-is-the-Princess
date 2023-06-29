@@ -1,0 +1,98 @@
+[gd_scene load_steps=11 format=3 uid="uid://bf6eca3ug0flr"]
+
+[ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_l8tqo"]
+[ext_resource type="Texture2D" uid="uid://brv2xi48834fs" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/goblin/goblin_full_spritesheet.png" id="2_miide"]
+[ext_resource type="Script" path="res://Characters/Enemies/DarkGoblin/DarkGoblin.gd" id="2_mphcs"]
+[ext_resource type="Script" path="res://Characters/Enemies/DarkGoblin/DarkGoblinFSM.gd" id="3_wfqar"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q8klo"]
+radius = 3.0
+
+[sub_resource type="Animation" id="Animation_8c62w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_d6ucp"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_ss50i"]
+resource_name = "move"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_p7dpc"]
+resource_name = "hurt"
+length = 0.2
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_de16t"]
+_data = {
+"RESET": SubResource("Animation_8c62w"),
+"hurt": SubResource("Animation_p7dpc"),
+"idle": SubResource("Animation_d6ucp"),
+"move": SubResource("Animation_ss50i")
+}
+
+[node name="DarkGoblin" instance=ExtResource("1_l8tqo")]
+script = ExtResource("2_mphcs")
+
+[node name="FiniteStateMachine" parent="." index="0"]
+script = ExtResource("3_wfqar")
+
+[node name="Sprite2D" parent="." index="1"]
+modulate = Color(0.360784, 0.360784, 0.360784, 1)
+position = Vector2(0, -4)
+texture = ExtResource("2_miide")
+hframes = 6
+vframes = 2
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_q8klo")
+
+[node name="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_de16t")
+}
+
+[node name="SwapCooldownTimer" type="Timer" parent="." index="6"]
+wait_time = 1.5
+one_shot = true
+
+[node name="AimRayCast" type="RayCast2D" parent="." index="7"]

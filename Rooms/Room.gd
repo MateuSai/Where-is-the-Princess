@@ -6,7 +6,9 @@ const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/Spa
 
 const ENEMY_SCENES: Dictionary = {
 	"FLYING_CREATURE": preload("res://Characters/Enemies/Flying Creature/FlyingCreature.tscn"),
-	"GOBLIN": preload("res://Characters/Enemies/Goblin/Goblin.tscn"), "SLIME_BOSS": preload("res://Characters/Enemies/Bosses/SlimeBoss.tscn")
+	"GOBLIN": preload("res://Characters/Enemies/Goblin/Goblin.tscn"),
+	"DARK_GOBLIN": preload("res://Characters/Enemies/DarkGoblin/DarkGoblin.tscn"),
+	"SLIME_BOSS": preload("res://Characters/Enemies/Bosses/SlimeBoss.tscn")
 }
 
 const HORIZONTAL_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/HorizontalDoor.tscn")
@@ -170,10 +172,11 @@ func _spawn_enemies() -> void:
 			enemy = ENEMY_SCENES.SLIME_BOSS.instantiate()
 			num_enemies = 15
 		else:
-			if randi() % 2 == 0:
-				enemy = ENEMY_SCENES.FLYING_CREATURE.instantiate()
-			else:
-				enemy = ENEMY_SCENES.GOBLIN.instantiate()
+			enemy = ENEMY_SCENES.DARK_GOBLIN.instantiate()
+#			if randi() % 2 == 0:
+#				enemy = ENEMY_SCENES.FLYING_CREATURE.instantiate()
+#			else:
+#				enemy = ENEMY_SCENES.GOBLIN.instantiate()
 		enemy.position = enemy_position.position
 		call_deferred("add_child", enemy)
 
@@ -219,3 +222,7 @@ func get_random_circle_spawn_point(circle_radius: float) -> Vector2:
 #		r = u
 #
 #	return Vector2(radius * r * cos(t), radius * r * sin(t))
+
+
+func get_rect() -> Rect2:
+	return Rect2(Vector2i(position) + (tilemap.get_used_rect().position * 16), (tilemap.get_used_rect().size * 16))

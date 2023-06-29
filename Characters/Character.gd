@@ -18,8 +18,8 @@ signal hp_changed(new_hp)
 @export var flying: bool = false
 
 @onready var state_machine: Node = get_node("FiniteStateMachine")
-@onready var animated_sprite: AnimatedSprite2D = get_node("AnimatedSprite2D")
 @onready var sprite: Sprite2D = get_node("Sprite2D")
+@onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
 
 var mov_direction: Vector2 = Vector2.ZERO
 

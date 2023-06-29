@@ -26,10 +26,10 @@ func chase() -> void:
 		var vector_to_next_point: Vector2 = navigation_agent.get_next_path_position() - global_position
 		mov_direction = vector_to_next_point
 
-		if vector_to_next_point.x > 0 and animated_sprite.flip_h:
-			animated_sprite.flip_h = false
-		elif vector_to_next_point.x < 0 and not animated_sprite.flip_h:
-			animated_sprite.flip_h = true
+		if vector_to_next_point.x > 0 and sprite.flip_h:
+			sprite.flip_h = false
+		elif vector_to_next_point.x < 0 and not sprite.flip_h:
+			sprite.flip_h = true
 
 
 func _on_PathTimer_timeout() -> void:

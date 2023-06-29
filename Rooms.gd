@@ -269,8 +269,6 @@ func _add_floor_tiles() -> void:
 				print("Connecting " + str(id) + " with " + str(connection_with) + "...")
 				print("\tdif is " + str(dif) + " pixels")
 			if abs(dif.x) < TILE_SIZE * 8:
-				if debug:
-					print("\tCreating vertical corridor...")
 				if rooms[id if dif.y > 0 else connection_with].has_entry(DungeonRoom.EntryDirection.DOWN) and rooms[connection_with if dif.y > 0 else id].has_entry(DungeonRoom.EntryDirection.UP):
 					var above: Node = rooms[id if dif.y > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.DOWN)
 					var below: Node = rooms[connection_with if dif.y > 0 else id].get_random_entry(DungeonRoom.EntryDirection.UP)
@@ -278,8 +276,6 @@ func _add_floor_tiles() -> void:
 				else:
 					printerr("\tImplement something here")
 			elif abs(dif.y) < TILE_SIZE * 8:
-				if debug:
-					print("\tCreating horizontal corridor...")
 				if rooms[id if dif.x > 0 else connection_with].has_entry(DungeonRoom.EntryDirection.RIGHT) and rooms[connection_with if dif.x > 0 else id].has_entry(DungeonRoom.EntryDirection.LEFT):
 					var left: Node = rooms[id if dif.x > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.RIGHT)
 					var right: Node = rooms[connection_with if dif.x > 0 else id].get_random_entry(DungeonRoom.EntryDirection.LEFT)
@@ -287,8 +283,6 @@ func _add_floor_tiles() -> void:
 				else:
 					printerr("\tImplement something here")
 			else:
-				if debug:
-					print("\tCreating l corridor...")
 				if dif.x > 0 and dif.y > 0:
 					var directions: Array[Array] = [[DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.UP], [DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.LEFT]]
 					await _analyze_and_create_l_corridor(id, connection_with, directions)
@@ -318,8 +312,12 @@ func _analyze_and_create_l_corridor(id: int, connection_with: int, directions: A
 				await _create_vertical_corridor(rooms[id].get_random_entry(DungeonRoom.EntryDirection.DOWN), rooms[connection_with].get_random_entry(DungeonRoom.EntryDirection.UP))
 			elif rooms[id].has_entry(DungeonRoom.EntryDirection.UP) and rooms[connection_with].has_entry(DungeonRoom.EntryDirection.DOWN) and  await _check_entry_positions_vertical_corridor(id, connection_with, DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.DOWN):
 				await _create_vertical_corridor(rooms[connection_with].get_random_entry(DungeonRoom.EntryDirection.DOWN), rooms[id].get_random_entry(DungeonRoom.EntryDirection.UP))
+			elif rooms[id].has_entry(DungeonRoom.EntryDirection.RIGHT) and rooms[connection_with].has_entry(DungeonRoom.EntryDirection.LEFT) and  await _check_entry_positions_horizontal_corridor(id, connection_with, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.LEFT):
+				await _create_horizontal_corridor(rooms[id].get_random_entry(DungeonRoom.EntryDirection.RIGHT), rooms[connection_with].get_random_entry(DungeonRoom.EntryDirection.LEFT))
+			elif rooms[id].has_entry(DungeonRoom.EntryDirection.LEFT) and rooms[connection_with].has_entry(DungeonRoom.EntryDirection.RIGHT) and  await _check_entry_positions_horizontal_corridor(id, connection_with, DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.RIGHT):
+				await _create_horizontal_corridor(rooms[connection_with].get_random_entry(DungeonRoom.EntryDirection.RIGHT), rooms[id].get_random_entry(DungeonRoom.EntryDirection.LEFT))
 			else:
-				printerr("\tI tried both possible directions, but it's impossible to create l corridor")
+				printerr("\tI have not been able to create a path between " + str(id) + " and " + str(connection_with))
 
 
 func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_dir: DungeonRoom.EntryDirection, connection_with_dir: DungeonRoom.EntryDirection) -> bool:
@@ -342,13 +340,44 @@ func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_
 		if room == rooms[id] or room == rooms[connection_with]:
 			continue # Para que no detecta las habitaciones que se conectan, solo las otras
 
-		room_rect = Rect2(Vector2i(room.position) + (room.tilemap.get_used_rect().position * 16), (room.tilemap.get_used_rect().size * 16))
+		room_rect = room.get_rect()
 		# print("Room " + str(rooms.find(room)) + "  " + str(room_rect))
 
 		if debug_check_entry_positions:
 			queue_redraw()
 			await get_tree().create_timer(0.6).timeout
 		if room_rect.intersects(vertical_corridor_1_rect.abs()) or room_rect.intersects(vertical_corridor_2_rect.abs()) or room_rect.intersects(horizontal_corridor_rect.abs()):
+			return false
+
+	return true
+
+
+func _check_entry_positions_horizontal_corridor(id: int, connection_with: int, id_dir: DungeonRoom.EntryDirection, connection_with_dir: DungeonRoom.EntryDirection) -> bool:
+	var id_entry_position: Vector2 = rooms[id].get_entry_position(id_dir)
+	var connection_with_entry_position: Vector2 = rooms[connection_with].get_entry_position(connection_with_dir)
+
+	const MIN_TILES_TO_MAKE_DESVIATION: int = 2
+	var dis: float = id_entry_position.x - connection_with_entry_position.x
+	var center: int = floor((dis) / 2.0)
+
+	if abs(dis) < TILE_SIZE * 4 or (id_dir == DungeonRoom.EntryDirection.LEFT and id_entry_position.x < connection_with_entry_position.x) or (id_dir == DungeonRoom.EntryDirection.RIGHT and id_entry_position.x > connection_with_entry_position.x):
+		return false
+
+	var horizontal_corridor_1_rect: Rect2 = Rect2(connection_with_entry_position, Vector2(center, TILE_SIZE * 4))
+	var horizontal_corridor_2_rect: Rect2 = Rect2(id_entry_position, Vector2(dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1, TILE_SIZE * 4))
+	vertical_corridor_rect = Rect2(connection_with_entry_position + Vector2.LEFT * center, Vector2(TILE_SIZE * 4, id_entry_position.y - connection_with_entry_position.y))
+
+	for room in rooms:
+		if room == rooms[id] or room == rooms[connection_with]:
+			continue # Para que no detecta las habitaciones que se conectan, solo las otras
+
+		room_rect = room.get_rect()
+		# print("Room " + str(rooms.find(room)) + "  " + str(room_rect))
+
+		if debug_check_entry_positions:
+			queue_redraw()
+			await get_tree().create_timer(0.6).timeout
+		if room_rect.intersects(horizontal_corridor_1_rect.abs()) or room_rect.intersects(horizontal_corridor_2_rect.abs()) or room_rect.intersects(vertical_corridor_rect.abs()):
 			return false
 
 	return true
@@ -371,7 +400,7 @@ func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: Du
 		if room == rooms[id] or room == rooms[connection_with]:
 			continue # Para que no detecta las habitaciones que se conectan, solo las otras
 
-		room_rect = Rect2(Vector2i(room.position) + (room.tilemap.get_used_rect().position * 16), (room.tilemap.get_used_rect().size * 16))
+		room_rect = room.get_rect()
 		# print("Room " + str(rooms.find(room)) + "  " + str(room_rect))
 
 		if debug_check_entry_positions:
@@ -381,16 +410,16 @@ func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: Du
 			return false
 
 	if id_dir == DungeonRoom.EntryDirection.RIGHT or connection_with_dir == DungeonRoom.EntryDirection.LEFT:
-		if not id_entry_position.x < (connection_with_entry_position.x - TILE_SIZE * 2):
+		if not id_entry_position.x < (connection_with_entry_position.x - TILE_SIZE):
 			return false
 	else:
-		if not connection_with_entry_position.x < (id_entry_position.x - TILE_SIZE * 2):
+		if not connection_with_entry_position.x < (id_entry_position.x - TILE_SIZE):
 			return false
 	if id_dir == DungeonRoom.EntryDirection.DOWN or connection_with_dir == DungeonRoom.EntryDirection.UP:
-		if not id_entry_position.y < (connection_with_entry_position.y - TILE_SIZE * 2):
+		if not id_entry_position.y < (connection_with_entry_position.y - TILE_SIZE):
 			return false
 	else:
-		if not connection_with_entry_position.y < (id_entry_position.y - TILE_SIZE * 2):
+		if not connection_with_entry_position.y < (id_entry_position.y - TILE_SIZE):
 			return false
 
 	return true
@@ -399,6 +428,9 @@ func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: Du
 # above and below are entries, with 2 children
 func _create_vertical_corridor(above: Node, below: Node) -> void:
 	assert(above.get_child_count() == 2 and below.get_child_count() == 2)
+
+	if debug:
+		print("\tCreating vertical corridor...")
 
 	const MIN_TILES_TO_MAKE_DESVIATION: int = 2
 
@@ -448,6 +480,9 @@ func _create_vertical_corridor(above: Node, below: Node) -> void:
 func _create_horizontal_corridor(left: Node, right: Node) -> void:
 	assert(left.get_child_count() == 2 and right.get_child_count() == 2)
 
+	if debug:
+		print("\tCreating horizontal corridor...")
+
 	const MIN_TILES_TO_MAKE_DESVIATION: int = 2
 
 	var left_tiles: Array[Vector2i] = [corridor_tile_map.local_to_map(left.get_child(0).global_position), corridor_tile_map.local_to_map(left.get_child(1).global_position)]
@@ -491,6 +526,9 @@ func _create_horizontal_corridor(left: Node, right: Node) -> void:
 
 func _create_l_corridor(from: Node, to: Node, from_dir: DungeonRoom.EntryDirection, to_dir: DungeonRoom.EntryDirection) -> void:
 	assert(from.get_child_count() == 2 and to.get_child_count() == 2)
+
+	if debug:
+		print("\tCreating l corridor...")
 
 	var vertical_entry: Node
 	var horizontal_entry: Node
