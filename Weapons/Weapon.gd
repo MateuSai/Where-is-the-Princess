@@ -3,9 +3,6 @@ class_name Weapon extends Node2D
 
 @export var on_floor: bool = false
 
-@export var ranged_weapon: bool = false
-@export var rotation_offset: int = 0
-
 @export var condition_degrade_by_attack: float = 50
 
 var can_active_ability: bool = true
@@ -54,16 +51,13 @@ func get_input() -> void:
 
 
 func move(mouse_direction: Vector2) -> void:
-	if ranged_weapon:
-		rotation_degrees = rad_to_deg(mouse_direction.angle()) + rotation_offset
-	else:
-		if not animation_player.is_playing() or animation_player.current_animation == "charge":
-			rotation = mouse_direction.angle()
-			hitbox.knockback_direction = mouse_direction
-			if scale.y == 1 and mouse_direction.x < 0:
-				scale.y = -1
-			elif scale.y == -1 and mouse_direction.x > 0:
-				scale.y = 1
+	if not animation_player.is_playing() or animation_player.current_animation == "charge":
+		rotation = mouse_direction.angle()
+		hitbox.knockback_direction = mouse_direction
+		if scale.y == 1 and mouse_direction.x < 0:
+			scale.y = -1
+		elif scale.y == -1 and mouse_direction.x > 0:
+			scale.y = 1
 
 
 func attack() -> void:
@@ -85,7 +79,7 @@ func _on_PlayerDetector_body_entered(body: Node2D) -> void:
 	if body is Player:
 		player_detector.set_collision_mask_value(1, false)
 		player_detector.set_collision_mask_value(2, false)
-		body.pick_up_weapon(self)
+		body.weapons.pick_up_weapon(self)
 		position = Vector2.ZERO
 	else:
 		if tween:

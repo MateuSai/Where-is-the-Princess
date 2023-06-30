@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://bf6eca3ug0flr"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_l8tqo"]
-[ext_resource type="Script" path="res://Characters/Enemies/DarkGoblin/DarkGoblin.gd" id="2_mphcs"]
+[ext_resource type="Script" path="res://Characters/Enemies/DarkGoblin/DarkGoblin.gd" id="2_ims00"]
 [ext_resource type="Script" path="res://Characters/Enemies/DarkGoblin/DarkGoblinFSM.gd" id="3_wfqar"]
 [ext_resource type="Texture2D" uid="uid://pkfij4c7x55n" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/goblin/goblin02_full_spritesheet.png" id="4_ahdp5"]
 [ext_resource type="Texture2D" uid="uid://fqeoudxqnnss" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/goblin/goblin02_eyes_full_spritesheet.png" id="5_pf1b0"]
@@ -35,6 +35,10 @@ tracks/1/keys = {
 "update": 1,
 "values": [0]
 }
+
+[sub_resource type="Animation" id="Animation_p7dpc"]
+resource_name = "hurt"
+length = 0.2
 
 [sub_resource type="Animation" id="Animation_d6ucp"]
 resource_name = "idle"
@@ -94,10 +98,6 @@ tracks/1/keys = {
 "values": [6, 7, 8, 9, 10, 11]
 }
 
-[sub_resource type="Animation" id="Animation_p7dpc"]
-resource_name = "hurt"
-length = 0.2
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_de16t"]
 _data = {
 "RESET": SubResource("Animation_8c62w"),
@@ -107,7 +107,7 @@ _data = {
 }
 
 [node name="DarkGoblin" instance=ExtResource("1_l8tqo")]
-script = ExtResource("2_mphcs")
+script = ExtResource("2_ims00")
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("3_wfqar")
@@ -137,4 +137,7 @@ libraries = {
 wait_time = 1.5
 one_shot = true
 
-[node name="AimRayCast" type="RayCast2D" parent="." index="8"]
+[node name="AttackTimer" type="Timer" parent="." index="8"]
+one_shot = true
+
+[node name="AimRayCast" type="RayCast2D" parent="." index="9"]

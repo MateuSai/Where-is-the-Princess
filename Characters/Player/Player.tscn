@@ -1,17 +1,18 @@
-[gd_scene load_steps=34 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=35 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
 [ext_resource type="Texture2D" uid="uid://br7c70c5injos" path="res://Art/player/no_armor.png" id="4_kfgmg"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerFSM.gd" id="5"]
 [ext_resource type="PackedScene" uid="uid://bw0adahejc8e2" path="res://Weapons/Dagger.tscn" id="5_nk70o"]
+[ext_resource type="Script" path="res://Characters/Player/Weapons.gd" id="5_uyohi"]
 [ext_resource type="Script" path="res://UI.gd" id="6_0nng8"]
 [ext_resource type="Texture2D" uid="uid://df3cenyvvexih" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/ui (new)/health_ui.png" id="7_mynin"]
 [ext_resource type="Script" path="res://Characters/Player/PassiveItemsContainer.gd" id="8_aavgb"]
 [ext_resource type="Texture2D" uid="uid://c535uh5i7hsc8" path="res://Art/progress bar.png" id="8_mgo6t"]
 
 [sub_resource type="CircleShape2D" id="18"]
-radius = 4.0
+radius = 3.0
 
 [sub_resource type="Animation" id="Animation_tr03h"]
 resource_name = "RESET"
@@ -370,7 +371,6 @@ vframes = 4
 frame = 6
 
 [node name="CollisionShape2D" parent="." index="2"]
-position = Vector2(0, -3)
 shape = SubResource("18")
 
 [node name="AnimationPlayer" parent="." index="3"]
@@ -379,6 +379,7 @@ libraries = {
 }
 
 [node name="Weapons" type="Node2D" parent="." index="4"]
+script = ExtResource("5_uyohi")
 
 [node name="Dagger" parent="Weapons" index="0" instance=ExtResource("5_nk70o")]
 position = Vector2(0, -3)

@@ -410,16 +410,16 @@ func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: Du
 			return false
 
 	if id_dir == DungeonRoom.EntryDirection.RIGHT or connection_with_dir == DungeonRoom.EntryDirection.LEFT:
-		if not id_entry_position.x < (connection_with_entry_position.x - TILE_SIZE):
+		if not id_entry_position.x < (connection_with_entry_position.x - TILE_SIZE * 2):
 			return false
 	else:
-		if not connection_with_entry_position.x < (id_entry_position.x - TILE_SIZE):
+		if not connection_with_entry_position.x < (id_entry_position.x - TILE_SIZE * 2):
 			return false
 	if id_dir == DungeonRoom.EntryDirection.DOWN or connection_with_dir == DungeonRoom.EntryDirection.UP:
-		if not id_entry_position.y < (connection_with_entry_position.y - TILE_SIZE):
+		if not id_entry_position.y < (connection_with_entry_position.y - TILE_SIZE * 2):
 			return false
 	else:
-		if not connection_with_entry_position.y < (id_entry_position.y - TILE_SIZE):
+		if not connection_with_entry_position.y < (id_entry_position.y - TILE_SIZE * 2):
 			return false
 
 	return true

@@ -16,7 +16,6 @@ var distance_to_player: float
 
 func _ready() -> void:
 	eye_grow_sprite.hide()
-	swap_cooldown_timer.start()
 	swap_cooldown_timer.timeout.connect(func():
 		eye_grow_sprite.show()
 	)
@@ -36,6 +35,12 @@ func _on_PathTimer_timeout() -> void:
 func _get_path_to_move_away_from_player() -> void:
 	var dir: Vector2 = (global_position - player.position).normalized()
 	navigation_agent.target_position = global_position + dir * 100
+
+
+func normal_attack() -> void:
+	_throw_knife(randf_range(-0.1, 0.1))
+	await get_tree().create_timer(randf_range(0.08, 0.15)).timeout
+	_throw_knife(randf_range(-0.1, 0.1))
 
 
 func _throw_knife(angle_offset: float = 0) -> void:

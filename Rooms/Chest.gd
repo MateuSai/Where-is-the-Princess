@@ -16,7 +16,7 @@ func _on_opened() -> void:
 
 	var item_on_floor: ItemOnFloor = load("res://Items/ItemOnFloor.tscn").instantiate()
 	item_on_floor.position = position
-	item_on_floor.initialize(EnhancedBoots.new())
+	item_on_floor.initialize(MagicShield.new())
 	get_parent().add_child(item_on_floor)
 	await create_tween().tween_property(item_on_floor, "position:y", position.y + 16, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT).finished
 	item_on_floor.enable_pick_up()
