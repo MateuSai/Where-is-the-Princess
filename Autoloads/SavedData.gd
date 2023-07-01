@@ -11,6 +11,10 @@ var weapon_stats: Array[WeaponStats] = []
 var equipped_weapon_index: int = 0
 var coins: int = 0
 
+var mods: Dictionary = {
+	rooms = [],
+}
+
 var custom_rooms: Array[PackedScene] = []
 
 
@@ -24,16 +28,23 @@ func _ready() -> void:
 		print("Can't find the armors directory, creating it...")
 		user_dir.make_dir(ARMORS_FOLDER_NAME)
 
+	for room_path in _get_mod_room_paths():
+		mods.rooms.push_back(Mod.new(room_path))
 
-func get_user_rooms() -> void:
+
+func _get_mod_room_paths() -> Array:
+	var room_paths: Array = []
 	var rooms_folder: DirAccess = DirAccess.open(USER_FOLDER + ROOMS_FOLDER_NAME)
 	if not rooms_folder:
 		printerr("Error opening rooms folder!!")
 	else:
 		for file_name in rooms_folder.get_files():
-			print(file_name)
-			var room: PackedScene = load(USER_FOLDER + ROOMS_FOLDER_NAME + file_name)
-			custom_rooms.push_back(room)
+			#print(file_name)
+			#var room: PackedScene = load(USER_FOLDER + ROOMS_FOLDER_NAME + file_name)
+			#custom_rooms.push_back(room)
+			room_paths.push_back(USER_FOLDER + ROOMS_FOLDER_NAME + file_name)
+
+	return room_paths
 
 
 func reset_data() -> void:
@@ -43,3 +54,12 @@ func reset_data() -> void:
 	weapon_stats = []
 	equipped_weapon_index = 0
 	coins = 0
+
+
+class Mod:
+	var resource_path: String
+	var enabled: bool = true
+
+	@warning_ignore("shadowed_variable")
+	func _init(resource_path: String) -> void:
+		self.resource_path = resource_path
