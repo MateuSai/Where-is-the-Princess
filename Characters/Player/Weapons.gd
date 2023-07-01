@@ -6,7 +6,7 @@ signal weapon_picked_up(weapon: Weapon)
 signal weapon_droped(index: int)
 signal weapon_condition_changed(weapon: Weapon, new_value: float)
 
-var current_weapon: Node2D
+var current_weapon: Weapon
 
 enum {UP, DOWN}
 
@@ -43,7 +43,14 @@ func get_input() -> void:
 
 
 func move(mouse_direction: Vector2) -> void:
+	var prev_current_weap_rot: float = current_weapon.rotation
 	current_weapon.move(mouse_direction)
+	#if (prev_current_weap_rot > 0 and current_weapon.rotation < 0) or (prev_current_weap_rot < 0 and current_weapon.rotation > 0):
+	if prev_current_weap_rot < 0 and current_weapon.rotation > 0:
+		get_parent().move_child(self, -1)
+	elif prev_current_weap_rot > 0 and current_weapon.rotation < 0:
+		get_parent().move_child(self, 0)
+	# print(current_weapon.rotation)
 
 
 func _switch_weapon(direction: int) -> void:
@@ -87,6 +94,7 @@ func pick_up_weapon(weapon: Weapon) -> void:
 func _drop_weapon() -> void:
 	SavedData.weapon_stats.remove_at(current_weapon.get_index() - 1)
 	var weapon_to_drop: Node2D = current_weapon
+	weapon_to_drop.condition_changed.disconnect(_on_weapon_condition_changed)
 	_switch_weapon(UP)
 
 	emit_signal("weapon_droped", weapon_to_drop.get_index())
@@ -106,6 +114,7 @@ func throw_weapon() -> void:
 
 	SavedData.weapon_stats.remove_at(current_weapon.get_index() - 1)
 	var weapon_to_drop: Node2D = current_weapon
+	weapon_to_drop.condition_changed.disconnect(_on_weapon_condition_changed)
 	_switch_weapon(UP)
 
 	emit_signal("weapon_droped", weapon_to_drop.get_index())

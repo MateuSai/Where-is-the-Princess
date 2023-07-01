@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bw066vms5rf1j"]
+[gd_scene load_steps=11 format=3 uid="uid://bw066vms5rf1j"]
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1"]
 [ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="3"]
@@ -10,10 +10,6 @@ shader = ExtResource("3")
 shader_parameter/active = false
 
 [sub_resource type="CapsuleShape2D" id="1"]
-radius = 4.0
-height = 8.0
-
-[sub_resource type="CapsuleShape2D" id="2"]
 radius = 4.0
 height = 8.0
 
@@ -267,12 +263,7 @@ shape = SubResource("1")
 [node name="ChargeParticles" parent="Node2D/Sprite2D" index="1"]
 position = Vector2(8, -7)
 
-[node name="CollisionShape2D" parent="PlayerDetector" index="0"]
-position = Vector2(-5, -8)
-rotation = 1.5708
-shape = SubResource("2")
-
-[node name="AnimationPlayer" parent="." index="2"]
+[node name="AnimationPlayer" parent="." index="1"]
 libraries = {
 "": SubResource("AnimationLibrary_k46tl")
 }

@@ -480,10 +480,6 @@ _data = {
 }
 
 [node name="Dagger" instance=ExtResource("1_bl8c5")]
-on_floor = false
-ranged_weapon = false
-rotation_offset = 0
-condition_degrade_by_attack = 50.0
 
 [node name="Sprite2D" parent="Node2D" index="0"]
 material = SubResource("6")
@@ -509,7 +505,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("4_enpbj")
 hframes = 3
 
-[node name="AnimationPlayer" parent="." index="3"]
+[node name="AnimationPlayer" parent="." index="2"]
 libraries = {
 "": SubResource("AnimationLibrary_ypj85")
 }

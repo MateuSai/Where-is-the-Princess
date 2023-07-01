@@ -13,9 +13,10 @@ signal condition_changed(weapon: Weapon, new_condition: float)
 
 var tween: Tween = null
 @onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
-@onready var hitbox: Area2D = get_node("Node2D/Sprite2D/Hitbox")
+@onready var hitbox: Hitbox = get_node("Node2D/Sprite2D/Hitbox")
 @onready var charge_particles: GPUParticles2D = get_node("Node2D/Sprite2D/ChargeParticles")
-@onready var player_detector: Area2D = get_node("PlayerDetector")
+@onready var weapon_sprite: Sprite2D = get_node("Node2D/Sprite2D")
+@onready var player_detector: Area2D = weapon_sprite.get_node("PlayerDetector")
 @onready var cool_down_timer: Timer = get_node("CoolDownTimer")
 @onready var ui: CanvasLayer = get_node("UI")
 @onready var ability_icon: TextureProgressBar = ui.get_node("AbilityIcon")
@@ -51,13 +52,13 @@ func get_input() -> void:
 
 
 func move(mouse_direction: Vector2) -> void:
-	if not animation_player.is_playing() or animation_player.current_animation == "charge":
-		rotation = mouse_direction.angle()
-		hitbox.knockback_direction = mouse_direction
-		if scale.y == 1 and mouse_direction.x < 0:
-			scale.y = -1
-		elif scale.y == -1 and mouse_direction.x > 0:
-			scale.y = 1
+	#if not animation_player.is_playing() or animation_player.current_animation == "charge":
+	rotation = mouse_direction.angle()
+	hitbox.knockback_direction = mouse_direction
+	if scale.y == 1 and mouse_direction.x < 0:
+		scale.y = -1
+	elif scale.y == -1 and mouse_direction.x > 0:
+		scale.y = 1
 
 
 func attack() -> void:
@@ -70,9 +71,7 @@ func cancel_attack() -> void:
 
 
 func is_busy() -> bool:
-	if animation_player.is_playing() or charge_particles.emitting:
-		return true
-	return false
+	return animation_player.is_playing() or charge_particles.emitting
 
 
 func _on_PlayerDetector_body_entered(body: Node2D) -> void:
@@ -80,6 +79,7 @@ func _on_PlayerDetector_body_entered(body: Node2D) -> void:
 		player_detector.set_collision_mask_value(1, false)
 		player_detector.set_collision_mask_value(2, false)
 		body.weapons.pick_up_weapon(self)
+		animation_player.play("RESET")
 		position = Vector2.ZERO
 	else:
 		if tween:
