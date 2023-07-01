@@ -13,7 +13,7 @@ signal condition_changed(weapon: Weapon, new_condition: float)
 
 var tween: Tween = null
 @onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
-@onready var hitbox: Hitbox = get_node("Node2D/Sprite2D/Hitbox")
+@onready var hitbox: WeaponHitbox = get_node("Node2D/Sprite2D/Hitbox")
 @onready var charge_particles: GPUParticles2D = get_node("Node2D/Sprite2D/ChargeParticles")
 @onready var weapon_sprite: Sprite2D = get_node("Node2D/Sprite2D")
 @onready var player_detector: Area2D = weapon_sprite.get_node("PlayerDetector")
@@ -63,7 +63,6 @@ func move(mouse_direction: Vector2) -> void:
 
 func attack() -> void:
 	animation_player.play("attack")
-	stats.set_condition(stats.condition - condition_degrade_by_attack)
 
 
 func cancel_attack() -> void:

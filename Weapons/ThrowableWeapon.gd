@@ -1,5 +1,5 @@
 @icon("res://Art/weapons/spear.png")
-class_name ThrowableWeapon extends Weapon
+class_name ThrowableWeapon extends MeleeWeapon
 
 var throw_dir: Vector2
 
@@ -26,6 +26,8 @@ func throw() -> void:
 func throw_body_entered_hitbox(body: Node2D) -> void:
 		if body is Enemy:
 			hitbox._on_body_entered(body)
+		else:
+			_on_collided_with_something()
 		_on_Tween_tween_completed()
 		# Back to previous state
 		hitbox.get_node("CollisionShape2D").set_deferred("disabled", true)
