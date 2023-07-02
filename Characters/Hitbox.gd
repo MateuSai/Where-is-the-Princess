@@ -9,6 +9,11 @@ var body_inside: bool = false
 @onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
 @onready var timer: Timer = Timer.new()
 
+enum CollisionMaterial {
+	FLESH,
+	STONE,
+}
+
 
 func _ready() -> void:
 	assert(collision_shape != null)

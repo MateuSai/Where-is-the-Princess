@@ -2,4 +2,4 @@ extends Button
 
 
 func _ready() -> void:
-	pressed.connect($"../../PopupPanel".popup_centered)
+	pressed.connect(func(): owner.add_child(ModMenu.new()))

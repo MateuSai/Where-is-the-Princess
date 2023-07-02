@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://886ogqps7117"]
+[gd_scene load_steps=5 format=3 uid="uid://886ogqps7117"]
 
 [ext_resource type="Script" path="res://Menu/PlayButton.gd" id="1_3ecss"]
+[ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="1_g0ge3"]
 [ext_resource type="Script" path="res://Menu/QuitButton.gd" id="1_slyqm"]
 [ext_resource type="Script" path="res://Menu/ModsButton.gd" id="2_wi3wf"]
 
@@ -11,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_g0ge3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -28,25 +30,17 @@ grow_vertical = 2
 
 [node name="PlayButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "PLAY"
+text = "Play"
 script = ExtResource("1_3ecss")
 
 [node name="ModsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "MODS"
+text = "Mods"
 script = ExtResource("2_wi3wf")
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "QUIT"
+text = "Quit"
 script = ExtResource("1_slyqm")
 
-[node name="PopupPanel" type="PopupPanel" parent="."]
-visible = true
-
-[node name="Label" type="Label" parent="PopupPanel"]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 96.0
-offset_bottom = 96.0
-text = "fdsfd"
+[node name="Popup" type="Popup" parent="."]

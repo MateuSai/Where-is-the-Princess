@@ -62,8 +62,8 @@ func _ready() -> void:
 		corridor_tile_map.z_index = 0
 		corridor_tile_map.material = null
 
-	SavedData.num_floor += 1
-	if SavedData.num_floor == 3:
+	SavedData.run_stats.num_floor += 1
+	if SavedData.run_stats.num_floor == 3:
 		num_levels = 3
 
 
@@ -95,11 +95,11 @@ func spawn_rooms() -> void:
 	rooms.push_back(start_room)
 	end_room = END_ROOMS[randi() % END_ROOMS.size()].instantiate()
 	rooms.push_back(end_room)
-	var inter_rooms: Array[PackedScene] = INTERMEDIATE_ROOMS.duplicate(true)
-	inter_rooms.append_array(SavedData.custom_rooms)
+	#var inter_rooms: Array[PackedScene] = INTERMEDIATE_ROOMS.duplicate(true)
+	#inter_rooms.append_array(SavedData.custom_rooms)
 	for i in 10:
 		#rooms.push_back(INTERMEDIATE_ROOMS[0].instantiate())
-		rooms.push_back(inter_rooms[randi() % inter_rooms.size()].instantiate())
+		rooms.push_back(INTERMEDIATE_ROOMS[randi() % INTERMEDIATE_ROOMS.size()].instantiate())
 
 	for room in rooms:
 		add_child(room)
@@ -268,20 +268,14 @@ func _add_floor_tiles() -> void:
 			if debug:
 				print("Connecting " + str(id) + " with " + str(connection_with) + "...")
 				print("\tdif is " + str(dif) + " pixels")
-			if abs(dif.x) < TILE_SIZE * 8:
-				if rooms[id if dif.y > 0 else connection_with].has_entry(DungeonRoom.EntryDirection.DOWN) and rooms[connection_with if dif.y > 0 else id].has_entry(DungeonRoom.EntryDirection.UP):
-					var above: Node = rooms[id if dif.y > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.DOWN)
-					var below: Node = rooms[connection_with if dif.y > 0 else id].get_random_entry(DungeonRoom.EntryDirection.UP)
-					await _create_vertical_corridor(above, below)
-				else:
-					printerr("\tImplement something here")
-			elif abs(dif.y) < TILE_SIZE * 8:
-				if rooms[id if dif.x > 0 else connection_with].has_entry(DungeonRoom.EntryDirection.RIGHT) and rooms[connection_with if dif.x > 0 else id].has_entry(DungeonRoom.EntryDirection.LEFT):
-					var left: Node = rooms[id if dif.x > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.RIGHT)
-					var right: Node = rooms[connection_with if dif.x > 0 else id].get_random_entry(DungeonRoom.EntryDirection.LEFT)
-					await _create_horizontal_corridor(left, right)
-				else:
-					printerr("\tImplement something here")
+			if abs(dif.x) < TILE_SIZE * 8 and rooms[id if dif.y > 0 else connection_with].has_entry(DungeonRoom.EntryDirection.DOWN) and rooms[connection_with if dif.y > 0 else id].has_entry(DungeonRoom.EntryDirection.UP):
+				var above: Node = rooms[id if dif.y > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.DOWN)
+				var below: Node = rooms[connection_with if dif.y > 0 else id].get_random_entry(DungeonRoom.EntryDirection.UP)
+				await _create_vertical_corridor(above, below)
+			elif abs(dif.y) < TILE_SIZE * 8 and rooms[id if dif.x > 0 else connection_with].has_entry(DungeonRoom.EntryDirection.RIGHT) and rooms[connection_with if dif.x > 0 else id].has_entry(DungeonRoom.EntryDirection.LEFT):
+				var left: Node = rooms[id if dif.x > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.RIGHT)
+				var right: Node = rooms[connection_with if dif.x > 0 else id].get_random_entry(DungeonRoom.EntryDirection.LEFT)
+				await _create_horizontal_corridor(left, right)
 			else:
 				if dif.x > 0 and dif.y > 0:
 					var directions: Array[Array] = [[DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.UP], [DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.LEFT]]

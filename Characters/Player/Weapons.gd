@@ -12,7 +12,7 @@ enum {UP, DOWN}
 
 
 func _ready() -> void:
-	for weapon_stat in SavedData.weapon_stats:
+	for weapon_stat in SavedData.run_stats.weapon_stats:
 		var weapon: Weapon = load(weapon_stat.weapon_path).instantiate()
 		weapon.stats = weapon_stat
 		weapon.position = Vector2.ZERO
@@ -24,10 +24,10 @@ func _ready() -> void:
 		weapon_picked_up.emit(weapon)
 		weapon_switched.emit(get_child_count() - 2, get_child_count() - 1)
 
-	current_weapon = get_child(SavedData.equipped_weapon_index)
+	current_weapon = get_child(SavedData.run_stats.equipped_weapon_index)
 	current_weapon.show()
 
-	weapon_switched.emit(get_child_count() - 1, SavedData.equipped_weapon_index)
+	weapon_switched.emit(get_child_count() - 1, SavedData.run_stats.equipped_weapon_index)
 
 
 func get_input() -> void:
@@ -74,7 +74,7 @@ func _switch_weapon(direction: int) -> void:
 
 
 func pick_up_weapon(weapon: Weapon) -> void:
-	SavedData.weapon_stats.append(weapon.stats)
+	SavedData.run_stats.weapon_stats.append(weapon.stats)
 	var prev_index: int = SavedData.equipped_weapon_index
 	var new_index: int = get_child_count()
 	SavedData.equipped_weapon_index = new_index

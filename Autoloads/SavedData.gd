@@ -1,32 +1,33 @@
 extends Node
 
 const USER_FOLDER: String = "user://"
+const MODS_FOLDER_NAME: String = "mods/"
 const ROOMS_FOLDER_NAME: String = "rooms/"
 const ARMORS_FOLDER_NAME: String = "armors/"
+const WEAPONS_FOLDER_NAME: String = "weapons/"
 
-var num_floor: int = 0
-
-var hp: int = 4
-var weapon_stats: Array[WeaponStats] = []
-var equipped_weapon_index: int = 0
-var coins: int = 0
+var run_stats: RunStats = RunStats.new()
 
 var mods: Dictionary = {
 	rooms = [],
 }
 
-var custom_rooms: Array[PackedScene] = []
-
 
 func _ready() -> void:
 	var user_dir: DirAccess = DirAccess.open(USER_FOLDER)
 	assert(user_dir) # Siempre deberiamos poder abrir el directorio del usuario
-	if not user_dir.dir_exists(ROOMS_FOLDER_NAME):
-		print("Can't find the rooms directory, creating it...")
-		user_dir.make_dir(ROOMS_FOLDER_NAME)
-	if not user_dir.dir_exists(ARMORS_FOLDER_NAME):
-		print("Can't find the armors directory, creating it...")
-		user_dir.make_dir(ARMORS_FOLDER_NAME)
+
+	if not user_dir.dir_exists(MODS_FOLDER_NAME):
+		print("Can't find mods folder, creating it along his subfolders...")
+		for sub_folder in [ROOMS_FOLDER_NAME, ARMORS_FOLDER_NAME, WEAPONS_FOLDER_NAME]:
+			if user_dir.make_dir_recursive(MODS_FOLDER_NAME + sub_folder):
+				printerr("Error creating " + sub_folder + "!")
+	else:
+		for sub_folder in [ROOMS_FOLDER_NAME, ARMORS_FOLDER_NAME, WEAPONS_FOLDER_NAME]:
+			if not user_dir.dir_exists(MODS_FOLDER_NAME + sub_folder):
+				print("Can't find the " + sub_folder + " directory, creating it...")
+				if user_dir.make_dir_recursive(MODS_FOLDER_NAME + sub_folder):
+					printerr("Error creating " + sub_folder + "!")
 
 	for room_path in _get_mod_room_paths():
 		mods.rooms.push_back(Mod.new(room_path))
@@ -34,7 +35,7 @@ func _ready() -> void:
 
 func _get_mod_room_paths() -> Array:
 	var room_paths: Array = []
-	var rooms_folder: DirAccess = DirAccess.open(USER_FOLDER + ROOMS_FOLDER_NAME)
+	var rooms_folder: DirAccess = DirAccess.open(USER_FOLDER + MODS_FOLDER_NAME + ROOMS_FOLDER_NAME)
 	if not rooms_folder:
 		printerr("Error opening rooms folder!!")
 	else:
@@ -48,18 +49,13 @@ func _get_mod_room_paths() -> Array:
 
 
 func reset_data() -> void:
-	num_floor = 0
-
-	hp = 4
-	weapon_stats = []
-	equipped_weapon_index = 0
-	coins = 0
+	run_stats = RunStats.new()
 
 
-class Mod:
-	var resource_path: String
-	var enabled: bool = true
-
-	@warning_ignore("shadowed_variable")
-	func _init(resource_path: String) -> void:
-		self.resource_path = resource_path
+## This is what we use to load the stats when he changes floor or when he saves the game
+class RunStats extends Resource:
+	@export var num_floor: int = 0
+	@export var hp: int = 4
+	@export var weapon_stats: Array[WeaponStats] = []
+	@export var equipped_weapon_index: int = 0
+	@export var coins: int = 0

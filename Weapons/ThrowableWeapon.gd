@@ -27,7 +27,7 @@ func throw_body_entered_hitbox(body: Node2D) -> void:
 		if body is Enemy:
 			hitbox._on_body_entered(body)
 		else:
-			_on_collided_with_something()
+			_on_collided_with_something(Hitbox.CollisionMaterial.STONE)
 		_on_Tween_tween_completed()
 		# Back to previous state
 		hitbox.get_node("CollisionShape2D").set_deferred("disabled", true)

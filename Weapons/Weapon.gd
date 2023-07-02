@@ -103,7 +103,11 @@ func _on_CoolDownTimer_timeout() -> void:
 
 
 func _on_condition_changed(new_condition: float) -> void:
-	emit_signal("condition_changed", self, new_condition)
+	if get_parent() is Weapons:
+		emit_signal("condition_changed", self, new_condition)
+	else:
+		if new_condition <= 0:
+			queue_free()
 
 
 func _on_show() -> void:

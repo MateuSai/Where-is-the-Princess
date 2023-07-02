@@ -6,5 +6,6 @@ func _ready() -> void:
 	hitbox.collided_with_something.connect(_on_collided_with_something)
 
 
-func _on_collided_with_something() -> void:
-	stats.set_condition(stats.condition - condition_degrade_by_attack)
+func _on_collided_with_something(col_mat: Hitbox.CollisionMaterial) -> void:
+	# Double degrade amount if we collide with stone
+	stats.set_condition(stats.condition - round(condition_degrade_by_attack * (col_mat+1)))

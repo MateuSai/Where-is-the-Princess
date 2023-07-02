@@ -26,7 +26,7 @@ var armor: Armor = NoArmor.new() : set = set_armor
 
 
 func _ready() -> void:
-	emit_signal("weapon_picked_up", weapons.get_child(0))
+	weapon_picked_up.emit(weapons.get_child(0))
 
 	_restore_previous_state()
 
@@ -66,7 +66,7 @@ func _ready() -> void:
 
 
 func _restore_previous_state() -> void:
-	self.hp = SavedData.hp
+	self.hp = SavedData.run_stats.hp
 
 
 func _process(_delta: float) -> void:
