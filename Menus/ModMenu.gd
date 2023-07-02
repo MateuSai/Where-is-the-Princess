@@ -5,6 +5,7 @@ func _init() -> void:
 	content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
 	content_scale_aspect = Window.CONTENT_SCALE_ASPECT_KEEP
 	canvas_item_default_texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST
+	size = Vector2(300, 200)
 
 
 func _ready() -> void:

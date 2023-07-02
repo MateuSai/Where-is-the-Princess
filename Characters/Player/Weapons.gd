@@ -68,16 +68,16 @@ func _switch_weapon(direction: int) -> void:
 	current_weapon.hide()
 	current_weapon = get_child(index)
 	current_weapon.show()
-	SavedData.equipped_weapon_index = index
+	SavedData.run_stats.equipped_weapon_index = index
 
 	emit_signal("weapon_switched", prev_index, index)
 
 
 func pick_up_weapon(weapon: Weapon) -> void:
 	SavedData.run_stats.weapon_stats.append(weapon.stats)
-	var prev_index: int = SavedData.equipped_weapon_index
+	var prev_index: int = SavedData.run_stats.equipped_weapon_index
 	var new_index: int = get_child_count()
-	SavedData.equipped_weapon_index = new_index
+	SavedData.run_stats.equipped_weapon_index = new_index
 	weapon.get_parent().call_deferred("remove_child", weapon)
 	call_deferred("add_child", weapon)
 	# set_deferred("owner", self)
@@ -92,7 +92,9 @@ func pick_up_weapon(weapon: Weapon) -> void:
 
 
 func _drop_weapon() -> void:
-	SavedData.weapon_stats.remove_at(current_weapon.get_index() - 1)
+	var character_position: Vector2 = get_parent().position
+
+	SavedData.run_stats.weapon_stats.remove_at(current_weapon.get_index() - 1)
 	var weapon_to_drop: Node2D = current_weapon
 	weapon_to_drop.condition_changed.disconnect(_on_weapon_condition_changed)
 	_switch_weapon(UP)
@@ -105,14 +107,14 @@ func _drop_weapon() -> void:
 	await weapon_to_drop.tree_entered
 	weapon_to_drop.show()
 
-	var throw_dir: Vector2 = (get_global_mouse_position() - position).normalized()
-	weapon_to_drop.interpolate_pos(position, position + throw_dir * 50)
+	var throw_dir: Vector2 = (get_global_mouse_position() - character_position).normalized()
+	weapon_to_drop.interpolate_pos(character_position, character_position + throw_dir * 50)
 
 
 func throw_weapon() -> void:
 	assert(current_weapon is ThrowableWeapon)
 
-	SavedData.weapon_stats.remove_at(current_weapon.get_index() - 1)
+	SavedData.run_stats.weapon_stats.remove_at(current_weapon.get_index() - 1)
 	var weapon_to_drop: Node2D = current_weapon
 	weapon_to_drop.condition_changed.disconnect(_on_weapon_condition_changed)
 	_switch_weapon(UP)

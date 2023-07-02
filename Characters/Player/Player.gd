@@ -99,7 +99,7 @@ func get_input() -> void:
 
 
 func add_coin() -> void:
-	SavedData.coins += 1
+	SavedData.run_stats.coins += 1
 
 
 func pick_up_passive_item(item: PassiveItem) -> void:

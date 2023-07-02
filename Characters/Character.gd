@@ -43,7 +43,7 @@ func take_damage(dam: int, dir: Vector2, force: int) -> void:
 		_spawn_hit_effect()
 		self.hp -= dam
 		if name == "Player":
-			SavedData.hp = hp
+			SavedData.run_stats.hp = hp
 			if hp == 0:
 				SceneTransistor.start_transition_to("res://Game.tscn")
 				SavedData.reset_data()

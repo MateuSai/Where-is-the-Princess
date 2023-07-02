@@ -1,6 +1,7 @@
 # LANGUAGE translation for Roguelike Tutorial for the following files:
-# res://Menu/Menu.tscn
-# res://Menu/ModMenu.gd
+# res://Game.tscn
+# res://Menus/Menu.tscn
+# res://Menus/ModMenu.gd
 #
 # FIRST AUTHOR < EMAIL @ADDRESS>, YEAR.
 #
@@ -12,19 +13,28 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: Menu/Menu.tscn
-msgid "Play"
+#: Game.tscn
+msgid "Generating Dungeon"
 msgstr ""
 
-#: Menu/Menu.tscn
-msgid "Mods"
+#: Game.tscn
+msgid "Resume"
 msgstr ""
 
-#: Menu/Menu.tscn
+#: Game.tscn
+#: Menus/Menu.tscn
 msgid "Quit"
 msgstr ""
 
-#: Menu/ModMenu.gd
+#: Menus/Menu.tscn
+msgid "Play"
+msgstr ""
+
+#: Menus/Menu.tscn
+msgid "Mods"
+msgstr ""
+
+#: Menus/ModMenu.gd
 msgid "Room"
 msgid_plural "Rooms"
 msgstr[0] ""

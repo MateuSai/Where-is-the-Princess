@@ -18,19 +18,27 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: Menu/Menu.tscn
-msgid "Play"
-msgstr "Juga"
+#: Game.tscn
+msgid "Generating Dungeon"
+msgstr ""
 
-#: Menu/Menu.tscn
-msgid "Mods"
-msgstr "Mods"
+#: Game.tscn
+msgid "Resume"
+msgstr ""
 
-#: Menu/Menu.tscn
+#: Game.tscn Menus/Menu.tscn
 msgid "Quit"
 msgstr "Surt"
 
-#: Menu/ModMenu.gd
+#: Menus/Menu.tscn
+msgid "Play"
+msgstr "Juga"
+
+#: Menus/Menu.tscn
+msgid "Mods"
+msgstr "Mods"
+
+#: Menus/ModMenu.gd
 msgid "Room"
 msgid_plural "Rooms"
 msgstr[0] "Habitació"
