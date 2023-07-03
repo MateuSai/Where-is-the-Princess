@@ -11,6 +11,7 @@ func _init() -> void:
 func _ready() -> void:
 	var tab_container: TabContainer = TabContainer.new()
 	#tab_container.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	tab_container.theme = load("res://Theme.tres")
 	add_child(tab_container)
 
 	var rooms_tab: VBoxContainer = VBoxContainer.new()

@@ -13,8 +13,8 @@ func _ready() -> void:
 	)
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_pause"):
-		hide()
-		color_rect.hide()
-		get_tree().paused = false
+#func _unhandled_input(event: InputEvent) -> void:
+#	if event.is_action_pressed("ui_pause"):
+#		hide()
+#		color_rect.hide()
+#		get_tree().paused = false

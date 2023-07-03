@@ -10,7 +10,7 @@ signal weapon_condition_changed(weapon: Weapon, new_value: float)
 var passive_items: Array[PassiveItem] = []
 signal passive_item_picked_up(item: PassiveItem)
 
-var armor: Armor = NoArmor.new() : set = set_armor
+var armor: Armor = null : set = set_armor
 
 #var sm
 
@@ -30,7 +30,8 @@ func _ready() -> void:
 
 	_restore_previous_state()
 
-	set_armor(KnightArmor.new())
+	set_armor(NoArmor.new())
+	#set_armor(KnightArmor.new())
 
 	weapons.weapon_switched.connect(func(prev_index: int, new_index: int): weapon_switched.emit(prev_index, new_index))
 	weapons.weapon_picked_up.connect(func(weapon: Weapon): weapon_picked_up.emit(weapon))
@@ -124,7 +125,10 @@ func switch_camera() -> void:
 func set_armor(new_armor: Armor) -> void:
 	if new_armor == armor:
 		return
+	if armor:
+		armor.unequip(self)
 	armor = new_armor
+	armor.equip(self)
 	sprite.texture = armor.sprite_sheet
 
 

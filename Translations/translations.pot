@@ -2,6 +2,7 @@
 # res://Game.tscn
 # res://Menus/Menu.tscn
 # res://Menus/ModMenu.gd
+# res://Autoloads/Settings/Settings.gd
 #
 # FIRST AUTHOR < EMAIL @ADDRESS>, YEAR.
 #
@@ -23,6 +24,11 @@ msgstr ""
 
 #: Game.tscn
 #: Menus/Menu.tscn
+msgid "Mods"
+msgstr ""
+
+#: Game.tscn
+#: Menus/Menu.tscn
 msgid "Quit"
 msgstr ""
 
@@ -31,7 +37,7 @@ msgid "Play"
 msgstr ""
 
 #: Menus/Menu.tscn
-msgid "Mods"
+msgid "asdsad"
 msgstr ""
 
 #: Menus/ModMenu.gd
@@ -39,3 +45,7 @@ msgid "Room"
 msgid_plural "Rooms"
 msgstr[0] ""
 msgstr[1] ""
+
+#: Autoloads/Settings/Settings.gd
+msgid "General"
+msgstr ""
