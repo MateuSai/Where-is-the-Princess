@@ -26,12 +26,21 @@ var armor: Armor = null : set = set_armor
 
 
 func _ready() -> void:
+	super()
+
 	weapon_picked_up.emit(weapons.get_child(0))
 
 	_restore_previous_state()
 
 	set_armor(NoArmor.new())
 	#set_armor(KnightArmor.new())
+
+	life_component.hp_changed.connect(func(new_hp: int):
+		SavedData.run_stats.hp = new_hp
+		if new_hp == 0:
+			SceneTransistor.start_transition_to("res://Game.tscn")
+			SavedData.reset_data()
+	)
 
 	weapons.weapon_switched.connect(func(prev_index: int, new_index: int): weapon_switched.emit(prev_index, new_index))
 	weapons.weapon_picked_up.connect(func(weapon: Weapon): weapon_picked_up.emit(weapon))
@@ -67,7 +76,7 @@ func _ready() -> void:
 
 
 func _restore_previous_state() -> void:
-	self.hp = SavedData.run_stats.hp
+	life_component.hp = SavedData.run_stats.hp
 
 
 func _process(_delta: float) -> void:

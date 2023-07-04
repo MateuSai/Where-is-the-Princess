@@ -1,0 +1,107 @@
+[gd_scene load_steps=12 format=3 uid="uid://vdhxr4hlep8k"]
+
+[ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_au2ub"]
+[ext_resource type="Texture2D" uid="uid://brv2xi48834fs" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/goblin/goblin_full_spritesheet.png" id="2_7gxfb"]
+[ext_resource type="Script" path="res://Characters/Enemies/ShieldKnight/ShieldKnight.gd" id="2_bw1rp"]
+[ext_resource type="Script" path="res://Characters/Enemies/ShieldKnight/ShieldKnightFSM.gd" id="2_bw02r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ma54e"]
+radius = 4.0
+
+[sub_resource type="Animation" id="Animation_4kt4q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_aa4jb"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_iw5xv"]
+resource_name = "move"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_38cnd"]
+_data = {
+"RESET": SubResource("Animation_4kt4q"),
+"idle": SubResource("Animation_aa4jb"),
+"move": SubResource("Animation_iw5xv")
+}
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3kpj0"]
+size = Vector2(2, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t7lex"]
+size = Vector2(2, 8)
+
+[node name="ShieldKnight" instance=ExtResource("1_au2ub")]
+motion_mode = 0
+script = ExtResource("2_bw1rp")
+
+[node name="FiniteStateMachine" parent="." index="0"]
+script = ExtResource("2_bw02r")
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, -3)
+texture = ExtResource("2_7gxfb")
+hframes = 6
+vframes = 2
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource("CircleShape2D_ma54e")
+
+[node name="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_38cnd")
+}
+
+[node name="NavigationAgent2D" parent="." index="5"]
+avoidance_enabled = true
+
+[node name="Shield" type="StaticBody2D" parent="." index="6"]
+collision_layer = 4
+collision_mask = 15
+
+[node name="Sprite2D" type="Sprite2D" parent="Shield" index="0"]
+position = Vector2(8, 0)
+texture = SubResource("PlaceholderTexture2D_3kpj0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shield" index="1"]
+position = Vector2(8, 0)
+shape = SubResource("RectangleShape2D_t7lex")
