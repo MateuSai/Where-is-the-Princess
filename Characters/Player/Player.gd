@@ -32,8 +32,8 @@ func _ready() -> void:
 
 	_restore_previous_state()
 
-	set_armor(NoArmor.new())
-	#set_armor(KnightArmor.new())
+	#set_armor(NoArmor.new())
+	set_armor(KnightArmor.new())
 
 	life_component.hp_changed.connect(func(new_hp: int):
 		SavedData.run_stats.hp = new_hp

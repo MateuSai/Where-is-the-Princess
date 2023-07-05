@@ -367,7 +367,7 @@ position = Vector2(0, -6)
 texture = ExtResource("4_kfgmg")
 hframes = 6
 vframes = 4
-frame = 6
+frame = 15
 
 [node name="CollisionShape2D" parent="." index="2"]
 shape = SubResource("18")
@@ -396,7 +396,6 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="." index="8"]
 tree_root = SubResource("AnimationNodeStateMachine_wp6sj")
 anim_player = NodePath("../AnimationPlayer")
-active = true
 parameters/playback = SubResource("AnimationNodeStateMachinePlayback_dadpr")
 parameters/idle/blend_position = -0.18247
 parameters/move/blend_position = 0
