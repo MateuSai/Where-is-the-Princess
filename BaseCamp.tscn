@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://cah3hunwa34v8"]
+
+[ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="1_0pcgl"]
+[ext_resource type="Script" path="res://BaseCamp.gd" id="1_tpf7m"]
+[ext_resource type="Script" path="res://InteractArea.gd" id="2_n3t3v"]
+[ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="4_6s3ou"]
+[ext_resource type="Script" path="res://Menus/WardrobeUI.gd" id="4_nybk1"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_0kux3"]
+size = Vector2(20, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vltfn"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pl44u"]
+size = Vector2(20, 40)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qcjm2"]
+
+[node name="BaseCamp" type="Node2D"]
+script = ExtResource("1_tpf7m")
+
+[node name="Player" parent="." instance=ExtResource("1_0pcgl")]
+position = Vector2(165, 181)
+
+[node name="StartInteractArea" type="Area2D" parent="."]
+position = Vector2(133, 52)
+script = ExtResource("2_n3t3v")
+path_to_sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="StartInteractArea"]
+texture = SubResource("PlaceholderTexture2D_0kux3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StartInteractArea"]
+shape = SubResource("RectangleShape2D_vltfn")
+
+[node name="WardrobeInteractArea" type="Area2D" parent="."]
+position = Vector2(273, 128)
+script = ExtResource("2_n3t3v")
+path_to_sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="WardrobeInteractArea"]
+texture = SubResource("PlaceholderTexture2D_pl44u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WardrobeInteractArea"]
+position = Vector2(0, 23)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_qcjm2")
+
+[node name="WardrobePopup" type="PopupPanel" parent="."]
+size = Vector2i(200, 150)
+visible = true
+theme = ExtResource("4_6s3ou")
+
+[node name="WardrobeUI" type="MarginContainer" parent="WardrobePopup"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 196.0
+offset_bottom = 146.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_nybk1")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="WardrobePopup/WardrobeUI"]
+layout_mode = 2
+
+[node name="Armors" type="GridContainer" parent="WardrobePopup/WardrobeUI/HBoxContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="ArmorDetails" type="VBoxContainer" parent="WardrobePopup/WardrobeUI/HBoxContainer"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="WardrobePopup/WardrobeUI/HBoxContainer/ArmorDetails"]
+layout_mode = 2

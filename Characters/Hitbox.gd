@@ -9,6 +9,11 @@ var body_inside: bool = false
 @onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
 @onready var timer: Timer = Timer.new()
 
+enum CollisionMaterial {
+	FLESH,
+	STONE,
+}
+
 
 func _ready() -> void:
 	assert(collision_shape != null)
@@ -33,7 +38,7 @@ func _on_body_exited(_body: Node2D) -> void:
 
 
 func _collide(body: Node2D) -> void:
-	if body == null or not body.has_method("take_damage"):
+	if body == null or not body.has_node("LifeComponent"):
 		queue_free()
 	else:
-		body.take_damage(damage, knockback_direction, knockback_force)
+		body.get_node("LifeComponent").take_damage(damage, knockback_direction, knockback_force)

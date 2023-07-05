@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bwxfm550sp8u8"]
+[gd_scene load_steps=13 format=3 uid="uid://bwxfm550sp8u8"]
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1"]
 [ext_resource type="Script" path="res://Weapons/Crossbow.gd" id="2"]
@@ -10,10 +10,6 @@
 resource_local_to_scene = true
 shader = ExtResource("4")
 shader_parameter/active = false
-
-[sub_resource type="CapsuleShape2D" id="1"]
-radius = 1.0
-height = 2.0
 
 [sub_resource type="Animation" id="Animation_h2uqm"]
 length = 0.001
@@ -234,20 +230,13 @@ _data = {
 
 [node name="Crossbow" instance=ExtResource("1")]
 script = ExtResource("2")
-ranged_weapon = true
-rotation_offset = 180
 
 [node name="Sprite2D" parent="Node2D" index="0"]
 material = SubResource("2")
 position = Vector2(0, -3)
 texture = ExtResource("4_0prn8")
 
-[node name="CollisionShape2D" parent="PlayerDetector" index="0"]
-position = Vector2(-9, -1)
-rotation = 1.5708
-shape = SubResource("1")
-
-[node name="AnimationPlayer" parent="." index="2"]
+[node name="AnimationPlayer" parent="." index="1"]
 libraries = {
 "": SubResource("AnimationLibrary_8nt8m")
 }

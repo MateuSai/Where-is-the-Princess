@@ -1,0 +1,51 @@
+# LANGUAGE translation for Roguelike Tutorial for the following files:
+# res://Game.tscn
+# res://Menus/Menu.tscn
+# res://Menus/ModMenu.gd
+# res://Autoloads/Settings/Settings.gd
+#
+# FIRST AUTHOR < EMAIL @ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Roguelike Tutorial\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: Game.tscn
+msgid "Generating Dungeon"
+msgstr ""
+
+#: Game.tscn
+msgid "Resume"
+msgstr ""
+
+#: Game.tscn
+#: Menus/Menu.tscn
+msgid "Mods"
+msgstr ""
+
+#: Game.tscn
+#: Menus/Menu.tscn
+msgid "Quit"
+msgstr ""
+
+#: Menus/Menu.tscn
+msgid "Play"
+msgstr ""
+
+#: Menus/Menu.tscn
+msgid "asdsad"
+msgstr ""
+
+#: Menus/ModMenu.gd
+msgid "Room"
+msgid_plural "Rooms"
+msgstr[0] ""
+msgstr[1] ""
+
+#: Autoloads/Settings/Settings.gd
+msgid "General"
+msgstr ""

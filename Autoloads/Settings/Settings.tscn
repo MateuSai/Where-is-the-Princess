@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnr0w37wgidyn"]
+
+[ext_resource type="Script" path="res://Autoloads/Settings/Settings.gd" id="1_4y760"]
+[ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="2_fjhtw"]
+[ext_resource type="Script" path="res://Autoloads/Settings/LanguageDropdown.gd" id="3_8fg1t"]
+
+[node name="Settings" type="Popup"]
+process_mode = 3
+visible = true
+script = ExtResource("1_4y760")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("2_fjhtw")
+
+[node name="General" type="VBoxContainer" parent="TabContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/General"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/General/HBoxContainer"]
+layout_mode = 2
+text = "Language"
+
+[node name="LanguageDropdown" type="OptionButton" parent="TabContainer/General/HBoxContainer"]
+layout_mode = 2
+script = ExtResource("3_8fg1t")

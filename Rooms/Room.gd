@@ -5,10 +5,10 @@ class_name DungeonRoom extends Node2D
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/SpawnExplosion.tscn")
 
 const ENEMY_SCENES: Dictionary = {
-	"FLYING_CREATURE": preload("res://Characters/Enemies/Flying Creature/FlyingCreature.tscn"),
+	#"FLYING_CREATURE": preload("res://Characters/Enemies/Flying Creature/FlyingCreature.tscn"),
 	"GOBLIN": preload("res://Characters/Enemies/Goblin/Goblin.tscn"),
-	"DARK_GOBLIN": preload("res://Characters/Enemies/DarkGoblin/DarkGoblin.tscn"),
-	"SLIME_BOSS": preload("res://Characters/Enemies/Bosses/SlimeBoss.tscn")
+	#"DARK_GOBLIN": preload("res://Characters/Enemies/DarkGoblin/DarkGoblin.tscn"),
+	"SHIELD_KNIGHT": preload("res://Characters/Enemies/ShieldKnight/ShieldKnight.tscn"),
 }
 
 const HORIZONTAL_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/HorizontalDoor.tscn")
@@ -168,11 +168,12 @@ func _close_entrance() -> void:
 func _spawn_enemies() -> void:
 	for enemy_position in enemy_positions_container.get_children():
 		var enemy: CharacterBody2D
-		if boss_room:
-			enemy = ENEMY_SCENES.SLIME_BOSS.instantiate()
-			num_enemies = 15
-		else:
-			enemy = ENEMY_SCENES.DARK_GOBLIN.instantiate()
+#		if boss_room:
+#			enemy = ENEMY_SCENES.SLIME_BOSS.instantiate()
+#			num_enemies = 15
+		#else:
+			#enemy = ENEMY_SCENES.SHIELD_KNIGHT.instantiate()
+		enemy = ENEMY_SCENES.values()[randi() % ENEMY_SCENES.values().size()].instantiate()
 #			if randi() % 2 == 0:
 #				enemy = ENEMY_SCENES.FLYING_CREATURE.instantiate()
 #			else:

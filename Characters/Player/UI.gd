@@ -6,14 +6,15 @@ const MIN_HEALTH: int = 23
 
 var max_hp: int = 4
 
-@onready var player: CharacterBody2D = get_parent()
+@onready var player_life_component: LifeComponent = get_node("../LifeComponent")
 
 @onready var health_bar: TextureProgressBar = get_node("MarginContainer/VBoxContainer/HealthBar")
 @onready var inventory: HBoxContainer = get_node("PanelContainer/Inventory")
 
 
 func _ready() -> void:
-	max_hp = player.max_hp
+	max_hp = player_life_component.max_hp
+	player_life_component.hp_changed.connect(_on_player_hp_changed)
 	_update_health_bar(100)
 
 

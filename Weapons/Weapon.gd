@@ -3,9 +3,6 @@ class_name Weapon extends Node2D
 
 @export var on_floor: bool = false
 
-@export var ranged_weapon: bool = false
-@export var rotation_offset: int = 0
-
 @export var condition_degrade_by_attack: float = 50
 
 var can_active_ability: bool = true
@@ -16,9 +13,10 @@ signal condition_changed(weapon: Weapon, new_condition: float)
 
 var tween: Tween = null
 @onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
-@onready var hitbox: Area2D = get_node("Node2D/Sprite2D/Hitbox")
+@onready var hitbox: WeaponHitbox = get_node("Node2D/Sprite2D/Hitbox")
 @onready var charge_particles: GPUParticles2D = get_node("Node2D/Sprite2D/ChargeParticles")
-@onready var player_detector: Area2D = get_node("PlayerDetector")
+@onready var weapon_sprite: Sprite2D = get_node("Node2D/Sprite2D")
+@onready var player_detector: Area2D = weapon_sprite.get_node("PlayerDetector")
 @onready var cool_down_timer: Timer = get_node("CoolDownTimer")
 @onready var ui: CanvasLayer = get_node("UI")
 @onready var ability_icon: TextureProgressBar = ui.get_node("AbilityIcon")
@@ -54,21 +52,17 @@ func get_input() -> void:
 
 
 func move(mouse_direction: Vector2) -> void:
-	if ranged_weapon:
-		rotation_degrees = rad_to_deg(mouse_direction.angle()) + rotation_offset
-	else:
-		if not animation_player.is_playing() or animation_player.current_animation == "charge":
-			rotation = mouse_direction.angle()
-			hitbox.knockback_direction = mouse_direction
-			if scale.y == 1 and mouse_direction.x < 0:
-				scale.y = -1
-			elif scale.y == -1 and mouse_direction.x > 0:
-				scale.y = 1
+	#if not animation_player.is_playing() or animation_player.current_animation == "charge":
+	rotation = mouse_direction.angle()
+	hitbox.knockback_direction = mouse_direction
+	if scale.y == 1 and mouse_direction.x < 0:
+		scale.y = -1
+	elif scale.y == -1 and mouse_direction.x > 0:
+		scale.y = 1
 
 
 func attack() -> void:
 	animation_player.play("attack")
-	stats.set_condition(stats.condition - condition_degrade_by_attack)
 
 
 func cancel_attack() -> void:
@@ -76,16 +70,15 @@ func cancel_attack() -> void:
 
 
 func is_busy() -> bool:
-	if animation_player.is_playing() or charge_particles.emitting:
-		return true
-	return false
+	return animation_player.is_playing() or charge_particles.emitting
 
 
 func _on_PlayerDetector_body_entered(body: Node2D) -> void:
 	if body is Player:
 		player_detector.set_collision_mask_value(1, false)
 		player_detector.set_collision_mask_value(2, false)
-		body.pick_up_weapon(self)
+		body.weapons.pick_up_weapon(self)
+		animation_player.play("RESET")
 		position = Vector2.ZERO
 	else:
 		if tween:
@@ -110,7 +103,11 @@ func _on_CoolDownTimer_timeout() -> void:
 
 
 func _on_condition_changed(new_condition: float) -> void:
-	emit_signal("condition_changed", self, new_condition)
+	if get_parent() is Weapons:
+		emit_signal("condition_changed", self, new_condition)
+	else:
+		if new_condition <= 0:
+			queue_free()
 
 
 func _on_show() -> void:

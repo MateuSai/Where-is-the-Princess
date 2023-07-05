@@ -16,6 +16,14 @@ func initialize(sprite_sheet: Texture, recharge_time: float, effect_duration: fl
 	self.effect_duration = effect_duration
 
 
+func equip(_player: Player) -> void:
+	pass
+
+
+func unequip(_player: Player) -> void:
+	pass
+
+
 func use_ability(player: Player) -> void:
 	is_able_to_use_ability = false
 

@@ -4,7 +4,7 @@ var icon: Texture
 
 
 @warning_ignore("shadowed_variable")
-func initialize(icon: Texture) -> void:
+func _initialize(icon: Texture) -> void:
 	self.icon = icon
 
 

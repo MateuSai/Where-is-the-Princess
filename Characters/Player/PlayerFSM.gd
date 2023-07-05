@@ -16,10 +16,30 @@ func _ready() -> void:
 
 
 func _state_logic(_delta: float) -> void:
-	if state == states.idle or state == states.move:
-		parent.get_input()
-		parent.move()
-		animation_tree.set("parameters/" + states.keys()[state] + "/blend_position", (parent.get_global_mouse_position() - parent.global_position).normalized().y)
+	match state:
+		states.idle:
+			parent.get_input()
+			parent.move()
+			var mouse_direction: Vector2 = (parent.get_global_mouse_position() - parent.global_position).normalized()
+			if mouse_direction.y >= 0:
+				animation_player.play("idle")
+			else:
+				animation_player.play("idle_up")
+		states.move:
+			parent.get_input()
+			parent.move()
+			var mouse_direction: Vector2 = (parent.get_global_mouse_position() - parent.global_position).normalized()
+			if mouse_direction.y >= 0:
+				if (mouse_direction.x > 0 and parent.mov_direction.x < 0) or (mouse_direction.x < 0 and parent.mov_direction.x > 0):
+					animation_player.play_backwards("move")
+				else:
+					animation_player.play("move")
+			else:
+				if (mouse_direction.x > 0 and parent.mov_direction.x < 0) or (mouse_direction.x < 0 and parent.mov_direction.x > 0):
+					animation_player.play_backwards("move_up")
+				else:
+					animation_player.play("move_up")
+		#animation_tree.set("parameters/" + states.keys()[state] + "/blend_position", (parent.get_global_mouse_position() - parent.global_position).normalized().y)
 
 
 func _get_transition() -> int:
@@ -39,14 +59,16 @@ func _get_transition() -> int:
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
 		states.idle:
+			pass
 			#animation_player.play("idle")
-			animation_tree_state_machine.travel("idle")
+			#animation_tree_state_machine.travel("idle")
 		states.move:
+			pass
 			#animation_player.play("move")
-			animation_tree_state_machine.travel("move")
+			#animation_tree_state_machine.travel("move")
 		states.hurt:
 			animation_player.play("hurt")
-			parent.cancel_attack()
+			parent.weapons.cancel_attack()
 		states.dead:
 			animation_player.play("dead")
-			parent.cancel_attack()
+			parent.weapons.cancel_attack()

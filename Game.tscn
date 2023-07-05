@@ -1,9 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=11 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="4_usvbv"]
+[ext_resource type="Script" path="res://Menus/UI.gd" id="5_c0f27"]
+[ext_resource type="Script" path="res://Menus/PauseMenu.gd" id="6_fejf6"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="6_ml8df"]
+[ext_resource type="Script" path="res://Menus/QuitButton.gd" id="6_nj5uy"]
+[ext_resource type="Script" path="res://Menus/ModsButton.gd" id="7_0u3vg"]
+[ext_resource type="Script" path="res://Menus/SettingsButton.gd" id="8_b3yq4"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
 light_mode = 1
@@ -12,6 +17,7 @@ light_mode = 1
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("3")
+debug = false
 
 [node name="Rooms" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -61,3 +67,51 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_usvbv")
 text = "Generating Dungeon"
+
+[node name="UI" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 2
+script = ExtResource("5_c0f27")
+
+[node name="ColorRect" type="ColorRect" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.34902)
+
+[node name="PauseMenu" type="VBoxContainer" parent="UI"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+theme = ExtResource("4_usvbv")
+script = ExtResource("6_fejf6")
+
+[node name="ResumeButton" type="Button" parent="UI/PauseMenu"]
+layout_mode = 2
+text = "Resume"
+
+[node name="ModsButton" type="Button" parent="UI/PauseMenu"]
+layout_mode = 2
+text = "Mods"
+script = ExtResource("7_0u3vg")
+
+[node name="SettingsButton" type="Button" parent="UI/PauseMenu"]
+layout_mode = 2
+text = "Settings"
+script = ExtResource("8_b3yq4")
+
+[node name="QuitButton" type="Button" parent="UI/PauseMenu"]
+layout_mode = 2
+text = "Quit"
+script = ExtResource("6_nj5uy")
