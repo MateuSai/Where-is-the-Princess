@@ -2,7 +2,7 @@ class_name MagicShield extends PassiveItem
 
 
 func _init() -> void:
-	_initialize(load("res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/bomb_anim_f0.png"))
+	_initialize(load("res://Art/items/ShieldAnimation.tres"))
 
 
 func equip(player: Player) -> void:
@@ -16,24 +16,33 @@ func unequip(_player: Player) -> void:
 class MagicShieldNode extends StaticBody2D:
 	var prev_rot: float = 0
 
+	var sprite: Sprite2D
+
 	func _init() -> void:
-		var sprite: Sprite2D = Sprite2D.new()
-		sprite.texture = load("res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/bomb_anim_f0.png")
+		position.y = -2
+
+		sprite = Sprite2D.new()
+		sprite.texture = load("res://Art/items/shield_rotating_player.png")
+		sprite.hframes = 8
 		add_child(sprite)
-		sprite.position.y += 8
+		sprite.position.y += 6
 
 		var col: CollisionShape2D = CollisionShape2D.new()
 		var shape: RectangleShape2D = RectangleShape2D.new()
-		shape.size = Vector2(50, 2)
+		shape.size = Vector2(8, 2)
 		col.shape = shape
 		add_child(col)
-		col.position.y += 8
+		col.position.y += 6
 
 
 	func _physics_process(delta: float) -> void:
 		prev_rot = rotation
-		rotation = wrapf(rotation + 5 * delta, 0, 2*PI)
-		if rotation > PI/2 and prev_rot < PI/2:
+		rotation = wrapf(rotation - 3 * delta, 0, 2*PI)
+		#print(rotation)
+		if rotation < 3*PI/2 and prev_rot > 3*PI/2:
 			get_parent().move_child(self, 0)
-		elif rotation > PI/4 and prev_rot < PI/4:
+		elif rotation < PI/2 and prev_rot > PI/2:
 			get_parent().move_child(self, get_parent().get_child_count()-1)
+
+		sprite.global_rotation = 0
+		sprite.frame = floor(((2*PI - rotation) / (2*PI)) * sprite.hframes)

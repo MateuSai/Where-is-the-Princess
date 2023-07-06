@@ -15,6 +15,10 @@ func _state_logic(_delta: float) -> void:
 	if state == states.chase:
 		parent.chase()
 		parent.move()
+		if parent.mov_direction.y >= 0 and animation_player.current_animation != "fly":
+			animation_player.play("fly")
+		elif parent.mov_direction.y < 0 and animation_player.current_animation != "fly_up":
+			animation_player.play("fly_up")
 
 
 func _get_transition() -> int:
@@ -28,6 +32,7 @@ func _get_transition() -> int:
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
 		states.chase:
+			pass
 			animation_player.play("fly")
 		states.hurt:
 			animation_player.play("hurt")

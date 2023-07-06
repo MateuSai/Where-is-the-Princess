@@ -1,7 +1,8 @@
-[gd_scene load_steps=35 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=25 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
+[ext_resource type="Texture2D" uid="uid://d04uxwluqy5gw" path="res://Art/player/player_shadow.png" id="4_6v2x8"]
 [ext_resource type="Texture2D" uid="uid://br7c70c5injos" path="res://Art/player/no_armor.png" id="4_kfgmg"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerFSM.gd" id="5"]
 [ext_resource type="PackedScene" uid="uid://bw0adahejc8e2" path="res://Weapons/Dagger.tscn" id="5_nk70o"]
@@ -302,50 +303,6 @@ _data = {
 "jump": SubResource("Animation_ht8xy")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s8gqb"]
-animation = &"idle_up"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e617p"]
-animation = &"idle"
-
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_nygig"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_s8gqb")
-blend_point_0/pos = -1.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_e617p")
-blend_point_1/pos = 1.0
-blend_mode = 1
-sync = true
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k10n1"]
-animation = &"move_up"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mcy5r"]
-animation = &"move"
-
-[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_5vyr7"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_k10n1")
-blend_point_0/pos = -1.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_mcy5r")
-blend_point_1/pos = 1.0
-blend_mode = 1
-sync = true
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4e5v0"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ml1qh"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wymsf"]
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_wp6sj"]
-states/idle/node = SubResource("AnimationNodeBlendSpace1D_nygig")
-states/idle/position = Vector2(335, 50)
-states/move/node = SubResource("AnimationNodeBlendSpace1D_5vyr7")
-states/move/position = Vector2(332, 168)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_4e5v0"), "idle", "move", SubResource("AnimationNodeStateMachineTransition_ml1qh"), "move", "idle", SubResource("AnimationNodeStateMachineTransition_wymsf")]
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_dadpr"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7aqj1"]
 bg_color = Color(0.713726, 0.670588, 0.670588, 1)
 border_width_left = 2
@@ -362,43 +319,39 @@ script = ExtResource("4")
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("5")
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="ShadowSprite" type="Sprite2D" parent="." index="1"]
+texture = ExtResource("4_6v2x8")
+
+[node name="Sprite2D" parent="." index="2"]
 position = Vector2(0, -6)
 texture = ExtResource("4_kfgmg")
 hframes = 6
 vframes = 4
-frame = 15
+frame = 6
 
-[node name="CollisionShape2D" parent="." index="2"]
+[node name="CollisionShape2D" parent="." index="3"]
 shape = SubResource("18")
 
-[node name="AnimationPlayer" parent="." index="3"]
+[node name="AnimationPlayer" parent="." index="4"]
 libraries = {
 "": SubResource("AnimationLibrary_qxyws")
 }
 
-[node name="Weapons" type="Node2D" parent="." index="4"]
+[node name="Weapons" type="Node2D" parent="." index="5"]
 script = ExtResource("5_uyohi")
 
 [node name="Dagger" parent="Weapons" index="0" instance=ExtResource("5_nk70o")]
 position = Vector2(0, -3)
 
-[node name="Camera2D" type="Camera2D" parent="." index="5"]
+[node name="Camera2D" type="Camera2D" parent="." index="6"]
 position_smoothing_enabled = true
 
-[node name="DustPosition" type="Marker2D" parent="." index="6"]
+[node name="DustPosition" type="Marker2D" parent="." index="7"]
 
-[node name="JumpAnimationPlayer" type="AnimationPlayer" parent="." index="7"]
+[node name="JumpAnimationPlayer" type="AnimationPlayer" parent="." index="8"]
 libraries = {
 "": SubResource("AnimationLibrary_35i6s")
 }
-
-[node name="AnimationTree" type="AnimationTree" parent="." index="8"]
-tree_root = SubResource("AnimationNodeStateMachine_wp6sj")
-anim_player = NodePath("../AnimationPlayer")
-parameters/playback = SubResource("AnimationNodeStateMachinePlayback_dadpr")
-parameters/idle/blend_position = -0.18247
-parameters/move/blend_position = 0
 
 [node name="UI" type="CanvasLayer" parent="." index="9"]
 script = ExtResource("7_24kdb")

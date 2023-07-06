@@ -6,11 +6,11 @@ func _init() -> void:
 
 
 func equip(player: Player) -> void:
-	player.max_speed += 50
+	player.max_speed += 10
 
 
 func unequip(player: Player) -> void:
-	player.max_speed -= 50
+	player.max_speed -= 10
 
 
 func use_ability(player: Player) -> void:

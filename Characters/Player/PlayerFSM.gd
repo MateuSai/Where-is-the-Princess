@@ -1,8 +1,5 @@
 extends FiniteStateMachine
 
-@onready var animation_tree: AnimationTree = owner.get_node("AnimationTree")
-@onready var animation_tree_state_machine: AnimationNodeStateMachinePlayback = owner.get_node("AnimationTree").get("parameters/playback")
-
 
 func _init() -> void:
 	_add_state("idle")

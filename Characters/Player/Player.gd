@@ -21,8 +21,6 @@ var armor: Armor = null : set = set_armor
 @onready var dust_position: Marker2D = get_node("DustPosition")
 
 @onready var jump_animation_player: AnimationPlayer = get_node("JumpAnimationPlayer")
-@onready var animation_tree: AnimationTree = get_node("AnimationTree")
-@onready var animation_tree_state_machine: AnimationNodeStateMachinePlayback = get_node("AnimationTree").get("parameters/playback")
 
 
 func _ready() -> void:
@@ -32,8 +30,8 @@ func _ready() -> void:
 
 	_restore_previous_state()
 
-	#set_armor(NoArmor.new())
-	set_armor(KnightArmor.new())
+	set_armor(NoArmor.new())
+	#set_armor(KnightArmor.new())
 
 	life_component.hp_changed.connect(func(new_hp: int):
 		SavedData.run_stats.hp = new_hp
