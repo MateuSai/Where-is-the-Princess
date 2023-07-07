@@ -117,6 +117,7 @@ _data = {
 }
 
 [node name="Goblin" instance=ExtResource("1")]
+texture_filter = 0
 motion_mode = 0
 script = ExtResource("5")
 projectile_speed = 150

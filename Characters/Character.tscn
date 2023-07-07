@@ -5,6 +5,7 @@
 [ext_resource type="Script" path="res://Components/LifeComponent.gd" id="3_q1yud"]
 
 [node name="Character" type="CharacterBody2D"]
+texture_filter = 1
 motion_mode = 1
 script = ExtResource("1")
 

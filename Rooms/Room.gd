@@ -6,9 +6,9 @@ const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/Spa
 
 const ENEMY_SCENES: Dictionary = {
 	#"FLYING_CREATURE": preload("res://Characters/Enemies/Flying Creature/FlyingCreature.tscn"),
-	"GOBLIN": preload("res://Characters/Enemies/Goblin/Goblin.tscn"),
+	#"GOBLIN": preload("res://Characters/Enemies/Goblin/Goblin.tscn"),
 	#"DARK_GOBLIN": preload("res://Characters/Enemies/DarkGoblin/DarkGoblin.tscn"),
-	#"SHIELD_KNIGHT": preload("res://Characters/Enemies/ShieldKnight/ShieldKnight.tscn"),
+	"SHIELD_KNIGHT": preload("res://Characters/Enemies/ShieldKnight/ShieldKnight.tscn"),
 }
 
 const HORIZONTAL_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/HorizontalDoor.tscn")

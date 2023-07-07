@@ -4,6 +4,8 @@ const MIN_DESIRED_DISTANCE_TO_ENEMY_TO_PROTECT: int = 24
 const MAX_DESIRED_DISTANCE_TO_ENEMY_TO_PROTECT: int = 32
 const SHIELD_MOV_SPEED: float = 0.04
 
+var prev_shield_rot: float = 0
+
 var enemy_to_protect: Enemy = null:
 	set(new_enemy):
 		enemy_to_protect = new_enemy
@@ -15,6 +17,7 @@ var enemy_to_protect: Enemy = null:
 			)
 
 @onready var shield: StaticBody2D = $Shield
+@onready var shield_sprite: Sprite2D = shield.get_node("Sprite2D")
 
 
 func _ready() -> void:
@@ -23,7 +26,15 @@ func _ready() -> void:
 
 
 func move_shield_to_player() -> void:
-	shield.rotation = lerp_angle(shield.rotation, (player.position - global_position).angle(), SHIELD_MOV_SPEED)
+	prev_shield_rot = shield.rotation
+	shield.rotation = lerp_angle(wrapf(shield.rotation, 0, TAU), wrapf((player.position - global_position).angle() - PI/2, 0, TAU), SHIELD_MOV_SPEED)
+	if (shield.rotation > 3*PI/2 and prev_shield_rot < 3*PI/2) or (shield.rotation < PI/2 and prev_shield_rot > PI/2):
+		move_child(shield, get_child_count()-1)
+	elif (shield.rotation > PI/2 and prev_shield_rot < PI/2) or (shield.rotation < 3*PI/2 and prev_shield_rot > 3*PI/2):
+		move_child(shield, 0)
+	shield_sprite.global_rotation = 0
+	shield_sprite.frame = clamp(floor(((TAU - shield.rotation) / (TAU)) * shield_sprite.hframes), 0, shield_sprite.hframes-1)
+	#print(shield.rotation)
 
 
 func _on_PathTimer_timeout() -> void:

@@ -172,6 +172,7 @@ _data = {
 }
 
 [node name="FlyingCreature" instance=ExtResource("1")]
+texture_filter = 0
 script = ExtResource("6")
 accerelation = 20
 max_speed = 50
