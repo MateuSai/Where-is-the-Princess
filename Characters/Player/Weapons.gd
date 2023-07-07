@@ -131,14 +131,14 @@ func throw_weapon() -> void:
 
 func _destroy_weapon() -> void:
 	SavedData.weapon_stats.remove_at(current_weapon.get_index() - 1)
-	var weapon_to_drop: Node2D = current_weapon
+	var weapon_to_drop: Weapon = current_weapon
 	_switch_weapon(UP)
 
 	emit_signal("weapon_droped", weapon_to_drop.get_index())
 
 	call_deferred("remove_child", weapon_to_drop)
 	get_tree().current_scene.call_deferred("add_child", weapon_to_drop)
-	weapon_to_drop.queue_free()
+	weapon_to_drop.destroy()
 
 
 func cancel_attack() -> void:

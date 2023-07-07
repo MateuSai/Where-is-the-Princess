@@ -116,6 +116,11 @@ func pick_up_passive_item(item: PassiveItem) -> void:
 	emit_signal("passive_item_picked_up", item)
 
 
+func unequip_passive_item(item: PassiveItem) -> void:
+	passive_items.erase(item)
+	item.unequip(self)
+
+
 func spawn_dust() -> void:
 	var dust: Sprite2D = DUST_SCENE.instantiate()
 	dust.position = dust_position.global_position

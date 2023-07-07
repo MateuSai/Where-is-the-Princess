@@ -309,7 +309,7 @@ _data = {
 [node name="Spear" instance=ExtResource("1_gt5q8")]
 script = ExtResource("2_ej1o4")
 on_floor = null
-condition_degrade_by_attack = 5.0
+condition_degrade_by_attack = 25.0
 
 [node name="Node2D" parent="." index="0"]
 rotation = 1.5708

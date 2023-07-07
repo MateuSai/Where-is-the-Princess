@@ -6,7 +6,9 @@ func _init() -> void:
 
 
 func equip(player: Player) -> void:
-	player.add_child(MagicShieldNode.new())
+	var magic_shield_node: MagicShieldNode = MagicShieldNode.new()
+	magic_shield_node.destroyed.connect(func(): player.unequip_passive_item(self))
+	player.add_child(magic_shield_node)
 
 
 func unequip(_player: Player) -> void:
@@ -18,6 +20,8 @@ class MagicShieldNode extends StaticBody2D:
 
 	var sprite: Sprite2D
 	var life_component: LifeComponent
+
+	signal destroyed()
 
 	func _init() -> void:
 		position.y = -2
@@ -39,7 +43,7 @@ class MagicShieldNode extends StaticBody2D:
 		life_component.name = "LifeComponent"
 		life_component.max_hp = 2
 		life_component.hp = 2
-		life_component.died.connect(queue_free)
+		life_component.died.connect(func(): destroyed.emit())
 		add_child(life_component)
 
 
