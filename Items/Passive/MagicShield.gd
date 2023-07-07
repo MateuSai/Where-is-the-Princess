@@ -17,6 +17,7 @@ class MagicShieldNode extends StaticBody2D:
 	var prev_rot: float = 0
 
 	var sprite: Sprite2D
+	var life_component: LifeComponent
 
 	func _init() -> void:
 		position.y = -2
@@ -29,10 +30,17 @@ class MagicShieldNode extends StaticBody2D:
 
 		var col: CollisionShape2D = CollisionShape2D.new()
 		var shape: RectangleShape2D = RectangleShape2D.new()
-		shape.size = Vector2(8, 2)
+		shape.size = Vector2(50, 2)
 		col.shape = shape
 		add_child(col)
 		col.position.y += 6
+
+		life_component = LifeComponent.new()
+		life_component.name = "LifeComponent"
+		life_component.max_hp = 2
+		life_component.hp = 2
+		life_component.died.connect(queue_free)
+		add_child(life_component)
 
 
 	func _physics_process(delta: float) -> void:

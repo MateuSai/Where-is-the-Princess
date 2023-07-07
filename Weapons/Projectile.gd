@@ -30,6 +30,6 @@ func _on_ThrowableKnike_body_exited(_body: Node2D) -> void:
 
 func _collide(body: Node2D) -> void:
 	if enemy_exited:
-		if body.has_node("LifeComponent"):
+		if body.get("life_component") != null:
 			body.life_component.take_damage(damage, knockback_direction, knockback_force)
 		queue_free()
