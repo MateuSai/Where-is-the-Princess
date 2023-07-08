@@ -3,6 +3,9 @@
 # res://Menus/Menu.tscn
 # res://Menus/ModMenu.gd
 # res://Autoloads/Settings/Settings.gd
+# res://Autoloads/Settings/Settings.tscn
+# res://Armors/KnightArmor.gd
+# res://Armors/NoArmor.gd
 #
 # FIRST AUTHOR < EMAIL @ADDRESS>, YEAR.
 #
@@ -28,6 +31,10 @@ msgid "Mods"
 msgstr ""
 
 #: Game.tscn
+msgid "Settings"
+msgstr ""
+
+#: Game.tscn
 #: Menus/Menu.tscn
 msgid "Quit"
 msgstr ""
@@ -47,5 +54,22 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: Autoloads/Settings/Settings.gd
+#: Autoloads/Settings/Settings.tscn
 msgid "General"
+msgstr ""
+
+#: Autoloads/Settings/Settings.tscn
+msgid "Language"
+msgstr ""
+
+#: Autoloads/Settings/Settings.tscn
+msgid "en"
+msgstr ""
+
+#: Armors/KnightArmor.gd
+msgid "Knight"
+msgstr ""
+
+#: Armors/NoArmor.gd
+msgid "Underpants"
 msgstr ""

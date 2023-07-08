@@ -112,7 +112,7 @@ func _on_condition_changed(new_condition: float) -> void:
 
 func destroy() -> void:
 	weapon_sprite.material = load("res://Shaders/PixelExplosionMaterial.tres")
-	await create_tween().tween_property(weapon_sprite.material, "shader_parameter/progress", 1, 0.5).finished
+	await create_tween().tween_property(weapon_sprite.material, "shader_parameter/progress", 1, 1).finished
 	queue_free()
 
 
