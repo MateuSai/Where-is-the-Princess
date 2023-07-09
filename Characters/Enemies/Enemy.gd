@@ -10,7 +10,8 @@ const COIN_SCENE: PackedScene = preload("res://Items/Coin.tscn")
 
 
 func _ready() -> void:
-	var __ = connect("tree_exited", Callable(get_parent(), "_on_enemy_killed"))
+	super()
+	tree_exited.connect(Callable(get_parent(), "_on_enemy_killed"))
 
 
 func spawn_loot() -> void:

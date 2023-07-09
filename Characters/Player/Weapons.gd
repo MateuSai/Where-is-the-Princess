@@ -130,15 +130,21 @@ func throw_weapon() -> void:
 
 
 func _destroy_weapon() -> void:
-	SavedData.weapon_stats.remove_at(current_weapon.get_index() - 1)
-	var weapon_to_drop: Node2D = current_weapon
+	SavedData.run_stats.weapon_stats.remove_at(current_weapon.get_index() - 1)
+	var weapon_to_drop: Weapon = current_weapon
 	_switch_weapon(UP)
 
-	emit_signal("weapon_droped", weapon_to_drop.get_index())
+	weapon_droped.emit(weapon_to_drop.get_index())
 
+	var pos: Vector2 = weapon_to_drop.global_position
+	#print(pos)
 	call_deferred("remove_child", weapon_to_drop)
 	get_tree().current_scene.call_deferred("add_child", weapon_to_drop)
-	weapon_to_drop.queue_free()
+	await get_tree().process_frame
+	weapon_to_drop.position = pos
+	weapon_to_drop.show()
+	#print(str(weapon_to_drop.position) + "   " + str(weapon_to_drop.global_position))
+	weapon_to_drop.destroy()
 
 
 func cancel_attack() -> void:

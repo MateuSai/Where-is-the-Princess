@@ -107,7 +107,13 @@ func _on_condition_changed(new_condition: float) -> void:
 		emit_signal("condition_changed", self, new_condition)
 	else:
 		if new_condition <= 0:
-			queue_free()
+			destroy()
+
+
+func destroy() -> void:
+	weapon_sprite.material = load("res://Shaders/PixelExplosionMaterial.tres")
+	await create_tween().tween_property(weapon_sprite.material, "shader_parameter/progress", 1, 1).finished
+	queue_free()
 
 
 func _on_show() -> void:

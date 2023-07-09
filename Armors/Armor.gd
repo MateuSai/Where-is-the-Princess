@@ -1,7 +1,9 @@
 class_name Armor
 
-var sprite_sheet: Texture
+var name: String ## Name of the armor
+var sprite_sheet: Texture ## Armor's spritesheet
 
+## Internal variable used to know if we can use the ability (when the cooldown time ends)
 var is_able_to_use_ability: bool = true
 
 var recharge_time: float
@@ -10,7 +12,8 @@ signal ability_effect_ended()
 
 
 @warning_ignore("shadowed_variable")
-func initialize(sprite_sheet: Texture, recharge_time: float, effect_duration: float = -1) -> void:
+func initialize(name: String, sprite_sheet: Texture, recharge_time: float, effect_duration: float = -1) -> void:
+	self.name = name
 	self.sprite_sheet = sprite_sheet
 	self.recharge_time = recharge_time
 	self.effect_duration = effect_duration
