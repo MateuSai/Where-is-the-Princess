@@ -12,6 +12,8 @@ signal passive_item_picked_up(item: PassiveItem)
 
 var armor: Armor = null : set = set_armor
 
+var mouse_direction: Vector2
+
 #var sm
 
 # @onready var armor_sprite: Sprite2D = get_node("ArmorSprite")
@@ -79,7 +81,7 @@ func _restore_previous_state() -> void:
 
 func _process(_delta: float) -> void:
 	# sm.update(_delta)
-	var mouse_direction: Vector2 = (get_global_mouse_position() - global_position).normalized()
+	mouse_direction = (get_global_mouse_position() - global_position).normalized()
 
 	if mouse_direction.x > 0 and sprite.flip_h:
 		sprite.flip_h = false

@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://bp2oo4273j0dc"]
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_gt5q8"]
-[ext_resource type="Script" path="res://Weapons/ThrowableWeapon.gd" id="2_ej1o4"]
+[ext_resource type="Script" path="res://Weapons/Melee/MeleeWeapon.gd" id="2_7som3"]
 [ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="3_ht21p"]
 [ext_resource type="Texture2D" uid="uid://tn7bpukhe0kh" path="res://Art/weapons/Spear.png" id="4_bfx2a"]
 
@@ -307,9 +307,10 @@ _data = {
 }
 
 [node name="Spear" instance=ExtResource("1_gt5q8")]
-script = ExtResource("2_ej1o4")
-on_floor = null
-condition_degrade_by_attack = 25.0
+script = ExtResource("2_7som3")
+backwards_animation_second_attack = false
+type = 0
+throw_speed = 400
 
 [node name="Node2D" parent="." index="0"]
 rotation = 1.5708

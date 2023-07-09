@@ -17,7 +17,7 @@ func _ready() -> void:
 
 
 func _on_armor_selected(armor: Armor) -> void:
-	name_label.text = armor.get_class()
+	name_label.text = armor.name
 
 
 class ArmorGridButton extends Button:

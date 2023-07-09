@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bnr0w37wgidyn"]
+[gd_scene load_steps=5 format=3 uid="uid://bnr0w37wgidyn"]
 
 [ext_resource type="Script" path="res://Autoloads/Settings/Settings.gd" id="1_4y760"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="2_fjhtw"]
 [ext_resource type="Script" path="res://Autoloads/Settings/LanguageDropdown.gd" id="3_8fg1t"]
+[ext_resource type="Script" path="res://Autoloads/Settings/FullScreenCheckBox.gd" id="4_wsnjl"]
 
 [node name="Settings" type="Popup"]
 process_mode = 3
+size = Vector2i(154, 100)
 visible = true
 script = ExtResource("1_4y760")
 
@@ -17,13 +19,24 @@ theme = ExtResource("2_fjhtw")
 [node name="General" type="VBoxContainer" parent="TabContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/General"]
+[node name="LanguageHBoxContainer" type="HBoxContainer" parent="TabContainer/General"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TabContainer/General/HBoxContainer"]
+[node name="Label" type="Label" parent="TabContainer/General/LanguageHBoxContainer"]
 layout_mode = 2
 text = "Language"
 
-[node name="LanguageDropdown" type="OptionButton" parent="TabContainer/General/HBoxContainer"]
+[node name="LanguageDropdown" type="OptionButton" parent="TabContainer/General/LanguageHBoxContainer"]
 layout_mode = 2
 script = ExtResource("3_8fg1t")
+
+[node name="FullScreenHBoxContainer" type="HBoxContainer" parent="TabContainer/General"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/General/FullScreenHBoxContainer"]
+layout_mode = 2
+text = "Full Screen"
+
+[node name="FullScreenCheckBox" type="CheckBox" parent="TabContainer/General/FullScreenHBoxContainer"]
+layout_mode = 2
+script = ExtResource("4_wsnjl")

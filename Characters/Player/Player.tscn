@@ -337,6 +337,7 @@ libraries = {
 }
 
 [node name="Weapons" type="Node2D" parent="." index="5"]
+position = Vector2(0, -3)
 script = ExtResource("5_uyohi")
 
 [node name="Dagger" parent="Weapons" index="0" instance=ExtResource("5_nk70o")]

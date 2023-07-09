@@ -3,7 +3,7 @@ class_name Weapon extends Node2D
 
 @export var on_floor: bool = false
 
-@export var condition_degrade_by_attack: float = 50
+@export var condition_degrade_by_attack: float = 10
 
 var can_active_ability: bool = true
 
@@ -38,12 +38,12 @@ func _ready() -> void:
 
 func get_input() -> void:
 	if Input.is_action_just_pressed("ui_attack") and not animation_player.is_playing():
-		animation_player.play("charge")
+		_charge()
 	elif Input.is_action_just_released("ui_attack"):
-		if animation_player.is_playing() and animation_player.current_animation == "charge":
+		if animation_player.is_playing() and animation_player.current_animation.begins_with("charge"):
 			attack()
 		elif charge_particles.emitting:
-			animation_player.play("strong_attack")
+			_strong_attack()
 	elif Input.is_action_just_pressed("ui_active_ability") and animation_player.has_animation("active_ability") and not is_busy() and can_active_ability:
 		can_active_ability = false
 		cool_down_timer.start()
@@ -65,6 +65,14 @@ func attack() -> void:
 	animation_player.play("attack")
 
 
+func _strong_attack() -> void:
+	animation_player.play("strong_attack")
+
+
+func _charge() -> void:
+	animation_player.play("charge")
+
+
 func cancel_attack() -> void:
 	animation_player.play("RESET")
 
@@ -75,15 +83,19 @@ func is_busy() -> bool:
 
 func _on_PlayerDetector_body_entered(body: Node2D) -> void:
 	if body is Player:
-		player_detector.set_collision_mask_value(1, false)
-		player_detector.set_collision_mask_value(2, false)
 		body.weapons.pick_up_weapon(self)
-		animation_player.play("RESET")
-		position = Vector2.ZERO
+		_pick_up()
 	else:
 		if tween:
 			tween.kill()
 		player_detector.set_collision_mask_value(2, true)
+
+
+func _pick_up() -> void:
+	player_detector.set_collision_mask_value(1, false)
+	player_detector.set_collision_mask_value(2, false)
+	animation_player.play("RESET")
+	position = Vector2.ZERO
 
 
 func interpolate_pos(initial_pos: Vector2, final_pos: Vector2) -> void:
@@ -111,6 +123,8 @@ func _on_condition_changed(new_condition: float) -> void:
 
 
 func destroy() -> void:
+	player_detector.queue_free()
+	hitbox.queue_free()
 	weapon_sprite.material = load("res://Shaders/PixelExplosionMaterial.tres")
 	await create_tween().tween_property(weapon_sprite.material, "shader_parameter/progress", 1, 1).finished
 	queue_free()

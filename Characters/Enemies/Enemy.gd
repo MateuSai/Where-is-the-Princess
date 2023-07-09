@@ -4,7 +4,7 @@ class_name Enemy extends Character
 const COIN_SCENE: PackedScene = preload("res://Items/Coin.tscn")
 
 @onready var room: DungeonRoom = get_parent()
-@onready var player: CharacterBody2D = get_tree().current_scene.get_node("Player")
+@onready var player: Player = get_tree().current_scene.get_node("Player")
 @onready var path_timer: Timer = get_node("PathTimer")
 @onready var navigation_agent: NavigationAgent2D = get_node("NavigationAgent2D")
 

@@ -112,7 +112,7 @@ func _drop_weapon() -> void:
 
 
 func throw_weapon() -> void:
-	assert(current_weapon is ThrowableWeapon)
+	assert(current_weapon is MeleeWeapon)
 
 	SavedData.run_stats.weapon_stats.remove_at(current_weapon.get_index() - 1)
 	var weapon_to_drop: Node2D = current_weapon
