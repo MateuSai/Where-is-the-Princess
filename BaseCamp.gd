@@ -2,7 +2,7 @@ extends Node2D
 
 
 @onready var start_interact_area: InteractArea = get_node("StartInteractArea")
-@onready var wardrobe_interact_area: InteractArea = get_node("WardrobeInteractArea")
+@onready var wardrobe_interact_area: InteractArea = get_node("Wardrobe/WardrobeInteractArea")
 @onready var wardrobe_popup: Popup = get_node("WardrobePopup")
 
 
