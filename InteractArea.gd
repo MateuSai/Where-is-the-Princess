@@ -19,7 +19,7 @@ func _ready() -> void:
 	set_collision_mask_value(2, true) #Player
 
 	sprite_material = ShaderMaterial.new()
-	sprite_material.shader = load("res://Shaders/Outline.gdshader")
+	sprite_material.shader = load("res://Shaders and Particles/Outline.gdshader")
 	sprite.material = sprite_material
 
 	body_entered.connect(_on_player_entered)

@@ -7,8 +7,11 @@ signal weapon_picked_up(weapon: Weapon)
 signal weapon_droped(index: int)
 signal weapon_condition_changed(weapon: Weapon, new_value: float)
 
-var passive_items: Array[PassiveItem] = []
-signal passive_item_picked_up(item: PassiveItem)
+var permanent_passive_items: Array[PermanentPassiveItem] = []
+var temporal_passive_items: Array[TemporalPassiveItem] = []
+signal temporal_passive_item_picked_up(item: TemporalPassiveItem)
+signal temporal_passive_item_unequiped(index: int)
+signal permanent_passive_item_picked_up(item: PermanentPassiveItem)
 
 var armor: Armor = null : set = set_armor
 
@@ -113,14 +116,20 @@ func add_coin() -> void:
 
 
 func pick_up_passive_item(item: PassiveItem) -> void:
-	passive_items.push_back(item)
 	item.equip(self)
-	emit_signal("passive_item_picked_up", item)
+	if item is PermanentPassiveItem:
+		permanent_passive_items.push_back(item)
+		permanent_passive_item_picked_up.emit(item)
+	else: # TemporalPassiveItem
+		temporal_passive_items.push_back(item)
+		temporal_passive_item_picked_up.emit(item)
 
 
 func unequip_passive_item(item: PassiveItem) -> void:
-	passive_items.erase(item)
+	assert(item is TemporalPassiveItem)
 	item.unequip(self)
+	temporal_passive_item_unequiped.emit(temporal_passive_items.find(item))
+	temporal_passive_items.erase(item)
 
 
 func spawn_dust() -> void:

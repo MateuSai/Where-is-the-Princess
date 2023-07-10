@@ -3,7 +3,7 @@ class_name Weapon extends Node2D
 
 @export var on_floor: bool = false
 
-@export var condition_degrade_by_attack: float = 10
+@export var condition_degrade_by_attack: float = 34
 
 var can_active_ability: bool = true
 
@@ -125,8 +125,18 @@ func _on_condition_changed(new_condition: float) -> void:
 func destroy() -> void:
 	player_detector.queue_free()
 	hitbox.queue_free()
-	weapon_sprite.material = load("res://Shaders/PixelExplosionMaterial.tres")
-	await create_tween().tween_property(weapon_sprite.material, "shader_parameter/progress", 1, 1).finished
+
+	# Shader culiada, tengo que quitar el offset del sprite para que funcione bien
+	weapon_sprite.position += weapon_sprite.offset
+	weapon_sprite.offset = Vector2.ZERO
+	var particles: GPUParticles2D = load("res://Shaders and Particles/DestroyParticles.tscn").instantiate()
+	particles.position = weapon_sprite.global_position
+	get_tree().current_scene.add_child(particles)
+	weapon_sprite.material = ResourceLoader.load("res://Shaders and Particles/PixelExplosionMaterial.tres", "ShaderMaterial", ResourceLoader.CACHE_MODE_IGNORE)
+	#weapon_sprite.material.resource_local_to_scene = true
+	#weapon_sprite.material.set("shader_parameter/progress", 0)
+	await create_tween().tween_property(weapon_sprite.material, "shader_parameter/progress", 1, 10).finished
+	#await get_tree().create_timer(1).timeout
 	queue_free()
 
 

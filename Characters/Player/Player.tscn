@@ -394,7 +394,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_7aqj1")
 [node name="Inventory" type="HBoxContainer" parent="UI/PanelContainer" index="0"]
 layout_mode = 2
 
-[connection signal="passive_item_picked_up" from="." to="UI/MarginContainer/VBoxContainer/PassiveItemsContainer" method="_on_player_passive_item_picked_up"]
+[connection signal="temporal_passive_item_picked_up" from="." to="UI/MarginContainer/VBoxContainer/PassiveItemsContainer" method="_on_player_temporal_passive_item_picked_up"]
+[connection signal="temporal_passive_item_unequiped" from="." to="UI/MarginContainer/VBoxContainer/PassiveItemsContainer" method="_on_player_temporal_passive_item_unequiped"]
 [connection signal="weapon_condition_changed" from="." to="UI" method="_on_player_weapon_condition_changed"]
 [connection signal="weapon_droped" from="." to="UI" method="_on_player_weapon_droped"]
 [connection signal="weapon_picked_up" from="." to="UI" method="_on_player_weapon_picked_up"]
