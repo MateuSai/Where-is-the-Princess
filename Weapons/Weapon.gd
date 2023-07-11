@@ -123,8 +123,10 @@ func _on_condition_changed(new_condition: float) -> void:
 
 
 func destroy() -> void:
+	animation_player.stop(true)
+
 	player_detector.queue_free()
-	hitbox.queue_free()
+	hitbox.free()
 
 	# Shader culiada, tengo que quitar el offset del sprite para que funcione bien
 	weapon_sprite.position += weapon_sprite.offset

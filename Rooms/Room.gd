@@ -149,6 +149,7 @@ func _on_enemy_killed() -> void:
 	num_enemies -= 1
 	if num_enemies == 0:
 		cleared.emit()
+		Globals.room_cleared.emit()
 		_open_doors()
 
 
@@ -192,6 +193,7 @@ func _on_player_entered_room() -> void:
 		_close_entrance()
 		_spawn_enemies()
 		closed.emit()
+		Globals.room_closed.emit()
 	else:
 		pass
 		#_close_entrance()

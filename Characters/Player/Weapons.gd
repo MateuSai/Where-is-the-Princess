@@ -153,7 +153,7 @@ func cancel_attack() -> void:
 
 func _on_weapon_condition_changed(weapon: Weapon, new_condition: float) -> void:
 	assert(weapon == current_weapon)
-	if new_condition == 0:
+	if new_condition <= 0:
 		_destroy_weapon()
 	else:
 		emit_signal("weapon_condition_changed", weapon, new_condition)
