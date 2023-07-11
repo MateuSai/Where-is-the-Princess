@@ -54,8 +54,13 @@ func reset_data() -> void:
 
 ## This is what we use to load the stats when he changes floor or when he saves the game
 class RunStats extends Resource:
+	signal coins_changed(new_coins: int)
+
 	@export var num_floor: int = 0
 	@export var hp: int = 4
 	@export var weapon_stats: Array[WeaponStats] = []
 	@export var equipped_weapon_index: int = 0
-	@export var coins: int = 0
+	@export var coins: int = 0:
+		set(new_coins):
+			coins = new_coins
+			coins_changed.emit(coins)

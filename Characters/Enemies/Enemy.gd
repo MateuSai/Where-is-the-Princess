@@ -19,7 +19,7 @@ func spawn_loot() -> void:
 		var coin: Coin = COIN_SCENE.instantiate()
 		room.cleared.connect(coin.go_to_player)
 		coin.position = global_position
-		get_tree().current_scene.add_child(coin)
+		get_tree().current_scene.call_deferred("add_child", coin)
 
 
 func chase() -> void:
