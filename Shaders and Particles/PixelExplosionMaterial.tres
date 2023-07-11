@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://d3h3v51wspjjw"]
 
-[ext_resource type="Shader" path="res://Shaders/PixelExplosion.gdshader" id="1_fmeg0"]
+[ext_resource type="Shader" path="res://Shaders and Particles/PixelExplosion.gdshader" id="1_fmeg0"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_xk4hp"]
 noise_type = 0

@@ -2,7 +2,7 @@ class_name KnightArmor extends Armor
 
 
 func _init() -> void:
-	initialize(tr("Knight"), load("res://Art/player/armor_01.png"), 0.5, 2)
+	initialize(tr("Knight"), tr("Heavy armored, it allows you to block some attacks"), load("res://Art/player/armor_01.png"), 2, 0.5, 2)
 
 
 func use_ability(player: Player) -> void:

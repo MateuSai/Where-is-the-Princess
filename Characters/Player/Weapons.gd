@@ -112,7 +112,7 @@ func _drop_weapon() -> void:
 
 
 func throw_weapon() -> void:
-	assert(current_weapon is ThrowableWeapon)
+	assert(current_weapon is MeleeWeapon)
 
 	SavedData.run_stats.weapon_stats.remove_at(current_weapon.get_index() - 1)
 	var weapon_to_drop: Node2D = current_weapon
@@ -153,7 +153,7 @@ func cancel_attack() -> void:
 
 func _on_weapon_condition_changed(weapon: Weapon, new_condition: float) -> void:
 	assert(weapon == current_weapon)
-	if new_condition == 0:
+	if new_condition <= 0:
 		_destroy_weapon()
 	else:
 		emit_signal("weapon_condition_changed", weapon, new_condition)

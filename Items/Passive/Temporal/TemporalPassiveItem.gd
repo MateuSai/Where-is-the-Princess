@@ -1,0 +1,1 @@
+class_name TemporalPassiveItem extends PassiveItem

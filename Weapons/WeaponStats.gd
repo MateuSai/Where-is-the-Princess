@@ -16,4 +16,4 @@ func set_condition(new_condition: float) -> void:
 		return
 
 	condition = clamp(new_condition, 0, 100)
-	emit_signal("condition_changed", new_condition)
+	emit_signal("condition_changed", condition)

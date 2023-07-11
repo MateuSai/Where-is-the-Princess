@@ -1,4 +1,6 @@
-class_name MagicShield extends PassiveItem
+class_name MagicShield extends TemporalPassiveItem
+
+var magic_shield_node: MagicShieldNode
 
 
 func _init() -> void:
@@ -6,13 +8,16 @@ func _init() -> void:
 
 
 func equip(player: Player) -> void:
-	var magic_shield_node: MagicShieldNode = MagicShieldNode.new()
+	magic_shield_node = MagicShieldNode.new()
 	magic_shield_node.destroyed.connect(func(): player.unequip_passive_item(self))
 	player.add_child(magic_shield_node)
 
 
 func unequip(_player: Player) -> void:
-	pass
+	var particles: GPUParticles2D = load("res://Shaders and Particles/DestroyParticles.tscn").instantiate()
+	particles.position = magic_shield_node.sprite.global_position
+	magic_shield_node.get_tree().current_scene.add_child(particles)
+	magic_shield_node.queue_free()
 
 
 class MagicShieldNode extends StaticBody2D:

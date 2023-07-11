@@ -43,6 +43,9 @@ var vertical_corridor_rect: Rect2
 var horizontal_corridor_rect: Rect2
 var room_rect: Rect2
 
+var visited_rooms: Array[DungeonRoom] = []
+signal room_visited(room: DungeonRoom)
+
 @export var num_levels: int = 5
 
 # @onready var player: CharacterBody2D = get_parent().get_node("Player")
@@ -102,6 +105,10 @@ func spawn_rooms() -> void:
 		rooms.push_back(INTERMEDIATE_ROOMS[randi() % INTERMEDIATE_ROOMS.size()].instantiate())
 
 	for room in rooms:
+		room.closed.connect(func():
+			visited_rooms.push_back(room)
+			room_visited.emit(room)
+		)
 		add_child(room)
 	var start_room_pos: Vector2 = start_room.get_random_circle_spawn_point(SPAWN_CIRCLE_RADIUS)
 	rooms[0].float_position = start_room_pos # rooms[0] es la habitación de spawn
@@ -328,7 +335,7 @@ func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_
 
 	var vertical_corridor_1_rect: Rect2 = Rect2(connection_with_entry_position, Vector2(TILE_SIZE * 4, center))
 	var vertical_corridor_2_rect: Rect2 = Rect2(id_entry_position, Vector2(TILE_SIZE * 4, dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1))
-	horizontal_corridor_rect = Rect2(connection_with_entry_position + Vector2.DOWN * center, Vector2(id_entry_position.x - connection_with_entry_position.x, TILE_SIZE * 4))
+	horizontal_corridor_rect = Rect2(connection_with_entry_position + Vector2.DOWN * center + Vector2.UP * TILE_SIZE, Vector2(id_entry_position.x - connection_with_entry_position.x, TILE_SIZE * 4))
 
 	for room in rooms:
 		if room == rooms[id] or room == rooms[connection_with]:

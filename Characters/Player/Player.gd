@@ -7,10 +7,15 @@ signal weapon_picked_up(weapon: Weapon)
 signal weapon_droped(index: int)
 signal weapon_condition_changed(weapon: Weapon, new_value: float)
 
-var passive_items: Array[PassiveItem] = []
-signal passive_item_picked_up(item: PassiveItem)
+var permanent_passive_items: Array[PermanentPassiveItem] = []
+var temporal_passive_items: Array[TemporalPassiveItem] = []
+signal temporal_passive_item_picked_up(item: TemporalPassiveItem)
+signal temporal_passive_item_unequiped(index: int)
+signal permanent_passive_item_picked_up(item: PermanentPassiveItem)
 
 var armor: Armor = null : set = set_armor
+
+var mouse_direction: Vector2
 
 #var sm
 
@@ -30,8 +35,8 @@ func _ready() -> void:
 
 	_restore_previous_state()
 
-	set_armor(NoArmor.new())
-	#set_armor(KnightArmor.new())
+	#set_armor(NoArmor.new())
+	set_armor(KnightArmor.new())
 
 	life_component.hp_changed.connect(func(new_hp: int):
 		SavedData.run_stats.hp = new_hp
@@ -79,7 +84,7 @@ func _restore_previous_state() -> void:
 
 func _process(_delta: float) -> void:
 	# sm.update(_delta)
-	var mouse_direction: Vector2 = (get_global_mouse_position() - global_position).normalized()
+	mouse_direction = (get_global_mouse_position() - global_position).normalized()
 
 	if mouse_direction.x > 0 and sprite.flip_h:
 		sprite.flip_h = false
@@ -110,15 +115,30 @@ func add_coin() -> void:
 	SavedData.run_stats.coins += 1
 
 
+func _on_damage_taken(dam: int, dir: Vector2, force: int) -> void:
+	super(dam, dir, force)
+
+	if not armor is NoArmor:
+		armor.condition -= dam
+		if armor.condition <= 0:
+			set_armor(NoArmor.new())
+
+
 func pick_up_passive_item(item: PassiveItem) -> void:
-	passive_items.push_back(item)
 	item.equip(self)
-	emit_signal("passive_item_picked_up", item)
+	if item is PermanentPassiveItem:
+		permanent_passive_items.push_back(item)
+		permanent_passive_item_picked_up.emit(item)
+	else: # TemporalPassiveItem
+		temporal_passive_items.push_back(item)
+		temporal_passive_item_picked_up.emit(item)
 
 
 func unequip_passive_item(item: PassiveItem) -> void:
-	passive_items.erase(item)
+	assert(item is TemporalPassiveItem)
 	item.unequip(self)
+	temporal_passive_item_unequiped.emit(temporal_passive_items.find(item))
+	temporal_passive_items.erase(item)
 
 
 func spawn_dust() -> void:
