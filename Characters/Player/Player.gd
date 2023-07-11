@@ -35,8 +35,8 @@ func _ready() -> void:
 
 	_restore_previous_state()
 
-	set_armor(NoArmor.new())
-	#set_armor(KnightArmor.new())
+	#set_armor(NoArmor.new())
+	set_armor(KnightArmor.new())
 
 	life_component.hp_changed.connect(func(new_hp: int):
 		SavedData.run_stats.hp = new_hp
@@ -113,6 +113,15 @@ func get_input() -> void:
 
 func add_coin() -> void:
 	SavedData.run_stats.coins += 1
+
+
+func _on_damage_taken(dam: int, dir: Vector2, force: int) -> void:
+	super(dam, dir, force)
+
+	if not armor is NoArmor:
+		armor.condition -= dam
+		if armor.condition <= 0:
+			set_armor(NoArmor.new())
 
 
 func pick_up_passive_item(item: PassiveItem) -> void:
