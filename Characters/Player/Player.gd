@@ -121,6 +121,9 @@ func _on_damage_taken(dam: int, dir: Vector2, force: int) -> void:
 	if not armor is NoArmor:
 		armor.condition -= dam
 		if armor.condition <= 0:
+			var particles: GPUParticles2D = load("res://Shaders and Particles/DestroyParticles.tscn").instantiate()
+			particles.position += Vector2.UP * 6
+			add_child(particles)
 			set_armor(NoArmor.new())
 
 

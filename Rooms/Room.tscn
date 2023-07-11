@@ -50,6 +50,7 @@ layer_3/tile_data = PackedInt32Array()
 [node name="Down" type="Node2D" parent="Entries"]
 
 [node name="Doors" type="Node2D" parent="."]
+y_sort_enabled = true
 
 [node name="EnemyPositions" type="Node2D" parent="."]
 

@@ -6,8 +6,8 @@ func _init() -> void:
 
 
 func use_ability(player: Player) -> void:
-	player.invincible = true
-	ability_effect_ended.connect(func(): player.invincible = false)
+	player.life_component.invincible = true
+	ability_effect_ended.connect(func(): player.life_component.invincible = false)
 	super(player)
 	#await  player.get_tree().create_timer(2).timeout
 	# player.invincible = false

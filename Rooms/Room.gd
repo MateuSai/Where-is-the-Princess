@@ -11,7 +11,8 @@ const ENEMY_SCENES: Dictionary = {
 	#"SHIELD_KNIGHT": preload("res://Characters/Enemies/ShieldKnight/ShieldKnight.tscn"),
 }
 
-const HORIZONTAL_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/HorizontalDoor.tscn")
+const HORIZONTAL_UP_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/HorizontalUpDoor.tscn")
+const HORIZONTAL_DOWN_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/HorizontalDownDoor.tscn")
 const VERTICAL_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/VerticalDoor.tscn")
 
 var num_enemies: int
@@ -118,8 +119,8 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 	for dir in [EntryDirection.UP, EntryDirection.DOWN]:
 		for entry in entries[dir].get_children():
 			if entry in used_entries:
-				var horizontal_door: Door = HORIZONTAL_DOOR.instantiate()
-				horizontal_door.position = floor(entry.position / 16) * 16 + Vector2(Rooms.TILE_SIZE, Rooms.TILE_SIZE)
+				var horizontal_door: Door = HORIZONTAL_UP_DOOR.instantiate() if dir == EntryDirection.UP else HORIZONTAL_DOWN_DOOR.instantiate()
+				horizontal_door.position = floor(entry.position / 16) * 16 + Vector2(Rooms.TILE_SIZE, Rooms.TILE_SIZE + 12)
 				door_container.add_child(horizontal_door)
 				if dir == EntryDirection.UP:
 					corridor_tilemap.erase_cell(1, corridor_tilemap.local_to_map(entry.global_position) + Vector2i.UP)
@@ -148,6 +149,7 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 func _on_enemy_killed() -> void:
 	num_enemies -= 1
 	if num_enemies == 0:
+		await get_tree().process_frame
 		cleared.emit()
 		Globals.room_cleared.emit()
 		_open_doors()
