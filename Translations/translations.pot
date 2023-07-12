@@ -6,6 +6,7 @@
 # res://Autoloads/Settings/Settings.tscn
 # res://Armors/KnightArmor.gd
 # res://Armors/NoArmor.gd
+# res://Menus/DebugInfo.gd
 #
 # FIRST AUTHOR < EMAIL @ADDRESS>, YEAR.
 #
@@ -18,16 +19,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: Game.tscn
+#: Menus/DebugInfo.gd
+msgid "Peak"
+msgstr ""
+
+#: Game.tscn
 msgid "Generating Dungeon"
 msgstr ""
 
 #: Game.tscn
 msgid "Resume"
-msgstr ""
-
-#: Game.tscn
-#: Menus/Menu.tscn
-msgid "Mods"
 msgstr ""
 
 #: Game.tscn
@@ -39,12 +40,16 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
+#: Game.tscn
+msgid "0"
+msgstr ""
+
 #: Menus/Menu.tscn
 msgid "Play"
 msgstr ""
 
 #: Menus/Menu.tscn
-msgid "asdsad"
+msgid "Mods"
 msgstr ""
 
 #: Menus/ModMenu.gd
@@ -63,13 +68,21 @@ msgid "Language"
 msgstr ""
 
 #: Autoloads/Settings/Settings.tscn
-msgid "en"
+msgid "Full Screen"
 msgstr ""
 
 #: Armors/KnightArmor.gd
 msgid "Knight"
 msgstr ""
 
+#: Armors/KnightArmor.gd
+msgid "Heavy armored, it allows you to block some attacks"
+msgstr ""
+
 #: Armors/NoArmor.gd
 msgid "Underpants"
+msgstr ""
+
+#: Armors/NoArmor.gd
+msgid "Why wear an armor? You are faster with only your underpants."
 msgstr ""

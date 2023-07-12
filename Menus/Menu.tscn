@@ -48,4 +48,3 @@ script = ExtResource("4_0l3tl")
 [node name="Label" type="Label" parent="Popup"]
 offset_right = 40.0
 offset_bottom = 15.0
-text = "asdsad"

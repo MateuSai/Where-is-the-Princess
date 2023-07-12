@@ -126,7 +126,7 @@ func destroy() -> void:
 	animation_player.stop(true)
 
 	player_detector.queue_free()
-	hitbox.free()
+	hitbox.queue_free()
 
 	# Shader culiada, tengo que quitar el offset del sprite para que funcione bien
 	weapon_sprite.position += weapon_sprite.offset

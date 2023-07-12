@@ -1,18 +1,18 @@
-[gd_scene load_steps=15 format=3 uid="uid://bjqwewytm1wo2"]
+[gd_scene load_steps=16 format=3 uid="uid://bjqwewytm1wo2"]
 
-[ext_resource type="PackedScene" uid="uid://r88elkkvv60o" path="res://Rooms/Furniture and Traps/Door.tscn" id="1_sa8y3"]
-[ext_resource type="Texture2D" uid="uid://bebupc443w3u" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/tiles/wall/door_spritesheet.png" id="2_7m6kc"]
-[ext_resource type="Texture2D" uid="uid://d2e6iidvt8eo3" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full tilemap.png" id="2_n564d"]
-[ext_resource type="Texture2D" uid="uid://bbir3nubd0hb" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full_tilemap_albedo.png" id="3_omsso"]
-[ext_resource type="Texture2D" uid="uid://bvvmfifrcqokb" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/horizontal_door_normal.png" id="3_rh168"]
+[ext_resource type="PackedScene" uid="uid://r88elkkvv60o" path="res://Rooms/Furniture and Traps/Door.tscn" id="1_c0qxw"]
+[ext_resource type="Texture2D" uid="uid://bebupc443w3u" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/tiles/wall/door_spritesheet.png" id="2_icvwg"]
+[ext_resource type="Texture2D" uid="uid://bvvmfifrcqokb" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/horizontal_door_normal.png" id="3_k4urm"]
+[ext_resource type="Texture2D" uid="uid://d2e6iidvt8eo3" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full tilemap.png" id="4_opte6"]
+[ext_resource type="Texture2D" uid="uid://bbir3nubd0hb" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full_tilemap_albedo.png" id="5_ek3oq"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_pxnwy"]
-diffuse_texture = ExtResource("2_7m6kc")
-normal_texture = ExtResource("3_rh168")
+diffuse_texture = ExtResource("2_icvwg")
+normal_texture = ExtResource("3_k4urm")
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_0rrwd"]
-diffuse_texture = ExtResource("2_n564d")
-normal_texture = ExtResource("3_omsso")
+diffuse_texture = ExtResource("4_opte6")
+normal_texture = ExtResource("5_ek3oq")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p5awq"]
 atlas = SubResource("CanvasTexture_0rrwd")
@@ -151,16 +151,20 @@ size = Vector2(30, 24)
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_gbdhl"]
 polygon = PackedVector2Array(-16, -16, -16, -4, 16, -4, 16, -16)
 
-[node name="HorizontalDoor" instance=ExtResource("1_sa8y3")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cdcp4"]
+size = Vector2(30, 5)
+
+[node name="HorizontalUpDoor" instance=ExtResource("1_c0qxw")]
 
 [node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, -12)
 texture = SubResource("CanvasTexture_pxnwy")
 hframes = 15
 frame = 14
 
 [node name="TopSprite" type="Sprite2D" parent="." index="1"]
 z_index = 1
-position = Vector2(0, -6)
+position = Vector2(0, -18)
 texture = SubResource("AtlasTexture_p5awq")
 
 [node name="AnimationPlayer" parent="." index="2"]
@@ -169,9 +173,18 @@ libraries = {
 }
 
 [node name="CollisionShape2D" parent="." index="3"]
+position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_utj8v")
 disabled = true
 
 [node name="LightOccluder2D" parent="." index="4"]
+position = Vector2(0, -12)
 occluder = SubResource("OccluderPolygon2D_gbdhl")
 occluder_light_mask = 0
+
+[node name="PlayerDetector" parent="." index="5"]
+position = Vector2(0, -12)
+
+[node name="CollisionShape2D" parent="PlayerDetector" index="0"]
+position = Vector2(0, 21)
+shape = SubResource("RectangleShape2D_cdcp4")

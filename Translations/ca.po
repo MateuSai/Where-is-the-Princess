@@ -18,17 +18,29 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: Game.tscn
-msgid "Generating Dungeon"
+#: Game.tscn Menus/DebugInfo.gd
+msgid "Peak"
 msgstr ""
 
 #: Game.tscn
+msgid "Generating Dungeon"
+msgstr "Generant Masmorra"
+
+#: Game.tscn
 msgid "Resume"
-msgstr ""
+msgstr "Resumir"
+
+#: Game.tscn
+msgid "Settings"
+msgstr "Configuració"
 
 #: Game.tscn Menus/Menu.tscn
 msgid "Quit"
 msgstr "Surt"
+
+#: Game.tscn
+msgid "0"
+msgstr ""
 
 #: Menus/Menu.tscn
 msgid "Play"
@@ -43,3 +55,31 @@ msgid "Room"
 msgid_plural "Rooms"
 msgstr[0] "Habitació"
 msgstr[1] "Habitacions"
+
+#: Autoloads/Settings/Settings.gd Autoloads/Settings/Settings.tscn
+msgid "General"
+msgstr "General"
+
+#: Autoloads/Settings/Settings.tscn
+msgid "Language"
+msgstr "Idioma"
+
+#: Autoloads/Settings/Settings.tscn
+msgid "Full Screen"
+msgstr "Pantalla Completa"
+
+#: Armors/KnightArmor.gd
+msgid "Knight"
+msgstr "Cavaller"
+
+#: Armors/KnightArmor.gd
+msgid "Heavy armored, it allows you to block some attacks"
+msgstr ""
+
+#: Armors/NoArmor.gd
+msgid "Underpants"
+msgstr "Roba interior"
+
+#: Armors/NoArmor.gd
+msgid "Why wear an armor? You are faster with only your underpants."
+msgstr ""
