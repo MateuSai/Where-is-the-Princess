@@ -64,3 +64,5 @@ class RunStats extends Resource:
 		set(new_coins):
 			coins = new_coins
 			coins_changed.emit(coins)
+
+	@export var armor: Armor = null

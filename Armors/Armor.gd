@@ -1,10 +1,10 @@
-class_name Armor
+class_name Armor extends Resource
 
 var name: String ## Name of the armor
 var description: String ## Armor's description
 var sprite_sheet: Texture ## Armor's spritesheet
 ## The armor will also receive the damage taken by the player. When the condition reaches 0, the armor will be destroyed and you be in your underpants
-var condition: int
+@export var condition: int
 
 ## Internal variable used to know if we can use the ability (when the cooldown time ends)
 var is_able_to_use_ability: bool = true

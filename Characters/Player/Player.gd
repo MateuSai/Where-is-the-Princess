@@ -17,6 +17,8 @@ var armor: Armor = null : set = set_armor
 
 var mouse_direction: Vector2
 
+var can_move: bool = true
+
 #var sm
 
 # @onready var armor_sprite: Sprite2D = get_node("ArmorSprite")
@@ -36,7 +38,11 @@ func _ready() -> void:
 	_restore_previous_state()
 
 	#set_armor(NoArmor.new())
-	set_armor(KnightArmor.new())
+	#set_armor(KnightArmor.new())
+	if SavedData.run_stats.armor == null:
+		set_armor(NoArmor.new())
+	else:
+		set_armor(SavedData.run_stats.armor)
 
 	life_component.hp_changed.connect(func(new_hp: int):
 		SavedData.run_stats.hp = new_hp
@@ -96,14 +102,15 @@ func _process(_delta: float) -> void:
 
 func get_input() -> void:
 	mov_direction = Vector2.ZERO
-	if Input.is_action_pressed("ui_down"):
-		mov_direction += Vector2.DOWN
-	if Input.is_action_pressed("ui_left"):
-		mov_direction += Vector2.LEFT
-	if Input.is_action_pressed("ui_right"):
-		mov_direction += Vector2.RIGHT
-	if Input.is_action_pressed("ui_up"):
-		mov_direction += Vector2.UP
+	if can_move:
+		if Input.is_action_pressed("ui_down"):
+			mov_direction += Vector2.DOWN
+		if Input.is_action_pressed("ui_left"):
+			mov_direction += Vector2.LEFT
+		if Input.is_action_pressed("ui_right"):
+			mov_direction += Vector2.RIGHT
+		if Input.is_action_pressed("ui_up"):
+			mov_direction += Vector2.UP
 
 	weapons.get_input()
 
@@ -164,6 +171,7 @@ func set_armor(new_armor: Armor) -> void:
 		armor.unequip(self)
 	armor = new_armor
 	armor.equip(self)
+	SavedData.run_stats.armor = armor
 	sprite.texture = armor.sprite_sheet
 
 
