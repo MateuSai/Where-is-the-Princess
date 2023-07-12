@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bwbyvwhi2vuv1"]
+[gd_scene load_steps=9 format=3 uid="uid://bwbyvwhi2vuv1"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_5rduf"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cwb0heh4qdkh8" path="res://Rooms/Chest.tscn" id="6_jogd0"]
 [ext_resource type="PackedScene" uid="uid://bn6jjdha1ecvj" path="res://Weapons/Sword.tscn" id="7_1glfq"]
 [ext_resource type="PackedScene" uid="uid://bp2oo4273j0dc" path="res://Weapons/Spear.tscn" id="7_i7a3b"]
+[ext_resource type="PackedScene" uid="uid://cjc0h245lbmpd" path="res://Weapons/Katana.tscn" id="8_sm3uk"]
 
 [node name="Room0" instance=ExtResource("1")]
 
@@ -47,4 +48,8 @@ on_floor = true
 
 [node name="Sword" parent="." index="9" instance=ExtResource("7_1glfq")]
 position = Vector2(74, 146)
+on_floor = true
+
+[node name="Sword2" parent="." index="10" instance=ExtResource("8_sm3uk")]
+position = Vector2(151, 75)
 on_floor = true

@@ -12,15 +12,26 @@ func _ready() -> void:
 	var armors: Array[Armor] = [NoArmor.new(), KnightArmor.new()]
 	for armor in armors:
 		var armor_grid_button: ArmorGridButton = ArmorGridButton.new(armor)
-		armor_grid_button.pressed.connect(func(): _on_armor_selected(armor_grid_button.armor))
+		armor_grid_button.focus_entered.connect(func(): _on_armor_selected(armor_grid_button.armor))
 		armors_grid.add_child(armor_grid_button)
+#		if player.armor.name == armor.name:
+#			armor_grid_button.grab_focus()
 
 	_on_armor_selected(player.armor)
+
+	draw.connect(func():
+		#print(player.armor.name)
+		for button in armors_grid.get_children():
+			print(button.armor.name + "  " + player.armor.name)
+			if player.armor.name == button.armor.name:
+				button.grab_focus()
+	)
 
 
 func _on_armor_selected(armor: Armor) -> void:
 	name_label.text = armor.name
 	description_label.text = armor.description
+	player.set_armor(armor)
 
 
 class ArmorGridButton extends Button:

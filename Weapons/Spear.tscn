@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://bp2oo4273j0dc"]
+[gd_scene load_steps=22 format=3 uid="uid://bp2oo4273j0dc"]
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_gt5q8"]
 [ext_resource type="Script" path="res://Weapons/Melee/MeleeWeapon.gd" id="2_7som3"]
 [ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="3_ht21p"]
 [ext_resource type="Texture2D" uid="uid://tn7bpukhe0kh" path="res://Art/weapons/Spear.png" id="4_bfx2a"]
+[ext_resource type="Shader" path="res://Shaders and Particles/Fire.gdshader" id="5_07mwr"]
 [ext_resource type="Material" uid="uid://d3h3v51wspjjw" path="res://Shaders and Particles/PixelExplosionMaterial.tres" id="5_r0vpa"]
 [ext_resource type="Texture2D" uid="uid://dfnyu2au1agfw" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/weapon_sword_1.png" id="6_tttmk"]
 
@@ -14,6 +15,30 @@ shader_parameter/active = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vns87"]
 radius = 3.1623
+
+[sub_resource type="Gradient" id="Gradient_qc2or"]
+offsets = PackedFloat32Array(0, 0.621212)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_os7oc"]
+gradient = SubResource("Gradient_qc2or")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gmr53"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hfubh"]
+noise = SubResource("FastNoiseLite_gmr53")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3tisw"]
+shader = ExtResource("5_07mwr")
+shader_parameter/brighter_color = Color(1, 0.8, 0, 1)
+shader_parameter/middle_color = Color(1, 0.56, 0, 1)
+shader_parameter/darker_color = Color(0.64, 0.2, 0.05, 1)
+shader_parameter/spread = 0.5
+shader_parameter/amount = 40
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_hfubh")
+shader_parameter/gradient_tex = SubResource("GradientTexture1D_os7oc")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_u8qcx"]
+size = Vector2(5, 5)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8ubvd"]
 radius = 3.00001
@@ -326,6 +351,11 @@ offset = Vector2(3, -3)
 [node name="CollisionShape2D" parent="Node2D/Sprite2D/Hitbox" index="0"]
 position = Vector2(10.6066, -9.19235)
 shape = SubResource("CircleShape2D_vns87")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/Sprite2D/Hitbox" index="1"]
+material = SubResource("ShaderMaterial_3tisw")
+position = Vector2(10.6066, -9.19242)
+texture = SubResource("PlaceholderTexture2D_u8qcx")
 
 [node name="CollisionShape2D" parent="Node2D/Sprite2D/PlayerDetector" index="0"]
 position = Vector2(-3.00002, 2.14577e-05)

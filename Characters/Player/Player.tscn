@@ -312,7 +312,7 @@ border_width_bottom = 2
 
 [node name="Player" instance=ExtResource("1")]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 21
 script = ExtResource("4")
 
 [node name="FiniteStateMachine" parent="." index="0"]

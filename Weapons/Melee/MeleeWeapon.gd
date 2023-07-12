@@ -66,7 +66,7 @@ func _strong_attack() -> void:
 func throw() -> void:
 	throw_dir = get_parent().get_parent().mouse_direction
 	if type == Type.SWORD:
-		throw_rot_speed = 10 if attack_num == 0 else -10
+		throw_rot_speed = 25 if attack_num == 0 else -25
 	get_parent().throw_weapon()
 	hitbox.get_node("CollisionShape2D").disabled = false
 	hitbox.set_collision_mask_value(1, true) # Para que pueda colisionar con paredes

@@ -9,7 +9,7 @@ const SLIME_BOSS_SCENE: PackedScene = preload("res://Rooms/SlimeBossRoom.tscn")
 const SPAWN_CIRCLE_RADIUS: float = 200
 
 const TILE_SIZE: int = 16
-const ATLAS_ID: int = 40 #40
+const ATLAS_ID: int = 0 #40
 const FLOOR_TILE_COOR: Vector2i = Vector2i(3, 1)
 const FULL_WALL_COORDS: Array[Vector2i] = [Vector2i(6, 4), Vector2i(7, 4), Vector2i(8, 4), Vector2i(6, 5), Vector2i(7, 5), Vector2i(8, 5)]
 const UPPER_WALL_COOR: Vector2i = Vector2i(2, 7)
@@ -569,6 +569,9 @@ func _create_l_corridor(from: Node, to: Node, from_dir: DungeonRoom.EntryDirecti
 
 
 func _draw() -> void:
+	if not debug:
+		return
+
 	if mst_astar == null:
 		for i in delaunay_indices.size() / 3.0:
 			draw_line(room_centers[delaunay_indices[i*3]], room_centers[delaunay_indices[i*3+1]], Color.GREEN, 7)
