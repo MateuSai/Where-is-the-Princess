@@ -30,6 +30,9 @@ class MagicShieldNode extends StaticBody2D:
 
 	func _init() -> void:
 		position.y = -2
+		set_collision_layer_value(1, false)
+		set_collision_mask_value(1, false)
+		set_collision_layer_value(2, true)
 
 		sprite = Sprite2D.new()
 		sprite.texture = load("res://Art/items/shield_rotating_player.png")
