@@ -35,7 +35,6 @@ z_index = 1
 material = SubResource("CanvasItemMaterial_jgpg2")
 tile_set = ExtResource("6_ml8df")
 format = 2
-layer_0/enabled = false
 layer_0/z_index = -1
 layer_1/name = "Bottom walls"
 layer_1/enabled = true
