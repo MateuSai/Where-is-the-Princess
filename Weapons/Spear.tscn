@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bp2oo4273j0dc"]
+[gd_scene load_steps=24 format=3 uid="uid://bp2oo4273j0dc"]
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_gt5q8"]
 [ext_resource type="Script" path="res://Weapons/Melee/MeleeWeapon.gd" id="2_7som3"]
@@ -38,8 +38,12 @@ shader_parameter/amount = 40
 shader_parameter/noise_tex = SubResource("NoiseTexture2D_hfubh")
 shader_parameter/gradient_tex = SubResource("GradientTexture1D_os7oc")
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_u8qcx"]
-size = Vector2(5, 5)
+[sub_resource type="Gradient" id="Gradient_w1fgn"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uwrwe"]
+gradient = SubResource("Gradient_w1fgn")
+width = 8
+height = 32
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8ubvd"]
 radius = 3.00001
@@ -356,7 +360,8 @@ shape = SubResource("CircleShape2D_vns87")
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/Sprite2D/Hitbox" index="1"]
 material = SubResource("ShaderMaterial_3tisw")
 position = Vector2(10.6066, -9.19242)
-texture = SubResource("PlaceholderTexture2D_u8qcx")
+rotation = 0.785398
+texture = SubResource("GradientTexture2D_uwrwe")
 
 [node name="CollisionShape2D" parent="Node2D/Sprite2D/PlayerDetector" index="0"]
 position = Vector2(-3.00002, 2.14577e-05)
