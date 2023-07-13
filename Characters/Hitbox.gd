@@ -6,6 +6,8 @@ var knockback_direction: Vector2 = Vector2.ZERO
 
 var body_inside: bool = false
 
+signal collided_with_something(body: Node2D)
+
 @onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
 @onready var timer: Timer = Timer.new()
 
@@ -38,6 +40,7 @@ func _on_body_exited(_body: Node2D) -> void:
 
 
 func _collide(body: Node2D) -> void:
+	collided_with_something.emit(body)
 	if body == null or not body.has_node("LifeComponent"):
 		queue_free()
 	else:

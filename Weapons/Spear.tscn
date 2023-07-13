@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bp2oo4273j0dc"]
+[gd_scene load_steps=23 format=3 uid="uid://bp2oo4273j0dc"]
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_gt5q8"]
 [ext_resource type="Script" path="res://Weapons/Melee/MeleeWeapon.gd" id="2_7som3"]
@@ -7,6 +7,7 @@
 [ext_resource type="Shader" path="res://Shaders and Particles/Fire.gdshader" id="5_07mwr"]
 [ext_resource type="Material" uid="uid://d3h3v51wspjjw" path="res://Shaders and Particles/PixelExplosionMaterial.tres" id="5_r0vpa"]
 [ext_resource type="Texture2D" uid="uid://dfnyu2au1agfw" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/weapon_sword_1.png" id="6_tttmk"]
+[ext_resource type="Script" path="res://Components/StatusInflicterComponent.gd" id="8_w7eyi"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_56b1u"]
 resource_local_to_scene = true
@@ -373,3 +374,6 @@ material = ExtResource("5_r0vpa")
 position = Vector2(45, -17)
 rotation = 4.66527
 texture = ExtResource("6_tttmk")
+
+[node name="StatusInflicterComponent" type="Node" parent="." index="5"]
+script = ExtResource("8_w7eyi")
