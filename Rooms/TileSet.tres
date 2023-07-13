@@ -231,6 +231,11 @@ texture = SubResource("CanvasTexture_h8eue")
 7:6/0/physics_layer_0/angular_velocity = 0.0
 7:6/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 7:6/0/physics_layer_1/angular_velocity = 0.0
+5:1/0 = 0
+5:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:1/0/physics_layer_0/angular_velocity = 0.0
+5:1/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+5:1/0/physics_layer_1/angular_velocity = 0.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_n5cki"]
 vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)

@@ -3,7 +3,7 @@ class_name Weapon extends Node2D
 
 @export var on_floor: bool = false
 
-@export var condition_degrade_by_attack: float = 34
+@export var condition_degrade_by_attack: float = 5
 
 var can_active_ability: bool = true
 

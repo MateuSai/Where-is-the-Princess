@@ -16,7 +16,9 @@ var throw_rot_speed: float = 0
 
 func _ready() -> void:
 	super()
-	hitbox.collided_with_something.connect(_on_collided_with_something)
+	hitbox.collided_with_something.connect(func(_body: Node2D):
+		_on_collided_with_something()
+	)
 	set_physics_process(false)
 
 
