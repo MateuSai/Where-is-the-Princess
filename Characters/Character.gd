@@ -21,7 +21,7 @@ const FRICTION: float = 0.15
 @onready var sprite: Sprite2D = get_node("Sprite2D")
 @onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
 @onready var life_component: LifeComponent = get_node("LifeComponent")
-@onready var status_conditions_container: HBoxContainer = get_node("StatusConditionsContainer")
+# @onready var status_conditions_container: HBoxContainer = get_node("StatusConditionsContainer")
 
 var mov_direction: Vector2 = Vector2.ZERO
 
@@ -42,12 +42,12 @@ func move() -> void:
 
 
 func add_status_condition(status: StatusComponent.Status) -> void:
-	var status_component: StatusComponent = status_conditions_container.get_node_or_null(StatusComponent.Status.keys()[status])
+	var status_component: StatusComponent = get_node_or_null(StatusComponent.Status.keys()[status])
 	if status_component == null:
 		status_component = [FireStatusComponent.new()][status]
-		status_conditions_container.add_child(status_component)
+		add_child(status_component)
 		status_component.name = StatusComponent.Status.keys()[status]
-	status_component.add(80)
+	status_component.add()
 
 
 func _on_damage_taken(_dam: int, dir: Vector2, force: int) -> void:
