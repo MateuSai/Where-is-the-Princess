@@ -50,11 +50,20 @@ func reset_data() -> void:
 	run_stats = RunStats.new()
 
 
+func get_biome_info() -> Dictionary:
+	return biomes_path[run_stats.biome]
+
+
+func change_biome(new_biome: String) -> void:
+	run_stats.biome = new_biome
+	run_stats.level = 1
+
+
 ## This is what we use to load the stats when he changes floor or when he saves the game
 class RunStats extends Resource:
 	signal coins_changed(new_coins: int)
 
-	@export var biome: String = "Dungeon"
+	@export var biome: String = "Forest"
 	@export var level: int = 1
 
 	@export var hp: int = 4

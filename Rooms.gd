@@ -5,7 +5,7 @@ const BIOMES_FOLDER_PATH: String = "res://Rooms/Biomes/"
 const SPAWN_CIRCLE_RADIUS: float = 200
 
 const TILE_SIZE: int = 16
-const ATLAS_ID: int = 0 #40
+const ATLAS_ID: int = 1 #40
 const FLOOR_TILE_COORDS: Array[Vector2i] = [Vector2i(3, 1), Vector2i(5, 2), Vector2i(5, 3)]
 const FULL_WALL_COORDS: Array[Vector2i] = [Vector2i(6, 4), Vector2i(7, 4), Vector2i(8, 4), Vector2i(6, 5), Vector2i(7, 5), Vector2i(8, 5)]
 const UPPER_WALL_COOR: Vector2i = Vector2i(2, 7)
@@ -22,8 +22,6 @@ const UPPER_WALL_RIGHT_CORNER_COOR: Vector2i = Vector2i(3, 4)
 const UPPER_WALL_LEFT_CORNER_COOR: Vector2i = Vector2i(4, 4)
 
 signal generation_completed()
-
-var biome: String = "Dungeon"
 
 var rooms: Array[DungeonRoom] = []
 var start_room: DungeonRoom
@@ -90,9 +88,9 @@ func _physics_process(delta: float) -> void:
 
 
 func _get_rooms(type: String) -> PackedStringArray:
-	var rooms_dir: DirAccess = DirAccess.open(BIOMES_FOLDER_PATH + biome + "/" + type)
+	var rooms_dir: DirAccess = DirAccess.open(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type)
 	if rooms_dir == null:
-		printerr("Error opening " + BIOMES_FOLDER_PATH + biome + "/" + type + "!")
+		printerr("Error opening " + BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "!")
 		return []
 
 	return rooms_dir.get_files()
@@ -104,15 +102,15 @@ func spawn_rooms() -> void:
 		"middle": _get_rooms("Middle"),
 		"end": _get_rooms("End"),
 	}
-	start_room = load(BIOMES_FOLDER_PATH + biome + "/" + "Start" + "/" + room_names.start[randi() % room_names.start.size()]).instantiate()
+	start_room = load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "Start" + "/" + room_names.start[randi() % room_names.start.size()]).instantiate()
 	rooms.push_back(start_room)
-	end_room = load(BIOMES_FOLDER_PATH + biome + "/" + "End" + "/" + room_names.end[randi() % room_names.end.size()]).instantiate()
+	end_room = load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "End" + "/" + room_names.end[randi() % room_names.end.size()]).instantiate()
 	rooms.push_back(end_room)
 	#var inter_rooms: Array[PackedScene] = INTERMEDIATE_ROOMS.duplicate(true)
 	#inter_rooms.append_array(SavedData.custom_rooms)
 	for i in 10:
 		#rooms.push_back(INTERMEDIATE_ROOMS[0].instantiate())
-		rooms.push_back(load(BIOMES_FOLDER_PATH + biome + "/" + "Middle" + "/" + room_names.middle[randi() % room_names.middle.size()]).instantiate())
+		rooms.push_back(load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "Middle" + "/" + room_names.middle[randi() % room_names.middle.size()]).instantiate())
 
 	for room in rooms:
 		room.closed.connect(func():
@@ -224,7 +222,7 @@ func _create_corridors() -> void:
 		await get_tree().create_timer(pause_between_steps).timeout
 
 	# CORRIDOR WALLS
-	corridor_tile_map.set_cells_terrain_connect(0, corridor_tile_map.get_used_cells(0), 0 if ATLAS_ID == 40 else 1, 0)
+	corridor_tile_map.set_cells_terrain_connect(0, corridor_tile_map.get_used_cells(0), 0, 0 if ATLAS_ID == 40 else 1)
 
 	var entry_cells: Array[Vector2i] = []
 	for room in rooms:
