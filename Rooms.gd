@@ -1,10 +1,6 @@
 class_name Rooms extends Node2D
 
-const SPAWN_ROOMS: Array[PackedScene] = [preload("res://Rooms/SpawnRoom0.tscn"), preload("res://Rooms/SpawnRoom1.tscn")]
-const INTERMEDIATE_ROOMS: Array[PackedScene] = [preload("res://Rooms/Room0.tscn"), preload("res://Rooms/middle_room_1_0.tscn")]
-const SPECIAL_ROOMS: Array[PackedScene] = [preload("res://Rooms/SpecialRoom0.tscn"), preload("res://Rooms/SpecialRoom1.tscn")]
-const END_ROOMS: Array[PackedScene] = [preload("res://Rooms/EndRoom0.tscn")]
-const SLIME_BOSS_SCENE: PackedScene = preload("res://Rooms/SlimeBossRoom.tscn")
+const BIOMES_FOLDER_PATH: String = "res://Rooms/Biomes/"
 
 const SPAWN_CIRCLE_RADIUS: float = 200
 
@@ -26,6 +22,8 @@ const UPPER_WALL_RIGHT_CORNER_COOR: Vector2i = Vector2i(3, 4)
 const UPPER_WALL_LEFT_CORNER_COOR: Vector2i = Vector2i(4, 4)
 
 signal generation_completed()
+
+var biome: String = "Dungeon"
 
 var rooms: Array[DungeonRoom] = []
 var start_room: DungeonRoom
@@ -93,16 +91,30 @@ func _physics_process(delta: float) -> void:
 		_create_corridors()
 
 
+func _get_rooms(type: String) -> PackedStringArray:
+	var rooms_dir: DirAccess = DirAccess.open(BIOMES_FOLDER_PATH + biome + "/" + type)
+	if rooms_dir == null:
+		printerr("Error opening " + BIOMES_FOLDER_PATH + biome + "/" + type + "!")
+		return []
+
+	return rooms_dir.get_files()
+
+
 func spawn_rooms() -> void:
-	start_room = SPAWN_ROOMS[randi() % SPAWN_ROOMS.size()].instantiate()
+	var room_names: Dictionary = {
+		"start": _get_rooms("Start"),
+		"middle": _get_rooms("Middle"),
+		"end": _get_rooms("End"),
+	}
+	start_room = load(BIOMES_FOLDER_PATH + biome + "/" + "Start" + "/" + room_names.start[randi() % room_names.start.size()]).instantiate()
 	rooms.push_back(start_room)
-	end_room = END_ROOMS[randi() % END_ROOMS.size()].instantiate()
+	end_room = load(BIOMES_FOLDER_PATH + biome + "/" + "End" + "/" + room_names.end[randi() % room_names.end.size()]).instantiate()
 	rooms.push_back(end_room)
 	#var inter_rooms: Array[PackedScene] = INTERMEDIATE_ROOMS.duplicate(true)
 	#inter_rooms.append_array(SavedData.custom_rooms)
 	for i in 10:
 		#rooms.push_back(INTERMEDIATE_ROOMS[0].instantiate())
-		rooms.push_back(INTERMEDIATE_ROOMS[randi() % INTERMEDIATE_ROOMS.size()].instantiate())
+		rooms.push_back(load(BIOMES_FOLDER_PATH + biome + "/" + "Middle" + "/" + room_names.middle[randi() % room_names.middle.size()]).instantiate())
 
 	for room in rooms:
 		room.closed.connect(func():
