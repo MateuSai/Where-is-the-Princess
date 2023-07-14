@@ -1,50 +1,50 @@
-class_name StatusComponent extends TextureProgressBar
+class_name StatusComponent extends Node
 
 var life_component: LifeComponent
 
-var start_decreasing_after_timer: Timer
-var value_tween: Tween
+var damage_timer: Timer
 
 enum Status {
 	FIRE,
 }
 
-
-@warning_ignore("shadowed_variable_base_class")
-func initialize(texture_under: Texture, texture_progress: Texture) -> void:
-	self.texture_under = texture_under
-	self.texture_progress = texture_progress
+var max_charges: int
+var charges: int
 
 
-func _init() -> void:
-	fill_mode = FILL_BOTTOM_TO_TOP
+@warning_ignore("shadowed_variable_base_class", "shadowed_variable")
+func initialize(charges: int) -> void:
+	max_charges = charges
+
+
+#func _init() -> void:
+#	fill_mode = FILL_BOTTOM_TO_TOP
 
 
 func _ready() -> void:
-	life_component = get_node_or_null("../../LifeComponent")
+	life_component = get_node_or_null("../LifeComponent")
 	assert(life_component != null)
 
-	start_decreasing_after_timer = Timer.new()
-	start_decreasing_after_timer.one_shot = true
-	start_decreasing_after_timer.timeout.connect(func():
-		if value_tween:
-			value_tween.kill()
-		value_tween = create_tween()
-		value_tween.tween_property(self, "value", 0, value/20)
-		value_tween.finished.connect(queue_free)
-	)
-	add_child(start_decreasing_after_timer)
+	damage_timer = Timer.new()
+	damage_timer.wait_time = 0.8
+	damage_timer.timeout.connect(_on_damage_timer_timeout)
+	add_child(damage_timer)
 
 
-func add(amount: int) -> void:
-	if value_tween:
-		value_tween.kill()
-		value_tween = null
+func add() -> void:
+	charges = max_charges
 
-	value += amount
-	# print(value)
-	if value >= 100:
-		life_component.take_damage(1, Vector2.ZERO, 0)
-		queue_free()
-	else:
-		start_decreasing_after_timer.start()
+	if damage_timer.is_stopped():
+		damage_timer.start()
+		_on_damage_timer_timeout()
+
+
+func remove() -> void:
+	queue_free()
+
+
+func _on_damage_timer_timeout() -> void:
+	life_component.take_damage(1, Vector2.ZERO, 0)
+	charges -= 1
+	if charges == 0:
+		remove()
