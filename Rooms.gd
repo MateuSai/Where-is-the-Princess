@@ -63,9 +63,7 @@ func _ready() -> void:
 		corridor_tile_map.z_index = 0
 		corridor_tile_map.material = null
 
-	SavedData.run_stats.num_floor += 1
-	if SavedData.run_stats.num_floor == 3:
-		num_levels = 3
+	# print(str(SavedData.run_stats.level) + " of " + str(SavedData.biomes_path[SavedData.run_stats.biome].levels))
 
 
 func _physics_process(delta: float) -> void:

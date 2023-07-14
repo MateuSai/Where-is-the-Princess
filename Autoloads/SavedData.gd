@@ -1,5 +1,7 @@
 extends Node
 
+const BIOMES_PATH_PATH: String = "res://Rooms/biomes_path.json"
+
 const USER_FOLDER: String = "user://"
 const MODS_FOLDER_NAME: String = "mods/"
 
@@ -9,8 +11,16 @@ var mods: Dictionary = {
 
 }
 
+var biomes_path: Dictionary
+
 
 func _ready() -> void:
+	var json: JSON = JSON.new()
+	if json.parse(FileAccess.open(BIOMES_PATH_PATH, FileAccess.READ).get_as_text()):
+		printerr("Error reading " + BIOMES_PATH_PATH + "!")
+	biomes_path = json.data
+	# print(biomes_path)
+
 	var user_dir: DirAccess = DirAccess.open(USER_FOLDER)
 	assert(user_dir) # Siempre deberiamos poder abrir el directorio del usuario
 
@@ -44,7 +54,9 @@ func reset_data() -> void:
 class RunStats extends Resource:
 	signal coins_changed(new_coins: int)
 
-	@export var num_floor: int = 0
+	@export var biome: String = "Dungeon"
+	@export var level: int = 1
+
 	@export var hp: int = 4
 	@export var weapon_stats: Array[WeaponStats] = []
 	@export var equipped_weapon_index: int = 0
