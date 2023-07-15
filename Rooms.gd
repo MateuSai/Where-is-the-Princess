@@ -93,7 +93,10 @@ func _get_rooms(type: String) -> PackedStringArray:
 		printerr("Error opening " + BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "!")
 		return []
 
-	return rooms_dir.get_files()
+	var room_names: PackedStringArray = rooms_dir.get_files()
+	for i in room_names.size():
+		room_names[i] = room_names[i].trim_suffix(".remap")
+	return room_names
 
 
 func spawn_rooms() -> void:
@@ -102,6 +105,7 @@ func spawn_rooms() -> void:
 		"middle": _get_rooms("Middle"),
 		"end": _get_rooms("End"),
 	}
+	# print(room_names)
 	start_room = load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "Start" + "/" + room_names.start[randi() % room_names.start.size()]).instantiate()
 	rooms.push_back(start_room)
 	end_room = load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "End" + "/" + room_names.end[randi() % room_names.end.size()]).instantiate()

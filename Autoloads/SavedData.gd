@@ -30,20 +30,22 @@ func _ready() -> void:
 			printerr("Error creating mods directory!!")
 			return
 
-	var mods_dir: DirAccess = DirAccess.open(USER_FOLDER + MODS_FOLDER_NAME)
-	if mods_dir == null:
-		printerr("Error opening mods directory!")
-		return
+	if OS.has_feature("editor"):
+		print("Not loading mods because they are only supported on the exported version")
+	else:
+		var mods_dir: DirAccess = DirAccess.open(USER_FOLDER + MODS_FOLDER_NAME)
+		if mods_dir == null:
+			printerr("Error opening mods directory!")
+			return
 
-	for file_name in mods_dir.get_files():
-		print(file_name)
-		mods[file_name] = USER_FOLDER + MODS_FOLDER_NAME + file_name
-		#var room: PackedScene = load(USER_FOLDER + ROOMS_FOLDER_NAME + file_name)
-		#custom_rooms.push_back(room)
-		#room_paths.push_back(USER_FOLDER + ROOMS_FOLDER_NAME + file_name)
-
-#	for room_path in _get_mod_room_paths():
-#		mods.rooms.push_back(Mod.new(room_path))
+		for file_name in mods_dir.get_files():
+			print(file_name)
+			mods[file_name] = USER_FOLDER + MODS_FOLDER_NAME + file_name
+			if not ProjectSettings.load_resource_pack(USER_FOLDER + MODS_FOLDER_NAME + file_name):
+				printerr("Error loading " + USER_FOLDER + MODS_FOLDER_NAME + file_name + " mod!")
+			#var room: PackedScene = load(USER_FOLDER + ROOMS_FOLDER_NAME + file_name)
+			#custom_rooms.push_back(room)
+			#room_paths.push_back(USER_FOLDER + ROOMS_FOLDER_NAME + file_name)
 
 
 func reset_data() -> void:
@@ -63,7 +65,7 @@ func change_biome(new_biome: String) -> void:
 class RunStats extends Resource:
 	signal coins_changed(new_coins: int)
 
-	@export var biome: String = "Forest"
+	@export var biome: String = "Dungeon"
 	@export var level: int = 1
 
 	@export var hp: int = 4

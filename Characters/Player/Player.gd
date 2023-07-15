@@ -56,6 +56,8 @@ func _ready() -> void:
 	weapons.weapon_droped.connect(func(index: int): weapon_droped.emit(index))
 	weapons.weapon_condition_changed.connect(func(weapon: Weapon, new_value: float): weapon_condition_changed.emit(weapon, new_value))
 
+	Globals.player = self
+
 #	var state_machine: StateMachine = StateMachine.new()
 #	state_machine.add_state(State.new("idle", func() -> String:
 #		if velocity.length() > 10:
@@ -86,6 +88,10 @@ func _ready() -> void:
 
 func _restore_previous_state() -> void:
 	life_component.hp = SavedData.run_stats.hp
+
+
+func _exit_tree() -> void:
+	Globals.player = null
 
 
 func _process(_delta: float) -> void:

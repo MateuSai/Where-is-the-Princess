@@ -28,7 +28,7 @@ func _on_ThrowableKnike_body_exited(_body: Node2D) -> void:
 		set_collision_mask_value(4, true)
 
 
-func _collide(body: Node2D) -> void:
+func _collide(body: Node2D, _dam: int = damage) -> void:
 	if enemy_exited:
 		if body.get("life_component") != null:
 			body.life_component.take_damage(damage, knockback_direction, knockback_force)
