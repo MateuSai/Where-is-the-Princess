@@ -205,9 +205,3 @@ shape = SubResource("10")
 libraries = {
 "": SubResource("AnimationLibrary_e8el5")
 }
-
-[node name="StatusConditionsContainer" parent="." index="8"]
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 40.0
-offset_bottom = 40.0
