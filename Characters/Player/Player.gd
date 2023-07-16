@@ -47,7 +47,7 @@ func _ready() -> void:
 	life_component.hp_changed.connect(func(new_hp: int):
 		SavedData.run_stats.hp = new_hp
 		if new_hp == 0:
-			SceneTransistor.start_transition_to("res://Game.tscn")
+			SceneTransistor.start_transition_to("res://BaseCamp.tscn")
 			SavedData.reset_data()
 	)
 
