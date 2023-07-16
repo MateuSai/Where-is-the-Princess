@@ -110,3 +110,6 @@ class RunStats extends Resource:
 			coins_changed.emit(coins)
 
 	@export var armor: Armor = null
+
+	@export var permanent_passive_items: Array[PermanentPassiveItem] = []
+	@export var temporal_passive_items: Array[TemporalPassiveItem] = []

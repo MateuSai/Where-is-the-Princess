@@ -7,8 +7,6 @@ signal weapon_picked_up(weapon: Weapon)
 signal weapon_droped(index: int)
 signal weapon_condition_changed(weapon: Weapon, new_value: float)
 
-var permanent_passive_items: Array[PermanentPassiveItem] = []
-var temporal_passive_items: Array[TemporalPassiveItem] = []
 signal temporal_passive_item_picked_up(item: TemporalPassiveItem)
 signal temporal_passive_item_unequiped(index: int)
 signal permanent_passive_item_picked_up(item: PermanentPassiveItem)
@@ -88,6 +86,10 @@ func _ready() -> void:
 
 func _restore_previous_state() -> void:
 	life_component.hp = SavedData.run_stats.hp
+	for permanent_passive_item in SavedData.run_stats.permanent_passive_items:
+		pick_up_passive_item(permanent_passive_item)
+	for temporal_passive_item in SavedData.run_stats.temporal_passive_items:
+		pick_up_passive_item(temporal_passive_item)
 
 
 func _exit_tree() -> void:
@@ -143,18 +145,20 @@ func _on_damage_taken(dam: int, dir: Vector2, force: int) -> void:
 func pick_up_passive_item(item: PassiveItem) -> void:
 	item.equip(self)
 	if item is PermanentPassiveItem:
-		permanent_passive_items.push_back(item)
+		if not SavedData.run_stats.permanent_passive_items.has(item):
+			SavedData.run_stats.permanent_passive_items.push_back(item)
 		permanent_passive_item_picked_up.emit(item)
 	else: # TemporalPassiveItem
-		temporal_passive_items.push_back(item)
+		if not SavedData.run_stats.temporal_passive_items.has(item):
+			SavedData.run_stats.temporal_passive_items.push_back(item)
 		temporal_passive_item_picked_up.emit(item)
 
 
 func unequip_passive_item(item: PassiveItem) -> void:
 	assert(item is TemporalPassiveItem)
 	item.unequip(self)
-	temporal_passive_item_unequiped.emit(temporal_passive_items.find(item))
-	temporal_passive_items.erase(item)
+	temporal_passive_item_unequiped.emit(SavedData.run_stats.temporal_passive_items.find(item))
+	SavedData.run_stats.temporal_passive_items.erase(item)
 
 
 func spawn_dust() -> void:

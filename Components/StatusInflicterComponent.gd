@@ -10,3 +10,7 @@ func _ready() -> void:
 		if body is Character:
 			body.add_status_condition(status)
 	)
+
+	match status:
+		StatusComponent.Status.FIRE:
+			owner.weapon_sprite.modulate = Color.ORANGE_RED

@@ -2,6 +2,8 @@ class_name MagicShield extends TemporalPassiveItem
 
 var magic_shield_node: MagicShieldNode
 
+@export var hp: int = 2
+
 
 func _init() -> void:
 	_initialize(load("res://Art/items/ShieldAnimation.tres"))
@@ -9,6 +11,8 @@ func _init() -> void:
 
 func equip(player: Player) -> void:
 	magic_shield_node = MagicShieldNode.new()
+	magic_shield_node.life_component.hp = hp
+	magic_shield_node.hp_changed.connect(func(new_hp: int): hp = new_hp)
 	magic_shield_node.destroyed.connect(func(): player.unequip_passive_item(self))
 	player.add_child(magic_shield_node)
 
@@ -26,6 +30,7 @@ class MagicShieldNode extends StaticBody2D:
 	var sprite: Sprite2D
 	var life_component: LifeComponent
 
+	signal hp_changed(new_hp: int)
 	signal destroyed()
 
 	func _init() -> void:
@@ -50,7 +55,9 @@ class MagicShieldNode extends StaticBody2D:
 		life_component = LifeComponent.new()
 		life_component.name = "LifeComponent"
 		life_component.max_hp = 2
-		life_component.hp = 2
+		#life_component.hp = 2
+
+		life_component.hp_changed.connect(func(new_hp: int): hp_changed.emit(new_hp))
 		life_component.died.connect(func(): destroyed.emit())
 		add_child(life_component)
 
