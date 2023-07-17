@@ -237,7 +237,7 @@ func _create_corridors() -> void:
 				entry_cells.push_back(cell)
 
 	for cell_pos in corridor_tile_map.get_used_cells(0):
-		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) in FLOOR_TILE_COORDS and not corridor_tile_map.get_cell_atlas_coords(1, cell_pos + Vector2i.LEFT) != Vector2i(-1, -1) and not corridor_tile_map.get_cell_atlas_coords(1, cell_pos + Vector2i.RIGHT) != Vector2i(-1, -1):
+		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos) == Vector2i(-1, -1):
 			corridor_tile_map.set_cell(0, cell_pos, ATLAS_ID, FLOOR_TILE_COORDS[1])
 #			if corridor_tile_map.get_cell_atlas_coords(1, cell_pos) != Vector2i(-1, -1):
 #				corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID)

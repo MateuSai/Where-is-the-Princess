@@ -12,7 +12,7 @@ var current_weapon: Weapon
 enum {UP, DOWN}
 
 
-func _ready() -> void:
+func load_previous_weapons() -> void:
 	for weapon_stat in SavedData.run_stats.weapon_stats:
 		var weapon: Weapon = load(weapon_stat.weapon_path).instantiate()
 		weapon.stats = weapon_stat

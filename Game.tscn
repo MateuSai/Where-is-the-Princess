@@ -88,35 +88,60 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.34902)
 
-[node name="PauseMenu" type="VBoxContainer" parent="UI"]
+[node name="PauseMenu" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_fejf6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PauseMenu"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -34.0
+offset_top = -44.5
+offset_right = 34.0
+offset_bottom = 44.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 4
 theme = ExtResource("4_usvbv")
-script = ExtResource("6_fejf6")
 
-[node name="ResumeButton" type="Button" parent="UI/PauseMenu"]
+[node name="ResumeButton" type="Button" parent="UI/PauseMenu/VBoxContainer"]
 layout_mode = 2
 text = "Resume"
 
-[node name="SettingsButton" type="Button" parent="UI/PauseMenu"]
+[node name="SettingsButton" type="Button" parent="UI/PauseMenu/VBoxContainer"]
 layout_mode = 2
 text = "Settings"
 script = ExtResource("8_b3yq4")
 
-[node name="QuitButton" type="Button" parent="UI/PauseMenu"]
+[node name="QuitButton" type="Button" parent="UI/PauseMenu/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
 script = ExtResource("6_nj5uy")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/PauseMenu"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -13.0
+offset_bottom = 8.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+
+[node name="SeedLabel" type="Label" parent="UI/PauseMenu/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("4_usvbv")
+theme_override_font_sizes/font_size = 8
 
 [node name="DebugInfo" type="VBoxContainer" parent="UI"]
 texture_filter = 1

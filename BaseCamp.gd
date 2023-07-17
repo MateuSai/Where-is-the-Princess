@@ -4,6 +4,10 @@ extends Node2D
 @onready var start_interact_area: InteractArea = get_node("StartInteractArea")
 @onready var wardrobe_interact_area: InteractArea = get_node("Wardrobe/WardrobeInteractArea")
 @onready var settings_interact_area: InteractArea = $Settings/SettingsInteractArea
+
+@onready var seed_interact_area: InteractArea = $SeedSelectorSprite/InteractArea
+@onready var seed_popup: Popup = get_node("SeedPopup")
+
 @onready var exit_interact_area: InteractArea = get_node("ExitInteractArea")
 @onready var wardrobe_popup: Popup = get_node("WardrobePopup")
 
@@ -12,6 +16,16 @@ func _ready() -> void:
 	player.set_armor(load(SavedData.data.equipped_armor).new())
 
 	start_interact_area.player_interacted.connect(func():
+		var seed_spin_box: SpinBox = seed_popup.get_node("MarginContainer/SpinBox")
+		var run_seed: int
+		if seed_spin_box.value == -1:
+			run_seed = randi()
+		else:
+			run_seed = int(seed_spin_box.value)
+		# run_seed = 813643507
+		print("Seed: " + str(run_seed))
+		seed(run_seed)
+		Globals.run_seed = run_seed
 		SceneTransistor.start_transition_to("res://Game.tscn")
 	)
 
@@ -25,6 +39,14 @@ func _ready() -> void:
 
 	exit_interact_area.player_interacted.connect(func():
 		get_tree().quit()
+	)
+
+	seed_interact_area.player_interacted.connect(func():
+		seed_popup.popup_centered()
+		player.can_move = false
+	)
+	seed_popup.popup_hide.connect(func():
+		player.can_move = true
 	)
 
 	wardrobe_interact_area.player_interacted.connect(func():

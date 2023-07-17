@@ -353,7 +353,7 @@ libraries = {
 "": SubResource("AnimationLibrary_35i6s")
 }
 
-[node name="UI" type="CanvasLayer" parent="." index="9"]
+[node name="UI" type="CanvasLayer" parent="." index="10"]
 script = ExtResource("7_24kdb")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI" index="0"]
@@ -396,8 +396,8 @@ layout_mode = 2
 
 [connection signal="temporal_passive_item_picked_up" from="." to="UI/MarginContainer/VBoxContainer/PassiveItemsContainer" method="_on_player_temporal_passive_item_picked_up"]
 [connection signal="temporal_passive_item_unequiped" from="." to="UI/MarginContainer/VBoxContainer/PassiveItemsContainer" method="_on_player_temporal_passive_item_unequiped"]
-[connection signal="weapon_condition_changed" from="." to="UI" method="_on_player_weapon_condition_changed"]
-[connection signal="weapon_droped" from="." to="UI" method="_on_player_weapon_droped"]
-[connection signal="weapon_picked_up" from="." to="UI" method="_on_player_weapon_picked_up"]
-[connection signal="weapon_status_inflicter_added" from="." to="UI" method="_on_player_weapon_status_inflicter_added"]
-[connection signal="weapon_switched" from="." to="UI" method="_on_player_weapon_switched"]
+[connection signal="weapon_condition_changed" from="Weapons" to="UI" method="_on_weapon_condition_changed"]
+[connection signal="weapon_droped" from="Weapons" to="UI" method="_on_weapon_droped"]
+[connection signal="weapon_picked_up" from="Weapons" to="UI" method="_on_weapon_picked_up"]
+[connection signal="weapon_status_inflicter_added" from="Weapons" to="UI" method="_on_weapon_status_inflicter_added"]
+[connection signal="weapon_switched" from="Weapons" to="UI" method="_on_weapon_switched"]

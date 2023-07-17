@@ -23,6 +23,7 @@ var biomes_path: Dictionary
 
 
 func _ready() -> void:
+	print("--- SavedData ---")
 	# save_data()
 	_load_data()
 	print(data)
@@ -58,6 +59,8 @@ func _ready() -> void:
 			#var room: PackedScene = load(USER_FOLDER + ROOMS_FOLDER_NAME + file_name)
 			#custom_rooms.push_back(room)
 			#room_paths.push_back(USER_FOLDER + ROOMS_FOLDER_NAME + file_name)
+
+	print("\t")
 
 
 func save_data() -> void:

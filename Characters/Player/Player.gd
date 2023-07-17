@@ -2,11 +2,11 @@ class_name Player extends Character
 
 const DUST_SCENE: PackedScene = preload("res://Characters/Player/Dust.tscn")
 
-signal weapon_switched(prev_index: int, new_index: int)
-signal weapon_picked_up(weapon: Weapon)
-signal weapon_droped(index: int)
-signal weapon_condition_changed(weapon: Weapon, new_value: float)
-signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
+#signal weapon_switched(prev_index: int, new_index: int)
+#signal weapon_picked_up(weapon: Weapon)
+#signal weapon_droped(index: int)
+#signal weapon_condition_changed(weapon: Weapon, new_value: float)
+#signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
 
 signal temporal_passive_item_picked_up(item: TemporalPassiveItem)
 signal temporal_passive_item_unequiped(index: int)
@@ -32,7 +32,8 @@ var can_move: bool = true
 func _ready() -> void:
 	super()
 
-	weapon_picked_up.emit(weapons.get_child(0))
+	weapons.weapon_picked_up.emit(weapons.get_child(0))
+	weapons.load_previous_weapons()
 
 	_restore_previous_state()
 
@@ -50,15 +51,15 @@ func _ready() -> void:
 			SavedData.reset_data()
 	)
 
-	weapons.weapon_switched.connect(func(prev_index: int, new_index: int): weapon_switched.emit(prev_index, new_index))
-	weapons.weapon_picked_up.connect(func(weapon: Weapon): weapon_picked_up.emit(weapon))
-	weapons.weapon_droped.connect(func(index: int): weapon_droped.emit(index))
-	weapons.weapon_condition_changed.connect(func(weapon: Weapon, new_value: float):
-		weapon_condition_changed.emit(weapon, new_value)
-	)
-	weapons.weapon_status_inflicter_added.connect(func(weapon: Weapon, status: StatusComponent.Status):
-		weapon_status_inflicter_added.emit(weapon, status)
-	)
+#	weapons.weapon_switched.connect(func(prev_index: int, new_index: int): weapon_switched.emit(prev_index, new_index))
+#	weapons.weapon_picked_up.connect(func(weapon: Weapon): weapon_picked_up.emit(weapon))
+#	weapons.weapon_droped.connect(func(index: int): weapon_droped.emit(index))
+#	weapons.weapon_condition_changed.connect(func(weapon: Weapon, new_value: float):
+#		weapon_condition_changed.emit(weapon, new_value)
+#	)
+#	weapons.weapon_status_inflicter_added.connect(func(weapon: Weapon, status: StatusComponent.Status):
+#		weapon_status_inflicter_added.emit(weapon, status)
+#	)
 
 	Globals.player = self
 
@@ -154,6 +155,8 @@ func pick_up_passive_item(item: PassiveItem) -> void:
 		if not SavedData.run_stats.permanent_passive_items.has(item):
 			SavedData.run_stats.permanent_passive_items.push_back(item)
 		permanent_passive_item_picked_up.emit(item)
+	elif item is WeaponModifier:
+		weapons.current_weapon.add_weapon_modifier(item)
 	else: # TemporalPassiveItem
 		if not SavedData.run_stats.temporal_passive_items.has(item):
 			SavedData.run_stats.temporal_passive_items.push_back(item)

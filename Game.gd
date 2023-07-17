@@ -12,13 +12,6 @@ var generation_thread: Thread = null
 @onready var generating_dungeon_canvas_layer: CanvasLayer = get_node("GeneratingDungeonCanvasLayer")
 
 
-func _init() -> void:
-	var rand_seed: int = randi()
-	print("Seed: " + str(rand_seed))
-	seed(rand_seed)
-	seed(1631506538)
-
-
 func _ready() -> void:
 	if debug:
 		camera.zoom = Vector2(0.2, 0.2)

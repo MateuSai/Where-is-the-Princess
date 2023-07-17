@@ -1,8 +1,8 @@
-extends VBoxContainer
+extends Control
 
 
 @onready var color_rect: ColorRect = $"../ColorRect"
-@onready var resume_button: Button = $ResumeButton
+@onready var resume_button: Button = $VBoxContainer/ResumeButton
 
 
 func _ready() -> void:
