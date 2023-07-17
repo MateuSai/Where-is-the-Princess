@@ -112,7 +112,7 @@ func spawn_rooms() -> void:
 	rooms.push_back(end_room)
 	#var inter_rooms: Array[PackedScene] = INTERMEDIATE_ROOMS.duplicate(true)
 	#inter_rooms.append_array(SavedData.custom_rooms)
-	for i in 4:
+	for i in 7:
 		#rooms.push_back(INTERMEDIATE_ROOMS[0].instantiate())
 		rooms.push_back(load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "Middle" + "/" + room_names.middle[randi() % room_names.middle.size()]).instantiate())
 
@@ -237,7 +237,11 @@ func _create_corridors() -> void:
 				entry_cells.push_back(cell)
 
 	for cell_pos in corridor_tile_map.get_used_cells(0):
-		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FULL_WALL_COORDS:
+		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) in FLOOR_TILE_COORDS and not corridor_tile_map.get_cell_atlas_coords(1, cell_pos + Vector2i.LEFT) != Vector2i(-1, -1) and not corridor_tile_map.get_cell_atlas_coords(1, cell_pos + Vector2i.RIGHT) != Vector2i(-1, -1):
+			corridor_tile_map.set_cell(0, cell_pos, ATLAS_ID, FLOOR_TILE_COORDS[1])
+#			if corridor_tile_map.get_cell_atlas_coords(1, cell_pos) != Vector2i(-1, -1):
+#				corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID)
+		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FULL_WALL_COORDS:
 			if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.UP) == RIGHT_WALL_COOR:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_LEFT_COOR)
 			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.UP) == LEFT_WALL_COOR:
@@ -260,7 +264,7 @@ func _create_corridors() -> void:
 				corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, BOTTOM_WALL_COOR)
 		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) == LEFT_WALL_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == Vector2i(-1, -1) and not entry_cells.has(cell_pos + Vector2i.ONE):
 			corridor_tile_map.set_cell(0, cell_pos, ATLAS_ID, LAST_LEFT_WALL_COOR)
-		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) == RIGHT_WALL_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == Vector2i(-1, -1)and not entry_cells.has(cell_pos + Vector2i.DOWN + Vector2i.LEFT):
+		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) == RIGHT_WALL_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == Vector2i(-1, -1) and not entry_cells.has(cell_pos + Vector2i.DOWN + Vector2i.LEFT):
 			corridor_tile_map.set_cell(0, cell_pos, ATLAS_ID, LAST_RIGHT_WALL_COOR)
 
 		if debug:

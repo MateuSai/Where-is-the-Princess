@@ -6,6 +6,7 @@ signal weapon_switched(prev_index: int, new_index: int)
 signal weapon_picked_up(weapon: Weapon)
 signal weapon_droped(index: int)
 signal weapon_condition_changed(weapon: Weapon, new_value: float)
+signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
 
 signal temporal_passive_item_picked_up(item: TemporalPassiveItem)
 signal temporal_passive_item_unequiped(index: int)
@@ -52,7 +53,12 @@ func _ready() -> void:
 	weapons.weapon_switched.connect(func(prev_index: int, new_index: int): weapon_switched.emit(prev_index, new_index))
 	weapons.weapon_picked_up.connect(func(weapon: Weapon): weapon_picked_up.emit(weapon))
 	weapons.weapon_droped.connect(func(index: int): weapon_droped.emit(index))
-	weapons.weapon_condition_changed.connect(func(weapon: Weapon, new_value: float): weapon_condition_changed.emit(weapon, new_value))
+	weapons.weapon_condition_changed.connect(func(weapon: Weapon, new_value: float):
+		weapon_condition_changed.emit(weapon, new_value)
+	)
+	weapons.weapon_status_inflicter_added.connect(func(weapon: Weapon, status: StatusComponent.Status):
+		weapon_status_inflicter_added.emit(weapon, status)
+	)
 
 	Globals.player = self
 

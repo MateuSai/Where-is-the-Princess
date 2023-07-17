@@ -4,8 +4,8 @@ class_name StatusInflicterComponent extends Node
 
 
 func _ready() -> void:
-	await owner.ready
-	var hitbox: Hitbox = owner.hitbox
+	#await owner.ready
+	var hitbox: Hitbox = get_parent().hitbox
 	hitbox.collided_with_something.connect(func(body: Node2D):
 		if body is Character:
 			body.add_status_condition(status)
@@ -13,4 +13,4 @@ func _ready() -> void:
 
 	match status:
 		StatusComponent.Status.FIRE:
-			owner.weapon_sprite.modulate = Color.ORANGE_RED
+			get_parent().weapon_sprite.modulate = Color.ORANGE_RED

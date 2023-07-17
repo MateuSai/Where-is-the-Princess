@@ -399,4 +399,5 @@ layout_mode = 2
 [connection signal="weapon_condition_changed" from="." to="UI" method="_on_player_weapon_condition_changed"]
 [connection signal="weapon_droped" from="." to="UI" method="_on_player_weapon_droped"]
 [connection signal="weapon_picked_up" from="." to="UI" method="_on_player_weapon_picked_up"]
+[connection signal="weapon_status_inflicter_added" from="." to="UI" method="_on_player_weapon_status_inflicter_added"]
 [connection signal="weapon_switched" from="." to="UI" method="_on_player_weapon_switched"]

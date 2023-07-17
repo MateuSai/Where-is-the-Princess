@@ -5,6 +5,7 @@ signal weapon_switched(prev_index: int, new_index: int)
 signal weapon_picked_up(weapon: Weapon)
 signal weapon_droped(index: int)
 signal weapon_condition_changed(weapon: Weapon, new_value: float)
+signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
 
 var current_weapon: Weapon
 
@@ -20,6 +21,7 @@ func _ready() -> void:
 		weapon.hide()
 
 		weapon.condition_changed.connect(_on_weapon_condition_changed)
+		weapon.status_inflicter_added.connect(_on_weapon_status_inflicter_added)
 
 		weapon_picked_up.emit(weapon)
 		weapon_switched.emit(get_child_count() - 2, get_child_count() - 1)
@@ -86,6 +88,7 @@ func pick_up_weapon(weapon: Weapon) -> void:
 	current_weapon = weapon
 
 	weapon.condition_changed.connect(_on_weapon_condition_changed)
+	weapon.status_inflicter_added.connect(_on_weapon_status_inflicter_added)
 
 	emit_signal("weapon_picked_up", weapon)
 	emit_signal("weapon_switched", prev_index, new_index)
@@ -95,8 +98,9 @@ func _drop_weapon() -> void:
 	var character_position: Vector2 = get_parent().position
 
 	SavedData.run_stats.weapon_stats.remove_at(current_weapon.get_index() - 1)
-	var weapon_to_drop: Node2D = current_weapon
+	var weapon_to_drop: Weapon = current_weapon
 	weapon_to_drop.condition_changed.disconnect(_on_weapon_condition_changed)
+	weapon_to_drop.status_inflicter_added.disconnect(_on_weapon_condition_changed)
 	_switch_weapon(UP)
 
 	emit_signal("weapon_droped", weapon_to_drop.get_index())
@@ -117,6 +121,7 @@ func throw_weapon() -> void:
 	SavedData.run_stats.weapon_stats.remove_at(current_weapon.get_index() - 1)
 	var weapon_to_drop: Node2D = current_weapon
 	weapon_to_drop.condition_changed.disconnect(_on_weapon_condition_changed)
+	weapon_to_drop.status_inflicter_added.disconnect(_on_weapon_condition_changed)
 	_switch_weapon(UP)
 
 	emit_signal("weapon_droped", weapon_to_drop.get_index())
@@ -156,4 +161,8 @@ func _on_weapon_condition_changed(weapon: Weapon, new_condition: float) -> void:
 	if new_condition <= 0:
 		_destroy_weapon()
 	else:
-		emit_signal("weapon_condition_changed", weapon, new_condition)
+		weapon_condition_changed.emit(weapon, new_condition)
+
+
+func _on_weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status) -> void:
+	weapon_status_inflicter_added.emit(weapon, status)
