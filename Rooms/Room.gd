@@ -5,8 +5,8 @@ class_name DungeonRoom extends Node2D
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/SpawnExplosion.tscn")
 
 const ENEMY_SCENES: Dictionary = {
-	"FLYING_CREATURE": preload("res://Characters/Enemies/Flying Creature/FlyingCreature.tscn"),
-	#"GOBLIN": preload("res://Characters/Enemies/Goblin/Goblin.tscn"),
+	#"FLYING_CREATURE": preload("res://Characters/Enemies/Flying Creature/FlyingCreature.tscn"),
+	"GOBLIN": preload("res://Characters/Enemies/Goblin/Goblin.tscn"),
 	#"DARK_GOBLIN": preload("res://Characters/Enemies/DarkGoblin/DarkGoblin.tscn"),
 	#"SHIELD_KNIGHT": preload("res://Characters/Enemies/ShieldKnight/ShieldKnight.tscn"),
 }
@@ -107,12 +107,18 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 				tile_positions.push_back(tilemap.local_to_map(entry.position + entry.get_child(1).position))
 				tilemap.erase_cell(3, tile_positions[1])
 				if dir == EntryDirection.LEFT:
-					tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, Rooms.ATLAS_ID, Rooms.LEFT_WALL_COOR)
+					if tilemap.get_cell_atlas_coords(0, tile_positions[0] + Vector2i.UP * 3) == Vector2i(-1, -1):
+						tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, Rooms.ATLAS_ID, Rooms.UPPER_WALL_LEFT_CORNER_COOR)
+					else:
+						tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, Rooms.ATLAS_ID, Rooms.LEFT_WALL_COOR)
 					tilemap.set_cell(0, tile_positions[0] + Vector2i.UP, Rooms.ATLAS_ID, Rooms.LEFT_WALL_COOR)
 					tilemap.set_cell(0, tile_positions[0], Rooms.ATLAS_ID, Rooms.LEFT_WALL_COOR)
 					tilemap.set_cell(0, tile_positions[1], Rooms.ATLAS_ID, Rooms.LEFT_WALL_COOR)
 				else:
-					tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, Rooms.ATLAS_ID, Rooms.RIGHT_WALL_COOR)
+					if tilemap.get_cell_atlas_coords(0, tile_positions[0] + Vector2i.UP * 3) == Vector2i(-1, -1):
+						tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, Rooms.ATLAS_ID, Rooms.UPPER_WALL_RIGHT_CORNER_COOR)
+					else:
+						tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, Rooms.ATLAS_ID, Rooms.RIGHT_WALL_COOR)
 					tilemap.set_cell(0, tile_positions[0] + Vector2i.UP, Rooms.ATLAS_ID, Rooms.RIGHT_WALL_COOR)
 					tilemap.set_cell(0, tile_positions[0], Rooms.ATLAS_ID, Rooms.RIGHT_WALL_COOR)
 					tilemap.set_cell(0, tile_positions[1], Rooms.ATLAS_ID, Rooms.RIGHT_WALL_COOR)

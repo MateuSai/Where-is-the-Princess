@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ixdlnwthgea5"
-path="res://.godot/imported/knight_armor_02_spritesheet.png-8a83a6dec647ed329d827e6c87b73ced.ctex"
+uid="uid://dcxjend8om4rs"
+path="res://.godot/imported/wekufu logo screen.png-d8f43c5766ad370e2f57198da0de46f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/knight_armor_02_spritesheet.png"
-dest_files=["res://.godot/imported/knight_armor_02_spritesheet.png-8a83a6dec647ed329d827e6c87b73ced.ctex"]
+source_file="res://wekufu logo screen.png"
+dest_files=["res://.godot/imported/wekufu logo screen.png-d8f43c5766ad370e2f57198da0de46f4.ctex"]
 
 [params]
 

@@ -2,7 +2,6 @@ class_name FireStatusComponent extends StatusComponent
 
 
 func _init() -> void:
-	super()
 	initialize(2)
 
 

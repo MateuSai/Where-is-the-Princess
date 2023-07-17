@@ -10,6 +10,7 @@ var can_active_ability: bool = true
 var stats: WeaponStats = null
 
 signal condition_changed(weapon: Weapon, new_condition: float)
+signal status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
 
 var tween: Tween = null
 @onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
@@ -148,6 +149,10 @@ func _on_show() -> void:
 
 func _on_hide() -> void:
 	ability_icon.hide()
+
+
+func add_status_inflicter(_dstatus: StatusComponent.Status) -> void:
+	pass
 
 
 func get_texture() -> Texture2D:

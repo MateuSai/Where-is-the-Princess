@@ -39,9 +39,9 @@ func _on_body_exited(_body: Node2D) -> void:
 	timer.stop()
 
 
-func _collide(body: Node2D) -> void:
+func _collide(body: Node2D, dam: int = damage) -> void:
 	collided_with_something.emit(body)
 	if body == null or not body.has_node("LifeComponent"):
 		queue_free()
 	else:
-		body.get_node("LifeComponent").take_damage(damage, knockback_direction, knockback_force)
+		body.get_node("LifeComponent").take_damage(dam, knockback_direction, knockback_force)

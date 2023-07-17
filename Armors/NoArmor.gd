@@ -2,7 +2,9 @@ class_name NoArmor extends Armor
 
 
 func _init() -> void:
-	initialize(tr("Underpants"), tr("Why wear an armor? You are faster with only your underpants."), load("res://Art/player/no_armor.png"), 50, 1.5)
+	tr("Underpants")
+	tr("Why wear an armor? You are faster with only your underpants.")
+	initialize("Underpants", "Why wear an armor? You are faster with only your underpants.", load("res://Art/player/no_armor.png"), 50, 1.5)
 
 
 func equip(player: Player) -> void:

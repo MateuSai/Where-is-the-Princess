@@ -5,7 +5,7 @@ const BIOMES_FOLDER_PATH: String = "res://Rooms/Biomes/"
 const SPAWN_CIRCLE_RADIUS: float = 200
 
 const TILE_SIZE: int = 16
-const ATLAS_ID: int = 0 #40
+const ATLAS_ID: int = 1 #40
 const FLOOR_TILE_COORDS: Array[Vector2i] = [Vector2i(3, 1), Vector2i(5, 2), Vector2i(5, 3)]
 const FULL_WALL_COORDS: Array[Vector2i] = [Vector2i(6, 4), Vector2i(7, 4), Vector2i(8, 4), Vector2i(6, 5), Vector2i(7, 5), Vector2i(8, 5)]
 const UPPER_WALL_COOR: Vector2i = Vector2i(2, 7)
@@ -22,8 +22,6 @@ const UPPER_WALL_RIGHT_CORNER_COOR: Vector2i = Vector2i(3, 4)
 const UPPER_WALL_LEFT_CORNER_COOR: Vector2i = Vector2i(4, 4)
 
 signal generation_completed()
-
-var biome: String = "Dungeon"
 
 var rooms: Array[DungeonRoom] = []
 var start_room: DungeonRoom
@@ -90,12 +88,15 @@ func _physics_process(delta: float) -> void:
 
 
 func _get_rooms(type: String) -> PackedStringArray:
-	var rooms_dir: DirAccess = DirAccess.open(BIOMES_FOLDER_PATH + biome + "/" + type)
+	var rooms_dir: DirAccess = DirAccess.open(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type)
 	if rooms_dir == null:
-		printerr("Error opening " + BIOMES_FOLDER_PATH + biome + "/" + type + "!")
+		printerr("Error opening " + BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "!")
 		return []
 
-	return rooms_dir.get_files()
+	var room_names: PackedStringArray = rooms_dir.get_files()
+	for i in room_names.size():
+		room_names[i] = room_names[i].trim_suffix(".remap")
+	return room_names
 
 
 func spawn_rooms() -> void:
@@ -104,15 +105,16 @@ func spawn_rooms() -> void:
 		"middle": _get_rooms("Middle"),
 		"end": _get_rooms("End"),
 	}
-	start_room = load(BIOMES_FOLDER_PATH + biome + "/" + "Start" + "/" + room_names.start[randi() % room_names.start.size()]).instantiate()
+	# print(room_names)
+	start_room = load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "Start" + "/" + room_names.start[randi() % room_names.start.size()]).instantiate()
 	rooms.push_back(start_room)
-	end_room = load(BIOMES_FOLDER_PATH + biome + "/" + "End" + "/" + room_names.end[randi() % room_names.end.size()]).instantiate()
+	end_room = load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "End" + "/" + room_names.end[randi() % room_names.end.size()]).instantiate()
 	rooms.push_back(end_room)
 	#var inter_rooms: Array[PackedScene] = INTERMEDIATE_ROOMS.duplicate(true)
 	#inter_rooms.append_array(SavedData.custom_rooms)
-	for i in 10:
+	for i in 7:
 		#rooms.push_back(INTERMEDIATE_ROOMS[0].instantiate())
-		rooms.push_back(load(BIOMES_FOLDER_PATH + biome + "/" + "Middle" + "/" + room_names.middle[randi() % room_names.middle.size()]).instantiate())
+		rooms.push_back(load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "Middle" + "/" + room_names.middle[randi() % room_names.middle.size()]).instantiate())
 
 	for room in rooms:
 		room.closed.connect(func():
@@ -224,7 +226,7 @@ func _create_corridors() -> void:
 		await get_tree().create_timer(pause_between_steps).timeout
 
 	# CORRIDOR WALLS
-	corridor_tile_map.set_cells_terrain_connect(0, corridor_tile_map.get_used_cells(0), 0 if ATLAS_ID == 40 else 1, 0)
+	corridor_tile_map.set_cells_terrain_connect(0, corridor_tile_map.get_used_cells(0), 0, 0 if ATLAS_ID == 40 else 1)
 
 	var entry_cells: Array[Vector2i] = []
 	for room in rooms:
@@ -235,7 +237,11 @@ func _create_corridors() -> void:
 				entry_cells.push_back(cell)
 
 	for cell_pos in corridor_tile_map.get_used_cells(0):
-		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FULL_WALL_COORDS:
+		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) in FLOOR_TILE_COORDS and not corridor_tile_map.get_cell_atlas_coords(1, cell_pos + Vector2i.LEFT) != Vector2i(-1, -1) and not corridor_tile_map.get_cell_atlas_coords(1, cell_pos + Vector2i.RIGHT) != Vector2i(-1, -1):
+			corridor_tile_map.set_cell(0, cell_pos, ATLAS_ID, FLOOR_TILE_COORDS[1])
+#			if corridor_tile_map.get_cell_atlas_coords(1, cell_pos) != Vector2i(-1, -1):
+#				corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID)
+		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FULL_WALL_COORDS:
 			if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.UP) == RIGHT_WALL_COOR:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_LEFT_COOR)
 			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.UP) == LEFT_WALL_COOR:
@@ -258,7 +264,7 @@ func _create_corridors() -> void:
 				corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, BOTTOM_WALL_COOR)
 		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) == LEFT_WALL_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == Vector2i(-1, -1) and not entry_cells.has(cell_pos + Vector2i.ONE):
 			corridor_tile_map.set_cell(0, cell_pos, ATLAS_ID, LAST_LEFT_WALL_COOR)
-		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) == RIGHT_WALL_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == Vector2i(-1, -1)and not entry_cells.has(cell_pos + Vector2i.DOWN + Vector2i.LEFT):
+		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) == RIGHT_WALL_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == Vector2i(-1, -1) and not entry_cells.has(cell_pos + Vector2i.DOWN + Vector2i.LEFT):
 			corridor_tile_map.set_cell(0, cell_pos, ATLAS_ID, LAST_RIGHT_WALL_COOR)
 
 		if debug:

@@ -89,3 +89,11 @@ func throw_body_entered_hitbox(body: Node2D) -> void:
 		hitbox.body_entered.disconnect(throw_body_entered_hitbox)
 		hitbox.body_entered.connect(hitbox._on_body_entered)
 		set_physics_process(false)
+
+
+func add_status_inflicter(status: StatusComponent.Status) -> void:
+	var status_inflicter_component: StatusInflicterComponent = StatusInflicterComponent.new()
+	status_inflicter_component.status = status
+	status_inflicter_component.name = "StatusInflicterComponent"
+	add_child(status_inflicter_component)
+	status_inflicter_added.emit(self, status)

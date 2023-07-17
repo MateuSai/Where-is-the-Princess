@@ -1,4 +1,4 @@
-class_name PassiveItem
+class_name PassiveItem extends Resource
 
 var icon: Texture
 

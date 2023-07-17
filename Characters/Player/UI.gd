@@ -45,3 +45,7 @@ func _on_player_weapon_droped(index: int) -> void:
 
 func _on_player_weapon_condition_changed(weapon: Weapon, new_value: float) -> void:
 	inventory.get_child(weapon.get_index()).update_condition(new_value)
+
+
+func _on_player_weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status) -> void:
+	print("hi")

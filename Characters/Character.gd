@@ -12,6 +12,8 @@ const FRICTION: float = 0.15
 #@export var hp: int = 2: set = set_hp
 #signal hp_changed(new_hp)
 
+var damage_multiplier: int = 1
+
 @export var accerelation: int = 40
 @export var max_speed: int = 100
 

@@ -9,6 +9,8 @@ extends Node2D
 
 
 func _ready() -> void:
+	player.set_armor(load(SavedData.data.equipped_armor).new())
+
 	start_interact_area.player_interacted.connect(func():
 		SceneTransistor.start_transition_to("res://Game.tscn")
 	)
@@ -32,3 +34,7 @@ func _ready() -> void:
 	wardrobe_popup.popup_hide.connect(func():
 		player.can_move = true
 	)
+
+
+func _exit_tree() -> void:
+	SavedData.save_data()
