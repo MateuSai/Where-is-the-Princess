@@ -176,6 +176,8 @@ func _create_corridors() -> void:
 				if delaunay_astar.is_point_disabled(j):
 					continue
 				var point2: Vector2 = delaunay_astar.get_point_position(j)
+				if not await _is_connection_possible(id, room_centers.find(point2)):
+					continue
 			# If the node is closer, make it the closest
 				if delaunay_astar.get_point_connections(room_centers.find(point)).has(j) and point.distance_to(point2) < min_dist:
 					min_dist = point.distance_to(point2)
@@ -183,6 +185,9 @@ func _create_corridors() -> void:
 					p = point
 		# Insert the resulting node into the path and add
 		# its connection
+		if min_p == null:
+			printerr("min_p is null")
+			continue
 		var n: int = room_centers.find(min_p)
 		mst_astar.add_point(n, min_p)
 		mst_astar.connect_points(mst_astar.get_closest_point(p), n)
@@ -316,8 +321,41 @@ func _add_floor_tiles() -> void:
 			mst_astar.disconnect_points(id, connection_with)
 
 
-func _is_connection_possible(id: int, connection_with: int) -> void:
-	pass
+func _is_connection_possible(id: int, connection_with: int) -> bool:
+	if debug:
+		print("Checking connection between " + str(id) + " " + str(connection_with) + "...")
+	var dif: Vector2 = room_centers[connection_with] - room_centers[id]
+	if abs(dif.x) < TILE_SIZE * 8 and rooms[id if dif.y > 0 else connection_with].has_entry(DungeonRoom.EntryDirection.DOWN) and rooms[connection_with if dif.y > 0 else id].has_entry(DungeonRoom.EntryDirection.UP) and await _check_entry_positions_vertical_corridor(id if dif.y > 0 else connection_with, connection_with if dif.y > 0 else id, DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.UP):
+		if debug:
+			print("\tVertical connection is possible")
+		return true
+	elif abs(dif.y) < TILE_SIZE * 8 and rooms[id if dif.x > 0 else connection_with].has_entry(DungeonRoom.EntryDirection.RIGHT) and rooms[connection_with if dif.x > 0 else id].has_entry(DungeonRoom.EntryDirection.LEFT) and await  _check_entry_positions_horizontal_corridor(id if dif.x > 0 else connection_with, connection_with if dif.x > 0 else id, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.LEFT):
+		if debug:
+			print("\tHorizontal connection is possible")
+		return true
+	else:
+		if dif.x > 0 and dif.y > 0:
+			if (rooms[id].has_entry(DungeonRoom.EntryDirection.RIGHT) and rooms[connection_with].has_entry(DungeonRoom.EntryDirection.UP) and await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.UP)) or (rooms[id].has_entry(DungeonRoom.EntryDirection.DOWN) and rooms[connection_with].has_entry(DungeonRoom.EntryDirection.LEFT) and await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.LEFT)):
+				if debug:
+					print("\tL connection is possible though if 0")
+				return true
+		elif dif.x > 0 and dif.y < 0:
+			if (rooms[id].has_entry(DungeonRoom.EntryDirection.RIGHT) and rooms[connection_with].has_entry(DungeonRoom.EntryDirection.DOWN) and await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.DOWN)) or (rooms[id].has_entry(DungeonRoom.EntryDirection.UP) and rooms[connection_with].has_entry(DungeonRoom.EntryDirection.LEFT) and await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.LEFT)):
+				if debug:
+					print("\tL connection is possible though if 1")
+				return true
+		elif dif.x < 0 and dif.y > 0:
+			if (rooms[id].has_entry(DungeonRoom.EntryDirection.LEFT) and rooms[connection_with].has_entry(DungeonRoom.EntryDirection.UP) and await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.UP)) or (rooms[id].has_entry(DungeonRoom.EntryDirection.DOWN) and rooms[connection_with].has_entry(DungeonRoom.EntryDirection.RIGHT) and await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.RIGHT)):
+				if debug:
+					print("\tL connection is possible though if 2")
+				return true
+		else: # dif.x < 0 and dif.y < 0
+			if (rooms[id].has_entry(DungeonRoom.EntryDirection.LEFT) and rooms[connection_with].has_entry(DungeonRoom.EntryDirection.DOWN) and await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.DOWN)) or (rooms[id].has_entry(DungeonRoom.EntryDirection.UP) and rooms[connection_with].has_entry(DungeonRoom.EntryDirection.RIGHT) and await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.RIGHT)):
+				if debug:
+					print("\tL connection is possible though if 3")
+				return true
+
+	return false
 
 
 func _analyze_and_create_l_corridor(id: int, connection_with: int, directions: Array[Array]) -> void:
