@@ -316,6 +316,10 @@ func _add_floor_tiles() -> void:
 			mst_astar.disconnect_points(id, connection_with)
 
 
+func _is_connection_possible(id: int, connection_with: int) -> void:
+	pass
+
+
 func _analyze_and_create_l_corridor(id: int, connection_with: int, directions: Array[Array]) -> void:
 	var rand: int = randi() % 2
 	if rooms[id].has_entry(directions[rand][0]) and rooms[connection_with].has_entry(directions[rand][1]) and await _check_entry_positions_l_corridor(id, connection_with, directions[rand][0], directions[rand][1]):

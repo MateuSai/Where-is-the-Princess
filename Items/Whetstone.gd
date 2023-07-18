@@ -2,7 +2,7 @@ class_name Whetstone extends Item
 
 
 func _init() -> void:
-	_initialize(load("res://Art/Status Conditions/condition_status_top_fire_full_16x16.png"))
+	_initialize(load("res://Art/weapons/Arrow.png"))
 
 
 func can_pick_up(player: Player) -> bool:
