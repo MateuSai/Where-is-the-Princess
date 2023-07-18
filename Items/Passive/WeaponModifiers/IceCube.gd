@@ -1,8 +1,8 @@
-class_name Oil extends WeaponModifier
+class_name IceCube extends WeaponModifier
 
 
 func _init() -> void:
-	_initialize(load("res://Art/Furniture and room elements/wardrobe.png"))
+	_initialize(load("res://Art/19+ icons/boostB.png"))
 
 
 ## Called when we change level and we load the weapon modifiers again
@@ -11,7 +11,7 @@ func _init() -> void:
 
 
 func equip(weapon: Weapon) -> void:
-	weapon.add_status_inflicter(StatusComponent.Status.FIRE)
+	weapon.add_status_inflicter(StatusComponent.Status.ICE)
 
 
 func unequip(_weapon: Weapon) -> void:

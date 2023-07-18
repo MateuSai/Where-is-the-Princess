@@ -17,14 +17,15 @@ func load_previous_weapons() -> void:
 		var weapon: Weapon = load(weapon_stat.weapon_path).instantiate()
 		weapon.stats = weapon_stat
 		weapon.position = Vector2.ZERO
-		add_child(weapon)
-		weapon.hide()
 
 		weapon.condition_changed.connect(_on_weapon_condition_changed)
 		weapon.status_inflicter_added.connect(_on_weapon_status_inflicter_added)
 
 		weapon_picked_up.emit(weapon)
-		weapon_switched.emit(get_child_count() - 2, get_child_count() - 1)
+		weapon_switched.emit(get_child_count() - 1, get_child_count())
+
+		add_child(weapon)
+		weapon.hide()
 
 	current_weapon = get_child(SavedData.run_stats.equipped_weapon_index)
 	current_weapon.show()
@@ -121,7 +122,7 @@ func throw_weapon() -> void:
 	SavedData.run_stats.weapon_stats.remove_at(current_weapon.get_index() - 1)
 	var weapon_to_drop: Node2D = current_weapon
 	weapon_to_drop.condition_changed.disconnect(_on_weapon_condition_changed)
-	weapon_to_drop.status_inflicter_added.disconnect(_on_weapon_condition_changed)
+	weapon_to_drop.status_inflicter_added.disconnect(_on_weapon_status_inflicter_added)
 	_switch_weapon(UP)
 
 	emit_signal("weapon_droped", weapon_to_drop.get_index())

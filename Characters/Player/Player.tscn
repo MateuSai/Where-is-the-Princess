@@ -314,6 +314,9 @@ border_width_bottom = 2
 collision_layer = 2
 collision_mask = 21
 script = ExtResource("4")
+accerelation = null
+max_speed = null
+flying = null
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("5")
@@ -342,6 +345,8 @@ script = ExtResource("5_uyohi")
 
 [node name="Dagger" parent="Weapons" index="0" instance=ExtResource("5_nk70o")]
 position = Vector2(0, -3)
+on_floor = null
+condition_degrade_by_attack = null
 
 [node name="Camera2D" type="Camera2D" parent="." index="6"]
 position_smoothing_enabled = true

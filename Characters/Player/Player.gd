@@ -150,14 +150,16 @@ func _on_damage_taken(dam: int, dir: Vector2, force: int) -> void:
 
 
 func pick_up_passive_item(item: PassiveItem) -> void:
-	item.equip(self)
 	if item is PermanentPassiveItem:
+		item.equip(self)
 		if not SavedData.run_stats.permanent_passive_items.has(item):
 			SavedData.run_stats.permanent_passive_items.push_back(item)
 		permanent_passive_item_picked_up.emit(item)
 	elif item is WeaponModifier:
+		item.equip(weapons.current_weapon)
 		weapons.current_weapon.add_weapon_modifier(item)
 	else: # TemporalPassiveItem
+		item.equip(self)
 		if not SavedData.run_stats.temporal_passive_items.has(item):
 			SavedData.run_stats.temporal_passive_items.push_back(item)
 		temporal_passive_item_picked_up.emit(item)

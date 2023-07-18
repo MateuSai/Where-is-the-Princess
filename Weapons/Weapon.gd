@@ -35,7 +35,7 @@ func _ready() -> void:
 
 	for modifier in stats.modifiers:
 		# modifier.equip(get_parent().get_parent())
-		modifier.reequip(self)
+		modifier.equip(self)
 
 	connect("draw", _on_show)
 	connect("hidden", _on_hide)
