@@ -2,7 +2,7 @@
 	"Dungeon": {
 		"corridor_atlas_id": 40,
 		"room_atlas_id": 40,
-		"levels": 1,
+		"levels": 2,
 		"extra_connections": 0.2,
 		"next_biome": "Forest",
 	},

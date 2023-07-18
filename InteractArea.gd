@@ -30,7 +30,7 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey:
-		if event.keycode == KEY_SPACE:
+		if event.is_pressed() and event.keycode == KEY_SPACE:
 			player_interacted.emit()
 
 

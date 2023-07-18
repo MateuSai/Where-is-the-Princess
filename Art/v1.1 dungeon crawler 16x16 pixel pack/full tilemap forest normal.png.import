@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvvmfifrcqokb"
-path="res://.godot/imported/horizontal_door_normal.png-0ce2165688e37a032def3f043281318f.ctex"
+uid="uid://cg4j7iw6roxh0"
+path="res://.godot/imported/full tilemap forest normal.png-4fb747e0dba8ccc5000198227b86208a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/v1.1 dungeon crawler 16x16 pixel pack/horizontal_door_normal.png"
-dest_files=["res://.godot/imported/horizontal_door_normal.png-0ce2165688e37a032def3f043281318f.ctex"]
+source_file="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full tilemap forest normal.png"
+dest_files=["res://.godot/imported/full tilemap forest normal.png-4fb747e0dba8ccc5000198227b86208a.ctex"]
 
 [params]
 

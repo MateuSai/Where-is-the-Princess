@@ -49,3 +49,8 @@ grow_vertical = 0
 value = 100.0
 nine_patch_stretch = true
 texture_progress = ExtResource("3_32dfv")
+
+[node name="StatusContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+offset_right = 4.0
+offset_bottom = 4.0

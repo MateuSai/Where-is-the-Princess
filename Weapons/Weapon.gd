@@ -33,6 +33,10 @@ func _ready() -> void:
 
 	stats.connect("condition_changed", _on_condition_changed)
 
+	for modifier in stats.modifiers:
+		# modifier.equip(get_parent().get_parent())
+		modifier.equip(self)
+
 	connect("draw", _on_show)
 	connect("hidden", _on_hide)
 
@@ -151,8 +155,12 @@ func _on_hide() -> void:
 	ability_icon.hide()
 
 
-func add_status_inflicter(_dstatus: StatusComponent.Status) -> void:
+func add_status_inflicter(_status: StatusComponent.Status) -> void:
 	pass
+
+
+func add_weapon_modifier(item: WeaponModifier) -> void:
+	stats.modifiers.push_back(item)
 
 
 func get_texture() -> Texture2D:

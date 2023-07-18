@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=27 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="1_0pcgl"]
 [ext_resource type="Script" path="res://BaseCamp.gd" id="1_tpf7m"]
@@ -52,6 +52,13 @@ size = Vector2(8, 8)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2m37t"]
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ihltq"]
+size = Vector2(8, 8)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_va5t1"]
+radius = 6.0
+height = 20.0
+
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_yk6ns"]
 size = Vector2(8, 8)
 
@@ -98,6 +105,7 @@ color = Color(0.768627, 0.364706, 0.133333, 1)
 energy = 2.0
 texture = ExtResource("5_jugum")
 texture_scale = 1.2
+height = 50.0
 
 [node name="Player" parent="." instance=ExtResource("1_0pcgl")]
 position = Vector2(165, 181)
@@ -149,6 +157,19 @@ path_to_sprite = NodePath("../Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Settings/SettingsInteractArea"]
 shape = SubResource("CircleShape2D_2m37t")
+
+[node name="SeedSelectorSprite" type="Sprite2D" parent="."]
+position = Vector2(154, 24)
+texture = SubResource("PlaceholderTexture2D_ihltq")
+
+[node name="InteractArea" type="Area2D" parent="SeedSelectorSprite"]
+script = ExtResource("2_n3t3v")
+path_to_sprite = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SeedSelectorSprite/InteractArea"]
+position = Vector2(0, 13)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_va5t1")
 
 [node name="ExitInteractArea" type="Area2D" parent="."]
 position = Vector2(164, 195)
@@ -203,3 +224,18 @@ layout_mode = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 autowrap_mode = 3
+
+[node name="SeedPopup" type="PopupPanel" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="SeedPopup"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 96.0
+offset_bottom = 96.0
+theme = ExtResource("4_6s3ou")
+
+[node name="SpinBox" type="SpinBox" parent="SeedPopup/MarginContainer"]
+layout_mode = 2
+min_value = -1.0
+max_value = 9.22337e+18
+value = -1.0

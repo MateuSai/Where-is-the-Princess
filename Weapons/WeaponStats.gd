@@ -3,6 +3,8 @@ class_name WeaponStats extends Resource
 @export var weapon_path: String
 @export var condition: float = 100
 
+@export var modifiers: Array[WeaponModifier] = []
+
 signal condition_changed(new_condition: int)
 
 

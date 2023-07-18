@@ -2,12 +2,13 @@ extends CanvasLayer
 
 
 @onready var color_rect: ColorRect = $ColorRect
-@onready var pause_menu: VBoxContainer = $PauseMenu
+@onready var pause_menu: Control = $PauseMenu
 
 
 func _ready() -> void:
 	color_rect.hide()
 	pause_menu.hide()
+	$PauseMenu/MarginContainer/SeedLabel.text = str(Globals.run_seed)
 
 
 func _unhandled_input(event: InputEvent) -> void:
