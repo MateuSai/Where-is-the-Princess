@@ -12,6 +12,11 @@ func initialize(texture: Texture2D, condition: float) -> void:
 	condition_bar.value = condition
 
 
+func _ready() -> void:
+	if get_index() == 0:
+		condition_bar.queue_free()
+
+
 func select() -> void:
 	border.show()
 
