@@ -164,7 +164,7 @@ func _create_corridors() -> void:
 	delaunay_astar.set_point_disabled(0)
 
 	if debug:
-		print("--- Rooms: creating mst ---")
+		print_rich("[b]--- Rooms: creating mst ---[/b]")
 	for i in range(1, delaunay_astar.get_point_count()):
 		var min_dist = INF  # Minimum distance found so far
 		var min_p = null  # Position of that node
@@ -205,6 +205,7 @@ func _create_corridors() -> void:
 		await get_tree().create_timer(pause_between_steps).timeout
 
 	# Añadimos alguna conexion extra
+	print_rich("[b]--- Rooms: Adding extra connections to mst ---[/b]")
 	for id in delaunay_astar.get_point_count():
 		delaunay_astar.set_point_disabled(id, false)
 	var points_that_could_be_connected: Array[Array] = []
@@ -217,10 +218,15 @@ func _create_corridors() -> void:
 		print("Connections not used after mst: " + str(points_that_could_be_connected))
 
 	var number_of_extra_connections: int = round(points_that_could_be_connected.size() * 0.2)
-	for i in number_of_extra_connections:
+	var i: int = number_of_extra_connections
+	while i > 0 and not points_that_could_be_connected.is_empty():
 		var rand: int = randi() % points_that_could_be_connected.size()
-		mst_astar.connect_points(points_that_could_be_connected[rand][0], points_that_could_be_connected[rand][1])
+		if await _is_connection_possible(points_that_could_be_connected[rand][0], points_that_could_be_connected[rand][1]):
+			mst_astar.connect_points(points_that_could_be_connected[rand][0], points_that_could_be_connected[rand][1])
+			i -= 1
 		points_that_could_be_connected.remove_at(rand)
+	if debug:
+		print("\n")
 
 	if debug:
 		queue_redraw()
