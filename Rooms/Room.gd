@@ -43,8 +43,9 @@ func _ready() -> void:
 
 
 func _draw() -> void:
-	if get_parent().get_parent().debug:
-		draw_circle(vector_to_center, (vector_to_center - Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE)).length(), Color.RED)
+	pass
+#	if get_parent().get_parent().debug:
+#		draw_circle(vector_to_center, (vector_to_center - Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE)).length(), Color.RED)
 
 
 func get_separation_steering_dir(rooms: Array[DungeonRoom], delta: float) -> Vector2:
