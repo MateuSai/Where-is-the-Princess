@@ -46,7 +46,7 @@ func move() -> void:
 func add_status_condition(status: StatusComponent.Status) -> void:
 	var status_component: StatusComponent = get_node_or_null(StatusComponent.Status.keys()[status])
 	if status_component == null:
-		status_component = [FireStatusComponent.new(), IceStatusComponent.new()][status]
+		status_component = [FireStatusComponent.new(), IceStatusComponent.new(), LightningStatusComponent.new()][status]
 		add_child(status_component)
 		status_component.name = StatusComponent.Status.keys()[status]
 	status_component.add()

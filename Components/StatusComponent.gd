@@ -6,6 +6,7 @@ var life_component: LifeComponent
 enum Status {
 	FIRE,
 	ICE,
+	LIGHTNING,
 }
 
 
