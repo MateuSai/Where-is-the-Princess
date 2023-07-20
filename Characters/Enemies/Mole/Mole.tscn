@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://2ntjwxvfaakv"]
+
+[ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_sqxlg"]
+[ext_resource type="Script" path="res://Characters/Enemies/Mole/Mole.gd" id="2_pw6f4"]
+[ext_resource type="Script" path="res://Characters/Enemies/Mole/MoleFSM.gd" id="3_bqtei"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_knase"]
+size = Vector2(10, 10)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xceue"]
+radius = 7.0
+
+[node name="Mole" instance=ExtResource("1_sqxlg")]
+script = ExtResource("2_pw6f4")
+max_speed = 80
+
+[node name="FiniteStateMachine" parent="." index="0"]
+script = ExtResource("3_bqtei")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = SubResource("PlaceholderTexture2D_knase")
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource("CircleShape2D_xceue")
+
+[node name="NavigationAgent2D" parent="." index="5"]
+target_desired_distance = 16.0
