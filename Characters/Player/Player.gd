@@ -18,6 +18,8 @@ var mouse_direction: Vector2
 
 var can_move: bool = true
 
+var throw_piercing: int = 1
+
 #var sm
 
 # @onready var armor_sprite: Sprite2D = get_node("ArmorSprite")

@@ -5,11 +5,11 @@ class_name DungeonRoom extends Node2D
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/SpawnExplosion.tscn")
 
 const ENEMY_SCENES: Dictionary = {
-	#"FLYING_CREATURE": preload("res://Characters/Enemies/Flying Creature/FlyingCreature.tscn"),
+	"FLYING_CREATURE": preload("res://Characters/Enemies/Flying Creature/FlyingCreature.tscn"),
 	#"GOBLIN": preload("res://Characters/Enemies/Goblin/Goblin.tscn"),
 	#"DARK_GOBLIN": preload("res://Characters/Enemies/DarkGoblin/DarkGoblin.tscn"),
 	#"SHIELD_KNIGHT": preload("res://Characters/Enemies/ShieldKnight/ShieldKnight.tscn"),
-	"MOLE": preload("res://Characters/Enemies/Mole/Mole.tscn"),
+	#"MOLE": preload("res://Characters/Enemies/Mole/Mole.tscn"),
 }
 
 const HORIZONTAL_UP_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/HorizontalUpDoor.tscn")
@@ -32,6 +32,7 @@ signal closed()
 signal cleared()
 
 @onready var tilemap: TileMap = get_node("TileMap")
+@onready var black_tilemap: TileMap = get_node("BlackTileMap")
 @onready var vector_to_center: Vector2 = tilemap.get_used_rect().position * Rooms.TILE_SIZE + tilemap.get_used_rect().size * Rooms.TILE_SIZE / 2
 @onready var radius: float = (vector_to_center - Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE)).length() * 1
 @onready var entries: Array[Node] = [get_node("Entries/Left"), get_node("Entries/Up"), get_node("Entries/Right"), get_node("Entries/Down")]
@@ -41,6 +42,12 @@ signal cleared()
 
 func _ready() -> void:
 	num_enemies = enemy_positions_container.get_child_count()
+
+	black_tilemap.modulate = ProjectSettings.get("rendering/environment/defaults/default_clear_color")
+	for cell_pos in tilemap.get_used_cells(0):
+		black_tilemap.set_cell(0, cell_pos, 0, Vector2i(0, 0))
+	for cell_pos in tilemap.get_used_cells(1):
+		black_tilemap.set_cell(0, cell_pos, 0, Vector2i(0, 0))
 
 
 func _draw() -> void:
@@ -95,6 +102,11 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 	for dir in [EntryDirection.LEFT, EntryDirection.RIGHT]:
 		for entry in entries[dir].get_children():
 			if entry in used_entries:
+				black_tilemap.set_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.UP * 2)
+				black_tilemap.set_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.UP)
+				black_tilemap.set_cell(0, black_tilemap.local_to_map(entry.position))
+				black_tilemap.set_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.DOWN)
+
 				var vertical_door: Door = VERTICAL_DOOR.instantiate()
 				vertical_door.position = floor(entry.position / 16) * 16
 				if dir == EntryDirection.LEFT:
@@ -127,6 +139,9 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 	for dir in [EntryDirection.UP, EntryDirection.DOWN]:
 		for entry in entries[dir].get_children():
 			if entry in used_entries:
+				black_tilemap.set_cell(0, black_tilemap.local_to_map(entry.position))
+				black_tilemap.set_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.RIGHT)
+
 				var horizontal_door: Door = HORIZONTAL_UP_DOOR.instantiate() if dir == EntryDirection.UP else HORIZONTAL_DOWN_DOOR.instantiate()
 				horizontal_door.position = floor(entry.position / 16) * 16 + Vector2(Rooms.TILE_SIZE, Rooms.TILE_SIZE + 12)
 				door_container.add_child(horizontal_door)
@@ -199,13 +214,21 @@ func _spawn_enemies() -> void:
 
 
 func _on_player_entered_room() -> void:
+	for door in door_container.get_children():
+		door.player_entered_room.disconnect(_on_player_entered_room)
+
 	if num_enemies > 0:
 		_close_entrance()
 		_spawn_enemies()
 		closed.emit()
 		Globals.room_closed.emit()
+
+		var tween: Tween = create_tween()
+		tween.tween_property(black_tilemap, "modulate:a", 0.0, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+		await tween.finished
+		black_tilemap.queue_free()
 	else:
-		pass
+		black_tilemap.queue_free()
 		#_close_entrance()
 		#_open_doors()
 

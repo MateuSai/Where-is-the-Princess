@@ -1,8 +1,12 @@
 class_name Battery extends WeaponModifier
 
 
-func _init() -> void:
-	_initialize(load("res://Art/Furniture and room elements/wardrobe.png"))
+func get_icon() -> Texture:
+	return load("res://Art/Furniture and room elements/wardrobe.png")
+
+
+#func _init() -> void:
+#	_initialize(load("res://Art/Furniture and room elements/wardrobe.png"))
 
 
 ## Called when we change level and we load the weapon modifiers again

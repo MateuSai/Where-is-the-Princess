@@ -35,6 +35,7 @@ func _ready() -> void:
 	camera.enabled = false
 	var player: Player = PLAYER_SCENE.instantiate()
 	player.position = rooms.start_room.get_node("PlayerSpawnPos").global_position
+	rooms.start_room._on_player_entered_room()
 #	player.hp_changed.connect(ui._on_Player_hp_changed)
 #	player.weapon_condition_changed.connect(ui._on_player_weapon_condition_changed)
 #	player.weapon_droped.connect(ui._on_Player_weapon_droped)

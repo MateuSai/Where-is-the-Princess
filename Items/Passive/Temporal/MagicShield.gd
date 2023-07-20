@@ -5,8 +5,12 @@ var magic_shield_node: MagicShieldNode
 @export var hp: int = 2
 
 
-func _init() -> void:
-	_initialize(load("res://Art/items/ShieldAnimation.tres"))
+func get_icon() -> Texture:
+	return load("res://Art/items/ShieldAnimation.tres")
+
+
+#func _init() -> void:
+#	_initialize(load("res://Art/items/ShieldAnimation.tres"))
 
 
 func equip(player: Player) -> void:

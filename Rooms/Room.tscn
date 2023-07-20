@@ -1,7 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://7oeqdu22e1q5"]
+[gd_scene load_steps=8 format=3 uid="uid://7oeqdu22e1q5"]
 
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="1"]
 [ext_resource type="Script" path="res://Rooms/Room.gd" id="1_2v2ib"]
+[ext_resource type="Texture2D" uid="uid://4diatv3rr660" path="res://brow_square.png" id="3_6fxjx"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gg2n2"]
+light_mode = 1
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3ye2p"]
+texture = ExtResource("3_6fxjx")
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_up5gx"]
+sources/0 = SubResource("TileSetAtlasSource_3ye2p")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4loq4"]
 light_mode = 1
@@ -38,6 +49,12 @@ layer_3/y_sort_enabled = false
 layer_3/y_sort_origin = 0
 layer_3/z_index = 2
 layer_3/tile_data = PackedInt32Array()
+
+[node name="BlackTileMap" type="TileMap" parent="."]
+z_index = 1
+material = SubResource("CanvasItemMaterial_gg2n2")
+tile_set = SubResource("TileSet_up5gx")
+format = 2
 
 [node name="Entries" type="Node2D" parent="."]
 

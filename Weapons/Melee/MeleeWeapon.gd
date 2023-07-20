@@ -13,6 +13,9 @@ enum Type {
 var throw_dir: Vector2
 var throw_rot_speed: float = 0
 
+var piercing: int = 1
+var bodies_pierced: int = 0
+
 
 func _ready() -> void:
 	super()
@@ -67,6 +70,8 @@ func _strong_attack() -> void:
 
 func throw() -> void:
 	throw_dir = get_parent().get_parent().mouse_direction
+	bodies_pierced = 0
+	piercing = get_parent().get_parent().throw_piercing
 	if type == Type.SWORD:
 		throw_rot_speed = 25 if attack_num == 0 else -25
 	get_parent().throw_weapon()
@@ -80,6 +85,9 @@ func throw() -> void:
 func throw_body_entered_hitbox(body: Node2D) -> void:
 		if body is Enemy:
 			hitbox._on_body_entered(body)
+			bodies_pierced += 1
+			if bodies_pierced < piercing:
+				return # We don't stop the weapon yet
 		else:
 			_on_collided_with_something(Hitbox.CollisionMaterial.STONE)
 		_on_Tween_tween_completed()
