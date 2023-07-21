@@ -99,9 +99,16 @@ func throw_body_entered_hitbox(body: Node2D) -> void:
 		set_physics_process(false)
 
 
-func add_status_inflicter(status: StatusComponent.Status) -> void:
-	var status_inflicter_component: StatusInflicterComponent = StatusInflicterComponent.new()
-	status_inflicter_component.status = status
-	status_inflicter_component.name = "StatusInflicterComponent"
-	add_child(status_inflicter_component)
-	status_inflicter_added.emit(self, status)
+func add_status_inflicter(status: StatusComponent.Status, amount: int = 1) -> void:
+	var status_inflicter_component: StatusInflicterComponent = get_node_or_null(StatusComponent.Status.keys()[status] + "Inflicter")
+	if status_inflicter_component:
+		status_inflicter_component.change_to_inflict_status_effect += StatusWeaponModifier.INFLICT_CHANCE
+	else:
+		status_inflicter_component = StatusInflicterComponent.new()
+		status_inflicter_component.status = status
+		status_inflicter_component.change_to_inflict_status_effect = StatusWeaponModifier.INFLICT_CHANCE * amount
+		status_inflicter_component.name = StatusComponent.Status.keys()[status] + "Inflicter"
+		add_child(status_inflicter_component)
+
+	for i in amount:
+		status_inflicter_added.emit(self, status)

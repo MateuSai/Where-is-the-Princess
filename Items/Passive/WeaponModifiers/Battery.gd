@@ -1,4 +1,4 @@
-class_name Battery extends WeaponModifier
+class_name Battery extends StatusWeaponModifier
 
 
 func get_icon() -> Texture:
@@ -15,7 +15,8 @@ func get_icon() -> Texture:
 
 
 func equip(weapon: Weapon) -> void:
-	weapon.add_status_inflicter(StatusComponent.Status.LIGHTNING)
+	_add_status_inflicter(weapon, StatusComponent.Status.LIGHTNING)
+	#weapon.add_status_inflicter(StatusComponent.Status.LIGHTNING, amount)
 
 
 func unequip(_weapon: Weapon) -> void:

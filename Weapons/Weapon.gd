@@ -155,11 +155,17 @@ func _on_hide() -> void:
 	ability_icon.hide()
 
 
-func add_status_inflicter(_status: StatusComponent.Status) -> void:
+func add_status_inflicter(_status: StatusComponent.Status, _amount: int = 1) -> void:
 	pass
 
 
 func add_weapon_modifier(item: WeaponModifier) -> void:
+	for modifier in stats.modifiers:
+		if item.get_script().get_path() == modifier.get_script().get_path():
+			assert(modifier is StatusWeaponModifier)
+			modifier.amount += 1
+			return
+
 	stats.modifiers.push_back(item)
 
 

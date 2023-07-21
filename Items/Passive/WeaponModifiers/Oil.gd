@@ -1,8 +1,12 @@
-class_name Oil extends WeaponModifier
+class_name Oil extends StatusWeaponModifier
 
 
-func _init() -> void:
-	_initialize(load("res://Art/Furniture and room elements/wardrobe.png"))
+func get_icon() -> Texture:
+	return load("res://Art/Furniture and room elements/wardrobe.png")
+
+
+#func _init() -> void:
+#	_initialize(load("res://Art/Furniture and room elements/wardrobe.png"))
 
 
 ## Called when we change level and we load the weapon modifiers again
@@ -11,7 +15,8 @@ func _init() -> void:
 
 
 func equip(weapon: Weapon) -> void:
-	weapon.add_status_inflicter(StatusComponent.Status.FIRE)
+	_add_status_inflicter(weapon, StatusComponent.Status.FIRE)
+	#weapon.add_status_inflicter(StatusComponent.Status.FIRE, amount)
 
 
 func unequip(_weapon: Weapon) -> void:
