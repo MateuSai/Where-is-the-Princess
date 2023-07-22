@@ -5,11 +5,13 @@ class_name DungeonRoom extends Node2D
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/SpawnExplosion.tscn")
 
 const ENEMY_SCENES: Dictionary = {
-	"FLYING_CREATURE": preload("res://Characters/Enemies/Flying Creature/FlyingCreature.tscn"),
+	#"FLYING_CREATURE": preload("res://Characters/Enemies/Flying Creature/FlyingCreature.tscn"),
 	#"GOBLIN": preload("res://Characters/Enemies/Goblin/Goblin.tscn"),
 	#"DARK_GOBLIN": preload("res://Characters/Enemies/DarkGoblin/DarkGoblin.tscn"),
 	#"SHIELD_KNIGHT": preload("res://Characters/Enemies/ShieldKnight/ShieldKnight.tscn"),
-	#"MOLE": preload("res://Characters/Enemies/Mole/Mole.tscn"),
+	# "MOLE": preload("res://Characters/Enemies/Mole/Mole.tscn"),
+	# "SPIDER": preload("res://Characters/Enemies/Spider/Spider.tscn"),
+	"MARK": preload("res://Characters/Enemies/Mark the Reptilian/MarkTheReptilian.tscn"),
 }
 
 const HORIZONTAL_UP_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/HorizontalUpDoor.tscn")

@@ -18,14 +18,14 @@ func equip(player: Player) -> void:
 	magic_shield_node.life_component.hp = hp
 	magic_shield_node.hp_changed.connect(func(new_hp: int): hp = new_hp)
 	magic_shield_node.destroyed.connect(func(): player.unequip_passive_item(self))
-	player.add_child(magic_shield_node)
+	player.add_shield(magic_shield_node)
 
 
-func unequip(_player: Player) -> void:
+func unequip(player: Player) -> void:
 	var particles: GPUParticles2D = load("res://Shaders and Particles/DestroyParticles.tscn").instantiate()
 	particles.position = magic_shield_node.sprite.global_position
 	magic_shield_node.get_tree().current_scene.add_child(particles)
-	magic_shield_node.queue_free()
+	player.remove_shield(magic_shield_node)
 
 
 class MagicShieldNode extends StaticBody2D:

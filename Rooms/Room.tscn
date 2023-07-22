@@ -1,11 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://7oeqdu22e1q5"]
+[gd_scene load_steps=9 format=3 uid="uid://7oeqdu22e1q5"]
 
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="1"]
 [ext_resource type="Script" path="res://Rooms/Room.gd" id="1_2v2ib"]
 [ext_resource type="Texture2D" uid="uid://4diatv3rr660" path="res://brow_square.png" id="3_6fxjx"]
+[ext_resource type="Shader" path="res://Shaders and Particles/Clouds.gdshader" id="3_pjntw"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gg2n2"]
-light_mode = 1
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u4la0"]
+shader = ExtResource("3_pjntw")
+shader_parameter/cloudscale = 1.1
+shader_parameter/speed = 0.01
+shader_parameter/clouddark = 0.5
+shader_parameter/cloudlight = 0.3
+shader_parameter/cloudcover = 0.2
+shader_parameter/cloudalpha = 8.0
+shader_parameter/skytint = 0.5
+shader_parameter/skycolour1 = Vector3(0.2, 0.4, 0.6)
+shader_parameter/skycolour2 = Vector3(0.4, 0.7, 1)
+shader_parameter/m = Transform2D(1.6, -1.2, 1.2, 1.6, 0, 0)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3ye2p"]
 texture = ExtResource("3_6fxjx")
@@ -52,7 +63,7 @@ layer_3/tile_data = PackedInt32Array()
 
 [node name="BlackTileMap" type="TileMap" parent="."]
 z_index = 1
-material = SubResource("CanvasItemMaterial_gg2n2")
+material = SubResource("ShaderMaterial_u4la0")
 tile_set = SubResource("TileSet_up5gx")
 format = 2
 

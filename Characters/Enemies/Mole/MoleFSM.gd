@@ -31,7 +31,9 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			parent.show()
 			parent.come_out()
 			#animation_player.play("fly")
+			parent.attack_timer.start(randf_range(0.4, 0.8))
 		states.below:
+			parent.attack_timer.stop()
 			parent.velocity = Vector2.ZERO
 			parent.mov_direction = Vector2.ZERO
 			parent.hide()

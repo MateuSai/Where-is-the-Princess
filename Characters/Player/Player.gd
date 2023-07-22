@@ -20,6 +20,8 @@ var can_move: bool = true
 
 var throw_piercing: int = 1
 
+var shields: Array[MagicShield.MagicShieldNode] = []
+
 #var sm
 
 # @onready var armor_sprite: Sprite2D = get_node("ArmorSprite")
@@ -200,3 +202,21 @@ func set_armor(new_armor: Armor) -> void:
 
 func jump() -> void:
 	jump_animation_player.play("jump")
+
+
+func add_shield(shield_node: MagicShield.MagicShieldNode) -> void:
+	add_child(shield_node)
+	shields.push_back(shield_node)
+
+	var rot: float = 2*PI / shields.size()
+	for i in shields.size():
+		shields[i].rotation = rot * i
+
+
+func remove_shield(shield_node: MagicShield.MagicShieldNode) -> void:
+	shield_node.queue_free()
+	shields.erase(shield_node)
+
+	var rot: float = 2*PI / shields.size()
+	for i in shields.size():
+		shields[i].rotation = rot * i
