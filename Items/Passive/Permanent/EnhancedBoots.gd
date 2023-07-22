@@ -2,7 +2,10 @@ class_name EnhancedBoots extends PermanentPassiveItem
 
 
 func _init() -> void:
-	_initialize(load("res://Art/items/boots_player.png"))
+	pass
+	#icon = null
+	#icon = load("res://Art/items/boots_player.png")
+	#_initialize(load("res://Art/items/boots_player.png"))
 
 
 func equip(player: Player) -> void:
@@ -11,3 +14,7 @@ func equip(player: Player) -> void:
 
 func unequip(player: Player) -> void:
 	player.max_speed -= 100
+
+
+func get_icon() -> Texture:
+	return load("res://Art/items/boots_player.png")

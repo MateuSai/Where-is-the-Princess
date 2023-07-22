@@ -33,5 +33,5 @@ func add_status_icon(status: StatusComponent.Status) -> void:
 	match status:
 		StatusComponent.Status.FIRE:
 			var icon: TextureRect = TextureRect.new()
-			icon.texture = load("res://Art/Furniture and room elements/wardrobe.png")
+			icon.texture = load("res://Art/weapon modifier icons/fire.png")
 			status_container.add_child(icon)

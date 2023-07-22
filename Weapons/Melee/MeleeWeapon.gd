@@ -13,6 +13,9 @@ enum Type {
 var throw_dir: Vector2
 var throw_rot_speed: float = 0
 
+var piercing: int = 1
+var bodies_pierced: int = 0
+
 
 func _ready() -> void:
 	super()
@@ -67,6 +70,8 @@ func _strong_attack() -> void:
 
 func throw() -> void:
 	throw_dir = get_parent().get_parent().mouse_direction
+	bodies_pierced = 0
+	piercing = get_parent().get_parent().throw_piercing
 	if type == Type.SWORD:
 		throw_rot_speed = 25 if attack_num == 0 else -25
 	get_parent().throw_weapon()
@@ -80,6 +85,9 @@ func throw() -> void:
 func throw_body_entered_hitbox(body: Node2D) -> void:
 		if body is Enemy:
 			hitbox._on_body_entered(body)
+			bodies_pierced += 1
+			if bodies_pierced < piercing:
+				return # We don't stop the weapon yet
 		else:
 			_on_collided_with_something(Hitbox.CollisionMaterial.STONE)
 		_on_Tween_tween_completed()
@@ -91,9 +99,16 @@ func throw_body_entered_hitbox(body: Node2D) -> void:
 		set_physics_process(false)
 
 
-func add_status_inflicter(status: StatusComponent.Status) -> void:
-	var status_inflicter_component: StatusInflicterComponent = StatusInflicterComponent.new()
-	status_inflicter_component.status = status
-	status_inflicter_component.name = "StatusInflicterComponent"
-	add_child(status_inflicter_component)
-	status_inflicter_added.emit(self, status)
+func add_status_inflicter(status: StatusComponent.Status, amount: int = 1) -> void:
+	var status_inflicter_component: StatusInflicterComponent = get_node_or_null(StatusComponent.Status.keys()[status] + "Inflicter")
+	if status_inflicter_component:
+		status_inflicter_component.change_to_inflict_status_effect += StatusWeaponModifier.INFLICT_CHANCE
+	else:
+		status_inflicter_component = StatusInflicterComponent.new()
+		status_inflicter_component.status = status
+		status_inflicter_component.change_to_inflict_status_effect = StatusWeaponModifier.INFLICT_CHANCE * amount
+		status_inflicter_component.name = StatusComponent.Status.keys()[status] + "Inflicter"
+		add_child(status_inflicter_component)
+
+	for i in amount:
+		status_inflicter_added.emit(self, status)

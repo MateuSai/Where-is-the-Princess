@@ -1,0 +1,83 @@
+[gd_scene load_steps=10 format=3 uid="uid://ceuehjhajvx56"]
+
+[ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_bow3n"]
+[ext_resource type="Script" path="res://Characters/Enemies/Spider/Spider.gd" id="2_ftttc"]
+[ext_resource type="Script" path="res://Characters/Enemies/Spider/SpiderFSM.gd" id="3_cr4ur"]
+[ext_resource type="Texture2D" uid="uid://kmysly17x4xl" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/spider/spider.png" id="3_oqbny"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eptuy"]
+radius = 7.0
+
+[sub_resource type="Animation" id="Animation_3tqrd"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_g4s67"]
+resource_name = "walk_up"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_5fyiy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_np2yq"]
+_data = {
+"RESET": SubResource("Animation_5fyiy"),
+"walk": SubResource("Animation_3tqrd"),
+"walk_up": SubResource("Animation_g4s67")
+}
+
+[node name="Spider" instance=ExtResource("1_bow3n")]
+script = ExtResource("2_ftttc")
+
+[node name="FiniteStateMachine" parent="." index="0"]
+script = ExtResource("3_cr4ur")
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("3_oqbny")
+hframes = 2
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource("CircleShape2D_eptuy")
+
+[node name="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_np2yq")
+}

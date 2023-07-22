@@ -25,3 +25,5 @@ shape = SubResource("CircleShape2D_xceue")
 
 [node name="NavigationAgent2D" parent="." index="5"]
 target_desired_distance = 16.0
+
+[node name="AttackTimer" type="Timer" parent="." index="7"]

@@ -35,4 +35,4 @@ func enable_pick_up() -> void:
 @warning_ignore("shadowed_variable")
 func initialize(item: Item) -> void:
 	self.item = item
-	texture = item.icon
+	texture = item.get_icon()
