@@ -9,7 +9,7 @@ const DUST_SCENE: PackedScene = preload("res://Characters/Player/Dust.tscn")
 #signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
 
 signal temporal_passive_item_picked_up(item: TemporalPassiveItem)
-signal temporal_passive_item_unequiped(index: int)
+signal temporal_passive_item_unequiped(item: TemporalPassiveItem)
 signal permanent_passive_item_picked_up(item: PermanentPassiveItem)
 
 var armor: Armor = null : set = set_armor
@@ -20,7 +20,7 @@ var can_move: bool = true
 
 var throw_piercing: int = 1
 
-var shields: Array[MagicShield.MagicShieldNode] = []
+var rotating_items: Array[Node2D] = []
 
 #var sm
 
@@ -172,7 +172,7 @@ func pick_up_passive_item(item: PassiveItem) -> void:
 func unequip_passive_item(item: PassiveItem) -> void:
 	assert(item is TemporalPassiveItem)
 	item.unequip(self)
-	temporal_passive_item_unequiped.emit(SavedData.run_stats.temporal_passive_items.find(item))
+	temporal_passive_item_unequiped.emit(item)
 	SavedData.run_stats.temporal_passive_items.erase(item)
 
 
@@ -204,19 +204,19 @@ func jump() -> void:
 	jump_animation_player.play("jump")
 
 
-func add_shield(shield_node: MagicShield.MagicShieldNode) -> void:
-	add_child(shield_node)
-	shields.push_back(shield_node)
+func add_rotating_item(node: Node2D) -> void:
+	add_child(node)
+	rotating_items.push_back(node)
 
-	var rot: float = 2*PI / shields.size()
-	for i in shields.size():
-		shields[i].rotation = rot * i
+	var rot: float = 2*PI / rotating_items.size()
+	for i in rotating_items.size():
+		rotating_items[i].rotation = rot * i
 
 
-func remove_shield(shield_node: MagicShield.MagicShieldNode) -> void:
-	shield_node.queue_free()
-	shields.erase(shield_node)
+func remove_rotating_item(node: Node2D) -> void:
+	rotating_items.erase(node)
+	node.queue_free()
 
-	var rot: float = 2*PI / shields.size()
-	for i in shields.size():
-		shields[i].rotation = rot * i
+	var rot: float = 2*PI / rotating_items.size()
+	for i in rotating_items.size():
+		rotating_items[i].rotation = rot * i
