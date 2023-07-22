@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://nml1ev7saogo"]
+
+[ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_f1hr2"]
+[ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_u5dti"]
+[ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_7ywx0"]
+[ext_resource type="PackedScene" uid="uid://cvr7l87dklsy6" path="res://Rooms/ArmorSwitcher.tscn" id="4_a5v8j"]
+
+[node name="DungeonArmorChangerRoom" instance=ExtResource("1_f1hr2")]
+
+[node name="TileMap" parent="." index="0"]
+layer_0/tile_data = PackedInt32Array(131073, 196648, 1, 131074, 196648, 1, 196609, 196648, 1, 262145, 196648, 1, 327681, 196648, 1, 393217, 196648, 1, 458753, 196648, 1, 196610, 196648, 1, 262146, 196648, 1, 327682, 196648, 1, 393218, 196648, 1, 458754, 196648, 1, 131075, 196648, 1, 196611, 196648, 1, 262147, 196648, 1, 327683, 196648, 1, 393219, 196648, 1, 458755, 196648, 1, 131076, 196648, 1, 196612, 196648, 1, 262148, 196648, 1, 327684, 196648, 1, 393220, 196648, 1, 458756, 196648, 1, 131077, 196648, 1, 196613, 196648, 1, 262149, 196648, 1, 327685, 196648, 1, 393221, 196648, 1, 458757, 196648, 1, 131078, 196648, 1, 196614, 196648, 1, 262150, 196648, 1, 327686, 196648, 1, 393222, 196648, 1, 458758, 196648, 1, 131079, 196648, 1, 196615, 196648, 1, 262151, 196648, 1, 327687, 196648, 1, 393223, 196648, 1, 458759, 196648, 1, 131080, 196648, 1, 196616, 196648, 1, 262152, 196648, 1, 327688, 196648, 1, 393224, 196648, 1, 458760, 196648, 1, 131081, 196648, 1, 196617, 196648, 1, 262153, 196648, 1, 327689, 196648, 1, 393225, 196648, 1, 458761, 196648, 1, 131082, 196648, 1, 196618, 196648, 1, 262154, 196648, 1, 327690, 196648, 1, 393226, 196648, 1, 458762, 196648, 1, 65537, 393256, 4, 65538, 393256, 4, 65539, 393256, 4, 65542, 393256, 4, 65543, 393256, 4, 65544, 393256, 4, 65545, 393256, 4, 65546, 393256, 4, 11, 196648, 4, 0, 262184, 4, 262155, 393256, 4, 327680, 393256, 4, 196619, 65576, 7, 131083, 196648, 5, 65547, 196648, 5, 65536, 262184, 5, 131072, 262184, 5, 196608, 262184, 5, 262144, 327720, 7, 393216, 196648, 1, 458752, 196648, 1, 327691, 196648, 1, 393227, 196648, 1, 458763, 196648, 5, 65540, 196648, 1, 65541, 196648, 1, 5, 196648, 1, 4, 196648, 1, 6, 65576, 7, 3, 327720, 7, 1, 131112, 7, 2, 131112, 7, 7, 131112, 7, 8, 131112, 7, 9, 131112, 7, 10, 131112, 7)
+layer_1/tile_data = PackedInt32Array(458762, 131112, 6, 458761, 131112, 6, 458760, 131112, 6, 458759, 131112, 6, 458758, 65576, 6, 458755, 327720, 6, 458754, 131112, 6, 458753, 131112, 6)
+layer_3/tile_data = PackedInt32Array(458752, 131112, 6, 393227, 65576, 6)
+
+[node name="VerticalEntry" parent="Entries/Left" index="0" instance=ExtResource("2_u5dti")]
+position = Vector2(7, 100)
+
+[node name="HorizontalEntry" parent="Entries/Up" index="0" instance=ExtResource("3_7ywx0")]
+position = Vector2(71, 8)
+
+[node name="VerticalEntry" parent="Entries/Right" index="0" instance=ExtResource("2_u5dti")]
+position = Vector2(185, 86)
+
+[node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("3_7ywx0")]
+position = Vector2(72, 119)
+
+[node name="ArmorSwitcher" parent="." index="7" instance=ExtResource("4_a5v8j")]
+position = Vector2(88, 73)

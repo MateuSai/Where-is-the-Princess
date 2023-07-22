@@ -37,6 +37,7 @@ script = ExtResource("1_2v2ib")
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
 tile_set = ExtResource("1")
+navigation_visibility_mode = 1
 format = 2
 layer_0/name = "Floor and superior walls"
 layer_1/name = "Bottom walls"

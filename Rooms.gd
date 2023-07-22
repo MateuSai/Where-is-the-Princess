@@ -113,6 +113,7 @@ func spawn_rooms() -> void:
 	var room_names: Dictionary = {
 		"start": _get_rooms("Start"),
 		"middle": _get_rooms("Middle"),
+		"special": _get_rooms("Special"),
 		"end": _get_rooms("End"),
 	}
 	# print(room_names)
@@ -122,6 +123,8 @@ func spawn_rooms() -> void:
 	rooms.push_back(end_room)
 	#var inter_rooms: Array[PackedScene] = INTERMEDIATE_ROOMS.duplicate(true)
 	#inter_rooms.append_array(SavedData.custom_rooms)
+	for i in 1:
+		rooms.push_back(load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "Special" + "/" + room_names.special[randi() % room_names.special.size()]).instantiate())
 	for i in 7:
 		#rooms.push_back(INTERMEDIATE_ROOMS[0].instantiate())
 		rooms.push_back(load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "Middle" + "/" + room_names.middle[randi() % room_names.middle.size()]).instantiate())
