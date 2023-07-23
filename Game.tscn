@@ -23,14 +23,10 @@ region = Rect2(0, 0, 8, 8)
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("3")
-debug = false
 
 [node name="Rooms" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("4")
-debug_check_entry_positions = null
-pause_between_steps = null
-add_tile_group_time = null
 num_levels = 3
 
 [node name="CorridorTileMap" type="TileMap" parent="Rooms"]

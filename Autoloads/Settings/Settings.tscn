@@ -5,15 +5,22 @@
 [ext_resource type="Script" path="res://Autoloads/Settings/LanguageDropdown.gd" id="3_8fg1t"]
 [ext_resource type="Script" path="res://Autoloads/Settings/FullScreenCheckBox.gd" id="4_wsnjl"]
 
-[node name="Settings" type="Popup"]
+[node name="Settings" type="PopupPanel"]
 process_mode = 3
-size = Vector2i(154, 100)
+size = Vector2i(300, 200)
 visible = true
 script = ExtResource("1_4y760")
 
 [node name="TabContainer" type="TabContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 296.0
+offset_bottom = 196.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("2_fjhtw")
 
 [node name="General" type="VBoxContainer" parent="TabContainer"]
@@ -40,3 +47,7 @@ text = "Full Screen"
 [node name="FullScreenCheckBox" type="CheckBox" parent="TabContainer/General/FullScreenHBoxContainer"]
 layout_mode = 2
 script = ExtResource("4_wsnjl")
+
+[node name="Input" type="VBoxContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
