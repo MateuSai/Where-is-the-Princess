@@ -2,5 +2,4 @@
 	"corridor_atlas_id": 40,
 	"room_atlas_id": 40,
 	"extra_connections": 0.2,
-	"next_biome": "Forest",
 }
