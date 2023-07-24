@@ -16,10 +16,13 @@ func _ready() -> void:
 	if debug:
 		camera.zoom = Vector2(0.2, 0.2)
 
-	if debug:
+		set_process_input(true)
+
 		generating_dungeon_canvas_layer.hide()
 		rooms.spawn_rooms()
 	else:
+		set_process_input(false)
+
 		generating_dungeon_canvas_layer.show()
 		rooms.spawn_rooms()
 #		generation_thread = Thread.new()
@@ -48,6 +51,12 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_focus_next"):
 		get_tree().paused = true
+	elif event.is_action_pressed("ui_page_up") and SavedData.run_stats.level > 1:
+		SavedData.run_stats.level -= 1
+		get_tree().reload_current_scene()
+	elif event.is_action_pressed("ui_page_down"):
+		SavedData.run_stats.level += 1
+		get_tree().reload_current_scene()
 
 
 func _exit_tree() -> void:

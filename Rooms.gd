@@ -105,8 +105,15 @@ func _get_rooms(type: String) -> PackedStringArray:
 		return []
 
 	var room_names: PackedStringArray = rooms_dir.get_files()
-	for i in room_names.size():
+	for i in range(room_names.size()-1, -1, -1):
 		room_names[i] = room_names[i].trim_suffix(".remap")
+		var room_scene_state: SceneState = load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "/" + room_names[i]).get_state()
+		for ii in room_scene_state.get_node_property_count(0):
+			if room_scene_state.get_node_property_name(0, ii) == "levels":
+				var levels: String = room_scene_state.get_node_property_value(0, ii)
+				if (levels.length() == 1 and levels.is_valid_int() and int(levels) != SavedData.run_stats.level) or (levels.length() >= 3 and levels.find("-") != -1 and (int(levels.split("-")[0]) > SavedData.run_stats.level or int(levels.split("-")[1]) < SavedData.run_stats.level)):
+					room_names.remove_at(i)
+				break
 	return room_names
 
 
@@ -125,10 +132,10 @@ func _get_end_rooms() -> Array[PackedStringArray]:
 		var end_room_array: PackedStringArray = end_rooms[i]
 		for ii in range(end_room_array.size()-1, -1, -1):
 			var room_name: String = end_room_array[ii]
-			if room_name.get_file().begins_with("Level") and not room_name.get_file().begins_with("Level" + str(SavedData.run_stats.level)):
-				end_room_array.remove_at(ii)
-			else:
-				end_room_array[ii] = end_rooms_dir.get_directories()[i] + "/" + room_name
+#			if room_name.get_file().begins_with("Level") and not room_name.get_file().begins_with("Level" + str(SavedData.run_stats.level)):
+#				end_room_array.remove_at(ii)
+#			else:
+			end_room_array[ii] = end_rooms_dir.get_directories()[i] + "/" + room_name
 
 	return end_rooms
 

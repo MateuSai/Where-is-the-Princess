@@ -1,8 +1,12 @@
 extends FiniteStateMachine
 
 
+@onready var hitbox: Hitbox = $"../Hitbox"
+
+
 func _init() -> void:
 	_add_state("chase")
+	_add_state("attack")
 	_add_state("dead")
 
 
@@ -11,16 +15,31 @@ func _ready() -> void:
 
 
 func _state_logic(_delta: float) -> void:
-	if state == states.chase:
-		parent.chase()
-		parent.move()
-		if parent.mov_direction.y >= 0 and animation_player.current_animation != "walk":
-			animation_player.play("walk")
-		elif parent.mov_direction.y < 0 and animation_player.current_animation != "walk_up":
-			animation_player.play("walk_up")
+	match state:
+		states.chase:
+			parent.chase()
+			parent.move()
+			if parent.mov_direction.y >= 0 and animation_player.current_animation != "walk":
+				animation_player.play("walk")
+			elif parent.mov_direction.y < 0 and animation_player.current_animation != "walk_up":
+				animation_player.play("walk_up")
+		states.attack:
+			hitbox.rotation = (parent.player.position - parent.global_position).angle()
+			if parent.mov_direction.y >= 0 and animation_player.current_animation != "attack":
+				animation_player.play("attack")
+			elif parent.mov_direction.y < 0 and animation_player.current_animation != "attack_up":
+				animation_player.play("attack_up")
 
 
 func _get_transition() -> int:
+	var dis: float = (parent.player.position - parent.global_position).length()
+	match state:
+		states.chase:
+			if dis <= 16:
+				return states.attack
+		states.attack:
+			if dis > 16:
+				return states.chase
 	return -1
 
 
