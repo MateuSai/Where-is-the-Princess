@@ -16,16 +16,17 @@ func _ready() -> void:
 
 
 func point_to_player() -> void:
-	weapon.rotation = (player.position - global_position).angle()
+	pass
+	#weapon.rotation = (player.position - global_position).angle()
 
 
 func attack() -> void:
-	weapon.rotation = (player.position - global_position).angle()
+	#weapon.rotation = (player.position - global_position).angle()
 	rope.show()
 	#$Weapon.rotation = (player.position - global_position).angle() - PI/2
 	weapon_body.can_move = true
 	#weapon_joint.node_a = weapon_joint.get_path_to(weapon_body)
-	weapon_body.apply_impulse((player.position - weapon.global_position).normalized() * 800)
+	weapon_body.apply_impulse((player.position - weapon.global_position).normalized() * 1500)
 
 
 func pull_back_weapon() -> void:
@@ -34,6 +35,6 @@ func pull_back_weapon() -> void:
 	#rope.hide()
 	#weapon_joint.node_a = ""
 	weapon_body.can_move = false
-	weapon_body.set_pos(global_position + Vector2.DOWN * 8)
+	#weapon_body.set_pos(global_position + Vector2.DOWN * 8)
 	#weapon_body.position = Vector2.DOWN * 8
 	#weapon_body.global_position = global_position + Vector2.DOWN * 8
