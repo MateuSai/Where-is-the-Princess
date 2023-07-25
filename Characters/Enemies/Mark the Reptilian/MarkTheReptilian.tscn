@@ -1,17 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://c2iptpvfs3qqq"]
+[gd_scene load_steps=15 format=3 uid="uid://c2iptpvfs3qqq"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_x7mf0"]
 [ext_resource type="Script" path="res://Characters/Enemies/Mark the Reptilian/MarkTheReptilian.gd" id="2_xkgd3"]
 [ext_resource type="Script" path="res://Characters/Enemies/Mark the Reptilian/MarkFSM.gd" id="3_wgm6g"]
 [ext_resource type="Texture2D" uid="uid://bawnyvbb14ks" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Jumping reptile/Jumping reptile.png" id="4_d7sin"]
+[ext_resource type="Texture2D" uid="uid://tn7bpukhe0kh" path="res://Art/weapons/Spear.png" id="5_5ghd8"]
+[ext_resource type="Script" path="res://Characters/Enemies/Mark the Reptilian/RigidBodyWeapon.gd" id="5_krytq"]
+[ext_resource type="Texture2D" uid="uid://ckd65h4x4udtg" path="res://Art/6x2.png" id="6_ihyh3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h6mu2"]
 radius = 5.09902
 
-[sub_resource type="Animation" id="Animation_u4667"]
-resource_name = "walk"
-length = 0.6
-loop_mode = 1
+[sub_resource type="Animation" id="Animation_mexuq"]
+length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -25,8 +26,32 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_mexuq"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_smgl2"]
+resource_name = "attack"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.6),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"attack"
+}, {
+"args": [],
+"method": &"pull_back_weapon"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_u4667"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -60,9 +85,13 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5lyfx"]
 _data = {
 "RESET": SubResource("Animation_mexuq"),
+"attack": SubResource("Animation_smgl2"),
 "walk": SubResource("Animation_u4667"),
 "walk_up": SubResource("Animation_dtpkk")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w1kad"]
+size = Vector2(6, 2)
 
 [node name="MarkTheReptilian" instance=ExtResource("1_x7mf0")]
 script = ExtResource("2_xkgd3")
@@ -82,3 +111,167 @@ shape = SubResource("CircleShape2D_h6mu2")
 libraries = {
 "": SubResource("AnimationLibrary_5lyfx")
 }
+
+[node name="Weapon" type="Node2D" parent="." index="7"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="Weapon" index="0"]
+position = Vector2(66, 0)
+rotation = 0.785398
+collision_layer = 0
+collision_mask = 0
+mass = 3.0
+script = ExtResource("5_krytq")
+
+[node name="Sprite2D" type="Sprite2D" parent="Weapon/RigidBody2D" index="0"]
+texture = ExtResource("5_5ghd8")
+
+[node name="Rope" type="Node2D" parent="Weapon" index="1"]
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Weapon/Rope" index="0"]
+position = Vector2(57, 0)
+node_a = NodePath("../../RigidBody2D")
+node_b = NodePath("../RigidBody2D2")
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="Weapon/Rope" index="1"]
+position = Vector2(54, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Weapon/Rope/RigidBody2D2" index="0"]
+texture = ExtResource("6_ihyh3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/Rope/RigidBody2D2" index="1"]
+shape = SubResource("RectangleShape2D_w1kad")
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="Weapon/Rope" index="2"]
+position = Vector2(51, 0)
+node_a = NodePath("../RigidBody2D2")
+node_b = NodePath("../RigidBody2D3")
+
+[node name="RigidBody2D3" type="RigidBody2D" parent="Weapon/Rope" index="3"]
+position = Vector2(48, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Weapon/Rope/RigidBody2D3" index="0"]
+texture = ExtResource("6_ihyh3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/Rope/RigidBody2D3" index="1"]
+shape = SubResource("RectangleShape2D_w1kad")
+
+[node name="PinJoint2D3" type="PinJoint2D" parent="Weapon/Rope" index="4"]
+position = Vector2(45, 0)
+node_a = NodePath("../RigidBody2D3")
+node_b = NodePath("../RigidBody2D4")
+
+[node name="RigidBody2D4" type="RigidBody2D" parent="Weapon/Rope" index="5"]
+position = Vector2(42, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Weapon/Rope/RigidBody2D4" index="0"]
+texture = ExtResource("6_ihyh3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/Rope/RigidBody2D4" index="1"]
+shape = SubResource("RectangleShape2D_w1kad")
+
+[node name="PinJoint2D4" type="PinJoint2D" parent="Weapon/Rope" index="6"]
+position = Vector2(39, 0)
+node_a = NodePath("../RigidBody2D4")
+node_b = NodePath("../RigidBody2D5")
+
+[node name="RigidBody2D5" type="RigidBody2D" parent="Weapon/Rope" index="7"]
+position = Vector2(36, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Weapon/Rope/RigidBody2D5" index="0"]
+texture = ExtResource("6_ihyh3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/Rope/RigidBody2D5" index="1"]
+shape = SubResource("RectangleShape2D_w1kad")
+
+[node name="PinJoint2D5" type="PinJoint2D" parent="Weapon/Rope" index="8"]
+position = Vector2(33, 0)
+node_a = NodePath("../RigidBody2D5")
+node_b = NodePath("../RigidBody2D6")
+
+[node name="RigidBody2D6" type="RigidBody2D" parent="Weapon/Rope" index="9"]
+position = Vector2(30, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Weapon/Rope/RigidBody2D6" index="0"]
+texture = ExtResource("6_ihyh3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/Rope/RigidBody2D6" index="1"]
+shape = SubResource("RectangleShape2D_w1kad")
+
+[node name="PinJoint2D6" type="PinJoint2D" parent="Weapon/Rope" index="10"]
+position = Vector2(27, 0)
+node_a = NodePath("../RigidBody2D6")
+node_b = NodePath("../RigidBody2D7")
+
+[node name="RigidBody2D7" type="RigidBody2D" parent="Weapon/Rope" index="11"]
+position = Vector2(24, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Weapon/Rope/RigidBody2D7" index="0"]
+texture = ExtResource("6_ihyh3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/Rope/RigidBody2D7" index="1"]
+shape = SubResource("RectangleShape2D_w1kad")
+
+[node name="PinJoint2D7" type="PinJoint2D" parent="Weapon/Rope" index="12"]
+position = Vector2(21, 0)
+node_a = NodePath("../RigidBody2D7")
+node_b = NodePath("../RigidBody2D8")
+
+[node name="RigidBody2D8" type="RigidBody2D" parent="Weapon/Rope" index="13"]
+position = Vector2(18, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Weapon/Rope/RigidBody2D8" index="0"]
+texture = ExtResource("6_ihyh3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/Rope/RigidBody2D8" index="1"]
+shape = SubResource("RectangleShape2D_w1kad")
+
+[node name="PinJoint2D8" type="PinJoint2D" parent="Weapon/Rope" index="14"]
+position = Vector2(15, 0)
+node_a = NodePath("../RigidBody2D8")
+node_b = NodePath("../RigidBody2D9")
+
+[node name="RigidBody2D9" type="RigidBody2D" parent="Weapon/Rope" index="15"]
+position = Vector2(12, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Weapon/Rope/RigidBody2D9" index="0"]
+texture = ExtResource("6_ihyh3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/Rope/RigidBody2D9" index="1"]
+shape = SubResource("RectangleShape2D_w1kad")
+
+[node name="PinJoint2D9" type="PinJoint2D" parent="Weapon/Rope" index="16"]
+position = Vector2(9, 0)
+node_a = NodePath("../RigidBody2D9")
+node_b = NodePath("../RigidBody2D10")
+
+[node name="RigidBody2D10" type="RigidBody2D" parent="Weapon/Rope" index="17"]
+position = Vector2(6, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Weapon/Rope/RigidBody2D10" index="0"]
+texture = ExtResource("6_ihyh3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon/Rope/RigidBody2D10" index="1"]
+shape = SubResource("RectangleShape2D_w1kad")
+
+[node name="PinJoint2D10" type="PinJoint2D" parent="Weapon/Rope" index="18"]
+position = Vector2(3, 0)
+node_a = NodePath("../RigidBody2D10")
+node_b = NodePath("../../..")
