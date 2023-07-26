@@ -41,7 +41,9 @@ func _on_body_exited(_body: Node2D) -> void:
 
 func _collide(body: Node2D, dam: int = damage) -> void:
 	collided_with_something.emit(body)
-	if body == null or not body.has_node("LifeComponent"):
+	if body is RigidBody2D:
+		body.apply_impulse(knockback_direction * knockback_force * 5)
+	elif not body.has_node("LifeComponent"):
 		queue_free()
 	else:
 		body.get_node("LifeComponent").take_damage(dam, knockback_direction, knockback_force)

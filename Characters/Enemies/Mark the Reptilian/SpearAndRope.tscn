@@ -1,13 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://bd1wflyxia6d5"]
+[gd_scene load_steps=9 format=3 uid="uid://bd1wflyxia6d5"]
 
 [ext_resource type="Script" path="res://Characters/Enemies/Mark the Reptilian/RigidBodyWeapon.gd" id="1_byrdm"]
 [ext_resource type="Script" path="res://Characters/Enemies/Mark the Reptilian/SpearAndRope.gd" id="1_md6cf"]
 [ext_resource type="Texture2D" uid="uid://tn7bpukhe0kh" path="res://Art/weapons/Spear.png" id="2_7ghs0"]
 [ext_resource type="Texture2D" uid="uid://ckd65h4x4udtg" path="res://Art/6x2.png" id="3_qxdmk"]
+[ext_resource type="Script" path="res://Weapons/WeaponHitbox.gd" id="4_ygmyx"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lqs2w"]
 radius = 2.0
-height = 22.0
+height = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vvbx8"]
+radius = 3.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w1kad"]
 size = Vector2(6, 2)
@@ -29,9 +33,19 @@ texture = ExtResource("2_7ghs0")
 offset = Vector2(6, -6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2(8, 0)
+position = Vector2(7, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_lqs2w")
+
+[node name="Hitbox" type="Area2D" parent="RigidBody2D"]
+collision_layer = 0
+collision_mask = 10
+script = ExtResource("4_ygmyx")
+player_damage_multiplier = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/Hitbox"]
+position = Vector2(17, 0)
+shape = SubResource("CircleShape2D_vvbx8")
 
 [node name="Rope" type="Node2D" parent="."]
 
