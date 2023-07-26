@@ -6,6 +6,7 @@ var new_pos: Vector2
 
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
+	#super(state)
 	if change_position:
 		state.transform.origin = new_pos
 		state.linear_velocity = Vector2.ZERO

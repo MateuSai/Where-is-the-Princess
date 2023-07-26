@@ -3,6 +3,8 @@ extends Enemy
 
 var spear_and_rope: SpearAndRope
 
+signal spear_picked_up()
+
 @onready var spear_pivot: Node2D = $SpearPivot
 @onready var spear_sprite: Sprite2D = spear_pivot.get_node("SpearSprite")
 #@onready var weapon: Node2D = $Weapon
@@ -32,6 +34,8 @@ func point_to_player() -> void:
 
 
 func attack() -> void:
+	await get_tree().create_timer(randf_range(0.2, 0.8), false).timeout
+
 	spear_and_rope = load("res://Characters/Enemies/Mark the Reptilian/SpearAndRope.tscn").instantiate()
 	get_tree().current_scene.add_child(spear_and_rope)
 	spear_and_rope.position = global_position
@@ -43,10 +47,15 @@ func attack() -> void:
 	#weapon_joint.node_a = weapon_joint.get_path_to(weapon_body)
 	#weapon_body.apply_impulse((player.position - weapon.global_position).normalized() * 1500)
 
+	await get_tree().create_timer(randf_range(0.8, 1.4), false).timeout
 
-func pull_back_weapon() -> void:
-	if is_instance_valid(spear_and_rope):
-		spear_and_rope.queue_free()
+	_pull_back_weapon()
+
+
+func _pull_back_weapon() -> void:
+	spear_and_rope.start_pulling()
+#	if is_instance_valid(spear_and_rope):
+#		spear_and_rope.queue_free()
 	#weapon_body.linear_velocity = Vector2.ZERO
 	#weapon_body.freeze = true
 	#rope.hide()

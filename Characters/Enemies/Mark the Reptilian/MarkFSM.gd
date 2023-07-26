@@ -1,6 +1,9 @@
 extends FiniteStateMachine
 
 
+var attack_finished: bool = false
+
+
 func _init() -> void:
 	_add_state("chase")
 	_add_state("attack")
@@ -9,6 +12,10 @@ func _init() -> void:
 
 func _ready() -> void:
 	set_state(states.chase)
+
+	parent.spear_picked_up.connect(func():
+		attack_finished = true
+	)
 
 
 func _state_logic(_delta: float) -> void:
@@ -29,7 +36,8 @@ func _get_transition() -> int:
 			if dis <= 64:
 				return states.attack
 		states.attack:
-			if dis > 64:
+			if attack_finished:
+				attack_finished = false
 				return states.chase
 	return -1
 
@@ -40,7 +48,7 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			pass
 			#animation_player.play("fly")
 		states.attack:
-			animation_player.play("attack")
+			parent.attack()
 		states.dead:
 			# parent.spawn_loot()
 			animation_player.play("dead")
