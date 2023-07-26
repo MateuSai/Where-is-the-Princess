@@ -1,9 +1,18 @@
 class_name WeaponHitbox extends Hitbox
 
 
-func _on_Hitbox_area_entered(area: Area2D) -> void:
-	area.queue_free()
+@export var player_damage_multiplier: bool = true
+
+
+func _ready() -> void:
+	super()
+	area_entered.connect(func(area: Area2D):
+		area.queue_free()
+	)
 
 
 func _collide(body: Node2D, _dam: int = damage) -> void:
-	super(body, damage * Globals.player.damage_multiplier)
+	if player_damage_multiplier:
+		super(body, damage * Globals.player.damage_multiplier)
+	else:
+		super(body, damage)

@@ -2,6 +2,11 @@ class_name DungeonRoom extends Node2D
 
 @export var boss_room: bool = false
 
+## If empty, the room will appear on all the levels of the biome. If it has a number, the room will appear on the specified level. If it has a range, it will appear on all the levels inclusive. For example, [code]1-3[/code] will make the room appear on the levels 1, 2, and 3 of his biome.
+## [br][br]
+## If the value is invalid, an error will appear and the room will not be used
+@export var levels: String = ""
+
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/SpawnExplosion.tscn")
 
 const ENEMY_SCENES: Dictionary = {
@@ -12,11 +17,14 @@ const ENEMY_SCENES: Dictionary = {
 	# "MOLE": preload("res://Characters/Enemies/Mole/Mole.tscn"),
 	# "SPIDER": preload("res://Characters/Enemies/Spider/Spider.tscn"),
 	"MARK": preload("res://Characters/Enemies/Mark the Reptilian/MarkTheReptilian.tscn"),
+	#"SPIDER_EGG": preload("res://Characters/Enemies/Spider/SpiderEgg.tscn")
 }
 
 const HORIZONTAL_UP_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/HorizontalUpDoor.tscn")
 const HORIZONTAL_DOWN_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/HorizontalDownDoor.tscn")
 const VERTICAL_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/VerticalDoor.tscn")
+
+var ATLAS_ID: int
 
 var num_enemies: int
 
@@ -44,6 +52,8 @@ signal cleared()
 
 func _ready() -> void:
 	num_enemies = enemy_positions_container.get_child_count()
+
+	ATLAS_ID = SavedData.get_biome_conf().room_atlas_id
 
 	black_tilemap.modulate = ProjectSettings.get("rendering/environment/defaults/default_clear_color")
 	for cell_pos in tilemap.get_used_cells(0):
@@ -124,20 +134,20 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 				tilemap.erase_cell(3, tile_positions[1])
 				if dir == EntryDirection.LEFT:
 					if tilemap.get_cell_atlas_coords(0, tile_positions[0] + Vector2i.UP * 3) == Vector2i(-1, -1):
-						tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, Rooms.ATLAS_ID, Rooms.UPPER_WALL_LEFT_CORNER_COOR)
+						tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, ATLAS_ID, Rooms.UPPER_WALL_LEFT_CORNER_COOR)
 					else:
-						tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, Rooms.ATLAS_ID, Rooms.LEFT_WALL_COOR)
-					tilemap.set_cell(0, tile_positions[0] + Vector2i.UP, Rooms.ATLAS_ID, Rooms.LEFT_WALL_COOR)
-					tilemap.set_cell(0, tile_positions[0], Rooms.ATLAS_ID, Rooms.LEFT_WALL_COOR)
-					tilemap.set_cell(0, tile_positions[1], Rooms.ATLAS_ID, Rooms.LEFT_WALL_COOR)
+						tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, ATLAS_ID, Rooms.LEFT_WALL_COOR)
+					tilemap.set_cell(0, tile_positions[0] + Vector2i.UP, ATLAS_ID, Rooms.LEFT_WALL_COOR)
+					tilemap.set_cell(0, tile_positions[0], ATLAS_ID, Rooms.LEFT_WALL_COOR)
+					tilemap.set_cell(0, tile_positions[1], ATLAS_ID, Rooms.LEFT_WALL_COOR)
 				else:
 					if tilemap.get_cell_atlas_coords(0, tile_positions[0] + Vector2i.UP * 3) == Vector2i(-1, -1):
-						tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, Rooms.ATLAS_ID, Rooms.UPPER_WALL_RIGHT_CORNER_COOR)
+						tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, ATLAS_ID, Rooms.UPPER_WALL_RIGHT_CORNER_COOR)
 					else:
-						tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, Rooms.ATLAS_ID, Rooms.RIGHT_WALL_COOR)
-					tilemap.set_cell(0, tile_positions[0] + Vector2i.UP, Rooms.ATLAS_ID, Rooms.RIGHT_WALL_COOR)
-					tilemap.set_cell(0, tile_positions[0], Rooms.ATLAS_ID, Rooms.RIGHT_WALL_COOR)
-					tilemap.set_cell(0, tile_positions[1], Rooms.ATLAS_ID, Rooms.RIGHT_WALL_COOR)
+						tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, ATLAS_ID, Rooms.RIGHT_WALL_COOR)
+					tilemap.set_cell(0, tile_positions[0] + Vector2i.UP, ATLAS_ID, Rooms.RIGHT_WALL_COOR)
+					tilemap.set_cell(0, tile_positions[0], ATLAS_ID, Rooms.RIGHT_WALL_COOR)
+					tilemap.set_cell(0, tile_positions[1], ATLAS_ID, Rooms.RIGHT_WALL_COOR)
 	for dir in [EntryDirection.UP, EntryDirection.DOWN]:
 		for entry in entries[dir].get_children():
 			if entry in used_entries:
@@ -155,17 +165,17 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 				tile_positions.push_back(tilemap.local_to_map(entry.position + entry.get_child(0).position))
 				tile_positions.push_back(tilemap.local_to_map(entry.position + entry.get_child(1).position))
 				if dir == EntryDirection.UP:
-					tilemap.set_cell(0, tile_positions[0] + Vector2i.LEFT, Rooms.ATLAS_ID, Rooms.UPPER_WALL_COOR)
-					tilemap.set_cell(0, tile_positions[0], Rooms.ATLAS_ID, Rooms.UPPER_WALL_COOR)
-					tilemap.set_cell(0, tile_positions[1], Rooms.ATLAS_ID, Rooms.UPPER_WALL_COOR)
-					tilemap.set_cell(0, tile_positions[1] + Vector2i.RIGHT, Rooms.ATLAS_ID, Rooms.UPPER_WALL_COOR)
-					tilemap.set_cell(0, tile_positions[0] + Vector2i.DOWN, Rooms.ATLAS_ID, Rooms.FULL_WALL_COORDS[randi() % Rooms.FULL_WALL_COORDS.size()])
-					tilemap.set_cell(0, tile_positions[1] + Vector2i.DOWN, Rooms.ATLAS_ID, Rooms.FULL_WALL_COORDS[randi() % Rooms.FULL_WALL_COORDS.size()])
+					tilemap.set_cell(0, tile_positions[0] + Vector2i.LEFT, ATLAS_ID, Rooms.UPPER_WALL_COOR)
+					tilemap.set_cell(0, tile_positions[0], ATLAS_ID, Rooms.UPPER_WALL_COOR)
+					tilemap.set_cell(0, tile_positions[1], ATLAS_ID, Rooms.UPPER_WALL_COOR)
+					tilemap.set_cell(0, tile_positions[1] + Vector2i.RIGHT, ATLAS_ID, Rooms.UPPER_WALL_COOR)
+					tilemap.set_cell(0, tile_positions[0] + Vector2i.DOWN, ATLAS_ID, Rooms.FULL_WALL_COORDS[randi() % Rooms.FULL_WALL_COORDS.size()])
+					tilemap.set_cell(0, tile_positions[1] + Vector2i.DOWN, ATLAS_ID, Rooms.FULL_WALL_COORDS[randi() % Rooms.FULL_WALL_COORDS.size()])
 				else:
-					tilemap.set_cell(1, tile_positions[0] + Vector2i.LEFT, Rooms.ATLAS_ID, Rooms.BOTTOM_WALL_COOR)
-					tilemap.set_cell(1, tile_positions[0], Rooms.ATLAS_ID, Rooms.BOTTOM_WALL_COOR)
-					tilemap.set_cell(1, tile_positions[1], Rooms.ATLAS_ID, Rooms.BOTTOM_WALL_COOR)
-					tilemap.set_cell(1, tile_positions[1] + Vector2i.RIGHT, Rooms.ATLAS_ID, Rooms.BOTTOM_WALL_COOR)
+					tilemap.set_cell(1, tile_positions[0] + Vector2i.LEFT, ATLAS_ID, Rooms.BOTTOM_WALL_COOR)
+					tilemap.set_cell(1, tile_positions[0], ATLAS_ID, Rooms.BOTTOM_WALL_COOR)
+					tilemap.set_cell(1, tile_positions[1], ATLAS_ID, Rooms.BOTTOM_WALL_COOR)
+					tilemap.set_cell(1, tile_positions[1] + Vector2i.RIGHT, ATLAS_ID, Rooms.BOTTOM_WALL_COOR)
 
 	for door in door_container.get_children():
 		door.player_entered_room.connect(_on_player_entered_room)

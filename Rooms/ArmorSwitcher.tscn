@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://cvr7l87dklsy6"]
+
+[ext_resource type="Script" path="res://Rooms/ArmorSwitcher.gd" id="1_onm17"]
+[ext_resource type="Texture2D" uid="uid://donwwtfx226cq" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f0.png" id="2_p07pw"]
+[ext_resource type="Script" path="res://InteractArea.gd" id="3_ynao3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_stsmu"]
+radius = 4.12311
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gum7r"]
+
+[node name="ArmorSwitcher" type="StaticBody2D"]
+collision_mask = 0
+script = ExtResource("1_onm17")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -4)
+texture = ExtResource("2_p07pw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_stsmu")
+
+[node name="InteractArea" type="Area2D" parent="."]
+script = ExtResource("3_ynao3")
+path_to_sprite = NodePath("../Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+shape = SubResource("CircleShape2D_gum7r")

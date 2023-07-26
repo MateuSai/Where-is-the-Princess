@@ -29,7 +29,11 @@ class TemporalPassiveItemIcon extends TextureRect:
 		theme = load("res://Theme.tres")
 
 		label = Label.new()
-		label.anchors_preset = PRESET_BOTTOM_RIGHT
+		label.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+		label.offset_left = 0
+		label.offset_right = 0
+		label.offset_bottom = 0
+		label.offset_top = 0
 		label.text = "1"
 		label.add_theme_font_size_override("font_size", 8)
 		add_child(label)

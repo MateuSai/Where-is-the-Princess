@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3]
 
-[ext_resource path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/tiles/floor/stair_nextlevel.png" type="Texture2D" id=1]
-[ext_resource path="res://Rooms/Furniture and Traps/Stairs.gd" type="Script" id=2]
+[ext_resource type="Texture2D" uid="uid://dw8mb4ag1gvs7" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/tiles/floor/stair_nextlevel.png" id="1"]
+[ext_resource type="Script" path="res://Rooms/Furniture and Traps/LevelExit.gd" id="2"]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 size = Vector2( 7, 7 )

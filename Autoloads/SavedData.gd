@@ -1,6 +1,6 @@
 extends Node
 
-const BIOMES_PATH_PATH: String = "res://Rooms/biomes_path.json"
+const BIOMES_FOLDER_PATH: String = "res://Rooms/Biomes/"
 
 const USER_FOLDER: String = "user://"
 const MODS_FOLDER_NAME: String = "mods/"
@@ -19,7 +19,7 @@ var mods: Dictionary = {
 
 }
 
-var biomes_path: Dictionary
+var biome_conf: Dictionary
 
 
 func _ready() -> void:
@@ -28,11 +28,8 @@ func _ready() -> void:
 	_load_data()
 	print(data)
 
-	var json: JSON = JSON.new()
-	if json.parse(FileAccess.open(BIOMES_PATH_PATH, FileAccess.READ).get_as_text()):
-		printerr("Error reading " + BIOMES_PATH_PATH + "!")
-	biomes_path = json.data
-	# print(biomes_path)
+	_change_biome_conf(run_stats.biome)
+	# print(biome_conf)
 
 	var user_dir: DirAccess = DirAccess.open(USER_FOLDER)
 	assert(user_dir) # Siempre deberiamos poder abrir el directorio del usuario
@@ -88,13 +85,21 @@ func reset_data() -> void:
 	run_stats = RunStats.new()
 
 
-func get_biome_info() -> Dictionary:
-	return biomes_path[run_stats.biome]
+func get_biome_conf() -> Dictionary:
+	return biome_conf
 
 
 func change_biome(new_biome: String) -> void:
+	_change_biome_conf(new_biome)
 	run_stats.biome = new_biome
 	run_stats.level = 1
+
+
+func _change_biome_conf(biome: String) -> void:
+	var json: JSON = JSON.new()
+	if json.parse(FileAccess.open(BIOMES_FOLDER_PATH + biome + "/conf.json", FileAccess.READ).get_as_text()):
+		printerr("Error reading " + BIOMES_FOLDER_PATH + biome + "/conf.json" + "!")
+	biome_conf = json.data
 
 
 ## This is what we use to load the stats when he changes floor or when he saves the game

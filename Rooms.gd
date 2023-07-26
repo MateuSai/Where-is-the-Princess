@@ -5,7 +5,8 @@ const BIOMES_FOLDER_PATH: String = "res://Rooms/Biomes/"
 const SPAWN_CIRCLE_RADIUS: float = 200
 
 const TILE_SIZE: int = 16
-const ATLAS_ID: int = 1 #40
+static var ATLAS_ID: int
+
 const FLOOR_TILE_COORDS: Array[Vector2i] = [Vector2i(3, 1), Vector2i(5, 2), Vector2i(5, 3)]
 const FULL_WALL_COORDS: Array[Vector2i] = [Vector2i(6, 4), Vector2i(7, 4), Vector2i(8, 4), Vector2i(6, 5), Vector2i(7, 5), Vector2i(8, 5)]
 const UPPER_WALL_COOR: Vector2i = Vector2i(2, 7)
@@ -35,7 +36,7 @@ enum RoomConnection {
 
 var rooms: Array[DungeonRoom] = []
 var start_room: DungeonRoom
-var end_room: DungeonRoom
+#var end_room: DungeonRoom
 var mst_astar: AStar2D = null
 # DEBUG
 @onready var debug: bool = get_parent().debug
@@ -62,6 +63,8 @@ signal room_visited(room: DungeonRoom)
 func _ready() -> void:
 	set_physics_process(false)
 
+	ATLAS_ID = SavedData.get_biome_conf().corridor_atlas_id
+
 	if debug:
 		corridor_tile_map.z_index = 1
 		var corridor_material: CanvasItemMaterial = CanvasItemMaterial.new()
@@ -70,8 +73,6 @@ func _ready() -> void:
 	else:
 		corridor_tile_map.z_index = 0
 		corridor_tile_map.material = null
-
-	# print(str(SavedData.run_stats.level) + " of " + str(SavedData.biomes_path[SavedData.run_stats.biome].levels))
 
 
 func _physics_process(delta: float) -> void:
@@ -104,24 +105,67 @@ func _get_rooms(type: String) -> PackedStringArray:
 		return []
 
 	var room_names: PackedStringArray = rooms_dir.get_files()
-	for i in room_names.size():
+	for i in range(room_names.size()-1, -1, -1):
 		room_names[i] = room_names[i].trim_suffix(".remap")
+		var room_scene_state: SceneState = load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "/" + room_names[i]).get_state()
+		for ii in room_scene_state.get_node_property_count(0):
+			if room_scene_state.get_node_property_name(0, ii) == "levels":
+				var levels: String = room_scene_state.get_node_property_value(0, ii)
+				if (levels.length() == 1 and levels.is_valid_int() and int(levels) != SavedData.run_stats.level) or (levels.length() >= 3 and levels.find("-") != -1 and (int(levels.split("-")[0]) > SavedData.run_stats.level or int(levels.split("-")[1]) < SavedData.run_stats.level)):
+					room_names.remove_at(i)
+				break
 	return room_names
+
+
+func _get_end_rooms() -> Array[PackedStringArray]:
+	var end_rooms_dir: DirAccess = DirAccess.open(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/End")
+	if end_rooms_dir == null:
+		printerr("Error opening " + BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/End!")
+		return []
+
+	var end_rooms: Array[PackedStringArray] = []
+	for dir in end_rooms_dir.get_directories():
+		end_rooms.push_back(_get_rooms("End/" + dir))
+
+	# Discard rooms of other levels
+	for i in range(end_rooms.size()-1, -1, -1):
+		var end_room_array: PackedStringArray = end_rooms[i]
+		for ii in range(end_room_array.size()-1, -1, -1):
+			var room_name: String = end_room_array[ii]
+#			if room_name.get_file().begins_with("Level") and not room_name.get_file().begins_with("Level" + str(SavedData.run_stats.level)):
+#				end_room_array.remove_at(ii)
+#			else:
+			end_room_array[ii] = end_rooms_dir.get_directories()[i] + "/" + room_name
+
+	return end_rooms
 
 
 func spawn_rooms() -> void:
 	var room_names: Dictionary = {
 		"start": _get_rooms("Start"),
 		"middle": _get_rooms("Middle"),
-		"end": _get_rooms("End"),
+		"special": _get_rooms("Special"),
+		"end": _get_end_rooms(),
 	}
 	# print(room_names)
 	start_room = load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "Start" + "/" + room_names.start[randi() % room_names.start.size()]).instantiate()
 	rooms.push_back(start_room)
-	end_room = load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "End" + "/" + room_names.end[randi() % room_names.end.size()]).instantiate()
-	rooms.push_back(end_room)
+
+	var end_rooms: Array[DungeonRoom] = []
+	for array in room_names.end:
+		if array.is_empty():
+			continue
+		var end_room: DungeonRoom = load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "End" + "/" + array[randi() % array.size()]).instantiate()
+		end_rooms.push_back(end_room)
+		rooms.push_back(end_room)
+
+	if end_rooms.is_empty():
+		push_error("No end rooms for this level. Make sure you put the rooms on the correct folder, a subfolder of the 'End' folder")
+
 	#var inter_rooms: Array[PackedScene] = INTERMEDIATE_ROOMS.duplicate(true)
 	#inter_rooms.append_array(SavedData.custom_rooms)
+	for i in 1:
+		rooms.push_back(load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "Special" + "/" + room_names.special[randi() % room_names.special.size()]).instantiate())
 	for i in 7:
 		#rooms.push_back(INTERMEDIATE_ROOMS[0].instantiate())
 		rooms.push_back(load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "Middle" + "/" + room_names.middle[randi() % room_names.middle.size()]).instantiate())
@@ -132,13 +176,13 @@ func spawn_rooms() -> void:
 			room_visited.emit(room)
 		)
 		add_child(room)
-	var start_room_pos: Vector2 = start_room.get_random_circle_spawn_point(SPAWN_CIRCLE_RADIUS)
-	rooms[0].float_position = start_room_pos # rooms[0] es la habitación de spawn
-	rooms[1].float_position = start_room_pos * -1 # rooms[1] es la habitación de salida
+#	var start_room_pos: Vector2 = start_room.get_random_circle_spawn_point(SPAWN_CIRCLE_RADIUS)
+#	rooms[0].float_position = start_room_pos # rooms[0] es la habitación de spawn
+#	rooms[1].float_position = start_room_pos * -1 # rooms[1] es la habitación de salida
 	for room in rooms:
 		# Ya que ya hemos posicionado start y end antes
-		if not room in [start_room, end_room]:
-			room.float_position = room.get_random_circle_spawn_point(SPAWN_CIRCLE_RADIUS)
+		#if not room in [start_room, end_room]:
+		room.float_position = room.get_random_circle_spawn_point(SPAWN_CIRCLE_RADIUS)
 		# add_child(room)
 		if debug:
 			room.get_node("DebugRoomId").text = str(rooms.find(room))
@@ -243,7 +287,7 @@ func _create_corridors() -> void:
 	if debug:
 		print("Connections not used after mst: " + str(points_that_could_be_connected))
 
-	var number_of_extra_connections: int = round(points_that_could_be_connected.size() * 0.2)
+	var number_of_extra_connections: int = round(points_that_could_be_connected.size() * SavedData.get_biome_conf().extra_connections)
 	var i: int = number_of_extra_connections
 	while i > 0 and not points_that_could_be_connected.is_empty():
 		var rand: int = randi() % points_that_could_be_connected.size()
@@ -280,10 +324,10 @@ func _create_corridors() -> void:
 				entry_cells.push_back(cell)
 
 	for cell_pos in corridor_tile_map.get_used_cells(0):
-		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) in FLOOR_TILE_COORDS:
-			corridor_tile_map.set_cell(0, cell_pos, ATLAS_ID, FLOOR_TILE_COORDS[1])
-			if corridor_tile_map.get_cell_atlas_coords(1, cell_pos + Vector2i.UP) != Vector2i(-1, -1):
-				corridor_tile_map.set_cell(1, cell_pos + Vector2i.UP, ATLAS_ID)
+#		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) in FLOOR_TILE_COORDS:
+#			corridor_tile_map.set_cell(0, cell_pos, ATLAS_ID, FLOOR_TILE_COORDS[1])
+#			if corridor_tile_map.get_cell_atlas_coords(1, cell_pos + Vector2i.UP) != Vector2i(-1, -1):
+#				corridor_tile_map.set_cell(1, cell_pos + Vector2i.UP, ATLAS_ID)
 #			if (corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) in FLOOR_TILE_COORDS or (corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT + Vector2i.DOWN) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT + Vector2i.DOWN) in FLOOR_TILE_COORDS)) and corridor_tile_map.get_cell_atlas_coords(1, cell_pos) in [BOTTOM_WALL_COOR, LEFT_BOTTOM_WALL_COOR, RIGHT_BOTTOM_WALL_COOR]:
 #				corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, BOTTOM_WALL_COOR)
 		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FULL_WALL_COORDS:
