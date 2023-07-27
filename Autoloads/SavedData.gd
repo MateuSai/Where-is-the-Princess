@@ -89,6 +89,13 @@ func get_biome_conf() -> Dictionary:
 	return biome_conf
 
 
+func get_num_rooms(type: String) -> int:
+	if biome_conf.has("levels") and biome_conf.levels.has(str(SavedData.run_stats.level)) and biome_conf["levels"][str(SavedData.run_stats.level)].has("num_" + type + "_rooms"):
+		return biome_conf.levels[str(SavedData.run_stats.level)]["num_" + type + "_rooms"]
+	else:
+		return biome_conf["default_num_" + type + "_rooms"]
+
+
 func change_biome(new_biome: String) -> void:
 	_change_biome_conf(new_biome)
 	run_stats.biome = new_biome
