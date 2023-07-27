@@ -45,7 +45,7 @@ signal cleared()
 @onready var black_tilemap: TileMap = get_node("BlackTileMap")
 @onready var vector_to_center: Vector2 = tilemap.get_used_rect().position * Rooms.TILE_SIZE + tilemap.get_used_rect().size * Rooms.TILE_SIZE / 2
 @onready var radius: float = (vector_to_center - Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE)).length() * 1
-@onready var entries: Array[Node] = [get_node("Entries/Left"), get_node("Entries/Up"), get_node("Entries/Right"), get_node("Entries/Down")]
+@onready var entries: Array[Node2D] = [get_node("Entries/Left"), get_node("Entries/Up"), get_node("Entries/Right"), get_node("Entries/Down")]
 @onready var door_container: Node2D = get_node("Doors")
 @onready var enemy_positions_container: Node2D = get_node("EnemyPositions")
 
@@ -60,6 +60,9 @@ func _ready() -> void:
 		black_tilemap.set_cell(0, cell_pos, 0, Vector2i(0, 0))
 	for cell_pos in tilemap.get_used_cells(1):
 		black_tilemap.set_cell(0, cell_pos, 0, Vector2i(0, 0))
+
+	if get_parent().get_parent().debug:
+		black_tilemap.hide()
 
 
 func _draw() -> void:
@@ -83,7 +86,7 @@ func get_separation_steering_dir(rooms: Array[DungeonRoom], delta: float) -> Vec
 	return dir
 
 
-func has_entry(dir: EntryDirection) -> bool:
+func _has_entry(dir: EntryDirection) -> bool:
 	var direction_entries: Array[Node] = entries[dir].get_children()
 #	for entry in used_entries:
 #		if direction_entries.has(entry):
@@ -92,22 +95,60 @@ func has_entry(dir: EntryDirection) -> bool:
 	return direction_entries.size() > 0
 
 
-func get_entry_position(dir: EntryDirection) -> Vector2:
-	return entries[dir].get_children()[0].global_position
+#func get_entry_position(dir: EntryDirection) -> Vector2:
+#	return entries[dir].get_children()[0].global_position
 
 
-func get_random_entry(dir: EntryDirection) -> Node:
+func get_random_entry(dir: EntryDirection, to_connect_to: Node = null) -> Node:
 	var direction_entries: Array[Node] = entries[dir].get_children()
 #	for entry in used_entries:
 #		if direction_entries.has(entry):
 #			direction_entries.erase(entry)
 
-	if direction_entries.is_empty():
+#	if direction_entries.is_empty():
+#		return null
+#	else:
+	var usable_entries: Array[Node] = direction_entries.duplicate()
+
+	if to_connect_to != null:
+		usable_entries = usable_entries.filter(func(entry: Node2D):
+			return is_connection_between_entries_possible(entry, dir, to_connect_to)
+#			match dir:
+#				EntryDirection.LEFT:
+#					return to_connect_to.global_position.x < entry.global_position.x - Rooms.TILE_SIZE
+#				EntryDirection.UP:
+#					return to_connect_to.global_position.y < entry.global_position.y - Rooms.TILE_SIZE
+#				EntryDirection.RIGHT:
+#					return to_connect_to.global_position.x > entry.global_position.x + Rooms.TILE_SIZE
+#				EntryDirection.DOWN:
+#					return to_connect_to.global_position.y > entry.global_position.y + Rooms.TILE_SIZE
+		)
+
+	if usable_entries.is_empty():
 		return null
-	else:
-		var rand_entry: Node = direction_entries[randi() % direction_entries.size()]
-		used_entries.push_back(rand_entry)
-		return rand_entry
+
+	var rand_entry: Node = usable_entries[randi() % usable_entries.size()]
+	#used_entries.push_back(rand_entry)
+	return rand_entry
+
+
+func is_connection_between_entries_possible(this_room_entry: Node, this_room_entry_dir: EntryDirection, other_room_entry: Node) -> bool:
+	match this_room_entry_dir:
+		EntryDirection.LEFT:
+			return other_room_entry.global_position.x < this_room_entry.global_position.x - Rooms.TILE_SIZE
+		EntryDirection.UP:
+			return other_room_entry.global_position.y < this_room_entry.global_position.y - Rooms.TILE_SIZE
+		EntryDirection.RIGHT:
+			return other_room_entry.global_position.x > this_room_entry.global_position.x + Rooms.TILE_SIZE
+		EntryDirection.DOWN:
+			return other_room_entry.global_position.y > this_room_entry.global_position.y + Rooms.TILE_SIZE
+
+	return false
+
+
+func mark_entry_as_used(entry: Node) -> void:
+	if not used_entries.has(entry):
+		used_entries.push_back(entry)
 
 
 func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
@@ -248,7 +289,7 @@ func _on_player_entered_room() -> void:
 func get_random_circle_spawn_point(circle_radius: float) -> Vector2:
 	var directions_with_entry: Array[EntryDirection] = []
 	for dir in [EntryDirection.LEFT, EntryDirection.UP, EntryDirection.RIGHT, EntryDirection.DOWN]:
-		if has_entry(dir):
+		if _has_entry(dir):
 			directions_with_entry.push_back(dir)
 
 	if directions_with_entry.size() == 4:
@@ -260,16 +301,6 @@ func get_random_circle_spawn_point(circle_radius: float) -> Vector2:
 		entries_dir *= -1
 		#print(name + " " + str(entries_dir) + " " + str(directions_with_entry))
 		return Vector2.RIGHT.rotated(randf_range(entries_dir.angle() - PI/8, entries_dir.angle() + PI/8)) * circle_radius
-
-#	var t: float = 2 * PI * randf()
-#	var u: float = randf() + randf()
-#	var r = null
-#	if u > 1:
-#		r = 2 - u
-#	else:
-#		r = u
-#
-#	return Vector2(radius * r * cos(t), radius * r * sin(t))
 
 
 func get_rect() -> Rect2:
