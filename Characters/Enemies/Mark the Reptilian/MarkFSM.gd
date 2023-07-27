@@ -48,6 +48,10 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			pass
 			#animation_player.play("fly")
 		states.attack:
+			if parent.mov_direction.y >= 0:
+				animation_player.play("idle")
+			else:
+				animation_player.play("idle_up")
 			parent.attack()
 		states.dead:
 			# parent.spawn_loot()
