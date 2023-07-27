@@ -10,7 +10,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	print((spear_body.global_position - character.global_position).normalized())
+	#print((spear_body.global_position - character.global_position).normalized())
 	#spear_body.apply_central_force(Vector2(500, -500))
 	spear_body.apply_central_force((character.global_position - spear_body.global_position).normalized() * delta * 100000)
 

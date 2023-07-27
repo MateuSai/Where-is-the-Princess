@@ -96,6 +96,21 @@ func get_num_rooms(type: String) -> int:
 		return biome_conf["default_num_" + type + "_rooms"]
 
 
+## This function assumes all the names you put on the override conf array are correct. If you you put some room names that don't exist, the game will crash
+func get_override_room_names(type: String) -> Array:
+	var room_names: Array = []
+
+	if biome_conf.has("levels") and biome_conf.levels.has(str(run_stats.level)) and biome_conf.levels[str(run_stats.level)].has("override_" + type + "_rooms"):
+		room_names = biome_conf.levels[str(run_stats.level)]["override_" + type + "_rooms"]
+		#print(room_names)
+		room_names = room_names.map(func(room_name: String) -> String:
+			return room_name + ".tscn"
+		)
+		#print(room_names)
+
+	return room_names
+
+
 func change_biome(new_biome: String) -> void:
 	_change_biome_conf(new_biome)
 	run_stats.biome = new_biome

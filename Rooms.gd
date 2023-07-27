@@ -99,21 +99,26 @@ func _physics_process(delta: float) -> void:
 
 
 func _get_rooms(type: String) -> PackedStringArray:
-	var rooms_dir: DirAccess = DirAccess.open(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type)
-	if rooms_dir == null:
-		printerr("Error opening " + BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "!")
-		return []
+	var room_names: PackedStringArray
+	var override_room_names: PackedStringArray = PackedStringArray(SavedData.get_override_room_names(type.split("/")[type.split("/").size()-1].to_lower()))
+	if not override_room_names.is_empty():
+		room_names = override_room_names
+	else:
+		var rooms_dir: DirAccess = DirAccess.open(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type)
+		if rooms_dir == null:
+			printerr("Error opening " + BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "!")
+			return []
+		room_names = rooms_dir.get_files()
+		for i in range(room_names.size()-1, -1, -1):
+			room_names[i] = room_names[i].trim_suffix(".remap")
+			var room_scene_state: SceneState = load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "/" + room_names[i]).get_state()
+			for ii in room_scene_state.get_node_property_count(0):
+				if room_scene_state.get_node_property_name(0, ii) == "levels":
+					var levels: String = room_scene_state.get_node_property_value(0, ii)
+					if (levels.length() == 1 and levels.is_valid_int() and int(levels) != SavedData.run_stats.level) or (levels.length() >= 3 and levels.find("-") != -1 and (int(levels.split("-")[0]) > SavedData.run_stats.level or int(levels.split("-")[1]) < SavedData.run_stats.level)):
+						room_names.remove_at(i)
+					break
 
-	var room_names: PackedStringArray = rooms_dir.get_files()
-	for i in range(room_names.size()-1, -1, -1):
-		room_names[i] = room_names[i].trim_suffix(".remap")
-		var room_scene_state: SceneState = load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "/" + room_names[i]).get_state()
-		for ii in room_scene_state.get_node_property_count(0):
-			if room_scene_state.get_node_property_name(0, ii) == "levels":
-				var levels: String = room_scene_state.get_node_property_value(0, ii)
-				if (levels.length() == 1 and levels.is_valid_int() and int(levels) != SavedData.run_stats.level) or (levels.length() >= 3 and levels.find("-") != -1 and (int(levels.split("-")[0]) > SavedData.run_stats.level or int(levels.split("-")[1]) < SavedData.run_stats.level)):
-					room_names.remove_at(i)
-				break
 	return room_names
 
 
@@ -143,7 +148,7 @@ func _get_end_rooms() -> Array[PackedStringArray]:
 func spawn_rooms() -> void:
 	var room_names: Dictionary = {
 		"start": _get_rooms("Start"),
-		"middle": _get_rooms("Middle"),
+		"combat": _get_rooms("Combat"),
 		"special": _get_rooms("Special"),
 		"end": _get_end_rooms(),
 	}
@@ -168,10 +173,10 @@ func spawn_rooms() -> void:
 	for i in num_special_rooms:
 		rooms.push_back(load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "Special" + "/" + room_names.special[randi() % room_names.special.size()]).instantiate())
 
-	var num_normal_rooms: int = SavedData.get_num_rooms("normal")
+	var num_normal_rooms: int = SavedData.get_num_rooms("combat")
 	for i in num_normal_rooms:
 		#rooms.push_back(INTERMEDIATE_ROOMS[0].instantiate())
-		rooms.push_back(load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "Middle" + "/" + room_names.middle[randi() % room_names.middle.size()]).instantiate())
+		rooms.push_back(load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "Combat" + "/" + room_names.combat[randi() % room_names.combat.size()]).instantiate())
 
 	for room in rooms:
 		room.closed.connect(func():
