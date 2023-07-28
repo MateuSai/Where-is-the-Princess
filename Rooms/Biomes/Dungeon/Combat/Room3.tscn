@@ -28,6 +28,9 @@ position = Vector2(296, 86)
 [node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("3_mb5le")]
 position = Vector2(57, 183)
 
+[node name="HorizontalEntry2" parent="Entries/Down" index="1" instance=ExtResource("3_mb5le")]
+position = Vector2(231, 187)
+
 [node name="Marker2D" type="Marker2D" parent="EnemyPositions" index="0"]
 position = Vector2(96, 72)
 

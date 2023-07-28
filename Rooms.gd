@@ -298,6 +298,8 @@ func _create_corridors() -> void:
 		print("Connections not used after mst: " + str(points_that_could_be_connected))
 
 	var number_of_extra_connections: int = round(points_that_could_be_connected.size() * SavedData.get_biome_conf().extra_connections)
+	if debug:
+		print("Desired number of extra connections: " + str(number_of_extra_connections))
 	var i: int = number_of_extra_connections
 	while i > 0 and not points_that_could_be_connected.is_empty():
 		var rand: int = randi() % points_that_could_be_connected.size()
@@ -321,6 +323,13 @@ func _create_corridors() -> void:
 	if debug:
 		await get_tree().process_frame
 		await get_tree().create_timer(pause_between_steps).timeout
+
+	# MODIFY TILES BEFORE APPLYING THE AUTOTILE
+	for cell_pos in corridor_tile_map.get_used_cells(0):
+		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) == Vector2i(-1, -1) and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT * 2) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FLOOR_TILE_COORDS:
+			corridor_tile_map.set_cell(0, cell_pos + Vector2i.LEFT, ATLAS_ID, FLOOR_TILE_COORDS[0])
+			if debug:
+				await get_tree().create_timer(add_tile_group_time).timeout
 
 	# CORRIDOR WALLS
 	corridor_tile_map.set_cells_terrain_connect(0, corridor_tile_map.get_used_cells(0), 0, 0 if ATLAS_ID == 40 else 1)
@@ -367,7 +376,7 @@ func _create_corridors() -> void:
 			corridor_tile_map.set_cell(0, cell_pos, ATLAS_ID, LAST_RIGHT_WALL_COOR)
 
 		if debug:
-				await get_tree().create_timer(add_tile_group_time).timeout
+			await get_tree().create_timer(add_tile_group_time).timeout
 
 	if debug:
 		await get_tree().process_frame
@@ -387,17 +396,19 @@ func _create_corridor_between_rooms(id: int, connection_with: int, room_connecti
 	var dif: Vector2 = room_centers[connection_with] - room_centers[id]
 	match room_connection:
 		RoomConnection.VERTICAL:
-			var above: Node = rooms[id if dif.y > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.DOWN)
-			var below: Node = rooms[connection_with if dif.y > 0 else id].get_random_entry(DungeonRoom.EntryDirection.UP, above)
-			await _create_vertical_corridor(above, below)
-			rooms[id if dif.y > 0 else connection_with].mark_entry_as_used(above)
-			rooms[connection_with if dif.y > 0 else id].mark_entry_as_used(below)
+			var entries: Array[Node] = await _check_entry_positions_vertical_corridor(id if dif.y > 0 else connection_with, connection_with if dif.y > 0 else id, DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.UP)
+#			var above: Node = rooms[id if dif.y > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.DOWN)
+#			var below: Node = rooms[connection_with if dif.y > 0 else id].get_random_entry(DungeonRoom.EntryDirection.UP, above)
+			await _create_vertical_corridor(entries[0], entries[1])
+#			rooms[id if dif.y > 0 else connection_with].mark_entry_as_used(entries[0])
+#			rooms[connection_with if dif.y > 0 else id].mark_entry_as_used(entries[1])
 		RoomConnection.HORIZONTAL:
-			var left: Node = rooms[id if dif.x > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.RIGHT)
-			var right: Node = rooms[connection_with if dif.x > 0 else id].get_random_entry(DungeonRoom.EntryDirection.LEFT, left)
-			await _create_horizontal_corridor(left, right)
-			rooms[id if dif.x > 0 else connection_with].mark_entry_as_used(left)
-			rooms[connection_with if dif.x > 0 else id].mark_entry_as_used(right)
+			var entries: Array[Node] = await _check_entry_positions_horizontal_corridor(id if dif.x > 0 else connection_with, connection_with if dif.x > 0 else id, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.LEFT)
+#			var left: Node = rooms[id if dif.x > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.RIGHT)
+#			var right: Node = rooms[connection_with if dif.x > 0 else id].get_random_entry(DungeonRoom.EntryDirection.LEFT, left)
+			await _create_horizontal_corridor(entries[0], entries[1])
+#			rooms[id if dif.x > 0 else connection_with].mark_entry_as_used(left)
+#			rooms[connection_with if dif.x > 0 else id].mark_entry_as_used(right)
 		RoomConnection.L_315:
 			var directions: Array[Array] = [[DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.UP], [DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.LEFT]]
 			await _decide_direction_and_create_l_corridor(id, connection_with, directions)
@@ -417,15 +428,15 @@ func _decide_direction_and_create_l_corridor(id: int, connection_with: int, dire
 	var entries: Array[Node] = await _check_entry_positions_l_corridor(id, connection_with, directions[rand][0], directions[rand][1])
 	if not entries.is_empty():
 		await _create_l_corridor(entries[0], entries[1], directions[rand][0], directions[rand][1])
-		rooms[id].mark_entry_as_used(entries[0])
-		rooms[connection_with].mark_entry_as_used(entries[1])
+#		rooms[id].mark_entry_as_used(entries[0])
+#		rooms[connection_with].mark_entry_as_used(entries[1])
 	else:
 		rand = (int(rand == 0))
 		entries = await _check_entry_positions_l_corridor(id, connection_with, directions[rand][0], directions[rand][1])
 		assert(not entries.is_empty())
 		await _create_l_corridor(entries[0], entries[1], directions[rand][0], directions[rand][1])
-		rooms[id].mark_entry_as_used(entries[0])
-		rooms[connection_with].mark_entry_as_used(entries[1])
+#		rooms[id].mark_entry_as_used(entries[0])
+#		rooms[connection_with].mark_entry_as_used(entries[1])
 
 
 #func _add_floor_tiles() -> void:
@@ -464,11 +475,11 @@ func _is_connection_possible(id: int, connection_with: int) -> RoomConnection:
 	if debug:
 		print("\tChecking connection between " + str(id) + " " + str(connection_with) + "...")
 	var dif: Vector2 = room_centers[connection_with] - room_centers[id]
-	if abs(dif.x) < TILE_SIZE * 8 and await _check_entry_positions_vertical_corridor(id if dif.y > 0 else connection_with, connection_with if dif.y > 0 else id, DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.UP):
+	if abs(dif.x) < TILE_SIZE * 8 and not (await _check_entry_positions_vertical_corridor(id if dif.y > 0 else connection_with, connection_with if dif.y > 0 else id, DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.UP)).is_empty():
 		if debug:
 			print_rich("\t\t[color=green]Vertical connection is possible[/color]")
 		return RoomConnection.VERTICAL
-	elif abs(dif.y) < TILE_SIZE * 8 and await  _check_entry_positions_horizontal_corridor(id if dif.x > 0 else connection_with, connection_with if dif.x > 0 else id, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.LEFT):
+	elif abs(dif.y) < TILE_SIZE * 8 and not (await _check_entry_positions_horizontal_corridor(id if dif.x > 0 else connection_with, connection_with if dif.x > 0 else id, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.LEFT)).is_empty():
 		if debug:
 			print_rich("\t\t[color=green]Horizontal connection is possible[/color]")
 		return RoomConnection.HORIZONTAL
@@ -494,19 +505,19 @@ func _is_connection_possible(id: int, connection_with: int) -> RoomConnection:
 					print_rich("\t\t[color=green]L connection is possible through if 3[/color]")
 				return RoomConnection.L_135
 
-	if await _check_entry_positions_vertical_corridor(id, connection_with, DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.UP):
+	if not (await _check_entry_positions_vertical_corridor(id, connection_with, DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.UP)).is_empty():
 		if debug:
 			print_rich("\t\t[color=green]Vertical connection is possible[/color]")
 		return RoomConnection.VERTICAL
-	elif await _check_entry_positions_vertical_corridor(id, connection_with, DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.DOWN):
+	elif not (await _check_entry_positions_vertical_corridor(id, connection_with, DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.DOWN)).is_empty():
 		if debug:
 			print_rich("\t\t[color=green]Vertical connection is possible[/color]")
 		return RoomConnection.VERTICAL
-	elif await _check_entry_positions_horizontal_corridor(id, connection_with, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.LEFT):
+	elif not (await _check_entry_positions_horizontal_corridor(id, connection_with, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.LEFT)).is_empty():
 		if debug:
 			print_rich("\t\t[color=green]Horizontal connection is possible[/color]")
 		return RoomConnection.HORIZONTAL
-	elif await _check_entry_positions_horizontal_corridor(id, connection_with, DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.RIGHT):
+	elif not (await _check_entry_positions_horizontal_corridor(id, connection_with, DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.RIGHT)).is_empty():
 		if debug:
 			print_rich("\t\t[color=green]Horizontal connection is possible[/color]")
 		return RoomConnection.HORIZONTAL
@@ -537,132 +548,147 @@ func _is_connection_possible(id: int, connection_with: int) -> RoomConnection:
 #				printerr("\tI have not been able to create a path between " + str(id) + " and " + str(connection_with))
 
 
-func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_dir: DungeonRoom.EntryDirection, connection_with_dir: DungeonRoom.EntryDirection) -> bool:
-	var id_entry: Node = rooms[id].get_random_entry(id_dir)
-	var connection_with_entry: Node = rooms[connection_with].get_random_entry(connection_with_dir, id_entry)
+func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_dir: DungeonRoom.EntryDirection, connection_with_dir: DungeonRoom.EntryDirection) -> Array[Node]:
+	for i in 2:
+		var ids: Array = [[id, connection_with], [connection_with, id]][i]
+		var directions: Array = [[id_dir, connection_with_dir], [connection_with_dir, id_dir]][i]
+		for entry in rooms[ids[0]].get_entries(directions[0]):
+			for other_entry in rooms[ids[1]].get_entries(directions[1]):
+				var connection_possible: bool = true
+				if entry == null or other_entry == null:
+					continue
 
-	if id_entry == null or connection_with_entry == null:
-		return false
+				var id_entry_position: Vector2 = entry.get_children()[0].global_position
+				var connection_with_entry_position: Vector2 = other_entry.get_children()[0].global_position
 
-	var id_entry_position: Vector2 = id_entry.get_children()[0].global_position
-	var connection_with_entry_position: Vector2 = connection_with_entry.get_children()[0].global_position
+				const MIN_TILES_TO_MAKE_DESVIATION: int = 2
+				var dis: float = id_entry_position.y - connection_with_entry_position.y
+				var center: int = floor((dis) / 2.0)
 
-	const MIN_TILES_TO_MAKE_DESVIATION: int = 2
-	var dis: float = id_entry_position.y - connection_with_entry_position.y
-	var center: int = floor((dis) / 2.0)
+				# print(dis)
+				if abs(dis) < TILE_SIZE * 5 or (directions[0] == DungeonRoom.EntryDirection.UP and id_entry_position.y < connection_with_entry_position.y) or (directions[0] == DungeonRoom.EntryDirection.DOWN and id_entry_position.y > connection_with_entry_position.y):
+					continue
 
-	# print(dis)
-#	if abs(dis) < TILE_SIZE * 5 or (id_dir == DungeonRoom.EntryDirection.UP and id_entry_position.y < connection_with_entry_position.y) or (id_dir == DungeonRoom.EntryDirection.DOWN and id_entry_position.y > connection_with_entry_position.y):
-#		return false
+				var vertical_corridor_1_rect: Rect2 = Rect2(connection_with_entry_position, Vector2(TILE_SIZE * 4, center))
+				var vertical_corridor_2_rect: Rect2 = Rect2(id_entry_position, Vector2(TILE_SIZE * 4, dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1))
+				horizontal_corridor_rect = Rect2(connection_with_entry_position + Vector2.DOWN * center + Vector2.UP * TILE_SIZE * 2, Vector2(id_entry_position.x - connection_with_entry_position.x, TILE_SIZE * 4))
 
-	var vertical_corridor_1_rect: Rect2 = Rect2(connection_with_entry_position, Vector2(TILE_SIZE * 4, center))
-	var vertical_corridor_2_rect: Rect2 = Rect2(id_entry_position, Vector2(TILE_SIZE * 4, dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1))
-	horizontal_corridor_rect = Rect2(connection_with_entry_position + Vector2.DOWN * center + Vector2.UP * TILE_SIZE, Vector2(id_entry_position.x - connection_with_entry_position.x, TILE_SIZE * 4))
+				for room in rooms:
+					if room == rooms[ids[0]] or room == rooms[ids[1]]:
+						continue # Para que no detecta las habitaciones que se conectan, solo las otras
 
-	for room in rooms:
-		if room == rooms[id] or room == rooms[connection_with]:
-			continue # Para que no detecta las habitaciones que se conectan, solo las otras
+					room_rect = room.get_rect()
+					# print("Room " + str(rooms.find(room)) + "  " + str(room_rect))
 
-		room_rect = room.get_rect()
-		# print("Room " + str(rooms.find(room)) + "  " + str(room_rect))
+					if debug_check_entry_positions:
+						queue_redraw()
+						await get_tree().create_timer(0.6).timeout
+					if room_rect.intersects(vertical_corridor_1_rect.abs()) or room_rect.intersects(vertical_corridor_2_rect.abs()) or room_rect.intersects(horizontal_corridor_rect.abs()):
+						connection_possible = false
 
-		if debug_check_entry_positions:
-			queue_redraw()
-			await get_tree().create_timer(0.6).timeout
-		if room_rect.intersects(vertical_corridor_1_rect.abs()) or room_rect.intersects(vertical_corridor_2_rect.abs()) or room_rect.intersects(horizontal_corridor_rect.abs()):
-			return false
+				if connection_possible:
+					return [entry, other_entry]
 
-	return true
+	return []
 
 
-func _check_entry_positions_horizontal_corridor(id: int, connection_with: int, id_dir: DungeonRoom.EntryDirection, connection_with_dir: DungeonRoom.EntryDirection) -> bool:
-	var id_entry: Node = rooms[id].get_random_entry(id_dir)
-	var connection_with_entry: Node = rooms[connection_with].get_random_entry(connection_with_dir, id_entry)
+func _check_entry_positions_horizontal_corridor(id: int, connection_with: int, id_dir: DungeonRoom.EntryDirection, connection_with_dir: DungeonRoom.EntryDirection) -> Array[Node]:
+	for i in 2:
+		var ids: Array = [[id, connection_with], [connection_with, id]][i]
+		var directions: Array = [[id_dir, connection_with_dir], [connection_with_dir, id_dir]][i]
+		for entry in rooms[ids[0]].get_entries(directions[0]):
+			for other_entry in rooms[ids[1]].get_entries(directions[1]):
+				var connection_possible: bool = true
 
-	if id_entry == null or connection_with_entry == null:
-		return false
+				if entry == null or other_entry == null:
+					continue
 
-	var id_entry_position: Vector2 = id_entry.get_children()[0].global_position
-	var connection_with_entry_position: Vector2 = connection_with_entry.get_children()[0].global_position
+				var id_entry_position: Vector2 = entry.get_children()[0].global_position
+				var connection_with_entry_position: Vector2 = other_entry.get_children()[0].global_position
 
-	const MIN_TILES_TO_MAKE_DESVIATION: int = 2
-	var dis: float = id_entry_position.x - connection_with_entry_position.x
-	var center: int = floor((dis) / 2.0)
+				const MIN_TILES_TO_MAKE_DESVIATION: int = 2
+				var dis: float = id_entry_position.x - connection_with_entry_position.x
+				var center: int = floor((dis) / 2.0)
 
-#	if abs(dis) < TILE_SIZE * 4 or (id_dir == DungeonRoom.EntryDirection.LEFT and id_entry_position.x < connection_with_entry_position.x) or (id_dir == DungeonRoom.EntryDirection.RIGHT and id_entry_position.x > connection_with_entry_position.x):
-#		return false
+				if abs(dis) < TILE_SIZE * 4 or (directions[0] == DungeonRoom.EntryDirection.LEFT and id_entry_position.x < connection_with_entry_position.x) or (directions[0] == DungeonRoom.EntryDirection.RIGHT and id_entry_position.x > connection_with_entry_position.x):
+					continue
 
-	var horizontal_corridor_1_rect: Rect2 = Rect2(connection_with_entry_position, Vector2(center, TILE_SIZE * 4))
-	var horizontal_corridor_2_rect: Rect2 = Rect2(id_entry_position, Vector2(dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1, TILE_SIZE * 4))
-	vertical_corridor_rect = Rect2(connection_with_entry_position + Vector2.LEFT * center, Vector2(TILE_SIZE * 4, id_entry_position.y - connection_with_entry_position.y))
+				var horizontal_corridor_1_rect: Rect2 = Rect2(connection_with_entry_position, Vector2(center, TILE_SIZE * 4))
+				var horizontal_corridor_2_rect: Rect2 = Rect2(id_entry_position, Vector2(dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1, TILE_SIZE * 4))
+				vertical_corridor_rect = Rect2(connection_with_entry_position + Vector2.LEFT * center, Vector2(TILE_SIZE * 4, id_entry_position.y - connection_with_entry_position.y))
 
-	for room in rooms:
-		if room == rooms[id] or room == rooms[connection_with]:
-			continue # Para que no detecta las habitaciones que se conectan, solo las otras
+				for room in rooms:
+					if room == rooms[ids[0]] or room == rooms[ids[1]]:
+						continue # Para que no detecta las habitaciones que se conectan, solo las otras
 
-		room_rect = room.get_rect()
-		# print("Room " + str(rooms.find(room)) + "  " + str(room_rect))
+					room_rect = room.get_rect()
+					# print("Room " + str(rooms.find(room)) + "  " + str(room_rect))
 
-		if debug_check_entry_positions:
-			queue_redraw()
-			await get_tree().create_timer(0.6).timeout
-		if room_rect.intersects(horizontal_corridor_1_rect.abs()) or room_rect.intersects(horizontal_corridor_2_rect.abs()) or room_rect.intersects(vertical_corridor_rect.abs()):
-			return false
+					if debug_check_entry_positions:
+						queue_redraw()
+						await get_tree().create_timer(0.6).timeout
+					if room_rect.intersects(horizontal_corridor_1_rect.abs()) or room_rect.intersects(horizontal_corridor_2_rect.abs()) or room_rect.intersects(vertical_corridor_rect.abs()):
+						connection_possible = false
 
-	return true
+				if connection_possible:
+					return [entry, other_entry]
+
+	return []
 
 
 func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: DungeonRoom.EntryDirection, connection_with_dir: DungeonRoom.EntryDirection) -> Array[Node]:
-#	if id == 5 and connection_with == 3:
-#		pass
-	var id_entry: Node = rooms[id].get_random_entry(id_dir)
-	var connection_with_entry: Node = rooms[connection_with].get_random_entry(connection_with_dir, id_entry)
+	for i in 2:
+		var ids: Array = [[id, connection_with], [connection_with, id]][i]
+		var directions: Array = [[id_dir, connection_with_dir], [connection_with_dir, id_dir]][i]
+		for entry in rooms[ids[0]].get_entries(directions[0]):
+			for other_entry in rooms[ids[1]].get_entries(directions[1]):
+				var connection_possible: bool = true
 
-	if id_entry == null or connection_with_entry == null:
-		connection_with_entry = rooms[connection_with].get_random_entry(connection_with_dir)
-		id_entry = rooms[id].get_random_entry(id_dir, connection_with_entry)
-		if id_entry == null or connection_with_entry == null:
-			return []
+				if entry == null or other_entry == null:
+					continue
 
-	var id_entry_position: Vector2 = id_entry.get_children()[0].global_position
-	var connection_with_entry_position: Vector2 = connection_with_entry.get_children()[0].global_position
+				var id_entry_position: Vector2 = entry.get_children()[0].global_position
+				var connection_with_entry_position: Vector2 = other_entry.get_children()[0].global_position
 
-#	var vertical_corridor_rect: Rect2
-#	var horizontal_corridor_rect: Rect2
-	if id_dir == DungeonRoom.EntryDirection.UP or id_dir == DungeonRoom.EntryDirection.DOWN:
-		vertical_corridor_rect = Rect2(id_entry_position.x - 32, id_entry_position.y, TILE_SIZE * 4, connection_with_entry_position.y - id_entry_position.y)
-		horizontal_corridor_rect = Rect2(connection_with_entry_position.x, connection_with_entry_position.y - 32, id_entry_position.x - connection_with_entry_position.x, TILE_SIZE * 4)
-	else:
-		vertical_corridor_rect = Rect2(connection_with_entry_position.x - 32, connection_with_entry_position.y, TILE_SIZE * 4, id_entry_position.y - connection_with_entry_position.y)
-		horizontal_corridor_rect = Rect2(id_entry_position.x, id_entry_position.y - 32, connection_with_entry_position.x - id_entry_position.x, TILE_SIZE * 4)
+			#	var vertical_corridor_rect: Rect2
+			#	var horizontal_corridor_rect: Rect2
+				if id_dir == DungeonRoom.EntryDirection.UP or id_dir == DungeonRoom.EntryDirection.DOWN:
+					vertical_corridor_rect = Rect2(id_entry_position.x - 32, id_entry_position.y, TILE_SIZE * 4, connection_with_entry_position.y - id_entry_position.y)
+					horizontal_corridor_rect = Rect2(connection_with_entry_position.x, connection_with_entry_position.y - 32, id_entry_position.x - connection_with_entry_position.x, TILE_SIZE * 4)
+				else:
+					vertical_corridor_rect = Rect2(connection_with_entry_position.x - 32, connection_with_entry_position.y, TILE_SIZE * 4, id_entry_position.y - connection_with_entry_position.y)
+					horizontal_corridor_rect = Rect2(id_entry_position.x, id_entry_position.y - 32, connection_with_entry_position.x - id_entry_position.x, TILE_SIZE * 4)
 
-	for room in rooms:
-		if room == rooms[id] or room == rooms[connection_with]:
-			continue # Para que no detecta las habitaciones que se conectan, solo las otras
+				for room in rooms:
+					if room == rooms[id] or room == rooms[connection_with]:
+						continue # Para que no detecta las habitaciones que se conectan, solo las otras
 
-		room_rect = room.get_rect()
-		# print("Room " + str(rooms.find(room)) + "  " + str(room_rect))
+					room_rect = room.get_rect()
+					# print("Room " + str(rooms.find(room)) + "  " + str(room_rect))
 
-		if debug_check_entry_positions:
-			queue_redraw()
-			await get_tree().create_timer(0.6).timeout
-		if room_rect.intersects(vertical_corridor_rect.abs()) or room_rect.intersects(horizontal_corridor_rect.abs()):
-			return []
+					if debug_check_entry_positions:
+						queue_redraw()
+						await get_tree().create_timer(0.6).timeout
+					if room_rect.intersects(vertical_corridor_rect.abs()) or room_rect.intersects(horizontal_corridor_rect.abs()):
+						connection_possible = false
 
-	if id_dir == DungeonRoom.EntryDirection.RIGHT or connection_with_dir == DungeonRoom.EntryDirection.LEFT:
-		if not id_entry_position.x < (connection_with_entry_position.x - MIN_SEPARATION_BETWEEN_ENTRIES):
-			return []
-	else:
-		if not connection_with_entry_position.x < (id_entry_position.x - MIN_SEPARATION_BETWEEN_ENTRIES):
-			return []
-	if id_dir == DungeonRoom.EntryDirection.DOWN or connection_with_dir == DungeonRoom.EntryDirection.UP:
-		if not id_entry_position.y < (connection_with_entry_position.y - MIN_SEPARATION_BETWEEN_ENTRIES):
-			return []
-	else:
-		if not connection_with_entry_position.y < (id_entry_position.y - MIN_SEPARATION_BETWEEN_ENTRIES):
-			return []
+				if id_dir == DungeonRoom.EntryDirection.RIGHT or connection_with_dir == DungeonRoom.EntryDirection.LEFT:
+					if not id_entry_position.x < (connection_with_entry_position.x - MIN_SEPARATION_BETWEEN_ENTRIES):
+						connection_possible = false
+				else:
+					if not connection_with_entry_position.x < (id_entry_position.x - MIN_SEPARATION_BETWEEN_ENTRIES):
+						connection_possible = false
+				if id_dir == DungeonRoom.EntryDirection.DOWN or connection_with_dir == DungeonRoom.EntryDirection.UP:
+					if not id_entry_position.y < (connection_with_entry_position.y - MIN_SEPARATION_BETWEEN_ENTRIES):
+						connection_possible = false
+				else:
+					if not connection_with_entry_position.y < (id_entry_position.y - MIN_SEPARATION_BETWEEN_ENTRIES):
+						connection_possible = false
 
-	return [id_entry, connection_with_entry]
+				if connection_possible:
+					return [entry, other_entry]
+
+	return []
 
 
 # above and below are entries, with 2 children
@@ -821,9 +847,9 @@ func _draw() -> void:
 			for j in mst_astar.get_point_connections(i):
 				draw_line(room_centers[room_centers.find(mst_astar.get_point_position(i))], room_centers[room_centers.find(mst_astar.get_point_position(j))], Color.YELLOW, 7)
 
-#	draw_rect(vertical_corridor_rect, Color.DEEP_SKY_BLUE, true)
-#	draw_rect(horizontal_corridor_rect, Color.DEEP_SKY_BLUE, true)
-#	draw_rect(room_rect, Color.WEB_MAROON, true)
+	draw_rect(vertical_corridor_rect, Color.DEEP_SKY_BLUE, true)
+	draw_rect(horizontal_corridor_rect, Color.DEEP_SKY_BLUE, true)
+	draw_rect(room_rect, Color.WEB_MAROON, true)
 
 
 #func _get_random_point_in_circle(radius: float) -> Vector2:

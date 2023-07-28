@@ -99,6 +99,10 @@ func _has_entry(dir: EntryDirection) -> bool:
 #	return entries[dir].get_children()[0].global_position
 
 
+func get_entries(dir: EntryDirection) -> Array[Node]:
+	return entries[dir].get_children()
+
+
 func get_random_entry(dir: EntryDirection, to_connect_to: Node = null) -> Node:
 	var direction_entries: Array[Node] = entries[dir].get_children()
 #	for entry in used_entries:
