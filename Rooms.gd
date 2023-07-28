@@ -5,6 +5,7 @@ const BIOMES_FOLDER_PATH: String = "res://Rooms/Biomes/"
 const SPAWN_CIRCLE_RADIUS: float = 200
 
 const TILE_SIZE: int = 16
+const MIN_SEPARATION_BETWEEN_ENTRIES: int = TILE_SIZE * 2
 static var ATLAS_ID: int
 
 const FLOOR_TILE_COORDS: Array[Vector2i] = [Vector2i(3, 1), Vector2i(5, 2), Vector2i(5, 3)]
@@ -612,13 +613,16 @@ func _check_entry_positions_horizontal_corridor(id: int, connection_with: int, i
 
 
 func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: DungeonRoom.EntryDirection, connection_with_dir: DungeonRoom.EntryDirection) -> Array[Node]:
-	if id == 6 and connection_with == 7:
-		pass
+#	if id == 5 and connection_with == 3:
+#		pass
 	var id_entry: Node = rooms[id].get_random_entry(id_dir)
 	var connection_with_entry: Node = rooms[connection_with].get_random_entry(connection_with_dir, id_entry)
 
 	if id_entry == null or connection_with_entry == null:
-		return []
+		connection_with_entry = rooms[connection_with].get_random_entry(connection_with_dir)
+		id_entry = rooms[id].get_random_entry(id_dir, connection_with_entry)
+		if id_entry == null or connection_with_entry == null:
+			return []
 
 	var id_entry_position: Vector2 = id_entry.get_children()[0].global_position
 	var connection_with_entry_position: Vector2 = connection_with_entry.get_children()[0].global_position
@@ -646,16 +650,16 @@ func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: Du
 			return []
 
 	if id_dir == DungeonRoom.EntryDirection.RIGHT or connection_with_dir == DungeonRoom.EntryDirection.LEFT:
-		if not id_entry_position.x < (connection_with_entry_position.x - TILE_SIZE * 2):
+		if not id_entry_position.x < (connection_with_entry_position.x - MIN_SEPARATION_BETWEEN_ENTRIES):
 			return []
 	else:
-		if not connection_with_entry_position.x < (id_entry_position.x - TILE_SIZE * 2):
+		if not connection_with_entry_position.x < (id_entry_position.x - MIN_SEPARATION_BETWEEN_ENTRIES):
 			return []
 	if id_dir == DungeonRoom.EntryDirection.DOWN or connection_with_dir == DungeonRoom.EntryDirection.UP:
-		if not id_entry_position.y < (connection_with_entry_position.y - TILE_SIZE * 2):
+		if not id_entry_position.y < (connection_with_entry_position.y - MIN_SEPARATION_BETWEEN_ENTRIES):
 			return []
 	else:
-		if not connection_with_entry_position.y < (id_entry_position.y - TILE_SIZE * 2):
+		if not connection_with_entry_position.y < (id_entry_position.y - MIN_SEPARATION_BETWEEN_ENTRIES):
 			return []
 
 	return [id_entry, connection_with_entry]

@@ -135,13 +135,13 @@ func get_random_entry(dir: EntryDirection, to_connect_to: Node = null) -> Node:
 func is_connection_between_entries_possible(this_room_entry: Node, this_room_entry_dir: EntryDirection, other_room_entry: Node) -> bool:
 	match this_room_entry_dir:
 		EntryDirection.LEFT:
-			return other_room_entry.global_position.x < this_room_entry.global_position.x - Rooms.TILE_SIZE
+			return other_room_entry.global_position.x < this_room_entry.global_position.x - Rooms.MIN_SEPARATION_BETWEEN_ENTRIES
 		EntryDirection.UP:
-			return other_room_entry.global_position.y < this_room_entry.global_position.y - Rooms.TILE_SIZE
+			return other_room_entry.global_position.y < this_room_entry.global_position.y - Rooms.MIN_SEPARATION_BETWEEN_ENTRIES
 		EntryDirection.RIGHT:
-			return other_room_entry.global_position.x > this_room_entry.global_position.x + Rooms.TILE_SIZE
+			return other_room_entry.global_position.x > this_room_entry.global_position.x + Rooms.MIN_SEPARATION_BETWEEN_ENTRIES
 		EntryDirection.DOWN:
-			return other_room_entry.global_position.y > this_room_entry.global_position.y + Rooms.TILE_SIZE
+			return other_room_entry.global_position.y > this_room_entry.global_position.y + Rooms.MIN_SEPARATION_BETWEEN_ENTRIES
 
 	return false
 
