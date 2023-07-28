@@ -49,6 +49,9 @@ var delaunay_indices: PackedInt32Array
 # Tengo que declarar esto aquí porque esta wea culiada no me deja dibujar fuera de _draw
 var vertical_corridor_rect: Rect2
 var horizontal_corridor_rect: Rect2
+var horizontal_corridor_1_rect: Rect2
+var horizontal_corridor_2_rect: Rect2
+
 var room_rect: Rect2
 
 var visited_rooms: Array[DungeonRoom] = []
@@ -74,6 +77,12 @@ func _ready() -> void:
 	else:
 		corridor_tile_map.z_index = 0
 		corridor_tile_map.material = null
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.is_pressed() and event.keycode == KEY_S:
+			debug_check_entry_positions = !debug_check_entry_positions
 
 
 func _physics_process(delta: float) -> void:
@@ -336,11 +345,16 @@ func _create_corridors() -> void:
 
 	var entry_cells: Array[Vector2i] = []
 	for room in rooms:
-		for used_entry in room.used_entries:
-			for pos_node in used_entry.get_children():
-				var cell: Vector2i = corridor_tile_map.local_to_map(pos_node.global_position)
-				corridor_tile_map.erase_cell(0, cell)
-				entry_cells.push_back(cell)
+		for dir in [DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.DOWN]:
+			var entries: Array[Node] = room.get_entries(dir)
+			for entry in entries:
+				var entry_pos: Vector2i = corridor_tile_map.local_to_map(entry.global_position)
+				if corridor_tile_map.get_cell_atlas_coords(0, entry_pos + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir]) in FLOOR_TILE_COORDS:
+					room.mark_entry_as_used(entry)
+					for pos_node in entry.get_children():
+						var cell: Vector2i = corridor_tile_map.local_to_map(pos_node.global_position)
+						corridor_tile_map.erase_cell(0, cell)
+						entry_cells.push_back(cell)
 
 	for cell_pos in corridor_tile_map.get_used_cells(0):
 #		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) in FLOOR_TILE_COORDS:
@@ -404,9 +418,9 @@ func _create_corridor_between_rooms(id: int, connection_with: int, room_connecti
 #			rooms[connection_with if dif.y > 0 else id].mark_entry_as_used(entries[1])
 		RoomConnection.HORIZONTAL:
 			var entries: Array[Node] = await _check_entry_positions_horizontal_corridor(id if dif.x > 0 else connection_with, connection_with if dif.x > 0 else id, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.LEFT)
-#			var left: Node = rooms[id if dif.x > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.RIGHT)
-#			var right: Node = rooms[connection_with if dif.x > 0 else id].get_random_entry(DungeonRoom.EntryDirection.LEFT, left)
-			await _create_horizontal_corridor(entries[0], entries[1])
+			var left: Node = entries[0] if entries[0].global_position.x < entries[1].global_position.x else entries[1]
+			var right: Node = entries[1] if entries[0].global_position.x < entries[1].global_position.x else entries[0]
+			await _create_horizontal_corridor(left, right)
 #			rooms[id if dif.x > 0 else connection_with].mark_entry_as_used(left)
 #			rooms[connection_with if dif.x > 0 else id].mark_entry_as_used(right)
 		RoomConnection.L_315:
@@ -552,8 +566,12 @@ func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_
 	for i in 2:
 		var ids: Array = [[id, connection_with], [connection_with, id]][i]
 		var directions: Array = [[id_dir, connection_with_dir], [connection_with_dir, id_dir]][i]
-		for entry in rooms[ids[0]].get_entries(directions[0]):
-			for other_entry in rooms[ids[1]].get_entries(directions[1]):
+		var entries1: Array[Node] = rooms[ids[0]].get_entries(directions[0]).duplicate()
+		entries1.shuffle()
+		var entries2: Array[Node] = rooms[ids[1]].get_entries(directions[1]).duplicate()
+		entries2.shuffle()
+		for entry in entries1:
+			for other_entry in entries2:
 				var connection_possible: bool = true
 				if entry == null or other_entry == null:
 					continue
@@ -596,8 +614,12 @@ func _check_entry_positions_horizontal_corridor(id: int, connection_with: int, i
 	for i in 2:
 		var ids: Array = [[id, connection_with], [connection_with, id]][i]
 		var directions: Array = [[id_dir, connection_with_dir], [connection_with_dir, id_dir]][i]
-		for entry in rooms[ids[0]].get_entries(directions[0]):
-			for other_entry in rooms[ids[1]].get_entries(directions[1]):
+		var entries1: Array[Node] = rooms[ids[0]].get_entries(directions[0]).duplicate()
+		entries1.shuffle()
+		var entries2: Array[Node] = rooms[ids[1]].get_entries(directions[1]).duplicate()
+		entries2.shuffle()
+		for entry in entries1:
+			for other_entry in entries2:
 				var connection_possible: bool = true
 
 				if entry == null or other_entry == null:
@@ -613,9 +635,9 @@ func _check_entry_positions_horizontal_corridor(id: int, connection_with: int, i
 				if abs(dis) < TILE_SIZE * 4 or (directions[0] == DungeonRoom.EntryDirection.LEFT and id_entry_position.x < connection_with_entry_position.x) or (directions[0] == DungeonRoom.EntryDirection.RIGHT and id_entry_position.x > connection_with_entry_position.x):
 					continue
 
-				var horizontal_corridor_1_rect: Rect2 = Rect2(connection_with_entry_position, Vector2(center, TILE_SIZE * 4))
-				var horizontal_corridor_2_rect: Rect2 = Rect2(id_entry_position, Vector2(dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1, TILE_SIZE * 4))
-				vertical_corridor_rect = Rect2(connection_with_entry_position + Vector2.LEFT * center, Vector2(TILE_SIZE * 4, id_entry_position.y - connection_with_entry_position.y))
+				horizontal_corridor_1_rect = Rect2(connection_with_entry_position + Vector2.UP * TILE_SIZE * 2, Vector2(center, TILE_SIZE * 4))
+				horizontal_corridor_2_rect = Rect2(connection_with_entry_position if connection_with_entry_position.x > id_entry_position.x else id_entry_position, Vector2((dis - center if connection_with_entry_position.x > id_entry_position.x else -dis + center) - (MIN_TILES_TO_MAKE_DESVIATION + 1) * TILE_SIZE, TILE_SIZE * 4))
+				vertical_corridor_rect = Rect2((connection_with_entry_position if connection_with_entry_position.x > id_entry_position.x else id_entry_position) + Vector2.LEFT * center, Vector2(TILE_SIZE * 4, (id_entry_position.y - connection_with_entry_position.y) if connection_with_entry_position.x > id_entry_position.x else (connection_with_entry_position.y - id_entry_position.y)))
 
 				for room in rooms:
 					if room == rooms[ids[0]] or room == rooms[ids[1]]:
@@ -633,6 +655,11 @@ func _check_entry_positions_horizontal_corridor(id: int, connection_with: int, i
 				if connection_possible:
 					return [entry, other_entry]
 
+
+	if id == 4 and connection_with == 6:
+		queue_redraw()
+		await get_tree().create_timer(5).timeout
+
 	return []
 
 
@@ -640,8 +667,12 @@ func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: Du
 	for i in 2:
 		var ids: Array = [[id, connection_with], [connection_with, id]][i]
 		var directions: Array = [[id_dir, connection_with_dir], [connection_with_dir, id_dir]][i]
-		for entry in rooms[ids[0]].get_entries(directions[0]):
-			for other_entry in rooms[ids[1]].get_entries(directions[1]):
+		var entries1: Array[Node] = rooms[ids[0]].get_entries(directions[0]).duplicate()
+		entries1.shuffle()
+		var entries2: Array[Node] = rooms[ids[1]].get_entries(directions[1]).duplicate()
+		entries2.shuffle()
+		for entry in entries1:
+			for other_entry in entries2:
 				var connection_possible: bool = true
 
 				if entry == null or other_entry == null:
@@ -743,6 +774,7 @@ func _create_vertical_corridor(above: Node, below: Node) -> void:
 				await get_tree().create_timer(add_tile_group_time).timeout
 
 
+## [code]left[/code] is the entry of the room on the left and [code]right[/code] is the entry of the room on the right
 func _create_horizontal_corridor(left: Node, right: Node) -> void:
 	assert(left.get_child_count() == 2 and right.get_child_count() == 2)
 
@@ -834,8 +866,9 @@ func _create_l_corridor(from: Node, to: Node, from_dir: DungeonRoom.EntryDirecti
 
 
 func _draw() -> void:
-	if not debug:
-		return
+	#return
+#	if not debug:
+#		return
 
 	if mst_astar == null:
 		for i in delaunay_indices.size() / 3.0:
@@ -849,6 +882,8 @@ func _draw() -> void:
 
 	draw_rect(vertical_corridor_rect, Color.DEEP_SKY_BLUE, true)
 	draw_rect(horizontal_corridor_rect, Color.DEEP_SKY_BLUE, true)
+	draw_rect(horizontal_corridor_1_rect, Color.DEEP_SKY_BLUE, true)
+	draw_rect(horizontal_corridor_2_rect, Color.DEEP_SKY_BLUE, true)
 	draw_rect(room_rect, Color.WEB_MAROON, true)
 
 
