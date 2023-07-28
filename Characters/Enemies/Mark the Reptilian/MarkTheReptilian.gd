@@ -49,7 +49,10 @@ func attack() -> void:
 	spear_and_rope = load("res://Characters/Enemies/Mark the Reptilian/SpearAndRope.tscn").instantiate()
 	get_tree().current_scene.add_child(spear_and_rope)
 	spear_and_rope.position = global_position
-	spear_and_rope.attach(get_path(), (player.position - global_position).normalized())
+	var vector_to_player: Vector2 = (player.position - global_position)
+	if vector_to_player.x < 0:
+		spear_and_rope.scale.y = -1
+	spear_and_rope.attach(get_path(), vector_to_player.normalized())
 	#weapon.rotation = (player.position - global_position).angle()
 	#rope.show()
 	#$Weapon.rotation = (player.position - global_position).angle() - PI/2

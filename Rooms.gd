@@ -656,9 +656,9 @@ func _check_entry_positions_horizontal_corridor(id: int, connection_with: int, i
 					return [entry, other_entry]
 
 
-	if id == 4 and connection_with == 6:
-		queue_redraw()
-		await get_tree().create_timer(5).timeout
+#	if id == 4 and connection_with == 6:
+#		queue_redraw()
+#		await get_tree().create_timer(5).timeout
 
 	return []
 
@@ -866,7 +866,7 @@ func _create_l_corridor(from: Node, to: Node, from_dir: DungeonRoom.EntryDirecti
 
 
 func _draw() -> void:
-	#return
+	return
 #	if not debug:
 #		return
 

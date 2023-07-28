@@ -124,7 +124,7 @@ texture = SubResource("PlaceholderTexture2D_0kux3")
 shape = SubResource("RectangleShape2D_vltfn")
 
 [node name="Wardrobe" type="StaticBody2D" parent="."]
-position = Vector2(264, 124)
+position = Vector2(264.5, 124)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Wardrobe"]
