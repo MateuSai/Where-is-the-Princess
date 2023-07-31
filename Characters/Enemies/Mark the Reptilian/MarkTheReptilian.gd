@@ -1,7 +1,7 @@
 extends Enemy
 
 
-var spear_and_rope: SpearAndRope
+var spear_and_rope: WeaponWithRope
 
 signal spear_picked_up()
 
@@ -81,7 +81,7 @@ func _pull_back_weapon() -> void:
 
 
 func _on_pick_up_spear_area_body_entered(body: Node2D) -> void:
-	if is_instance_valid(spear_and_rope) and body == spear_and_rope.spear_body:
+	if is_instance_valid(spear_and_rope) and body == spear_and_rope.weapon_body:
 		spear_and_rope.queue_free()
 		spear_sprite.show()
 		spear_picked_up.emit()

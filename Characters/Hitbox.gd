@@ -6,6 +6,8 @@ var knockback_direction: Vector2 = Vector2.ZERO
 
 var body_inside: bool = false
 
+var exclude: Array[Node2D] = []
+
 signal collided_with_something(body: Node2D)
 
 @onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
@@ -27,6 +29,9 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
+	if body in exclude or not is_instance_valid(body) or body == null:
+		return
+
 	body_inside = true
 	timer.start()
 	while body_inside:
@@ -34,12 +39,16 @@ func _on_body_entered(body: Node2D) -> void:
 		await timer.timeout
 
 
-func _on_body_exited(_body: Node2D) -> void:
+func _on_body_exited(body: Node2D) -> void:
+	if body in exclude:
+		return
+
 	body_inside = false
 	timer.stop()
 
 
 func _collide(body: Node2D, dam: int = damage) -> void:
+	#print(body.name)
 	collided_with_something.emit(body)
 	if body is RigidBody2D:
 		body.apply_impulse(knockback_direction * knockback_force * 5)

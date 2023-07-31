@@ -16,7 +16,8 @@ const ENEMY_SCENES: Dictionary = {
 	#"SHIELD_KNIGHT": preload("res://Characters/Enemies/ShieldKnight/ShieldKnight.tscn"),
 	# "MOLE": preload("res://Characters/Enemies/Mole/Mole.tscn"),
 	# "SPIDER": preload("res://Characters/Enemies/Spider/Spider.tscn"),
-	"MARK": preload("res://Characters/Enemies/Mark the Reptilian/MarkTheReptilian.tscn"),
+	#"MARK": preload("res://Characters/Enemies/Mark the Reptilian/MarkTheReptilian.tscn"),
+	"ARMORED_MARK": preload("res://Characters/Enemies/Armored Mark/ArmoredMark.tscn")
 	#"SPIDER_EGG": preload("res://Characters/Enemies/Spider/SpiderEgg.tscn")
 }
 
