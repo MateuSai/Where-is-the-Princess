@@ -56,6 +56,8 @@ func _on_died() -> void:
 
 	spawn_loot()
 
+	await get_tree().create_timer(0.5, false).timeout
+
 	var spawn_explosion: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()
 	spawn_explosion.position = global_position
 	get_tree().current_scene.add_child(spawn_explosion)

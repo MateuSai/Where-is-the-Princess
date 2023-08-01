@@ -17,8 +17,9 @@ const ENEMY_SCENES: Dictionary = {
 	# "MOLE": preload("res://Characters/Enemies/Mole/Mole.tscn"),
 	# "SPIDER": preload("res://Characters/Enemies/Spider/Spider.tscn"),
 	#"MARK": preload("res://Characters/Enemies/Mark the Reptilian/MarkTheReptilian.tscn"),
-	"ARMORED_MARK": preload("res://Characters/Enemies/Armored Mark/ArmoredMark.tscn")
-	#"SPIDER_EGG": preload("res://Characters/Enemies/Spider/SpiderEgg.tscn")
+	#"ARMORED_MARK": preload("res://Characters/Enemies/Armored Mark/ArmoredMark.tscn"),
+	"NAKED_MARK": preload("res://Characters/Enemies/Naked Mark/NakedMark.tscn"),
+	#"SPIDER_EGG": preload("res://Characters/Enemies/Spider/SpiderEgg.tscn"),
 }
 
 const HORIZONTAL_UP_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/HorizontalUpDoor.tscn")

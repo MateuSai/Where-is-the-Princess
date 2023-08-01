@@ -21,7 +21,7 @@ signal died()
 
 
 func take_damage(dam: int, dir: Vector2, force: int) -> void:
-	if invincible:
+	if invincible or hp == 0:
 		return
 
 	if block_probability > 0:
