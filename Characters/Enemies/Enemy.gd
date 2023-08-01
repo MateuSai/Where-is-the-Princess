@@ -1,6 +1,7 @@
 @icon("res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/goblin/goblin_idle_anim_f0.png")
 class_name Enemy extends Character
 
+const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/SpawnExplosion.tscn")
 const COIN_SCENE: PackedScene = preload("res://Items/Coin.tscn")
 
 @onready var room: DungeonRoom = get_parent()
@@ -11,7 +12,7 @@ const COIN_SCENE: PackedScene = preload("res://Items/Coin.tscn")
 
 func _ready() -> void:
 	super()
-	life_component.died.connect(spawn_loot)
+
 	life_component.died.connect(Callable(get_parent(), "_on_enemy_killed"))
 
 
@@ -48,3 +49,14 @@ func _on_PathTimer_timeout() -> void:
 
 func _get_path_to_player() -> void:
 	navigation_agent.target_position = player.position
+
+
+func _on_died() -> void:
+	super()
+
+	spawn_loot()
+
+	var spawn_explosion: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()
+	spawn_explosion.position = global_position
+	get_tree().current_scene.add_child(spawn_explosion)
+	queue_free()

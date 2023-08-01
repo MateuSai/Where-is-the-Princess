@@ -42,7 +42,7 @@ func _remove_entity(entity: Node2D) -> void:
 
 
 func _add_entity_if_node_has_one(node: Node2D) -> void:
-	var entity_target: PhysicsBody2D = _get_entity(node)
+	var entity_target: Node2D = _get_entity(node)
 
 	if entity_target:
 		if exclude.size() > 0:
@@ -60,14 +60,14 @@ func _add_entity_if_node_has_one(node: Node2D) -> void:
 
 # las señales body_exited y area_exited estan conectadas a esta función. Si node forma parte de un personaje, lo eliminamos del array de los personajes que hay dentro
 func _remove_entity_if_it_is_inside(node: Node2D) -> void:
-	var entity_target: PhysicsBody2D = _get_entity(node)
+	var entity_target: Node2D = _get_entity(node)
 	if entity_target:
 		if entities_inside.has(entity_target):
 			_remove_entity(entity_target)
 			#characters_inside.erase(character_target)
 
 
-func _loop_and_collide(entity_target: PhysicsBody2D) -> void:
+func _loop_and_collide(entity_target: Node2D) -> void:
 	#incluso aca, se podria hacer que los ataques cuerpo a cuerpo tuvieran un animacion de tiempo similar
 	#o definirse mediante una variable
 	timer.start()
@@ -100,8 +100,8 @@ func _collide(node: Node2D, dam: int = damage) -> void:
 		node.get_node("LifeComponent").take_damage(dam, knockback_direction, knockback_force)
 
 
-func _get_entity(node: Node2D) -> PhysicsBody2D:
-	var entity: PhysicsBody2D = null
+func _get_entity(node: Node2D) -> Node2D:
+	var entity: Node2D = null
 
 	if node != null:
 		entity = node.owner if node is HurtBox else node

@@ -30,6 +30,7 @@ var mov_direction: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	life_component.damage_taken.connect(_on_damage_taken)
+	life_component.died.connect(_on_died)
 
 
 func _physics_process(_delta: float) -> void:
@@ -80,3 +81,7 @@ func _on_damage_taken(_dam: int, dir: Vector2, force: int) -> void:
 func _spawn_hit_effect() -> void:
 	var hit_effect: Sprite2D = HIT_EFFECT_SCENE.instantiate()
 	add_child(hit_effect)
+
+
+func _on_died() -> void:
+	pass

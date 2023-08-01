@@ -53,3 +53,10 @@ func _add_short_chain_and_ball() -> void:
 	short_chain_and_iron_ball = load("res://Characters/Enemies/Armored Mark/ShortChainAndIronBall.tscn").instantiate()
 	short_chain_and_iron_ball.position = global_position + Vector2.UP * 8
 	get_tree().current_scene.add_child(short_chain_and_iron_ball)
+
+
+func _on_died() -> void:
+	if is_instance_valid(long_chain_and_iron_ball):
+		long_chain_and_iron_ball.queue_free()
+
+	super()

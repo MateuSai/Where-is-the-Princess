@@ -1,0 +1,135 @@
+[gd_scene load_steps=13 format=3 uid="uid://ho47sxaysax7"]
+
+[ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_8vtrn"]
+[ext_resource type="Script" path="res://Characters/Enemies/Naked Mark/NakedMark.gd" id="2_nly1j"]
+[ext_resource type="Texture2D" uid="uid://bawnyvbb14ks" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Jumping reptile/Jumping reptile.png" id="2_o8ww0"]
+[ext_resource type="Script" path="res://Characters/HurtBox.gd" id="3_8e0vo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7pynr"]
+radius = 4.12311
+
+[sub_resource type="Animation" id="Animation_8027g"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_c187m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_46tje"]
+resource_name = "idle_up"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_d0jv7"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_pi5tm"]
+resource_name = "walk_up"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jfpmu"]
+_data = {
+"RESET": SubResource("Animation_c187m"),
+"idle": SubResource("Animation_8027g"),
+"idle_up": SubResource("Animation_46tje"),
+"walk": SubResource("Animation_d0jv7"),
+"walk_up": SubResource("Animation_pi5tm")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b7nrv"]
+radius = 5.0
+height = 12.0
+
+[node name="NakedMark" instance=ExtResource("1_8vtrn")]
+script = ExtResource("2_nly1j")
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, -8)
+texture = ExtResource("2_o8ww0")
+hframes = 4
+vframes = 4
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource("CircleShape2D_7pynr")
+
+[node name="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_jfpmu")
+}
+
+[node name="HurtBox" type="Area2D" parent="." index="7"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("3_8e0vo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0, -3)
+shape = SubResource("CapsuleShape2D_b7nrv")
