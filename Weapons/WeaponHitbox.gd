@@ -6,9 +6,6 @@ class_name WeaponHitbox extends Hitbox
 
 func _ready() -> void:
 	super()
-	area_entered.connect(func(area: Area2D):
-		area.queue_free()
-	)
 
 
 func _collide(body: Node2D, _dam: int = damage) -> void:

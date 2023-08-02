@@ -14,7 +14,7 @@ config/name="Roguelike Tutorial"
 run/main_scene="res://BaseCamp.tscn"
 config/features=PackedStringArray("4.1")
 boot_splash/image="res://wekufu logo screen.png"
-config/icon="res://icon.png"
+config/icon="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/chest_closed_anim_f0.png"
 
 [autoload]
 
@@ -145,9 +145,12 @@ locale/translations_pot_files=PackedStringArray("res://Game.tscn", "res://Menus/
 
 2d/default_gravity=0.0
 2d/default_gravity_vector=Vector2(0, 0)
+2d/default_linear_damp=0.5
+2d/default_angular_damp=0.5
 common/enable_pause_aware_picking=true
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.0200866, 0.0651623, 0.0244697, 1)
+textures/canvas_textures/default_texture_filter=0
+environment/defaults/default_clear_color=Color(0.623529, 0.415686, 0.52549, 1)
 environment/defaults/default_environment="res://default_env.tres"

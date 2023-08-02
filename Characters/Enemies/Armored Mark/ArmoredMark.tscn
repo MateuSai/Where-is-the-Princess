@@ -1,0 +1,163 @@
+[gd_scene load_steps=17 format=3 uid="uid://cmwp7ipmlw7gj"]
+
+[ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_56eiu"]
+[ext_resource type="Script" path="res://Characters/Enemies/Armored Mark/ArmoredMark.gd" id="2_rvy7v"]
+[ext_resource type="Texture2D" uid="uid://d04uxwluqy5gw" path="res://Art/player/player_shadow.png" id="3_0a6iq"]
+[ext_resource type="Script" path="res://Characters/Enemies/Armored Mark/ArmoredMarkFSM.gd" id="3_ayx01"]
+[ext_resource type="Texture2D" uid="uid://cpty5hf7vyb54" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Jumping reptile/Jumping reptile armor.png" id="4_7y4f7"]
+[ext_resource type="PackedScene" uid="uid://bct6qg0c8a26h" path="res://Characters/Enemies/Armored Mark/ShortChainAndIronBall.tscn" id="6_4ypin"]
+[ext_resource type="Script" path="res://Characters/HurtBox.gd" id="7_lrr07"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uf0uv"]
+radius = 5.09902
+
+[sub_resource type="Animation" id="Animation_37g4n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_et1fm"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_ywfh5"]
+resource_name = "idle_up"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_fglk8"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_thryc"]
+resource_name = "walk_up"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nmtf8"]
+_data = {
+"RESET": SubResource("Animation_37g4n"),
+"idle": SubResource("Animation_et1fm"),
+"idle_up": SubResource("Animation_ywfh5"),
+"walk": SubResource("Animation_fglk8"),
+"walk_up": SubResource("Animation_thryc")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vmqxx"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jph61"]
+radius = 6.0
+height = 16.0
+
+[node name="ArmoredMark" instance=ExtResource("1_56eiu")]
+collision_mask = 13
+script = ExtResource("2_rvy7v")
+accerelation = null
+max_speed = null
+flying = null
+
+[node name="FiniteStateMachine" parent="." index="0"]
+script = ExtResource("3_ayx01")
+
+[node name="PlayerShadow" type="Sprite2D" parent="." index="1"]
+position = Vector2(0, 2)
+texture = ExtResource("3_0a6iq")
+
+[node name="Sprite2D" parent="." index="2"]
+position = Vector2(0, -8)
+texture = ExtResource("4_7y4f7")
+hframes = 4
+vframes = 4
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("CircleShape2D_uf0uv")
+
+[node name="AnimationPlayer" parent="." index="4"]
+libraries = {
+"": SubResource("AnimationLibrary_nmtf8")
+}
+
+[node name="PickUpBallArea" type="Area2D" parent="." index="8"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpBallArea" index="0"]
+shape = SubResource("CircleShape2D_vmqxx")
+
+[node name="ShortChainAndIronBall" parent="." index="9" instance=ExtResource("6_4ypin")]
+position = Vector2(0, -8)
+
+[node name="HurtBox" type="Area2D" parent="." index="10"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("7_lrr07")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_jph61")
+
+[connection signal="body_entered" from="PickUpBallArea" to="." method="_on_pick_up_ball_area_body_entered"]

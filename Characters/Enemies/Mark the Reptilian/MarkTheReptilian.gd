@@ -1,7 +1,7 @@
 extends Enemy
 
 
-var spear_and_rope: SpearAndRope
+var spear_and_rope: WeaponWithRope
 
 signal spear_picked_up()
 
@@ -49,7 +49,10 @@ func attack() -> void:
 	spear_and_rope = load("res://Characters/Enemies/Mark the Reptilian/SpearAndRope.tscn").instantiate()
 	get_tree().current_scene.add_child(spear_and_rope)
 	spear_and_rope.position = global_position
-	spear_and_rope.attach(get_path(), (player.position - global_position).normalized())
+	var vector_to_player: Vector2 = (player.position - global_position)
+	if vector_to_player.x < 0:
+		spear_and_rope.scale.y = -1
+	spear_and_rope.attach(get_path(), vector_to_player.normalized())
 	#weapon.rotation = (player.position - global_position).angle()
 	#rope.show()
 	#$Weapon.rotation = (player.position - global_position).angle() - PI/2
@@ -78,7 +81,7 @@ func _pull_back_weapon() -> void:
 
 
 func _on_pick_up_spear_area_body_entered(body: Node2D) -> void:
-	if is_instance_valid(spear_and_rope) and body == spear_and_rope.spear_body:
+	if is_instance_valid(spear_and_rope) and body == spear_and_rope.weapon_body:
 		spear_and_rope.queue_free()
 		spear_sprite.show()
 		spear_picked_up.emit()

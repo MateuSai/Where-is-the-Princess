@@ -23,6 +23,7 @@ region = Rect2(0, 0, 8, 8)
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("3")
+debug = false
 
 [node name="Rooms" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -46,6 +47,7 @@ layer_1/tile_data = PackedInt32Array()
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.294118, 0.294118, 0.294118, 1)
 
 [node name="GeneratingDungeonCanvasLayer" type="CanvasLayer" parent="."]

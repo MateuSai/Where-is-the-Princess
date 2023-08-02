@@ -1,0 +1,74 @@
+[gd_scene load_steps=8 format=3 uid="uid://bct6qg0c8a26h"]
+
+[ext_resource type="Texture2D" uid="uid://co8qs2inyx147" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Jumping reptile/chain-link.png" id="1_0s68f"]
+[ext_resource type="Script" path="res://Characters/Enemies/Armored Mark/ShortChainAndIronBall.gd" id="1_lo6nh"]
+[ext_resource type="Texture2D" uid="uid://darmns08iyc2t" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Jumping reptile/chain-end.png" id="1_v14v6"]
+[ext_resource type="Script" path="res://Weapons/WeaponHitbox.gd" id="4_xngsb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8gktb"]
+size = Vector2(6, 2)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i2q7o"]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8bd81"]
+radius = 3.16228
+
+[node name="ShortChainAndIronBall" type="Node2D"]
+script = ExtResource("1_lo6nh")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+node_a = NodePath("../RigidBody2D")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(3, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+texture = ExtResource("1_0s68f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("RectangleShape2D_8gktb")
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="."]
+position = Vector2(5.5, 0)
+node_a = NodePath("../RigidBody2D")
+node_b = NodePath("../RigidBody2D2")
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="."]
+position = Vector2(8, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D2"]
+texture = ExtResource("1_0s68f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2"]
+shape = SubResource("RectangleShape2D_8gktb")
+
+[node name="PinJoint2D3" type="PinJoint2D" parent="."]
+position = Vector2(11, 0)
+node_a = NodePath("../RigidBody2D2")
+node_b = NodePath("../RigidBodyWeapon")
+
+[node name="RigidBodyWeapon" type="RigidBody2D" parent="."]
+position = Vector2(12, 0)
+collision_layer = 0
+collision_mask = 0
+mass = 3.0
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBodyWeapon"]
+texture = ExtResource("1_v14v6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBodyWeapon"]
+shape = SubResource("CircleShape2D_i2q7o")
+
+[node name="Hitbox" type="Area2D" parent="RigidBodyWeapon"]
+collision_layer = 0
+collision_mask = 10
+script = ExtResource("4_xngsb")
+player_damage_multiplier = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBodyWeapon/Hitbox"]
+shape = SubResource("CircleShape2D_8bd81")
