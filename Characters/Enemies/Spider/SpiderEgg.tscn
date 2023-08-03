@@ -1,12 +1,27 @@
-[gd_scene load_steps=8 format=3 uid="uid://c8b3fy5wfn4dp"]
+[gd_scene load_steps=10 format=3 uid="uid://c8b3fy5wfn4dp"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_u8gmx"]
 [ext_resource type="Script" path="res://Characters/Enemies/Spider/SpiderEggFSM.gd" id="2_kp3rr"]
 [ext_resource type="Script" path="res://Characters/Enemies/Spider/SpiderEgg.gd" id="2_t1q62"]
-[ext_resource type="Texture2D" uid="uid://c1jmqpf38fg67" path="res://Art/items/boots_player.png" id="3_abxv5"]
+[ext_resource type="Texture2D" uid="uid://muetyxfnqh5n" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/spider/egg_hatching.png" id="4_2x6ix"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t7shl"]
 radius = 7.07107
+
+[sub_resource type="Animation" id="Animation_alpcw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_gvcmb"]
 resource_name = "dead"
@@ -25,9 +40,42 @@ tracks/0/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_i8sv0"]
+resource_name = "hatch"
+length = 0.8
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn_spiders"
+}]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ymel"]
 _data = {
-"dead": SubResource("Animation_gvcmb")
+"RESET": SubResource("Animation_alpcw"),
+"dead": SubResource("Animation_gvcmb"),
+"hatch": SubResource("Animation_i8sv0")
 }
 
 [node name="SpiderEgg" instance=ExtResource("1_u8gmx")]
@@ -38,7 +86,8 @@ script = ExtResource("2_kp3rr")
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(0, -3)
-texture = ExtResource("3_abxv5")
+texture = ExtResource("4_2x6ix")
+hframes = 4
 
 [node name="CollisionShape2D" parent="." index="2"]
 position = Vector2(0, -2)

@@ -9,16 +9,16 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	var tab_container: TabContainer = TabContainer.new()
+	var margin_container: MarginContainer = MarginContainer.new()
 	#tab_container.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
-	tab_container.theme = load("res://Theme.tres")
-	add_child(tab_container)
+	margin_container.theme = load("res://Theme.tres")
+	add_child(margin_container)
 
-	var rooms_tab: VBoxContainer = VBoxContainer.new()
-	rooms_tab.name = tr_n("Room", "Rooms", SavedData.mods.rooms.size())
-	for room_mod in SavedData.mods.rooms:
-		rooms_tab.add_child(ModRow.new(room_mod))
-	tab_container.add_child(rooms_tab)
+	var mods_list: VBoxContainer = VBoxContainer.new()
+	for mod_name in SavedData.mods:
+		var mod: Mod = Mod.new(mod_name)
+		mods_list.add_child(ModRow.new(mod))
+	margin_container.add_child(mods_list)
 
 	popup_centered()
 

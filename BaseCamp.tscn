@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=29 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="1_0pcgl"]
 [ext_resource type="Script" path="res://BaseCamp.gd" id="1_tpf7m"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Menus/WardrobeUI.gd" id="4_nybk1"]
 [ext_resource type="Texture2D" uid="uid://daudq4kfwccvu" path="res://Art/Status Conditions/condition_status_top_fire_full_16x16.png" id="4_ypw36"]
 [ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/light_fire.png" id="5_jugum"]
+[ext_resource type="PackedScene" uid="uid://bqcn0vo0ait26" path="res://Rooms/RichardTheGigachadWizard.tscn" id="11_vh5i5"]
 
 [sub_resource type="Gradient" id="Gradient_nhg8o"]
 offsets = PackedFloat32Array(0, 0.784849)
@@ -212,8 +213,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 196.0
-offset_bottom = 146.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_nybk1")
@@ -251,3 +252,6 @@ layout_mode = 2
 min_value = -1.0
 max_value = 9.22337e+18
 value = -1.0
+
+[node name="RichardTheGigachadWizard" parent="." instance=ExtResource("11_vh5i5")]
+position = Vector2(174, 89)

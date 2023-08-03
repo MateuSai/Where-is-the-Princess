@@ -1,13 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://e6hrtln6o6gf"]
+[gd_scene load_steps=19 format=3 uid="uid://e6hrtln6o6gf"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://d0bfixe0mujtg" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/flying creature/fly_anim_spritesheet.png" id="2"]
 [ext_resource type="Script" path="res://Characters/Enemies/Flying Creature/FlyingCreatureFSM.gd" id="3"]
 [ext_resource type="Script" path="res://Characters/Hitbox.gd" id="5"]
 [ext_resource type="Script" path="res://Characters/Enemies/Flying Creature/FlyingCreature.gd" id="6"]
+[ext_resource type="Texture2D" uid="uid://d04uxwluqy5gw" path="res://Art/player/player_shadow.png" id="6_v7snq"]
+[ext_resource type="Script" path="res://Characters/HurtBox.gd" id="7_g1yq0"]
 
 [sub_resource type="CircleShape2D" id="11"]
-radius = 4.0
+radius = 5.0
 
 [sub_resource type="CircleShape2D" id="10"]
 radius = 3.16228
@@ -33,6 +35,18 @@ tracks/1/path = NodePath("Sprite2D:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -162,14 +176,105 @@ tracks/2/keys = {
 "values": [true, false]
 }
 
+[sub_resource type="Animation" id="Animation_rfc4s"]
+resource_name = "attack"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_spawn_bite_effect"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_nvl5t"]
+resource_name = "attack_up"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_spawn_bite_effect"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_e8el5"]
 _data = {
 "RESET": SubResource("Animation_wv8uf"),
+"attack": SubResource("Animation_rfc4s"),
+"attack_up": SubResource("Animation_nvl5t"),
 "dead": SubResource("12"),
 "fly": SubResource("13"),
 "fly_up": SubResource("Animation_xd8rq"),
 "hurt": SubResource("14")
 }
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_632gb"]
+radius = 4.0
 
 [node name="FlyingCreature" instance=ExtResource("1")]
 texture_filter = 0
@@ -182,18 +287,21 @@ flying = true
 script = ExtResource("3")
 
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, -10)
 texture = ExtResource("2")
 hframes = 4
 vframes = 2
 frame = 4
 
 [node name="Hitbox" type="Area2D" parent="." index="2"]
+position = Vector2(0, -9)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("5")
+knockback_force = 50
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
-position = Vector2(0, 1)
+position = Vector2(8, 0)
 shape = SubResource("11")
 disabled = true
 
@@ -205,3 +313,15 @@ shape = SubResource("10")
 libraries = {
 "": SubResource("AnimationLibrary_e8el5")
 }
+
+[node name="PlayerShadow" type="Sprite2D" parent="." index="8"]
+texture = ExtResource("6_v7snq")
+
+[node name="HurtBox" type="Area2D" parent="." index="9"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("7_g1yq0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0, -9)
+shape = SubResource("CircleShape2D_632gb")

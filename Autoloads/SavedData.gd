@@ -15,9 +15,7 @@ var data: Dictionary = {
 
 var run_stats: RunStats = RunStats.new()
 
-var mods: Dictionary = {
-
-}
+var mods: Array[String] = []
 
 var biome_conf: Dictionary
 
@@ -50,7 +48,7 @@ func _ready() -> void:
 
 		for file_name in mods_dir.get_files():
 			print(file_name)
-			mods[file_name] = USER_FOLDER + MODS_FOLDER_NAME + file_name
+			mods.push_back(file_name)
 			if not ProjectSettings.load_resource_pack(USER_FOLDER + MODS_FOLDER_NAME + file_name):
 				printerr("Error loading " + USER_FOLDER + MODS_FOLDER_NAME + file_name + " mod!")
 			#var room: PackedScene = load(USER_FOLDER + ROOMS_FOLDER_NAME + file_name)

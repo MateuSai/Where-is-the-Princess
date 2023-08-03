@@ -25,6 +25,7 @@ func _state_logic(_delta: float) -> void:
 				animation_player.play("walk_up")
 		states.attack:
 			hitbox.rotation = (parent.player.position - parent.global_position).angle()
+			hitbox.knockback_direction = Vector2.RIGHT.rotated(hitbox.rotation)
 			if parent.mov_direction.y >= 0 and animation_player.current_animation != "attack":
 				animation_player.play("attack")
 			elif parent.mov_direction.y < 0 and animation_player.current_animation != "attack_up":
@@ -49,5 +50,6 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			pass
 			#animation_player.play("fly")
 		states.dead:
+			pass
 			# parent.spawn_loot()
-			animation_player.play("dead")
+			#animation_player.play("dead")

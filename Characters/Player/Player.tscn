@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=27 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Characters/Player/PlayerFSM.gd" id="5"]
 [ext_resource type="PackedScene" uid="uid://bw0adahejc8e2" path="res://Weapons/Dagger.tscn" id="5_nk70o"]
 [ext_resource type="Script" path="res://Characters/Player/Weapons.gd" id="5_uyohi"]
+[ext_resource type="Script" path="res://Characters/HurtBox.gd" id="6_hd6on"]
 [ext_resource type="Script" path="res://Characters/Player/UI.gd" id="7_24kdb"]
 [ext_resource type="Texture2D" uid="uid://df3cenyvvexih" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/ui (new)/health_ui.png" id="7_mynin"]
 [ext_resource type="Script" path="res://Characters/Player/PassiveItemsContainer.gd" id="8_aavgb"]
@@ -14,6 +15,10 @@
 
 [sub_resource type="CircleShape2D" id="18"]
 radius = 3.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bds3i"]
+radius = 4.0
+height = 10.0
 
 [sub_resource type="Animation" id="Animation_tr03h"]
 resource_name = "RESET"
@@ -355,29 +360,38 @@ frame = 6
 [node name="CollisionShape2D" parent="." index="3"]
 shape = SubResource("18")
 
-[node name="AnimationPlayer" parent="." index="4"]
+[node name="HurtBox" type="Area2D" parent="." index="4"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("6_hd6on")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0, -3)
+shape = SubResource("CapsuleShape2D_bds3i")
+
+[node name="AnimationPlayer" parent="." index="5"]
 libraries = {
 "": SubResource("AnimationLibrary_qxyws")
 }
 
-[node name="Weapons" type="Node2D" parent="." index="5"]
+[node name="Weapons" type="Node2D" parent="." index="6"]
 position = Vector2(0, -3)
 script = ExtResource("5_uyohi")
 
 [node name="Dagger" parent="Weapons" index="0" instance=ExtResource("5_nk70o")]
 position = Vector2(0, -3)
 
-[node name="Camera2D" type="Camera2D" parent="." index="6"]
+[node name="Camera2D" type="Camera2D" parent="." index="7"]
 position_smoothing_enabled = true
 
-[node name="DustPosition" type="Marker2D" parent="." index="7"]
+[node name="DustPosition" type="Marker2D" parent="." index="8"]
 
-[node name="JumpAnimationPlayer" type="AnimationPlayer" parent="." index="8"]
+[node name="JumpAnimationPlayer" type="AnimationPlayer" parent="." index="9"]
 libraries = {
 "": SubResource("AnimationLibrary_35i6s")
 }
 
-[node name="UI" type="CanvasLayer" parent="." index="10"]
+[node name="UI" type="CanvasLayer" parent="." index="11"]
 script = ExtResource("7_24kdb")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI" index="0"]
@@ -418,7 +432,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_7aqj1")
 [node name="Inventory" type="HBoxContainer" parent="UI/PanelContainer" index="0"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="." index="11"]
+[node name="Label" type="Label" parent="." index="12"]
 offset_right = 40.0
 offset_bottom = 23.0
 

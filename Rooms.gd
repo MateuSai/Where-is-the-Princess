@@ -339,6 +339,10 @@ func _create_corridors() -> void:
 			corridor_tile_map.set_cell(0, cell_pos + Vector2i.LEFT, ATLAS_ID, FLOOR_TILE_COORDS[0])
 			if debug:
 				await get_tree().create_timer(add_tile_group_time).timeout
+		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN * 2) in FLOOR_TILE_COORDS:
+			corridor_tile_map.set_cell(0, cell_pos + Vector2i.DOWN, ATLAS_ID, FLOOR_TILE_COORDS[0])
+			if debug:
+				await get_tree().create_timer(add_tile_group_time).timeout
 
 	# CORRIDOR WALLS
 	corridor_tile_map.set_cells_terrain_connect(0, corridor_tile_map.get_used_cells(0), 0, 0 if ATLAS_ID == 40 else 1)
@@ -685,10 +689,10 @@ func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: Du
 			#	var horizontal_corridor_rect: Rect2
 				if id_dir == DungeonRoom.EntryDirection.UP or id_dir == DungeonRoom.EntryDirection.DOWN:
 					vertical_corridor_rect = Rect2(id_entry_position.x - 32, id_entry_position.y, TILE_SIZE * 4, connection_with_entry_position.y - id_entry_position.y)
-					horizontal_corridor_rect = Rect2(connection_with_entry_position.x, connection_with_entry_position.y - 32, id_entry_position.x - connection_with_entry_position.x, TILE_SIZE * 4)
+					horizontal_corridor_rect = Rect2(connection_with_entry_position.x, connection_with_entry_position.y - 32, id_entry_position.x - connection_with_entry_position.x + TILE_SIZE, TILE_SIZE * 4)
 				else:
 					vertical_corridor_rect = Rect2(connection_with_entry_position.x - 32, connection_with_entry_position.y, TILE_SIZE * 4, id_entry_position.y - connection_with_entry_position.y)
-					horizontal_corridor_rect = Rect2(id_entry_position.x, id_entry_position.y - 32, connection_with_entry_position.x - id_entry_position.x, TILE_SIZE * 4)
+					horizontal_corridor_rect = Rect2(id_entry_position.x, id_entry_position.y - 32, connection_with_entry_position.x - id_entry_position.x + TILE_SIZE, TILE_SIZE * 4)
 
 				for room in rooms:
 					if room == rooms[id] or room == rooms[connection_with]:
