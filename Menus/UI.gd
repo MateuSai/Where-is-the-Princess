@@ -3,6 +3,7 @@ extends CanvasLayer
 
 @onready var color_rect: ColorRect = $ColorRect
 @onready var pause_menu: Control = $PauseMenu
+@onready var minimap: MiniMap = $MiniMap
 
 
 func _ready() -> void:
@@ -21,3 +22,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			pause_menu.show()
 			color_rect.show()
 			get_tree().paused = true
+
+	if event.is_action_pressed("ui_minimap"):
+		if minimap.container.visible:
+			minimap.hide()
+		else:
+			minimap.popup_centered()

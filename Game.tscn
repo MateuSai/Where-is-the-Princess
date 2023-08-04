@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=15 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://Menus/DebugInfo.gd" id="9_yskig"]
 [ext_resource type="Script" path="res://Menus/RightBottomGameVBoxContainer.gd" id="10_i5tua"]
 [ext_resource type="Texture2D" uid="uid://bhhqlnuamgk2u" path="res://Art/items/coin.png" id="10_nwb46"]
+[ext_resource type="Script" path="res://MiniMap.gd" id="12_icbnv"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
 light_mode = 1
@@ -190,3 +191,10 @@ stretch_mode = 5
 [node name="CoinsLabel" type="Label" parent="UI/RightBottomGameVBoxContainer/HBoxContainer"]
 layout_mode = 2
 vertical_alignment = 1
+
+[node name="MiniMap" type="Popup" parent="UI"]
+size = Vector2i(330, 200)
+visible = true
+script = ExtResource("12_icbnv")
+
+[node name="Container" type="Node2D" parent="UI/MiniMap"]
