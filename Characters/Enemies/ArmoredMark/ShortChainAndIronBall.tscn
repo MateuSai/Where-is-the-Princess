@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bct6qg0c8a26h"]
 
 [ext_resource type="Texture2D" uid="uid://co8qs2inyx147" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Jumping reptile/chain-link.png" id="1_0s68f"]
-[ext_resource type="Script" path="res://Characters/Enemies/Armored Mark/ShortChainAndIronBall.gd" id="1_lo6nh"]
+[ext_resource type="Script" path="res://Characters/Enemies/ArmoredMark/ShortChainAndIronBall.gd" id="1_lo6nh"]
 [ext_resource type="Texture2D" uid="uid://darmns08iyc2t" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Jumping reptile/chain-end.png" id="1_v14v6"]
 [ext_resource type="Script" path="res://Weapons/WeaponHitbox.gd" id="4_xngsb"]
 

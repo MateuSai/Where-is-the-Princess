@@ -1,16 +1,55 @@
 [gd_scene load_steps=20 format=3 uid="uid://ho47sxaysax7"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_8vtrn"]
-[ext_resource type="Script" path="res://Characters/Enemies/Naked Mark/NakedMark.gd" id="2_nly1j"]
+[ext_resource type="Script" path="res://Characters/Enemies/NakedMark/NakedMark.gd" id="2_nly1j"]
 [ext_resource type="Texture2D" uid="uid://bawnyvbb14ks" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Jumping reptile/Jumping reptile.png" id="2_o8ww0"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="3_8e0vo"]
-[ext_resource type="Script" path="res://Characters/Enemies/Naked Mark/NakedMarkFSM.gd" id="4_idtya"]
+[ext_resource type="Script" path="res://Characters/Enemies/NakedMark/NakedMarkFSM.gd" id="4_idtya"]
 [ext_resource type="Script" path="res://Characters/Hitbox.gd" id="4_nfynq"]
 [ext_resource type="Texture2D" uid="uid://hovi8qetgs0q" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Jumping reptile/spear-end.png" id="5_t4wok"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ypopd"]
 radius = 2.0
 height = 22.0
+
+[sub_resource type="Animation" id="Animation_pod82"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -6)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D/Hitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_p633w"]
 resource_name = "attack"
@@ -50,45 +89,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [true, false, true, false, true]
-}
-
-[sub_resource type="Animation" id="Animation_pod82"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -6)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D/Hitbox/CollisionShape2D:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6ukoo"]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dc847sylltswm"]
+[gd_scene load_steps=6 format=3 uid="uid://dc847sylltswm"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_o3owg"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_wgek8"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_0u5d0"]
+[ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_00w47"]
 [ext_resource type="PackedScene" uid="uid://cjc0h245lbmpd" path="res://Weapons/Katana.tscn" id="4_6oo1u"]
 
 [node name="ForestMiddleRoom0" instance=ExtResource("1_o3owg")]
@@ -26,6 +27,7 @@ position = Vector2(234, 201)
 
 [node name="Marker2D" type="Marker2D" parent="EnemyPositions" index="0"]
 position = Vector2(121, 65)
+script = ExtResource("4_00w47")
 
 [node name="Katana" parent="." index="6" instance=ExtResource("4_6oo1u")]
 position = Vector2(189, 117)
