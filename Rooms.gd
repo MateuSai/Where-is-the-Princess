@@ -195,6 +195,8 @@ func spawn_rooms() -> void:
 			room_visited.emit(room)
 		)
 		add_child(room)
+
+	#start_room._on_player_entered_room()
 #	var start_room_pos: Vector2 = start_room.get_random_circle_spawn_point(SPAWN_CIRCLE_RADIUS)
 #	rooms[0].float_position = start_room_pos # rooms[0] es la habitación de spawn
 #	rooms[1].float_position = start_room_pos * -1 # rooms[1] es la habitación de salida
@@ -408,6 +410,9 @@ func _create_corridors() -> void:
 		await get_tree().create_timer(pause_between_steps * 2).timeout
 
 	emit_signal("generation_completed")
+
+	visited_rooms.push_back(start_room)
+	room_visited.emit(start_room)
 
 
 func _create_corridor_between_rooms(id: int, connection_with: int, room_connection: RoomConnection) -> void:
