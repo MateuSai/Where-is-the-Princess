@@ -193,8 +193,24 @@ layout_mode = 2
 vertical_alignment = 1
 
 [node name="MiniMap" type="Popup" parent="UI"]
+disable_3d = true
+canvas_item_default_texture_filter = 0
 size = Vector2i(330, 200)
-visible = true
+content_scale_mode = 1
+content_scale_aspect = 3
+content_scale_factor = 0.25
 script = ExtResource("12_icbnv")
 
-[node name="Container" type="Node2D" parent="UI/MiniMap"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/MiniMap"]
+custom_minimum_size = Vector2(330, 200)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="UI/MiniMap/ScrollContainer"]
+custom_minimum_size = Vector2(5000, 5000)
+layout_mode = 2
+
+[node name="Area2D" type="Area2D" parent="."]
