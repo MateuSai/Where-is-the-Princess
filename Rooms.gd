@@ -59,6 +59,10 @@ signal room_visited(room: DungeonRoom)
 
 @export var num_levels: int = 5
 
+var fog_image: Image = Image.new()
+
+@onready var fog_sprite: Sprite2D = $"../FogSprite"
+
 # @onready var player: CharacterBody2D = get_parent().get_node("Player")
 
 @onready var corridor_tile_map: TileMap = get_node("CorridorTileMap")
@@ -105,7 +109,9 @@ func _physics_process(delta: float) -> void:
 
 	if no_more_rooms_moving:
 		set_physics_process(false)
-		_create_corridors()
+		await _create_corridors()
+		_create_fog()
+		#start_room._on_player_entered_room()
 
 
 func _get_rooms(type: String) -> PackedStringArray:
@@ -190,7 +196,7 @@ func spawn_rooms() -> void:
 
 	for room in rooms:
 		room.name += "_" + str(rooms.find(room))
-		room.closed.connect(func():
+		room.player_entered.connect(func():
 			visited_rooms.push_back(room)
 			room_visited.emit(room)
 		)
@@ -411,8 +417,24 @@ func _create_corridors() -> void:
 
 	emit_signal("generation_completed")
 
-	visited_rooms.push_back(start_room)
-	room_visited.emit(start_room)
+
+func _create_fog() -> void:
+	var map_rect: Rect2 = Rect2(0, 0, 0, 0)
+	for room in rooms:
+		map_rect = map_rect.merge(room.get_rect())
+	fog_sprite.position = map_rect.position
+	@warning_ignore("narrowing_conversion")
+	fog_image = Image.create(map_rect.size.x, map_rect.size.y, false, Image.FORMAT_RGBAH)
+	fog_image.fill(Color.BLACK)
+
+	#fog_sprite.texture = ImageTexture.create_from_image(fog_image)
+
+	while is_instance_valid(Globals.player):
+		var light: Image = load("res://Art/light_fire.png").get_image()
+		light.convert(Image.FORMAT_RGBAH)
+		fog_image.blend_rect(light, Rect2(Vector2.ZERO, light.get_size()), Globals.player.position - map_rect.position - light.get_size()/2.0)
+		fog_sprite.texture = ImageTexture.create_from_image(fog_image)
+		await get_tree().create_timer(0.2).timeout
 
 
 func _create_corridor_between_rooms(id: int, connection_with: int, room_connection: RoomConnection) -> void:

@@ -27,6 +27,7 @@ enum EntryDirection {
 }
 var used_entries: Array[Node] = []
 
+signal player_entered()
 signal closed()
 signal cleared()
 
@@ -256,6 +257,8 @@ func _spawn_enemies() -> void:
 
 
 func _on_player_entered_room() -> void:
+	player_entered.emit()
+
 	for door in door_container.get_children():
 		door.player_entered_room.disconnect(_on_player_entered_room)
 

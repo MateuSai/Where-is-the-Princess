@@ -7,6 +7,8 @@ var room_selected: DungeonRoom = null
 var map_rect: Rect2 = Rect2(0, 0, 0, 0)
 
 var corridors_tilemap_duplicate: TileMap
+#var fog_image: Image = Image.new()
+var fog_sprite: Sprite2D
 
 @onready var rooms: Rooms = $"../../Rooms"
 @onready var container: Control = $ScrollContainer/Control
@@ -19,7 +21,7 @@ func _ready() -> void:
 
 	rooms.room_visited.connect(_discover_room)
 
-	await rooms.generation_completed
+	await owner.player_added
 
 	room_tilemaps.resize(rooms.rooms.size())
 
@@ -51,6 +53,32 @@ func _ready() -> void:
 
 	corridors_tilemap_duplicate = $"../../Rooms/CorridorTileMap".duplicate()
 	container.add_child(corridors_tilemap_duplicate)
+
+	fog_sprite = Sprite2D.new()
+	var fog_sprite_material: CanvasItemMaterial = CanvasItemMaterial.new()
+	fog_sprite_material.blend_mode = CanvasItemMaterial.BLEND_MODE_MUL
+	fog_sprite_material.light_mode = CanvasItemMaterial.LIGHT_MODE_UNSHADED
+	fog_sprite.material = fog_sprite_material
+	fog_sprite.centered = false
+	fog_sprite.z_index = 10
+	#fog_sprite.scale /= content_scale_factor
+	var entire_map_rect: Rect2 = Rect2(0, 0, 0, 0)
+	for room in rooms.rooms:
+		entire_map_rect = entire_map_rect.merge(room.get_rect())
+	#@warning_ignore("narrowing_conversion")
+#	fog_image = Image.create(entire_map_rect.size.x, entire_map_rect.size.y, false, Image.FORMAT_RGBAH)
+#	fog_image.fill(Color.BLACK)
+	fog_sprite.position = entire_map_rect.position + Vector2(size.x/2.0, 0)
+	container.add_child(fog_sprite)
+
+	while is_instance_valid(Globals.player):
+		fog_sprite.texture = $"../../FogSprite".texture
+#		var light: Image = load("res://Art/light_fire.png").get_image()
+#		light.convert(Image.FORMAT_RGBAH)
+#		# light.resize(light.get_width() * 5, light.get_height() * 5)
+#		fog_image.blend_rect(light, Rect2(Vector2.ZERO, light.get_size()), Globals.player.position - entire_map_rect.position - light.get_size()/2.0)
+#		fog_sprite.texture = ImageTexture.create_from_image(fog_image)
+		await get_tree().create_timer(0.5).timeout
 
 #	#print(map_rect)
 #	for tilemap in container.get_children():
@@ -92,7 +120,10 @@ func _process(_delta: float) -> void:
 func _discover_room(room: DungeonRoom) -> void:
 	var room_rect: Rect2 = room.get_rect()
 	# print(room_rect)
+	var previous_map_rect: Rect2 = map_rect
 	map_rect = map_rect.merge(room_rect)
+	if room != rooms.start_room:
+		fog_sprite.position += map_rect.size - previous_map_rect.size
 
 	var room_tilemap_duplicate: TileMap = room.tilemap.duplicate()
 	room_tilemap_duplicate.position = room.position

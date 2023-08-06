@@ -6,6 +6,8 @@ const PLAYER_SCENE: PackedScene = preload("res://Characters/Player/Player.tscn")
 
 var generation_thread: Thread = null
 
+signal player_added()
+
 # @onready var ui: MainUi = get_node("UI")
 @onready var rooms: Rooms = get_node("Rooms")
 @onready var camera: Camera2D = get_node("Camera2D")
@@ -38,7 +40,6 @@ func _ready() -> void:
 	camera.enabled = false
 	var player: Player = PLAYER_SCENE.instantiate()
 	player.position = rooms.start_room.get_node("PlayerSpawnPos").global_position
-	rooms.start_room._on_player_entered_room()
 #	player.hp_changed.connect(ui._on_Player_hp_changed)
 #	player.weapon_condition_changed.connect(ui._on_player_weapon_condition_changed)
 #	player.weapon_droped.connect(ui._on_Player_weapon_droped)
@@ -46,6 +47,10 @@ func _ready() -> void:
 #	player.weapon_switched.connect(ui._on_Player_weapon_switched)
 	add_child(player)
 	# ui.initialize(player)
+
+	player_added.emit()
+
+	rooms.start_room._on_player_entered_room()
 
 
 func _input(event: InputEvent) -> void:

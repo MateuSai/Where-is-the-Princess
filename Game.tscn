@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=16 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -20,10 +20,15 @@ light_mode = 1
 atlas = ExtResource("10_nwb46")
 region = Rect2(0, 0, 8, 8)
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6h5cs"]
+blend_mode = 3
+light_mode = 1
+
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("3")
+debug = false
 
 [node name="Rooms" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -47,7 +52,6 @@ layer_1/tile_data = PackedInt32Array()
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0.294118, 0.294118, 0.294118, 1)
 
 [node name="GeneratingDungeonCanvasLayer" type="CanvasLayer" parent="."]
@@ -212,4 +216,7 @@ grow_vertical = 2
 custom_minimum_size = Vector2(5000, 5000)
 layout_mode = 2
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="FogSprite" type="Sprite2D" parent="."]
+z_index = 2
+material = SubResource("CanvasItemMaterial_6h5cs")
+centered = false
