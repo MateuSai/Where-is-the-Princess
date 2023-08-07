@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=18 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Menus/RightBottomGameVBoxContainer.gd" id="10_i5tua"]
 [ext_resource type="Texture2D" uid="uid://bhhqlnuamgk2u" path="res://Art/items/coin.png" id="10_nwb46"]
 [ext_resource type="Script" path="res://MiniMap.gd" id="12_icbnv"]
+[ext_resource type="Texture2D" uid="uid://cm2mxt7vas7t4" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/minimap_9-patch_bigger.png" id="13_s3von"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
 light_mode = 1
@@ -19,6 +20,15 @@ light_mode = 1
 [sub_resource type="AtlasTexture" id="AtlasTexture_u85lp"]
 atlas = ExtResource("10_nwb46")
 region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oed6k"]
+texture = ExtResource("13_s3von")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6h5cs"]
 blend_mode = 3
@@ -201,7 +211,6 @@ canvas_item_default_texture_filter = 0
 size = Vector2i(330, 200)
 content_scale_mode = 1
 content_scale_aspect = 3
-content_scale_factor = 0.25
 script = ExtResource("12_icbnv")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UI/MiniMap"]
@@ -211,6 +220,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_oed6k")
 
 [node name="Control" type="Control" parent="UI/MiniMap/ScrollContainer"]
 custom_minimum_size = Vector2(5000, 5000)
