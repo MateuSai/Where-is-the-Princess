@@ -21,7 +21,7 @@ func attack() -> void:
 
 	short_chain_and_iron_ball.hide_and_disable()
 
-	long_chain_and_iron_ball = load("res://Characters/Enemies/Armored Mark/LongChainAndIronBall.tscn").instantiate()
+	long_chain_and_iron_ball = load("res://Characters/Enemies/ArmoredMark/LongChainAndIronBall.tscn").instantiate()
 	get_tree().current_scene.add_child(long_chain_and_iron_ball)
 	long_chain_and_iron_ball.position = global_position
 	long_chain_and_iron_ball.attach(get_path(), (player.position - global_position).normalized())

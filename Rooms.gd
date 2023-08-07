@@ -59,6 +59,10 @@ signal room_visited(room: DungeonRoom)
 
 @export var num_levels: int = 5
 
+var fog_image: Image = Image.new()
+
+@onready var fog_sprite: Sprite2D = $"../FogSprite"
+
 # @onready var player: CharacterBody2D = get_parent().get_node("Player")
 
 @onready var corridor_tile_map: TileMap = get_node("CorridorTileMap")
@@ -105,7 +109,9 @@ func _physics_process(delta: float) -> void:
 
 	if no_more_rooms_moving:
 		set_physics_process(false)
-		_create_corridors()
+		await _create_corridors()
+		_create_fog()
+		#start_room._on_player_entered_room()
 
 
 func _get_rooms(type: String) -> PackedStringArray:
@@ -190,11 +196,13 @@ func spawn_rooms() -> void:
 
 	for room in rooms:
 		room.name += "_" + str(rooms.find(room))
-		room.closed.connect(func():
+		room.player_entered.connect(func():
 			visited_rooms.push_back(room)
 			room_visited.emit(room)
 		)
 		add_child(room)
+
+	#start_room._on_player_entered_room()
 #	var start_room_pos: Vector2 = start_room.get_random_circle_spawn_point(SPAWN_CIRCLE_RADIUS)
 #	rooms[0].float_position = start_room_pos # rooms[0] es la habitación de spawn
 #	rooms[1].float_position = start_room_pos * -1 # rooms[1] es la habitación de salida
@@ -361,17 +369,17 @@ func _create_corridors() -> void:
 						entry_cells.push_back(cell)
 
 	for cell_pos in corridor_tile_map.get_used_cells(0):
-#		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) in FLOOR_TILE_COORDS:
-#			corridor_tile_map.set_cell(0, cell_pos, ATLAS_ID, FLOOR_TILE_COORDS[1])
-#			if corridor_tile_map.get_cell_atlas_coords(1, cell_pos + Vector2i.UP) != Vector2i(-1, -1):
-#				corridor_tile_map.set_cell(1, cell_pos + Vector2i.UP, ATLAS_ID)
-#			if (corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) in FLOOR_TILE_COORDS or (corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT + Vector2i.DOWN) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT + Vector2i.DOWN) in FLOOR_TILE_COORDS)) and corridor_tile_map.get_cell_atlas_coords(1, cell_pos) in [BOTTOM_WALL_COOR, LEFT_BOTTOM_WALL_COOR, RIGHT_BOTTOM_WALL_COOR]:
-#				corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, BOTTOM_WALL_COOR)
 		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FULL_WALL_COORDS:
 			if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.UP) == RIGHT_WALL_COOR:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_LEFT_COOR)
 			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.UP) == LEFT_WALL_COOR:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_RIGHT_COOR)
+			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i(1, -1)) in FULL_WALL_COORDS:
+				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_RIGHT_COOR)
+				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP * 2, ATLAS_ID, UPPER_WALL_LEFT_CORNER_COOR)
+			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i(-1, -1)) in FULL_WALL_COORDS:
+				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_LEFT_COOR)
+				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP * 2, ATLAS_ID, UPPER_WALL_RIGHT_CORNER_COOR)
 			else:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_COOR)
 
@@ -408,6 +416,25 @@ func _create_corridors() -> void:
 		await get_tree().create_timer(pause_between_steps * 2).timeout
 
 	emit_signal("generation_completed")
+
+
+func _create_fog() -> void:
+	var map_rect: Rect2 = Rect2(0, 0, 0, 0)
+	for room in rooms:
+		map_rect = map_rect.merge(room.get_rect())
+	fog_sprite.position = map_rect.position
+	@warning_ignore("narrowing_conversion")
+	fog_image = Image.create(map_rect.size.x, map_rect.size.y, false, Image.FORMAT_RGBAH)
+	fog_image.fill(Color.BLACK)
+
+	#fog_sprite.texture = ImageTexture.create_from_image(fog_image)
+
+	while is_instance_valid(Globals.player):
+		var light: Image = load("res://Art/light_fire.png").get_image()
+		light.convert(Image.FORMAT_RGBAH)
+		fog_image.blend_rect(light, Rect2(Vector2.ZERO, light.get_size()), Globals.player.position - map_rect.position - light.get_size()/2.0)
+		fog_sprite.texture = ImageTexture.create_from_image(fog_image)
+		await get_tree().create_timer(0.2).timeout
 
 
 func _create_corridor_between_rooms(id: int, connection_with: int, room_connection: RoomConnection) -> void:

@@ -9,19 +9,6 @@ class_name DungeonRoom extends Node2D
 
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/SpawnExplosion.tscn")
 
-const ENEMY_SCENES: Dictionary = {
-	"FLYING_CREATURE": preload("res://Characters/Enemies/Flying Creature/FlyingCreature.tscn"),
-	#"GOBLIN": preload("res://Characters/Enemies/Goblin/Goblin.tscn"),
-	#"DARK_GOBLIN": preload("res://Characters/Enemies/DarkGoblin/DarkGoblin.tscn"),
-	#"SHIELD_KNIGHT": preload("res://Characters/Enemies/ShieldKnight/ShieldKnight.tscn"),
-	# "MOLE": preload("res://Characters/Enemies/Mole/Mole.tscn"),
-	# "SPIDER": preload("res://Characters/Enemies/Spider/Spider.tscn"),
-	#"MARK": preload("res://Characters/Enemies/Mark the Reptilian/MarkTheReptilian.tscn"),
-	#"ARMORED_MARK": preload("res://Characters/Enemies/Armored Mark/ArmoredMark.tscn"),
-	#"NAKED_MARK": preload("res://Characters/Enemies/Naked Mark/NakedMark.tscn"),
-	#"SPIDER_EGG": preload("res://Characters/Enemies/Spider/SpiderEgg.tscn"),
-}
-
 const HORIZONTAL_UP_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/HorizontalUpDoor.tscn")
 const HORIZONTAL_DOWN_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/HorizontalDownDoor.tscn")
 const VERTICAL_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/VerticalDoor.tscn")
@@ -40,6 +27,7 @@ enum EntryDirection {
 }
 var used_entries: Array[Node] = []
 
+signal player_entered()
 signal closed()
 signal cleared()
 
@@ -251,28 +239,26 @@ func _close_entrance() -> void:
 
 
 func _spawn_enemies() -> void:
-	for enemy_position in enemy_positions_container.get_children():
+	var enemy_paths: Array[String] = Globals.get_enemy_paths(SavedData.run_stats.biome)
+
+	for enemy_marker in enemy_positions_container.get_children():
 		var enemy: CharacterBody2D
-#		if boss_room:
-#			enemy = ENEMY_SCENES.SLIME_BOSS.instantiate()
-#			num_enemies = 15
-		#else:
-			#enemy = ENEMY_SCENES.SHIELD_KNIGHT.instantiate()
-		enemy = ENEMY_SCENES.values()[randi() % ENEMY_SCENES.values().size()].instantiate()
-#			if randi() % 2 == 0:
-#				enemy = ENEMY_SCENES.FLYING_CREATURE.instantiate()
-#			else:
-#				enemy = ENEMY_SCENES.GOBLIN.instantiate()
-		enemy.position = enemy_position.position
+		if enemy_marker.enemy_name.is_empty():
+			enemy = load(enemy_paths[randi() % enemy_paths.size()]).instantiate()
+		else:
+			enemy = load(Globals.ENEMIES[enemy_marker.enemy_name].path).instantiate()
+		enemy.position = enemy_marker.position
 		call_deferred("add_child", enemy)
 
 		var spawn_explosion: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()
-		spawn_explosion.position = enemy_position.position
+		spawn_explosion.position = enemy_marker.position
 		call_deferred("add_child", spawn_explosion)
 
 
 
 func _on_player_entered_room() -> void:
+	player_entered.emit()
+
 	for door in door_container.get_children():
 		door.player_entered_room.disconnect(_on_player_entered_room)
 

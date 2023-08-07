@@ -46,7 +46,7 @@ func attack() -> void:
 
 	spear_sprite.hide()
 
-	spear_and_rope = load("res://Characters/Enemies/Mark the Reptilian/SpearAndRope.tscn").instantiate()
+	spear_and_rope = load("res://Characters/Enemies/MarkTheReptilian/SpearAndRope.tscn").instantiate()
 	get_tree().current_scene.add_child(spear_and_rope)
 	spear_and_rope.position = global_position
 	var vector_to_player: Vector2 = (player.position - global_position)

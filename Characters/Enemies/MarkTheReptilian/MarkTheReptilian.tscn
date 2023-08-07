@@ -1,9 +1,9 @@
 [gd_scene load_steps=15 format=3 uid="uid://c2iptpvfs3qqq"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_x7mf0"]
-[ext_resource type="Script" path="res://Characters/Enemies/Mark the Reptilian/MarkTheReptilian.gd" id="2_xkgd3"]
+[ext_resource type="Script" path="res://Characters/Enemies/MarkTheReptilian/MarkTheReptilian.gd" id="2_xkgd3"]
 [ext_resource type="Texture2D" uid="uid://d04uxwluqy5gw" path="res://Art/player/player_shadow.png" id="3_02kft"]
-[ext_resource type="Script" path="res://Characters/Enemies/Mark the Reptilian/MarkFSM.gd" id="3_wgm6g"]
+[ext_resource type="Script" path="res://Characters/Enemies/MarkTheReptilian/MarkFSM.gd" id="3_wgm6g"]
 [ext_resource type="Texture2D" uid="uid://hovi8qetgs0q" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Jumping reptile/spear-end.png" id="4_6bec7"]
 [ext_resource type="Texture2D" uid="uid://cvt8efcjmart0" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Jumping reptile/Jumping reptile B.png" id="6_fyfno"]
 

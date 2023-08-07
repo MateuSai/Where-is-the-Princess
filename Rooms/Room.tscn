@@ -84,6 +84,8 @@ y_sort_enabled = true
 
 [node name="Traps" type="Node2D" parent="."]
 
+[node name="TeleportPosition" type="Marker2D" parent="."]
+
 [node name="DebugRoomId" type="Label" parent="."]
 z_index = 4
 material = SubResource("CanvasItemMaterial_4loq4")
