@@ -28,6 +28,8 @@ func _ready() -> void:
 
 
 func come_out() -> void:
+	show()
+
 	var holes_array: Array[Vector2] = holes.duplicate(true)
 	var rand_hole: Vector2 = holes_array[randi() % holes_array.size()]
 	holes_array.erase(rand_hole)

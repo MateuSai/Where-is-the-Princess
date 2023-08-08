@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=19 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -12,6 +12,8 @@
 [ext_resource type="Script" path="res://Menus/RightBottomGameVBoxContainer.gd" id="10_i5tua"]
 [ext_resource type="Texture2D" uid="uid://bhhqlnuamgk2u" path="res://Art/items/coin.png" id="10_nwb46"]
 [ext_resource type="Script" path="res://MiniMap.gd" id="12_icbnv"]
+[ext_resource type="Texture2D" uid="uid://cm2mxt7vas7t4" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/minimap_9-patch_bigger.png" id="13_s3von"]
+[ext_resource type="Shader" path="res://Shaders and Particles/IntensityToTransparency.gdshader" id="14_qjw3b"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
 light_mode = 1
@@ -20,9 +22,18 @@ light_mode = 1
 atlas = ExtResource("10_nwb46")
 region = Rect2(0, 0, 8, 8)
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6h5cs"]
-blend_mode = 3
-light_mode = 1
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oed6k"]
+texture = ExtResource("13_s3von")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nogqy"]
+shader = ExtResource("14_qjw3b")
+shader_parameter/color = Color(0, 0, 0, 1)
 
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
@@ -201,7 +212,6 @@ canvas_item_default_texture_filter = 0
 size = Vector2i(330, 200)
 content_scale_mode = 1
 content_scale_aspect = 3
-content_scale_factor = 0.25
 script = ExtResource("12_icbnv")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UI/MiniMap"]
@@ -212,11 +222,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Control" type="Control" parent="UI/MiniMap/ScrollContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="UI/MiniMap/ScrollContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_oed6k")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MiniMap/ScrollContainer/PanelContainer"]
 custom_minimum_size = Vector2(5000, 5000)
 layout_mode = 2
 
 [node name="FogSprite" type="Sprite2D" parent="."]
-z_index = 2
-material = SubResource("CanvasItemMaterial_6h5cs")
+z_index = 3
+material = SubResource("ShaderMaterial_nogqy")
 centered = false
