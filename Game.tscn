@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=22 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -11,9 +11,11 @@
 [ext_resource type="Script" path="res://Menus/DebugInfo.gd" id="9_yskig"]
 [ext_resource type="Script" path="res://Menus/RightBottomGameVBoxContainer.gd" id="10_i5tua"]
 [ext_resource type="Texture2D" uid="uid://bhhqlnuamgk2u" path="res://Art/items/coin.png" id="10_nwb46"]
-[ext_resource type="Script" path="res://MiniMap.gd" id="12_icbnv"]
+[ext_resource type="Script" path="res://Menus/MiniMap.gd" id="12_icbnv"]
+[ext_resource type="Script" path="res://Menus/MinimapScrollContainer.gd" id="13_f54tc"]
 [ext_resource type="Texture2D" uid="uid://cm2mxt7vas7t4" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/minimap_9-patch_bigger.png" id="13_s3von"]
 [ext_resource type="Shader" path="res://Shaders and Particles/IntensityToTransparency.gdshader" id="14_qjw3b"]
+[ext_resource type="FontFile" uid="uid://qupo5kdd8137" path="res://Fonts/alagard.ttf" id="15_84d5m"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
 light_mode = 1
@@ -30,6 +32,10 @@ texture_margin_right = 16.0
 texture_margin_bottom = 16.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_lngc4"]
+font = ExtResource("15_84d5m")
+font_color = Color(0.243137, 0.137255, 0.00784314, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nogqy"]
 shader = ExtResource("14_qjw3b")
@@ -208,27 +214,38 @@ vertical_alignment = 1
 
 [node name="MiniMap" type="Popup" parent="UI"]
 disable_3d = true
+transparent_bg = true
 canvas_item_default_texture_filter = 0
 size = Vector2i(330, 200)
 content_scale_mode = 1
 content_scale_aspect = 3
 script = ExtResource("12_icbnv")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/MiniMap"]
+[node name="MinimapScrollContainer" type="ScrollContainer" parent="UI/MiniMap"]
 custom_minimum_size = Vector2(330, 200)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+script = ExtResource("13_f54tc")
 
-[node name="PanelContainer" type="PanelContainer" parent="UI/MiniMap/ScrollContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="UI/MiniMap/MinimapScrollContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_oed6k")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/MiniMap/ScrollContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MiniMap/MinimapScrollContainer/PanelContainer"]
 custom_minimum_size = Vector2(5000, 5000)
 layout_mode = 2
+
+[node name="MapNameLabel" type="Label" parent="UI/MiniMap/MinimapScrollContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "hahaha"
+label_settings = SubResource("LabelSettings_lngc4")
 
 [node name="FogSprite" type="Sprite2D" parent="."]
 z_index = 3

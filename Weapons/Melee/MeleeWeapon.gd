@@ -23,6 +23,7 @@ func _ready() -> void:
 		_on_collided_with_something()
 	)
 	set_physics_process(false)
+	set_process_unhandled_input(false)
 
 
 func _physics_process(delta: float) -> void:

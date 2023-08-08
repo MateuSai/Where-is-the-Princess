@@ -41,15 +41,15 @@ func _ready() -> void:
 	connect("hidden", _on_hide)
 
 
-func get_input() -> void:
-	if Input.is_action_just_pressed("ui_attack") and not animation_player.is_playing():
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_attack") and not animation_player.is_playing():
 		_charge()
-	elif Input.is_action_just_released("ui_attack"):
+	elif event.is_action_released("ui_attack"):
 		if animation_player.is_playing() and animation_player.current_animation.begins_with("charge"):
 			attack()
 		elif charge_particles.emitting:
 			_strong_attack()
-	elif Input.is_action_just_pressed("ui_active_ability") and animation_player.has_animation("active_ability") and not is_busy() and can_active_ability:
+	elif event.is_action_pressed("ui_active_ability") and animation_player.has_animation("active_ability") and not is_busy() and can_active_ability:
 		can_active_ability = false
 		cool_down_timer.start()
 		ui.recharge_ability_animation(cool_down_timer.wait_time)

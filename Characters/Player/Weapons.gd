@@ -7,7 +7,7 @@ signal weapon_droped(index: int)
 signal weapon_condition_changed(weapon: Weapon, new_value: float)
 signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
 
-var current_weapon: Weapon
+var current_weapon: Weapon: set = set_current_weapon
 
 enum {UP, DOWN}
 
@@ -27,22 +27,20 @@ func load_previous_weapons() -> void:
 		add_child(weapon)
 		weapon.hide()
 
-	current_weapon = get_child(SavedData.run_stats.equipped_weapon_index)
+	set_current_weapon(get_child(SavedData.run_stats.equipped_weapon_index))
 	current_weapon.show()
 
 	weapon_switched.emit(get_child_count() - 1, SavedData.run_stats.equipped_weapon_index)
 
 
-func get_input() -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if not current_weapon.is_busy():
-		if Input.is_action_just_released("ui_previous_weapon"):
+		if event.is_action_released("ui_previous_weapon"):
 			_switch_weapon(UP)
-		elif Input.is_action_just_released("ui_next_weapon"):
+		elif event.is_action_released("ui_next_weapon"):
 			_switch_weapon(DOWN)
-		elif Input.is_action_just_pressed("ui_throw") and current_weapon.get_index() != 0:
+		elif event.is_action_pressed("ui_throw") and current_weapon.get_index() != 0:
 			_drop_weapon()
-
-	current_weapon.get_input()
 
 
 func move(mouse_direction: Vector2) -> void:
@@ -69,7 +67,7 @@ func _switch_weapon(direction: int) -> void:
 			index = 0
 
 	current_weapon.hide()
-	current_weapon = get_child(index)
+	set_current_weapon(get_child(index))
 	current_weapon.show()
 	SavedData.run_stats.equipped_weapon_index = index
 
@@ -86,7 +84,7 @@ func pick_up_weapon(weapon: Weapon) -> void:
 	# set_deferred("owner", self)
 	current_weapon.hide()
 	current_weapon.cancel_attack()
-	current_weapon = weapon
+	set_current_weapon(weapon)
 
 	weapon.condition_changed.connect(_on_weapon_condition_changed)
 	weapon.status_inflicter_added.connect(_on_weapon_status_inflicter_added)
@@ -167,3 +165,10 @@ func _on_weapon_condition_changed(weapon: Weapon, new_condition: float) -> void:
 
 func _on_weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status) -> void:
 	weapon_status_inflicter_added.emit(weapon, status)
+
+
+func set_current_weapon(new_weapon: Weapon) -> void:
+		if current_weapon != null:
+			current_weapon.set_process_unhandled_input(false)
+		current_weapon = new_weapon
+		current_weapon.set_process_unhandled_input(true)
