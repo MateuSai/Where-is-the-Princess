@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=19 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -29,6 +29,9 @@ texture_margin_right = 16.0
 texture_margin_bottom = 16.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rq1y3"]
+light_mode = 1
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6h5cs"]
 blend_mode = 3
@@ -62,6 +65,7 @@ layer_1/tile_data = PackedInt32Array()
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.294118, 0.294118, 0.294118, 1)
 
 [node name="GeneratingDungeonCanvasLayer" type="CanvasLayer" parent="."]
@@ -225,6 +229,12 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_oed6k")
 [node name="Control" type="Control" parent="UI/MiniMap/ScrollContainer"]
 custom_minimum_size = Vector2(5000, 5000)
 layout_mode = 2
+
+[node name="FogSprite2" type="Sprite2D" parent="."]
+visible = false
+z_index = 2
+material = SubResource("CanvasItemMaterial_rq1y3")
+centered = false
 
 [node name="FogSprite" type="Sprite2D" parent="."]
 z_index = 2

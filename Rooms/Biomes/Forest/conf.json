@@ -2,13 +2,14 @@
 	"corridor_atlas_id": 1,
 	"room_atlas_id": 0,
 	"extra_connections": 0.5,
+	"minimap_texture": "res://Art/v1.1 dungeon crawler 16x16 pixel pack/full tilemap forest_minimap_sepia.png",
 
 	"default_num_combat_rooms": 5,
-	"default_num_special_rooms": 1,
+	"default_num_special_rooms": 0,
 	"levels": {
 		"1": {
 			"num_combat_rooms": 5,
-			"num_special_rooms": 1,
+			"num_special_rooms": 0,
 		},
 	},
 }

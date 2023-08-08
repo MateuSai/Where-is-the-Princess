@@ -426,6 +426,9 @@ func _create_fog() -> void:
 	@warning_ignore("narrowing_conversion")
 	fog_image = Image.create(map_rect.size.x, map_rect.size.y, false, Image.FORMAT_RGBAH)
 	fog_image.fill(Color.BURLYWOOD)
+	$"../FogSprite2".position = map_rect.position
+	$"../FogSprite2".texture = ImageTexture.create_from_image(fog_image)
+	fog_image.fill(Color.BLACK)
 
 	#fog_sprite.texture = ImageTexture.create_from_image(fog_image)
 
