@@ -14,7 +14,7 @@ var map_rect: Rect2 = Rect2(0, 0, 0, 0)
 var fog_sprite: Sprite2D
 
 @onready var rooms: Rooms = $"../../Rooms"
-@onready var container: Control = $ScrollContainer/Control
+@onready var container: MarginContainer = $ScrollContainer/PanelContainer/MarginContainer
 #@onready var tilemap: TileMap = $TileMap
 
 
@@ -30,8 +30,12 @@ func _ready() -> void:
 	var atlas: TileSetAtlasSource = TileSetAtlasSource.new()
 	atlas.texture = load(SavedData.get_biome_conf().minimap_texture)
 	atlas.texture_region_size = Vector2i(TILE_SIZE, TILE_SIZE)
-	for i in atlas.texture.get_width()/TILE_SIZE:
-		for j in atlas.texture.get_height()/TILE_SIZE:
+	@warning_ignore("integer_division")
+	var width_tiles: int = atlas.texture.get_width()/TILE_SIZE
+	@warning_ignore("integer_division")
+	var height_tiles: int = atlas.texture.get_height()/TILE_SIZE
+	for i in width_tiles:
+		for j in height_tiles:
 			atlas.create_tile(Vector2i(i, j))
 	tileset.add_source(atlas)
 
@@ -46,9 +50,9 @@ func _ready() -> void:
 	container.add_child(minimap_corridors_tilemap)
 
 	fog_sprite = Sprite2D.new()
-	var fog_sprite_material: CanvasItemMaterial = CanvasItemMaterial.new()
-	fog_sprite_material.blend_mode = CanvasItemMaterial.BLEND_MODE_MUL
-	fog_sprite_material.light_mode = CanvasItemMaterial.LIGHT_MODE_UNSHADED
+	var fog_sprite_material: ShaderMaterial = ShaderMaterial.new()
+	fog_sprite_material.shader = load("res://Shaders and Particles/IntensityToTransparency.gdshader")
+	fog_sprite_material.set("shader_parameter/color", Color("ceae6f"))
 	fog_sprite.material = fog_sprite_material
 	fog_sprite.centered = false
 	fog_sprite.z_index = 10

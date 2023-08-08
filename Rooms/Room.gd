@@ -1,7 +1,5 @@
 class_name DungeonRoom extends Node2D
 
-@export var boss_room: bool = false
-
 ## If empty, the room will appear on all the levels of the biome. If it has a number, the room will appear on the specified level. If it has a range, it will appear on all the levels inclusive. For example, [code]1-3[/code] will make the room appear on the levels 1, 2, and 3 of his biome.
 ## [br][br]
 ## If the value is invalid, an error will appear and the room will not be used
