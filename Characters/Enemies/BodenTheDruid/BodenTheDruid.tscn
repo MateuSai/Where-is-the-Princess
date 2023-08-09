@@ -1,0 +1,159 @@
+[gd_scene load_steps=17 format=3 uid="uid://q3ghrubxoxtm"]
+
+[ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_vhffd"]
+[ext_resource type="Script" path="res://Characters/Enemies/BodenTheDruid/BodenTheDruid.gd" id="2_uu817"]
+[ext_resource type="Script" path="res://Characters/Enemies/BodenTheDruid/BodenFSM.gd" id="3_l0le7"]
+[ext_resource type="Texture2D" uid="uid://cv78cp6yi27ad" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Boss druid/Boden.png" id="3_u4cyk"]
+[ext_resource type="PackedScene" uid="uid://c3v28xx07wobb" path="res://Shaders and Particles/LightningParticles.tscn" id="4_xkd5s"]
+[ext_resource type="Texture2D" uid="uid://d04uxwluqy5gw" path="res://Art/player/player_shadow.png" id="5_u3bb0"]
+[ext_resource type="Script" path="res://Characters/HurtBox.gd" id="6_wf4ca"]
+[ext_resource type="Texture2D" uid="uid://bctb0rjt8x8pv" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Boss druid/druid_scepter_petit.png" id="7_swe87"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i25o0"]
+radius = 3.0
+
+[sub_resource type="Animation" id="Animation_81n3y"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_p6805"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_h25dw"]
+resource_name = "idle_up"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_l7rft"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_luns0"]
+resource_name = "walk_up"
+length = 0.6
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oml63"]
+_data = {
+"RESET": SubResource("Animation_p6805"),
+"idle": SubResource("Animation_81n3y"),
+"idle_up": SubResource("Animation_h25dw"),
+"walk": SubResource("Animation_l7rft"),
+"walk_up": SubResource("Animation_luns0")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mmnyx"]
+radius = 5.0
+height = 12.0
+
+[node name="BodenTheDruid" instance=ExtResource("1_vhffd")]
+script = ExtResource("2_uu817")
+max_speed = 50
+
+[node name="StaffPivot" type="Node2D" parent="." index="0"]
+position = Vector2(0, -4)
+
+[node name="Staff" type="Sprite2D" parent="StaffPivot" index="0"]
+position = Vector2(11, -1)
+rotation = -0.349066
+texture = ExtResource("7_swe87")
+
+[node name="LightningParticles" parent="StaffPivot" index="1" instance=ExtResource("4_xkd5s")]
+position = Vector2(12, -4)
+
+[node name="FiniteStateMachine" parent="." index="1"]
+script = ExtResource("3_l0le7")
+
+[node name="Sprite2D" parent="." index="2"]
+position = Vector2(0, -6)
+texture = ExtResource("3_u4cyk")
+hframes = 4
+vframes = 4
+
+[node name="CollisionShape2D" parent="." index="3"]
+visible = false
+shape = SubResource("CircleShape2D_i25o0")
+
+[node name="AnimationPlayer" parent="." index="4"]
+libraries = {
+"": SubResource("AnimationLibrary_oml63")
+}
+
+[node name="PlayerShadow" type="Sprite2D" parent="." index="8"]
+texture = ExtResource("5_u3bb0")
+
+[node name="HurtBox" type="Area2D" parent="." index="9"]
+visible = false
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("6_wf4ca")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_mmnyx")
