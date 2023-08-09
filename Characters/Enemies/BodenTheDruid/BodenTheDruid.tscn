@@ -1,16 +1,179 @@
-[gd_scene load_steps=17 format=3 uid="uid://q3ghrubxoxtm"]
+[gd_scene load_steps=26 format=3 uid="uid://q3ghrubxoxtm"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_vhffd"]
 [ext_resource type="Script" path="res://Characters/Enemies/BodenTheDruid/BodenTheDruid.gd" id="2_uu817"]
 [ext_resource type="Script" path="res://Characters/Enemies/BodenTheDruid/BodenFSM.gd" id="3_l0le7"]
 [ext_resource type="Texture2D" uid="uid://cv78cp6yi27ad" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Boss druid/Boden.png" id="3_u4cyk"]
+[ext_resource type="Texture2D" uid="uid://6y54vubug5vv" path="res://Art/effects/electricity_rays.png" id="4_0yj0a"]
 [ext_resource type="PackedScene" uid="uid://c3v28xx07wobb" path="res://Shaders and Particles/LightningParticles.tscn" id="4_xkd5s"]
 [ext_resource type="Texture2D" uid="uid://d04uxwluqy5gw" path="res://Art/player/player_shadow.png" id="5_u3bb0"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="6_wf4ca"]
 [ext_resource type="Texture2D" uid="uid://bctb0rjt8x8pv" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Boss druid/druid_scepter_petit.png" id="7_swe87"]
 
+[sub_resource type="Animation" id="Animation_bic4f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-5.81089, 4.27007)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.453786]
+}
+
+[sub_resource type="Animation" id="Animation_31pj3"]
+resource_name = "lighting_attack"
+length = 0.55
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.25, 0.4, 0.55),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-5.81089, 4.27007), Vector2(-2.56343, 1.19534), Vector2(-0.255651, -2.22141), Vector2(4.18716, -2.73271), Vector2(2.81908, 1.02606)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.25, 0.4, 0.55),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [-0.453786, 0.0, 0.757473, 1.66504, 3.02815]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fkb2b"]
+_data = {
+"RESET": SubResource("Animation_bic4f"),
+"lighting_attack": SubResource("Animation_31pj3")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qyhoo"]
+atlas = ExtResource("4_0yj0a")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kpxn6"]
+atlas = ExtResource("4_0yj0a")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52arq"]
+atlas = ExtResource("4_0yj0a")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yq1b6"]
+atlas = ExtResource("4_0yj0a")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g1x0j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qyhoo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kpxn6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52arq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yq1b6")
+}],
+"loop": false,
+"name": &"default",
+"speed": 8.0
+}]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_i25o0"]
 radius = 3.0
+
+[sub_resource type="Animation" id="Animation_p6805"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_81n3y"]
 resource_name = "idle"
@@ -28,21 +191,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
-}
-
-[sub_resource type="Animation" id="Animation_p6805"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_h25dw"]
@@ -124,7 +272,21 @@ position = Vector2(11, -1)
 rotation = -0.349066
 texture = ExtResource("7_swe87")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="StaffPivot/Staff" index="0"]
+speed_scale = 0.75
+libraries = {
+"": SubResource("AnimationLibrary_fkb2b")
+}
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StaffPivot/Staff" index="1"]
+visible = false
+modulate = Color(1, 1, 1, 0.760784)
+position = Vector2(-5.81089, 4.27007)
+rotation = -0.453786
+sprite_frames = SubResource("SpriteFrames_g1x0j")
+
 [node name="LightningParticles" parent="StaffPivot" index="1" instance=ExtResource("4_xkd5s")]
+visible = false
 position = Vector2(12, -4)
 
 [node name="FiniteStateMachine" parent="." index="1"]
