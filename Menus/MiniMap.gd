@@ -2,6 +2,9 @@ class_name MiniMap extends Popup
 
 const TILE_SIZE: int = 4
 
+# Why is this thig negative? I have no idea but it works somehow
+const TOP_MARGIN: int = -16
+
 var tileset: TileSet = TileSet.new()
 var room_tilemaps: Array[TileMap] = []
 
@@ -14,7 +17,8 @@ var map_rect: Rect2 = Rect2(0, 0, 0, 0)
 var fog_sprite: Sprite2D
 
 @onready var rooms: Rooms = $"../../Rooms"
-@onready var container: MarginContainer = $ScrollContainer/PanelContainer/MarginContainer
+@onready var container: MarginContainer = $MinimapScrollContainer/PanelContainer/MarginContainer
+@onready var map_name_label: Label = $MinimapScrollContainer/PanelContainer/MapNameLabel
 #@onready var tilemap: TileMap = $TileMap
 
 
@@ -56,6 +60,7 @@ func _ready() -> void:
 	fog_sprite.material = fog_sprite_material
 	fog_sprite.centered = false
 	fog_sprite.z_index = 10
+	fog_sprite.position.y += -TOP_MARGIN
 	#fog_sprite.scale /= content_scale_factor
 	map_rect = Rect2(0, 0, 0, 0)
 	for room in rooms.rooms:
@@ -63,6 +68,8 @@ func _ready() -> void:
 		room_rect.position /= 4
 		room_rect.size /= 4
 		map_rect = map_rect.merge(room_rect)
+	map_rect.position.y += TOP_MARGIN
+	map_rect.size.y += -TOP_MARGIN
 
 	minimap_corridors_tilemap.position = -map_rect.position# + Vector2(size.x / 2.0, 0)
 	#container.position = map_rect.position / content_scale_factor
@@ -77,6 +84,9 @@ func _ready() -> void:
 	#fog_sprite.position = map_rect.position + Vector2(size.x/2.0, 0)
 	container.add_child(fog_sprite)
 	#fog_sprite.hide()
+
+	map_name_label.text = SavedData.run_stats.biome
+	#map_name_label.position = Vector2.ZERO
 
 	while is_instance_valid(Globals.player):
 		if $"../../FogSprite".texture:

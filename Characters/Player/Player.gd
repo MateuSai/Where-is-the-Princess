@@ -131,8 +131,6 @@ func get_input() -> void:
 		if Input.is_action_pressed("ui_up"):
 			mov_direction += Vector2.UP
 
-	weapons.get_input()
-
 	if Input.is_action_just_pressed("ui_armor_ability") and armor.is_able_to_use_ability:
 		armor.use_ability(self)
 
