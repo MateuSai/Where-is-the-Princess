@@ -1,0 +1,17 @@
+[gd_resource type="AnimatedTexture" load_steps=5 format=3 uid="uid://cemg8yugk48ei"]
+
+[ext_resource type="Texture2D" uid="uid://8mo45qd8m7ba" path="res://Art/effects/electricity_proyectile_8x16_1.png" id="1_6ri07"]
+[ext_resource type="Texture2D" uid="uid://b3jxpx3r2dsox" path="res://Art/effects/electricity_proyectile_8x16_2.png" id="2_5wbmg"]
+[ext_resource type="Texture2D" uid="uid://w22256mssypp" path="res://Art/effects/electricity_proyectile_8x16_3.png" id="3_hstq0"]
+[ext_resource type="Texture2D" uid="uid://had600h5qu71" path="res://Art/effects/electricity_proyectile_8x16_4.png" id="4_cq2x6"]
+
+[resource]
+frames = 4
+frame_0/texture = ExtResource("1_6ri07")
+frame_0/duration = 0.2
+frame_1/texture = ExtResource("2_5wbmg")
+frame_1/duration = 0.2
+frame_2/texture = ExtResource("3_hstq0")
+frame_2/duration = 0.2
+frame_3/texture = ExtResource("4_cq2x6")
+frame_3/duration = 0.2

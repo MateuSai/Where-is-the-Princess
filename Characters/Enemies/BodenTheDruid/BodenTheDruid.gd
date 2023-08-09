@@ -8,6 +8,14 @@ var distance_to_player: float
 
 @onready var staff_pivot: Node2D = $StaffPivot
 @onready var staff: Sprite2D = $StaffPivot/Staff
+@onready var attack_timer: Timer = $AttackTimer
+
+
+func _ready() -> void:
+	super()
+	attack_timer.timeout.connect(func():
+		_lightning_attack()
+	)
 
 
 func _process(_delta: float) -> void:
