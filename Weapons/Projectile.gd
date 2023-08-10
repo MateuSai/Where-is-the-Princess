@@ -1,7 +1,5 @@
 class_name Projectile extends Hitbox
 
-var enemy_exited: bool = false
-
 var direction: Vector2 = Vector2.ZERO
 var knife_speed: int = 0
 
@@ -24,17 +22,7 @@ func _physics_process(delta: float) -> void:
 		rotation += rot_dir * delta
 
 
-func _on_ThrowableKnike_body_exited(_body: Node2D) -> void:
-	if not enemy_exited:
-		enemy_exited = true
-		set_collision_mask_value(1, true)
-		set_collision_mask_value(2, true)
-		set_collision_mask_value(3, true)
-		set_collision_mask_value(4, true)
-
-
 func _collide(body: Node2D, _dam: int = damage) -> void:
-	if enemy_exited:
-		if body.get("life_component") != null:
-			body.life_component.take_damage(damage, knockback_direction, knockback_force)
-		queue_free()
+	if body.get("life_component") != null:
+		body.life_component.take_damage(damage, knockback_direction, knockback_force)
+	queue_free()

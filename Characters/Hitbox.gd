@@ -95,7 +95,7 @@ func _collide(node: Node2D, dam: int = damage) -> void:
 	if node is RigidBody2D:
 		node.apply_impulse(knockback_direction * knockback_force * 5)
 	elif not node.has_node("LifeComponent"):
-		queue_free()
+		node.queue_free()
 	else:
 		node.get_node("LifeComponent").take_damage(dam, knockback_direction, knockback_force)
 

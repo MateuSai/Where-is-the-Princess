@@ -1,0 +1,86 @@
+[gd_scene load_steps=9 format=3 uid="uid://cm5jteud7fxke"]
+
+[ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/Projectile.tscn" id="1_2gdn6"]
+[ext_resource type="Script" path="res://Weapons/Projectiles/Bird.gd" id="2_d0656"]
+[ext_resource type="Texture2D" uid="uid://d14sbldpxfgr" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/bird/bird_anim_spritesheet.png" id="3_sd8v6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yfklb"]
+radius = 7.07107
+
+[sub_resource type="Animation" id="Animation_tiejl"]
+resource_name = "fly"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_hnadf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_44ydi"]
+resource_name = "fly_up"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oaoyf"]
+_data = {
+"RESET": SubResource("Animation_hnadf"),
+"fly": SubResource("Animation_tiejl"),
+"fly_up": SubResource("Animation_44ydi")
+}
+
+[node name="Bird" instance=ExtResource("1_2gdn6")]
+collision_mask = 2
+script = ExtResource("2_d0656")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("3_sd8v6")
+hframes = 4
+vframes = 2
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_yfklb")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." index="2"]
+rect = Rect2(-40, -40, 80, 80)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_oaoyf")
+}
