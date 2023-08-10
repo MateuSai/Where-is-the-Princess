@@ -623,8 +623,8 @@ func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_
 				horizontal_corridor_rect = Rect2(connection_with_entry_position + Vector2.DOWN * center + Vector2.UP * TILE_SIZE * 2, Vector2(id_entry_position.x - connection_with_entry_position.x, TILE_SIZE * 4))
 
 				for room in rooms:
-					if room == rooms[ids[0]] or room == rooms[ids[1]]:
-						continue # Para que no detecta las habitaciones que se conectan, solo las otras
+#					if room == rooms[ids[0]] or room == rooms[ids[1]]:
+#						continue # Para que no detecta las habitaciones que se conectan, solo las otras
 
 					room_rect = room.get_rect()
 					# print("Room " + str(rooms.find(room)) + "  " + str(room_rect))
@@ -632,7 +632,7 @@ func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_
 					if debug_check_entry_positions:
 						queue_redraw()
 						await get_tree().create_timer(0.6).timeout
-					if room_rect.intersects(vertical_corridor_1_rect.abs()) or room_rect.intersects(vertical_corridor_2_rect.abs()) or room_rect.intersects(horizontal_corridor_rect.abs()):
+					if (room != rooms[ids[1]] and room_rect.intersects(vertical_corridor_1_rect.abs())) or (room != rooms[ids[0]] and room_rect.intersects(vertical_corridor_2_rect.abs())) or room_rect.intersects(horizontal_corridor_rect.abs()):
 						connection_possible = false
 
 				if connection_possible:
@@ -671,8 +671,8 @@ func _check_entry_positions_horizontal_corridor(id: int, connection_with: int, i
 				vertical_corridor_rect = Rect2((connection_with_entry_position if connection_with_entry_position.x > id_entry_position.x else id_entry_position) + Vector2.LEFT * center, Vector2(TILE_SIZE * 4, (id_entry_position.y - connection_with_entry_position.y) if connection_with_entry_position.x > id_entry_position.x else (connection_with_entry_position.y - id_entry_position.y)))
 
 				for room in rooms:
-					if room == rooms[ids[0]] or room == rooms[ids[1]]:
-						continue # Para que no detecta las habitaciones que se conectan, solo las otras
+#					if room == rooms[ids[0]] or room == rooms[ids[1]]:
+#						continue # Para que no detecta las habitaciones que se conectan, solo las otras
 
 					room_rect = room.get_rect()
 					# print("Room " + str(rooms.find(room)) + "  " + str(room_rect))
@@ -680,7 +680,7 @@ func _check_entry_positions_horizontal_corridor(id: int, connection_with: int, i
 					if debug_check_entry_positions:
 						queue_redraw()
 						await get_tree().create_timer(0.6).timeout
-					if room_rect.intersects(horizontal_corridor_1_rect.abs()) or room_rect.intersects(horizontal_corridor_2_rect.abs()) or room_rect.intersects(vertical_corridor_rect.abs()):
+					if (room != rooms[ids[1]] and room_rect.intersects(horizontal_corridor_1_rect.abs())) or (room != rooms[ids[0]] and room_rect.intersects(horizontal_corridor_2_rect.abs())) or room_rect.intersects(vertical_corridor_rect.abs()):
 						connection_possible = false
 
 				if connection_possible:
@@ -722,8 +722,8 @@ func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: Du
 					horizontal_corridor_rect = Rect2(id_entry_position.x, id_entry_position.y - 32, connection_with_entry_position.x - id_entry_position.x + TILE_SIZE, TILE_SIZE * 4)
 
 				for room in rooms:
-					if room == rooms[id] or room == rooms[connection_with]:
-						continue # Para que no detecta las habitaciones que se conectan, solo las otras
+#					if room == rooms[id] or room == rooms[connection_with]:
+#						continue # Para que no detecta las habitaciones que se conectan, solo las otras
 
 					room_rect = room.get_rect()
 					# print("Room " + str(rooms.find(room)) + "  " + str(room_rect))
@@ -731,8 +731,12 @@ func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: Du
 					if debug_check_entry_positions:
 						queue_redraw()
 						await get_tree().create_timer(0.6).timeout
-					if room_rect.intersects(vertical_corridor_rect.abs()) or room_rect.intersects(horizontal_corridor_rect.abs()):
-						connection_possible = false
+					if id_dir == DungeonRoom.EntryDirection.UP or id_dir == DungeonRoom.EntryDirection.DOWN:
+						if (room != rooms[id] and room_rect.intersects(vertical_corridor_rect.abs())) or (room != rooms[connection_with] and room_rect.intersects(horizontal_corridor_rect.abs())):
+							connection_possible = false
+					else:
+						if (room != rooms[connection_with] and room_rect.intersects(vertical_corridor_rect.abs())) or (room != rooms[id] and room_rect.intersects(horizontal_corridor_rect.abs())):
+							connection_possible = false
 
 				if id_dir == DungeonRoom.EntryDirection.RIGHT or connection_with_dir == DungeonRoom.EntryDirection.LEFT:
 					if not id_entry_position.x < (connection_with_entry_position.x - MIN_SEPARATION_BETWEEN_ENTRIES):
