@@ -5,6 +5,8 @@ const BIRD_SCENE: PackedScene = preload("res://Weapons/Projectiles/Bird.tscn")
 const MAX_DISTANCE_TO_PLAYER: int = 90
 const MIN_DISTANCE_TO_PLAYER: int = 45
 
+const TRANSFORM_AT_HP: int = 2
+
 var distance_to_player: float
 
 @onready var staff_pivot: Node2D = $StaffPivot
@@ -28,18 +30,24 @@ func _ready() -> void:
 		#_lightning_attack()
 	)
 
+	life_component.hp_changed.connect(func(new_hp: int):
+		if new_hp <= TRANSFORM_AT_HP:
+			state_machine.set_state(state_machine.states.transform)
+	)
 
-func _process(_delta: float) -> void:
-	var vector_to_player: Vector2 = player.position - global_position
-	staff_pivot.rotation = lerp_angle(staff_pivot.rotation, vector_to_player.angle(), 0.05)
-	if Vector2.RIGHT.rotated(staff_pivot.rotation).x > 0:
-		staff_pivot_2.scale.x = 1
-		staff.scale.x = 1
-		staff_pivot_2.rotation = 0
-	else:
-		staff_pivot_2.scale.x = -1
-		staff.scale.x = -1
-		staff_pivot_2.rotation = PI/2
+
+func move_staff() -> void:
+	if can_move:
+		var vector_to_player: Vector2 = player.position - global_position
+		staff_pivot.rotation = lerp_angle(staff_pivot.rotation, vector_to_player.angle(), 0.05)
+		if Vector2.RIGHT.rotated(staff_pivot.rotation).x > 0:
+			staff_pivot_2.scale.x = 1
+			staff.scale.x = 1
+			staff_pivot_2.rotation = 0
+		else:
+			staff_pivot_2.scale.x = -1
+			staff.scale.x = -1
+			staff_pivot_2.rotation = PI/2
 
 
 func _on_PathTimer_timeout() -> void:

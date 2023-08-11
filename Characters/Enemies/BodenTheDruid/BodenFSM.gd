@@ -6,6 +6,7 @@ extends FiniteStateMachine
 func _init() -> void:
 	_add_state("idle")
 	_add_state("move")
+	_add_state("transform")
 	_add_state("dead")
 
 
@@ -25,6 +26,8 @@ func _state_logic(_delta: float) -> void:
 				sprite.flip_h = false
 			elif dir_to_player.x < 0 and not sprite.flip_h:
 				sprite.flip_h = true
+
+			parent.move_staff()
 		states.move:
 			parent.chase()
 			parent.move()
@@ -40,6 +43,8 @@ func _state_logic(_delta: float) -> void:
 					animation_player.play("idle")
 				elif dir_to_player.y < 0:
 					animation_player.play("idle_up")
+
+			parent.move_staff()
 
 
 func _get_transition() -> int:
@@ -61,6 +66,11 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 		states.move:
 			pass
 			#animation_player.play("move")
+		states.transform:
+			parent.life_component.invincible = true
+			animation_player.play("transform")
+			$"../AttackTimer".stop()
+			$"../StaffPivot".queue_free()
 		states.dead:
 			pass
 			# parent.spawn_loot()
