@@ -1,20 +1,30 @@
 class_name BodenTheDruid extends Enemy
 
+const BIRD_SCENE: PackedScene = preload("res://Weapons/Projectiles/Bird.tscn")
+
 const MAX_DISTANCE_TO_PLAYER: int = 90
 const MIN_DISTANCE_TO_PLAYER: int = 45
-
 
 var distance_to_player: float
 
 @onready var staff_pivot: Node2D = $StaffPivot
-@onready var staff: Sprite2D = $StaffPivot/Staff
+@onready var staff_pivot_2: Node2D = $StaffPivot/StaffPivot2
+@onready var staff: Sprite2D = $StaffPivot/StaffPivot2/Staff
+@onready var staff_animation_player: AnimationPlayer = $StaffPivot/StaffPivot2/Staff/AnimationPlayer
+@onready var staff_end: Marker2D = $StaffPivot/StaffPivot2/Staff/StaffEnd
 @onready var attack_timer: Timer = $AttackTimer
 
 
 func _ready() -> void:
 	super()
 	attack_timer.timeout.connect(func():
-		_lightning_attack()
+		if randi() % 3 == 0:
+			await _lightning_attack()
+			attack_timer.start(randf_range(1.5, 2.5))
+		else:
+			_bird_attack()
+			attack_timer.start(randf_range(1.5, 2.5))
+		#_lightning_attack()
 	)
 
 
@@ -22,9 +32,13 @@ func _process(_delta: float) -> void:
 	var vector_to_player: Vector2 = player.position - global_position
 	staff_pivot.rotation = lerp_angle(staff_pivot.rotation, vector_to_player.angle(), 0.05)
 	if Vector2.RIGHT.rotated(staff_pivot.rotation).x > 0:
-		staff.scale.y = 1
+		staff_pivot_2.scale.x = 1
+		staff.scale.x = 1
+		staff_pivot_2.rotation = 0
 	else:
-		staff.scale.y = -1
+		staff_pivot_2.scale.x = -1
+		staff.scale.x = -1
+		staff_pivot_2.rotation = PI/2
 
 
 func _on_PathTimer_timeout() -> void:
@@ -51,6 +65,30 @@ func _get_path_to_move_away_from_player() -> void:
 
 
 func _lightning_attack() -> void:
-	var lightning_line: LightningLine2D = LightningLine2D.new()
-	get_tree().current_scene.add_child(lightning_line)
-	lightning_line.lightning(player.position, global_position)
+	staff_animation_player.play("lighting_attack")
+	await staff_animation_player.animation_finished
+
+	var lightning: LightningAreaAttack = load("res://Characters/Enemies/BodenTheDruid/LightningAreaAttack.tscn").instantiate()
+	staff_end.add_child(lightning)
+	lightning.attack(Vector2.RIGHT.rotated(staff_pivot.rotation))
+#	var lightning_line: LightningLine2D = LightningLine2D.new()
+#	get_tree().current_scene.add_child(lightning_line)
+#	lightning_line.lightning(player.position, global_position)
+	await lightning.tree_exiting
+
+	staff_animation_player.play("after_lightning_attack")
+	await staff_animation_player.animation_finished
+
+
+func _bird_attack() -> void:
+	for i in randi_range(5, 8):
+		var bird: Bird = BIRD_SCENE.instantiate()
+		var bird_pos: Vector2 = player.position + Vector2(randf_range(110, 150), 0).rotated(randf_range(0, 2*PI))
+		get_tree().current_scene.add_child(bird)
+
+		var spawn_effect: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()
+		#spawn_effect.z_index = 10
+		spawn_effect.position = bird_pos
+		get_tree().current_scene.add_child(spawn_effect)
+
+		bird.launch(bird_pos, (player.position - bird_pos).normalized(), 50)
