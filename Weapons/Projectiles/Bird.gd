@@ -13,6 +13,7 @@ func _ready() -> void:
 		animation_player.stop()
 		direction = dir
 		speed = force
+		set_collision_mask_value(3, true)
 		await get_tree().create_timer(0.2).timeout
 		destroy()
 	)
