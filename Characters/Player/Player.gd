@@ -16,8 +16,6 @@ var armor: Armor = null : set = set_armor
 
 var mouse_direction: Vector2
 
-var can_move: bool = true
-
 var throw_piercing: int = 1
 
 var rotating_items: Array[Node2D] = []
@@ -28,6 +26,7 @@ var rotating_items: Array[Node2D] = []
 
 @onready var parent: Node2D = get_parent()
 @onready var weapons: Weapons = get_node("Weapons")
+@onready var camera: Camera2D = $Camera2D
 @onready var dust_position: Marker2D = get_node("DustPosition")
 
 @onready var jump_animation_player: AnimationPlayer = get_node("JumpAnimationPlayer")

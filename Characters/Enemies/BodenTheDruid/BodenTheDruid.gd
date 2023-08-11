@@ -18,12 +18,13 @@ var distance_to_player: float
 func _ready() -> void:
 	super()
 	attack_timer.timeout.connect(func():
+		can_move = false
 		if randi() % 3 == 0:
 			await _lightning_attack()
-			attack_timer.start(randf_range(1.5, 2.5))
 		else:
 			_bird_attack()
-			attack_timer.start(randf_range(1.5, 2.5))
+		attack_timer.start(randf_range(1.5, 2.5))
+		can_move = true
 		#_lightning_attack()
 	)
 
@@ -71,6 +72,7 @@ func _lightning_attack() -> void:
 	var lightning: LightningAreaAttack = load("res://Characters/Enemies/BodenTheDruid/LightningAreaAttack.tscn").instantiate()
 	staff_end.add_child(lightning)
 	lightning.attack(Vector2.RIGHT.rotated(staff_pivot.rotation))
+	player.camera.flash()
 #	var lightning_line: LightningLine2D = LightningLine2D.new()
 #	get_tree().current_scene.add_child(lightning_line)
 #	lightning_line.lightning(player.position, global_position)
