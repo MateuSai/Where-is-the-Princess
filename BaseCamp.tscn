@@ -112,6 +112,9 @@ height = 50.0
 
 [node name="Player" parent="." instance=ExtResource("1_0pcgl")]
 position = Vector2(165, 181)
+accerelation = null
+max_speed = null
+flying = null
 
 [node name="StartInteractArea" type="Area2D" parent="."]
 position = Vector2(133, 52)

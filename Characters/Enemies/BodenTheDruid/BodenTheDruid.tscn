@@ -337,7 +337,9 @@ height = 12.0
 
 [node name="BodenTheDruid" instance=ExtResource("1_vhffd")]
 script = ExtResource("2_uu817")
+accerelation = null
 max_speed = 50
+flying = null
 
 [node name="StaffPivot" type="Node2D" parent="." index="0"]
 position = Vector2(0, -4)

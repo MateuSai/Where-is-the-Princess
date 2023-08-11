@@ -28,11 +28,18 @@ func _state_logic(_delta: float) -> void:
 		states.move:
 			parent.chase()
 			parent.move()
-			var dir_to_player: Vector2 = (parent.player.position - parent.global_position).normalized()
-			if dir_to_player.y >= 0 and animation_player.current_animation != "walk":
-				animation_player.play("walk")
-			elif dir_to_player.y < 0 and animation_player.current_animation != "walk_up":
-				animation_player.play("walk_up")
+			if parent.can_move:
+				var dir_to_player: Vector2 = (parent.player.position - parent.global_position).normalized()
+				if dir_to_player.y >= 0 and animation_player.current_animation != "walk":
+					animation_player.play("walk")
+				elif dir_to_player.y < 0 and animation_player.current_animation != "walk_up":
+					animation_player.play("walk_up")
+			elif not animation_player.current_animation.begins_with("idle"):
+				var dir_to_player: Vector2 = (parent.player.position - parent.global_position).normalized()
+				if dir_to_player.y >= 0:
+					animation_player.play("idle")
+				elif dir_to_player.y < 0:
+					animation_player.play("idle_up")
 
 
 func _get_transition() -> int:

@@ -26,13 +26,15 @@ func spawn_loot() -> void:
 
 func chase() -> void:
 	if not navigation_agent.is_target_reached():
-		var vector_to_next_point: Vector2 = navigation_agent.get_next_path_position() - global_position
-		mov_direction = vector_to_next_point
-
-		if vector_to_next_point.x > 0 and sprite.flip_h:
-			_on_change_dir()
-		elif vector_to_next_point.x < 0 and not sprite.flip_h:
-			_on_change_dir()
+		if can_move:
+			var vector_to_next_point: Vector2 = navigation_agent.get_next_path_position() - global_position
+			mov_direction = vector_to_next_point
+			if vector_to_next_point.x > 0 and sprite.flip_h:
+				_on_change_dir()
+			elif vector_to_next_point.x < 0 and not sprite.flip_h:
+				_on_change_dir()
+		else:
+			mov_direction = Vector2.ZERO
 
 
 func _on_change_dir() -> void:

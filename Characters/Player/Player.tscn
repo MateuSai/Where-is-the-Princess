@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=29 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://df3cenyvvexih" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/ui (new)/health_ui.png" id="7_mynin"]
 [ext_resource type="Script" path="res://Characters/Player/PassiveItemsContainer.gd" id="8_aavgb"]
 [ext_resource type="Texture2D" uid="uid://c535uh5i7hsc8" path="res://Art/progress bar.png" id="8_mgo6t"]
+[ext_resource type="Script" path="res://Characters/Player/PlayerCamera.gd" id="9_es44d"]
+[ext_resource type="Texture2D" uid="uid://ckd65h4x4udtg" path="res://Art/6x2.png" id="10_w3xli"]
 
 [sub_resource type="CircleShape2D" id="18"]
 radius = 3.0
@@ -343,6 +345,9 @@ border_width_bottom = 2
 collision_layer = 2
 collision_mask = 21
 script = ExtResource("4")
+accerelation = null
+max_speed = null
+flying = null
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("5")
@@ -383,6 +388,12 @@ position = Vector2(0, -3)
 
 [node name="Camera2D" type="Camera2D" parent="." index="7"]
 position_smoothing_enabled = true
+script = ExtResource("9_es44d")
+
+[node name="FlashSprite" type="Sprite2D" parent="Camera2D" index="0"]
+z_index = 10
+scale = Vector2(134.552, 184.996)
+texture = ExtResource("10_w3xli")
 
 [node name="DustPosition" type="Marker2D" parent="." index="8"]
 
