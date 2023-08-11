@@ -3,6 +3,33 @@
 [ext_resource type="Texture2D" uid="uid://b5h213fyn2ty5" path="res://Art/effects/big_ray_01_64x64.png" id="1_atba0"]
 [ext_resource type="Script" path="res://Characters/Enemies/BodenTheDruid/LightningAreaAttack.gd" id="1_u745r"]
 
+[sub_resource type="Animation" id="Animation_b05bg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="Animation" id="Animation_jpduc"]
 resource_name = "lightning"
 length = 0.6
@@ -46,33 +73,6 @@ tracks/2/keys = {
 "values": [false]
 }
 
-[sub_resource type="Animation" id="Animation_b05bg"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape2D:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lhw7j"]
 _data = {
 "RESET": SubResource("Animation_b05bg"),
@@ -89,7 +89,7 @@ collision_mask = 2
 script = ExtResource("1_u745r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, 23)
+position = Vector2(0, 33)
 texture = ExtResource("1_atba0")
 hframes = 7
 
@@ -100,5 +100,5 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 24)
+position = Vector2(-1, 34)
 shape = SubResource("CapsuleShape2D_2glav")

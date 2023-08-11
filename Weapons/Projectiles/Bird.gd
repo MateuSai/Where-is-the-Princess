@@ -9,7 +9,16 @@ func _ready() -> void:
 	super()
 	screen_notifier.screen_exited.connect(queue_free)
 
+	$LifeComponent.damage_taken.connect(func(_dam: int, dir: Vector2, force: int):
+		animation_player.stop()
+		direction = dir
+		speed = force
+		await get_tree().create_timer(0.2).timeout
+		destroy()
+	)
 
+
+@warning_ignore("shadowed_variable")
 func launch(initial_position: Vector2, dir: Vector2, speed: int) -> void:
 	super(initial_position, dir, speed)
 
@@ -20,3 +29,11 @@ func launch(initial_position: Vector2, dir: Vector2, speed: int) -> void:
 
 	if dir.x < 0:
 		sprite.flip_h = true
+
+
+func destroy() -> void:
+	var explosion: AnimatedSprite2D = load("res://Characters/Enemies/SpawnExplosion.tscn").instantiate()
+	explosion.position = global_position
+	get_tree().current_scene.add_child(explosion)
+
+	super()

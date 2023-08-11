@@ -70,7 +70,7 @@ func _lightning_attack() -> void:
 
 	var lightning: LightningAreaAttack = load("res://Characters/Enemies/BodenTheDruid/LightningAreaAttack.tscn").instantiate()
 	staff_end.add_child(lightning)
-	lightning.attack(Vector2.RIGHT.rotated(staff.rotation))
+	lightning.attack(Vector2.RIGHT.rotated(staff_pivot.rotation))
 #	var lightning_line: LightningLine2D = LightningLine2D.new()
 #	get_tree().current_scene.add_child(lightning_line)
 #	lightning_line.lightning(player.position, global_position)

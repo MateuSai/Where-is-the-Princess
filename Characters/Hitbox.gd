@@ -92,12 +92,14 @@ func _on_area_entered(area: Area2D) -> void:
 
 func _collide(node: Node2D, dam: int = damage) -> void:
 	#print(body.name)
-	if node is RigidBody2D:
-		node.apply_impulse(knockback_direction * knockback_force * 5)
-	elif not node.has_node("LifeComponent"):
-		node.queue_free()
-	else:
+	if node.has_node("LifeComponent"):
 		node.get_node("LifeComponent").take_damage(dam, knockback_direction, knockback_force)
+	elif node is RigidBody2D:
+		node.apply_impulse(knockback_direction * knockback_force * 5)
+	elif node is Projectile:
+		node.destroy()
+	else:
+		print_debug("Unhandled collision!")
 
 
 func _get_entity(node: Node2D) -> Node2D:
