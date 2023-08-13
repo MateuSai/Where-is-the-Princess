@@ -3,6 +3,7 @@
 extends CharacterBody2D
 class_name Character
 
+const DUST_SCENE: PackedScene = preload("res://Characters/Player/Dust.tscn")
 const HIT_EFFECT_SCENE: PackedScene = preload("res://Characters/HitEffect.tscn")
 
 const FRICTION: float = 0.15
@@ -25,6 +26,7 @@ var can_move: bool = true
 @onready var sprite: Sprite2D = get_node("Sprite2D")
 @onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
 @onready var life_component: LifeComponent = get_node("LifeComponent")
+@onready var dust_positions: Node2D = $DustPositions
 # @onready var status_conditions_container: HBoxContainer = get_node("StatusConditionsContainer")
 
 var mov_direction: Vector2 = Vector2.ZERO
@@ -87,3 +89,10 @@ func _spawn_hit_effect() -> void:
 
 func _on_died() -> void:
 	pass
+
+
+func spawn_dust() -> void:
+	for dust_position in dust_positions.get_children():
+		var dust: Sprite2D = DUST_SCENE.instantiate()
+		dust.position = dust_position.global_position
+		get_parent().get_child(get_index() - 1).add_sibling(dust)

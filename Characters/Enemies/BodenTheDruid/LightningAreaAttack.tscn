@@ -87,6 +87,7 @@ height = 64.0
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_u745r")
+knockback_force = 1500
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, 33)

@@ -1,7 +1,5 @@
 class_name Player extends Character
 
-const DUST_SCENE: PackedScene = preload("res://Characters/Player/Dust.tscn")
-
 #signal weapon_switched(prev_index: int, new_index: int)
 #signal weapon_picked_up(weapon: Weapon)
 #signal weapon_droped(index: int)
@@ -24,10 +22,8 @@ var rotating_items: Array[Node2D] = []
 
 # @onready var armor_sprite: Sprite2D = get_node("ArmorSprite")
 
-@onready var parent: Node2D = get_parent()
 @onready var weapons: Weapons = get_node("Weapons")
 @onready var camera: Camera2D = $Camera2D
-@onready var dust_position: Marker2D = get_node("DustPosition")
 
 @onready var jump_animation_player: AnimationPlayer = get_node("JumpAnimationPlayer")
 
@@ -171,12 +167,6 @@ func unequip_passive_item(item: PassiveItem) -> void:
 	item.unequip(self)
 	temporal_passive_item_unequiped.emit(item)
 	SavedData.run_stats.temporal_passive_items.erase(item)
-
-
-func spawn_dust() -> void:
-	var dust: Sprite2D = DUST_SCENE.instantiate()
-	dust.position = dust_position.global_position
-	parent.get_child(get_index() - 1).add_sibling(dust)
 
 
 func switch_camera() -> void:

@@ -7,6 +7,7 @@ func _init() -> void:
 	_add_state("idle")
 	_add_state("move")
 	_add_state("transform")
+	_add_state("bear_run")
 	_add_state("dead")
 
 
@@ -46,6 +47,15 @@ func _state_logic(_delta: float) -> void:
 
 			parent.move_staff()
 
+		states.bear_run:
+			parent.chase()
+			parent.move()
+			var dir_to_player: Vector2 = (parent.player.position - parent.global_position).normalized()
+			if dir_to_player.y >= 0 and animation_player.current_animation != "bear_run":
+				animation_player.play("bear_run")
+			elif dir_to_player.y < 0 and animation_player.current_animation != "bear_run_up":
+				animation_player.play("bear_run_up")
+
 
 func _get_transition() -> int:
 	match state:
@@ -55,6 +65,9 @@ func _get_transition() -> int:
 		states.move:
 			if parent.distance_to_player < parent.MAX_DISTANCE_TO_PLAYER and parent.distance_to_player > parent.MIN_DISTANCE_TO_PLAYER:
 				return states.idle
+		states.transform:
+			if not animation_player.is_playing():
+				return states.bear_run
 	return -1
 
 
@@ -74,6 +87,8 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			$"../LightningAttackTimer".stop()
 			$"../LightningAttackTimer".queue_free()
 			$"../StaffPivot".queue_free()
+			parent.max_speed = 200
+			parent.accerelation = 90
 		states.dead:
 			pass
 			# parent.spawn_loot()
