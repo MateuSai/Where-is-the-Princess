@@ -69,7 +69,8 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 		states.transform:
 			parent.life_component.invincible = true
 			animation_player.play("transform")
-			$"../AttackTimer".stop()
+			$"../BirdAttackTimer".stop()
+			$"../LightningAttackTimer".stop()
 			$"../StaffPivot".queue_free()
 		states.dead:
 			pass

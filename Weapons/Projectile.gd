@@ -29,6 +29,5 @@ func _collide(body: Node2D, _dam: int = damage) -> void:
 	destroy()
 
 
-
 func destroy() -> void:
 	queue_free()

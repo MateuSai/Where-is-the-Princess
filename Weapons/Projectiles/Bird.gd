@@ -32,6 +32,13 @@ func launch(initial_position: Vector2, dir: Vector2, speed: int) -> void:
 		sprite.flip_h = true
 
 
+func _collide(body: Node2D, dam: int = damage) -> void:
+	if body is BodenTheDruid:
+		body.interrupt_lightning_attack()
+
+	super(body, dam)
+
+
 func destroy() -> void:
 	var explosion: AnimatedSprite2D = load("res://Characters/Enemies/SpawnExplosion.tscn").instantiate()
 	explosion.position = global_position

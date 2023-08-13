@@ -14,20 +14,20 @@ var distance_to_player: float
 @onready var staff: Sprite2D = $StaffPivot/StaffPivot2/Staff
 @onready var staff_animation_player: AnimationPlayer = $StaffPivot/StaffPivot2/Staff/AnimationPlayer
 @onready var staff_end: Marker2D = $StaffPivot/StaffPivot2/Staff/StaffEnd
-@onready var attack_timer: Timer = $AttackTimer
+@onready var bird_attack_timer: Timer = $BirdAttackTimer
+@onready var lightning_attack_timer: Timer = $LightningAttackTimer
 
 
 func _ready() -> void:
 	super()
-	attack_timer.timeout.connect(func():
-		can_move = false
-		if randi() % 3 == 0:
-			await _lightning_attack()
-		else:
-			_bird_attack()
-		attack_timer.start(randf_range(1.5, 2.5))
-		can_move = true
-		#_lightning_attack()
+	bird_attack_timer.timeout.connect(func():
+		_bird_attack()
+		bird_attack_timer.start(randf_range(2, 3))
+	)
+
+	lightning_attack_timer.timeout.connect(func():
+		_lightning_attack()
+		lightning_attack_timer.start(randf_range(2.5, 3.5))
 	)
 
 	life_component.hp_changed.connect(func(new_hp: int):
@@ -76,9 +76,13 @@ func _get_path_to_move_away_from_player() -> void:
 func _lightning_attack() -> void:
 	staff_animation_player.play("lighting_attack")
 	await staff_animation_player.animation_finished
+	if staff_animation_player.assigned_animation == "RESET": # this means we cancelled the attack
+		return
+	can_move = false
 
 	var lightning: LightningAreaAttack = load("res://Characters/Enemies/BodenTheDruid/LightningAreaAttack.tscn").instantiate()
-	staff_end.add_child(lightning)
+	lightning.position = global_position
+	get_tree().current_scene.add_child(lightning)
 	lightning.attack(Vector2.RIGHT.rotated(staff_pivot.rotation))
 	player.camera.flash()
 #	var lightning_line: LightningLine2D = LightningLine2D.new()
@@ -86,8 +90,10 @@ func _lightning_attack() -> void:
 #	lightning_line.lightning(player.position, global_position)
 	await lightning.tree_exiting
 
+	#if is_instance_valid(staff):
 	staff_animation_player.play("after_lightning_attack")
 	await staff_animation_player.animation_finished
+	can_move = true
 
 
 func _bird_attack() -> void:
@@ -102,3 +108,10 @@ func _bird_attack() -> void:
 		get_tree().current_scene.add_child(spawn_effect)
 
 		bird.launch(bird_pos, (player.position - bird_pos).normalized(), 50)
+
+
+func interrupt_lightning_attack() -> void:
+	if is_instance_valid(staff):
+		staff_animation_player.stop()
+		staff_animation_player.play("RESET")
+		lightning_attack_timer.start(randf_range(2.5, 3.5))
