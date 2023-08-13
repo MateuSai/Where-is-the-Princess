@@ -12,6 +12,7 @@ func _ready() -> void:
 	$LifeComponent.damage_taken.connect(func(_dam: int, dir: Vector2, force: int):
 		animation_player.stop()
 		direction = dir
+		knockback_direction = direction
 		speed = force
 		set_collision_mask_value(3, true)
 		await get_tree().create_timer(0.2).timeout
