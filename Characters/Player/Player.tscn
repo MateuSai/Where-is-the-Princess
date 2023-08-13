@@ -391,6 +391,7 @@ position_smoothing_enabled = true
 script = ExtResource("9_es44d")
 
 [node name="FlashSprite" type="Sprite2D" parent="Camera2D" index="0"]
+modulate = Color(1, 1, 1, 0)
 z_index = 10
 scale = Vector2(134.552, 184.996)
 texture = ExtResource("10_w3xli")

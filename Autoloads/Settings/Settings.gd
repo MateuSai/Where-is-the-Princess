@@ -12,6 +12,8 @@ func _init() -> void:
 
 
 func _ready() -> void:
+	hide()
+
 	# Esta wea es para que se generen las traducciones
 	tab_container.get_node("General").name = tr("General")
 	popup_hide.connect(_save_settings)

@@ -12,6 +12,7 @@ func _ready() -> void:
 	$LifeComponent.damage_taken.connect(func(_dam: int, dir: Vector2, force: int):
 		animation_player.stop()
 		direction = dir
+		knockback_direction = direction
 		speed = force
 		set_collision_mask_value(3, true)
 		await get_tree().create_timer(0.2).timeout
@@ -30,6 +31,13 @@ func launch(initial_position: Vector2, dir: Vector2, speed: int) -> void:
 
 	if dir.x < 0:
 		sprite.flip_h = true
+
+
+func _collide(body: Node2D, dam: int = damage) -> void:
+	if body is BodenTheDruid:
+		body.interrupt_lightning_attack()
+
+	super(body, dam)
 
 
 func destroy() -> void:
