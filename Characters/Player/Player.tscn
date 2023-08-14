@@ -175,7 +175,7 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.6),
+"times": PackedFloat32Array(0.5),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -206,7 +206,7 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.6),
+"times": PackedFloat32Array(0.5),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -345,9 +345,6 @@ border_width_bottom = 2
 collision_layer = 2
 collision_mask = 21
 script = ExtResource("4")
-accerelation = null
-max_speed = null
-flying = null
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("5")
@@ -396,14 +393,12 @@ z_index = 10
 scale = Vector2(134.552, 184.996)
 texture = ExtResource("10_w3xli")
 
-[node name="DustPosition" type="Marker2D" parent="." index="8"]
-
-[node name="JumpAnimationPlayer" type="AnimationPlayer" parent="." index="9"]
+[node name="JumpAnimationPlayer" type="AnimationPlayer" parent="." index="8"]
 libraries = {
 "": SubResource("AnimationLibrary_35i6s")
 }
 
-[node name="UI" type="CanvasLayer" parent="." index="11"]
+[node name="UI" type="CanvasLayer" parent="." index="10"]
 script = ExtResource("7_24kdb")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI" index="0"]
@@ -444,9 +439,11 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_7aqj1")
 [node name="Inventory" type="HBoxContainer" parent="UI/PanelContainer" index="0"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="." index="12"]
+[node name="Label" type="Label" parent="." index="11"]
 offset_right = 40.0
 offset_bottom = 23.0
+
+[node name="Marker2D" type="Marker2D" parent="DustPositions" index="0"]
 
 [connection signal="weapon_condition_changed" from="Weapons" to="UI" method="_on_weapon_condition_changed"]
 [connection signal="weapon_droped" from="Weapons" to="UI" method="_on_weapon_droped"]

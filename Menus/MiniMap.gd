@@ -19,6 +19,7 @@ var fog_sprite: Sprite2D
 @onready var rooms: Rooms = $"../../Rooms"
 @onready var container: MarginContainer = $MinimapScrollContainer/PanelContainer/MarginContainer
 @onready var map_name_label: Label = $MinimapScrollContainer/PanelContainer/MapNameLabel
+@onready var player_icon: Sprite2D = $MinimapScrollContainer/PanelContainer/PlayerIcon
 #@onready var tilemap: TileMap = $TileMap
 
 
@@ -73,6 +74,9 @@ func _ready() -> void:
 
 	minimap_corridors_tilemap.position = -map_rect.position# + Vector2(size.x / 2.0, 0)
 	#container.position = map_rect.position / content_scale_factor
+#	size = (map_rect.size + Vector2(80, 0)).clamp(Vector2.ZERO, Vector2(330, 200))
+#	$MinimapScrollContainer.custom_minimum_size = size
+#	$MinimapScrollContainer.size = size
 	container.custom_minimum_size = map_rect.size
 
 	#fog_sprite.position = Vector2(size.x / 2.0, 0)
@@ -130,6 +134,8 @@ func _process(_delta: float) -> void:
 			room_tilemap.modulate = Color.WHITE
 #		print(container.get_local_mouse_position())
 #		print(room_tilemaps[1].position)
+
+	player_icon.position = Globals.player.position / 4 - map_rect.position + Vector2.ONE * 4 * TILE_SIZE
 
 
 func _discover_room(room: DungeonRoom) -> void:

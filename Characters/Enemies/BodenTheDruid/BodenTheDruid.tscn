@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://q3ghrubxoxtm"]
+[gd_scene load_steps=33 format=3 uid="uid://q3ghrubxoxtm"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_vhffd"]
 [ext_resource type="Script" path="res://Characters/Enemies/BodenTheDruid/BodenTheDruid.gd" id="2_uu817"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bxynlqyjmxeoe" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Boss druid/Boden_to bear.png" id="6_1dxjq"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="6_wf4ca"]
 [ext_resource type="Texture2D" uid="uid://bctb0rjt8x8pv" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Boss druid/druid_scepter_petit.png" id="7_swe87"]
+[ext_resource type="Script" path="res://Characters/Hitbox.gd" id="9_qd8sd"]
 
 [sub_resource type="Animation" id="Animation_bic4f"]
 length = 0.001
@@ -249,6 +250,80 @@ tracks/0/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeleeHitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_dddxv"]
+resource_name = "bear_run"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [29, 30, 31, 27, 28]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn_dust"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_uwhgi"]
+resource_name = "bear_run_up"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [38, 39, 40, 36, 37]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"spawn_dust"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_81n3y"]
 resource_name = "idle"
@@ -284,6 +359,35 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_2j7o8"]
+resource_name = "melee_attack"
+length = 0.9
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.45, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 34, 35]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeleeHitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.45, 0.75, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, true, false, true]
 }
 
 [sub_resource type="Animation" id="Animation_e2v84"]
@@ -338,11 +442,44 @@ tracks/0/keys = {
 "values": [13, 14, 15, 16]
 }
 
+[sub_resource type="Animation" id="Animation_yqwgx"]
+resource_name = "melee_attack_up"
+length = 0.9
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.45, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [41, 42, 43, 44]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeleeHitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.45, 0.75, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [true, true, false, true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_oml63"]
 _data = {
 "RESET": SubResource("Animation_p6805"),
+"bear_run": SubResource("Animation_dddxv"),
+"bear_run_up": SubResource("Animation_uwhgi"),
 "idle": SubResource("Animation_81n3y"),
 "idle_up": SubResource("Animation_h25dw"),
+"melee_attack": SubResource("Animation_2j7o8"),
+"melee_attack_up": SubResource("Animation_yqwgx"),
 "transform": SubResource("Animation_e2v84"),
 "walk": SubResource("Animation_l7rft"),
 "walk_up": SubResource("Animation_luns0")
@@ -351,6 +488,9 @@ _data = {
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mmnyx"]
 radius = 5.0
 height = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_boa8u"]
+radius = 8.0
 
 [node name="BodenTheDruid" instance=ExtResource("1_vhffd")]
 script = ExtResource("2_uu817")
@@ -393,7 +533,7 @@ script = ExtResource("3_l0le7")
 position = Vector2(0, -15)
 texture = ExtResource("6_1dxjq")
 hframes = 9
-vframes = 3
+vframes = 5
 
 [node name="CollisionShape2D" parent="." index="3"]
 visible = false
@@ -426,3 +566,19 @@ autostart = true
 wait_time = 2.0
 one_shot = true
 autostart = true
+
+[node name="Marker2D" type="Marker2D" parent="DustPositions" index="0"]
+position = Vector2(0, -3)
+
+[node name="Marker2D2" type="Marker2D" parent="DustPositions" index="1"]
+
+[node name="MeleeHitbox" type="Area2D" parent="." index="13"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("9_qd8sd")
+knockback_force = 800
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeHitbox" index="0"]
+position = Vector2(8, 0)
+shape = SubResource("CircleShape2D_boa8u")
+disabled = true

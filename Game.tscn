@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=23 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://cm2mxt7vas7t4" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/minimap_9-patch_bigger.png" id="13_s3von"]
 [ext_resource type="Shader" path="res://Shaders and Particles/IntensityToTransparency.gdshader" id="14_qjw3b"]
 [ext_resource type="FontFile" uid="uid://qupo5kdd8137" path="res://Fonts/alagard.ttf" id="15_84d5m"]
+[ext_resource type="Texture2D" uid="uid://bl8w6y7gf8ubx" path="res://Art/player/icon_map.png" id="16_0uph7"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
 light_mode = 1
@@ -223,10 +224,15 @@ content_scale_aspect = 3
 script = ExtResource("12_icbnv")
 
 [node name="MinimapScrollContainer" type="ScrollContainer" parent="UI/MiniMap"]
-custom_minimum_size = Vector2(330, 200)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -100.0
+offset_right = 165.0
+offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 3
@@ -234,7 +240,10 @@ vertical_scroll_mode = 3
 script = ExtResource("13_f54tc")
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/MiniMap/MinimapScrollContainer"]
+custom_minimum_size = Vector2(330, 200)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxTexture_oed6k")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/MiniMap/MinimapScrollContainer/PanelContainer"]
@@ -247,6 +256,10 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "hahaha"
 label_settings = SubResource("LabelSettings_lngc4")
+
+[node name="PlayerIcon" type="Sprite2D" parent="UI/MiniMap/MinimapScrollContainer/PanelContainer"]
+z_index = 1
+texture = ExtResource("16_0uph7")
 
 [node name="FogSprite" type="Sprite2D" parent="."]
 z_index = 3

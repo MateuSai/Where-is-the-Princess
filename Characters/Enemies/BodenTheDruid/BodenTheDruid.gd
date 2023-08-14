@@ -2,10 +2,12 @@ class_name BodenTheDruid extends Enemy
 
 const BIRD_SCENE: PackedScene = preload("res://Weapons/Projectiles/Bird.tscn")
 
-const MAX_DISTANCE_TO_PLAYER: int = 90
+const MAX_DISTANCE_TO_PLAYER: int = 70
 const MIN_DISTANCE_TO_PLAYER: int = 45
 
 const TRANSFORM_AT_HP: int = 2
+
+var is_bear: bool = false
 
 var distance_to_player: float
 
@@ -32,6 +34,7 @@ func _ready() -> void:
 
 	life_component.hp_changed.connect(func(new_hp: int):
 		if new_hp <= TRANSFORM_AT_HP:
+			is_bear = true
 			state_machine.set_state(state_machine.states.transform)
 	)
 
@@ -53,17 +56,20 @@ func move_staff() -> void:
 func _on_PathTimer_timeout() -> void:
 	if is_instance_valid(player):
 		distance_to_player = (player.position - global_position).length()
-		if distance_to_player > MAX_DISTANCE_TO_PLAYER:
+		if is_bear:
 			_get_path_to_player()
-		elif distance_to_player < MIN_DISTANCE_TO_PLAYER:
-			_get_path_to_move_away_from_player()
 		else:
-			pass
-#			aim_raycast.target_position = player.position - global_position
-#			if can_attack and state_machine.state == state_machine.states.idle and not aim_raycast.is_colliding():
-#				can_attack = false
-#				_throw_knife()
-#				attack_timer.start()
+			if distance_to_player > MAX_DISTANCE_TO_PLAYER:
+				_get_path_to_player()
+			elif distance_to_player < MIN_DISTANCE_TO_PLAYER:
+				_get_path_to_move_away_from_player()
+			else:
+				pass
+	#			aim_raycast.target_position = player.position - global_position
+	#			if can_attack and state_machine.state == state_machine.states.idle and not aim_raycast.is_colliding():
+	#				can_attack = false
+	#				_throw_knife()
+	#				attack_timer.start()
 	else:
 		mov_direction = Vector2.ZERO
 
