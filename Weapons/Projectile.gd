@@ -6,6 +6,8 @@ var speed: int = 0
 @export var random_rotate: bool = false
 var rot_dir: int = [-1, 1][randi() % 2]
 
+@export var can_be_destroyed: bool = true
+
 
 @warning_ignore("shadowed_variable")
 func launch(initial_position: Vector2, dir: Vector2, speed: int) -> void:

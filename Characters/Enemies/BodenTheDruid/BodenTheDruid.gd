@@ -18,6 +18,8 @@ var distance_to_player: float
 @onready var staff_end: Marker2D = $StaffPivot/StaffPivot2/Staff/StaffEnd
 @onready var bird_attack_timer: Timer = $BirdAttackTimer
 @onready var lightning_attack_timer: Timer = $LightningAttackTimer
+@onready var rock_sprite: Sprite2D = $RockContainer/Rock
+@onready var rock_container: Node2D = $RockContainer
 
 
 func _ready() -> void:
@@ -32,11 +34,15 @@ func _ready() -> void:
 		lightning_attack_timer.start(randf_range(2.5, 3.5))
 	)
 
-	life_component.hp_changed.connect(func(new_hp: int):
-		if new_hp <= TRANSFORM_AT_HP:
-			is_bear = true
-			state_machine.set_state(state_machine.states.transform)
-	)
+	life_component.hp_changed.connect(_on_transform)
+
+
+func _on_transform(new_hp: int) -> void:
+	if new_hp <= TRANSFORM_AT_HP:
+		is_bear = true
+		state_machine.set_state(state_machine.states.transform)
+
+		life_component.hp_changed.disconnect(_on_transform)
 
 
 func move_staff() -> void:
@@ -77,6 +83,11 @@ func _on_PathTimer_timeout() -> void:
 func _get_path_to_move_away_from_player() -> void:
 	var dir: Vector2 = (global_position - player.position).normalized()
 	navigation_agent.target_position = global_position + dir * 100
+
+
+func _on_change_dir() -> void:
+	super()
+	rock_container.scale.x *= -1
 
 
 func _lightning_attack() -> void:
@@ -121,3 +132,13 @@ func interrupt_lightning_attack() -> void:
 		staff_animation_player.stop()
 		staff_animation_player.play("RESET")
 		lightning_attack_timer.start(randf_range(2.5, 3.5))
+
+
+func throw_rock() -> void:
+	var rock: Projectile = load("res://Weapons/Projectiles/BigRock.tscn").instantiate()
+	rock.exclude = [self]
+	get_tree().current_scene.add_child(rock)
+	rock.launch(rock_sprite.global_position + Vector2.DOWN * 33, state_machine.rock_dir.rotated(randf_range(-0.4, 0.4)), 250)
+	for child in rock.get_children():
+		if child is Node2D:
+			child.position += Vector2.UP * 33

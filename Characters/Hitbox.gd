@@ -96,7 +96,7 @@ func _collide(node: Node2D, dam: int = damage) -> void:
 		node.get_node("LifeComponent").take_damage(dam, knockback_direction, knockback_force)
 	elif node is RigidBody2D:
 		node.apply_impulse(knockback_direction * knockback_force * 5)
-	elif node is Projectile:
+	elif node is Projectile and node.can_be_destroyed:
 		node.destroy()
 	else:
 		print_debug("Unhandled collision!")

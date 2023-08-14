@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://q3ghrubxoxtm"]
+[gd_scene load_steps=36 format=3 uid="uid://q3ghrubxoxtm"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_vhffd"]
 [ext_resource type="Script" path="res://Characters/Enemies/BodenTheDruid/BodenTheDruid.gd" id="2_uu817"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="6_wf4ca"]
 [ext_resource type="Texture2D" uid="uid://bctb0rjt8x8pv" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Boss druid/druid_scepter_petit.png" id="7_swe87"]
 [ext_resource type="Script" path="res://Characters/Hitbox.gd" id="9_qd8sd"]
+[ext_resource type="Texture2D" uid="uid://h2wccuohbfru" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Boss druid/rock.png" id="10_hb7ex"]
 
 [sub_resource type="Animation" id="Animation_bic4f"]
 length = 0.001
@@ -262,6 +263,30 @@ tracks/1/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RockContainer/Rock:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(7, -15)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("RockContainer/Rock:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_dddxv"]
 resource_name = "bear_run"
@@ -363,7 +388,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_2j7o8"]
 resource_name = "melee_attack"
-length = 0.9
+length = 0.65
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -372,7 +397,7 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.45, 0.75),
+"times": PackedFloat32Array(0, 0.15, 0.25, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [32, 33, 34, 35]
@@ -384,7 +409,7 @@ tracks/1/path = NodePath("MeleeHitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.45, 0.75, 0.9),
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.55),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [true, true, false, true]
@@ -444,7 +469,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_yqwgx"]
 resource_name = "melee_attack_up"
-length = 0.9
+length = 0.65
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -453,7 +478,7 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.45, 0.75),
+"times": PackedFloat32Array(0, 0.15, 0.25, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [41, 42, 43, 44]
@@ -465,10 +490,120 @@ tracks/1/path = NodePath("MeleeHitbox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.45, 0.75, 0.9),
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.55),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [true, true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_f0pn6"]
+resource_name = "throw_rock"
+length = 0.65
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 34, 35]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RockContainer/Rock:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(7, -15), Vector2(7, -24), Vector2(-3, -33)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RockContainer/Rock:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"throw_rock"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_0as0y"]
+resource_name = "throw_rock_up"
+length = 0.65
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [41, 42, 43, 44]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RockContainer/Rock:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("RockContainer/Rock:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2(7, -19), Vector2(7, -23), Vector2(0, -33)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"throw_rock"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_oml63"]
@@ -480,6 +615,8 @@ _data = {
 "idle_up": SubResource("Animation_h25dw"),
 "melee_attack": SubResource("Animation_2j7o8"),
 "melee_attack_up": SubResource("Animation_yqwgx"),
+"throw_rock": SubResource("Animation_f0pn6"),
+"throw_rock_up": SubResource("Animation_0as0y"),
 "transform": SubResource("Animation_e2v84"),
 "walk": SubResource("Animation_l7rft"),
 "walk_up": SubResource("Animation_luns0")
@@ -582,3 +719,13 @@ knockback_force = 800
 position = Vector2(8, 0)
 shape = SubResource("CircleShape2D_boa8u")
 disabled = true
+
+[node name="RockContainer" type="Node2D" parent="." index="14"]
+
+[node name="Rock" type="Sprite2D" parent="RockContainer" index="0"]
+visible = false
+position = Vector2(7, -15)
+texture = ExtResource("10_hb7ex")
+
+[node name="RockAttackTimer" type="Timer" parent="." index="15"]
+one_shot = true
