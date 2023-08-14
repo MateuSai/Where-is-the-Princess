@@ -74,9 +74,9 @@ func _ready() -> void:
 
 	minimap_corridors_tilemap.position = -map_rect.position# + Vector2(size.x / 2.0, 0)
 	#container.position = map_rect.position / content_scale_factor
-	size = $MinimapScrollContainer/PanelContainer.size.clamp(Vector2.ZERO, Vector2(330, 200))
-	$MinimapScrollContainer.custom_minimum_size = size
-	$MinimapScrollContainer.size = size
+#	size = (map_rect.size + Vector2(80, 0)).clamp(Vector2.ZERO, Vector2(330, 200))
+#	$MinimapScrollContainer.custom_minimum_size = size
+#	$MinimapScrollContainer.size = size
 	container.custom_minimum_size = map_rect.size
 
 	#fog_sprite.position = Vector2(size.x / 2.0, 0)

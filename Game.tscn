@@ -240,6 +240,7 @@ vertical_scroll_mode = 3
 script = ExtResource("13_f54tc")
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/MiniMap/MinimapScrollContainer"]
+custom_minimum_size = Vector2(330, 200)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

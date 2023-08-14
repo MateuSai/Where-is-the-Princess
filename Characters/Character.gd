@@ -94,5 +94,5 @@ func _on_died() -> void:
 func spawn_dust() -> void:
 	for dust_position in dust_positions.get_children():
 		var dust: Sprite2D = DUST_SCENE.instantiate()
-		dust.position = dust_position.global_position
+		dust.position = dust_position.position + position
 		get_parent().get_child(get_index() - 1).add_sibling(dust)
