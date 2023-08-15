@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://5orvhxdckhxm"]
+
+[ext_resource type="Script" path="res://Rooms/Shop.gd" id="1_ggqad"]
+[ext_resource type="Script" path="res://Rooms/ShopItemMarker.gd" id="2_xqk7n"]
+
+[node name="Shop" type="Node2D"]
+script = ExtResource("1_ggqad")
+
+[node name="Positions" type="Node2D" parent="."]
+
+[node name="ShopItemMarker" type="Marker2D" parent="Positions"]
+script = ExtResource("2_xqk7n")
+
+[node name="Marker2D2" type="Marker2D" parent="Positions"]
+position = Vector2(16, 0)
+script = ExtResource("2_xqk7n")
+
+[node name="Marker2D3" type="Marker2D" parent="Positions"]
+position = Vector2(32, 0)
+script = ExtResource("2_xqk7n")

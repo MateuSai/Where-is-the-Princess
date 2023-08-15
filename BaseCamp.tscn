@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=31 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="1_0pcgl"]
 [ext_resource type="Script" path="res://BaseCamp.gd" id="1_tpf7m"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/light_fire.png" id="5_jugum"]
 [ext_resource type="PackedScene" uid="uid://bqcn0vo0ait26" path="res://Rooms/RichardTheGigachadWizard.tscn" id="11_vh5i5"]
 [ext_resource type="PackedScene" uid="uid://cjc0h245lbmpd" path="res://Weapons/Katana.tscn" id="12_trlvh"]
+[ext_resource type="PackedScene" uid="uid://5orvhxdckhxm" path="res://Rooms/Shop.tscn" id="13_nv3p8"]
 
 [sub_resource type="Gradient" id="Gradient_nhg8o"]
 offsets = PackedFloat32Array(0, 0.784849)
@@ -262,3 +263,5 @@ position = Vector2(174, 89)
 [node name="Katana" parent="." instance=ExtResource("12_trlvh")]
 position = Vector2(154, 116)
 on_floor = true
+
+[node name="Shop" parent="." instance=ExtResource("13_nv3p8")]

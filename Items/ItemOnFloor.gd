@@ -8,7 +8,7 @@ var can_pick_up: bool = false
 
 func _ready() -> void:
 	interact_area.body_entered.connect(func(player: Player):
-		can_pick_up = item.can_pick_up(player)
+		can_pick_up = can_pick_up_item(player)
 		if can_pick_up:
 			interact_area.sprite_material.set("shader_parameter/color", Color.WHITE)
 			# interact_area.sprite_material.set("shader_parameter/interior_color", Color.TRANSPARENT)
@@ -26,8 +26,7 @@ func enable_pick_up() -> void:
 	interact_area.player_interacted.connect(func():
 		if not can_pick_up:
 			return
-		item.pick_up(interact_area.player)
-		free()
+		_pick_item_and_free()
 	)
 
 
@@ -36,3 +35,12 @@ func enable_pick_up() -> void:
 func initialize(item: Item) -> void:
 	self.item = item
 	texture = item.get_icon()
+
+
+func can_pick_up_item(player: Player) -> bool:
+	return item.can_pick_up(player)
+
+
+func _pick_item_and_free() -> void:
+	item.pick_up(interact_area.player)
+	queue_free()

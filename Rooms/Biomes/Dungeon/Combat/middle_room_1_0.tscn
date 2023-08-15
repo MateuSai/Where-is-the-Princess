@@ -89,3 +89,6 @@ position = Vector2(129, 247)
 
 [node name="Torch4" parent="." index="9" instance=ExtResource("5_rnjix")]
 position = Vector2(306, 248)
+
+[node name="TeleportPosition" parent="." index="10"]
+position = Vector2(240, 135)

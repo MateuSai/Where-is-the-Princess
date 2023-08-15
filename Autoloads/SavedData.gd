@@ -7,10 +7,12 @@ const MODS_FOLDER_NAME: String = "mods/"
 const DATA_SAVE_NAME: String = "data.json"
 
 var data: Dictionary = {
+	"discovered_weapons": PackedStringArray(["res://Weapons/Katana.tscn", "res://Weapons/Spear.tscn"]),
+
 	"equipped_armor": "res://Armors/NoArmor.gd",
 	"armors_discovered": PackedStringArray(["res://Armors/NoArmor.gd", "res://Armors/KnightArmor.gd", "res://Armors/MercenaryArmor.gd"]),
 
-	"temporal_items_discovered": PackedStringArray(["res://Items/Passive/Temporal/MagicShield.gd"])
+	"temporal_items_discovered": PackedStringArray(["res://Items/Passive/Temporal/MagicShield.gd", "res://Items/Passive/Temporal/MagicSword.gd"])
 }
 
 var run_stats: RunStats = RunStats.new()
@@ -126,13 +128,13 @@ func _change_biome_conf(biome: String) -> void:
 class RunStats extends Resource:
 	signal coins_changed(new_coins: int)
 
-	@export var biome: String = "Forest"
+	@export var biome: String = "Dungeon"
 	@export var level: int = 1
 
 	@export var hp: int = 4
 	@export var weapon_stats: Array[WeaponStats] = []
 	@export var equipped_weapon_index: int = 0
-	@export var coins: int = 0:
+	@export var coins: int = 30:
 		set(new_coins):
 			coins = new_coins
 			coins_changed.emit(coins)
