@@ -4,7 +4,6 @@ extends FiniteStateMachine
 func _init() -> void:
 	_add_state("idle")
 	_add_state("move")
-	_add_state("hurt")
 	_add_state("dead")
 
 
@@ -37,9 +36,6 @@ func _get_transition() -> int:
 #			if distance_to_enemy_to_protect < parent.MAX_DESIRED_DISTANCE_TO_ENEMY_TO_PROTECT and distance_to_enemy_to_protect > parent.MIN_DESIRED_DISTANCE_TO_ENEMY_TO_PROTECT:
 			if parent.navigation_agent.is_target_reached():
 				return states.idle
-		states.hurt:
-			if not animation_player.is_playing():
-				return states.move
 	return -1
 
 
@@ -49,8 +45,7 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			animation_player.play("idle")
 		states.move:
 			animation_player.play("move")
-		states.hurt:
-			animation_player.play("hurt")
 		states.dead:
+			pass
 			# parent.spawn_loot()
-			animation_player.play("dead")
+			#animation_player.play("dead")

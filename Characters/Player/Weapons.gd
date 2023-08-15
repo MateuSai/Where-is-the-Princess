@@ -13,6 +13,9 @@ enum {UP, DOWN}
 
 
 func load_previous_weapons() -> void:
+	get_child(0).hide()
+	get_child(0).set_process_unhandled_input(false)
+
 	for weapon_stat in SavedData.run_stats.weapon_stats:
 		var weapon: Weapon = load(weapon_stat.weapon_path).instantiate()
 		weapon.stats = weapon_stat

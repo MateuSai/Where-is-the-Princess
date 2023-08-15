@@ -33,3 +33,6 @@ enemy_name = "BodenTheDruid"
 [node name="Katana" parent="." index="6" instance=ExtResource("4_6oo1u")]
 position = Vector2(189, 117)
 on_floor = true
+
+[node name="TeleportPosition" parent="." index="7"]
+position = Vector2(192, 122)

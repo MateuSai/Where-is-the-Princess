@@ -21,6 +21,7 @@ var enemy_to_protect: Enemy = null:
 
 
 func _ready() -> void:
+	super()
 	await get_tree().create_timer(0.3).timeout
 	search_enemy_to_protect()
 
