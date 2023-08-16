@@ -23,6 +23,10 @@ func _save_settings() -> void:
 	settings.set_value("General", "language", TranslationServer.get_locale())
 	settings.set_value("General", "window_mode", DisplayServer.window_get_mode())
 
+	settings.set_value("Audio", "master_volume", AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")))
+	settings.set_value("Audio", "music_volume", AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")))
+	settings.set_value("Audio", "sounds_volume", AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Sounds")))
+
 	settings.save(SETTINGS_PATH)
 
 
@@ -32,3 +36,7 @@ func _load_settings() -> void:
 
 	TranslationServer.set_locale(settings.get_value("General", "language", "en"))
 	DisplayServer.window_set_mode(settings.get_value("General", "window_mode", DisplayServer.WINDOW_MODE_WINDOWED))
+
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), settings.get_value("Audio", "master_volume", 0))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), settings.get_value("Audio", "music_volume", 0))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sounds"), settings.get_value("Audio", "sounds_volume", 0))

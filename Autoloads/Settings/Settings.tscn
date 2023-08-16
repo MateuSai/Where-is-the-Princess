@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bnr0w37wgidyn"]
+[gd_scene load_steps=7 format=3 uid="uid://bnr0w37wgidyn"]
 
 [ext_resource type="Script" path="res://Autoloads/Settings/Settings.gd" id="1_4y760"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="2_fjhtw"]
 [ext_resource type="Script" path="res://Autoloads/Settings/LanguageDropdown.gd" id="3_8fg1t"]
 [ext_resource type="Script" path="res://Autoloads/Settings/FullScreenCheckBox.gd" id="4_wsnjl"]
+[ext_resource type="Script" path="res://Autoloads/Settings/VolumeSlider.gd" id="5_7s8v8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfpac"]
 bg_color = Color(0.745098, 0.572549, 0, 1)
@@ -19,8 +20,6 @@ script = ExtResource("1_4y760")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 300.0
-offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_fjhtw")
@@ -63,3 +62,56 @@ script = ExtResource("4_wsnjl")
 [node name="Input" type="VBoxContainer" parent="TabContainer"]
 visible = false
 layout_mode = 2
+
+[node name="Audio" type="MarginContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Audio"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Audio/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "MASTER_VOLUME"
+
+[node name="MasterVolumeSlider" type="HSlider" parent="TabContainer/Audio/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+script = ExtResource("5_7s8v8")
+bus = "Master"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Audio/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "MUSIC_VOLUME"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="TabContainer/Audio/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+script = ExtResource("5_7s8v8")
+bus = "Music"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Audio/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SOUNDS_VOLUME"
+
+[node name="SoundsVolumeSlider" type="HSlider" parent="TabContainer/Audio/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+script = ExtResource("5_7s8v8")
+bus = "Sounds"
