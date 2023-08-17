@@ -12,6 +12,8 @@ bg_color = Color(0.745098, 0.572549, 0, 1)
 
 [node name="Settings" type="PopupPanel"]
 process_mode = 3
+disable_3d = true
+canvas_item_default_texture_filter = 0
 size = Vector2i(300, 200)
 visible = true
 theme_override_styles/panel = SubResource("StyleBoxFlat_nfpac")

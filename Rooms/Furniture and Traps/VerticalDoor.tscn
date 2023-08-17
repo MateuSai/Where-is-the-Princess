@@ -1,12 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://borcavlvgnkkx"]
+[gd_scene load_steps=10 format=3 uid="uid://borcavlvgnkkx"]
 
 [ext_resource type="PackedScene" uid="uid://r88elkkvv60o" path="res://Rooms/Furniture and Traps/Door.tscn" id="1_0xtgx"]
-[ext_resource type="Texture2D" uid="uid://dpjpd68fkp7f2" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/lateral door.png" id="2_yjr15"]
-[ext_resource type="Texture2D" uid="uid://c62npfrxsts06" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/lateral_door_normal.png" id="3_mob2o"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_5cbk1"]
-diffuse_texture = ExtResource("2_yjr15")
-normal_texture = ExtResource("3_mob2o")
+[ext_resource type="Texture2D" uid="uid://dc8v8rkhyoj32" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/dungeon_vertical_door_canvas_texture.tres" id="2_pbh10"]
 
 [sub_resource type="Animation" id="Animation_1s8qq"]
 length = 0.001
@@ -147,7 +142,7 @@ size = Vector2(7, 52)
 z_index = 1
 
 [node name="Sprite2D" parent="." index="0"]
-texture = SubResource("CanvasTexture_5cbk1")
+texture = ExtResource("2_pbh10")
 hframes = 9
 frame = 8
 

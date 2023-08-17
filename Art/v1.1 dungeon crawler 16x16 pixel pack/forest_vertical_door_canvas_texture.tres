@@ -1,0 +1,6 @@
+[gd_resource type="CanvasTexture" load_steps=2 format=3 uid="uid://dvnhcqhfs44my"]
+
+[ext_resource type="Texture2D" uid="uid://bi8bo41v2lhmm" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/lateral door forest.png" id="1_j0fnh"]
+
+[resource]
+diffuse_texture = ExtResource("1_j0fnh")

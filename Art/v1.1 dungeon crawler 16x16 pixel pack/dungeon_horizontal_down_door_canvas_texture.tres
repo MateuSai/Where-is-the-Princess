@@ -1,0 +1,8 @@
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://doeiekoygoseu"]
+
+[ext_resource type="Texture2D" uid="uid://ctpev7kym3c22" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/tiles/wall/door_spritesheet_bottom.png" id="1_wyami"]
+[ext_resource type="Texture2D" uid="uid://bvvmfifrcqokb" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/horizontal_door_normal.png" id="2_c1bc8"]
+
+[resource]
+diffuse_texture = ExtResource("1_wyami")
+normal_texture = ExtResource("2_c1bc8")

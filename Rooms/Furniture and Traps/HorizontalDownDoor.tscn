@@ -1,13 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://c74tbfgw8kejx"]
+[gd_scene load_steps=10 format=3 uid="uid://c74tbfgw8kejx"]
 
 [ext_resource type="PackedScene" uid="uid://r88elkkvv60o" path="res://Rooms/Furniture and Traps/Door.tscn" id="1_i2tjy"]
-[ext_resource type="Texture2D" uid="uid://ctpev7kym3c22" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/tiles/wall/door_spritesheet_bottom.png" id="2_6nm6b"]
-[ext_resource type="Texture2D" uid="uid://bvvmfifrcqokb" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/horizontal_door_normal.png" id="3_xojhm"]
-[ext_resource type="Texture2D" uid="uid://c2grh0ue5u0dq" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/tiles/wall/door_bottom_arch.png" id="4_l68iy"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_pxnwy"]
-diffuse_texture = ExtResource("2_6nm6b")
-normal_texture = ExtResource("3_xojhm")
+[ext_resource type="Texture2D" uid="uid://doeiekoygoseu" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/dungeon_horizontal_down_door_canvas_texture.tres" id="2_fyqxx"]
 
 [sub_resource type="Animation" id="Animation_j0muy"]
 length = 0.001
@@ -146,34 +140,30 @@ polygon = PackedVector2Array(-16, -16, -16, -4, 16, -4, 16, -16)
 size = Vector2(30, 5)
 
 [node name="HorizontalUpDoor" instance=ExtResource("1_i2tjy")]
+door_type = 2
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(0, -12)
-texture = SubResource("CanvasTexture_pxnwy")
+texture = ExtResource("2_fyqxx")
 hframes = 15
 frame = 14
 
-[node name="TopSprite" type="Sprite2D" parent="." index="1"]
-z_index = 1
-position = Vector2(0, -20)
-texture = ExtResource("4_l68iy")
-
-[node name="AnimationPlayer" parent="." index="2"]
+[node name="AnimationPlayer" parent="." index="1"]
 libraries = {
 "": SubResource("AnimationLibrary_lpior")
 }
 
-[node name="CollisionShape2D" parent="." index="3"]
+[node name="CollisionShape2D" parent="." index="2"]
 position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_qrqmi")
 disabled = true
 
-[node name="LightOccluder2D" parent="." index="4"]
+[node name="LightOccluder2D" parent="." index="3"]
 position = Vector2(0, -12)
 occluder = SubResource("OccluderPolygon2D_i6dnf")
 occluder_light_mask = 0
 
-[node name="PlayerDetector" parent="." index="5"]
+[node name="PlayerDetector" parent="." index="4"]
 position = Vector2(0, -12)
 
 [node name="CollisionShape2D" parent="PlayerDetector" index="0"]
