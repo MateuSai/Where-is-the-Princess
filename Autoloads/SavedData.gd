@@ -128,7 +128,7 @@ func _change_biome_conf(biome: String) -> void:
 class RunStats extends Resource:
 	signal coins_changed(new_coins: int)
 
-	@export var biome: String = "Dungeon"
+	@export var biome: String = "Forest"
 	@export var level: int = 1
 
 	@export var hp: int = 4
