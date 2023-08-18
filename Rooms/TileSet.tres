@@ -420,6 +420,11 @@ use_texture_padding = false
 10:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-5.48008, 11.3137, 0.176776, 14.6725, 3.88909, 10.253, 0.353553, 8, -3.18198, 8)
 10:6/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 10:6/0/physics_layer_1/angular_velocity = 0.0
+1:4/0 = 0
+1:4/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:4/0/physics_layer_0/angular_velocity = 0.0
+1:4/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+1:4/0/physics_layer_1/angular_velocity = 0.0
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_w5inp"]
 diffuse_texture = ExtResource("1_8t4wc")
