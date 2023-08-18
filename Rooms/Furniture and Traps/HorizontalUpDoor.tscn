@@ -1,22 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://bjqwewytm1wo2"]
+[gd_scene load_steps=10 format=3 uid="uid://bjqwewytm1wo2"]
 
 [ext_resource type="PackedScene" uid="uid://r88elkkvv60o" path="res://Rooms/Furniture and Traps/Door.tscn" id="1_c0qxw"]
-[ext_resource type="Texture2D" uid="uid://bebupc443w3u" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/tiles/wall/door_spritesheet.png" id="2_icvwg"]
-[ext_resource type="Texture2D" uid="uid://bvvmfifrcqokb" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/horizontal_door_normal.png" id="3_k4urm"]
-[ext_resource type="Texture2D" uid="uid://d2e6iidvt8eo3" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full tilemap.png" id="4_opte6"]
-[ext_resource type="Texture2D" uid="uid://bbir3nubd0hb" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full_tilemap_albedo.png" id="5_ek3oq"]
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_pxnwy"]
-diffuse_texture = ExtResource("2_icvwg")
-normal_texture = ExtResource("3_k4urm")
-
-[sub_resource type="CanvasTexture" id="CanvasTexture_0rrwd"]
-diffuse_texture = ExtResource("4_opte6")
-normal_texture = ExtResource("5_ek3oq")
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p5awq"]
-atlas = SubResource("CanvasTexture_0rrwd")
-region = Rect2(112, 98, 32, 16)
+[ext_resource type="Texture2D" uid="uid://b6y3mgi5gesan" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/forest_horizontal_door_canvas_texture.tres" id="2_167qi"]
 
 [sub_resource type="Animation" id="Animation_j0muy"]
 length = 0.001
@@ -155,34 +140,30 @@ polygon = PackedVector2Array(-16, -16, -16, -4, 16, -4, 16, -16)
 size = Vector2(30, 5)
 
 [node name="HorizontalUpDoor" instance=ExtResource("1_c0qxw")]
+door_type = 1
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(0, -12)
-texture = SubResource("CanvasTexture_pxnwy")
+texture = ExtResource("2_167qi")
 hframes = 15
 frame = 14
 
-[node name="TopSprite" type="Sprite2D" parent="." index="1"]
-z_index = 1
-position = Vector2(0, -18)
-texture = SubResource("AtlasTexture_p5awq")
-
-[node name="AnimationPlayer" parent="." index="2"]
+[node name="AnimationPlayer" parent="." index="1"]
 libraries = {
 "": SubResource("AnimationLibrary_lpior")
 }
 
-[node name="CollisionShape2D" parent="." index="3"]
+[node name="CollisionShape2D" parent="." index="2"]
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_utj8v")
 disabled = true
 
-[node name="LightOccluder2D" parent="." index="4"]
+[node name="LightOccluder2D" parent="." index="3"]
 position = Vector2(0, -12)
 occluder = SubResource("OccluderPolygon2D_gbdhl")
 occluder_light_mask = 0
 
-[node name="PlayerDetector" parent="." index="5"]
+[node name="PlayerDetector" parent="." index="4"]
 position = Vector2(0, -12)
 
 [node name="CollisionShape2D" parent="PlayerDetector" index="0"]

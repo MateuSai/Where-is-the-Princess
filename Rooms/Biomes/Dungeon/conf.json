@@ -3,6 +3,9 @@
 	"room_atlas_id": 40,
 	"extra_connections": 0.2,
 	"minimap_texture": "res://Art/v1.1 dungeon crawler 16x16 pixel pack/full tilemap_minimap_sepia.png",
+	"vertical_door_texture": "res://Art/v1.1 dungeon crawler 16x16 pixel pack/dungeon_vertical_door_canvas_texture.tres",
+	"horizontal_down_door_texture": "res://Art/v1.1 dungeon crawler 16x16 pixel pack/dungeon_horizontal_down_door_canvas_texture.tres",
+	"horizontal_up_door_texture": "res://Art/v1.1 dungeon crawler 16x16 pixel pack/dungeon_horizontal_up_door_canvas_texture.tres",
 
 	"default_num_combat_rooms": 6,
 	"default_num_special_rooms": 1,

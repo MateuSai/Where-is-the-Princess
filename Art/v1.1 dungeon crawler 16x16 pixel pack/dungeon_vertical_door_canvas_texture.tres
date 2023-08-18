@@ -1,0 +1,8 @@
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://dc8v8rkhyoj32"]
+
+[ext_resource type="Texture2D" uid="uid://dpjpd68fkp7f2" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/lateral door.png" id="1_dsepp"]
+[ext_resource type="Texture2D" uid="uid://c62npfrxsts06" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/lateral_door_normal.png" id="2_mh45t"]
+
+[resource]
+diffuse_texture = ExtResource("1_dsepp")
+normal_texture = ExtResource("2_mh45t")

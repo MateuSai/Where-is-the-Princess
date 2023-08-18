@@ -1,0 +1,8 @@
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://b1sf874hhkvm6"]
+
+[ext_resource type="Texture2D" uid="uid://bebupc443w3u" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/tiles/wall/door_spritesheet.png" id="1_tjkta"]
+[ext_resource type="Texture2D" uid="uid://bvvmfifrcqokb" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/horizontal_door_normal.png" id="2_4cy6y"]
+
+[resource]
+diffuse_texture = ExtResource("1_tjkta")
+normal_texture = ExtResource("2_4cy6y")
