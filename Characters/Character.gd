@@ -22,6 +22,8 @@ var can_move: bool = true
 
 @export var flying: bool = false
 
+@export var can_be_knocked_back: bool = true
+
 @onready var state_machine: Node = get_node("FiniteStateMachine")
 @onready var sprite: Sprite2D = get_node("Sprite2D")
 @onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
@@ -71,10 +73,12 @@ func _on_damage_taken(_dam: int, dir: Vector2, force: int) -> void:
 #				SavedData.reset_data()
 #		if hp > 0:
 			#state_machine.set_state(state_machine.states.hurt)
-	velocity += dir * force
+	if can_be_knocked_back:
+		velocity += dir * force
 	if life_component.hp == 0:
 		state_machine.set_state(state_machine.states.dead)
-		velocity += dir * force
+		if can_be_knocked_back:
+			velocity += dir * force
 
 
 #func set_hp(new_hp: int) -> void:
