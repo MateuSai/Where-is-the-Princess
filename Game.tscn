@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=25 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -17,6 +17,8 @@
 [ext_resource type="Shader" path="res://Shaders and Particles/IntensityToTransparency.gdshader" id="14_qjw3b"]
 [ext_resource type="FontFile" uid="uid://qupo5kdd8137" path="res://Fonts/alagard.ttf" id="15_84d5m"]
 [ext_resource type="Texture2D" uid="uid://bl8w6y7gf8ubx" path="res://Art/player/icon_map.png" id="16_0uph7"]
+[ext_resource type="Script" path="res://Menus/DebugUI.gd" id="16_tejhc"]
+[ext_resource type="Script" path="res://Menus/Terminal.gd" id="17_e1t0h"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
 light_mode = 1
@@ -167,26 +169,6 @@ layout_mode = 2
 theme = ExtResource("4_usvbv")
 theme_override_font_sizes/font_size = 8
 
-[node name="DebugInfo" type="VBoxContainer" parent="UI"]
-texture_filter = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 53.0
-grow_horizontal = 0
-theme = ExtResource("4_usvbv")
-script = ExtResource("9_yskig")
-
-[node name="FpsLabel" type="Label" parent="UI/DebugInfo"]
-layout_mode = 2
-
-[node name="MemoryLabel" type="Label" parent="UI/DebugInfo"]
-layout_mode = 2
-
-[node name="MemoryPeakLabel" type="Label" parent="UI/DebugInfo"]
-layout_mode = 2
-
 [node name="RightBottomGameVBoxContainer" type="VBoxContainer" parent="UI"]
 texture_filter = 1
 anchors_preset = 3
@@ -260,6 +242,50 @@ label_settings = SubResource("LabelSettings_lngc4")
 [node name="PlayerIcon" type="Sprite2D" parent="UI/MiniMap/MinimapScrollContainer/PanelContainer"]
 z_index = 1
 texture = ExtResource("16_0uph7")
+
+[node name="DebugUI" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("16_tejhc")
+
+[node name="DebugInfo" type="VBoxContainer" parent="UI/DebugUI"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme = ExtResource("4_usvbv")
+script = ExtResource("9_yskig")
+
+[node name="FpsLabel" type="Label" parent="UI/DebugUI/DebugInfo"]
+layout_mode = 2
+
+[node name="MemoryLabel" type="Label" parent="UI/DebugUI/DebugInfo"]
+layout_mode = 2
+
+[node name="MemoryPeakLabel" type="Label" parent="UI/DebugUI/DebugInfo"]
+layout_mode = 2
+
+[node name="Terminal" type="LineEdit" parent="UI/DebugUI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -147.0
+offset_top = -31.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("17_e1t0h")
 
 [node name="FogSprite" type="Sprite2D" parent="."]
 z_index = 3
