@@ -31,18 +31,17 @@ position = Vector2(200, 234)
 [node name="EnemyMarker" type="Marker2D" parent="EnemyPositions" index="0"]
 position = Vector2(94, 108)
 script = ExtResource("4_udvno")
+enemy_name = "MarkTheReptilian"
 
 [node name="EnemyMarker2" type="Marker2D" parent="EnemyPositions" index="1"]
 position = Vector2(207, 86)
 script = ExtResource("4_udvno")
+enemy_name = "ArmoredMark"
 
 [node name="EnemyMarker3" type="Marker2D" parent="EnemyPositions" index="2"]
 position = Vector2(273, 170)
 script = ExtResource("4_udvno")
-
-[node name="EnemyMarker4" type="Marker2D" parent="EnemyPositions" index="3"]
-position = Vector2(83, 164)
-script = ExtResource("4_udvno")
+enemy_name = "NakedMark"
 
 [node name="TeleportPosition" parent="." index="6"]
 position = Vector2(210, 113)
