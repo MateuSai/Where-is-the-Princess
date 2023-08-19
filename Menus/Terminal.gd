@@ -97,6 +97,11 @@ func _process_command(command: String) -> void:
 							_spawn_weapon(splitted_command[2])
 						else:
 							push_error("You must specify a weapon path")
+					"item":
+						if splitted_command.size() > 2:
+							_spawn_item(splitted_command[2])
+						else:
+							push_error("You must specify a item path")
 			else:
 				push_error("Invalid number of arguments, you must specify what to spawn")
 #			if splitted_command.size() > 1: # tiene otro argumento
@@ -190,3 +195,12 @@ func _spawn_weapon(weapon_string: String) -> void:
 	weapon.position = Globals.player.position + Vector2.RIGHT * 16
 	weapon.on_floor = true
 	get_tree().current_scene.add_child(weapon)
+
+
+func _spawn_item(item_string: String) -> void:
+	var item: Item = load(item_string).new()
+	var item_on_floor: ItemOnFloor = load("res://Items/ItemOnFloor.tscn").instantiate()
+	item_on_floor.position = Globals.player.position + Vector2.RIGHT * 16
+	item_on_floor.initialize(item)
+	get_tree().current_scene.add_child(item_on_floor)
+	item_on_floor.enable_pick_up()
