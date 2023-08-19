@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=25 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://Menus/SettingsButton.gd" id="8_b3yq4"]
 [ext_resource type="Script" path="res://Menus/DebugInfo.gd" id="9_yskig"]
 [ext_resource type="Script" path="res://Menus/RightBottomGameVBoxContainer.gd" id="10_i5tua"]
-[ext_resource type="Texture2D" uid="uid://bhhqlnuamgk2u" path="res://Art/items/coin.png" id="10_nwb46"]
+[ext_resource type="Texture2D" uid="uid://dk5fa4ot7i4y" path="res://Art/UI icons/big_coin.tres" id="10_ufxq4"]
 [ext_resource type="Script" path="res://Menus/MiniMap.gd" id="12_icbnv"]
 [ext_resource type="Script" path="res://Menus/MinimapScrollContainer.gd" id="13_f54tc"]
 [ext_resource type="Texture2D" uid="uid://cm2mxt7vas7t4" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/minimap_9-patch_bigger.png" id="13_s3von"]
@@ -23,10 +23,6 @@
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
 light_mode = 1
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u85lp"]
-atlas = ExtResource("10_nwb46")
-region = Rect2(0, 0, 8, 8)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oed6k"]
 texture = ExtResource("13_s3von")
@@ -141,16 +137,16 @@ theme = ExtResource("4_usvbv")
 
 [node name="ResumeButton" type="Button" parent="UI/PauseMenu/VBoxContainer"]
 layout_mode = 2
-text = "Resume"
+text = "RESUME"
 
 [node name="SettingsButton" type="Button" parent="UI/PauseMenu/VBoxContainer"]
 layout_mode = 2
-text = "Settings"
+text = "SETTINGS"
 script = ExtResource("8_b3yq4")
 
 [node name="QuitButton" type="Button" parent="UI/PauseMenu/VBoxContainer"]
 layout_mode = 2
-text = "Quit"
+text = "QUIT"
 script = ExtResource("6_nj5uy")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/PauseMenu"]
@@ -187,14 +183,14 @@ script = ExtResource("10_i5tua")
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="UI/RightBottomGameVBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
-texture = SubResource("AtlasTexture_u85lp")
+texture = ExtResource("10_ufxq4")
 stretch_mode = 5
 
 [node name="CoinsLabel" type="Label" parent="UI/RightBottomGameVBoxContainer/HBoxContainer"]
 layout_mode = 2
-vertical_alignment = 1
+text = "0"
+vertical_alignment = 2
 
 [node name="MiniMap" type="Popup" parent="UI"]
 disable_3d = true

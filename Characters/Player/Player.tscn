@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=30 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://c535uh5i7hsc8" path="res://Art/progress bar.png" id="8_mgo6t"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCamera.gd" id="9_es44d"]
 [ext_resource type="Texture2D" uid="uid://ckd65h4x4udtg" path="res://Art/6x2.png" id="10_w3xli"]
+[ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/light_fire.png" id="15_41qtp"]
 
 [sub_resource type="CircleShape2D" id="18"]
 radius = 3.0
@@ -444,6 +445,11 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="Marker2D" type="Marker2D" parent="DustPositions" index="0"]
+
+[node name="PointLight2D" type="PointLight2D" parent="." index="13"]
+texture = ExtResource("15_41qtp")
+texture_scale = 0.5
+height = 64.0
 
 [connection signal="weapon_condition_changed" from="Weapons" to="UI" method="_on_weapon_condition_changed"]
 [connection signal="weapon_droped" from="Weapons" to="UI" method="_on_weapon_droped"]
