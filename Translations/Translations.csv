@@ -1,3 +1,15 @@
-keys,en,ca
-UNDERPANTS,Underpants,Roba interior
-KNIGHT,Knight,Cavaller
+keys,en,ca,es,ja
+UNDERPANTS,Underpants,Roba interior,Ropa interior,
+KNIGHT,Knight,Cavaller,Caballero,
+,,,,
+,,,,
+LANGUAGE,Language,Idioma,Idioma,言葉
+FULL_SCREEN,Full Screen,Pantalla Completa,Pantalla Completa,全画面
+,,,,
+GENERAL,General,General,General,
+INPUT,Input,Input,Input,入力
+AUDIO,Audio,Àudio,Audio,音響
+,,,,
+MASTER_VOLUME,Master Volume,Volum Mestre,Volumen Maestro,
+MUSIC_VOLUME,Music Volume,Volum Música,Volumen Música,
+SOUNDS_VOLUME,Sounds Volume,Volum Sorolls,Volumen Sonidos,
