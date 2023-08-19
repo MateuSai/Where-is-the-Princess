@@ -26,7 +26,7 @@ func _input(event: InputEvent) -> void:
 		# si el jugador presiona la flecha de arriba, cargamos la ultima comanda que ejecutamos, solo si esta no es nula
 		if event.is_pressed() and event.keycode == KEY_UP:
 			if last_command.length() > 0:
-				get_tree().set_input_as_handled() # para que el caret no vuelva a la posición inicial
+				get_viewport().set_input_as_handled() # para que el caret no vuelva a la posición inicial
 				text = last_command
 				caret_column = last_command.length()
 		elif event.is_pressed() and event.keycode in [KEY_ENTER, KEY_KP_ENTER]:
@@ -74,9 +74,14 @@ func _process_command(command: String) -> void:
 				match splitted_command[1].to_lower():
 					"hp":
 						if splitted_command.size() > 2:
-							pass
+							_set_player_hp(splitted_command[2])
 						else:
 							push_error("You must specify the new hp")
+					"worldcol":
+						if splitted_command.size() > 2:
+							_set_player_worldcol(splitted_command[2])
+						else:
+							push_error("You must specify the new value of worldcol")
 			else:
 				push_error("Invalid number of arguments, you must specify what to set")
 #		"spawn":
@@ -136,3 +141,14 @@ func _set_player_hp(hp_string: String) -> void:
 	Globals.player.life_component.hp = int(hp_string)
 #	var new_hp: int = int(clamp(int(hp_string), 0.0, 100.0))
 #	Globals.player.hp = new_hp
+
+
+func _set_player_worldcol(worldcol: String) -> void:
+	if worldcol in ["true", "t", "tr"]:
+		hide()
+		Globals.player.set_collision_mask_value(1, true)
+	elif worldcol in ["false", "f"]:
+		hide()
+		Globals.player.set_collision_mask_value(1, false)
+	else:
+		printerr("Invalid value for player worldcol")

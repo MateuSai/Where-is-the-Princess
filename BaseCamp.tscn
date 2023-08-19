@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Menus/WardrobeUI.gd" id="4_nybk1"]
 [ext_resource type="Texture2D" uid="uid://daudq4kfwccvu" path="res://Art/Status Conditions/condition_status_top_fire_full_16x16.png" id="4_ypw36"]
 [ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/light_fire.png" id="5_jugum"]
+[ext_resource type="Texture2D" uid="uid://cpda4qwx1x4j6" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/sign.png" id="9_dti1o"]
 [ext_resource type="PackedScene" uid="uid://bqcn0vo0ait26" path="res://Rooms/RichardTheGigachadWizard.tscn" id="11_vh5i5"]
 [ext_resource type="PackedScene" uid="uid://cjc0h245lbmpd" path="res://Weapons/Katana.tscn" id="12_trlvh"]
 [ext_resource type="PackedScene" uid="uid://5orvhxdckhxm" path="res://Rooms/Shop.tscn" id="13_nv3p8"]
@@ -56,9 +57,6 @@ size = Vector2(8, 8)
 [sub_resource type="CircleShape2D" id="CircleShape2D_2m37t"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vti6p"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_ihltq"]
-size = Vector2(8, 8)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_va5t1"]
 radius = 6.0
@@ -176,8 +174,8 @@ path_to_sprite = NodePath("../Sprite2D")
 shape = SubResource("CircleShape2D_vti6p")
 
 [node name="SeedSelectorSprite" type="Sprite2D" parent="."]
-position = Vector2(154, 24)
-texture = SubResource("PlaceholderTexture2D_ihltq")
+position = Vector2(154, 25)
+texture = ExtResource("9_dti1o")
 
 [node name="InteractArea" type="Area2D" parent="SeedSelectorSprite"]
 script = ExtResource("2_n3t3v")
