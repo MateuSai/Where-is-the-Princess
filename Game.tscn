@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=26 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://bl8w6y7gf8ubx" path="res://Art/player/icon_map.png" id="16_0uph7"]
 [ext_resource type="Script" path="res://Menus/DebugUI.gd" id="16_tejhc"]
 [ext_resource type="Script" path="res://Menus/Terminal.gd" id="17_e1t0h"]
+[ext_resource type="FontFile" uid="uid://dues33f2o08he" path="res://Fonts/Unbalanced.ttf" id="18_2pqx3"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
 light_mode = 1
@@ -251,6 +252,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("4_usvbv")
 script = ExtResource("16_tejhc")
 
 [node name="DebugInfo" type="VBoxContainer" parent="UI/DebugUI"]
@@ -281,10 +283,12 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -147.0
-offset_top = -31.0
+offset_left = -216.0
+offset_top = -24.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_fonts/font = ExtResource("18_2pqx3")
+caret_blink = true
 script = ExtResource("17_e1t0h")
 
 [node name="FogSprite" type="Sprite2D" parent="."]

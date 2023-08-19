@@ -82,9 +82,23 @@ func _process_command(command: String) -> void:
 							_set_player_worldcol(splitted_command[2])
 						else:
 							push_error("You must specify the new value of worldcol")
+					"invincible", "in":
+						if splitted_command.size() > 2:
+							_set_player_invincible(splitted_command[2])
+						else:
+							push_error("You must specify the new value of invincible")
 			else:
 				push_error("Invalid number of arguments, you must specify what to set")
-#		"spawn":
+		"spawn":
+			if splitted_command.size() > 1: # tiene otro argumento
+				match splitted_command[1].to_lower():
+					"weapon", "weap":
+						if splitted_command.size() > 2:
+							_spawn_weapon(splitted_command[2])
+						else:
+							push_error("You must specify a weapon path")
+			else:
+				push_error("Invalid number of arguments, you must specify what to spawn")
 #			if splitted_command.size() > 1: # tiene otro argumento
 #				match splitted_command[1]:
 #					"weapon", "weap":
@@ -144,11 +158,35 @@ func _set_player_hp(hp_string: String) -> void:
 
 
 func _set_player_worldcol(worldcol: String) -> void:
-	if worldcol in ["true", "t", "tr"]:
+	if _get_bool_from_string(worldcol):
 		hide()
 		Globals.player.set_collision_mask_value(1, true)
-	elif worldcol in ["false", "f"]:
+	else:
 		hide()
 		Globals.player.set_collision_mask_value(1, false)
+
+
+func _set_player_invincible(value: String) -> void:
+	if _get_bool_from_string(value):
+		hide()
+		Globals.player.life_component.invincible = true
 	else:
-		printerr("Invalid value for player worldcol")
+		hide()
+		Globals.player.life_component.invincible = false
+
+
+func _get_bool_from_string(s: String) -> bool:
+	if s in ["true", "t", "tr", "1"]:
+		return true
+	elif s in ["false", "f", "0"]:
+		return false
+	else:
+		printerr("Can't convert string to bool, returning false")
+		return false
+
+
+func _spawn_weapon(weapon_string: String) -> void:
+	var weapon: Weapon = load(weapon_string).instantiate()
+	weapon.position = Globals.player.position + Vector2.RIGHT * 16
+	weapon.on_floor = true
+	get_tree().current_scene.add_child(weapon)
