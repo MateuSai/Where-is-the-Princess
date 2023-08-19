@@ -449,7 +449,7 @@ offset_bottom = 23.0
 [node name="PointLight2D" type="PointLight2D" parent="." index="13"]
 texture = ExtResource("15_41qtp")
 texture_scale = 0.5
-height = 64.0
+height = 16.0
 
 [connection signal="weapon_condition_changed" from="Weapons" to="UI" method="_on_weapon_condition_changed"]
 [connection signal="weapon_droped" from="Weapons" to="UI" method="_on_weapon_droped"]
