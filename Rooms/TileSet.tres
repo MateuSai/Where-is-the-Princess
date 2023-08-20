@@ -1,8 +1,8 @@
 [gd_resource type="TileSet" load_steps=27 format=3 uid="uid://b6ahcd27jnf2v"]
 
 [ext_resource type="Texture2D" uid="uid://d2e6iidvt8eo3" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full tilemap.png" id="1"]
-[ext_resource type="Texture2D" uid="uid://dobnnxla3u4rq" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full tilemap forest.png" id="1_8t4wc"]
-[ext_resource type="Texture2D" uid="uid://cg4j7iw6roxh0" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full tilemap forest normal.png" id="2_76mpx"]
+[ext_resource type="Texture2D" uid="uid://dobnnxla3u4rq" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest.png" id="1_8t4wc"]
+[ext_resource type="Texture2D" uid="uid://cg4j7iw6roxh0" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest normal.png" id="2_76mpx"]
 [ext_resource type="Texture2D" uid="uid://bbir3nubd0hb" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full_tilemap_albedo.png" id="2_fun5j"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ayd5n"]

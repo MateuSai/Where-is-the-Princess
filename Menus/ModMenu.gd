@@ -15,14 +15,16 @@ func _ready() -> void:
 	add_child(margin_container)
 
 	var mods_list: VBoxContainer = VBoxContainer.new()
-	for mod_name in SavedData.mods:
-		var mod: Mod = Mod.new(mod_name)
+	for mod in SavedData.mods:
 		mods_list.add_child(ModRow.new(mod))
 	margin_container.add_child(mods_list)
 
 	popup_centered()
 
-	popup_hide.connect(queue_free)
+	popup_hide.connect(func():
+		SavedData.save_mods_conf()
+		queue_free()
+	)
 
 
 class ModRow extends HBoxContainer:
@@ -33,7 +35,7 @@ class ModRow extends HBoxContainer:
 		self.mod = mod
 
 		var label: Label = Label.new()
-		label.text = mod.resource_path
+		label.text = mod.get_name()
 		add_child(label)
 
 		var check_box: CheckBox = CheckBox.new()

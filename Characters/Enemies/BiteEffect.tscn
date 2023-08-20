@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://djc6nhxqlqfhe"]
 
-[ext_resource type="Texture2D" uid="uid://bkik15bndurol" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/bite_anim.png" id="1_ykw46"]
+[ext_resource type="Texture2D" uid="uid://bkik15bndurol" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/bite_anim.png" id="1_ykw46"]
 
 [sub_resource type="Animation" id="Animation_xjq7c"]
 resource_name = "bite"

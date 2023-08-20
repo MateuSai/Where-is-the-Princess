@@ -1,11 +1,15 @@
 keys,en,ca,es,ja
-UNDERPANTS,Underpants,Roba interior,Ropa interior,
-KNIGHT,Knight,Cavaller,Caballero,
+UNDERPANTS,Underpants,Roba interior,Ropa interior,パンツ
+UNDERPANTS_DESC,Why wear an armor? You are faster with only your underpants.,,,
+KNIGHT,Knight,Cavaller,Caballero,騎士
+MERCENARY,Mercenary,Mercenari,Mercenario,傭兵
 ,,,,
 ,,,,
+PLAY,Play,Juga,Jugar,遊び
 RESUME,Resume,Resumir,Resumir,レジューム
+MODS,Mods,Mods,Mods,MODS
 SETTINGS,Settings,Configuració,Configuración,設定
-QUIT,Quit,Surt,Salir,
+QUIT,Quit,Surt,Salir,退く
 ,,,,
 ,,,,
 LANGUAGE,Language,Idioma,Idioma,言葉
