@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://e63ahn7ldumi"]
 
-[ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/light_fire.png" id="1_lk8e2"]
+[ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png" id="1_lk8e2"]
 [ext_resource type="Texture2D" uid="uid://r7wtgfupv22u" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/torch_spritesheet.png" id="2"]
 
 [sub_resource type="AtlasTexture" id="1"]

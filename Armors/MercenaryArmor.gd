@@ -2,9 +2,7 @@ extends Armor
 
 
 func _init() -> void:
-	tr("Mercenary")
-	tr("Mercenary armor description")
-	initialize("Mercenary", "", load("res://Art/player/armor_02.png"), 10, 15, 5)
+	initialize("MERCENARY", "", load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armor_02.png"), 10, 15, 5)
 
 
 func use_ability(player: Player) -> void:

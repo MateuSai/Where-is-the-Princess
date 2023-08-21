@@ -9,20 +9,28 @@ func _init() -> void:
 
 
 func _ready() -> void:
+	add_theme_stylebox_override("panel", Settings.get("theme_override_styles/panel"))
+
 	var margin_container: MarginContainer = MarginContainer.new()
 	#tab_container.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	margin_container.theme = load("res://Theme.tres")
+	margin_container.add_theme_constant_override("margin_left", 4)
+	margin_container.add_theme_constant_override("margin_top", 4)
+	margin_container.add_theme_constant_override("margin_right", 4)
+	margin_container.add_theme_constant_override("margin_bottom", 4)
 	add_child(margin_container)
 
 	var mods_list: VBoxContainer = VBoxContainer.new()
-	for mod_name in SavedData.mods:
-		var mod: Mod = Mod.new(mod_name)
+	for mod in SavedData.mods:
 		mods_list.add_child(ModRow.new(mod))
 	margin_container.add_child(mods_list)
 
 	popup_centered()
 
-	popup_hide.connect(queue_free)
+	popup_hide.connect(func():
+		SavedData.save_mods_conf()
+		queue_free()
+	)
 
 
 class ModRow extends HBoxContainer:
@@ -32,14 +40,22 @@ class ModRow extends HBoxContainer:
 	func _init(mod: Mod) -> void:
 		self.mod = mod
 
-		var label: Label = Label.new()
-		label.text = mod.resource_path
-		add_child(label)
-
 		var check_box: CheckBox = CheckBox.new()
 		check_box.button_pressed = mod.enabled
 		check_box.pressed.connect(func():
 			mod.enabled = !mod.enabled
 			#print(SavedData.mods.rooms[0].enabled)
 		)
+		#check_box.size_flags_horizontal = Control.SIZE_SHRINK_END | Control.SIZE_EXPAND
 		add_child(check_box)
+
+		var label: Label = Label.new()
+		label.text = mod.get_name()
+		add_child(label)
+
+		var spin_box: SpinBox = SpinBox.new()
+		spin_box.value = mod.priority
+		spin_box.value_changed.connect(func(new_value: int):
+			mod.priority = new_value
+		)
+		add_child(spin_box)

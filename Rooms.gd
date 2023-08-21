@@ -430,7 +430,7 @@ func _create_fog() -> void:
 	#fog_sprite.texture = ImageTexture.create_from_image(fog_image)
 
 	while is_instance_valid(Globals.player):
-		var light: Image = load("res://Art/light_fire.png").get_image()
+		var light: Image = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png").get_image()
 		light.convert(Image.FORMAT_RGBAH)
 		fog_image.blend_rect(light, Rect2(Vector2.ZERO, light.get_size()), Globals.player.position - map_rect.position - light.get_size()/2.0)
 		fog_sprite.texture = ImageTexture.create_from_image(fog_image)

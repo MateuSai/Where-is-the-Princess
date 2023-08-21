@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://bqcn0vo0ait26"]
 
-[ext_resource type="Texture2D" uid="uid://ckm5f14just72" path="res://Art/player/armor_02.png" id="1_3fotm"]
+[ext_resource type="Texture2D" uid="uid://ckm5f14just72" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armor_02.png" id="1_3fotm"]
 [ext_resource type="Script" path="res://Rooms/RichardTheGigachadWizard.gd" id="2_aqu0x"]
 [ext_resource type="Script" path="res://InteractArea.gd" id="3_orqtc"]
 

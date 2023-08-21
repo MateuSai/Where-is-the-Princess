@@ -1,0 +1,8 @@
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://b6y3mgi5gesan"]
+
+[ext_resource type="Texture2D" uid="uid://nhljqucr6jki" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/doors/horizontal_door(forest).png" id="1_lxacf"]
+[ext_resource type="Texture2D" uid="uid://cc7ruqpi551y3" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/doors/horizontal_door(forest)_normal.png" id="2_ytmse"]
+
+[resource]
+diffuse_texture = ExtResource("1_lxacf")
+normal_texture = ExtResource("2_ytmse")
