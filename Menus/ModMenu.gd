@@ -40,15 +40,22 @@ class ModRow extends HBoxContainer:
 	func _init(mod: Mod) -> void:
 		self.mod = mod
 
-		var label: Label = Label.new()
-		label.text = mod.get_name()
-		add_child(label)
-
 		var check_box: CheckBox = CheckBox.new()
 		check_box.button_pressed = mod.enabled
 		check_box.pressed.connect(func():
 			mod.enabled = !mod.enabled
 			#print(SavedData.mods.rooms[0].enabled)
 		)
-		check_box.size_flags_horizontal = Control.SIZE_SHRINK_END | Control.SIZE_EXPAND
+		#check_box.size_flags_horizontal = Control.SIZE_SHRINK_END | Control.SIZE_EXPAND
 		add_child(check_box)
+
+		var label: Label = Label.new()
+		label.text = mod.get_name()
+		add_child(label)
+
+		var spin_box: SpinBox = SpinBox.new()
+		spin_box.value = mod.priority
+		spin_box.value_changed.connect(func(new_value: int):
+			mod.priority = new_value
+		)
+		add_child(spin_box)
