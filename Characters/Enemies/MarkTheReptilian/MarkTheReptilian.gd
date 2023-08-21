@@ -13,6 +13,9 @@ signal spear_picked_up()
 #@onready var rope: Node2D = $Weapon/Rope
 #@onready var weapon_joint: PinJoint2D = $Weapon/Rope/PinJoint2D
 
+@onready var attack_timer: Timer = $AttackTimer
+@onready var pull_back_timer: Timer = $PullBackTimer
+
 
 func _ready() -> void:
 	super()
@@ -20,6 +23,12 @@ func _ready() -> void:
 #	weapon_body.position = Vector2.DOWN * 8
 #	weapon_body.can_move = false
 #	rope.hide()
+
+	attack_timer.timeout.connect(func():
+		_throw()
+		pull_back_timer.start(randf_range(0.8, 1.4))
+	)
+	pull_back_timer.timeout.connect(_pull_back_weapon)
 
 
 
@@ -42,8 +51,30 @@ func point_to_player() -> void:
 func attack() -> void:
 	pick_up_spear_area_collision_shape.set_deferred("disabled", true)
 
-	await get_tree().create_timer(randf_range(0.2, 0.8), false).timeout
+	attack_timer.start(randf_range(0.2, 0.8))
 
+#	spear_sprite.hide()
+#
+#	spear_and_rope = load("res://Characters/Enemies/MarkTheReptilian/SpearAndRope.tscn").instantiate()
+#	get_tree().current_scene.add_child(spear_and_rope)
+#	spear_and_rope.position = global_position
+#	var vector_to_player: Vector2 = (player.position - global_position)
+#	if vector_to_player.x < 0:
+#		spear_and_rope.scale.y = -1
+#	spear_and_rope.attach(get_path(), vector_to_player.normalized())
+	#weapon.rotation = (player.position - global_position).angle()
+	#rope.show()
+	#$Weapon.rotation = (player.position - global_position).angle() - PI/2
+	#weapon_body.can_move = true
+	#weapon_joint.node_a = weapon_joint.get_path_to(weapon_body)
+	#weapon_body.apply_impulse((player.position - weapon.global_position).normalized() * 1500)
+
+#	await get_tree().create_timer(randf_range(0.8, 1.4), false).timeout
+#
+#	_pull_back_weapon()
+
+
+func _throw() -> void:
 	spear_sprite.hide()
 
 	spear_and_rope = load("res://Characters/Enemies/MarkTheReptilian/SpearAndRope.tscn").instantiate()
@@ -53,16 +84,6 @@ func attack() -> void:
 	if vector_to_player.x < 0:
 		spear_and_rope.scale.y = -1
 	spear_and_rope.attach(get_path(), vector_to_player.normalized())
-	#weapon.rotation = (player.position - global_position).angle()
-	#rope.show()
-	#$Weapon.rotation = (player.position - global_position).angle() - PI/2
-	#weapon_body.can_move = true
-	#weapon_joint.node_a = weapon_joint.get_path_to(weapon_body)
-	#weapon_body.apply_impulse((player.position - weapon.global_position).normalized() * 1500)
-
-	await get_tree().create_timer(randf_range(0.8, 1.4), false).timeout
-
-	_pull_back_weapon()
 
 
 func _pull_back_weapon() -> void:
@@ -85,3 +106,12 @@ func _on_pick_up_spear_area_body_entered(body: Node2D) -> void:
 		spear_and_rope.queue_free()
 		spear_sprite.show()
 		spear_picked_up.emit()
+
+
+func _on_died() -> void:
+	attack_timer.stop()
+	pull_back_timer.stop()
+	if is_instance_valid(spear_and_rope):
+		spear_and_rope.queue_free()
+
+	super()

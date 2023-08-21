@@ -9,9 +9,15 @@ func _init() -> void:
 
 
 func _ready() -> void:
+	add_theme_stylebox_override("panel", Settings.get("theme_override_styles/panel"))
+
 	var margin_container: MarginContainer = MarginContainer.new()
 	#tab_container.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	margin_container.theme = load("res://Theme.tres")
+	margin_container.add_theme_constant_override("margin_left", 4)
+	margin_container.add_theme_constant_override("margin_top", 4)
+	margin_container.add_theme_constant_override("margin_right", 4)
+	margin_container.add_theme_constant_override("margin_bottom", 4)
 	add_child(margin_container)
 
 	var mods_list: VBoxContainer = VBoxContainer.new()
@@ -44,4 +50,5 @@ class ModRow extends HBoxContainer:
 			mod.enabled = !mod.enabled
 			#print(SavedData.mods.rooms[0].enabled)
 		)
+		check_box.size_flags_horizontal = Control.SIZE_SHRINK_END | Control.SIZE_EXPAND
 		add_child(check_box)

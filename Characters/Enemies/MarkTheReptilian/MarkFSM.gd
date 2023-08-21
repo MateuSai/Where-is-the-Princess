@@ -55,6 +55,8 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			parent.attack()
 		states.dead:
 			pass
+#			if parent.spear_and_rope:
+#				parent.spear_and_rope.queue_free()
 			# parent.spawn_loot()
 			#animation_player.play("dead")
 
