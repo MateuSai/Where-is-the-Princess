@@ -76,19 +76,19 @@ func _process_command(command: String) -> void:
 						if splitted_command.size() > 2:
 							_set_player_hp(splitted_command[2])
 						else:
-							push_error("You must specify the new hp")
+							printerr("You must specify the new hp")
 					"worldcol":
 						if splitted_command.size() > 2:
 							_set_player_worldcol(splitted_command[2])
 						else:
-							push_error("You must specify the new value of worldcol")
+							printerr("You must specify the new value of worldcol")
 					"invincible", "in":
 						if splitted_command.size() > 2:
 							_set_player_invincible(splitted_command[2])
 						else:
-							push_error("You must specify the new value of invincible")
+							printerr("You must specify the new value of invincible")
 			else:
-				push_error("Invalid number of arguments, you must specify what to set")
+				printerr("Invalid number of arguments, you must specify what to set")
 		"spawn":
 			if splitted_command.size() > 1: # tiene otro argumento
 				match splitted_command[1].to_lower():
@@ -96,14 +96,19 @@ func _process_command(command: String) -> void:
 						if splitted_command.size() > 2:
 							_spawn_weapon(splitted_command[2])
 						else:
-							push_error("You must specify a weapon path")
+							printerr("You must specify a weapon path")
 					"item":
 						if splitted_command.size() > 2:
 							_spawn_item(splitted_command[2])
 						else:
-							push_error("You must specify a item path")
+							printerr("You must specify a item path")
+					"enemy":
+						if splitted_command.size() > 2:
+							_spawn_enemy(splitted_command[2])
+						else:
+							printerr("You must specify a enemy path")
 			else:
-				push_error("Invalid number of arguments, you must specify what to spawn")
+				printerr("Invalid number of arguments, you must specify what to spawn")
 #			if splitted_command.size() > 1: # tiene otro argumento
 #				match splitted_command[1]:
 #					"weapon", "weap":
@@ -191,6 +196,7 @@ func _get_bool_from_string(s: String) -> bool:
 
 
 func _spawn_weapon(weapon_string: String) -> void:
+	hide()
 	var weapon: Weapon = load(weapon_string).instantiate()
 	weapon.position = Globals.player.position + Vector2.RIGHT * 16
 	weapon.on_floor = true
@@ -198,9 +204,17 @@ func _spawn_weapon(weapon_string: String) -> void:
 
 
 func _spawn_item(item_string: String) -> void:
+	hide()
 	var item: Item = load(item_string).new()
 	var item_on_floor: ItemOnFloor = load("res://Items/ItemOnFloor.tscn").instantiate()
 	item_on_floor.position = Globals.player.position + Vector2.RIGHT * 16
 	item_on_floor.initialize(item)
 	get_tree().current_scene.add_child(item_on_floor)
 	item_on_floor.enable_pick_up()
+
+
+func _spawn_enemy(enemy_string: String) -> void:
+	hide()
+	var enemy: Enemy = load(enemy_string).instantiate()
+	get_tree().current_scene.get_node("Rooms").rooms[0].add_child(enemy)
+	enemy.global_position = Globals.player.position + Vector2.RIGHT * 16

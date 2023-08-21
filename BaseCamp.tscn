@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://rx1c6wfrx15r" path="res://Art/Furniture and room elements/wardrobe.png" id="4_8ics2"]
 [ext_resource type="Script" path="res://Menus/WardrobeUI.gd" id="4_nybk1"]
 [ext_resource type="Texture2D" uid="uid://daudq4kfwccvu" path="res://Art/Status Conditions/condition_status_top_fire_full_16x16.png" id="4_ypw36"]
-[ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/light_fire.png" id="5_jugum"]
+[ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png" id="5_jugum"]
 [ext_resource type="Texture2D" uid="uid://cpda4qwx1x4j6" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/sign.png" id="9_dti1o"]
 [ext_resource type="PackedScene" uid="uid://bqcn0vo0ait26" path="res://Rooms/RichardTheGigachadWizard.tscn" id="11_vh5i5"]
 [ext_resource type="FontFile" uid="uid://chicvvurmnu8" path="res://Fonts/Poco.ttf" id="12_qu1vg"]
