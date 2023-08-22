@@ -13,7 +13,8 @@ func _ready() -> void:
 			"temporal_items_discovered":
 				shop_item.initialize(load(SavedData.data[marker.item_type][randi() % SavedData.data[marker.item_type].size()]).new())
 			"discovered_weapons":
-				var weapon: Weapon = load(SavedData.data[marker.item_type][randi() % SavedData.data[marker.item_type].size()]).instantiate()
+				var weapon_path: String = SavedData.data[marker.item_type][randi() % SavedData.data[marker.item_type].size()]
+				var weapon: Weapon = load(weapon_path).instantiate()
 				var weapon_item: WeaponItem = WeaponItem.new()
 				weapon_item.initialize(weapon)
 				shop_item.initialize(weapon_item)

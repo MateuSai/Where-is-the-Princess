@@ -8,7 +8,7 @@ const MODS_CONF_FILE_NAME: String = "mods_conf.json"
 const DATA_SAVE_NAME: String = "data.json"
 
 var data: Dictionary = {
-	"discovered_weapons": PackedStringArray(["res://Weapons/Katana.tscn", "res://Weapons/Spear.tscn"]),
+	"discovered_weapons": PackedStringArray(["res://Weapons/Melee/Katana.tscn", "res://Weapons/Melee/Spear.tscn"]),
 
 	"equipped_armor": "res://Armors/NoArmor.gd",
 	"armors_discovered": PackedStringArray(["res://Armors/NoArmor.gd", "res://Armors/KnightArmor.gd", "res://Armors/MercenaryArmor.gd"]),
