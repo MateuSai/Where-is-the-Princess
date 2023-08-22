@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=31 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -9,12 +9,13 @@
 [ext_resource type="Script" path="res://Characters/Player/Weapons.gd" id="5_uyohi"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="6_hd6on"]
 [ext_resource type="Script" path="res://Characters/Player/UI.gd" id="7_24kdb"]
-[ext_resource type="Texture2D" uid="uid://df3cenyvvexih" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/ui (new)/health_ui.png" id="7_mynin"]
 [ext_resource type="Script" path="res://Characters/Player/PassiveItemsContainer.gd" id="8_aavgb"]
-[ext_resource type="Texture2D" uid="uid://c535uh5i7hsc8" path="res://Art/progress bar.png" id="8_mgo6t"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCamera.gd" id="9_es44d"]
 [ext_resource type="Texture2D" uid="uid://ckd65h4x4udtg" path="res://Art/6x2.png" id="10_w3xli"]
+[ext_resource type="Script" path="res://Menus/Hearts.gd" id="12_bw776"]
+[ext_resource type="Texture2D" uid="uid://cv7hqc5jxweb7" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/heart_animation.tres" id="13_fsmvo"]
 [ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png" id="15_41qtp"]
+[ext_resource type="Texture2D" uid="uid://ntxuv0ekt6s3" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/soul_animation.tres" id="16_t51g1"]
 
 [sub_resource type="CircleShape2D" id="18"]
 radius = 3.0
@@ -412,12 +413,22 @@ theme_override_constants/margin_top = 4
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer" index="0"]
 layout_mode = 2
 
-[node name="HealthBar" type="TextureProgressBar" parent="UI/MarginContainer/VBoxContainer" index="0"]
+[node name="Hearts" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer" index="0"]
 layout_mode = 2
-value = 23.0
-texture_over = ExtResource("7_mynin")
-texture_progress = ExtResource("8_mgo6t")
-tint_progress = Color(0.498039, 0.0313726, 0.0313726, 1)
+theme_override_constants/separation = -2
+script = ExtResource("12_bw776")
+
+[node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/VBoxContainer/Hearts" index="0"]
+layout_mode = 2
+texture = ExtResource("13_fsmvo")
+
+[node name="TextureRect2" type="TextureRect" parent="UI/MarginContainer/VBoxContainer/Hearts" index="1"]
+layout_mode = 2
+texture = ExtResource("13_fsmvo")
+
+[node name="TextureRect3" type="TextureRect" parent="UI/MarginContainer/VBoxContainer/Hearts" index="2"]
+layout_mode = 2
+texture = ExtResource("13_fsmvo")
 
 [node name="PassiveItemsContainer" type="HFlowContainer" parent="UI/MarginContainer/VBoxContainer" index="1"]
 layout_mode = 2
@@ -450,6 +461,10 @@ offset_bottom = 23.0
 texture = ExtResource("15_41qtp")
 texture_scale = 0.5
 height = 16.0
+
+[node name="SoulAnimation" type="Sprite2D" parent="." index="14"]
+position = Vector2(105, 34)
+texture = ExtResource("16_t51g1")
 
 [connection signal="weapon_condition_changed" from="Weapons" to="UI" method="_on_weapon_condition_changed"]
 [connection signal="weapon_droped" from="Weapons" to="UI" method="_on_weapon_droped"]

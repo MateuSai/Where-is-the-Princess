@@ -1,0 +1,17 @@
+[gd_resource type="AnimatedTexture" load_steps=5 format=3 uid="uid://cv7hqc5jxweb7"]
+
+[ext_resource type="Texture2D" uid="uid://gnx578xqvpyr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Heart anim_01.png" id="1_1aoif"]
+[ext_resource type="Texture2D" uid="uid://cbwuea5rkgtok" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Heart anim_02.png" id="2_uhcv6"]
+[ext_resource type="Texture2D" uid="uid://cgvc3pj4p6gbr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Heart anim_03.png" id="3_lv7dr"]
+[ext_resource type="Texture2D" uid="uid://s0jo83hbse2v" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Heart anim_04.png" id="4_au1y5"]
+
+[resource]
+frames = 4
+frame_0/texture = ExtResource("1_1aoif")
+frame_0/duration = 0.1
+frame_1/texture = ExtResource("2_uhcv6")
+frame_1/duration = 0.8
+frame_2/texture = ExtResource("3_lv7dr")
+frame_2/duration = 0.1
+frame_3/texture = ExtResource("4_au1y5")
+frame_3/duration = 0.1
