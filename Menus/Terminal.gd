@@ -87,6 +87,11 @@ func _process_command(command: String) -> void:
 							_set_player_invincible(splitted_command[2])
 						else:
 							printerr("You must specify the new value of invincible")
+					"time scale", "ts":
+						if splitted_command.size() > 2:
+							_set_time_scale(splitted_command[2])
+						else:
+							printerr("You must specify the new value of time scale")
 			else:
 				printerr("Invalid number of arguments, you must specify what to set")
 		"spawn":
@@ -183,6 +188,16 @@ func _set_player_invincible(value: String) -> void:
 	else:
 		hide()
 		Globals.player.life_component.invincible = false
+
+
+func _set_time_scale(time_scale_string: String) -> void:
+	if not time_scale_string.is_valid_float():
+		printerr("Invalid value for time scale")
+		return
+
+	hide()
+	var new_time_scale: float = clamp(float(time_scale_string), 0.0, 10.0)
+	Engine.time_scale = new_time_scale
 
 
 func _get_bool_from_string(s: String) -> bool:

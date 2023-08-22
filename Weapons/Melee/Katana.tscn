@@ -652,6 +652,7 @@ texture = ExtResource("4_npc6b")
 offset = Vector2(0, -8)
 
 [node name="Hitbox" parent="Node2D/Sprite2D" index="0"]
+visible = false
 knockback_force = 200
 
 [node name="CollisionShape2D" parent="Node2D/Sprite2D/Hitbox" index="0"]
