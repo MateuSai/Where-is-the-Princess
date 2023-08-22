@@ -48,7 +48,10 @@ func attack() -> void:
 			super()
 		else:
 			attack_num = 0
-			animation_player.play_backwards("attack")
+			if animation_player.has_animation("attack_2"):
+				animation_player.play("attack_2")
+			else:
+				animation_player.play_backwards("attack")
 	else:
 		super()
 
@@ -113,3 +116,12 @@ func add_status_inflicter(status: StatusComponent.Status, amount: int = 1) -> vo
 
 	for i in amount:
 		status_inflicter_added.emit(self, status)
+
+
+func move(mouse_direction: Vector2) -> void:
+	super(mouse_direction)
+	if not backwards_animation_second_attack:
+		if scale.y == 1 and mouse_direction.x < 0:
+			scale.y = -1
+		elif scale.y == -1 and mouse_direction.x > 0:
+			scale.y = 1

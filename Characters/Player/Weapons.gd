@@ -9,6 +9,8 @@ signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Sta
 
 var current_weapon: Weapon: set = set_current_weapon
 
+var max_weapons: int = 4
+
 enum {UP, DOWN}
 
 
@@ -102,10 +104,10 @@ func _drop_weapon() -> void:
 	SavedData.run_stats.weapon_stats.remove_at(current_weapon.get_index() - 1)
 	var weapon_to_drop: Weapon = current_weapon
 	weapon_to_drop.condition_changed.disconnect(_on_weapon_condition_changed)
-	weapon_to_drop.status_inflicter_added.disconnect(_on_weapon_condition_changed)
+	weapon_to_drop.status_inflicter_added.disconnect(_on_weapon_status_inflicter_added)
 	_switch_weapon(UP)
 
-	emit_signal("weapon_droped", weapon_to_drop.get_index())
+	weapon_droped.emit(weapon_to_drop.get_index())
 
 	call_deferred("remove_child", weapon_to_drop)
 	get_tree().current_scene.call_deferred("add_child", weapon_to_drop)
@@ -175,3 +177,7 @@ func set_current_weapon(new_weapon: Weapon) -> void:
 			current_weapon.set_process_unhandled_input(false)
 		current_weapon = new_weapon
 		current_weapon.set_process_unhandled_input(true)
+
+
+func can_pick_up_weapons() -> bool:
+	return get_child_count() < max_weapons

@@ -60,10 +60,10 @@ func move(mouse_direction: Vector2) -> void:
 	#if not animation_player.is_playing() or animation_player.current_animation == "charge":
 	rotation = mouse_direction.angle()
 	hitbox.knockback_direction = mouse_direction
-	if scale.y == 1 and mouse_direction.x < 0:
-		scale.y = -1
-	elif scale.y == -1 and mouse_direction.x > 0:
-		scale.y = 1
+#	if scale.y == 1 and mouse_direction.x < 0:
+#		scale.y = -1
+#	elif scale.y == -1 and mouse_direction.x > 0:
+#		scale.y = 1
 
 
 func attack() -> void:
@@ -87,7 +87,7 @@ func is_busy() -> bool:
 
 
 func _on_PlayerDetector_body_entered(body: Node2D) -> void:
-	if body is Player:
+	if body is Player and body.can_pick_up_weapons():
 		body.weapons.pick_up_weapon(self)
 		_pick_up()
 	else:
