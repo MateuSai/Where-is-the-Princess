@@ -207,3 +207,7 @@ func remove_rotating_item(node: Node2D) -> void:
 	var rot: float = 2*PI / rotating_items.size()
 	for i in rotating_items.size():
 		rotating_items[i].rotation = rot * i
+
+
+func can_pick_up_weapons() -> bool:
+	return weapons.can_pick_up_weapons()
