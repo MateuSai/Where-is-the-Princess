@@ -1,10 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://jvc34qam0obx"]
+[gd_scene load_steps=6 format=3 uid="uid://jvc34qam0obx"]
 
 [ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="1"]
 [ext_resource type="Script" path="res://Weapons/Weapon.gd" id="2"]
 [ext_resource type="Script" path="res://Weapons/WeaponHitbox.gd" id="3"]
-[ext_resource type="Texture2D" uid="uid://b7bjytio6a77m" path="res://Art/19+ icons/white.png" id="4"]
-[ext_resource type="Script" path="res://Weapons/UI.gd" id="6"]
 
 [sub_resource type="ShaderMaterial" id="1"]
 resource_local_to_scene = true
@@ -60,25 +58,6 @@ collision_mask = 3
 [node name="CoolDownTimer" type="Timer" parent="."]
 wait_time = 4.0
 one_shot = true
-
-[node name="UI" type="CanvasLayer" parent="."]
-script = ExtResource("6")
-
-[node name="AbilityIcon" type="TextureProgressBar" parent="UI"]
-visible = false
-texture_filter = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 24.0
-offset_top = -82.0
-offset_right = 404.0
-offset_bottom = 298.0
-scale = Vector2(0.08, 0.08)
-value = 100.0
-fill_mode = 8
-texture_progress = ExtResource("4")
-tint_progress = Color(0.25098, 0.235294, 0.235294, 0.839216)
 
 [connection signal="body_entered" from="Node2D/Sprite2D/PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]
 [connection signal="timeout" from="CoolDownTimer" to="." method="_on_CoolDownTimer_timeout"]

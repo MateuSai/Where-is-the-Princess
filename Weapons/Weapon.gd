@@ -11,6 +11,7 @@ var stats: WeaponStats = null
 
 signal condition_changed(weapon: Weapon, new_condition: float)
 signal status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
+signal used_active_ability(cooldown_time)
 
 var tween: Tween = null
 @onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
@@ -19,8 +20,6 @@ var tween: Tween = null
 @onready var weapon_sprite: Sprite2D = get_node("Node2D/Sprite2D")
 @onready var player_detector: Area2D = weapon_sprite.get_node("PlayerDetector")
 @onready var cool_down_timer: Timer = get_node("CoolDownTimer")
-@onready var ui: CanvasLayer = get_node("UI")
-@onready var ability_icon: TextureProgressBar = ui.get_node("AbilityIcon")
 
 
 func _ready() -> void:
@@ -37,9 +36,6 @@ func _ready() -> void:
 		# modifier.equip(get_parent().get_parent())
 		modifier.equip(self)
 
-	connect("draw", _on_show)
-	connect("hidden", _on_hide)
-
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_attack") and not animation_player.is_playing():
@@ -49,11 +45,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			attack()
 		elif charge_particles.emitting:
 			_strong_attack()
-	elif event.is_action_pressed("ui_active_ability") and animation_player.has_animation("active_ability") and not is_busy() and can_active_ability:
-		can_active_ability = false
-		cool_down_timer.start()
-		ui.recharge_ability_animation(cool_down_timer.wait_time)
-		animation_player.play("active_ability")
+	elif event.is_action_pressed("ui_active_ability") and has_active_ability() and not is_busy() and can_active_ability:
+		_active_ability()
 
 
 func move(mouse_direction: Vector2) -> void:
@@ -68,6 +61,13 @@ func move(mouse_direction: Vector2) -> void:
 
 func attack() -> void:
 	animation_player.play("attack")
+
+
+func _active_ability() -> void:
+	can_active_ability = false
+	used_active_ability.emit(cool_down_timer.wait_time)
+	cool_down_timer.start()
+	animation_player.play("active_ability")
 
 
 func _strong_attack() -> void:
@@ -147,14 +147,6 @@ func destroy() -> void:
 	queue_free()
 
 
-func _on_show() -> void:
-	ability_icon.show()
-
-
-func _on_hide() -> void:
-	ability_icon.hide()
-
-
 func add_status_inflicter(_status: StatusComponent.Status, _amount: int = 1) -> void:
 	pass
 
@@ -171,3 +163,7 @@ func add_weapon_modifier(item: WeaponModifier) -> void:
 
 func get_texture() -> Texture2D:
 	return get_node("Node2D/Sprite2D").texture
+
+
+func has_active_ability() -> bool:
+	return animation_player.has_animation("active_ability")

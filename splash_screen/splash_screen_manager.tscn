@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://2co1ko3rv6yl" path="res://splash_screen/godot_splash_screen.tscn" id="1_amu0p"]
 [ext_resource type="Script" path="res://splash_screen/splash_screen_manager.gd" id="1_fblie"]
-[ext_resource type="PackedScene" uid="uid://886ogqps7117" path="res://Menus/Menu.tscn" id="2_ife1m"]
+[ext_resource type="PackedScene" uid="uid://886ogqps7117" path="res://ui/Menu.tscn" id="2_gvpnr"]
 
 [node name="SplashScreenManager" type="Control"]
 layout_mode = 3
@@ -12,7 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fblie")
-_move_to = ExtResource("2_ife1m")
+_move_to = ExtResource("2_gvpnr")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=36 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -12,10 +12,15 @@
 [ext_resource type="Script" path="res://Characters/Player/PassiveItemsContainer.gd" id="8_aavgb"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCamera.gd" id="9_es44d"]
 [ext_resource type="Texture2D" uid="uid://ckd65h4x4udtg" path="res://Art/6x2.png" id="10_w3xli"]
-[ext_resource type="Script" path="res://Menus/Hearts.gd" id="12_bw776"]
+[ext_resource type="Script" path="res://ui/Hearts.gd" id="12_ft4r3"]
 [ext_resource type="Texture2D" uid="uid://cv7hqc5jxweb7" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/heart_animation.tres" id="13_fsmvo"]
 [ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png" id="15_41qtp"]
+[ext_resource type="Texture2D" uid="uid://b7bjytio6a77m" path="res://Art/19+ icons/white.png" id="15_iyqia"]
+[ext_resource type="Script" path="res://ui/WeaponAbilityIcon.gd" id="16_rikns"]
 [ext_resource type="Texture2D" uid="uid://ntxuv0ekt6s3" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/soul_animation.tres" id="16_t51g1"]
+[ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="17_bwb1j"]
+[ext_resource type="Script" path="res://ui/RightBottomGameVBoxContainer.gd" id="18_j8x6c"]
+[ext_resource type="Texture2D" uid="uid://dk5fa4ot7i4y" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/big_coin.tres" id="19_bh1ic"]
 
 [sub_resource type="CircleShape2D" id="18"]
 radius = 3.0
@@ -416,7 +421,7 @@ layout_mode = 2
 [node name="Hearts" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer" index="0"]
 layout_mode = 2
 theme_override_constants/separation = -2
-script = ExtResource("12_bw776")
+script = ExtResource("12_ft4r3")
 
 [node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/VBoxContainer/Hearts" index="0"]
 layout_mode = 2
@@ -451,20 +456,68 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_7aqj1")
 [node name="Inventory" type="HBoxContainer" parent="UI/PanelContainer" index="0"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="." index="11"]
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="MarginContainer2" type="MarginContainer" parent="UI" index="2"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -380.0
+offset_right = 380.0
+grow_vertical = 0
+
+[node name="WeaponAbilityIcon" type="TextureProgressBar" parent="UI/MarginContainer2" index="0"]
+texture_filter = 1
+layout_mode = 2
+value = 100.0
+fill_mode = 8
+texture_progress = ExtResource("15_iyqia")
+tint_progress = Color(0.25098, 0.235294, 0.235294, 0.839216)
+script = ExtResource("16_rikns")
+
+[node name="RightBottomGameVBoxContainer" type="VBoxContainer" parent="UI" index="3"]
+texture_filter = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("17_bwb1j")
+script = ExtResource("18_j8x6c")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/RightBottomGameVBoxContainer" index="0"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/RightBottomGameVBoxContainer/HBoxContainer" index="0"]
+layout_mode = 2
+texture = ExtResource("19_bh1ic")
+stretch_mode = 5
+
+[node name="CoinsLabel" type="Label" parent="UI/RightBottomGameVBoxContainer/HBoxContainer" index="1"]
+layout_mode = 2
+text = "0"
+vertical_alignment = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/RightBottomGameVBoxContainer" index="1"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/RightBottomGameVBoxContainer/HBoxContainer2" index="0"]
+layout_mode = 2
+texture = ExtResource("16_t51g1")
+
+[node name="SoulsLabel" type="Label" parent="UI/RightBottomGameVBoxContainer/HBoxContainer2" index="1"]
+layout_mode = 2
+text = "0"
+vertical_alignment = 2
 
 [node name="Marker2D" type="Marker2D" parent="DustPositions" index="0"]
 
-[node name="PointLight2D" type="PointLight2D" parent="." index="13"]
+[node name="PointLight2D" type="PointLight2D" parent="." index="12"]
 texture = ExtResource("15_41qtp")
 texture_scale = 0.5
 height = 16.0
-
-[node name="SoulAnimation" type="Sprite2D" parent="." index="14"]
-position = Vector2(105, 34)
-texture = ExtResource("16_t51g1")
 
 [connection signal="weapon_condition_changed" from="Weapons" to="UI" method="_on_weapon_condition_changed"]
 [connection signal="weapon_droped" from="Weapons" to="UI" method="_on_weapon_droped"]

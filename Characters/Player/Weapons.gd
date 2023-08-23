@@ -26,11 +26,11 @@ func load_previous_weapons() -> void:
 		weapon.condition_changed.connect(_on_weapon_condition_changed)
 		weapon.status_inflicter_added.connect(_on_weapon_status_inflicter_added)
 
-		weapon_picked_up.emit(weapon)
-		weapon_switched.emit(get_child_count() - 1, get_child_count())
-
 		add_child(weapon)
 		weapon.hide()
+
+		weapon_picked_up.emit(weapon)
+		weapon_switched.emit(get_child_count() - 2, get_child_count() - 1)
 
 	set_current_weapon(get_child(SavedData.run_stats.equipped_weapon_index))
 	current_weapon.show()
@@ -94,8 +94,10 @@ func pick_up_weapon(weapon: Weapon) -> void:
 	weapon.condition_changed.connect(_on_weapon_condition_changed)
 	weapon.status_inflicter_added.connect(_on_weapon_status_inflicter_added)
 
-	emit_signal("weapon_picked_up", weapon)
-	emit_signal("weapon_switched", prev_index, new_index)
+	await get_tree().process_frame
+
+	weapon_picked_up.emit(weapon)
+	weapon_switched.emit(prev_index, new_index)
 
 
 func _drop_weapon() -> void:

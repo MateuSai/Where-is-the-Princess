@@ -4,6 +4,8 @@ class_name Enemy extends Character
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/SpawnExplosion.tscn")
 const COIN_SCENE: PackedScene = preload("res://Items/Coin.tscn")
 
+@export var souls: int = 1
+
 @onready var room: DungeonRoom = get_parent()
 @onready var player: Player = get_tree().current_scene.get_node("Player")
 @onready var path_timer: Timer = get_node("PathTimer")
@@ -57,6 +59,8 @@ func _on_died() -> void:
 	super()
 
 	spawn_loot()
+
+	SavedData.run_stats.souls += souls
 
 	await get_tree().create_timer(0.5, false).timeout
 

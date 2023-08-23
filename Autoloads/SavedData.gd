@@ -163,6 +163,7 @@ func _change_biome_conf(biome: String) -> void:
 ## This is what we use to load the stats when he changes floor or when he saves the game
 class RunStats extends Resource:
 	signal coins_changed(new_coins: int)
+	signal souls_changed(new_souls: int)
 
 	@export var biome: String = "Forest"
 	@export var level: int = 1
@@ -170,10 +171,17 @@ class RunStats extends Resource:
 	@export var hp: int = 4
 	@export var weapon_stats: Array[WeaponStats] = []
 	@export var equipped_weapon_index: int = 0
+
 	@export var coins: int = 30:
 		set(new_coins):
 			coins = new_coins
 			coins_changed.emit(coins)
+
+	@export var max_souls: int = 20
+	@export var souls: int = 8:
+		set(new_souls):
+			souls = clamp(new_souls, 0, max_souls)
+			souls_changed.emit(souls)
 
 	@export var armor: Armor = null
 

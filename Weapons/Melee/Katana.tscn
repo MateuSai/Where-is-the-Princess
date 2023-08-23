@@ -1,11 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://cjc0h245lbmpd"]
+[gd_scene load_steps=18 format=3 uid="uid://cjc0h245lbmpd"]
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_ph15r"]
 [ext_resource type="Script" path="res://Weapons/Melee/MeleeWeapon.gd" id="2_8npq0"]
 [ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="3_xhct7"]
 [ext_resource type="Texture2D" uid="uid://cyt2xu4k2v10u" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/katana.png" id="4_npc6b"]
 [ext_resource type="Texture2D" uid="uid://evihltxw1ud3" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/effects (new)/slash_effect_anim_spritesheet.png" id="5_he4j5"]
-[ext_resource type="Texture2D" uid="uid://d1e3hlbucgbfq" path="res://Art/19+ icons/swingB.png" id="6_jwd6w"]
 
 [sub_resource type="ShaderMaterial" id="6"]
 resource_local_to_scene = true
@@ -684,6 +683,3 @@ hframes = 3
 libraries = {
 "": SubResource("AnimationLibrary_ypj85")
 }
-
-[node name="AbilityIcon" parent="UI" index="0"]
-texture_under = ExtResource("6_jwd6w")

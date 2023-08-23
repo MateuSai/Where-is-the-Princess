@@ -1,24 +1,22 @@
-[gd_scene load_steps=25 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=23 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="4_usvbv"]
-[ext_resource type="Script" path="res://Menus/UI.gd" id="5_c0f27"]
-[ext_resource type="Script" path="res://Menus/PauseMenu.gd" id="6_fejf6"]
+[ext_resource type="Script" path="res://ui/UI.gd" id="5_c0f27"]
+[ext_resource type="Script" path="res://ui/PauseMenu.gd" id="6_fejf6"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="6_ml8df"]
-[ext_resource type="Script" path="res://Menus/QuitButton.gd" id="6_nj5uy"]
-[ext_resource type="Script" path="res://Menus/SettingsButton.gd" id="8_b3yq4"]
-[ext_resource type="Script" path="res://Menus/DebugInfo.gd" id="9_yskig"]
-[ext_resource type="Script" path="res://Menus/RightBottomGameVBoxContainer.gd" id="10_i5tua"]
-[ext_resource type="Texture2D" uid="uid://dk5fa4ot7i4y" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/big_coin.tres" id="10_ufxq4"]
-[ext_resource type="Script" path="res://Menus/MiniMap.gd" id="12_icbnv"]
-[ext_resource type="Script" path="res://Menus/MinimapScrollContainer.gd" id="13_f54tc"]
+[ext_resource type="Script" path="res://ui/QuitButton.gd" id="6_nj5uy"]
+[ext_resource type="Script" path="res://ui/SettingsButton.gd" id="8_b3yq4"]
+[ext_resource type="Script" path="res://ui/DebugInfo.gd" id="9_yskig"]
+[ext_resource type="Script" path="res://ui/MiniMap.gd" id="12_icbnv"]
+[ext_resource type="Script" path="res://ui/MinimapScrollContainer.gd" id="13_f54tc"]
 [ext_resource type="Texture2D" uid="uid://cm2mxt7vas7t4" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/minimap_9-patch_bigger.png" id="13_s3von"]
 [ext_resource type="Shader" path="res://Shaders and Particles/IntensityToTransparency.gdshader" id="14_qjw3b"]
 [ext_resource type="FontFile" uid="uid://qupo5kdd8137" path="res://Fonts/alagard.ttf" id="15_84d5m"]
 [ext_resource type="Texture2D" uid="uid://bl8w6y7gf8ubx" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/icon_map.png" id="16_0uph7"]
-[ext_resource type="Script" path="res://Menus/DebugUI.gd" id="16_tejhc"]
-[ext_resource type="Script" path="res://Menus/Terminal.gd" id="17_e1t0h"]
+[ext_resource type="Script" path="res://ui/DebugUI.gd" id="16_tejhc"]
+[ext_resource type="Script" path="res://ui/Terminal.gd" id="17_e1t0h"]
 [ext_resource type="FontFile" uid="uid://dues33f2o08he" path="res://Fonts/Unbalanced.ttf" id="18_2pqx3"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
@@ -164,33 +162,6 @@ theme_override_constants/margin_right = 4
 layout_mode = 2
 theme = ExtResource("4_usvbv")
 theme_override_font_sizes/font_size = 8
-
-[node name="RightBottomGameVBoxContainer" type="VBoxContainer" parent="UI"]
-texture_filter = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
-grow_horizontal = 0
-grow_vertical = 0
-theme = ExtResource("4_usvbv")
-script = ExtResource("10_i5tua")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/RightBottomGameVBoxContainer"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="UI/RightBottomGameVBoxContainer/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("10_ufxq4")
-stretch_mode = 5
-
-[node name="CoinsLabel" type="Label" parent="UI/RightBottomGameVBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "0"
-vertical_alignment = 2
 
 [node name="MiniMap" type="Popup" parent="UI"]
 disable_3d = true
