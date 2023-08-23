@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=31 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="1_0pcgl"]
 [ext_resource type="Script" path="res://BaseCamp.gd" id="1_tpf7m"]
@@ -56,8 +56,6 @@ height = 24.0
 size = Vector2(8, 8)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2m37t"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_vti6p"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_va5t1"]
 radius = 6.0
@@ -160,19 +158,6 @@ path_to_sprite = NodePath("../Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Settings/SettingsInteractArea"]
 shape = SubResource("CircleShape2D_2m37t")
-
-[node name="Mods" type="StaticBody2D" parent="."]
-position = Vector2(266, 80)
-
-[node name="Sprite2D" type="Sprite2D" parent="Mods"]
-texture = SubResource("PlaceholderTexture2D_erbcu")
-
-[node name="ModsInteractArea" type="Area2D" parent="Mods"]
-script = ExtResource("2_n3t3v")
-path_to_sprite = NodePath("../Sprite2D")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Mods/ModsInteractArea"]
-shape = SubResource("CircleShape2D_vti6p")
 
 [node name="SeedSelectorSprite" type="Sprite2D" parent="."]
 position = Vector2(154, 25)

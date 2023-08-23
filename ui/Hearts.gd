@@ -1,7 +1,7 @@
 class_name Hearts extends HBoxContainer
 
 
-const HEART_TEXTURE: Texture = preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/heart_animation.tres")
+const HEART_TEXTURE: Texture = preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small_heart_animation.tres")
 
 
 func update_hearts(new_value: int) -> void:

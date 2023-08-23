@@ -26,7 +26,6 @@ func _ready() -> void:
 		set_process_input(false)
 
 		generating_dungeon_canvas_layer.show()
-		rooms.spawn_rooms()
 #		generation_thread = Thread.new()
 #		generation_thread.start(rooms.spawn_rooms)
 		rooms.generation_completed.connect(func():
@@ -34,6 +33,7 @@ func _ready() -> void:
 			generation_thread = null
 			generating_dungeon_canvas_layer.hide()
 		)
+		rooms.spawn_rooms()
 
 	await rooms.generation_completed
 

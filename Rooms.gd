@@ -415,7 +415,7 @@ func _create_corridors() -> void:
 		await get_tree().process_frame
 		await get_tree().create_timer(pause_between_steps * 2).timeout
 
-	emit_signal("generation_completed")
+	generation_completed.emit()
 
 
 func _create_fog() -> void:

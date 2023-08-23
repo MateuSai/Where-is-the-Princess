@@ -3,8 +3,14 @@ class_name Armor extends Resource
 var name: String ## Name of the armor
 var description: String ## Armor's description
 var sprite_sheet: Texture ## Armor's spritesheet
+
+signal condition_changed(new_condition: int)
 ## The armor will also receive the damage taken by the player. When the condition reaches 0, the armor will be destroyed and you be in your underpants
-@export var condition: int
+@export var condition: int:
+	set(new_condition):
+		condition = clamp(new_condition, 0, 100)
+		condition_changed.emit(condition)
+var max_condition: int
 
 ## Internal variable used to know if we can use the ability (when the cooldown time ends)
 var is_able_to_use_ability: bool = true
@@ -20,6 +26,7 @@ func initialize(name: String, description: String, sprite_sheet: Texture, condit
 	self.description = description
 	self.sprite_sheet = sprite_sheet
 	self.condition = condition
+	self.max_condition = condition
 	self.recharge_time = recharge_time
 	self.effect_duration = effect_duration
 

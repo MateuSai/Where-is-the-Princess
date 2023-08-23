@@ -30,13 +30,8 @@ func _ready() -> void:
 
 
 func take_damage(dam: int, dir: Vector2, force: int) -> void:
-	if invincible or invincible_after_being_hitted or hp == 0:
+	if _must_ignore_damage():
 		return
-
-	if block_probability > 0:
-		if randi() % 100 < block_probability:
-			print_debug("Blocked")
-			return
 
 	dam *= damage_taken_multiplier
 	self.hp -= dam
@@ -45,3 +40,15 @@ func take_damage(dam: int, dir: Vector2, force: int) -> void:
 
 	invincible_after_being_hitted = true
 	invincible_after_being_hitted_timer.start(0.4)
+
+
+func _must_ignore_damage() -> bool:
+	if invincible or invincible_after_being_hitted or hp == 0:
+		return true
+
+	if block_probability > 0:
+		if randi() % 100 < block_probability:
+			#print_debug("Blocked")
+			return true
+
+	return false

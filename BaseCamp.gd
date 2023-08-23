@@ -4,7 +4,7 @@ extends Node2D
 @onready var start_interact_area: InteractArea = get_node("StartInteractArea")
 @onready var wardrobe_interact_area: InteractArea = get_node("Wardrobe/WardrobeInteractArea")
 @onready var settings_interact_area: InteractArea = $Settings/SettingsInteractArea
-@onready var mods_interact_area: InteractArea = $Mods/ModsInteractArea
+#@onready var mods_interact_area: InteractArea = $Mods/ModsInteractArea
 
 @onready var seed_interact_area: InteractArea = $SeedSelectorSprite/InteractArea
 @onready var seed_popup: Popup = get_node("SeedPopup")
@@ -38,14 +38,14 @@ func _ready() -> void:
 		player.can_move = true
 	)
 
-	mods_interact_area.player_interacted.connect(func():
-		var mod_menu: ModMenu = ModMenu.new()
-		add_child(mod_menu)
-		player.can_move = false
-		mod_menu.popup_hide.connect(func():
-			player.can_move = true
-		)
-	)
+#	mods_interact_area.player_interacted.connect(func():
+#		var mod_menu: ModMenu = ModMenu.new()
+#		add_child(mod_menu)
+#		player.can_move = false
+#		mod_menu.popup_hide.connect(func():
+#			player.can_move = true
+#		)
+#	)
 
 	exit_interact_area.player_interacted.connect(func():
 		get_tree().quit()

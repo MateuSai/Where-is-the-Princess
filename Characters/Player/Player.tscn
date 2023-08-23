@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=40 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -12,10 +12,14 @@
 [ext_resource type="Script" path="res://Characters/Player/PassiveItemsContainer.gd" id="8_aavgb"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCamera.gd" id="9_es44d"]
 [ext_resource type="Texture2D" uid="uid://ckd65h4x4udtg" path="res://Art/6x2.png" id="10_w3xli"]
+[ext_resource type="Script" path="res://Components/PlayerLifeComponent.gd" id="11_up6en"]
 [ext_resource type="Script" path="res://ui/Hearts.gd" id="12_ft4r3"]
-[ext_resource type="Texture2D" uid="uid://cv7hqc5jxweb7" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/heart_animation.tres" id="13_fsmvo"]
+[ext_resource type="Texture2D" uid="uid://cnuc0egwdfmpd" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_UI_empty.png" id="13_3w18a"]
+[ext_resource type="Texture2D" uid="uid://b8f4x48lm0jow" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small_heart_animation.tres" id="14_vne45"]
+[ext_resource type="Texture2D" uid="uid://6cihr7lwp1or" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_UI_full.png" id="14_wyeiy"]
 [ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png" id="15_41qtp"]
-[ext_resource type="Texture2D" uid="uid://b7bjytio6a77m" path="res://Art/19+ icons/white.png" id="15_iyqia"]
+[ext_resource type="Script" path="res://ui/ArmorConditionBar.gd" id="15_rb2hy"]
+[ext_resource type="Texture2D" uid="uid://c41g1tbc5cfub" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Weapon_UI_skil_big.png" id="16_6018t"]
 [ext_resource type="Script" path="res://ui/WeaponAbilityIcon.gd" id="16_rikns"]
 [ext_resource type="Texture2D" uid="uid://ntxuv0ekt6s3" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/soul_animation.tres" id="16_t51g1"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="17_bwb1j"]
@@ -405,6 +409,11 @@ libraries = {
 "": SubResource("AnimationLibrary_35i6s")
 }
 
+[node name="LifeComponent" parent="." index="9"]
+script = ExtResource("11_up6en")
+hp = 2
+max_hp = 2
+
 [node name="UI" type="CanvasLayer" parent="." index="10"]
 script = ExtResource("7_24kdb")
 
@@ -412,31 +421,41 @@ script = ExtResource("7_24kdb")
 texture_filter = 1
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_constants/margin_left = 4
+theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer" index="0"]
 layout_mode = 2
 
-[node name="Hearts" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer" index="0"]
+[node name="ArmorConditionBar" type="TextureProgressBar" parent="UI/MarginContainer" index="1"]
 layout_mode = 2
-theme_override_constants/separation = -2
+value = 29.0
+texture_under = ExtResource("13_3w18a")
+texture_progress = ExtResource("14_wyeiy")
+script = ExtResource("15_rb2hy")
+
+[node name="Hearts" type="HBoxContainer" parent="UI/MarginContainer/ArmorConditionBar" index="0"]
+layout_mode = 2
+offset_left = 24.0
+offset_top = 7.0
+offset_right = 95.0
+offset_bottom = 16.0
+theme_override_constants/separation = -1
 script = ExtResource("12_ft4r3")
 
-[node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/VBoxContainer/Hearts" index="0"]
+[node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/ArmorConditionBar/Hearts" index="0"]
+custom_minimum_size = Vector2(9, 9)
 layout_mode = 2
-texture = ExtResource("13_fsmvo")
+texture = ExtResource("14_vne45")
+expand_mode = 1
+stretch_mode = 1
 
-[node name="TextureRect2" type="TextureRect" parent="UI/MarginContainer/VBoxContainer/Hearts" index="1"]
+[node name="PassiveItemsContainer" type="HFlowContainer" parent="UI/MarginContainer/ArmorConditionBar" index="1"]
 layout_mode = 2
-texture = ExtResource("13_fsmvo")
-
-[node name="TextureRect3" type="TextureRect" parent="UI/MarginContainer/VBoxContainer/Hearts" index="2"]
-layout_mode = 2
-texture = ExtResource("13_fsmvo")
-
-[node name="PassiveItemsContainer" type="HFlowContainer" parent="UI/MarginContainer/VBoxContainer" index="1"]
-layout_mode = 2
+offset_left = 20.0
+offset_top = 23.0
+offset_right = 91.0
+offset_bottom = 23.0
 script = ExtResource("8_aavgb")
 
 [node name="PanelContainer" type="PanelContainer" parent="UI" index="1"]
@@ -460,16 +479,18 @@ layout_mode = 2
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -380.0
-offset_right = 380.0
+offset_top = -25.0
+offset_right = 25.0
 grow_vertical = 0
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_bottom = 6
 
 [node name="WeaponAbilityIcon" type="TextureProgressBar" parent="UI/MarginContainer2" index="0"]
 texture_filter = 1
 layout_mode = 2
-value = 100.0
 fill_mode = 8
-texture_progress = ExtResource("15_iyqia")
+texture_under = ExtResource("16_6018t")
+texture_progress = ExtResource("16_6018t")
 tint_progress = Color(0.25098, 0.235294, 0.235294, 0.839216)
 script = ExtResource("16_rikns")
 

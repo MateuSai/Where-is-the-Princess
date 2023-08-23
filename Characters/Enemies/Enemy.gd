@@ -3,6 +3,7 @@ class_name Enemy extends Character
 
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/SpawnExplosion.tscn")
 const COIN_SCENE: PackedScene = preload("res://Items/Coin.tscn")
+const SOUL_SCENE: PackedScene = preload("res://Items/Soul.tscn")
 
 @export var souls: int = 1
 
@@ -24,6 +25,12 @@ func spawn_loot() -> void:
 		room.cleared.connect(coin.go_to_player)
 		coin.position = global_position
 		get_tree().current_scene.call_deferred("add_child", coin)
+
+	for i in souls:
+		var soul: SoulItem = SOUL_SCENE.instantiate()
+		room.cleared.connect(soul.go_to_player)
+		soul.position = global_position
+		get_tree().current_scene.call_deferred("add_child", soul)
 
 
 func chase() -> void:
@@ -59,8 +66,6 @@ func _on_died() -> void:
 	super()
 
 	spawn_loot()
-
-	SavedData.run_stats.souls += souls
 
 	await get_tree().create_timer(0.5, false).timeout
 

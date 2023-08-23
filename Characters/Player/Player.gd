@@ -11,6 +11,7 @@ signal temporal_passive_item_unequiped(item: TemporalPassiveItem)
 signal permanent_passive_item_picked_up(item: PermanentPassiveItem)
 
 var armor: Armor = null : set = set_armor
+signal armor_changed(new_armor: Armor)
 
 var mouse_direction: Vector2
 
@@ -134,18 +135,6 @@ func add_coin() -> void:
 	SavedData.run_stats.coins += 1
 
 
-func _on_damage_taken(dam: int, dir: Vector2, force: int) -> void:
-	super(dam, dir, force)
-
-	if not armor is NoArmor:
-		armor.condition -= dam
-		if armor.condition <= 0:
-			var particles: GPUParticles2D = load("res://Shaders and Particles/DestroyParticles.tscn").instantiate()
-			particles.position += Vector2.UP * 6
-			add_child(particles)
-			set_armor(NoArmor.new())
-
-
 func pick_up_passive_item(item: PassiveItem) -> void:
 	if item is PermanentPassiveItem:
 		item.equip(self)
@@ -185,6 +174,8 @@ func set_armor(new_armor: Armor) -> void:
 	armor.equip(self)
 	SavedData.run_stats.armor = armor
 	sprite.texture = armor.sprite_sheet
+
+	armor_changed.emit(armor)
 
 
 func jump() -> void:
