@@ -1,5 +1,7 @@
 class_name ArmorConditionBar extends TextureProgressBar
 
+const ARMOR_SHINE_EFFECT: PackedScene = preload("res://ui/ArmorAbilityShineEffect.tscn")
+
 const START_AT_VALUE: int = 29
 
 var tween: Tween
@@ -45,5 +47,9 @@ func _on_armor_ability_used() -> void:
 func _on_armor_ability_effect_ended() -> void:
 	armor_ability_tween = create_tween()
 	armor_ability_tween.tween_property(armor_ability_bar, "value", 100, current_armor.recharge_time)
-	armor_ability_tween.tween_property(armor_ability_bar, "scale", Vector2(1.1, 1.1), 0.07)
-	armor_ability_tween.tween_property(armor_ability_bar, "scale", Vector2.ONE, 0.07)
+	await armor_ability_tween.finished
+	var shine_effect: Sprite2D = ARMOR_SHINE_EFFECT.instantiate()
+	shine_effect.position = armor_ability_bar.position
+	add_child(shine_effect)
+#	armor_ability_tween.tween_property(armor_ability_bar, "scale", Vector2(1.1, 1.1), 0.07)
+#	armor_ability_tween.tween_property(armor_ability_bar, "scale", Vector2.ONE, 0.07)

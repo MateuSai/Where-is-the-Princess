@@ -1,8 +1,8 @@
 extends MarginContainer
 
 
-signal mod_is_active_changed(mod_id, is_active)
-signal mod_current_config_changed(mod_id, current_config)
+signal mod_is_active_changed(mod_id: String, is_active: bool)
+signal mod_current_config_changed(mod_id: String, current_config: ModConfig)
 
 @export var mod_id_label_scene: PackedScene
 @export var is_active_toggle_scene: PackedScene
@@ -72,8 +72,8 @@ func clear_grid() -> void:
 
 
 func _on_mod_is_active_toggled(mod_id: String, is_active: bool) -> void:
-	emit_signal("mod_is_active_changed", mod_id, is_active)
+	mod_is_active_changed.emit(mod_id, is_active)
 
 
 func _on_current_config_selected(mod_id: String, config_name: String) -> void:
-	emit_signal("mod_current_config_changed", mod_id, config_name)
+	mod_current_config_changed.emit(mod_id, config_name)
