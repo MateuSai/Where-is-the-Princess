@@ -37,7 +37,7 @@ func _ready() -> void:
 		description_label.text = player.armor.description
 		#print(player.armor.name)
 		for button in armors_grid.get_children():
-			print(button.armor.name + "  " + player.armor.name)
+			#print(button.armor.name + "  " + player.armor.name)
 			if player.armor.name == button.armor.name:
 				button.grab_focus()
 	)

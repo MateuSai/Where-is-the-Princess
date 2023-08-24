@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0aq1e34c7cv2"
-path="res://.godot/imported/soul anim.png-de9e2bcb2ead3024c74ab9aae9ced8b3.ctex"
+uid="uid://b73swcnp2qe1u"
+path="res://.godot/imported/Armor_mercenary_icon.png-38e87aca9c638691feaef51ed18bab35.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/soul anim.png"
-dest_files=["res://.godot/imported/soul anim.png-de9e2bcb2ead3024c74ab9aae9ced8b3.ctex"]
+source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_mercenary_icon.png"
+dest_files=["res://.godot/imported/Armor_mercenary_icon.png-38e87aca9c638691feaef51ed18bab35.ctex"]
 
 [params]
 

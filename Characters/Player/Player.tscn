@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=41 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://ntxuv0ekt6s3" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/soul_animation.tres" id="16_t51g1"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="17_bwb1j"]
 [ext_resource type="Script" path="res://ui/RightBottomGameVBoxContainer.gd" id="18_j8x6c"]
+[ext_resource type="Texture2D" uid="uid://6cx2yobwuw5b" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_naked_icon.png" id="19_bc3n7"]
 [ext_resource type="Texture2D" uid="uid://dk5fa4ot7i4y" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/big_coin.tres" id="19_bh1ic"]
 
 [sub_resource type="CircleShape2D" id="18"]
@@ -429,7 +430,7 @@ layout_mode = 2
 
 [node name="ArmorConditionBar" type="TextureProgressBar" parent="UI/MarginContainer" index="1"]
 layout_mode = 2
-value = 29.0
+value = 50.0
 texture_under = ExtResource("13_3w18a")
 texture_progress = ExtResource("14_wyeiy")
 script = ExtResource("15_rb2hy")
@@ -457,6 +458,18 @@ offset_top = 23.0
 offset_right = 91.0
 offset_bottom = 23.0
 script = ExtResource("8_aavgb")
+
+[node name="ArmorAbilityBar" type="TextureProgressBar" parent="UI/MarginContainer/ArmorConditionBar" index="2"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 22.0
+offset_bottom = 22.0
+value = 45.0
+fill_mode = 3
+texture_under = ExtResource("19_bc3n7")
+texture_progress = ExtResource("19_bc3n7")
+tint_under = Color(0.411765, 0.411765, 0.411765, 1)
 
 [node name="PanelContainer" type="PanelContainer" parent="UI" index="1"]
 texture_filter = 1
@@ -539,6 +552,13 @@ vertical_alignment = 2
 texture = ExtResource("15_41qtp")
 texture_scale = 0.5
 height = 16.0
+
+[node name="Timers" type="Node" parent="." index="13"]
+
+[node name="ArmorEffectTimer" type="Timer" parent="Timers" index="0"]
+one_shot = true
+
+[node name="ArmorRechargeTimer" type="Timer" parent="Timers" index="1"]
 
 [connection signal="weapon_condition_changed" from="Weapons" to="UI" method="_on_weapon_condition_changed"]
 [connection signal="weapon_droped" from="Weapons" to="UI" method="_on_weapon_droped"]

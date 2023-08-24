@@ -28,6 +28,9 @@ var rotating_items: Array[Node2D] = []
 
 @onready var jump_animation_player: AnimationPlayer = get_node("JumpAnimationPlayer")
 
+@onready var armor_effect_timer: Timer = $Timers/ArmorEffectTimer
+@onready var armor_recharge_timer: Timer = $Timers/ArmorRechargeTimer
+
 
 func _ready() -> void:
 	super()
@@ -128,7 +131,7 @@ func get_input() -> void:
 			mov_direction += Vector2.UP
 
 	if Input.is_action_just_pressed("ui_armor_ability") and armor.is_able_to_use_ability:
-		armor.use_ability(self)
+		_use_armor_ability()
 
 
 func add_coin() -> void:
@@ -169,6 +172,12 @@ func set_armor(new_armor: Armor) -> void:
 	if new_armor == armor:
 		return
 	if armor:
+		if not armor_effect_timer.is_stopped():
+			armor_effect_timer.stop()
+			armor.disable_ability_effect()
+		elif not armor_recharge_timer.is_stopped():
+			armor_recharge_timer.stop()
+			armor.disable_ability_effect()
 		armor.unequip(self)
 	armor = new_armor
 	armor.equip(self)
@@ -202,3 +211,27 @@ func remove_rotating_item(node: Node2D) -> void:
 
 func can_pick_up_weapons() -> bool:
 	return weapons.can_pick_up_weapons()
+
+
+func _use_armor_ability() -> void:
+	assert(armor)
+
+	armor.enable_ability_effect(self)
+
+	armor.is_able_to_use_ability = false
+
+	if armor.effect_duration > 0:
+		armor_effect_timer.start(armor.effect_duration)
+		await armor_effect_timer.timeout
+	armor.ability_effect_ended.emit()
+
+	armor_recharge_timer.start(armor.recharge_time)
+	await armor_recharge_timer.timeout
+
+	armor.is_able_to_use_ability = true
+
+	armor.disable_ability_effect(self)
+
+
+func _on_armor_effect_timer_timeout() -> void:
+	pass
