@@ -174,10 +174,10 @@ func set_armor(new_armor: Armor) -> void:
 	if armor:
 		if not armor_effect_timer.is_stopped():
 			armor_effect_timer.stop()
-			armor.disable_ability_effect()
+			armor.disable_ability_effect(self)
 		elif not armor_recharge_timer.is_stopped():
 			armor_recharge_timer.stop()
-			armor.disable_ability_effect()
+			armor.disable_ability_effect(self)
 		armor.unequip(self)
 	armor = new_armor
 	armor.equip(self)

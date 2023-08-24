@@ -21,8 +21,8 @@ func _ready() -> void:
 	add_child(margin_container)
 
 	var mods_list: VBoxContainer = VBoxContainer.new()
-	for mod in SavedData.mods:
-		mods_list.add_child(ModRow.new(mod))
+	for mod_id in ModLoaderStore.mod_data:
+		mods_list.add_child(ModRow.new(mod_id))
 	margin_container.add_child(mods_list)
 
 	popup_centered()
@@ -34,28 +34,33 @@ func _ready() -> void:
 
 
 class ModRow extends HBoxContainer:
-	var mod: Mod
+	var mod_id: String
 
 	@warning_ignore("shadowed_variable")
-	func _init(mod: Mod) -> void:
-		self.mod = mod
+	func _init(mod_id: String) -> void:
+		self.mod_id = mod_id
+		var mod_data: ModData = ModLoaderStore.mod_data[mod_id]
+		print(mod_data)
 
 		var check_box: CheckBox = CheckBox.new()
-		check_box.button_pressed = mod.enabled
+		print(ModLoaderStore.current_user_profile)
+		check_box.button_pressed = not ModLoaderStore.ml_options.disabled_mods.has(mod_id)
 		check_box.pressed.connect(func():
-			mod.enabled = !mod.enabled
-			#print(SavedData.mods.rooms[0].enabled)
+			if ModLoaderStore.ml_options.disabled_mods.has(mod_id):
+				ModLoaderUserProfile.enable_mod(mod_id)
+			else:
+				ModLoaderUserProfile.disable_mod(mod_id)
 		)
-		#check_box.size_flags_horizontal = Control.SIZE_SHRINK_END | Control.SIZE_EXPAND
+#		#check_box.size_flags_horizontal = Control.SIZE_SHRINK_END | Control.SIZE_EXPAND
 		add_child(check_box)
-
-		var label: Label = Label.new()
-		label.text = mod.get_name()
-		add_child(label)
-
-		var spin_box: SpinBox = SpinBox.new()
-		spin_box.value = mod.priority
-		spin_box.value_changed.connect(func(new_value: int):
-			mod.priority = new_value
-		)
-		add_child(spin_box)
+#
+#		var label: Label = Label.new()
+#		label.text = mod.get_name()
+#		add_child(label)
+#
+#		var spin_box: SpinBox = SpinBox.new()
+#		spin_box.value = mod.priority
+#		spin_box.value_changed.connect(func(new_value: int):
+#			mod.priority = new_value
+#		)
+#		add_child(spin_box)

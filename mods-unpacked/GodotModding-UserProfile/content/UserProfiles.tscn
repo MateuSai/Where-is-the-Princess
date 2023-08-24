@@ -1,0 +1,113 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2wlhqt5essa5"]
+
+[ext_resource type="Script" path="res://mods-unpacked/GodotModding-UserProfile/content/UserProfiles.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://xykxxh0rnm8q" path="res://mods-unpacked/GodotModding-UserProfile/content/ModList.tscn" id="3"]
+
+[node name="UserProfiles" type="PopupPanel"]
+size = Vector2i(300, 200)
+script = ExtResource("1")
+user_profile_section = ExtResource("3")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="LabelSelectProfile" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Select Profile"
+
+[node name="ProfileSelection" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ProfileSelect" type="OptionButton" parent="MarginContainer/VBoxContainer/ProfileSelection"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ButtonNewProfile" type="Button" parent="MarginContainer/VBoxContainer/ProfileSelection"]
+unique_name_in_owner = true
+layout_mode = 2
+text = " + "
+
+[node name="ButtonDeleteProfile" type="Button" parent="MarginContainer/VBoxContainer/ProfileSelection"]
+unique_name_in_owner = true
+layout_mode = 2
+text = " - "
+
+[node name="ProfileSettings" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/ProfileSettings"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ProfileSettings/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="LabelProfileSettings" type="Label" parent="MarginContainer/VBoxContainer/ProfileSettings/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Profile Settings"
+
+[node name="UserProfileSections" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ProfileSettings/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ModList" parent="MarginContainer/VBoxContainer/ProfileSettings/ScrollContainer/VBoxContainer/UserProfileSections" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="InfoText" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="PopupNewProfile" type="PopupPanel" parent="."]
+unique_name_in_owner = true
+size = Vector2i(109, 104)
+
+[node name="MarginContainer" type="MarginContainer" parent="PopupNewProfile"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 105.0
+offset_bottom = 100.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupNewProfile/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupNewProfile/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ProfileName" type="MarginContainer" parent="PopupNewProfile/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupNewProfile/MarginContainer/VBoxContainer/VBoxContainer/ProfileName"]
+layout_mode = 2
+
+[node name="LabelProfileName" type="Label" parent="PopupNewProfile/MarginContainer/VBoxContainer/VBoxContainer/ProfileName/VBoxContainer"]
+layout_mode = 2
+text = "Profile Name"
+
+[node name="InputProfileName" type="LineEdit" parent="PopupNewProfile/MarginContainer/VBoxContainer/VBoxContainer/ProfileName/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+caret_blink = true
+caret_blink_interval = 0.5
+
+[node name="ButtonProfileNameSubmit" type="Button" parent="PopupNewProfile/MarginContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "OK"

@@ -45,3 +45,5 @@ func _on_armor_ability_used() -> void:
 func _on_armor_ability_effect_ended() -> void:
 	armor_ability_tween = create_tween()
 	armor_ability_tween.tween_property(armor_ability_bar, "value", 100, current_armor.recharge_time)
+	armor_ability_tween.tween_property(armor_ability_bar, "scale", Vector2(1.1, 1.1), 0.07)
+	armor_ability_tween.tween_property(armor_ability_bar, "scale", Vector2.ONE, 0.07)
