@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=32 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="1_0pcgl"]
 [ext_resource type="Script" path="res://BaseCamp.gd" id="1_tpf7m"]
@@ -15,6 +15,7 @@
 [ext_resource type="FontFile" uid="uid://chicvvurmnu8" path="res://Fonts/Poco.ttf" id="12_qu1vg"]
 [ext_resource type="PackedScene" uid="uid://cjc0h245lbmpd" path="res://Weapons/Melee/Katana.tscn" id="12_trlvh"]
 [ext_resource type="PackedScene" uid="uid://5orvhxdckhxm" path="res://Rooms/Shop.tscn" id="13_nv3p8"]
+[ext_resource type="PackedScene" uid="uid://bu6m7pa3yuk4r" path="res://Weapons/Melee/DragonKiller/DragonKiller.tscn" id="16_885t0"]
 
 [sub_resource type="Gradient" id="Gradient_nhg8o"]
 offsets = PackedFloat32Array(0, 0.784849)
@@ -250,3 +251,7 @@ position = Vector2(154, 116)
 on_floor = true
 
 [node name="Shop" parent="." instance=ExtResource("13_nv3p8")]
+
+[node name="DragonKiller" parent="." instance=ExtResource("16_885t0")]
+position = Vector2(235, 168)
+on_floor = true
