@@ -33,7 +33,7 @@ func add_translations(modLoader) -> void:
 func _ready():
 	get_tree().root.call_deferred("add_child", user_profile_dialog)
 
-	#handle_config()
+	# handle_config()
 
 
 func handle_config() -> void:
