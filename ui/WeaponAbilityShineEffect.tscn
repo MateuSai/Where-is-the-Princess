@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://csurbinry0qkx"]
+[gd_scene load_steps=5 format=3 uid="uid://bqeynegstrnx2"]
 
-[ext_resource type="Texture2D" uid="uid://baov27eogrwxc" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_ability_shine_effect.png" id="1_s7d4e"]
+[ext_resource type="Texture2D" uid="uid://bksc2x1450rch" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Weapon skill shine effect.png" id="1_7cq7u"]
 
 [sub_resource type="Animation" id="Animation_s8j5t"]
 length = 0.001
@@ -53,9 +53,9 @@ _data = {
 "shine": SubResource("Animation_3nnol")
 }
 
-[node name="ArmorAbilityShineEffect" type="Sprite2D"]
+[node name="WeaponAbilityShineEffect" type="Sprite2D"]
 z_index = 1
-texture = ExtResource("1_s7d4e")
+texture = ExtResource("1_7cq7u")
 centered = false
 hframes = 5
 
