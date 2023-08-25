@@ -17,7 +17,7 @@ func generate_grid(user_profile: ModUserProfile) -> void:
 	for mod_id in user_profile.mod_list.keys():
 		_generate_mod_name(mod_id)
 		_generate_mod_active_state(mod_id, user_profile)
-		if ModLoaderStore.mod_data.has(mod_id) and not ModLoaderStore.mod_data[mod_id].configs.empty():
+		if ModLoaderStore.mod_data.has(mod_id) and not ModLoaderStore.mod_data[mod_id].configs.is_empty():
 			_generate_mod_current_config(mod_id, user_profile)
 		else:
 			grid.add_child(grid_placeholder.new())
