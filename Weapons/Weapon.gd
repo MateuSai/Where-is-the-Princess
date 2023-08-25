@@ -168,3 +168,7 @@ func get_texture() -> Texture2D:
 
 func has_active_ability() -> bool:
 	return animation_player.has_animation("active_ability")
+
+
+func can_pick_up_soul() -> bool:
+	return has_active_ability() and stats.souls < souls_to_activate_ability
