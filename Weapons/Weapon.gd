@@ -5,13 +5,19 @@ class_name Weapon extends Node2D
 
 @export var condition_degrade_by_attack: float = 5
 
-var can_active_ability: bool = true
+@export var active_ability_icon: Texture
+@export var souls_to_activate_ability: int = 3
+signal souls_changed(new_souls, souls_to_activate_ability)
+var souls: int = 0:
+	set(new_souls):
+		souls = clamp(new_souls, 0, souls_to_activate_ability)
+		souls_changed.emit(souls, souls_to_activate_ability)
 
 var stats: WeaponStats = null
 
 signal condition_changed(weapon: Weapon, new_condition: float)
 signal status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
-signal used_active_ability(cooldown_time)
+signal used_active_ability()
 
 var tween: Tween = null
 @onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
@@ -45,7 +51,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			attack()
 		elif charge_particles.emitting:
 			_strong_attack()
-	elif event.is_action_pressed("ui_active_ability") and has_active_ability() and not is_busy() and can_active_ability:
+	elif event.is_action_pressed("ui_active_ability") and has_active_ability() and not is_busy() and can_active_ability():
 		_active_ability()
 
 
@@ -64,8 +70,8 @@ func attack() -> void:
 
 
 func _active_ability() -> void:
-	can_active_ability = false
-	used_active_ability.emit(cool_down_timer.wait_time)
+	self.souls = 0
+	used_active_ability.emit()
 	cool_down_timer.start()
 	animation_player.play("active_ability")
 
@@ -115,10 +121,6 @@ func _on_Tween_tween_completed() -> void:
 	player_detector.set_collision_mask_value(2, true)
 
 
-func _on_CoolDownTimer_timeout() -> void:
-	can_active_ability = true
-
-
 func _on_condition_changed(new_condition: float) -> void:
 	if get_parent() is Weapons:
 		emit_signal("condition_changed", self, new_condition)
@@ -159,6 +161,10 @@ func add_weapon_modifier(item: WeaponModifier) -> void:
 			return
 
 	stats.modifiers.push_back(item)
+
+
+func can_active_ability() -> bool:
+	return cool_down_timer.is_stopped() and souls == souls_to_activate_ability
 
 
 func get_texture() -> Texture2D:

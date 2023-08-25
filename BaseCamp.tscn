@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=33 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="1_0pcgl"]
 [ext_resource type="Script" path="res://BaseCamp.gd" id="1_tpf7m"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://cjc0h245lbmpd" path="res://Weapons/Melee/Katana.tscn" id="12_trlvh"]
 [ext_resource type="PackedScene" uid="uid://5orvhxdckhxm" path="res://Rooms/Shop.tscn" id="13_nv3p8"]
 [ext_resource type="PackedScene" uid="uid://bu6m7pa3yuk4r" path="res://Weapons/Melee/DragonKiller/DragonKiller.tscn" id="16_885t0"]
+[ext_resource type="PackedScene" uid="uid://13du3vo5int6" path="res://Items/Soul.tscn" id="17_6xbxo"]
 
 [sub_resource type="Gradient" id="Gradient_nhg8o"]
 offsets = PackedFloat32Array(0, 0.784849)
@@ -255,3 +256,39 @@ on_floor = true
 [node name="DragonKiller" parent="." instance=ExtResource("16_885t0")]
 position = Vector2(235, 168)
 on_floor = true
+
+[node name="Soul" parent="." instance=ExtResource("17_6xbxo")]
+position = Vector2(73, 101)
+
+[node name="Soul2" parent="." instance=ExtResource("17_6xbxo")]
+position = Vector2(73, 130)
+
+[node name="Soul3" parent="." instance=ExtResource("17_6xbxo")]
+position = Vector2(92, 131)
+
+[node name="Soul4" parent="." instance=ExtResource("17_6xbxo")]
+position = Vector2(92, 160)
+
+[node name="Soul5" parent="." instance=ExtResource("17_6xbxo")]
+position = Vector2(217, 85)
+
+[node name="Soul6" parent="." instance=ExtResource("17_6xbxo")]
+position = Vector2(217, 114)
+
+[node name="Soul7" parent="." instance=ExtResource("17_6xbxo")]
+position = Vector2(236, 115)
+
+[node name="Soul8" parent="." instance=ExtResource("17_6xbxo")]
+position = Vector2(236, 144)
+
+[node name="Soul9" parent="." instance=ExtResource("17_6xbxo")]
+position = Vector2(265, 84)
+
+[node name="Soul10" parent="." instance=ExtResource("17_6xbxo")]
+position = Vector2(265, 113)
+
+[node name="Soul11" parent="." instance=ExtResource("17_6xbxo")]
+position = Vector2(284, 114)
+
+[node name="Soul12" parent="." instance=ExtResource("17_6xbxo")]
+position = Vector2(284, 143)

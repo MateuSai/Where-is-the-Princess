@@ -162,6 +162,10 @@ func cancel_attack() -> void:
 	current_weapon.cancel_attack()
 
 
+func add_soul_to_current_weapon() -> void:
+	current_weapon.souls += 1
+
+
 func _on_weapon_condition_changed(weapon: Weapon, new_condition: float) -> void:
 	assert(weapon == current_weapon)
 	if new_condition <= 0:
