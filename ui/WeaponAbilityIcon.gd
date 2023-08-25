@@ -35,7 +35,7 @@ func _on_weapon_switched(prev_index: int, new_index: int) -> void:
 
 
 func _on_souls_changed(souls: int, souls_to_activate_ability: int) -> void:
-	print("hoho")
+	#print("hoho")
 	souls_tween = create_tween()
 	souls_tween.tween_property(self, "value", (souls/float(souls_to_activate_ability)) * 100, 0.3).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 

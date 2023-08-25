@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=41 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -21,7 +21,6 @@
 [ext_resource type="Script" path="res://ui/ArmorConditionBar.gd" id="15_rb2hy"]
 [ext_resource type="Texture2D" uid="uid://c41g1tbc5cfub" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Weapon_UI_skil_big.png" id="16_6018t"]
 [ext_resource type="Script" path="res://ui/WeaponAbilityIcon.gd" id="16_rikns"]
-[ext_resource type="Texture2D" uid="uid://ntxuv0ekt6s3" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/soul_animation.tres" id="16_t51g1"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="17_bwb1j"]
 [ext_resource type="Script" path="res://ui/RightBottomGameVBoxContainer.gd" id="18_j8x6c"]
 [ext_resource type="Texture2D" uid="uid://6cx2yobwuw5b" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_naked_icon.png" id="19_bc3n7"]
@@ -535,18 +534,6 @@ texture = ExtResource("19_bh1ic")
 stretch_mode = 5
 
 [node name="CoinsLabel" type="Label" parent="UI/RightBottomGameVBoxContainer/HBoxContainer" index="1"]
-layout_mode = 2
-text = "0"
-vertical_alignment = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="UI/RightBottomGameVBoxContainer" index="1"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="UI/RightBottomGameVBoxContainer/HBoxContainer2" index="0"]
-layout_mode = 2
-texture = ExtResource("16_t51g1")
-
-[node name="SoulsLabel" type="Label" parent="UI/RightBottomGameVBoxContainer/HBoxContainer2" index="1"]
 layout_mode = 2
 text = "0"
 vertical_alignment = 2
