@@ -13,16 +13,16 @@ func _on_weapon_switched(prev_index: int, new_index: int) -> void:
 	var previous_weapon: Weapon = weapons.get_child(prev_index)
 	if previous_weapon.used_active_ability.is_connected(_empty_bar):
 		previous_weapon.used_active_ability.disconnect(_empty_bar)
-	if previous_weapon.souls_changed.is_connected(_on_souls_changed):
-		previous_weapon.souls_changed.disconnect(_on_souls_changed)
+	if previous_weapon.stats.souls_changed.is_connected(_on_souls_changed):
+		previous_weapon.stats.souls_changed.disconnect(_on_souls_changed)
 
 	var new_weapon: Weapon = weapons.get_child(new_index)
 	if new_weapon.has_active_ability():
 		assert(new_weapon.active_ability_icon)
 		texture_progress = new_weapon.active_ability_icon
 		new_weapon.used_active_ability.connect(_empty_bar)
-		new_weapon.souls_changed.connect(_on_souls_changed)
-		_on_souls_changed(new_weapon.souls, new_weapon.souls_to_activate_ability)
+		new_weapon.stats.souls_changed.connect(_on_souls_changed)
+		_on_souls_changed(new_weapon.stats.souls, new_weapon.souls_to_activate_ability)
 		show()
 	else:
 		hide()

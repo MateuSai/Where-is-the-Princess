@@ -31,7 +31,7 @@ func _ready() -> void:
 
 func _input(event) -> void:
 	if event is InputEventKey:
-		if event.pressed and event.scancode == KEY_U:
+		if event.pressed and event.keycode == KEY_U:
 			popup_centered() if not visible else hide()
 
 

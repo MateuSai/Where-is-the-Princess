@@ -163,7 +163,7 @@ func cancel_attack() -> void:
 
 
 func add_soul_to_current_weapon() -> void:
-	current_weapon.souls += 1
+	current_weapon.stats.souls += 1
 
 
 func _on_weapon_condition_changed(weapon: Weapon, new_condition: float) -> void:

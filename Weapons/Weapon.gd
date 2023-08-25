@@ -7,11 +7,6 @@ class_name Weapon extends Node2D
 
 @export var active_ability_icon: Texture
 @export var souls_to_activate_ability: int = 3
-signal souls_changed(new_souls, souls_to_activate_ability)
-var souls: int = 0:
-	set(new_souls):
-		souls = clamp(new_souls, 0, souls_to_activate_ability)
-		souls_changed.emit(souls, souls_to_activate_ability)
 
 var stats: WeaponStats = null
 
@@ -34,9 +29,9 @@ func _ready() -> void:
 		player_detector.set_collision_mask_value(2, false)
 
 	if stats == null:
-		stats = WeaponStats.new(scene_file_path)
+		stats = WeaponStats.new(scene_file_path, souls_to_activate_ability)
 
-	stats.connect("condition_changed", _on_condition_changed)
+	stats.condition_changed.connect(_on_condition_changed)
 
 	for modifier in stats.modifiers:
 		# modifier.equip(get_parent().get_parent())
@@ -70,7 +65,7 @@ func attack() -> void:
 
 
 func _active_ability() -> void:
-	self.souls = 0
+	stats.souls = 0
 	used_active_ability.emit()
 	cool_down_timer.start()
 	animation_player.play("active_ability")
@@ -164,7 +159,7 @@ func add_weapon_modifier(item: WeaponModifier) -> void:
 
 
 func can_active_ability() -> bool:
-	return cool_down_timer.is_stopped() and souls == souls_to_activate_ability
+	return cool_down_timer.is_stopped() and stats.souls == souls_to_activate_ability
 
 
 func get_texture() -> Texture2D:
