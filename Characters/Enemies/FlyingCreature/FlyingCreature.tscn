@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://Characters/Enemies/FlyingCreature/FlyingCreatureFSM.gd" id="3"]
 [ext_resource type="Script" path="res://Characters/Hitbox.gd" id="5"]
 [ext_resource type="Script" path="res://Characters/Enemies/FlyingCreature/FlyingCreature.gd" id="6"]
-[ext_resource type="Texture2D" uid="uid://d04uxwluqy5gw" path="res://Art/player/player_shadow.png" id="6_v7snq"]
+[ext_resource type="Texture2D" uid="uid://d04uxwluqy5gw" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/player_shadow.png" id="6_v7snq"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="7_g1yq0"]
 
 [sub_resource type="CircleShape2D" id="11"]
@@ -264,6 +264,7 @@ radius = 4.0
 [node name="FlyingCreature" instance=ExtResource("1")]
 texture_filter = 0
 script = ExtResource("6")
+souls = 1
 accerelation = 20
 max_speed = 50
 flying = true

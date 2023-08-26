@@ -54,11 +54,11 @@ func apply_config(config: ModConfig) -> void:
 
 	var material_settings: Dictionary = config.data.material_settings
 
-	panel.material.set_shader_param("animate", material_settings.animate)
-	panel.material.set_shader_param("square_scale", material_settings.square_scale)
-	panel.material.set_shader_param("blur_amount", material_settings.blur_amount)
-	panel.material.set_shader_param("mix_amount", material_settings.mix_amount)
-	panel.material.set_shader_param("color_over", Color(material_settings.color))
+	panel.material.set_shader_parameter("animate", material_settings.animate)
+	panel.material.set_shader_parameter("square_scale", material_settings.square_scale)
+	panel.material.set_shader_parameter("blur_amount", material_settings.blur_amount)
+	panel.material.set_shader_parameter("mix_amount", material_settings.mix_amount)
+	panel.material.set_shader_parameter("color_over", Color(material_settings.color))
 
 
 func _update_ui() -> void:
@@ -158,5 +158,5 @@ func _on_ModList_mod_current_config_changed(mod_id: String, current_config_name:
 	ModLoaderConfig.set_current_config(config)
 
 
-func _on_ModLoader_current_config_changed(config: ModConfig) -> void:
+func _on_ModLoader_current_config_changed(_config: ModConfig) -> void:
 	_update_ui()

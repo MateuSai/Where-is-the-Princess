@@ -56,7 +56,7 @@ func _generate_mod_active_state(mod_id: String, user_profile: ModUserProfile) ->
 
 
 func _generate_mod_current_config(mod_id: String, user_profile: ModUserProfile) -> void:
-	var current_config_select: CurrentConfigSelect = current_config_select_scene.instance()
+	var current_config_select: CurrentConfigSelect = current_config_select_scene.instantiate()
 	grid.add_child(current_config_select)
 	current_config_select.mod_id = mod_id
 	current_config_select.add_mod_configs(ModLoaderStore.mod_data[mod_id].configs)

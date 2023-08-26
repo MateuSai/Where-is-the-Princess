@@ -1,7 +1,7 @@
 class_name SpiderEgg extends Enemy
 
 
-const SPIDER_SCENE: PackedScene = preload("res://Characters/Enemies/Spider/Spider.tscn")
+const SPIDER_SCENE: PackedScene = preload("res://Characters/Enemies/SpiderEgg/Spider.tscn")
 
 
 func _ready() -> void:

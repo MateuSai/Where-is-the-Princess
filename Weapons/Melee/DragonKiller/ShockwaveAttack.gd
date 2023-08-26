@@ -14,3 +14,9 @@ func _spawn_shockwave_projectiles() -> void:
 		var projectile: Sprite2D = SHOCKWAVE_PROJECTILE.instantiate()
 		get_tree().current_scene.add_child(projectile)
 		projectile.launch(position, Vector2.RIGHT.rotated(initial_angle + i * 2*PI/num_projectiles) , 150)
+
+
+func _collide(node: Node2D, dam: int = damage) -> void:
+	knockback_direction = (node.global_position - global_position).normalized()
+
+	super(node, dam)
