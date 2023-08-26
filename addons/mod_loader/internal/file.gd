@@ -157,18 +157,18 @@ static func _save_string_to_file(save_string: String, filepath: String) -> bool:
 		"https://docs.godotengine.org/en/stable/classes/class_%40globalscope.html#enum-globalscope-error"
 	))
 
-	if not dir.dir_exists(file_directory):
-		var makedir_error := dir.make_dir_recursive(file_directory)
+	if not dir:
+		var makedir_error := DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(file_directory))
 		if not makedir_error == OK:
 			ModLoaderLog.fatal("Encountered an error (%s) when attempting to create a directory, with the path: %s" % [makedir_error, file_directory], LOG_NAME)
 			return false
 
-	if file_exists(filepath):
-		ModLoaderLog.fatal("Encountered an error when attempting to open a file, with the path: %s" % [filepath], LOG_NAME)
-		return false
-
 	# Save data to the file
 	var file := FileAccess.open(filepath, FileAccess.WRITE)
+
+	if not file:
+		ModLoaderLog.fatal("Encountered an error (%s) when attempting to write to a file, with the path: %s" % [FileAccess.get_open_error(), filepath], LOG_NAME)
+		return false
 
 	file.store_string(save_string)
 	file.close()

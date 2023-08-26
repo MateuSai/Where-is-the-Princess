@@ -162,6 +162,10 @@ func cancel_attack() -> void:
 	current_weapon.cancel_attack()
 
 
+func can_current_weapon_pick_up_soul() -> bool:
+	return current_weapon.can_pick_up_soul()
+
+
 func add_soul_to_current_weapon() -> void:
 	current_weapon.stats.souls += 1
 

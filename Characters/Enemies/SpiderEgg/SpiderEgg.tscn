@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://c8b3fy5wfn4dp"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_u8gmx"]
-[ext_resource type="Script" path="res://Characters/Enemies/Spider/SpiderEggFSM.gd" id="2_kp3rr"]
-[ext_resource type="Script" path="res://Characters/Enemies/Spider/SpiderEgg.gd" id="2_t1q62"]
-[ext_resource type="Texture2D" uid="uid://muetyxfnqh5n" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/spider/egg_hatching.png" id="4_2x6ix"]
+[ext_resource type="Script" path="res://Characters/Enemies/SpiderEgg/SpiderEggFSM.gd" id="2_kp3rr"]
+[ext_resource type="Script" path="res://Characters/Enemies/SpiderEgg/SpiderEgg.gd" id="2_t1q62"]
+[ext_resource type="Texture2D" uid="uid://muetyxfnqh5n" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/spider/egg_hatching.png" id="4_2x6ix"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t7shl"]
 radius = 7.07107
@@ -80,6 +80,7 @@ _data = {
 
 [node name="SpiderEgg" instance=ExtResource("1_u8gmx")]
 script = ExtResource("2_t1q62")
+souls = 1
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("2_kp3rr")
