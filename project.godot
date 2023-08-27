@@ -33,8 +33,7 @@ window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_height"
-mouse_cursor/custom_image="res://Art/v1.1 dungeon crawler 16x16 pixel pack/ui (new)/crosshair_3.png"
-mouse_cursor/custom_image_hotspot=Vector2(16, 16)
+mouse_cursor/custom_image="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/cursor.png"
 
 [filesystem]
 
