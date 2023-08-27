@@ -4,6 +4,8 @@ const SHOCKWAVE_PROJECTILE: PackedScene = preload("res://Weapons/Melee/DragonKil
 
 
 func _ready() -> void:
+	super()
+
 	_spawn_shockwave_projectiles()
 
 
