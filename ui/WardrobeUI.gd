@@ -13,9 +13,6 @@ const ARMORS_FOLDER_PATH: String = "res://Armors/LoadedWithouthNeedToDiscoverThe
 func _ready() -> void:
 	var armors: Array[Armor] = []
 
-	for armor_path in SavedData.data.armors_discovered:
-		armors.push_back(load(armor_path).new())
-
 	var armor_names: PackedStringArray = _get_armors()
 	for armor_name in armor_names:
 		armors.push_back(load(ARMORS_FOLDER_PATH + armor_name).new())
@@ -25,6 +22,10 @@ func _ready() -> void:
 #			return true
 #		return false
 #	)
+
+	for armor_path in SavedData.data.armors_discovered:
+		armors.push_back(load(armor_path).new())
+
 	for armor in armors:
 		var armor_grid_button: ArmorGridButton = ArmorGridButton.new(armor)
 		armor_grid_button.focus_entered.connect(func(): _on_armor_selected(armor_grid_button.armor))

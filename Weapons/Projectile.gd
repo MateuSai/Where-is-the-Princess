@@ -10,11 +10,14 @@ var rot_dir: int = [-1, 1][randi() % 2]
 
 
 @warning_ignore("shadowed_variable")
-func launch(initial_position: Vector2, dir: Vector2, speed: int) -> void:
+func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: bool = false) -> void:
 	position = initial_position
 	direction = dir
 	knockback_direction = dir
 	self.speed = speed
+
+	if rotate_to_dir:
+		rotation = dir.angle()
 
 	#rotation += dir.angle() + PI/4
 

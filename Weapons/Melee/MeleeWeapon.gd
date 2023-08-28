@@ -1,8 +1,14 @@
 class_name MeleeWeapon extends Weapon
 
 
-@export var backwards_animation_second_attack: bool = false
-var attack_num: int = 0
+## This variable indicates wheter the number of normal attacks. They will be used on order. If it has value 2 but only has one attack animation, for the second attack it will use the first animation but backwards, this is used on the Katana for example
+@export var num_normal_attacks: int = 1
+var attack_num: int = 0:
+	set(new_attack_num):
+		attack_num = wrapi(new_attack_num, 0, num_normal_attacks)
+
+## If this is true, the scale will be inverted when looking at the left
+@export var invert_scale_when_looking_left: bool = false
 
 enum Type {
 	SPEAR,
@@ -42,34 +48,24 @@ func _pick_up() -> void:
 
 
 func attack() -> void:
-	if backwards_animation_second_attack:
-		if attack_num == 0:
-			attack_num = 1
-			super()
-		else:
-			attack_num = 0
-			if animation_player.has_animation("attack_2"):
-				animation_player.play("attack_2")
-			else:
-				animation_player.play_backwards("attack")
+	if attack_num == 1 and not animation_player.has_animation("attack_2"):
+		animation_player.play_backwards("attack_1")
 	else:
-		super()
+		animation_player.play("attack_" + str(attack_num + 1))
+	attack_num += 1
 
 
 func _charge() -> void:
-	if backwards_animation_second_attack:
-		#animation_player.play("charge0")
-		animation_player.play("charge" + str(attack_num))
-	else:
-		super()
+	animation_player.play("charge_" + str(attack_num + 1))
 
 
 func _strong_attack() -> void:
-	if backwards_animation_second_attack:
-		#animation_player.play("charge0")
-		animation_player.play("strong_attack" + str(attack_num))
-	else:
-		super()
+	animation_player.play("strong_attack_" + str(attack_num + 1))
+
+
+func _active_ability(_animation_name: String = "active_ability") -> void:
+	super("active_ability_" + str(attack_num + 1))
+	attack_num += 1
 
 
 func throw() -> void:
@@ -120,7 +116,7 @@ func add_status_inflicter(status: StatusComponent.Status, amount: int = 1) -> vo
 
 func move(mouse_direction: Vector2) -> void:
 	super(mouse_direction)
-	if not backwards_animation_second_attack:
+	if invert_scale_when_looking_left:
 		if scale.y == 1 and mouse_direction.x < 0:
 			scale.y = -1
 		elif scale.y == -1 and mouse_direction.x > 0:

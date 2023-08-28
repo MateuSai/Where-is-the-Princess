@@ -8,10 +8,10 @@ const USER_FOLDER: String = "user://"
 const DATA_SAVE_NAME: String = "data.json"
 
 var data: Dictionary = {
-	"discovered_weapons": PackedStringArray(["res://Weapons/Melee/Katana.tscn", "res://Weapons/Melee/Spear.tscn"]),
+	"discovered_weapons": PackedStringArray(["res://Weapons/Melee/Katana/Katana.tscn", "res://Weapons/Melee/Spear.tscn"]),
 
-	"equipped_armor": "res://Armors/NoArmor.gd",
-	"armors_discovered": PackedStringArray(["res://Armors/NoArmor.gd", "res://Armors/KnightArmor.gd", "res://Armors/MercenaryArmor.gd"]),
+	"equipped_armor": "res://Armors/LoadedWithouthNeedToDiscoverThem/NoArmor.gd",
+	"armors_discovered": PackedStringArray(["res://Armors/KnightArmor.gd", "res://Armors/MercenaryArmor.gd"]),
 
 	"temporal_items_discovered": PackedStringArray(["res://Items/Passive/Temporal/MagicShield.gd", "res://Items/Passive/Temporal/MagicSword.gd"])
 }
