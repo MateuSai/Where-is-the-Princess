@@ -1,9 +1,9 @@
 extends Node
 
 
-# ModLoaderStore
-# Singleton (autoload) for storing data. Should be added before ModLoader,
-# as an autoload called `ModLoaderStore`
+## ModLoaderStore
+## Singleton (autoload) for storing data. Should be added before ModLoader,
+## as an autoload called `ModLoaderStore`
 
 
 # Constants
@@ -12,17 +12,17 @@ extends Node
 # Most of these settings should never need to change, aside from the DEBUG_*
 # options (which should be `false` when distributing compiled PCKs)
 
-const MODLOADER_VERSION = "6.0.2"
+const MODLOADER_VERSION = "6.1.0"
 
-# If true, a complete array of filepaths is stored for each mod. This is
-# disabled by default because the operation can be very expensive, but may
-# be useful for debugging
+## If true, a complete array of filepaths is stored for each mod. This is
+## disabled by default because the operation can be very expensive, but may
+## be useful for debugging
 const DEBUG_ENABLE_STORING_FILEPATHS := false
 
-# This is where mod ZIPs are unpacked to
+## This is where mod ZIPs are unpacked to
 const UNPACKED_DIR := "res://mods-unpacked/"
 
-# Set to true to require using "--enable-mods" to enable them
+## Set to true to require using "--enable-mods" to enable them
 const REQUIRE_CMD_LINE := false
 
 const LOG_NAME = "ModLoader:Store"
@@ -30,44 +30,44 @@ const LOG_NAME = "ModLoader:Store"
 # Vars
 # =============================================================================
 
-# Order for mods to be loaded in, set by `get_load_order`
+## Order for mods to be loaded in, set by `get_load_order`
 var mod_load_order := []
 
-# Stores data for every found/loaded mod
+## Stores data for every found/loaded mod
 var mod_data := {}
 
-# Any mods that are missing their dependancies are added to this
-# Example property: "mod_id": ["dep_mod_id_0", "dep_mod_id_2"]
+## Any mods that are missing their dependancies are added to this
+## Example property: "mod_id": ["dep_mod_id_0", "dep_mod_id_2"]
 var mod_missing_dependencies := {}
 
-# Set to false after ModLoader._init()
-# Helps to decide whether a script extension should go through the _ModLoaderScriptExtension.handle_script_extensions() process
+## Set to false after ModLoader._init()
+## Helps to decide whether a script extension should go through the _ModLoaderScriptExtension.handle_script_extensions() process
 var is_initializing := true
 
-# Used when loading mod zips to determine which mod zip corresponds to which mod directory in the UNPACKED_DIR.
+## Used when loading mod zips to determine which mod zip corresponds to which mod directory in the UNPACKED_DIR.
 var previous_mod_dirs := []
 
-# Store all extenders paths
+## Store all extenders paths
 var script_extensions := []
 
-# True if ModLoader has displayed the warning about using zipped mods
+## True if ModLoader has displayed the warning about using zipped mods
 var has_shown_editor_zips_warning := false
 
-# Things to keep to ensure they are not garbage collected (used by `save_scene`)
+## Things to keep to ensure they are not garbage collected (used by `save_scene`)
 var saved_objects := []
 
-# Stores all the taken over scripts for restoration
+## Stores all the taken over scripts for restoration
 var saved_scripts := {}
 
-# Stores main scripts for mod disabling
+## Stores main scripts for mod disabling
 var saved_mod_mains := {}
 
-# Stores script extension paths with the key being the namespace of a mod
+## Stores script extension paths with the key being the namespace of a mod
 var saved_extension_paths := {}
 
-# Keeps track of logged messages, to avoid flooding the log with duplicate notices
-# Can also be used by mods, eg. to create an in-game developer console that
-# shows messages
+## Keeps track of logged messages, to avoid flooding the log with duplicate notices
+## Can also be used by mods, eg. to create an in-game developer console that
+## shows messages
 var logged_messages := {
 	"all": {},
 	"by_mod": {},
@@ -81,20 +81,20 @@ var logged_messages := {
 	}
 }
 
-# Active user profile
+## Active user profile
 var current_user_profile: ModUserProfile
 
-# List of user profiles loaded from user://mod_user_profiles.json
+## List of user profiles loaded from user://mod_user_profiles.json
 var user_profiles :=  {}
 
-# ModLoader cache is stored in user://mod_loader_cache.json
+## ModLoader cache is stored in user://mod_loader_cache.json
 var cache := {}
 
-# These variables handle various options, which can be changed either via
-# Godot's GUI (with the options.tres resource file), or via CLI args.
-# Usage: `ModLoaderStore.ml_options.KEY`
-# See: res://addons/mod_loader/options/options.tres
-# See: res://addons/mod_loader/resources/options_profile.gd
+## These variables handle various options, which can be changed either via
+## Godot's GUI (with the options.tres resource file), or via CLI args.
+## Usage: `ModLoaderStore.ml_options.KEY`
+## See: res://addons/mod_loader/options/options.tres
+## See: res://addons/mod_loader/resources/options_profile.gd
 var ml_options := {
 	enable_mods = true,
 	log_level = ModLoaderLog.VERBOSITY_LEVEL.DEBUG,
@@ -143,7 +143,7 @@ func _init():
 	_ModLoaderCache.init_cache(self)
 
 
-# Update ModLoader's options, via the custom options resource
+## Update ModLoader's options, via the custom options resource
 func _update_ml_options_from_options_resource() -> void:
 	# Path to the options resource
 	# See: res://addons/mod_loader/resources/options_current.gd
@@ -161,7 +161,7 @@ func _update_ml_options_from_options_resource() -> void:
 		ModLoaderLog.fatal(str("A critical file is missing: ", ml_options_path), LOG_NAME)
 
 
-# Update ModLoader's options, via CLI args
+## Update ModLoader's options, via CLI args
 func _update_ml_options_from_cli_args() -> void:
 	# Disable mods
 	if _ModLoaderCLI.is_running_with_command_line_arg("--disable-mods"):
