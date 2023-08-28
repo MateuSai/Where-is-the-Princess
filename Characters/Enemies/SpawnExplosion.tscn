@@ -1,46 +1,62 @@
-[gd_scene load_steps=8 format=3 uid="uid://8nh2jf6fpbxo"]
+[gd_scene load_steps=10 format=3 uid="uid://8nh2jf6fpbxo"]
 
-[ext_resource type="Texture2D" uid="uid://5s650l0opflc" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/effects (new)/enemy_afterdead_explosion_anim_spritesheet.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://ulcma60nx7b" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemy_afterdead_explosion_anim_16X16.png" id="1_5e704"]
 [ext_resource type="Script" path="res://Characters/Enemies/SpawnExplosion.gd" id="2"]
 
-[sub_resource type="AtlasTexture" id="1"]
-atlas = ExtResource("1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_banhb"]
+atlas = ExtResource("1_5e704")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="2"]
-atlas = ExtResource("1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_h0y4j"]
+atlas = ExtResource("1_5e704")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="3"]
-atlas = ExtResource("1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_2yg0a"]
+atlas = ExtResource("1_5e704")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="4"]
-atlas = ExtResource("1")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ak81n"]
+atlas = ExtResource("1_5e704")
 region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vfwfc"]
+atlas = ExtResource("1_5e704")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mqb0d"]
+atlas = ExtResource("1_5e704")
+region = Rect2(80, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="5"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("1")
+"texture": SubResource("AtlasTexture_banhb")
 }, {
 "duration": 1.0,
-"texture": SubResource("2")
+"texture": SubResource("AtlasTexture_h0y4j")
 }, {
 "duration": 1.0,
-"texture": SubResource("3")
+"texture": SubResource("AtlasTexture_2yg0a")
 }, {
 "duration": 1.0,
-"texture": SubResource("4")
+"texture": SubResource("AtlasTexture_ak81n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vfwfc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mqb0d")
 }],
 "loop": false,
 "name": &"default",
-"speed": 5.0
+"speed": 10.0
 }]
 
 [node name="SpawnExplosion" type="AnimatedSprite2D"]
 sprite_frames = SubResource("5")
+frame = 5
+frame_progress = 1.0
 script = ExtResource("2")
 
 [connection signal="animation_finished" from="." to="." method="_on_SpawnExplosion_animation_finished"]
