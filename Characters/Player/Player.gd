@@ -231,7 +231,3 @@ func _use_armor_ability() -> void:
 	armor.is_able_to_use_ability = true
 
 	armor.disable_ability_effect(self)
-
-
-func _on_armor_effect_timer_timeout() -> void:
-	pass

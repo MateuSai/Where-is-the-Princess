@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_wgek8"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_0u5d0"]
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_00w47"]
-[ext_resource type="PackedScene" uid="uid://cjc0h245lbmpd" path="res://Weapons/Melee/Katana.tscn" id="4_6oo1u"]
+[ext_resource type="PackedScene" uid="uid://cjc0h245lbmpd" path="res://Weapons/Melee/Katana/Katana.tscn" id="4_6oo1u"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/Forest/TikiTorch.tscn" id="6_up8qn"]
 
 [node name="ForestMiddleRoom0" instance=ExtResource("1_o3owg")]

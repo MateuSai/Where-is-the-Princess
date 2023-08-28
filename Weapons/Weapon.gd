@@ -64,11 +64,11 @@ func attack() -> void:
 	animation_player.play("attack")
 
 
-func _active_ability() -> void:
+func _active_ability(animation_name: String = "active_ability") -> void:
 	stats.souls = 0
 	used_active_ability.emit()
 	cool_down_timer.start()
-	animation_player.play("active_ability")
+	animation_player.play(animation_name)
 
 
 func _strong_attack() -> void:
@@ -167,7 +167,7 @@ func get_texture() -> Texture2D:
 
 
 func has_active_ability() -> bool:
-	return animation_player.has_animation("active_ability") and active_ability_icon
+	return (animation_player.has_animation("active_ability") or animation_player.has_animation("active_ability_1")) and active_ability_icon
 
 
 func can_pick_up_soul() -> bool:
