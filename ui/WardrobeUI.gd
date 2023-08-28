@@ -1,6 +1,6 @@
 extends MarginContainer
 
-const ARMORS_FOLDER_PATH: String = "res://Armors/LoadedWithouthNeedToDiscoverThem/"
+#const ARMORS_FOLDER_PATH: String = "res://Armors/LoadedWithouthNeedToDiscoverThem/"
 
 @onready var player: Player = owner.get_node("Player")
 
@@ -11,11 +11,11 @@ const ARMORS_FOLDER_PATH: String = "res://Armors/LoadedWithouthNeedToDiscoverThe
 
 
 func _ready() -> void:
-	var armors: Array[Armor] = []
+	var armors: Array[Armor] = [NoArmor.new()]
 
-	var armor_names: PackedStringArray = _get_armors()
-	for armor_name in armor_names:
-		armors.push_back(load(ARMORS_FOLDER_PATH + armor_name).new())
+	# var armor_names: PackedStringArray = _get_armors()
+#	for armor_name in armor_names:
+#		armors.push_back(load(ARMORS_FOLDER_PATH + armor_name).new())
 	# Ponemos NoArmor al inicio
 #	armors.sort_custom(func(armor1: Armor, _armor2: Armor) -> bool:
 #		if armor1 is NoArmor:
@@ -51,16 +51,16 @@ func _on_armor_selected(armor: Armor) -> void:
 	SavedData.data.equipped_armor = armor.get_script().get_path()
 
 
-func _get_armors() -> PackedStringArray:
-	var armors_dir: DirAccess = DirAccess.open(ARMORS_FOLDER_PATH)
-	if armors_dir == null:
-		printerr("Error opening " + ARMORS_FOLDER_PATH + "!")
-		return []
-
-	var armor_names: PackedStringArray = armors_dir.get_files()
-#	for i in room_names.size():
-#		room_names[i] = room_names[i].trim_suffix(".remap")
-	return armor_names
+#func _get_armors() -> PackedStringArray:
+#	var armors_dir: DirAccess = DirAccess.open(ARMORS_FOLDER_PATH)
+#	if armors_dir == null:
+#		printerr("Error opening " + ARMORS_FOLDER_PATH + "!")
+#		return []
+#
+#	var armor_names: PackedStringArray = armors_dir.get_files()
+##	for i in room_names.size():
+##		room_names[i] = room_names[i].trim_suffix(".remap")
+#	return armor_names
 
 
 class ArmorGridButton extends Button:
