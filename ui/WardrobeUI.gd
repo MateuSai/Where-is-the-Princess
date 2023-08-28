@@ -23,7 +23,7 @@ func _ready() -> void:
 #		return false
 #	)
 
-	for armor_path in SavedData.data.armors_discovered:
+	for armor_path in SavedData.get_armor_paths():
 		armors.push_back(load(armor_path).new())
 
 	for armor in armors:

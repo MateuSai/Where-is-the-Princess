@@ -8,7 +8,7 @@ extends RefCounted
 const LOG_NAME := "ModLoader:ScriptExtension"
 
 
-# Sort script extensions by inheritance and apply them in order
+## Sort script extensions by inheritance and apply them in order
 static func handle_script_extensions() -> void:
 	var extension_paths := []
 	for extension_path in ModLoaderStore.script_extensions:
@@ -113,15 +113,15 @@ static func apply_extension(extension_path: String) -> Script:
 	return child_script
 
 
-# Reload all children classes of the vanilla class we just extended
-# Calling reload() the children of an extended class seems to allow them to be extended
-# e.g if B is a child class of A, reloading B after apply an extender of A allows extenders of B to properly extend B, taking A's extender(s) into account
+## Reload all children classes of the vanilla class we just extended
+## Calling reload() the children of an extended class seems to allow them to be extended
+## e.g if B is a child class of A, reloading B after apply an extender of A allows extenders of B to properly extend B, taking A's extender(s) into account
 static func _reload_vanilla_child_classes_for(script: Script) -> void:
 	if script == null:
 		return
 	var current_child_classes := []
 	var actual_path: String = script.get_base_script().resource_path
-	var classes: Array = ProjectSettings.get_setting("_global_script_classes")
+	var classes: Array = ProjectSettings.get_global_class_list()
 
 	for _class in classes:
 		if _class.path == actual_path:
@@ -135,7 +135,7 @@ static func _reload_vanilla_child_classes_for(script: Script) -> void:
 				load(child_class.path).reload()
 
 
-# Used to remove a specific extension
+## Used to remove a specific extension
 static func remove_specific_extension_from_script(extension_path: String) -> void:
 	# Check path to file exists
 	if not _ModLoaderFile.file_exists(extension_path):

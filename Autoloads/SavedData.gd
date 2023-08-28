@@ -11,10 +11,12 @@ var data: Dictionary = {
 	"discovered_weapons": PackedStringArray(["res://Weapons/Melee/Katana/Katana.tscn", "res://Weapons/Melee/Spear.tscn"]),
 
 	"equipped_armor": "res://Armors/NoArmor.gd",
-	"armors_discovered": PackedStringArray(["res://Armors/MercenaryArmor.gd"]),
+	"discovered_armors": PackedStringArray(["res://Armors/MercenaryArmor.gd"]),
 
 	"temporal_items_discovered": PackedStringArray(["res://Items/Passive/Temporal/MagicShield.gd", "res://Items/Passive/Temporal/MagicSword.gd"])
 }
+
+var volatile_armor_paths: Array[String] = []
 
 var run_stats: RunStats = RunStats.new()
 
@@ -161,9 +163,22 @@ func _change_biome_conf(biome: String) -> void:
 
 
 func discover_armor(armor_path: String) -> void:
-	if not data.armors_discovered.has(armor_path):
-		data.armors_discovered.push_back(armor_path)
+	if not data.discovered_armors.has(armor_path):
+		data.discovered_armors.push_back(armor_path)
 		save_data()
+
+
+func add_volatile_armor_path(armor_path) -> void:
+	if volatile_armor_paths.has(armor_path):
+		return
+
+	volatile_armor_paths.push_back(armor_path)
+
+
+func get_armor_paths() -> PackedStringArray:
+	var armor_paths: Array = data.discovered_armors.duplicate()
+	armor_paths.append_array(volatile_armor_paths)
+	return PackedStringArray(armor_paths)
 
 
 ## This is what we use to load the stats when he changes floor or when he saves the game
