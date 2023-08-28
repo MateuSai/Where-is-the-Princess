@@ -16,6 +16,10 @@ func _init():
 	ext_dir = dir + "extensions/"
 	trans_dir = dir + "translations/"
 
+	#ModLoaderMod.install_script_extension("res://mods-unpacked/Mateu-DemoMod/menu_override.gd")
+
+	#DirAccess.copy_absolute("res://mods-unpacked/Mateu-DemoMod/KnightArmor.gd", "res://Armors/LoadedWithouthNeedToDiscoverThem/KnightArmor.gd")
+
 	# Add extensions
 	#modLoader.install_script_extension(ext_dir + "main.gd")
 
@@ -24,4 +28,6 @@ func _init():
 
 
 func _ready():
+	SavedData.discover_armor("res://mods-unpacked/Mateu-DemoMod/KnightArmor.gd")
+
 	ModLoaderLog.info("Done", MYMODNAME_LOG)

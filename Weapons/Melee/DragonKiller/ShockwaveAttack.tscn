@@ -1,7 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://b1nd2x14iud4b"]
+[gd_scene load_steps=8 format=3 uid="uid://b1nd2x14iud4b"]
 
 [ext_resource type="Script" path="res://Weapons/Melee/DragonKiller/ShockwaveAttack.gd" id="1_0d2wb"]
 [ext_resource type="Texture2D" uid="uid://b616l25gojavd" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/dragon killer shockwave.png" id="2_7ojyi"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rx63m"]
+light_mode = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xx0un"]
 radius = 33.0151
@@ -65,6 +68,7 @@ script = ExtResource("1_0d2wb")
 damage = 6
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_rx63m")
 position = Vector2(0, -10)
 texture = ExtResource("2_7ojyi")
 hframes = 7

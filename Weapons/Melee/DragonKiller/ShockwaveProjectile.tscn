@@ -1,7 +1,25 @@
-[gd_scene load_steps=6 format=3 uid="uid://7jyql635wxht"]
+[gd_scene load_steps=7 format=3 uid="uid://7jyql635wxht"]
 
 [ext_resource type="Script" path="res://Weapons/Melee/DragonKiller/ShockwaveProjectile.gd" id="2_8o0by"]
 [ext_resource type="Texture2D" uid="uid://b616l25gojavd" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/dragon killer shockwave.png" id="2_bfyqc"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fpu77"]
+light_mode = 1
+
+[sub_resource type="Animation" id="Animation_gw08h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
 
 [sub_resource type="Animation" id="Animation_s3pty"]
 resource_name = "attack"
@@ -34,21 +52,6 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_gw08h"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [7]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ggpcs"]
 _data = {
 "RESET": SubResource("Animation_gw08h"),
@@ -56,6 +59,7 @@ _data = {
 }
 
 [node name="ShockwaveProjectile" type="Sprite2D"]
+material = SubResource("CanvasItemMaterial_fpu77")
 position = Vector2(0, -11)
 texture = ExtResource("2_bfyqc")
 hframes = 7

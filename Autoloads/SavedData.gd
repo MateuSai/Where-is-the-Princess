@@ -11,7 +11,7 @@ var data: Dictionary = {
 	"discovered_weapons": PackedStringArray(["res://Weapons/Melee/Katana/Katana.tscn", "res://Weapons/Melee/Spear.tscn"]),
 
 	"equipped_armor": "res://Armors/LoadedWithouthNeedToDiscoverThem/NoArmor.gd",
-	"armors_discovered": PackedStringArray(["res://Armors/KnightArmor.gd", "res://Armors/MercenaryArmor.gd"]),
+	"armors_discovered": PackedStringArray(["res://Armors/MercenaryArmor.gd"]),
 
 	"temporal_items_discovered": PackedStringArray(["res://Items/Passive/Temporal/MagicShield.gd", "res://Items/Passive/Temporal/MagicSword.gd"])
 }
@@ -158,6 +158,12 @@ func _change_biome_conf(biome: String) -> void:
 	if json.parse(FileAccess.open(BIOMES_FOLDER_PATH + biome + "/conf.json", FileAccess.READ).get_as_text()):
 		printerr("Error reading " + BIOMES_FOLDER_PATH + biome + "/conf.json" + "!")
 	biome_conf = json.data
+
+
+func discover_armor(armor_path: String) -> void:
+	if not data.armors_discovered.has(armor_path):
+		data.armors_discovered.push_back(armor_path)
+		save_data()
 
 
 ## This is what we use to load the stats when he changes floor or when he saves the game
