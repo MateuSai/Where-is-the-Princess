@@ -25,6 +25,13 @@ func _update_armor_condition(new_condition: int) -> void:
 
 func _on_armor_changed(new_armor: Armor) -> void:
 	assert(new_armor)
+
+	if current_armor:
+		if current_armor.ability_used.is_connected(_on_armor_ability_used):
+			current_armor.ability_used.disconnect(_on_armor_ability_used)
+		if current_armor.ability_effect_ended.is_connected(_on_armor_ability_effect_ended):
+			current_armor.ability_effect_ended.disconnect(_on_armor_ability_effect_ended)
+
 	current_armor = new_armor
 	new_armor.condition_changed.connect(_on_armor_condition_changed)
 	_update_armor_condition(new_armor.condition)
