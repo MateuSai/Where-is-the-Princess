@@ -1,0 +1,11 @@
+node_name,name,melee_type,num_normal_attacks,Daño (normal),Condición por ataque (normal),ability,ability_icon,ability_cost,Daño (habilidad),ability_condition_cost,increase_num_normal_attacks_on_ability,Velocidad de ataque,Cooldown habilidad
+DragonKiller,Dragon Killer,Sword,2,4,1,Shockwave (Explosion),res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/Dragon Killer UI icon.png,10,6,5,1,,
+Katana,Katana,Sword,2,2,1,Air Slash (Filo-proyectil),res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/Katana UI icon.png,3,3,3,1,,
+OrcSword,Orc Sword,Sword,2,3,2,Intimidación (congela enemigos),res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/Orc Sword UI icon.png,5,1,2,0,,
+Scimitar,Scimitar,Sword,2,1,1,Golpes rapidos,,3,2,2,1,,
+WarriorSword,Warrior Sword,Sword,2,2,1,Ataque en círculo,,4,3,2.5,1,,
+KombatHammer,Kombat Hammer,Hammer,2,,,Terremoto direccional,,8,,,1,,
+WarHammer,War hammer,Hammer,2,,,Terremoto círculo,,6,,,1,,
+SharpAxe,Sharp Axe,Axe,2,,,Filos en varias direcciones,,10,,,1,,
+SmallAxe,Smol Axe,Axe,2,,,Filo grande,,3,,,1,,
+WarAxe,War Axe,Axe,2,,,Filos en 3 direcciones,,5,,,1,,

@@ -35,6 +35,10 @@ window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_height"
 mouse_cursor/custom_image="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/cursor.png"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/csv-data-importer/plugin.cfg")
+
 [filesystem]
 
 import/blender/enabled=false
