@@ -13,10 +13,14 @@ var data: Dictionary = {
 	"equipped_armor": "res://Armors/NoArmor.gd",
 	"discovered_armors": PackedStringArray(["res://Armors/MercenaryArmor.gd"]),
 
-	"temporal_items_discovered": PackedStringArray(["res://Items/Passive/Temporal/MagicShield.gd", "res://Items/Passive/Temporal/MagicSword.gd"])
+	"discovered_permanent_items": PackedStringArray(["res://Items/Passive/Permanent/EnhancedBoots.gd", "res://Items/Passive/Permanent/StrongThrow.gd", "res://Items/Passive/Permanent/ToughSkin.gd"]),
+	"discovered_temporal_items": PackedStringArray(["res://Items/Passive/Temporal/MagicShield.gd", "res://Items/Passive/Temporal/MagicSword.gd"])
 }
 
 var volatile_armor_paths: Array[String] = []
+
+var volatile_permanent_item_paths: Array[String] = []
+var volatile_temporal_item_paths: Array[String] = []
 
 var run_stats: RunStats = RunStats.new()
 
@@ -168,7 +172,8 @@ func discover_armor(armor_path: String) -> void:
 		save_data()
 
 
-func add_volatile_armor_path(armor_path) -> void:
+## Adds an armor only for this session. Use this for mods to load the armor each time the mod loads. The new armors will appear at the wardrobe on the basecamp and it may appear inside the game on the events where a random armor is choosen (like the shop)
+func add_volatile_armor(armor_path) -> void:
 	if volatile_armor_paths.has(armor_path):
 		return
 
@@ -181,7 +186,35 @@ func get_armor_paths() -> PackedStringArray:
 	return PackedStringArray(armor_paths)
 
 
-## This is what we use to load the stats when he changes floor or when he saves the game
+## Adds a temporal item only for this session. Use this for mods to load the item each time the mod loads.
+func add_volatile_temporal_item(item_path) -> void:
+	if volatile_temporal_item_paths.has(item_path):
+		return
+
+	volatile_temporal_item_paths.push_back(item_path)
+
+
+func get_temporal_item_paths() -> PackedStringArray:
+	var temporal_item_paths: Array = data.discovered_temporal_items.duplicate()
+	temporal_item_paths.append_array(volatile_temporal_item_paths)
+	return PackedStringArray(temporal_item_paths)
+
+
+## Adds a permanent item only for this session. Use this for mods to load the item each time the mod loads.
+func add_volatile_permanent_item(item_path) -> void:
+	if volatile_permanent_item_paths.has(item_path):
+		return
+
+	volatile_permanent_item_paths.push_back(item_path)
+
+
+func get_permanent_item_paths() -> PackedStringArray:
+	var permanent_item_paths: Array = data.discovered_permanent_items.duplicate()
+	permanent_item_paths.append_array(volatile_permanent_item_paths)
+	return PackedStringArray(permanent_item_paths)
+
+
+## This is what we use to load the stats when we changes floor or when we saves the game
 class RunStats extends Resource:
 	signal coins_changed(new_coins: int)
 

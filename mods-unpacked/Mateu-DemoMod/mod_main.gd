@@ -28,6 +28,6 @@ func _init():
 
 
 func _ready():
-	SavedData.add_volatile_armor_path("res://mods-unpacked/Mateu-DemoMod/KnightArmor.gd")
+	SavedData.add_volatile_armor("res://mods-unpacked/Mateu-DemoMod/KnightArmor.gd")
 
 	ModLoaderLog.info("Done", MYMODNAME_LOG)
