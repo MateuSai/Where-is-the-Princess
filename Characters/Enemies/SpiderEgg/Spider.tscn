@@ -194,7 +194,6 @@ radius = 4.0
 
 [node name="Spider" instance=ExtResource("1_bow3n")]
 script = ExtResource("2_ftttc")
-souls = 1
 accerelation = 30
 max_speed = 80
 
@@ -216,7 +215,7 @@ libraries = {
 "": SubResource("AnimationLibrary_np2yq")
 }
 
-[node name="LifeComponent" parent="." index="6"]
+[node name="LifeComponent" parent="." index="5"]
 hp = 2
 max_hp = 2
 

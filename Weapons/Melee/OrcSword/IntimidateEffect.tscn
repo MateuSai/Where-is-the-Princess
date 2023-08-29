@@ -1,0 +1,106 @@
+[gd_scene load_steps=8 format=3 uid="uid://dnp53s4t00htq"]
+
+[ext_resource type="Script" path="res://Weapons/Melee/OrcSword/IntimidateEffect.gd" id="1_325jg"]
+[ext_resource type="Texture2D" uid="uid://ddcc4mrbt0a6t" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/Orc Sword intimidation.png" id="1_jrre8"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4y5mk"]
+light_mode = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_brgq8"]
+radius = 6.0
+
+[sub_resource type="Animation" id="Animation_s8i5y"]
+resource_name = "expand"
+length = 0.63
+step = 0.07
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.07, 0.14, 0.21, 0.28, 0.35, 0.42, 0.49, 0.56),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.63),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../CollisionShape2D:shape:radius")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.42),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [6.0, 32.0]
+}
+
+[sub_resource type="Animation" id="Animation_l3y4m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../CollisionShape2D:shape:radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [6.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j8hfp"]
+_data = {
+"RESET": SubResource("Animation_l3y4m"),
+"expand": SubResource("Animation_s8i5y")
+}
+
+[node name="IntimidateEffect" type="Area2D"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_325jg")
+
+[node name="IntimidateEffect" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_4y5mk")
+texture = ExtResource("1_jrre8")
+hframes = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_brgq8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../IntimidateEffect")
+autoplay = "expand"
+libraries = {
+"": SubResource("AnimationLibrary_j8hfp")
+}
