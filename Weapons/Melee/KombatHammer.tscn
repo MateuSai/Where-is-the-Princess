@@ -1,14 +1,14 @@
 [gd_scene load_steps=18 format=3 uid="uid://ctt3utwk3p586"]
 
-[ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_xynkl"]
-[ext_resource type="Script" path="res://Weapons/Melee/MeleeWeapon.gd" id="2_tgh5k"]
-[ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="3_3wy1b"]
-[ext_resource type="Texture2D" uid="uid://bqcbif8jca3t2" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Kombat hammer.png" id="4_fvtre"]
-[ext_resource type="Texture2D" uid="uid://evihltxw1ud3" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/effects (new)/slash_effect_anim_spritesheet.png" id="5_n83ro"]
+[ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_kdv4y"]
+[ext_resource type="Script" path="res://Weapons/Melee/MeleeWeapon.gd" id="2_arxcs"]
+[ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="3_frb1o"]
+[ext_resource type="Texture2D" uid="uid://bqcbif8jca3t2" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Kombat hammer.png" id="4_plinb"]
+[ext_resource type="Texture2D" uid="uid://evihltxw1ud3" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/effects (new)/slash_effect_anim_spritesheet.png" id="5_jgi6f"]
 
 [sub_resource type="ShaderMaterial" id="6"]
 resource_local_to_scene = true
-shader = ExtResource("3_3wy1b")
+shader = ExtResource("3_frb1o")
 shader_parameter/active = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g460b"]
@@ -714,11 +714,17 @@ _data = {
 "strong_attack1": SubResource("Animation_uwcxm")
 }
 
-[node name="Sword" instance=ExtResource("1_xynkl")]
-script = ExtResource("2_tgh5k")
-backwards_animation_second_attack = true
+[node name="KombatHammer" instance=ExtResource("1_kdv4y")]
+script = ExtResource("2_arxcs")
+num_normal_attacks = null
+increase_num_normal_attacks_on_ability = null
+invert_scale_when_looking_left = null
 type = 1
-throw_speed = 200
+throw_speed = null
+on_floor = null
+condition_degrade_by_attack = null
+souls_to_activate_ability = null
+active_ability_condition_cost = null
 
 [node name="Node2D" parent="." index="0"]
 rotation = -0.785398
@@ -726,7 +732,7 @@ rotation = -0.785398
 [node name="Sprite2D" parent="Node2D" index="0"]
 material = SubResource("6")
 position = Vector2(5, -5)
-texture = ExtResource("4_fvtre")
+texture = ExtResource("4_plinb")
 offset = Vector2(0, -8)
 
 [node name="Hitbox" parent="Node2D/Sprite2D" index="0"]
@@ -754,7 +760,7 @@ shape = SubResource("CapsuleShape2D_3tml1")
 visible = false
 position = Vector2(26, 0)
 scale = Vector2(2, 2)
-texture = ExtResource("5_n83ro")
+texture = ExtResource("5_jgi6f")
 hframes = 3
 
 [node name="AnimationPlayer" parent="." index="2"]

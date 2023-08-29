@@ -41,5 +41,5 @@ func _on_souls_changed(souls: int, souls_to_activate_ability: int) -> void:
 
 	if souls == souls_to_activate_ability:
 		var shine_effect: Sprite2D = load("res://ui/WeaponAbilityShineEffect.tscn").instantiate()
-		shine_effect.position = position
+		shine_effect.position = Vector2.ONE * 4
 		add_child(shine_effect)

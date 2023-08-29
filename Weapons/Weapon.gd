@@ -25,6 +25,11 @@ var tween: Tween = null
 
 
 func _ready() -> void:
+	var data: Dictionary = preload("res://Weapons/data/data.csv").records
+	if data.has(name):
+		var weapon_data: Dictionary = data[name]
+		_load_csv_data(weapon_data)
+
 	if not on_floor:
 		player_detector.set_collision_mask_value(1, false)
 		player_detector.set_collision_mask_value(2, false)
@@ -39,6 +44,20 @@ func _ready() -> void:
 	for modifier in stats.modifiers:
 		# modifier.equip(get_parent().get_parent())
 		modifier.equip(self)
+
+
+func _load_csv_data(data: Dictionary) -> void:
+	for key in data:
+		match key:
+			"ability_icon":
+				if FileAccess.file_exists(data[key]):
+					active_ability_icon = load(data[key])
+				else:
+					active_ability_icon = null
+			"ability_cost":
+				souls_to_activate_ability = data[key]
+			"ability_condition_cost":
+				active_ability_condition_cost = data[key]
 
 
 func _unhandled_input(event: InputEvent) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=36 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="1_0pcgl"]
 [ext_resource type="Script" path="res://BaseCamp.gd" id="1_tpf7m"]
@@ -19,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://13du3vo5int6" path="res://Items/Soul.tscn" id="17_6xbxo"]
 [ext_resource type="AudioStream" uid="uid://dsphctheyll2w" path="res://Audio/Music/Gymnopédie no. 1 (for Harp).mp3" id="18_0hiag"]
 [ext_resource type="PackedScene" uid="uid://cwb0heh4qdkh8" path="res://Rooms/Chest.tscn" id="19_vtxkp"]
+[ext_resource type="PackedScene" uid="uid://b78s3rdcjmo8a" path="res://Weapons/Melee/OrcSword/OrcSword.tscn" id="20_vg655"]
 
 [sub_resource type="Gradient" id="Gradient_nhg8o"]
 offsets = PackedFloat32Array(0, 0.784849)
@@ -295,7 +296,7 @@ position = Vector2(284, 114)
 [node name="Soul12" parent="." instance=ExtResource("17_6xbxo")]
 position = Vector2(284, 143)
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("18_0hiag")
 volume_db = -8.0
 autoplay = true
@@ -303,3 +304,7 @@ bus = &"Music"
 
 [node name="Chest" parent="." instance=ExtResource("19_vtxkp")]
 position = Vector2(122, 154)
+
+[node name="OrcSword" parent="." instance=ExtResource("20_vg655")]
+position = Vector2(181, 121)
+on_floor = true

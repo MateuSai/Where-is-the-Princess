@@ -6,6 +6,7 @@ class_name MeleeWeapon extends Weapon
 var attack_num: int = 0:
 	set(new_attack_num):
 		attack_num = wrapi(new_attack_num, 0, num_normal_attacks)
+@export var increase_num_normal_attacks_on_ability: bool = true
 
 ## If this is true, the scale will be inverted when looking at the left
 @export var invert_scale_when_looking_left: bool = false
@@ -30,6 +31,13 @@ func _ready() -> void:
 	)
 	set_physics_process(false)
 	set_process_unhandled_input(false)
+
+
+func _load_csv_data(data: Dictionary) -> void:
+	super(data)
+
+	num_normal_attacks = data["num_normal_attacks"]
+	increase_num_normal_attacks_on_ability = data["increase_num_normal_attacks_on_ability"]
 
 
 func _physics_process(delta: float) -> void:
@@ -65,7 +73,8 @@ func _strong_attack() -> void:
 
 func _active_ability(_animation_name: String = "active_ability") -> void:
 	super("active_ability_" + str(attack_num + 1))
-	attack_num += 1
+	if increase_num_normal_attacks_on_ability:
+		attack_num += 1
 
 
 func throw() -> void:
