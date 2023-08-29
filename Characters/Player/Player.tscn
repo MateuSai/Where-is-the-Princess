@@ -394,9 +394,6 @@ script = ExtResource("5_uyohi")
 
 [node name="Dagger" parent="Weapons" index="0" instance=ExtResource("5_nk70o")]
 position = Vector2(0, -3)
-on_floor = null
-condition_degrade_by_attack = null
-souls_to_activate_ability = null
 
 [node name="Camera2D" type="Camera2D" parent="." index="7"]
 position_smoothing_enabled = true

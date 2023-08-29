@@ -15,3 +15,6 @@ func unequip(player: Player) -> void:
 
 func enable_ability_effect(player: Player) -> void:
 	player.jump()
+	var intimidate_effect: Area2D = load("res://Weapons/Melee/OrcSword/IntimidateEffect.tscn").instantiate()
+	intimidate_effect.position = player.position
+	player.get_tree().current_scene.add_child(intimidate_effect)

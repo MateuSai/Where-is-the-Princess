@@ -5,8 +5,9 @@ class_name Weapon extends Node2D
 
 @export var condition_degrade_by_attack: float = 5
 
-@export var active_ability_icon: Texture
-@export var souls_to_activate_ability: int = 3
+@export var active_ability_icon: Texture ## Icon of the weapon's active ability
+@export var souls_to_activate_ability: int = 3 ## The souls you need to collect in order to activate the ability
+@export_range(0.0, 100.0) var active_ability_condition_cost: float = 10 ## The weapon condition will decrease this amount after using the ability. Remember all the weapons have 100 condition initially
 
 var stats: WeaponStats = null
 
@@ -32,6 +33,8 @@ func _ready() -> void:
 		stats = WeaponStats.new(scene_file_path, souls_to_activate_ability)
 
 	stats.condition_changed.connect(_on_condition_changed)
+
+	animation_player.animation_finished.connect(_on_animation_finished)
 
 	for modifier in stats.modifiers:
 		# modifier.equip(get_parent().get_parent())
@@ -108,7 +111,7 @@ func interpolate_pos(initial_pos: Vector2, final_pos: Vector2) -> void:
 	position = initial_pos
 	tween = create_tween()
 	tween.tween_property(self, "position", final_pos, 0.8).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
-	tween.connect("finished", _on_Tween_tween_completed)
+	tween.finished.connect(_on_Tween_tween_completed)
 	player_detector.set_collision_mask_value(1, true)
 
 
@@ -172,3 +175,8 @@ func has_active_ability() -> bool:
 
 func can_pick_up_soul() -> bool:
 	return has_active_ability() and stats.souls < souls_to_activate_ability
+
+
+func _on_animation_finished(anim_name: String) -> void:
+	if anim_name.begins_with("active_ability"):
+		stats.set_condition(stats.condition - active_ability_condition_cost)

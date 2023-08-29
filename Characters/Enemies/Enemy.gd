@@ -9,14 +9,20 @@ const SOUL_SCENE: PackedScene = preload("res://Items/Soul.tscn")
 
 @onready var room: DungeonRoom = get_parent()
 @onready var player: Player = get_tree().current_scene.get_node("Player")
-@onready var path_timer: Timer = get_node("PathTimer")
 @onready var navigation_agent: NavigationAgent2D = get_node("NavigationAgent2D")
+@onready var path_timer: Timer = get_node("PathTimer")
+@onready var parallize_timer: Timer = $ParallizeTimer
 
 
 func _ready() -> void:
 	super()
 
 	life_component.died.connect(Callable(get_parent(), "_on_enemy_killed"))
+
+	parallize_timer.timeout.connect(func():
+		#can_move = true
+		state_machine.set_physics_process(true)
+	)
 
 
 func spawn_loot() -> void:
@@ -73,3 +79,11 @@ func _on_died() -> void:
 	spawn_explosion.position = global_position
 	get_tree().current_scene.add_child(spawn_explosion)
 	queue_free()
+
+
+func parallize() -> void:
+	if can_move:
+		#can_move = false
+		state_machine.set_physics_process(false)
+		$AnimationPlayer.call_deferred("stop")
+		parallize_timer.start()
