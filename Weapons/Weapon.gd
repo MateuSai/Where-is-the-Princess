@@ -51,6 +51,8 @@ func _ready() -> void:
 		# modifier.equip(get_parent().get_parent())
 		modifier.equip(self)
 
+	hitbox.exclude.push_back(Globals.player)
+
 
 func _load_csv_data(data: Dictionary) -> void:
 	for key in data:

@@ -76,7 +76,7 @@ func _switch_weapon(direction: int) -> void:
 	current_weapon.show()
 	SavedData.run_stats.equipped_weapon_index = index
 
-	emit_signal("weapon_switched", prev_index, index)
+	weapon_switched.emit(prev_index, index)
 
 
 func pick_up_weapon(weapon: Weapon) -> void:
@@ -130,7 +130,7 @@ func throw_weapon() -> void:
 	weapon_to_drop.status_inflicter_added.disconnect(_on_weapon_status_inflicter_added)
 	_switch_weapon(UP)
 
-	emit_signal("weapon_droped", weapon_to_drop.get_index())
+	weapon_droped.emit(weapon_to_drop.get_index())
 
 	var pos: Vector2 = weapon_to_drop.global_position
 	remove_child(weapon_to_drop)

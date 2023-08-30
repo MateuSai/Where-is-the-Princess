@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=39 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="1_0pcgl"]
 [ext_resource type="Script" path="res://BaseCamp.gd" id="1_tpf7m"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://b78s3rdcjmo8a" path="res://Weapons/Melee/OrcSword/OrcSword.tscn" id="20_vg655"]
 [ext_resource type="PackedScene" uid="uid://cw7q01ncaqimn" path="res://Weapons/Melee/WarriorSword/WarriorSword.tscn" id="21_lb8k2"]
 [ext_resource type="PackedScene" uid="uid://cs3cwiuyg1834" path="res://Weapons/Melee/Scimitar/Scimitar.tscn" id="22_ovxvs"]
+[ext_resource type="PackedScene" uid="uid://4g8k6f3qb1w2" path="res://Weapons/Melee/WarAxe/WarAxe.tscn" id="23_7aqvg"]
 
 [sub_resource type="Gradient" id="Gradient_nhg8o"]
 offsets = PackedFloat32Array(0, 0.784849)
@@ -324,4 +325,8 @@ on_floor = true
 
 [node name="Scimitar" parent="." instance=ExtResource("22_ovxvs")]
 position = Vector2(309, 137)
+on_floor = true
+
+[node name="WarAxe" parent="." instance=ExtResource("23_7aqvg")]
+position = Vector2(176, 230)
 on_floor = true
