@@ -3,6 +3,12 @@ class_name Weapon extends Node2D
 
 @export var on_floor: bool = false
 
+enum Type {
+	SPEAR,
+	SWORD,
+}
+@export var type: Type
+
 @export var condition_degrade_by_attack: float = 5
 
 @export var active_ability_icon: Texture ## Icon of the weapon's active ability
@@ -49,6 +55,8 @@ func _ready() -> void:
 func _load_csv_data(data: Dictionary) -> void:
 	for key in data:
 		match key:
+			"type":
+				type = Type.values()[Type.keys().find(data[key])]
 			"ability_icon":
 				if FileAccess.file_exists(data[key]):
 					active_ability_icon = load(data[key])

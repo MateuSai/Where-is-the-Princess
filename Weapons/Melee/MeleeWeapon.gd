@@ -11,11 +11,6 @@ var attack_num: int = 0:
 ## If this is true, the scale will be inverted when looking at the left
 @export var invert_scale_when_looking_left: bool = false
 
-enum Type {
-	SPEAR,
-	SWORD,
-}
-@export var type: Type
 @export var throw_speed: int = 200
 var throw_dir: Vector2
 var throw_rot_speed: float = 0
@@ -37,7 +32,7 @@ func _load_csv_data(data: Dictionary) -> void:
 	super(data)
 
 	num_normal_attacks = data["num_normal_attacks"]
-	increase_num_normal_attacks_on_ability = data["increase_num_normal_attacks_on_ability"]
+	increase_num_normal_attacks_on_ability = bool(data["increase_num_normal_attacks_on_ability"])
 
 
 func _physics_process(delta: float) -> void:
