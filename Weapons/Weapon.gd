@@ -8,6 +8,8 @@ enum Type {
 	SWORD,
 }
 @export var type: Type
+@export var weapon_name: String = ""
+@export var description: String = ""
 
 @export var condition_degrade_by_attack: float = 5
 
@@ -55,19 +57,14 @@ func _ready() -> void:
 
 
 func _load_csv_data(data: Dictionary) -> void:
-	for key in data:
-		match key:
-			"type":
-				type = Type.values()[Type.keys().find(data[key])]
-			"ability_icon":
-				if FileAccess.file_exists(data[key]):
-					active_ability_icon = load(data[key])
-				else:
-					active_ability_icon = null
-			"ability_cost":
-				souls_to_activate_ability = data[key]
-			"ability_condition_cost":
-				active_ability_condition_cost = data[key]
+	weapon_name = data["name"]
+	type = Type.values()[Type.keys().find(data["type"])]
+	if FileAccess.file_exists(data["ability_icon"]):
+		active_ability_icon = load(data["ability_icon"])
+	else:
+		active_ability_icon = null
+	souls_to_activate_ability = data["ability_cost"]
+	active_ability_condition_cost = data["ability_condition_cost"]
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -209,3 +206,7 @@ func can_pick_up_soul() -> bool:
 func _on_animation_finished(anim_name: String) -> void:
 	if anim_name.begins_with("active_ability"):
 		stats.set_condition(stats.condition - active_ability_condition_cost)
+
+
+func get_info() -> String:
+	return "[b]" + weapon_name + "[/b]" + "\n\n" + Type.keys()[type]
