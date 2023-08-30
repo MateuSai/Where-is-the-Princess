@@ -235,13 +235,13 @@ tracks/8/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "values": [{
 "args": [],
-"method": &"_throw_projectile"
+"method": &"_spawn_effect"
 }, {
 "args": [],
-"method": &"_throw_projectile"
+"method": &"_spawn_effect"
 }, {
 "args": [],
-"method": &"_throw_projectile"
+"method": &"_spawn_effect"
 }]
 }
 
