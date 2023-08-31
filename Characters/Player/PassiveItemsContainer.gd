@@ -1,6 +1,13 @@
 extends HFlowContainer
 
 
+func _on_player_permanent_passive_item_picked_up(item: PermanentPassiveItem) -> void:
+	var texture_rect: TextureRect = TextureRect.new()
+	texture_rect.texture = item.get_icon()
+	texture_rect.modulate.a = 0.6
+	add_child(texture_rect)
+
+
 func _on_player_temporal_passive_item_picked_up(item: TemporalPassiveItem) -> void:
 	var item_class_name: String = item.get_script().get_path().get_file().trim_suffix(".gd")
 	var temporal_passive_item_icon: TemporalPassiveItemIcon = get_node_or_null(item_class_name)

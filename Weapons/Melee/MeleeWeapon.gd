@@ -11,11 +11,6 @@ var attack_num: int = 0:
 ## If this is true, the scale will be inverted when looking at the left
 @export var invert_scale_when_looking_left: bool = false
 
-enum Type {
-	SPEAR,
-	SWORD,
-}
-@export var type: Type
 @export var throw_speed: int = 200
 var throw_dir: Vector2
 var throw_rot_speed: float = 0
@@ -37,7 +32,7 @@ func _load_csv_data(data: Dictionary) -> void:
 	super(data)
 
 	num_normal_attacks = data["num_normal_attacks"]
-	increase_num_normal_attacks_on_ability = data["increase_num_normal_attacks_on_ability"]
+	increase_num_normal_attacks_on_ability = bool(data["increase_num_normal_attacks_on_ability"])
 
 
 func _physics_process(delta: float) -> void:
@@ -87,25 +82,34 @@ func throw() -> void:
 	hitbox.get_node("CollisionShape2D").disabled = false
 	hitbox.set_collision_mask_value(1, true) # Para que pueda colisionar con paredes
 	hitbox.body_entered.disconnect(hitbox._on_body_entered)
-	hitbox.body_entered.connect(throw_body_entered_hitbox)
+	hitbox.body_entered.connect(_throw_body_entered_hitbox)
+	hitbox.area_entered.disconnect(hitbox._on_area_entered)
+	hitbox.area_entered.connect(_throw_body_entered_hitbox)
 	set_physics_process(true)
 
 
-func throw_body_entered_hitbox(body: Node2D) -> void:
-		if body is Enemy:
-			hitbox._on_body_entered(body)
-			bodies_pierced += 1
-			if bodies_pierced < piercing:
-				return # We don't stop the weapon yet
-		else:
-			_on_collided_with_something(Hitbox.CollisionMaterial.STONE)
-		_on_Tween_tween_completed()
-		# Back to previous state
-		hitbox.get_node("CollisionShape2D").set_deferred("disabled", true)
-		hitbox.set_collision_mask_value(1, false) # Para que NO pueda colisionar con paredes
-		hitbox.body_entered.disconnect(throw_body_entered_hitbox)
-		hitbox.body_entered.connect(hitbox._on_body_entered)
-		set_physics_process(false)
+func _throw_body_entered_hitbox(body: Node2D) -> void:
+	body = hitbox._get_entity(body)
+	if body is Enemy:
+		hitbox._on_body_entered(body)
+		bodies_pierced += 1
+		if bodies_pierced < piercing:
+			return # We don't stop the weapon yet
+	else:
+		_on_collided_with_something(Hitbox.CollisionMaterial.STONE)
+	_go_back_to_before_throw_state()
+
+
+func _go_back_to_before_throw_state() -> void:
+	_on_Tween_tween_completed()
+	# Back to previous state
+	hitbox.get_node("CollisionShape2D").set_deferred("disabled", true)
+	hitbox.set_collision_mask_value(1, false) # Para que NO pueda colisionar con paredes
+	hitbox.body_entered.disconnect(_throw_body_entered_hitbox)
+	hitbox.body_entered.connect(hitbox._on_body_entered)
+	hitbox.area_entered.disconnect(_throw_body_entered_hitbox)
+	hitbox.area_entered.connect(hitbox._on_area_entered)
+	set_physics_process(false)
 
 
 func add_status_inflicter(status: StatusComponent.Status, amount: int = 1) -> void:

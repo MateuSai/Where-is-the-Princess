@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://crunid5q10gar"]
+
+[ext_resource type="Texture2D" uid="uid://5dapis2s3pv1" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/Scimitar fast attacks.png" id="1_knpgd"]
+[ext_resource type="Script" path="res://Weapons/Melee/Scimitar/ScimitarEffect.gd" id="2_hck81"]
+
+[sub_resource type="Animation" id="Animation_c1siv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ugcle"]
+resource_name = "effect"
+length = 0.21
+step = 0.03
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.21),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ov0wf"]
+_data = {
+"RESET": SubResource("Animation_c1siv"),
+"effect": SubResource("Animation_ugcle")
+}
+
+[node name="ScimitarEffect" type="Sprite2D"]
+texture = ExtResource("1_knpgd")
+hframes = 7
+vframes = 2
+script = ExtResource("2_hck81")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "effect"
+libraries = {
+"": SubResource("AnimationLibrary_ov0wf")
+}

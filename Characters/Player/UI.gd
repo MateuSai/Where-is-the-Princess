@@ -38,7 +38,7 @@ func _on_weapon_switched(prev_index: int, new_index: int) -> void:
 func _on_weapon_picked_up(weapon: Weapon) -> void:
 	var new_inventory_item: Control = INVENTORY_ITEM_SCENE.instantiate()
 	inventory.add_child(new_inventory_item)
-	new_inventory_item.initialize(weapon.get_texture(), weapon.stats.condition)
+	new_inventory_item.initialize(weapon)
 
 
 func _on_weapon_droped(index: int) -> void:

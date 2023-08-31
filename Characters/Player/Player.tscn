@@ -453,10 +453,10 @@ stretch_mode = 1
 
 [node name="PassiveItemsContainer" type="HFlowContainer" parent="UI/MarginContainer/ArmorConditionBar" index="1"]
 layout_mode = 2
-offset_left = 20.0
-offset_top = 23.0
-offset_right = 91.0
-offset_bottom = 23.0
+offset_left = 17.0
+offset_top = 19.0
+offset_right = 88.0
+offset_bottom = 19.0
 script = ExtResource("8_aavgb")
 
 [node name="ArmorAbilityBar" type="TextureProgressBar" parent="UI/MarginContainer/ArmorConditionBar" index="2"]
@@ -549,6 +549,7 @@ one_shot = true
 
 [node name="ArmorRechargeTimer" type="Timer" parent="Timers" index="1"]
 
+[connection signal="permanent_passive_item_picked_up" from="." to="UI/MarginContainer/ArmorConditionBar/PassiveItemsContainer" method="_on_player_permanent_passive_item_picked_up"]
 [connection signal="weapon_condition_changed" from="Weapons" to="UI" method="_on_weapon_condition_changed"]
 [connection signal="weapon_droped" from="Weapons" to="UI" method="_on_weapon_droped"]
 [connection signal="weapon_picked_up" from="Weapons" to="UI" method="_on_weapon_picked_up"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=25 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -8,10 +8,11 @@
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="6_ml8df"]
 [ext_resource type="Script" path="res://ui/QuitButton.gd" id="6_nj5uy"]
 [ext_resource type="Script" path="res://ui/SettingsButton.gd" id="8_b3yq4"]
+[ext_resource type="Script" path="res://ui/PauseWeaponInventory.gd" id="9_63e26"]
 [ext_resource type="Script" path="res://ui/DebugInfo.gd" id="9_yskig"]
 [ext_resource type="Script" path="res://ui/MiniMap.gd" id="12_icbnv"]
 [ext_resource type="Script" path="res://ui/MinimapScrollContainer.gd" id="13_f54tc"]
-[ext_resource type="Texture2D" uid="uid://cm2mxt7vas7t4" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/minimap_9-patch_bigger.png" id="13_s3von"]
+[ext_resource type="Texture2D" uid="uid://cm2mxt7vas7t4" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/minimap_9-patch_bigger.png" id="13_s3von"]
 [ext_resource type="Shader" path="res://Shaders and Particles/IntensityToTransparency.gdshader" id="14_qjw3b"]
 [ext_resource type="FontFile" uid="uid://qupo5kdd8137" path="res://Fonts/alagard.ttf" id="15_84d5m"]
 [ext_resource type="Texture2D" uid="uid://bl8w6y7gf8ubx" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/icon_map.png" id="16_0uph7"]
@@ -21,6 +22,13 @@
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
 light_mode = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b8f0o"]
+bg_color = Color(0.713726, 0.670588, 0.670588, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oed6k"]
 texture = ExtResource("13_s3von")
@@ -162,6 +170,26 @@ theme_override_constants/margin_right = 4
 layout_mode = 2
 theme = ExtResource("4_usvbv")
 theme_override_font_sizes/font_size = 8
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/PauseMenu"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -7.0
+offset_top = -24.0
+offset_right = 7.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_b8f0o")
+
+[node name="Inventory" type="HBoxContainer" parent="UI/PauseMenu/PanelContainer"]
+layout_mode = 2
+script = ExtResource("9_63e26")
 
 [node name="MiniMap" type="Popup" parent="UI"]
 disable_3d = true

@@ -3,6 +3,14 @@ class_name Weapon extends Node2D
 
 @export var on_floor: bool = false
 
+enum Type {
+	SPEAR,
+	SWORD,
+}
+@export var type: Type
+@export var weapon_name: String = ""
+@export var description: String = ""
+
 @export var condition_degrade_by_attack: float = 5
 
 @export var active_ability_icon: Texture ## Icon of the weapon's active ability
@@ -45,19 +53,18 @@ func _ready() -> void:
 		# modifier.equip(get_parent().get_parent())
 		modifier.equip(self)
 
+	hitbox.exclude.push_back(Globals.player)
+
 
 func _load_csv_data(data: Dictionary) -> void:
-	for key in data:
-		match key:
-			"ability_icon":
-				if FileAccess.file_exists(data[key]):
-					active_ability_icon = load(data[key])
-				else:
-					active_ability_icon = null
-			"ability_cost":
-				souls_to_activate_ability = data[key]
-			"ability_condition_cost":
-				active_ability_condition_cost = data[key]
+	weapon_name = data["name"]
+	type = Type.values()[Type.keys().find(data["type"])]
+	if FileAccess.file_exists(data["ability_icon"]):
+		active_ability_icon = load(data["ability_icon"])
+	else:
+		active_ability_icon = null
+	souls_to_activate_ability = data["ability_cost"]
+	active_ability_condition_cost = data["ability_condition_cost"]
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -199,3 +206,7 @@ func can_pick_up_soul() -> bool:
 func _on_animation_finished(anim_name: String) -> void:
 	if anim_name.begins_with("active_ability"):
 		stats.set_condition(stats.condition - active_ability_condition_cost)
+
+
+func get_info() -> String:
+	return "[b]" + tr(weapon_name) + "[/b]" + "\n\n" + tr(Type.keys()[type])
