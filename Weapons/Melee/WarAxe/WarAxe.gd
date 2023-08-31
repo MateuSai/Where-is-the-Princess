@@ -1,6 +1,5 @@
 extends MeleeWeapon
 
-var active_ability_dir: int
 var throwed_using_active_ability: bool
 var active_ability_dir_weight = 0.005
 
@@ -11,7 +10,7 @@ var active_ability_dir_weight = 0.005
 
 func _physics_process(delta: float) -> void:
 	if throwed_using_active_ability:
-		active_ability_dir_weight = clamp(active_ability_dir_weight + 0.001, 0, 0.02)
+		active_ability_dir_weight = clamp(active_ability_dir_weight + 0.025 * delta, 0, 0.02)
 		throw_dir = throw_dir.lerp((Globals.player.position - global_position).normalized(), active_ability_dir_weight)
 
 	super(delta)
@@ -19,7 +18,7 @@ func _physics_process(delta: float) -> void:
 
 func _throw_using_active_ability(dir: int) -> void:
 	throw_speed = initial_throw_speed * 2
-	active_ability_dir = dir
+	throw_rot_speed = dir * 50
 	throwed_using_active_ability = true
 	trail_animation_player.animation_finished.connect(_on_trail_animation_ended)
 	trail_animation_player.play("appear")
@@ -39,9 +38,9 @@ func _on_animation_finished(_anim_name: String) -> void:
 
 
 func _throw_body_entered_hitbox(body: Node2D) -> void:
-	if body is Player:
+	if hitbox._get_entity(body) is Player:
 		_go_back_to_before_throw_state()
-		_on_PlayerDetector_body_entered(body) # Pick up the weapon
+		_on_PlayerDetector_body_entered(hitbox._get_entity(body)) # Pick up the weapon
 	else:
 		super(body)
 

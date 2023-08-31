@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://djw72bs1hmlm8"
-path="res://.godot/imported/Warrior sword UI icon.png-46c741f3ef6b70b371c5cc69174148de.ctex"
+path="res://.godot/imported/War axe UI icon.png-c0b9617e7e82d11c6e3336e58f7c46b3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/Warrior sword UI icon.png"
-dest_files=["res://.godot/imported/Warrior sword UI icon.png-46c741f3ef6b70b371c5cc69174148de.ctex"]
+source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/War axe UI icon.png"
+dest_files=["res://.godot/imported/War axe UI icon.png-c0b9617e7e82d11c6e3336e58f7c46b3.ctex"]
 
 [params]
 
