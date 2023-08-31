@@ -1,22 +1,24 @@
 extends MeleeWeapon
 
-
 var active_ability_dir: int
 var throwed_using_active_ability: bool
 var active_ability_dir_weight = 0.005
+
+@onready var initial_throw_speed: int = throw_speed
 
 @onready var trail_animation_player: AnimationPlayer = $Node2D/Sprite2D/TrailSprite/AnimationPlayer
 
 
 func _physics_process(delta: float) -> void:
 	if throwed_using_active_ability:
-		active_ability_dir_weight = clamp(active_ability_dir_weight + 0.00001, 0, 0.02)
+		active_ability_dir_weight = clamp(active_ability_dir_weight + 0.001, 0, 0.02)
 		throw_dir = throw_dir.lerp((Globals.player.position - global_position).normalized(), active_ability_dir_weight)
 
 	super(delta)
 
 
 func _throw_using_active_ability(dir: int) -> void:
+	throw_speed = initial_throw_speed * 2
 	active_ability_dir = dir
 	throwed_using_active_ability = true
 	trail_animation_player.animation_finished.connect(_on_trail_animation_ended)
@@ -48,6 +50,8 @@ func _go_back_to_before_throw_state() -> void:
 	super()
 
 	if throwed_using_active_ability:
+		throw_speed = initial_throw_speed
+
 		hitbox.set_collision_mask_value(2, false) # So it can't detect collisions with player
 		trail_animation_player.play_backwards("appear")
 		throwed_using_active_ability = false
