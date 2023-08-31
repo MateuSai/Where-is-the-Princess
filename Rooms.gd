@@ -116,18 +116,27 @@ func _physics_process(delta: float) -> void:
 
 func _get_rooms(type: String) -> PackedStringArray:
 	var room_names: PackedStringArray
+
 	var override_room_names: PackedStringArray = PackedStringArray(SavedData.get_override_room_names(type.split("/")[type.split("/").size()-1].to_lower()))
 	if not override_room_names.is_empty():
 		room_names = override_room_names
 	else:
+		if type.to_lower().begins_with("end"):
+			room_names = SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "end", type.split("/")[1])
+		else:
+			room_names = SavedData.get_volatile_room_paths(SavedData.run_stats.biome, type)
+
 		var rooms_dir: DirAccess = DirAccess.open(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type)
-		if rooms_dir == null:
-			printerr("Error opening " + BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "!")
+		if room_names.is_empty() and rooms_dir == null:
+			push_error("Error opening " + BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "!")
 			return []
-		room_names = rooms_dir.get_files()
+		if rooms_dir:
+			for file in rooms_dir.get_files():
+				room_names.push_back(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "/" + file)
+
 		for i in range(room_names.size()-1, -1, -1):
 			room_names[i] = room_names[i].trim_suffix(".remap")
-			var room_scene_state: SceneState = load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "/" + room_names[i]).get_state()
+			var room_scene_state: SceneState = load(room_names[i]).get_state()
 			for ii in room_scene_state.get_node_property_count(0):
 				if room_scene_state.get_node_property_name(0, ii) == "levels":
 					var levels: String = room_scene_state.get_node_property_value(0, ii)
@@ -149,14 +158,14 @@ func _get_end_rooms() -> Array[PackedStringArray]:
 		end_rooms.push_back(_get_rooms("End/" + dir))
 
 	# Discard rooms of other levels
-	for i in range(end_rooms.size()-1, -1, -1):
-		var end_room_array: PackedStringArray = end_rooms[i]
-		for ii in range(end_room_array.size()-1, -1, -1):
-			var room_name: String = end_room_array[ii]
-#			if room_name.get_file().begins_with("Level") and not room_name.get_file().begins_with("Level" + str(SavedData.run_stats.level)):
-#				end_room_array.remove_at(ii)
-#			else:
-			end_room_array[ii] = end_rooms_dir.get_directories()[i] + "/" + room_name
+#	for i in range(end_rooms.size()-1, -1, -1):
+#		var end_room_array: PackedStringArray = end_rooms[i]
+#		for ii in range(end_room_array.size()-1, -1, -1):
+#			var room_name: String = end_room_array[ii]
+##			if room_name.get_file().begins_with("Level") and not room_name.get_file().begins_with("Level" + str(SavedData.run_stats.level)):
+##				end_room_array.remove_at(ii)
+##			else:
+#			end_room_array[ii] = end_rooms_dir.get_directories()[i] + "/" + room_name
 
 	return end_rooms
 
@@ -168,15 +177,22 @@ func spawn_rooms() -> void:
 		"special": _get_rooms("Special"),
 		"end": _get_end_rooms(),
 	}
+
+#	room_names.start.append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "start"))
+#	room_names.combat.append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "combat"))
+#	room_names.special.append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "special"))
+#	for end_to in room_names.end:
+#		room_names.end[end_to].append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "special"))
+
 	# print(room_names)
-	start_room = load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "Start" + "/" + room_names.start[randi() % room_names.start.size()]).instantiate()
+	start_room = load(room_names.start[randi() % room_names.start.size()]).instantiate()
 	rooms.push_back(start_room)
 
 	var end_rooms: Array[DungeonRoom] = []
 	for array in room_names.end:
 		if array.is_empty():
 			continue
-		var end_room: DungeonRoom = load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "End" + "/" + array[randi() % array.size()]).instantiate()
+		var end_room: DungeonRoom = load(array[randi() % array.size()]).instantiate()
 		end_rooms.push_back(end_room)
 		rooms.push_back(end_room)
 
@@ -187,12 +203,12 @@ func spawn_rooms() -> void:
 	#inter_rooms.append_array(SavedData.custom_rooms)
 	var num_special_rooms: int = SavedData.get_num_rooms("special")
 	for i in num_special_rooms:
-		rooms.push_back(load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "Special" + "/" + room_names.special[randi() % room_names.special.size()]).instantiate())
+		rooms.push_back(load(room_names.special[randi() % room_names.special.size()]).instantiate())
 
 	var num_normal_rooms: int = SavedData.get_num_rooms("combat")
 	for i in num_normal_rooms:
 		#rooms.push_back(INTERMEDIATE_ROOMS[0].instantiate())
-		rooms.push_back(load(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + "Combat" + "/" + room_names.combat[randi() % room_names.combat.size()]).instantiate())
+		rooms.push_back(load(room_names.combat[randi() % room_names.combat.size()]).instantiate())
 
 	for room in rooms:
 		room.name += "_" + str(rooms.find(room))

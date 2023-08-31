@@ -17,6 +17,8 @@ var data: Dictionary = {
 	"discovered_temporal_items": PackedStringArray(["res://Items/Passive/Temporal/MagicShield.gd", "res://Items/Passive/Temporal/MagicSword.gd"])
 }
 
+var volatile_room_paths: Dictionary = {}
+
 var volatile_armor_paths: Array[String] = []
 
 var volatile_permanent_item_paths: Array[String] = []
@@ -164,6 +166,41 @@ func _change_biome_conf(biome: String) -> void:
 	if json.parse(FileAccess.open(BIOMES_FOLDER_PATH + biome + "/conf.json", FileAccess.READ).get_as_text()):
 		printerr("Error reading " + BIOMES_FOLDER_PATH + biome + "/conf.json" + "!")
 	biome_conf = json.data
+
+
+## room_type must be "combat", "end", "special" and "start"
+## [br][br]
+## You only have to specify end_to if the room_type is "end". This parameter indicates the biome you will go to when you enter the exit on the end room
+func add_volatile_room(room_path: String, biome: String, room_type: String, end_to: String = "") -> void:
+	biome = biome.to_lower()
+	room_type = room_type.to_lower()
+	end_to = end_to.to_lower()
+
+	if not volatile_room_paths.has(biome):
+		volatile_room_paths[biome] = {}
+	if not volatile_room_paths[biome].has(room_type):
+		@warning_ignore("incompatible_ternary")
+		volatile_room_paths[biome][room_type] = ({} if room_type == "end" else [])
+
+	if room_type == "end" and not end_to.is_empty():
+		if not volatile_room_paths[biome][room_type].has(end_to):
+			volatile_room_paths[biome][room_type][end_to] = []
+		volatile_room_paths[biome][room_type][end_to].push_back(room_path)
+	else:
+		volatile_room_paths[biome][room_type].push_back(room_path)
+
+
+func get_volatile_room_paths(biome: String, room_type: String, end_to: String = "") -> PackedStringArray:
+	biome = biome.to_lower()
+	room_type = room_type.to_lower()
+	end_to = end_to.to_lower()
+
+	if volatile_room_paths.has(biome) and volatile_room_paths[biome].has(room_type) and room_type != "end":
+		return PackedStringArray(volatile_room_paths[biome][room_type])
+	elif volatile_room_paths.has(biome) and volatile_room_paths[biome].has(room_type) and volatile_room_paths[biome][room_type].has(end_to):
+		return PackedStringArray(volatile_room_paths[biome][room_type][end_to])
+	else:
+		return PackedStringArray([])
 
 
 func discover_armor(armor_path: String) -> void:

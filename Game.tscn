@@ -51,7 +51,6 @@ shader_parameter/color = Color(0, 0, 0, 1)
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("3")
-debug = false
 
 [node name="Rooms" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -184,6 +183,7 @@ offset_top = -24.0
 offset_right = 7.0
 offset_bottom = -10.0
 grow_horizontal = 2
+grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_b8f0o")
 
 [node name="Inventory" type="HBoxContainer" parent="UI/PauseMenu/PanelContainer"]

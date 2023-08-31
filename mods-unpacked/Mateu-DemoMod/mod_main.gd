@@ -29,5 +29,6 @@ func _init():
 
 func _ready():
 	SavedData.add_volatile_armor("res://mods-unpacked/Mateu-DemoMod/KnightArmor.gd")
+	SavedData.add_volatile_room("res://mods-unpacked/Mateu-DemoMod/forest_chest_room.tscn", "forest", "special")
 
 	ModLoaderLog.info("Done", MYMODNAME_LOG)
