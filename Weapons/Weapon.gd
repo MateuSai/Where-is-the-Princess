@@ -209,4 +209,4 @@ func _on_animation_finished(anim_name: String) -> void:
 
 
 func get_info() -> String:
-	return "[b]" + tr(weapon_name) + "[/b]" + "\n\n" + tr(Type.keys()[type])
+	return tr(weapon_name) + "\n\n" + tr(Type.keys()[type])
