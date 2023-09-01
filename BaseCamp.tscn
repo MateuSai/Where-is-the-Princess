@@ -317,10 +317,6 @@ on_floor = true
 
 [node name="WarriorSword" parent="." instance=ExtResource("21_lb8k2")]
 position = Vector2(236, 72)
-num_normal_attacks = 1
-increase_num_normal_attacks_on_ability = true
-invert_scale_when_looking_left = false
-throw_speed = 200
 on_floor = true
 
 [node name="Scimitar" parent="." instance=ExtResource("22_ovxvs")]

@@ -9,12 +9,15 @@ const DATA_SAVE_NAME: String = "data.json"
 
 var data: Dictionary = {
 	"discovered_weapons": PackedStringArray(["res://Weapons/Melee/Katana/Katana.tscn", "res://Weapons/Melee/Spear.tscn"]),
+	"undiscovered_weapons": PackedStringArray(["res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn"]),
 
 	"equipped_armor": "res://Armors/NoArmor.gd",
 	"discovered_armors": PackedStringArray(["res://Armors/MercenaryArmor.gd"]),
 
-	"discovered_permanent_items": PackedStringArray(["res://Items/Passive/Permanent/EnhancedBoots.gd", "res://Items/Passive/Permanent/StrongThrow.gd", "res://Items/Passive/Permanent/ToughSkin.gd"]),
-	"discovered_temporal_items": PackedStringArray(["res://Items/Passive/Temporal/MagicShield.gd", "res://Items/Passive/Temporal/MagicSword.gd"])
+	"discovered_permanent_items": PackedStringArray(["res://Items/Passive/Permanent/StrongThrow.gd", "res://Items/Passive/Permanent/ToughSkin.gd"]),
+	"undiscovered_permanent_items": PackedStringArray(["res://Items/Passive/Permanent/EnhancedBoots.gd"]),
+	"discovered_temporal_items": PackedStringArray(["res://Items/Passive/Temporal/MagicSword.gd"]),
+	"undiscovered_temporal_items": PackedStringArray(["res://Items/Passive/Temporal/MagicShield.gd"]),
 }
 
 var volatile_room_paths: Dictionary = {}
@@ -203,10 +206,29 @@ func get_volatile_room_paths(biome: String, room_type: String, end_to: String = 
 		return PackedStringArray([])
 
 
+func discover_weapon(weapon_path: String) -> void:
+	if not data.discovered_weapons.has(weapon_path):
+		data.discovered_weapons.push_back(weapon_path)
+	if data.undiscovered_weapons.has(weapon_path):
+		data.undiscovered_weapons.remove_at(data.undiscovered_weapons.find(weapon_path))
+
+
+func get_discovered_weapon_paths() -> PackedStringArray:
+	var weapon_paths: Array = data.discovered_weapons.duplicate()
+	#armor_paths.append_array(volatile_armor_paths)
+	return PackedStringArray(weapon_paths)
+
+
+func get_undiscovered_weapon_paths() -> PackedStringArray:
+	var weapon_paths: Array = data.undiscovered_weapons.duplicate()
+	#armor_paths.append_array(volatile_armor_paths)
+	return PackedStringArray(weapon_paths)
+
+
 func discover_armor(armor_path: String) -> void:
 	if not data.discovered_armors.has(armor_path):
 		data.discovered_armors.push_back(armor_path)
-		save_data()
+		#save_data()
 
 
 ## Adds an armor only for this session. Use this for mods to load the armor each time the mod loads. The new armors will appear at the wardrobe on the basecamp and it may appear inside the game on the events where a random armor is choosen (like the shop)
@@ -223,6 +245,13 @@ func get_armor_paths() -> PackedStringArray:
 	return PackedStringArray(armor_paths)
 
 
+func discover_temporal_item(item_path: String) -> void:
+	if not data.discovered_temporal_items.has(item_path):
+		data.discovered_temporal_items.push_back(item_path)
+	if data.undiscovered_temporal_items.has(item_path):
+		data.undiscovered_temporal_items.remove_at(data.undiscovered_temporal_items.find(item_path))
+
+
 ## Adds a temporal item only for this session. Use this for mods to load the item each time the mod loads.
 func add_volatile_temporal_item(item_path) -> void:
 	if volatile_temporal_item_paths.has(item_path):
@@ -231,10 +260,23 @@ func add_volatile_temporal_item(item_path) -> void:
 	volatile_temporal_item_paths.push_back(item_path)
 
 
-func get_temporal_item_paths() -> PackedStringArray:
+func get_discovered_temporal_item_paths() -> PackedStringArray:
 	var temporal_item_paths: Array = data.discovered_temporal_items.duplicate()
 	temporal_item_paths.append_array(volatile_temporal_item_paths)
 	return PackedStringArray(temporal_item_paths)
+
+
+func get_undiscovered_temporal_item_paths() -> PackedStringArray:
+	var temporal_item_paths: Array = data.undiscovered_temporal_items.duplicate()
+	#temporal_item_paths.append_array(volatile_temporal_item_paths)
+	return PackedStringArray(temporal_item_paths)
+
+
+func discover_permanent_item(item_path: String) -> void:
+	if not data.discovered_permanent_items.has(item_path):
+		data.discovered_permanent_items.push_back(item_path)
+	if data.undiscovered_permanent_items.has(item_path):
+		data.undiscovered_permanent_items.remove_at(data.undiscovered_permanent_items.find(item_path))
 
 
 ## Adds a permanent item only for this session. Use this for mods to load the item each time the mod loads.
@@ -245,9 +287,15 @@ func add_volatile_permanent_item(item_path) -> void:
 	volatile_permanent_item_paths.push_back(item_path)
 
 
-func get_permanent_item_paths() -> PackedStringArray:
+func get_discovered_permanent_item_paths() -> PackedStringArray:
 	var permanent_item_paths: Array = data.discovered_permanent_items.duplicate()
 	permanent_item_paths.append_array(volatile_permanent_item_paths)
+	return PackedStringArray(permanent_item_paths)
+
+
+func get_undiscovered_permanent_item_paths() -> PackedStringArray:
+	var permanent_item_paths: Array = data.undiscovered_permanent_items.duplicate()
+	#permanent_item_paths.append_array(volatile_permanent_item_paths)
 	return PackedStringArray(permanent_item_paths)
 
 

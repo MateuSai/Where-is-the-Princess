@@ -10,7 +10,7 @@ class_name Chest extends StaticBody2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if item_path.is_empty():
-		var permanent_item_paths: PackedStringArray = SavedData.get_permanent_item_paths()
+		var permanent_item_paths: PackedStringArray = SavedData.get_discovered_permanent_item_paths()
 		item_path = permanent_item_paths[randi() % permanent_item_paths.size()]
 
 	interact_area.player_interacted.connect(_on_opened)
