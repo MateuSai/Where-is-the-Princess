@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://1dog8g4x0l0a"]
+
+[ext_resource type="PackedScene" uid="uid://xvaekjyf4uxl" path="res://Characters/npcs/NPC.tscn" id="1_v0mjj"]
+[ext_resource type="Texture2D" uid="uid://rx1c6wfrx15r" path="res://Art/Furniture and room elements/wardrobe.png" id="2_h1rgq"]
+
+[node name="ShopManager" instance=ExtResource("1_v0mjj")]
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, -8)
+texture = ExtResource("2_h1rgq")
