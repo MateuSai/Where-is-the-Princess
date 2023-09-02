@@ -7,18 +7,39 @@ const SHOP_ITEM_SCENE: PackedScene = preload("res://Rooms/ShopItem.tscn")
 
 
 func _ready() -> void:
+	var item_paths: PackedStringArray = SavedData.get_undiscovered_temporal_item_paths().duplicate() if on_base_camp else SavedData.get_discovered_temporal_item_paths().duplicate()
+	var weapon_paths: PackedStringArray = SavedData.get_undiscovered_weapon_paths().duplicate() if on_base_camp else SavedData.get_discovered_weapon_paths().duplicate()
+
 	for marker in positions.get_children():
-		var shop_item: ShopItem = SHOP_ITEM_SCENE.instantiate()
-		shop_item.position = marker.global_position
-		add_child(shop_item)
 		match marker.item_type:
 			ShopItemMarker.Type.TEMPORAL_ITEM:
-				var item_paths: PackedStringArray = SavedData.get_undiscovered_temporal_item_paths() if on_base_camp else SavedData.get_discovered_temporal_item_paths()
-				shop_item.initialize(load(item_paths[randi() % item_paths.size()]).new())
+				if item_paths.is_empty():
+					_create_and_add_out_of_stock_shop_item(marker.global_position)
+				else:
+					var random_item_path: String = item_paths[randi() % item_paths.size()]
+					_create_and_add_shop_item(marker.global_position).initialize(load(random_item_path).new())
+					item_paths.remove_at(item_paths.find(random_item_path))
 			ShopItemMarker.Type.WEAPON:
-				var weapon_paths: PackedStringArray = SavedData.get_undiscovered_weapon_paths() if on_base_camp else SavedData.get_discovered_weapon_paths()
-				var weapon_path: String = weapon_paths[randi() % weapon_paths.size()]
-				var weapon: Weapon = load(weapon_path).instantiate()
-				var weapon_item: WeaponItem = WeaponItem.new()
-				weapon_item.initialize(weapon)
-				shop_item.initialize(weapon_item)
+				if weapon_paths.is_empty():
+					_create_and_add_out_of_stock_shop_item(marker.global_position)
+				else:
+					var random_weapon_path: String = weapon_paths[randi() % weapon_paths.size()]
+					var weapon: Weapon = load(random_weapon_path).instantiate()
+					var weapon_item: WeaponItem = WeaponItem.new()
+					weapon_item.initialize(weapon)
+					_create_and_add_shop_item(marker.global_position).initialize(weapon_item)
+					weapon_paths.remove_at(weapon_paths.find(random_weapon_path))
+
+
+func _create_and_add_shop_item(at_position: Vector2) -> ShopItem:
+	var shop_item: ShopItem = SHOP_ITEM_SCENE.instantiate()
+	shop_item.position = at_position
+	add_child(shop_item)
+	return shop_item
+
+
+func _create_and_add_out_of_stock_shop_item(at_position: Vector2) -> void:
+	var sprite: Sprite2D = Sprite2D.new()
+	sprite.texture = load("res://Art/Dust.png")
+	sprite.position = at_position
+	add_child(sprite)
