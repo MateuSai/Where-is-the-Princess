@@ -7,6 +7,8 @@ signal room_cleared()
 
 var player: Player = null
 
+var debug: bool = false
+
 const ENEMIES_FOLDER_PATH: String = "res://Characters/Enemies/"
 var ENEMIES = {}
 
@@ -124,6 +126,8 @@ const CONTROLLER_TYPES = {
 
 
 func _ready() -> void:
+	debug = OS.get_cmdline_user_args().has("--debug")
+
 	var enemies_folder: DirAccess = DirAccess.open(ENEMIES_FOLDER_PATH)
 	assert(enemies_folder != null)
 	for enemy_folder in enemies_folder.get_directories():

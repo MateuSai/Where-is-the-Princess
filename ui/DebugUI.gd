@@ -4,6 +4,11 @@ extends Control
 @onready var terminal: LineEdit = $Terminal
 
 
+func _ready() -> void:
+	if not Globals.debug:
+		queue_free()
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_open_terminal") and debug_info.visible:
 		terminal.show()

@@ -8,6 +8,8 @@ const USER_FOLDER: String = "user://"
 const DATA_SAVE_NAME: String = "data.json"
 
 var data: Dictionary = {
+	"ignored_rooms": PackedStringArray([]),
+
 	"discovered_weapons": PackedStringArray(["res://Weapons/Melee/Katana/Katana.tscn", "res://Weapons/Melee/Spear.tscn"]),
 	"undiscovered_weapons": PackedStringArray(["res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn"]),
 
@@ -18,6 +20,8 @@ var data: Dictionary = {
 	"undiscovered_permanent_items": PackedStringArray(["res://Items/Passive/Permanent/EnhancedBoots.gd"]),
 	"discovered_temporal_items": PackedStringArray(["res://Items/Passive/Temporal/MagicSword.gd"]),
 	"undiscovered_temporal_items": PackedStringArray(["res://Items/Passive/Temporal/MagicShield.gd"]),
+
+	"shop_unlocked": false,
 }
 
 var volatile_room_paths: Dictionary = {}
@@ -156,6 +160,15 @@ func get_override_room_names(type: String) -> Array:
 		#print(room_names)
 
 	return room_names
+
+
+func get_ignored_rooms() -> PackedStringArray:
+	return data.ignored_rooms
+
+
+func add_ignored_room(room_path: String) -> void:
+	data.ignored_rooms.push_back(room_path)
+	save_data()
 
 
 func change_biome(new_biome: String) -> void:

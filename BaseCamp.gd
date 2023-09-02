@@ -67,6 +67,9 @@ func _ready() -> void:
 		player.can_move = true
 	)
 
+	if not SavedData.data.shop_unlocked:
+		$BaseCampShop.queue_free()
+
 
 func _exit_tree() -> void:
 	SavedData.save_data()

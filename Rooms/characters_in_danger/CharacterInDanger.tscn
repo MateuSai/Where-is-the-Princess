@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b14mh3jk8cuns"]
+
+[ext_resource type="Texture2D" uid="uid://rx1c6wfrx15r" path="res://Art/Furniture and room elements/wardrobe.png" id="1_a8pf0"]
+[ext_resource type="Script" path="res://Rooms/characters_in_danger/CharacterInDanger.gd" id="1_d4u4a"]
+[ext_resource type="Script" path="res://InteractArea.gd" id="2_x75tw"]
+
+[node name="CharacterInDanger" type="StaticBody2D"]
+collision_mask = 0
+script = ExtResource("1_d4u4a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_a8pf0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="InteractArea" type="Area2D" parent="."]
+script = ExtResource("2_x75tw")
+path_to_sprite = NodePath("../Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]

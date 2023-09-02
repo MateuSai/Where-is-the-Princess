@@ -115,36 +115,40 @@ func _physics_process(delta: float) -> void:
 
 
 func _get_rooms(type: String) -> PackedStringArray:
-	var room_names: PackedStringArray
+	var room_paths: PackedStringArray
 
 	var override_room_names: PackedStringArray = PackedStringArray(SavedData.get_override_room_names(type.split("/")[type.split("/").size()-1].to_lower()))
 	if not override_room_names.is_empty():
-		room_names = override_room_names
+		room_paths = override_room_names
 	else:
 		if type.to_lower().begins_with("end"):
-			room_names = SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "end", type.split("/")[1])
+			room_paths = SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "end", type.split("/")[1])
 		else:
-			room_names = SavedData.get_volatile_room_paths(SavedData.run_stats.biome, type)
+			room_paths = SavedData.get_volatile_room_paths(SavedData.run_stats.biome, type)
 
 		var rooms_dir: DirAccess = DirAccess.open(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type)
-		if room_names.is_empty() and rooms_dir == null:
+		if room_paths.is_empty() and rooms_dir == null:
 			push_error("Error opening " + BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "!")
 			return []
 		if rooms_dir:
 			for file in rooms_dir.get_files():
-				room_names.push_back(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "/" + file)
+				room_paths.push_back(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "/" + file)
 
-		for i in range(room_names.size()-1, -1, -1):
-			room_names[i] = room_names[i].trim_suffix(".remap")
-			var room_scene_state: SceneState = load(room_names[i]).get_state()
+		for i in range(room_paths.size()-1, -1, -1):
+			room_paths[i] = room_paths[i].trim_suffix(".remap")
+			var room_scene_state: SceneState = load(room_paths[i]).get_state()
 			for ii in room_scene_state.get_node_property_count(0):
 				if room_scene_state.get_node_property_name(0, ii) == "levels":
 					var levels: String = room_scene_state.get_node_property_value(0, ii)
 					if (levels.length() == 1 and levels.is_valid_int() and int(levels) != SavedData.run_stats.level) or (levels.length() >= 3 and levels.find("-") != -1 and (int(levels.split("-")[0]) > SavedData.run_stats.level or int(levels.split("-")[1]) < SavedData.run_stats.level)):
-						room_names.remove_at(i)
+						room_paths.remove_at(i)
 					break
 
-	return room_names
+	for ignored_room_path in SavedData.get_ignored_rooms():
+		if room_paths.has(ignored_room_path):
+			room_paths.remove_at(room_paths.find(ignored_room_path))
+
+	return room_paths
 
 
 func _get_end_rooms() -> Array[PackedStringArray]:
