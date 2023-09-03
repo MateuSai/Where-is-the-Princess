@@ -7,6 +7,8 @@ const SOUL_SCENE: PackedScene = preload("res://Items/Soul.tscn")
 
 @export var souls: int = 1
 
+@export var is_boss: bool = false
+
 @onready var room: DungeonRoom = get_parent()
 @onready var player: Player = get_tree().current_scene.get_node("Player")
 @onready var navigation_agent: NavigationAgent2D = get_node("NavigationAgent2D")
@@ -37,6 +39,13 @@ func spawn_loot() -> void:
 		room.cleared.connect(soul.go_to_player)
 		soul.position = global_position
 		get_tree().current_scene.call_deferred("add_child", soul)
+
+	if is_boss:
+		for i in 1:
+			var soul: DarkSoulOnFloor = load("res://Items/DarkSoul.tscn").instantiate()
+			room.cleared.connect(soul.go_to_player)
+			soul.position = global_position
+			get_tree().current_scene.call_deferred("add_child", soul)
 
 
 func chase() -> void:

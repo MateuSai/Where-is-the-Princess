@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dmkpf10kcpx68"]
 
 [ext_resource type="Script" path="res://ui/dialogue_system/dialogue_box.gd" id="1_5s4ck"]
-[ext_resource type="FontFile" uid="uid://chicvvurmnu8" path="res://Fonts/Poco.ttf" id="2_ucelj"]
+[ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="2_slhcg"]
 
 [sub_resource type="Gradient" id="Gradient_5w8sc"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -29,7 +29,7 @@ theme_override_constants/margin_bottom = 4
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer"]
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("2_ucelj")
+theme_override_fonts/normal_font = ExtResource("2_slhcg")
 theme_override_font_sizes/normal_font_size = 10
 bbcode_enabled = true
 fit_content = true

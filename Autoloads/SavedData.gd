@@ -8,6 +8,8 @@ const USER_FOLDER: String = "user://"
 const DATA_SAVE_NAME: String = "data.json"
 
 var data: Dictionary = {
+	"dark_souls": 0,
+
 	"ignored_rooms": PackedStringArray([]),
 
 	"discovered_weapons": PackedStringArray(["res://Weapons/Melee/Katana/Katana.tscn", "res://Weapons/Melee/Spear.tscn"]),
@@ -36,6 +38,8 @@ var run_stats: RunStats = RunStats.new()
 #var mods: Array[Mod] = []
 
 var biome_conf: Dictionary
+
+signal dark_souls_changed(new_value: int)
 
 
 func _ready() -> void:
@@ -132,8 +136,13 @@ func _load_data() -> void:
 #			printerr("Error loading " + mod.resource_path + " mod!")
 
 
-func reset_data() -> void:
+func reset_run_stats() -> void:
 	run_stats = RunStats.new()
+
+
+func set_dark_souls(new_value: int) -> void:
+	data.dark_souls = new_value
+	dark_souls_changed.emit(data.dark_souls)
 
 
 func get_biome_conf() -> Dictionary:
