@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=42 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -26,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://6cx2yobwuw5b" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_naked_icon.png" id="19_bc3n7"]
 [ext_resource type="Texture2D" uid="uid://dk5fa4ot7i4y" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/big_coin.tres" id="19_bh1ic"]
 [ext_resource type="Texture2D" uid="uid://bhpt1388lfjwl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/Dragon Killer UI icon.png" id="21_ohq06"]
+[ext_resource type="Texture2D" uid="uid://f31ynbopw2fd" path="res://Art/kenney_input-prompts-pixel-16/Tiles/tile_0002.png" id="26_mdkvu"]
 
 [sub_resource type="CircleShape2D" id="18"]
 radius = 3.0
@@ -531,6 +532,19 @@ texture = ExtResource("19_bh1ic")
 stretch_mode = 5
 
 [node name="CoinsLabel" type="Label" parent="UI/RightBottomGameVBoxContainer/HBoxContainer" index="1"]
+layout_mode = 2
+text = "0"
+vertical_alignment = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/RightBottomGameVBoxContainer" index="1"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/RightBottomGameVBoxContainer/HBoxContainer2" index="0"]
+layout_mode = 2
+texture = ExtResource("26_mdkvu")
+stretch_mode = 5
+
+[node name="DarkSoulsLabel" type="Label" parent="UI/RightBottomGameVBoxContainer/HBoxContainer2" index="1"]
 layout_mode = 2
 text = "0"
 vertical_alignment = 2

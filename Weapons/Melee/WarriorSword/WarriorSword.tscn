@@ -1,10 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://cw7q01ncaqimn"]
+[gd_scene load_steps=20 format=3 uid="uid://cw7q01ncaqimn"]
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_g8um6"]
 [ext_resource type="Script" path="res://Weapons/Melee/MeleeWeapon.gd" id="2_qgjqi"]
 [ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="4_ccapj"]
 [ext_resource type="Texture2D" uid="uid://3ajfpk2ru4by" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Warrior sword.png" id="5_dfq7c"]
-[ext_resource type="Texture2D" uid="uid://2w6wh5m83i50" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/Warrior sword circular attack.png" id="6_xpp5q"]
+[ext_resource type="Texture2D" uid="uid://dkg26smh366j6" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/Warrior sword  circular attack.png" id="5_gb1kg"]
 
 [sub_resource type="ShaderMaterial" id="6"]
 resource_local_to_scene = true
@@ -17,6 +17,9 @@ size = Vector2(10.4066, 5.25)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e4nug"]
 radius = 4.94972
 height = 22.9289
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ji0hi"]
+light_mode = 1
 
 [sub_resource type="Animation" id="Animation_8hb7s"]
 length = 0.001
@@ -156,7 +159,7 @@ tracks/10/keys = {
 [sub_resource type="Animation" id="Animation_y7sh3"]
 resource_name = "active_ability_1"
 length = 1.5
-step = 0.02
+step = 0.03
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -176,7 +179,7 @@ tracks/1/path = NodePath("Node2D:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.6, 0.9, 1.5),
+"times": PackedFloat32Array(0, 0.76, 1.06, 1.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [-0.785398, 12.5664, 12.5664, 11.781]
@@ -188,7 +191,7 @@ tracks/2/path = NodePath("Node2D/Sprite2D:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.06, 0.6, 0.9, 1.5),
+"times": PackedFloat32Array(0, 0.06, 0.76, 1.06, 1.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [-0.785398, 0.680678, 0.680678, 0.680678, -0.785398]
@@ -272,7 +275,7 @@ tracks/9/path = NodePath("Node2D/Sprite2D/TrailSprite:visible")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0, 0.68),
+"times": PackedFloat32Array(0, 0.87),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -284,10 +287,10 @@ tracks/10/path = NodePath("Node2D/Sprite2D/TrailSprite:frame")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0, 0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.16, 0.18, 0.2, 0.22, 0.24, 0.26, 0.28, 0.3, 0.32, 0.34, 0.36, 0.38, 0.4, 0.42, 0.44, 0.46, 0.48, 0.5, 0.52, 0.54, 0.56, 0.58, 0.6, 0.62, 0.64, 0.66),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.21, 0.24, 0.27, 0.3, 0.33, 0.36, 0.39, 0.42, 0.45, 0.48, 0.51, 0.54, 0.57, 0.6, 0.63, 0.66, 0.69, 0.72, 0.75, 0.78, 0.81, 0.84, 0.87),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [13, 12, 11, 10, 9, 8, 7, 0, 1, 2, 3, 4, 5, 6, 0, 1, 2, 3, 4, 5, 6, 0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13]
+"values": [13, 12, 11, 10, 9, 8, 7, 0, 1, 2, 3, 4, 5, 6, 0, 1, 2, 3, 4, 5, 6, 0, 1, 2, 3, 7, 9, 10, 12, 13]
 }
 
 [sub_resource type="Animation" id="Animation_ict7v"]
@@ -728,10 +731,148 @@ tracks/4/keys = {
 }]
 }
 
+[sub_resource type="Animation" id="Animation_qxy2l"]
+resource_name = "active_ability_2"
+length = 1.5
+step = 0.03
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Sprite2D/Hitbox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.76, 1.06, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [2.35619, -10.9956, -10.9956, -10.2102]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node2D/Sprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.06, 0.76, 1.06, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [2.35619, 0.680678, 0.680678, 0.680678, 2.35619]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Node2D/Sprite2D/ChargeParticles:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Node2D/Sprite2D:material:shader_parameter/active")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Node2D/Sprite2D/Hitbox:damage")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Node2D/Sprite2D/Hitbox:knockback_force")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [500]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Node2D/Sprite2D/TrailSprite:flip_h")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Node2D/Sprite2D/TrailSprite:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(17.071, -3)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Node2D/Sprite2D/TrailSprite:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 0.87),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Node2D/Sprite2D/TrailSprite:frame")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 0.03, 0.06, 0.09, 0.12, 0.15, 0.18, 0.21, 0.24, 0.27, 0.3, 0.33, 0.36, 0.39, 0.42, 0.45, 0.48, 0.51, 0.54, 0.57, 0.6, 0.63, 0.66, 0.69, 0.72, 0.75, 0.78, 0.81, 0.84, 0.87),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [13, 12, 11, 10, 9, 8, 7, 0, 1, 2, 3, 4, 5, 6, 0, 1, 2, 3, 4, 5, 6, 0, 1, 2, 3, 7, 9, 10, 12, 13]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ypj85"]
 _data = {
 "RESET": SubResource("Animation_8hb7s"),
 "active_ability_1": SubResource("Animation_y7sh3"),
+"active_ability_2": SubResource("Animation_qxy2l"),
 "attack_1": SubResource("Animation_ict7v"),
 "attack_2": SubResource("Animation_gm6wr"),
 "charge_1": SubResource("Animation_0lr4t"),
@@ -742,6 +883,10 @@ _data = {
 
 [node name="WarriorSword" instance=ExtResource("1_g8um6")]
 script = ExtResource("2_qgjqi")
+num_normal_attacks = 1
+increase_num_normal_attacks_on_ability = true
+invert_scale_when_looking_left = false
+throw_speed = 200
 
 [node name="Node2D" parent="." index="0"]
 rotation = -0.785398
@@ -775,8 +920,9 @@ shape = SubResource("CapsuleShape2D_e4nug")
 
 [node name="TrailSprite" type="Sprite2D" parent="Node2D/Sprite2D" index="3"]
 visible = false
+material = SubResource("CanvasItemMaterial_ji0hi")
 position = Vector2(-17.0711, -2.99999)
-texture = ExtResource("6_xpp5q")
+texture = ExtResource("5_gb1kg")
 flip_h = true
 hframes = 7
 vframes = 2

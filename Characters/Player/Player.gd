@@ -51,7 +51,7 @@ func _ready() -> void:
 		SavedData.run_stats.hp = new_hp
 		if new_hp == 0:
 			SceneTransistor.start_transition_to("res://BaseCamp.tscn")
-			SavedData.reset_data()
+			SavedData.reset_run_stats()
 	)
 
 #	weapons.weapon_switched.connect(func(prev_index: int, new_index: int): weapon_switched.emit(prev_index, new_index))

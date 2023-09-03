@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://bqcn0vo0ait26" path="res://Rooms/RichardTheGigachadWizard.tscn" id="11_vh5i5"]
 [ext_resource type="FontFile" uid="uid://chicvvurmnu8" path="res://Fonts/Poco.ttf" id="12_qu1vg"]
 [ext_resource type="PackedScene" uid="uid://cjc0h245lbmpd" path="res://Weapons/Melee/Katana/Katana.tscn" id="12_trlvh"]
-[ext_resource type="PackedScene" uid="uid://5orvhxdckhxm" path="res://Rooms/Shop.tscn" id="13_nv3p8"]
 [ext_resource type="PackedScene" uid="uid://bu6m7pa3yuk4r" path="res://Weapons/Melee/DragonKiller/DragonKiller.tscn" id="16_885t0"]
 [ext_resource type="PackedScene" uid="uid://13du3vo5int6" path="res://Items/Soul.tscn" id="17_6xbxo"]
 [ext_resource type="AudioStream" uid="uid://dsphctheyll2w" path="res://Audio/Music/Gymnopédie no. 1 (for Harp).mp3" id="18_0hiag"]
@@ -23,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://cw7q01ncaqimn" path="res://Weapons/Melee/WarriorSword/WarriorSword.tscn" id="21_lb8k2"]
 [ext_resource type="PackedScene" uid="uid://cs3cwiuyg1834" path="res://Weapons/Melee/Scimitar/Scimitar.tscn" id="22_ovxvs"]
 [ext_resource type="PackedScene" uid="uid://4g8k6f3qb1w2" path="res://Weapons/Melee/WarAxe/WarAxe.tscn" id="23_7aqvg"]
+[ext_resource type="PackedScene" uid="uid://xgy1tccjil1u" path="res://Rooms/BaseCampShop.tscn" id="23_r1ex0"]
 
 [sub_resource type="Gradient" id="Gradient_nhg8o"]
 offsets = PackedFloat32Array(0, 0.784849)
@@ -258,8 +258,6 @@ position = Vector2(154, 116)
 increase_num_normal_attacks_on_ability = true
 on_floor = true
 
-[node name="Shop" parent="." instance=ExtResource("13_nv3p8")]
-
 [node name="DragonKiller" parent="." instance=ExtResource("16_885t0")]
 position = Vector2(235, 168)
 increase_num_normal_attacks_on_ability = true
@@ -317,10 +315,6 @@ on_floor = true
 
 [node name="WarriorSword" parent="." instance=ExtResource("21_lb8k2")]
 position = Vector2(236, 72)
-num_normal_attacks = 1
-increase_num_normal_attacks_on_ability = true
-invert_scale_when_looking_left = false
-throw_speed = 200
 on_floor = true
 
 [node name="Scimitar" parent="." instance=ExtResource("22_ovxvs")]
@@ -330,3 +324,6 @@ on_floor = true
 [node name="WarAxe" parent="." instance=ExtResource("23_7aqvg")]
 position = Vector2(176, 230)
 on_floor = true
+
+[node name="BaseCampShop" parent="." instance=ExtResource("23_r1ex0")]
+position = Vector2(44, -66)

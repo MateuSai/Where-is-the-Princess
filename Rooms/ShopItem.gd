@@ -1,11 +1,25 @@
 class_name ShopItem extends ItemOnFloor
 
+const HOLOGRAM_SHADER: Shader = preload("res://Shaders and Particles/hologram.gdshader")
+const HOLOGRAM_TEXTURE: Texture = preload("res://Art/hologram_lines-b1399a8d.png")
+
 var price: int = 10
 
 
 @warning_ignore("shadowed_variable")
 func initialize(item: Item) -> void:
 	super(item)
+
+	if get_tree().current_scene.name == "Game":
+		pass
+	else: # BaseCamp
+		assert(get_tree().current_scene.name == "BaseCamp")
+		var hologram_sprite: Sprite2D = Sprite2D.new()
+		hologram_sprite.texture = texture
+		hologram_sprite.material = ShaderMaterial.new()
+		hologram_sprite.material.shader = HOLOGRAM_SHADER
+		hologram_sprite.material.set_shader_parameter("hologramTexture", HOLOGRAM_TEXTURE)
+		add_child(hologram_sprite)
 
 
 func _ready() -> void:
@@ -21,6 +35,8 @@ func can_pick_up_item(player: Player) -> bool:
 
 
 func _pick_item_and_free() -> void:
+	SavedData.run_stats.coins -= price
+
 	var sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 	sound.stream = load("res://Audio/Sounds/Change-www.fesliyanstudios.com.mp3")
 	sound.position = global_position
@@ -31,4 +47,11 @@ func _pick_item_and_free() -> void:
 	get_tree().current_scene.add_child(sound)
 	sound.play()
 
-	super()
+	if get_tree().current_scene.name == "Game":
+		super()
+	else: # BaseCamp
+		if item is WeaponItem:
+			SavedData.discover_weapon(item.weapon.scene_file_path)
+		elif item is TemporalPassiveItem:
+			SavedData.discover_temporal_item(item.get_script().get_path())
+		queue_free()

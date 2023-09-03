@@ -3,6 +3,7 @@ extends VBoxContainer
 var transparency_tween: Tween
 
 @onready var coins_label: Label = get_node("HBoxContainer/CoinsLabel")
+@onready var dark_souls_label: Label = $HBoxContainer2/DarkSoulsLabel
 
 
 func _ready() -> void:
@@ -10,6 +11,11 @@ func _ready() -> void:
 		coins_label.text = str(new_coins)
 	)
 	coins_label.text = str(SavedData.run_stats.coins)
+
+	SavedData.dark_souls_changed.connect(func(new_value: int):
+		dark_souls_label.text = str(new_value)
+	)
+	dark_souls_label.text = str(SavedData.data.dark_souls)
 
 	Globals.room_closed.connect(_on_room_closed)
 	Globals.room_cleared.connect(_on_room_cleared)

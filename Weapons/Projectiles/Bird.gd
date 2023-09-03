@@ -21,8 +21,8 @@ func _ready() -> void:
 
 
 @warning_ignore("shadowed_variable")
-func launch(initial_position: Vector2, dir: Vector2, speed: int) -> void:
-	super(initial_position, dir, speed)
+func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: bool = false) -> void:
+	super(initial_position, dir, speed, rotate_to_dir)
 
 	if dir.y < 0:
 		animation_player.play("fly_up")

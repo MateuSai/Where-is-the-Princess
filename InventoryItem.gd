@@ -53,10 +53,8 @@ func _make_custom_tooltip(for_text: String) -> Object:
 	label.text = for_text
 	label.fit_content = true
 	label.custom_minimum_size.x = 64
-	label.add_theme_font_override("normal_font", load("res://Fonts/Poco.ttf"))
+	label.add_theme_font_override("normal_font", load("res://Fonts/small_font.tres"))
 	label.add_theme_font_size_override("normal_font_size", 10)
-	label.add_theme_font_override("bold_font", load("res://Fonts/Poco.ttf"))
-	label.add_theme_font_size_override("bold_font_size", 20)
 #	var label_settings: LabelSettings = LabelSettings.new()
 #	label_settings.font = load("res://Fonts/Poco.ttf")
 #	label_settings.font_size = 10

@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dekmhl6iysrls"]
+
+[ext_resource type="PackedScene" uid="uid://b14mh3jk8cuns" path="res://Rooms/characters_in_danger/CharacterInDanger.tscn" id="1_0nvl4"]
+[ext_resource type="Script" path="res://Rooms/characters_in_danger/ShopManagerInDanger.gd" id="2_t1uqx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uvgaq"]
+size = Vector2(20, 6)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rfr07"]
+radius = 25.02
+
+[node name="ShopManagerInDanger" instance=ExtResource("1_0nvl4")]
+script = ExtResource("2_t1uqx")
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0.5, -7)
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_uvgaq")
+
+[node name="InteractArea" parent="." index="2"]
+position = Vector2(0.5, -7)
+
+[node name="CollisionShape2D" parent="InteractArea" index="0"]
+shape = SubResource("CircleShape2D_rfr07")

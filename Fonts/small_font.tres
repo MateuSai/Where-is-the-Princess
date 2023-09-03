@@ -1,0 +1,8 @@
+[gd_resource type="FontVariation" load_steps=3 format=3 uid="uid://du8fthyvf666a"]
+
+[ext_resource type="FontFile" uid="uid://chicvvurmnu8" path="res://Fonts/Poco.ttf" id="1_fcqji"]
+[ext_resource type="FontFile" uid="uid://d2w0270hsd243" path="res://Fonts/ark-pixel/ark-pixel-10px-proportional.ttf" id="2_tfjol"]
+
+[resource]
+base_font = ExtResource("1_fcqji")
+fallbacks = Array[Font]([ExtResource("2_tfjol")])

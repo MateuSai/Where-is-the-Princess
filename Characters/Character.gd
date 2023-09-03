@@ -66,11 +66,6 @@ func _on_damage_taken(_dam: int, dir: Vector2, force: int) -> void:
 	#if state_machine.state != state_machine.states.hurt and state_machine.state != state_machine.states.dead:
 	_spawn_hit_effect()
 	#	self.hp -= dam
-	#	if name == "Player":
-#			SavedData.run_stats.hp = hp
-#			if hp == 0:
-#				SceneTransistor.start_transition_to("res://Game.tscn")
-#				SavedData.reset_data()
 #		if hp > 0:
 			#state_machine.set_state(state_machine.states.hurt)
 	if can_be_knocked_back:

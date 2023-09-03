@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://xgy1tccjil1u"]
+
+[ext_resource type="PackedScene" uid="uid://5orvhxdckhxm" path="res://Rooms/Shop.tscn" id="1_6ry8x"]
+[ext_resource type="PackedScene" uid="uid://1dog8g4x0l0a" path="res://Characters/npcs/shop_manager/ShopManager.tscn" id="2_t07ab"]
+
+[node name="BaseCampShop" type="Node2D"]
+
+[node name="Shop" parent="." instance=ExtResource("1_6ry8x")]
+position = Vector2(-8, 16)
+
+[node name="ShopManager" parent="." instance=ExtResource("2_t07ab")]
