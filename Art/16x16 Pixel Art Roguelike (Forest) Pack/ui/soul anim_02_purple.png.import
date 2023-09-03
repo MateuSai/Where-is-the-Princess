@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2w6wh5m83i50"
-path="res://.godot/imported/Warrior sword circular attack.png-897a1829f6b244a6d4cbf025b5d0bc43.ctex"
+uid="uid://bxwrnt7ehnug4"
+path="res://.godot/imported/soul anim_02_purple.png-694abf842b5a1ff5e0e0725ee7bb5931.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/Warrior sword circular attack.png"
-dest_files=["res://.godot/imported/Warrior sword circular attack.png-897a1829f6b244a6d4cbf025b5d0bc43.ctex"]
+source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/soul anim_02_purple.png"
+dest_files=["res://.godot/imported/soul anim_02_purple.png-694abf842b5a1ff5e0e0725ee7bb5931.ctex"]
 
 [params]
 

@@ -26,7 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://6cx2yobwuw5b" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_naked_icon.png" id="19_bc3n7"]
 [ext_resource type="Texture2D" uid="uid://dk5fa4ot7i4y" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/big_coin.tres" id="19_bh1ic"]
 [ext_resource type="Texture2D" uid="uid://bhpt1388lfjwl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/Dragon Killer UI icon.png" id="21_ohq06"]
-[ext_resource type="Texture2D" uid="uid://f31ynbopw2fd" path="res://Art/kenney_input-prompts-pixel-16/Tiles/tile_0002.png" id="26_mdkvu"]
+[ext_resource type="Texture2D" uid="uid://cac17vxsy4c22" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/boss_soul_animation.tres" id="26_3xjxs"]
 
 [sub_resource type="CircleShape2D" id="18"]
 radius = 3.0
@@ -541,7 +541,7 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="UI/RightBottomGameVBoxContainer/HBoxContainer2" index="0"]
 layout_mode = 2
-texture = ExtResource("26_mdkvu")
+texture = ExtResource("26_3xjxs")
 stretch_mode = 5
 
 [node name="DarkSoulsLabel" type="Label" parent="UI/RightBottomGameVBoxContainer/HBoxContainer2" index="1"]

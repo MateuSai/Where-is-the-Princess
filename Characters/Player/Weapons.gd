@@ -9,7 +9,7 @@ signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Sta
 
 var current_weapon: Weapon: set = set_current_weapon
 
-var max_weapons: int = 4
+var max_weapons: int = 6
 
 enum {UP, DOWN}
 

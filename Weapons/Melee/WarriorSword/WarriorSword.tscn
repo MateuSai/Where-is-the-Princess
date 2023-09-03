@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Weapons/Melee/MeleeWeapon.gd" id="2_qgjqi"]
 [ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="4_ccapj"]
 [ext_resource type="Texture2D" uid="uid://3ajfpk2ru4by" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Warrior sword.png" id="5_dfq7c"]
-[ext_resource type="Texture2D" uid="uid://dkg26smh366j6" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/Warrior sword  circular attack.png" id="5_gb1kg"]
+[ext_resource type="Texture2D" uid="uid://ch3rp8k3xqpk3" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/Warrior sword  circular attack.png" id="5_gb1kg"]
 
 [sub_resource type="ShaderMaterial" id="6"]
 resource_local_to_scene = true

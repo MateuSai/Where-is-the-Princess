@@ -92,6 +92,11 @@ func _process_command(command: String) -> void:
 							_set_time_scale(splitted_command[2])
 						else:
 							printerr("You must specify the new value of time scale")
+					"souls":
+						if splitted_command.size() > 2:
+							_set_souls(splitted_command[2])
+						else:
+							printerr("You must specify the new value of the current weapon souls")
 			else:
 				printerr("Invalid number of arguments, you must specify what to set")
 		"spawn":
@@ -198,6 +203,15 @@ func _set_time_scale(time_scale_string: String) -> void:
 	hide()
 	var new_time_scale: float = clamp(float(time_scale_string), 0.0, 10.0)
 	Engine.time_scale = new_time_scale
+
+
+func _set_souls(souls_string: String) -> void:
+	if not souls_string.is_valid_float():
+		push_error("Invalid value for weapon souls")
+		return
+
+	hide()
+	Globals.player.weapons.current_weapon.stats.souls = int(souls_string)
 
 
 func _get_bool_from_string(s: String) -> bool:

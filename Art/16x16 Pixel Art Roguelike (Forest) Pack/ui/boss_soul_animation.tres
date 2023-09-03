@@ -1,0 +1,20 @@
+[gd_resource type="AnimatedTexture" load_steps=6 format=3 uid="uid://cac17vxsy4c22"]
+
+[ext_resource type="Texture2D" uid="uid://cvix1ptam7wk4" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/soul anim_01_purple.png" id="1_nxxnx"]
+[ext_resource type="Texture2D" uid="uid://bxwrnt7ehnug4" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/soul anim_02_purple.png" id="2_1mvi1"]
+[ext_resource type="Texture2D" uid="uid://dhbxvo5kxfm3m" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/soul anim_03_purple.png" id="3_ge725"]
+[ext_resource type="Texture2D" uid="uid://c23o6o76fwqcn" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/soul anim_04_purple.png" id="4_cnvrw"]
+[ext_resource type="Texture2D" uid="uid://ckmhaxxftyikl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/soul anim_05_purple.png" id="5_lvjqe"]
+
+[resource]
+frames = 5
+frame_0/texture = ExtResource("1_nxxnx")
+frame_0/duration = 0.1
+frame_1/texture = ExtResource("2_1mvi1")
+frame_1/duration = 0.1
+frame_2/texture = ExtResource("3_ge725")
+frame_2/duration = 0.1
+frame_3/texture = ExtResource("4_cnvrw")
+frame_3/duration = 0.1
+frame_4/texture = ExtResource("5_lvjqe")
+frame_4/duration = 0.1
