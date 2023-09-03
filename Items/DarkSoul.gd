@@ -9,7 +9,10 @@ var acc: Vector2 = Vector2.ZERO
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	body_entered.connect(_on_player_entered)
+	body_entered.connect(func(body: Node2D):
+		assert(body is Player)
+		_on_player_entered()
+	)
 	set_physics_process(false)
 	# create_tween().tween_property(self, "position", position + Vector2.RIGHT * 200, 5.0)
 	create_tween().tween_property(self, "position", position + Vector2.RIGHT.rotated(randf_range(0, 2 * PI)) * randf_range(10, 18), 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
@@ -25,8 +28,7 @@ func go_to_player() -> void:
 	set_physics_process(true)
 
 
-@warning_ignore("shadowed_variable")
-func _on_player_entered(player: Player) -> void:
+func _on_player_entered() -> void:
 	set_physics_process(false)
 	collision_shape.free()
 	SavedData.set_dark_souls(SavedData.data.dark_souls + 1)
