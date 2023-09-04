@@ -2,10 +2,9 @@
 
 [ext_resource type="Script" path="res://Rooms/ShopItem.gd" id="1_djafd"]
 [ext_resource type="PackedScene" uid="uid://byvx738gj6tok" path="res://Items/ItemOnFloor.tscn" id="1_pc0ak"]
-[ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="3_fxvxt"]
-[ext_resource type="FontFile" uid="uid://dues33f2o08he" path="res://Fonts/Unbalanced.ttf" id="4_e8gvq"]
 [ext_resource type="Shader" path="res://Shaders and Particles/hologram.gdshader" id="5_7fnpg"]
 [ext_resource type="Texture2D" uid="uid://c01kbmjcx60wl" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/bag_coins.png" id="5_38fm0"]
+[ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="6_akaym"]
 [ext_resource type="Texture2D" uid="uid://bwkhabh4whuwe" path="res://Art/hologram_lines-b1399a8d.png" id="6_vw105"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mkofk"]
@@ -17,22 +16,35 @@ shader_parameter/linesColorIntensity = 1.5
 shader_parameter/hologramTextureTiling = Vector2(1, 1)
 shader_parameter/hologramTexture = ExtResource("6_vw105")
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_5xxl8"]
+light_mode = 1
+
 [node name="ShopItem" instance=ExtResource("1_pc0ak")]
 script = ExtResource("1_djafd")
 
 [node name="InteractArea" parent="." index="0"]
 visible = true
 
-[node name="Label" type="Label" parent="." index="1"]
-offset_left = -6.0
-offset_top = -20.0
-offset_right = 34.0
-offset_bottom = 3.0
-theme = ExtResource("3_fxvxt")
-theme_override_fonts/font = ExtResource("4_e8gvq")
-text = "10"
-
-[node name="DeleteThisShit" type="Sprite2D" parent="." index="2"]
+[node name="DeleteThisShit" type="Sprite2D" parent="." index="1"]
 visible = false
 material = SubResource("ShaderMaterial_mkofk")
 texture = ExtResource("5_38fm0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." index="2"]
+material = SubResource("CanvasItemMaterial_5xxl8")
+offset_left = -12.0
+offset_top = -19.0
+offset_right = 21.0
+offset_bottom = -3.0
+
+[node name="Label" type="Label" parent="HBoxContainer" index="0"]
+use_parent_material = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_akaym")
+theme_override_font_sizes/font_size = 10
+text = "10"
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer" index="1"]
+use_parent_material = true
+layout_mode = 2
+stretch_mode = 5

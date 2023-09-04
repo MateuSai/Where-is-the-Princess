@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=22 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -9,16 +9,13 @@
 [ext_resource type="Script" path="res://ui/QuitButton.gd" id="6_nj5uy"]
 [ext_resource type="Script" path="res://ui/SettingsButton.gd" id="8_b3yq4"]
 [ext_resource type="Script" path="res://ui/PauseWeaponInventory.gd" id="9_63e26"]
-[ext_resource type="Script" path="res://ui/DebugInfo.gd" id="9_yskig"]
 [ext_resource type="Script" path="res://ui/MiniMap.gd" id="12_icbnv"]
 [ext_resource type="Script" path="res://ui/MinimapScrollContainer.gd" id="13_f54tc"]
 [ext_resource type="Texture2D" uid="uid://cm2mxt7vas7t4" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/minimap_9-patch_bigger.png" id="13_s3von"]
 [ext_resource type="Shader" path="res://Shaders and Particles/IntensityToTransparency.gdshader" id="14_qjw3b"]
 [ext_resource type="FontFile" uid="uid://qupo5kdd8137" path="res://Fonts/alagard.ttf" id="15_84d5m"]
+[ext_resource type="PackedScene" uid="uid://bekcqxfxkfcf5" path="res://ui/DebugUI.tscn" id="15_amogy"]
 [ext_resource type="Texture2D" uid="uid://bl8w6y7gf8ubx" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/icon_map.png" id="16_0uph7"]
-[ext_resource type="Script" path="res://ui/DebugUI.gd" id="16_tejhc"]
-[ext_resource type="Script" path="res://ui/Terminal.gd" id="17_e1t0h"]
-[ext_resource type="FontFile" uid="uid://dues33f2o08he" path="res://Fonts/Unbalanced.ttf" id="18_2pqx3"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
 light_mode = 1
@@ -238,52 +235,7 @@ label_settings = SubResource("LabelSettings_lngc4")
 z_index = 1
 texture = ExtResource("16_0uph7")
 
-[node name="DebugUI" type="Control" parent="UI"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme = ExtResource("4_usvbv")
-script = ExtResource("16_tejhc")
-
-[node name="DebugInfo" type="VBoxContainer" parent="UI/DebugUI"]
-texture_filter = 1
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 53.0
-grow_horizontal = 0
-theme = ExtResource("4_usvbv")
-script = ExtResource("9_yskig")
-
-[node name="FpsLabel" type="Label" parent="UI/DebugUI/DebugInfo"]
-layout_mode = 2
-
-[node name="MemoryLabel" type="Label" parent="UI/DebugUI/DebugInfo"]
-layout_mode = 2
-
-[node name="MemoryPeakLabel" type="Label" parent="UI/DebugUI/DebugInfo"]
-layout_mode = 2
-
-[node name="Terminal" type="LineEdit" parent="UI/DebugUI"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -216.0
-offset_top = -24.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/font = ExtResource("18_2pqx3")
-caret_blink = true
-script = ExtResource("17_e1t0h")
+[node name="DebugUI" parent="UI" instance=ExtResource("15_amogy")]
 
 [node name="FogSprite" type="Sprite2D" parent="."]
 z_index = 3

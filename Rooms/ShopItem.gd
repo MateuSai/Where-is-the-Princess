@@ -5,21 +5,31 @@ const HOLOGRAM_TEXTURE: Texture = preload("res://Art/hologram_lines-b1399a8d.png
 
 var price: int = 10
 
+@onready var currency_icon: TextureRect = $HBoxContainer/TextureRect
+
 
 @warning_ignore("shadowed_variable")
 func initialize(item: Item) -> void:
 	super(item)
 
 	if get_tree().current_scene.name == "Game":
-		pass
+		price = item.get_coin_cost()
+		currency_icon.texture = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small_coin.tres")
 	else: # BaseCamp
 		assert(get_tree().current_scene.name == "BaseCamp")
+
+		price = item.get_dark_soul_cost()
+		currency_icon.texture = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/8x8_boss_soul_animation.tres")
+		#currency_icon.texture = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small_coin.tres")
+
 		var hologram_sprite: Sprite2D = Sprite2D.new()
 		hologram_sprite.texture = texture
 		hologram_sprite.material = ShaderMaterial.new()
 		hologram_sprite.material.shader = HOLOGRAM_SHADER
 		hologram_sprite.material.set_shader_parameter("hologramTexture", HOLOGRAM_TEXTURE)
 		add_child(hologram_sprite)
+
+	$HBoxContainer/Label.text = str(price)
 
 
 func _ready() -> void:
@@ -29,13 +39,16 @@ func _ready() -> void:
 
 
 func can_pick_up_item(player: Player) -> bool:
-	if SavedData.run_stats.coins < price:
+	if (SavedData.run_stats.coins < price and get_tree().current_scene.name == "Game") or (SavedData.data.dark_souls < price and get_tree().current_scene.name != "Game"):
 		return false
 	return item.can_pick_up(Globals.player)
 
 
 func _pick_item_and_free() -> void:
-	SavedData.run_stats.coins -= price
+	if get_tree().current_scene.name == "Game":
+		SavedData.run_stats.coins -= price
+	else:
+		SavedData.set_dark_souls(SavedData.data.dark_souls - price)
 
 	var sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 	sound.stream = load("res://Audio/Sounds/Change-www.fesliyanstudios.com.mp3")

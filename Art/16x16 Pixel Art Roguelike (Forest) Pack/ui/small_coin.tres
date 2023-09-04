@@ -1,0 +1,17 @@
+[gd_resource type="AnimatedTexture" load_steps=5 format=3 uid="uid://bda8a38gqhymr"]
+
+[ext_resource type="Texture2D" uid="uid://cm4weyfbkyu71" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small_coin anim_01.png" id="1_ltxd8"]
+[ext_resource type="Texture2D" uid="uid://boarajf027obc" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small_coin anim_02.png" id="2_hb6hy"]
+[ext_resource type="Texture2D" uid="uid://22xfs0gfh84x" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small_coin anim_03.png" id="3_58cww"]
+[ext_resource type="Texture2D" uid="uid://cllba37ch02nn" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small_coin anim_04.png" id="4_0vvin"]
+
+[resource]
+frames = 4
+frame_0/texture = ExtResource("1_ltxd8")
+frame_0/duration = 0.15
+frame_1/texture = ExtResource("2_hb6hy")
+frame_1/duration = 0.15
+frame_2/texture = ExtResource("3_58cww")
+frame_2/duration = 0.15
+frame_3/texture = ExtResource("4_0vvin")
+frame_3/duration = 0.15

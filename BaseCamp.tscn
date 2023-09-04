@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=40 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="1_0pcgl"]
 [ext_resource type="Script" path="res://BaseCamp.gd" id="1_tpf7m"]
@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://cs3cwiuyg1834" path="res://Weapons/Melee/Scimitar/Scimitar.tscn" id="22_ovxvs"]
 [ext_resource type="PackedScene" uid="uid://4g8k6f3qb1w2" path="res://Weapons/Melee/WarAxe/WarAxe.tscn" id="23_7aqvg"]
 [ext_resource type="PackedScene" uid="uid://xgy1tccjil1u" path="res://Rooms/BaseCampShop.tscn" id="23_r1ex0"]
+[ext_resource type="PackedScene" uid="uid://bekcqxfxkfcf5" path="res://ui/DebugUI.tscn" id="24_cou32"]
 
 [sub_resource type="Gradient" id="Gradient_nhg8o"]
 offsets = PackedFloat32Array(0, 0.784849)
@@ -327,3 +328,8 @@ on_floor = true
 
 [node name="BaseCampShop" parent="." instance=ExtResource("23_r1ex0")]
 position = Vector2(44, -66)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DebugUI" parent="CanvasLayer" instance=ExtResource("24_cou32")]
+process_mode = 3

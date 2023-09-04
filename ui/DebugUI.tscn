@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://bekcqxfxkfcf5"]
+
+[ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="1_xivxa"]
+[ext_resource type="Script" path="res://ui/DebugUI.gd" id="2_ueqtf"]
+[ext_resource type="Script" path="res://ui/DebugInfo.gd" id="3_gy65f"]
+[ext_resource type="FontFile" uid="uid://dues33f2o08he" path="res://Fonts/Unbalanced.ttf" id="4_nnix6"]
+[ext_resource type="Script" path="res://ui/Terminal.gd" id="5_b66fm"]
+
+[node name="DebugUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_xivxa")
+script = ExtResource("2_ueqtf")
+
+[node name="DebugInfo" type="VBoxContainer" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 53.0
+grow_horizontal = 0
+theme = ExtResource("1_xivxa")
+script = ExtResource("3_gy65f")
+
+[node name="FpsLabel" type="Label" parent="DebugInfo"]
+layout_mode = 2
+
+[node name="MemoryLabel" type="Label" parent="DebugInfo"]
+layout_mode = 2
+
+[node name="MemoryPeakLabel" type="Label" parent="DebugInfo"]
+layout_mode = 2
+
+[node name="Terminal" type="LineEdit" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -216.0
+offset_top = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("4_nnix6")
+caret_blink = true
+script = ExtResource("5_b66fm")
