@@ -97,6 +97,11 @@ func _process_command(command: String) -> void:
 							_set_souls(splitted_command[2])
 						else:
 							printerr("You must specify the new value of the current weapon souls")
+					"dark souls", "ds":
+						if splitted_command.size() > 2:
+							_set_dark_souls(splitted_command[2])
+						else:
+							printerr("You must specify the new value of the dark souls")
 			else:
 				printerr("Invalid number of arguments, you must specify what to set")
 		"spawn":
@@ -212,6 +217,15 @@ func _set_souls(souls_string: String) -> void:
 
 	hide()
 	Globals.player.weapons.current_weapon.stats.souls = int(souls_string)
+
+
+func _set_dark_souls(souls_string: String) -> void:
+	if not souls_string.is_valid_float():
+		push_error("Invalid value for dark souls")
+		return
+
+	hide()
+	SavedData.set_dark_souls(int(souls_string))
 
 
 func _get_bool_from_string(s: String) -> bool:
