@@ -163,9 +163,9 @@ func get_override_room_names(type: String) -> Array:
 	if biome_conf.has("levels") and biome_conf.levels.has(str(run_stats.level)) and biome_conf.levels[str(run_stats.level)].has("override_" + type + "_rooms"):
 		room_names = biome_conf.levels[str(run_stats.level)]["override_" + type + "_rooms"]
 		#print(room_names)
-		room_names = room_names.map(func(room_name: String) -> String:
-			return room_name + ".tscn"
-		)
+#		room_names = room_names.map(func(room_name: String) -> String:
+#			return room_name + ".tscn"
+#		)
 		#print(room_names)
 
 	return room_names
