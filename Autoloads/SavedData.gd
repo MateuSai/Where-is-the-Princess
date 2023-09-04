@@ -234,6 +234,8 @@ func discover_weapon(weapon_path: String) -> void:
 	if data.undiscovered_weapons.has(weapon_path):
 		data.undiscovered_weapons.remove_at(data.undiscovered_weapons.find(weapon_path))
 
+	save_data()
+
 
 func get_discovered_weapon_paths() -> PackedStringArray:
 	var weapon_paths: Array = data.discovered_weapons.duplicate()
@@ -250,7 +252,7 @@ func get_undiscovered_weapon_paths() -> PackedStringArray:
 func discover_armor(armor_path: String) -> void:
 	if not data.discovered_armors.has(armor_path):
 		data.discovered_armors.push_back(armor_path)
-		#save_data()
+		save_data()
 
 
 ## Adds an armor only for this session. Use this for mods to load the armor each time the mod loads. The new armors will appear at the wardrobe on the basecamp and it may appear inside the game on the events where a random armor is choosen (like the shop)
@@ -272,6 +274,8 @@ func discover_temporal_item(item_path: String) -> void:
 		data.discovered_temporal_items.push_back(item_path)
 	if data.undiscovered_temporal_items.has(item_path):
 		data.undiscovered_temporal_items.remove_at(data.undiscovered_temporal_items.find(item_path))
+
+	save_data()
 
 
 ## Adds a temporal item only for this session. Use this for mods to load the item each time the mod loads.
@@ -299,6 +303,8 @@ func discover_permanent_item(item_path: String) -> void:
 		data.discovered_permanent_items.push_back(item_path)
 	if data.undiscovered_permanent_items.has(item_path):
 		data.undiscovered_permanent_items.remove_at(data.undiscovered_permanent_items.find(item_path))
+
+	save_data()
 
 
 ## Adds a permanent item only for this session. Use this for mods to load the item each time the mod loads.
