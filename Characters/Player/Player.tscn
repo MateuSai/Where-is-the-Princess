@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=43 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -238,6 +238,9 @@ _data = {
 "move_up": SubResource("Animation_30jje")
 }
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ivaog"]
+light_mode = 1
+
 [sub_resource type="Animation" id="Animation_hk3pe"]
 length = 0.001
 tracks/0/type = "value"
@@ -403,6 +406,7 @@ script = ExtResource("9_es44d")
 [node name="FlashSprite" type="Sprite2D" parent="Camera2D" index="0"]
 modulate = Color(1, 1, 1, 0)
 z_index = 10
+material = SubResource("CanvasItemMaterial_ivaog")
 scale = Vector2(134.552, 184.996)
 texture = ExtResource("10_w3xli")
 
