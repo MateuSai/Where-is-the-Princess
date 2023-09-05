@@ -28,6 +28,8 @@ var rotating_items: Array[Node2D] = []
 
 @onready var jump_animation_player: AnimationPlayer = get_node("JumpAnimationPlayer")
 
+@onready var auto_aim_area: AutoAimArea = $AutoAimArea
+
 @onready var armor_effect_timer: Timer = $Timers/ArmorEffectTimer
 @onready var armor_recharge_timer: Timer = $Timers/ArmorRechargeTimer
 
@@ -108,7 +110,10 @@ func _exit_tree() -> void:
 
 func _process(_delta: float) -> void:
 	# sm.update(_delta)
-	mouse_direction = (get_global_mouse_position() - global_position).normalized()
+	if Settings.auto_aim:
+		mouse_direction = auto_aim_area.get_direction()
+	else:
+		mouse_direction = (get_global_mouse_position() - global_position).normalized()
 
 	if mouse_direction.x > 0 and sprite.flip_h:
 		sprite.flip_h = false

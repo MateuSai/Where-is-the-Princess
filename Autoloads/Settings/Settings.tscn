@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bnr0w37wgidyn"]
+[gd_scene load_steps=10 format=3 uid="uid://bnr0w37wgidyn"]
 
 [ext_resource type="Script" path="res://Autoloads/Settings/Settings.gd" id="1_4y760"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="2_fjhtw"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Autoloads/Settings/VolumeSlider.gd" id="5_7s8v8"]
 [ext_resource type="Script" path="res://Autoloads/Settings/Input.gd" id="5_nnjus"]
 [ext_resource type="Script" path="res://Autoloads/Settings/ScreenFlashesCheckBox.gd" id="7_twuuk"]
+[ext_resource type="Script" path="res://Autoloads/Settings/AutoAimCheckBox.gd" id="8_vwxws"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nfpac"]
 bg_color = Color(0.745098, 0.572549, 0, 1)
@@ -174,14 +175,29 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/ACCESIBILITY/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/ACCESIBILITY/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TabContainer/ACCESIBILITY/MarginContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/ACCESIBILITY/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/ACCESIBILITY/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "SCREEN_FLASHES"
 
-[node name="ScreenFlashesCheckBox" type="CheckBox" parent="TabContainer/ACCESIBILITY/MarginContainer/HBoxContainer"]
+[node name="ScreenFlashesCheckBox" type="CheckBox" parent="TabContainer/ACCESIBILITY/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 script = ExtResource("7_twuuk")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/ACCESIBILITY/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/ACCESIBILITY/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "AUTO_AIM"
+
+[node name="AutoAimCheckBox" type="CheckBox" parent="TabContainer/ACCESIBILITY/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 10
+script = ExtResource("8_vwxws")

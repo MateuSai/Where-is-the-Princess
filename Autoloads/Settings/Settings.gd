@@ -6,7 +6,10 @@ var settings: ConfigFile = null
 
 var screen_flashes: bool:
 	get:
-		return settings.get_value("Accesibility", "screen_flashes", true)
+		return settings.get_value("Accessibility", "screen_flashes", true)
+var auto_aim: bool:
+	get:
+		return settings.get_value("Accessibility", "auto_aim", false)
 
 var MAPPEABLE_ACTIONS: PackedStringArray = PackedStringArray(["ui_attack", "ui_previous_weapon", "ui_next_weapon", "ui_throw", "ui_active_ability", "ui_armor_ability", "ui_pause", "ui_minimap"])
 
