@@ -17,22 +17,22 @@ func _state_logic(_delta: float) -> void:
 		states.idle:
 			parent.get_input()
 			parent.move()
-			var mouse_direction: Vector2 = (parent.get_global_mouse_position() - parent.global_position).normalized()
-			if mouse_direction.y >= 0:
+			#var mouse_direction: Vector2 = (parent.get_global_mouse_position() - parent.global_position).normalized()
+			if parent.mouse_direction.y >= 0:
 				animation_player.play("idle")
 			else:
 				animation_player.play("idle_up")
 		states.move:
 			parent.get_input()
 			parent.move()
-			var mouse_direction: Vector2 = (parent.get_global_mouse_position() - parent.global_position).normalized()
-			if mouse_direction.y >= 0:
-				if (mouse_direction.x > 0 and parent.mov_direction.x < 0) or (mouse_direction.x < 0 and parent.mov_direction.x > 0):
+			#var mouse_direction: Vector2 = (parent.get_global_mouse_position() - parent.global_position).normalized()
+			if parent.mouse_direction.y >= 0:
+				if (parent.mouse_direction.x > 0 and parent.mov_direction.x < 0) or (parent.mouse_direction.x < 0 and parent.mov_direction.x > 0):
 					animation_player.play_backwards("move")
 				else:
 					animation_player.play("move")
 			else:
-				if (mouse_direction.x > 0 and parent.mov_direction.x < 0) or (mouse_direction.x < 0 and parent.mov_direction.x > 0):
+				if (parent.mouse_direction.x > 0 and parent.mov_direction.x < 0) or (parent.mouse_direction.x < 0 and parent.mov_direction.x > 0):
 					animation_player.play_backwards("move_up")
 				else:
 					animation_player.play("move_up")

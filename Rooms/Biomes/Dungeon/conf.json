@@ -17,7 +17,6 @@
 		"3": {
 			"num_combat_rooms": 1,
 			"num_special_rooms": 0,
-			"override_combat_rooms": ["Room1"],
 		}
 	},
 }

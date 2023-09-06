@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=41 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="1_0pcgl"]
 [ext_resource type="Script" path="res://BaseCamp.gd" id="1_tpf7m"]
@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://4g8k6f3qb1w2" path="res://Weapons/Melee/WarAxe/WarAxe.tscn" id="23_7aqvg"]
 [ext_resource type="PackedScene" uid="uid://xgy1tccjil1u" path="res://Rooms/BaseCampShop.tscn" id="23_r1ex0"]
 [ext_resource type="PackedScene" uid="uid://bekcqxfxkfcf5" path="res://ui/DebugUI.tscn" id="24_cou32"]
+[ext_resource type="Texture2D" uid="uid://bfrnhsn0eml4q" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/hut_ruined.tres" id="25_yu4mr"]
 
 [sub_resource type="Gradient" id="Gradient_nhg8o"]
 offsets = PackedFloat32Array(0, 0.784849)
@@ -333,3 +334,7 @@ position = Vector2(44, -66)
 
 [node name="DebugUI" parent="CanvasLayer" instance=ExtResource("24_cou32")]
 process_mode = 3
+
+[node name="Hut" type="Sprite2D" parent="."]
+position = Vector2(141, 98)
+texture = ExtResource("25_yu4mr")

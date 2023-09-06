@@ -11,9 +11,9 @@
 [ext_resource type="Script" path="res://ui/PauseWeaponInventory.gd" id="9_63e26"]
 [ext_resource type="Script" path="res://ui/MiniMap.gd" id="12_icbnv"]
 [ext_resource type="Script" path="res://ui/MinimapScrollContainer.gd" id="13_f54tc"]
+[ext_resource type="FontFile" uid="uid://drbvct1q4mkwc" path="res://Fonts/Alkhemikal.ttf" id="13_kxa6p"]
 [ext_resource type="Texture2D" uid="uid://cm2mxt7vas7t4" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/minimap_9-patch_bigger.png" id="13_s3von"]
 [ext_resource type="Shader" path="res://Shaders and Particles/IntensityToTransparency.gdshader" id="14_qjw3b"]
-[ext_resource type="FontFile" uid="uid://qupo5kdd8137" path="res://Fonts/alagard.ttf" id="15_84d5m"]
 [ext_resource type="PackedScene" uid="uid://bekcqxfxkfcf5" path="res://ui/DebugUI.tscn" id="15_amogy"]
 [ext_resource type="Texture2D" uid="uid://bl8w6y7gf8ubx" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/icon_map.png" id="16_0uph7"]
 
@@ -37,7 +37,7 @@ axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_lngc4"]
-font = ExtResource("15_84d5m")
+font = ExtResource("13_kxa6p")
 font_color = Color(0.243137, 0.137255, 0.00784314, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nogqy"]

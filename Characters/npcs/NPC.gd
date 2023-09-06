@@ -3,10 +3,14 @@ class_name NPC extends StaticBody2D
 const DIALOGUE_BOX_SCENE: PackedScene = preload("res://ui/dialogue_system/dialogue_box.tscn")
 
 var dialogue_box: DialogueBox
-
 var dialogue_tween: Tween = null
 
-@export var dialogue_texts: PackedStringArray = ["Violence breeds violence but in the end it has to be this way", "お前はもう死んでいる", "Zeus is the son of Kronos", "Diogenes was a gigachad"]
+signal dialogue_finished()
+
+@export var dialogue_texts: PackedStringArray = ["Violence breeds violence but in the end it has to be this way", "お前はもう死んでいる", "Zeus is the son of Kronos", "Diogenes was a gigachad"]:
+	set(new_dialogue_texts):
+		dialogue_texts = new_dialogue_texts
+		used_dialogue_texts = []
 var used_dialogue_texts: PackedStringArray = []
 
 @onready var interact_area: InteractArea = $InteractArea
@@ -14,14 +18,14 @@ var used_dialogue_texts: PackedStringArray = []
 func _ready() -> void:
 	interact_area.player_interacted.connect(func():
 		if dialogue_box == null:
-			_start_dialogue()
+			start_dialogue()
 		else:
 			if dialogue_tween == null:
 				dialogue_box.show_all_text()
 	)
 
 
-func _start_dialogue() -> void:
+func start_dialogue() -> void:
 	dialogue_box = DIALOGUE_BOX_SCENE.instantiate()
 	add_child(dialogue_box)
 
@@ -43,4 +47,5 @@ func _start_dialogue() -> void:
 		dialogue_tween = null
 		dialogue_box.queue_free()
 		dialogue_box = null
+		dialogue_finished.emit()
 	)

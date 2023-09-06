@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=45 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://dk5fa4ot7i4y" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/big_coin.tres" id="19_bh1ic"]
 [ext_resource type="Texture2D" uid="uid://bhpt1388lfjwl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/Dragon Killer UI icon.png" id="21_ohq06"]
 [ext_resource type="Texture2D" uid="uid://cac17vxsy4c22" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/boss_soul_animation.tres" id="26_3xjxs"]
+[ext_resource type="Script" path="res://Characters/Player/AutoAimArea.gd" id="28_r7ct4"]
 
 [sub_resource type="CircleShape2D" id="18"]
 radius = 3.0
@@ -238,6 +239,9 @@ _data = {
 "move_up": SubResource("Animation_30jje")
 }
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ivaog"]
+light_mode = 1
+
 [sub_resource type="Animation" id="Animation_hk3pe"]
 length = 0.001
 tracks/0/type = "value"
@@ -354,10 +358,17 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_6okok"]
+radius = 215.188
+
 [node name="Player" instance=ExtResource("1")]
 collision_layer = 2
 collision_mask = 21
 script = ExtResource("4")
+accerelation = null
+max_speed = null
+flying = null
+can_be_knocked_back = null
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("5")
@@ -403,6 +414,7 @@ script = ExtResource("9_es44d")
 [node name="FlashSprite" type="Sprite2D" parent="Camera2D" index="0"]
 modulate = Color(1, 1, 1, 0)
 z_index = 10
+material = SubResource("CanvasItemMaterial_ivaog")
 scale = Vector2(134.552, 184.996)
 texture = ExtResource("10_w3xli")
 
@@ -556,7 +568,18 @@ texture = ExtResource("15_41qtp")
 texture_scale = 0.5
 height = 16.0
 
-[node name="Timers" type="Node" parent="." index="13"]
+[node name="AutoAimArea" type="Area2D" parent="." index="13"]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("28_r7ct4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AutoAimArea" index="0"]
+shape = SubResource("CircleShape2D_6okok")
+
+[node name="SetCloserEnemyTimer" type="Timer" parent="AutoAimArea" index="1"]
+wait_time = 0.3
+
+[node name="Timers" type="Node" parent="." index="14"]
 
 [node name="ArmorEffectTimer" type="Timer" parent="Timers" index="0"]
 one_shot = true

@@ -4,6 +4,14 @@ const SETTINGS_PATH: String = "user://settings.cfg"
 
 var settings: ConfigFile = null
 
+var screen_flashes: bool:
+	get:
+		return settings.get_value("Accessibility", "screen_flashes", true)
+var auto_aim: bool:
+	get:
+		return settings.get_value("Accessibility", "auto_aim", false)
+signal auto_aim_changed(new_value: bool)
+
 var MAPPEABLE_ACTIONS: PackedStringArray = PackedStringArray(["ui_attack", "ui_previous_weapon", "ui_next_weapon", "ui_throw", "ui_active_ability", "ui_armor_ability", "ui_pause", "ui_minimap"])
 
 @onready var tab_container: TabContainer = $TabContainer
@@ -122,3 +130,8 @@ func _load_settings() -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), settings.get_value("Audio", "master_volume", 0))
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), settings.get_value("Audio", "music_volume", 0))
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sounds"), settings.get_value("Audio", "sounds_volume", 0))
+
+
+func set_auto_aim(new_value: bool) -> void:
+	settings.set_value("Accessibility", "auto_aim", new_value)
+	auto_aim_changed.emit(new_value)
