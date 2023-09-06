@@ -58,7 +58,7 @@ class MagicShieldNode extends StaticBody2D:
 
 		life_component = LifeComponent.new()
 		life_component.name = "LifeComponent"
-		life_component.max_hp = 2
+		life_component.max_hp = 3
 		#life_component.hp = 2
 
 		life_component.hp_changed.connect(func(new_hp: int): hp_changed.emit(new_hp))
