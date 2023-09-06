@@ -6,11 +6,15 @@ var enemies_inside: Array[Enemy] = []
 
 @onready var player: Player = owner
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var set_closer_enemy_timer: Timer = $SetCloserEnemyTimer
 
 func _ready() -> void:
 	body_entered.connect(_on_enemy_entered)
 	body_exited.connect(_on_enemy_exited)
-	$SetCloserEnemyTimer.timeout.connect(_update_closer_enemy)
+	set_closer_enemy_timer.timeout.connect(_update_closer_enemy)
+
+	Settings.auto_aim_changed.connect(_on_auto_aim_changed)
+	_on_auto_aim_changed(Settings.auto_aim)
 
 
 func get_direction() -> Vector2:
@@ -26,6 +30,23 @@ func _update_closer_enemy() -> void:
 		if distance_to_other_enemy < distance_to_closer_enemy:
 			distance_to_closer_enemy = distance_to_other_enemy
 			closer_enemy = enemy
+
+
+func _on_auto_aim_changed(new_value: bool) -> void:
+	if new_value:
+		_enable()
+	else:
+		_disable()
+
+
+func _enable() -> void:
+	set_closer_enemy_timer.start()
+	collision_shape.set_deferred("disabled", false)
+
+
+func _disable() -> void:
+	set_closer_enemy_timer.stop()
+	collision_shape.set_deferred("disabled", true)
 
 
 func _on_enemy_entered(enemy: Enemy) -> void:
