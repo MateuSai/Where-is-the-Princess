@@ -16,13 +16,15 @@ var used_dialogue_texts: PackedStringArray = []
 @onready var interact_area: InteractArea = $InteractArea
 
 func _ready() -> void:
-	interact_area.player_interacted.connect(func():
-		if dialogue_box == null:
-			start_dialogue()
-		else:
-			if dialogue_tween == null:
-				dialogue_box.show_all_text()
-	)
+	interact_area.player_interacted.connect(_on_player_interacted)
+
+
+func _on_player_interacted() -> void:
+	if dialogue_box == null:
+		start_dialogue()
+	else:
+		if dialogue_tween == null:
+			dialogue_box.show_all_text()
 
 
 func start_dialogue() -> void:

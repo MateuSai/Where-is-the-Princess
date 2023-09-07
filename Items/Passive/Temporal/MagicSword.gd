@@ -7,7 +7,7 @@ var magic_sword_node: MagicSwordNode
 
 
 func get_icon() -> Texture:
-	return load("res://Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/weapon_sword_1.png")
+	return load("res://Art/items/orbital sword.png")
 
 
 func equip(player: Player) -> void:
@@ -49,7 +49,7 @@ class MagicSwordNode extends WeaponHitbox:
 		)
 
 		sprite = Sprite2D.new()
-		sprite.texture = load("res://Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/weapon_sword_1.png")
+		sprite.texture = load("res://Art/items/orbital sword.png")
 		add_child(sprite)
 		sprite.rotation += 3*PI/4
 		sprite.position.y += 10
@@ -57,7 +57,7 @@ class MagicSwordNode extends WeaponHitbox:
 		var col: CollisionShape2D = CollisionShape2D.new()
 		col.name = "CollisionShape2D"
 		var shape: RectangleShape2D = RectangleShape2D.new()
-		shape.size = Vector2(5, 14)
+		shape.size = Vector2(5, 18)
 		col.shape = shape
 		add_child(col)
 		col.position.y += 10

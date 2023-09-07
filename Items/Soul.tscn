@@ -1,7 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://13du3vo5int6"]
+[gd_scene load_steps=16 format=3 uid="uid://13du3vo5int6"]
 
 [ext_resource type="Script" path="res://Items/Soul.gd" id="1_lnn2q"]
 [ext_resource type="Texture2D" uid="uid://c0aq1e34c7cv2" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small soul anim.png" id="2_cu8un"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rqd3x"]
+light_mode = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5mwr6"]
 atlas = ExtResource("2_cu8un")
@@ -91,6 +94,7 @@ collision_mask = 2
 script = ExtResource("1_lnn2q")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_rqd3x")
 position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_uirnp")
 autoplay = "default"

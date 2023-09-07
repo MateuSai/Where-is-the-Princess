@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dmkpf10kcpx68"]
+[gd_scene load_steps=6 format=3 uid="uid://dmkpf10kcpx68"]
 
 [ext_resource type="Script" path="res://ui/dialogue_system/dialogue_box.gd" id="1_5s4ck"]
 [ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="2_slhcg"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8q7tn"]
+light_mode = 1
 
 [sub_resource type="Gradient" id="Gradient_5w8sc"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
@@ -11,16 +14,20 @@ gradient = SubResource("Gradient_5w8sc")
 
 [node name="DialogueBox" type="MarginContainer"]
 z_index = 1
+material = SubResource("CanvasItemMaterial_8q7tn")
 custom_minimum_size = Vector2(82, 0)
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_5s4ck")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
+use_parent_material = true
 layout_mode = 2
+mouse_filter = 0
 texture = SubResource("GradientTexture1D_3ll0u")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+use_parent_material = true
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
@@ -28,7 +35,9 @@ theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer"]
+use_parent_material = true
 layout_mode = 2
+mouse_filter = 2
 theme_override_fonts/normal_font = ExtResource("2_slhcg")
 theme_override_font_sizes/normal_font_size = 10
 bbcode_enabled = true
