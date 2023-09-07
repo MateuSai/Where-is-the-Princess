@@ -7,7 +7,7 @@ var magic_sword_node: MagicSwordNode
 
 
 func get_icon() -> Texture:
-	return load("res://Art/items/orbital sword.png")
+	return load("res://Art/items/orbital_sword_icon.png")
 
 
 func equip(player: Player) -> void:

@@ -6,7 +6,7 @@ var magic_shield_node: MagicShieldNode
 
 
 func get_icon() -> Texture:
-	return load("res://Art/items/ShieldAnimation.tres")
+	return load("res://Art/items/shield_icon.png")
 
 
 #func _init() -> void:
