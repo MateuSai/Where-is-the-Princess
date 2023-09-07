@@ -28,6 +28,7 @@ var used_entries: Array[Node] = []
 signal player_entered()
 signal closed()
 signal cleared()
+signal last_enemy_died(enemy: Enemy)
 
 @onready var tilemap: TileMap = get_node("TileMap")
 @onready var black_tilemap: TileMap = get_node("BlackTileMap")
@@ -214,9 +215,10 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 		door.player_entered_room.connect(_on_player_entered_room)
 
 
-func _on_enemy_killed() -> void:
+func _on_enemy_killed(enemy: Enemy) -> void:
 	num_enemies -= 1
 	if num_enemies == 0:
+		last_enemy_died.emit(enemy)
 		await get_tree().process_frame
 		cleared.emit()
 		Globals.room_cleared.emit()

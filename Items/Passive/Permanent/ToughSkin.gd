@@ -14,4 +14,4 @@ func unequip(player: Player) -> void:
 
 
 func get_icon() -> Texture:
-	return load("res://Art/obstacles and dangers/saw.png")
+	return load("res://Art/items/stone_skin.png")

@@ -19,7 +19,9 @@ const SOUL_SCENE: PackedScene = preload("res://Items/Soul.tscn")
 func _ready() -> void:
 	super()
 
-	life_component.died.connect(Callable(get_parent(), "_on_enemy_killed"))
+	life_component.died.connect(func():
+		get_parent()._on_enemy_killed(self)
+	)
 
 	parallize_timer.timeout.connect(func():
 		#can_move = true

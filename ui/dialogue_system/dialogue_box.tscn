@@ -21,12 +21,14 @@ offset_bottom = 40.0
 script = ExtResource("1_5s4ck")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
+modulate = Color(1, 1, 1, 0.780392)
 use_parent_material = true
 layout_mode = 2
 mouse_filter = 0
 texture = SubResource("GradientTexture1D_3ll0u")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+modulate = Color(1, 1, 1, 0.780392)
 use_parent_material = true
 layout_mode = 2
 theme_override_constants/margin_left = 4
