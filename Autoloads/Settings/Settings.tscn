@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bnr0w37wgidyn"]
+[gd_scene load_steps=11 format=3 uid="uid://bnr0w37wgidyn"]
 
 [ext_resource type="Script" path="res://Autoloads/Settings/Settings.gd" id="1_4y760"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="2_fjhtw"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Autoloads/Settings/FullScreenCheckBox.gd" id="4_wsnjl"]
 [ext_resource type="Script" path="res://Autoloads/Settings/VolumeSlider.gd" id="5_7s8v8"]
 [ext_resource type="Script" path="res://Autoloads/Settings/Input.gd" id="5_nnjus"]
+[ext_resource type="Script" path="res://Autoloads/Settings/FPSHSlider.gd" id="5_p1umr"]
 [ext_resource type="Script" path="res://Autoloads/Settings/ScreenFlashesCheckBox.gd" id="7_twuuk"]
 [ext_resource type="Script" path="res://Autoloads/Settings/AutoAimCheckBox.gd" id="8_vwxws"]
 
@@ -25,8 +26,6 @@ script = ExtResource("1_4y760")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 300.0
-offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_fjhtw")
@@ -65,6 +64,26 @@ layout_mode = 2
 size_flags_horizontal = 10
 button_pressed = true
 script = ExtResource("4_wsnjl")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/GENERAL/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "FPS"
+
+[node name="FPSLabel" type="Label" parent="TabContainer/GENERAL/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "60"
+
+[node name="FPSHSlider" type="HSlider" parent="TabContainer/GENERAL/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+min_value = 1.0
+max_value = 60.0
+value = 20.0
+script = ExtResource("5_p1umr")
 
 [node name="INPUT" type="ScrollContainer" parent="TabContainer"]
 visible = false

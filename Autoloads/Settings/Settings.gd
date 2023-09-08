@@ -49,6 +49,7 @@ func _ready() -> void:
 func _save_settings() -> void:
 	settings.set_value("General", "language", TranslationServer.get_locale())
 	settings.set_value("General", "window_mode", DisplayServer.window_get_mode())
+	settings.set_value("General", "fps", Engine.max_fps)
 
 	for action in MAPPEABLE_ACTIONS:
 		var saved_keys: Dictionary = {}
@@ -100,6 +101,7 @@ func _load_settings() -> void:
 		else:
 			TranslationServer.set_locale("en")
 	DisplayServer.window_set_mode(settings.get_value("General", "window_mode", DisplayServer.WINDOW_MODE_WINDOWED))
+	Engine.max_fps = settings.get_value("General", "fps", 60)
 
 	for action in MAPPEABLE_ACTIONS:
 		var saved_keys: Dictionary = settings.get_value("Input", action, {})
