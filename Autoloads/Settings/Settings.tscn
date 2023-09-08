@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://bnr0w37wgidyn"]
+[gd_scene load_steps=12 format=3 uid="uid://bnr0w37wgidyn"]
 
 [ext_resource type="Script" path="res://Autoloads/Settings/Settings.gd" id="1_4y760"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="2_fjhtw"]
 [ext_resource type="Script" path="res://Autoloads/Settings/LanguageDropdown.gd" id="3_8fg1t"]
 [ext_resource type="Script" path="res://Autoloads/Settings/FullScreenCheckBox.gd" id="4_wsnjl"]
+[ext_resource type="Script" path="res://Autoloads/Settings/VSyncOptionButton.gd" id="5_1yr2a"]
 [ext_resource type="Script" path="res://Autoloads/Settings/VolumeSlider.gd" id="5_7s8v8"]
 [ext_resource type="Script" path="res://Autoloads/Settings/Input.gd" id="5_nnjus"]
 [ext_resource type="Script" path="res://Autoloads/Settings/FPSHSlider.gd" id="5_p1umr"]
@@ -65,19 +66,31 @@ size_flags_horizontal = 10
 button_pressed = true
 script = ExtResource("4_wsnjl")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/VBoxContainer"]
+[node name="VSyncHBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TabContainer/GENERAL/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="TabContainer/GENERAL/VBoxContainer/VSyncHBoxContainer"]
+layout_mode = 2
+text = "VSYNC"
+
+[node name="VSyncOptionButton" type="OptionButton" parent="TabContainer/GENERAL/VBoxContainer/VSyncHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+script = ExtResource("5_1yr2a")
+
+[node name="FPSHBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/GENERAL/VBoxContainer/FPSHBoxContainer"]
 layout_mode = 2
 text = "FPS"
 
-[node name="FPSLabel" type="Label" parent="TabContainer/GENERAL/VBoxContainer/HBoxContainer"]
+[node name="FPSLabel" type="Label" parent="TabContainer/GENERAL/VBoxContainer/FPSHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "60"
 
-[node name="FPSHSlider" type="HSlider" parent="TabContainer/GENERAL/VBoxContainer/HBoxContainer"]
+[node name="FPSHSlider" type="HSlider" parent="TabContainer/GENERAL/VBoxContainer/FPSHBoxContainer"]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 min_value = 1.0

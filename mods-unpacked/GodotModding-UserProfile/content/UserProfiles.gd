@@ -16,7 +16,7 @@ class_name UserProfilesPopup
 # I can't put a material on the PopupPanel, so I'm using the material of his panel.
 # It seems it always have the same name, you can check it on the remote tab
 # and change it if it's different on your case
-@onready var panel: Panel = $"@Panel@10"
+@onready var panel: Panel = $"@Panel@16"
 @onready var label_select_profile: Label = $"%LabelSelectProfile"
 @onready var user_profile_sections: VBoxContainer = $"%UserProfileSections"
 @onready var profile_select: OptionButton = $"%ProfileSelect"

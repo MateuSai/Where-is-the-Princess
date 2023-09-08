@@ -49,6 +49,7 @@ func _ready() -> void:
 func _save_settings() -> void:
 	settings.set_value("General", "language", TranslationServer.get_locale())
 	settings.set_value("General", "window_mode", DisplayServer.window_get_mode())
+	settings.set_value("General", "vsync_mode", DisplayServer.window_get_vsync_mode())
 	settings.set_value("General", "fps", Engine.max_fps)
 
 	for action in MAPPEABLE_ACTIONS:
@@ -101,6 +102,7 @@ func _load_settings() -> void:
 		else:
 			TranslationServer.set_locale("en")
 	DisplayServer.window_set_mode(settings.get_value("General", "window_mode", DisplayServer.WINDOW_MODE_WINDOWED))
+	DisplayServer.window_set_vsync_mode(settings.get_value("General", "vsync_mode", DisplayServer.VSYNC_ADAPTIVE))
 	Engine.max_fps = settings.get_value("General", "fps", 60)
 
 	for action in MAPPEABLE_ACTIONS:
