@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://baci7qoshjhcr"]
+[gd_scene load_steps=9 format=3 uid="uid://baci7qoshjhcr"]
 
 [ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/Projectile.tscn" id="1_mt4di"]
 [ext_resource type="Texture2D" uid="uid://cqe0oeftfjiq6" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/Kombat Hammer Directional Quake.png" id="2_0gqev"]
+[ext_resource type="Script" path="res://Weapons/Melee/KombatHammer/KombatHammerQuake.gd" id="2_etvkn"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_khato"]
 light_mode = 1
@@ -111,7 +112,9 @@ _data = {
 
 [node name="KombatHammerQuake" instance=ExtResource("1_mt4di")]
 collision_layer = 0
-collision_mask = 5
+collision_mask = 21
+script = ExtResource("2_etvkn")
+damage = 6
 
 [node name="Sprite2D" parent="." index="0"]
 material = SubResource("CanvasItemMaterial_khato")

@@ -258,7 +258,6 @@ position = Vector2(174, 89)
 
 [node name="Katana" parent="." instance=ExtResource("12_trlvh")]
 position = Vector2(154, 116)
-increase_num_normal_attacks_on_ability = true
 on_floor = true
 
 [node name="DragonKiller" parent="." instance=ExtResource("16_885t0")]
