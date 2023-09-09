@@ -14,7 +14,7 @@ config/name="Godot4RoguelikeProject"
 run/main_scene="res://splash_screen/splash_screen_manager.tscn"
 config/features=PackedStringArray("4.1")
 boot_splash/image="res://wekufu logo screen.png"
-config/icon="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/chest_closed_anim_f0.png"
+config/icon="res://Art/warrior.png"
 
 [autoload]
 
