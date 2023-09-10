@@ -365,10 +365,6 @@ radius = 215.188
 collision_layer = 2
 collision_mask = 21
 script = ExtResource("4")
-accerelation = null
-max_speed = null
-flying = null
-can_be_knocked_back = null
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("5")
@@ -574,6 +570,7 @@ collision_mask = 4
 script = ExtResource("28_r7ct4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AutoAimArea" index="0"]
+visible = false
 shape = SubResource("CircleShape2D_6okok")
 
 [node name="SetCloserEnemyTimer" type="Timer" parent="AutoAimArea" index="1"]
