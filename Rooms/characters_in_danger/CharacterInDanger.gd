@@ -1,6 +1,6 @@
 class_name CharacterInDanger extends Node2D
 
-@export var dialogues_asking_for_help: PackedStringArray = ["HELP ME!", "Help, these creatures want to eat me"]
+@export var dialogues_asking_for_help: PackedStringArray = ["HELP ME!", "Help, these creatures want to eat me", "The coolest asset pack out there"]
 @export var dialogues_after_saving: PackedStringArray = ["Thanks", "I was about to get free by myself, but thanks anyway", "I'm free, hahahaah. Now I can continue with my reptilian genocide"]
 
 var room_cleared: bool = false
