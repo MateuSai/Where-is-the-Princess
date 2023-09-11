@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=44 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="1_0pcgl"]
 [ext_resource type="Script" path="res://BaseCamp.gd" id="1_tpf7m"]
@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://bstxqguqfmjnj" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/hut.tres" id="25_k3d6e"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/Forest/TikiTorch.tscn" id="26_61yb5"]
 [ext_resource type="PackedScene" uid="uid://ctt3utwk3p586" path="res://Weapons/Melee/KombatHammer/KombatHammer.tscn" id="26_b0hvw"]
+[ext_resource type="PackedScene" uid="uid://cs8527eyei1sa" path="res://Weapons/Melee/WarHammer/WarHammer.tscn" id="28_loeac"]
 
 [sub_resource type="Gradient" id="Gradient_nhg8o"]
 offsets = PackedFloat32Array(0, 0.784849)
@@ -354,4 +355,8 @@ position = Vector2(-59, 187)
 
 [node name="KombatHammer" parent="." instance=ExtResource("26_b0hvw")]
 position = Vector2(216, 231)
+on_floor = true
+
+[node name="WarHammer" parent="." instance=ExtResource("28_loeac")]
+position = Vector2(-122, 172)
 on_floor = true
