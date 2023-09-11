@@ -6,6 +6,7 @@ class_name Weapon extends Node2D
 enum Type {
 	SPEAR,
 	SWORD,
+	HAMMER,
 }
 @export var type: Type
 @export var weapon_name: String = ""
