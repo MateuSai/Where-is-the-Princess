@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=44 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="1_0pcgl"]
 [ext_resource type="Script" path="res://BaseCamp.gd" id="1_tpf7m"]
@@ -27,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/Forest/TikiTorch.tscn" id="26_61yb5"]
 [ext_resource type="PackedScene" uid="uid://ctt3utwk3p586" path="res://Weapons/Melee/KombatHammer/KombatHammer.tscn" id="26_b0hvw"]
 [ext_resource type="PackedScene" uid="uid://cs8527eyei1sa" path="res://Weapons/Melee/WarHammer/WarHammer.tscn" id="28_loeac"]
+[ext_resource type="PackedScene" uid="uid://bj8qo4b41vtbu" path="res://Weapons/Melee/SharpAxe/SharpAxe.tscn" id="28_qb8lk"]
 
 [sub_resource type="Gradient" id="Gradient_nhg8o"]
 offsets = PackedFloat32Array(0, 0.784849)
@@ -364,4 +365,8 @@ on_floor = true
 
 [node name="WarHammer" parent="." instance=ExtResource("28_loeac")]
 position = Vector2(-122, 172)
+on_floor = true
+
+[node name="SharpAxe" parent="." instance=ExtResource("28_qb8lk")]
+position = Vector2(-46, 149)
 on_floor = true

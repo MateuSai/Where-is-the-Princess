@@ -1,0 +1,81 @@
+[gd_scene load_steps=9 format=3 uid="uid://bijrhew8a3gho"]
+
+[ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/Projectile.tscn" id="1_lu580"]
+[ext_resource type="Texture2D" uid="uid://d3k4s1b7yqp1y" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/Sharp axe multi directional edges.png" id="2_2x7vp"]
+[ext_resource type="Script" path="res://Weapons/Melee/SharpAxe/SharpAxeProjectile.gd" id="2_m2r3q"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_qt2fp"]
+light_mode = 1
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7gnic"]
+
+[sub_resource type="Animation" id="Animation_57lp4"]
+resource_name = "effect"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_irtkp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fgfvh"]
+_data = {
+"RESET": SubResource("Animation_irtkp"),
+"effect": SubResource("Animation_57lp4")
+}
+
+[node name="SharpAxeProjectile" instance=ExtResource("1_lu580")]
+collision_mask = 5
+script = ExtResource("2_m2r3q")
+
+[node name="Sprite2D" parent="." index="0"]
+material = SubResource("CanvasItemMaterial_qt2fp")
+texture = ExtResource("2_2x7vp")
+hframes = 7
+vframes = 2
+
+[node name="CollisionShape2D" parent="." index="1"]
+rotation = 0.0
+shape = SubResource("CapsuleShape2D_7gnic")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+autoplay = "effect"
+libraries = {
+"": SubResource("AnimationLibrary_fgfvh")
+}
