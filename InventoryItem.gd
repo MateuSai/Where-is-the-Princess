@@ -1,10 +1,9 @@
-extends Control
+extends MarginContainer
 
 var weapon: Weapon
 
-@onready var border: ReferenceRect = get_node("ReferenceRect")
-@onready var texture_rect: TextureRect = get_node("TextureRect")
-@onready var condition_bar: TextureProgressBar = get_node("TextureProgressBar")
+@onready var texture_rect: TextureRect = $Background/VBoxContainer/TextureRect
+@onready var condition_bar: TextureProgressBar = $Background/VBoxContainer/TextureProgressBar
 @onready var status_container: HBoxContainer = get_node("StatusContainer")
 
 
@@ -13,6 +12,7 @@ func initialize(weapon: Weapon) -> void:
 	self.weapon = weapon
 	texture_rect.texture = weapon.get_texture()
 	condition_bar.value = weapon.stats.condition
+	update_condition(weapon.stats.condition)
 
 
 func _ready() -> void:
@@ -21,15 +21,19 @@ func _ready() -> void:
 
 
 func select() -> void:
-	border.show()
+	modulate = Color.WHITE
 
 
 func deselect() -> void:
-	border.hide()
+	modulate = Color("#767676")
 
 
 func update_condition(new_condition: float) -> void:
 	condition_bar.value = new_condition
+	if new_condition > 50:
+		condition_bar.tint_progress = Color.YELLOW.lerp(Color.GREEN, (new_condition - 50) / 50)
+	else:
+		condition_bar.tint_progress = Color.RED.lerp(Color.YELLOW, new_condition / 50)
 
 
 func add_status_icon(status: StatusComponent.Status) -> void:
