@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bxq6cw3nlbclo"
+path="res://.godot/imported/HitGore3.wav-67c2196785b2e972fa0afe4d008f6b17.sample"
+
+[deps]
+
+source_file="res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hit(Impact)/HitGore3.wav"
+dest_files=["res://.godot/imported/HitGore3.wav-67c2196785b2e972fa0afe4d008f6b17.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

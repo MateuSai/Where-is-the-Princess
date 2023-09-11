@@ -1,5 +1,7 @@
 class_name MeleeWeapon extends Weapon
 
+const CUT_FLESH_SOUNDS: Array[AudioStream] = [preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Sword/MetalSlash1.wav"), preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Sword/MetalSlash2.wav"), preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Sword/MetalSlash3.wav")]
+const IMPACT_FLESH_SOUNDS: Array[AudioStream] = [preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hit(Impact)/HitGore1.wav"), preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hit(Impact)/HitGore2.wav"), preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hit(Impact)/HitGore3.wav"), preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hit(Impact)/HitGore4.wav")]
 
 ## This variable indicates wheter the number of normal attacks. They will be used on order. If it has value 2 but only has one attack animation, for the second attack it will use the first animation but backwards, this is used on the Katana for example
 @export var num_normal_attacks: int = 1
@@ -43,6 +45,20 @@ func _physics_process(delta: float) -> void:
 func _on_collided_with_something(col_mat: Hitbox.CollisionMaterial = Hitbox.CollisionMaterial.FLESH) -> void:
 	# Double degrade amount if we collide with stone
 	stats.set_condition(stats.condition - round(condition_degrade_by_attack * (col_mat+1)))
+	match col_mat:
+		Hitbox.CollisionMaterial.FLESH:
+			var audio: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
+			audio.bus = "Sounds"
+			audio.position = global_position
+			audio.volume_db = -8
+			match type:
+				Type.HAMMER:
+					audio.stream = IMPACT_FLESH_SOUNDS[randi() % IMPACT_FLESH_SOUNDS.size()]
+				_:
+					audio.stream = CUT_FLESH_SOUNDS[randi() % CUT_FLESH_SOUNDS.size()]
+			get_tree().current_scene.add_child(audio)
+			audio.finished.connect(audio.queue_free)
+			audio.play()
 
 
 func _pick_up() -> void:
