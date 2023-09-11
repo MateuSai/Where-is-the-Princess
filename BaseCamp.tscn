@@ -22,11 +22,11 @@
 [ext_resource type="PackedScene" uid="uid://cw7q01ncaqimn" path="res://Weapons/Melee/WarriorSword/WarriorSword.tscn" id="21_lb8k2"]
 [ext_resource type="PackedScene" uid="uid://cs3cwiuyg1834" path="res://Weapons/Melee/Scimitar/Scimitar.tscn" id="22_ovxvs"]
 [ext_resource type="PackedScene" uid="uid://4g8k6f3qb1w2" path="res://Weapons/Melee/WarAxe/WarAxe.tscn" id="23_7aqvg"]
-[ext_resource type="PackedScene" uid="uid://xgy1tccjil1u" path="res://Rooms/BaseCampShop.tscn" id="23_r1ex0"]
 [ext_resource type="PackedScene" uid="uid://bekcqxfxkfcf5" path="res://ui/DebugUI.tscn" id="24_cou32"]
-[ext_resource type="Texture2D" uid="uid://bstxqguqfmjnj" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/hut.tres" id="25_k3d6e"]
+[ext_resource type="PackedScene" uid="uid://bjdf1fgpfe4v0" path="res://WizardHut.tscn" id="25_mnnam"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/Forest/TikiTorch.tscn" id="26_61yb5"]
 [ext_resource type="PackedScene" uid="uid://ctt3utwk3p586" path="res://Weapons/Melee/KombatHammer/KombatHammer.tscn" id="26_b0hvw"]
+[ext_resource type="PackedScene" uid="uid://cs8527eyei1sa" path="res://Weapons/Melee/WarHammer/WarHammer.tscn" id="28_loeac"]
 
 [sub_resource type="Gradient" id="Gradient_nhg8o"]
 offsets = PackedFloat32Array(0, 0.784849)
@@ -334,17 +334,13 @@ on_floor = true
 position = Vector2(176, 230)
 on_floor = true
 
-[node name="BaseCampShop" parent="." instance=ExtResource("23_r1ex0")]
-position = Vector2(44, -66)
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="DebugUI" parent="CanvasLayer" instance=ExtResource("24_cou32")]
 process_mode = 3
 
-[node name="Hut" type="Sprite2D" parent="."]
-position = Vector2(-132, 107)
-texture = ExtResource("25_k3d6e")
+[node name="Hut" parent="." instance=ExtResource("25_mnnam")]
+position = Vector2(-111, 131)
 
 [node name="TikiTorch" parent="." instance=ExtResource("26_61yb5")]
 position = Vector2(-196, 156)
@@ -354,4 +350,8 @@ position = Vector2(-59, 187)
 
 [node name="KombatHammer" parent="." instance=ExtResource("26_b0hvw")]
 position = Vector2(216, 231)
+on_floor = true
+
+[node name="WarHammer" parent="." instance=ExtResource("28_loeac")]
+position = Vector2(-122, 172)
 on_floor = true

@@ -14,20 +14,20 @@ func _ready() -> void:
 		match marker.item_type:
 			ShopItemMarker.Type.TEMPORAL_ITEM:
 				if item_paths.is_empty():
-					_create_and_add_out_of_stock_shop_item(marker.global_position)
+					_create_and_add_out_of_stock_shop_item(marker.position)
 				else:
 					var random_item_path: String = item_paths[randi() % item_paths.size()]
-					_create_and_add_shop_item(marker.global_position).initialize(load(random_item_path).new())
+					_create_and_add_shop_item(marker.position).initialize(load(random_item_path).new())
 					item_paths.remove_at(item_paths.find(random_item_path))
 			ShopItemMarker.Type.WEAPON:
 				if weapon_paths.is_empty():
-					_create_and_add_out_of_stock_shop_item(marker.global_position)
+					_create_and_add_out_of_stock_shop_item(marker.position)
 				else:
 					var random_weapon_path: String = weapon_paths[randi() % weapon_paths.size()]
 					var weapon: Weapon = load(random_weapon_path).instantiate()
 					var weapon_item: WeaponItem = WeaponItem.new()
 					weapon_item.initialize(weapon)
-					_create_and_add_shop_item(marker.global_position).initialize(weapon_item)
+					_create_and_add_shop_item(marker.position).initialize(weapon_item)
 					weapon_paths.remove_at(weapon_paths.find(random_weapon_path))
 
 

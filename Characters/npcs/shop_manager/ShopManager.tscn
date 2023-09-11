@@ -40,6 +40,7 @@ radius = 3.0
 [node name="ShopManager" instance=ExtResource("1_v0mjj")]
 
 [node name="AnimatedSprite" parent="." index="0"]
+position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_ba25l")
 autoplay = "default"
 frame_progress = 0.649206

@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://cs8527eyei1sa"]
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_lbdjx"]
-[ext_resource type="Script" path="res://Weapons/Melee/KombatHammer/KombatHammer.gd" id="2_a5n8x"]
+[ext_resource type="Script" path="res://Weapons/Melee/WarHammer/WarHammer.gd" id="2_bo016"]
 [ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="3_sv533"]
 [ext_resource type="Texture2D" uid="uid://wvokxkt7ia1t" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/war hammer.png" id="4_lgcqw"]
 
@@ -795,7 +795,7 @@ _data = {
 }
 
 [node name="WarHammer" instance=ExtResource("1_lbdjx")]
-script = ExtResource("2_a5n8x")
+script = ExtResource("2_bo016")
 num_normal_attacks = 1
 increase_num_normal_attacks_on_ability = true
 invert_scale_when_looking_left = false
@@ -828,6 +828,9 @@ position = Vector2(-4.94975, -3.94975)
 position = Vector2(-5.99998, -0.999977)
 rotation = 0.785398
 shape = SubResource("CapsuleShape2D_kbkvc")
+
+[node name="ImpactPoint" type="Marker2D" parent="Node2D/Sprite2D" index="3"]
+position = Vector2(6.00006, -16.9999)
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {
