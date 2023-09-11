@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dv23ariebhak2"
-path="res://.godot/imported/dagger.png-a51762ba3b043bb274c98a04b954d136.ctex"
+uid="uid://kkjumlveuaiw"
+path="res://.godot/imported/Small axe Big sharp.png-b17eb8d0cd2c59b3a76431e3522dba64.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/weapons/dagger.png"
-dest_files=["res://.godot/imported/dagger.png-a51762ba3b043bb274c98a04b954d136.ctex"]
+source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/Small axe Big sharp.png"
+dest_files=["res://.godot/imported/Small axe Big sharp.png-b17eb8d0cd2c59b3a76431e3522dba64.ctex"]
 
 [params]
 
