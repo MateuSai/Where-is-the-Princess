@@ -12,12 +12,16 @@ func initialize(weapon: Weapon) -> void:
 	self.weapon = weapon
 	texture_rect.texture = weapon.get_texture()
 	condition_bar.value = weapon.stats.condition
-	update_condition(weapon.stats.condition)
+	if weapon.name == "Dagger":
+		condition_bar.value = 100
+		condition_bar.tint_progress = Color.SILVER
+	else:
+		update_condition(weapon.stats.condition)
 
 
-func _ready() -> void:
-	if get_index() == 0:
-		condition_bar.queue_free()
+#func _ready() -> void:
+#	if get_index() == 0:
+#		condition_bar.queue_free()
 
 
 func select() -> void:
