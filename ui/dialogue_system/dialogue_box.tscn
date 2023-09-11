@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://ui/dialogue_system/dialogue_box.gd" id="1_5s4ck"]
 [ext_resource type="Texture2D" uid="uid://c8nuwmhxuntfu" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/dialog_panel_9-patch.png" id="2_lf0ah"]
-[ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="2_slhcg"]
+[ext_resource type="FontFile" uid="uid://b481lmjg4ktb5" path="res://Fonts/fusion-pixel/fusion-pixel-8px-proportional-latin.ttf" id="3_3632u"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8q7tn"]
 light_mode = 1
@@ -10,9 +10,9 @@ light_mode = 1
 [node name="DialogueBox" type="MarginContainer"]
 z_index = 1
 material = SubResource("CanvasItemMaterial_8q7tn")
-custom_minimum_size = Vector2(82, 0)
-offset_right = 40.0
-offset_bottom = 40.0
+custom_minimum_size = Vector2(110, 0)
+offset_right = 110.0
+offset_bottom = 12.0
 script = ExtResource("1_5s4ck")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
@@ -39,8 +39,8 @@ theme_override_constants/margin_bottom = 4
 use_parent_material = true
 layout_mode = 2
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("2_slhcg")
-theme_override_font_sizes/normal_font_size = 10
+theme_override_fonts/normal_font = ExtResource("3_3632u")
+theme_override_font_sizes/normal_font_size = 8
 bbcode_enabled = true
 fit_content = true
 

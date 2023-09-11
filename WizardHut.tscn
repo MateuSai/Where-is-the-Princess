@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjdf1fgpfe4v0"]
+
+[ext_resource type="Script" path="res://WizardHut.gd" id="1_bghx7"]
+[ext_resource type="Texture2D" uid="uid://bstxqguqfmjnj" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/hut.tres" id="1_viuse"]
+[ext_resource type="PackedScene" uid="uid://xgy1tccjil1u" path="res://Rooms/BaseCampShop.tscn" id="3_tydhg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_56m6s"]
+size = Vector2(57, 19)
+
+[node name="WizardHut" type="StaticBody2D"]
+y_sort_enabled = true
+script = ExtResource("1_bghx7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_viuse")
+offset = Vector2(0, -24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, -2)
+shape = SubResource("RectangleShape2D_56m6s")
+
+[node name="BaseCampShop" parent="." instance=ExtResource("3_tydhg")]
+position = Vector2(-54, 31)
