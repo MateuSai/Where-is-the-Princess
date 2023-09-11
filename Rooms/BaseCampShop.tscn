@@ -11,16 +11,16 @@
 [node name="Positions" type="Node2D" parent="Shop"]
 
 [node name="ShopItemMarker" type="Marker2D" parent="Shop/Positions"]
-position = Vector2(14, -14)
+position = Vector2(16, -22)
 script = ExtResource("2_dal5d")
 
 [node name="ShopItemMarker2" type="Marker2D" parent="Shop/Positions"]
-position = Vector2(28, 0)
+position = Vector2(37, 0)
 script = ExtResource("2_dal5d")
 item_type = 1
 
 [node name="ShopItemMarker3" type="Marker2D" parent="Shop/Positions"]
-position = Vector2(14, 11)
+position = Vector2(18, 21)
 script = ExtResource("2_dal5d")
 item_type = 1
 

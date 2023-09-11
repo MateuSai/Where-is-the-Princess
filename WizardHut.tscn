@@ -20,4 +20,4 @@ position = Vector2(2, -2)
 shape = SubResource("RectangleShape2D_56m6s")
 
 [node name="BaseCampShop" parent="." instance=ExtResource("3_tydhg")]
-position = Vector2(-54, 31)
+position = Vector2(-57, 39)
