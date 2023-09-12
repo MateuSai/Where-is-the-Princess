@@ -1,6 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://fe7xhxmx684d"]
+[gd_scene load_steps=7 format=3 uid="uid://fe7xhxmx684d"]
 
 [ext_resource type="Texture2D" uid="uid://kkjumlveuaiw" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/Small axe Big sharp.png" id="1_jjr0i"]
+[ext_resource type="Script" path="res://Characters/Hitbox.gd" id="1_qvsny"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y054d"]
+height = 62.0
 
 [sub_resource type="Animation" id="Animation_c1siv"]
 length = 0.001
@@ -36,7 +40,7 @@ tracks/0/keys = {
 tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".")
+tracks/1/path = NodePath("..")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -54,11 +58,20 @@ _data = {
 "effect": SubResource("Animation_ugcle")
 }
 
-[node name="SmallAxeEffect" type="Sprite2D"]
+[node name="SmallAxeEffect" type="Area2D"]
+script = ExtResource("1_qvsny")
+damage = 4
+knockback_force = 600
+
+[node name="SmallAxeEffect" type="Sprite2D" parent="."]
 texture = ExtResource("1_jjr0i")
 hframes = 7
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_y054d")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../SmallAxeEffect")
 autoplay = "effect"
 libraries = {
 "": SubResource("AnimationLibrary_ov0wf")

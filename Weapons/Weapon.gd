@@ -208,7 +208,7 @@ func can_pick_up_soul() -> bool:
 
 func _on_animation_finished(anim_name: String) -> void:
 	if anim_name.begins_with("active_ability"):
-		stats.set_condition(stats.condition - active_ability_condition_cost * 5)
+		stats.set_condition(stats.condition - active_ability_condition_cost)
 
 
 func get_info() -> String:
