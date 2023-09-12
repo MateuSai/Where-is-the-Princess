@@ -475,11 +475,17 @@ texture_progress = ExtResource("19_bc3n7")
 tint_under = Color(0.411765, 0.411765, 0.411765, 1)
 
 [node name="Inventory" type="HBoxContainer" parent="UI" index="1"]
-offset_left = 209.0
-offset_top = 213.0
-offset_right = 223.0
-offset_bottom = 227.0
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -13.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
 theme_override_constants/separation = -1
+alignment = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="UI" index="2"]
 anchors_preset = 2
