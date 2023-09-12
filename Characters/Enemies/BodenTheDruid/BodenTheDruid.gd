@@ -108,8 +108,9 @@ func _lightning_attack() -> void:
 	await lightning.tree_exiting
 
 	#if is_instance_valid(staff):
-	staff_animation_player.play("after_lightning_attack")
-	await staff_animation_player.animation_finished
+	if is_instance_valid(staff_animation_player):
+		staff_animation_player.play("after_lightning_attack")
+		await staff_animation_player.animation_finished
 	can_move = true
 
 

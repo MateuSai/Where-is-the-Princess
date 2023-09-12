@@ -11,6 +11,7 @@ enum Type {
 @export var type: Type
 @export var weapon_name: String = ""
 @export var description: String = ""
+@export var icon: Texture = null ## 16x16 weapon icon, the one that appears on the bottom of the screen
 
 @export var condition_degrade_by_attack: float = 5
 
@@ -59,6 +60,7 @@ func _ready() -> void:
 
 func _load_csv_data(data: Dictionary) -> void:
 	weapon_name = data["name"]
+	icon = load(data["icon"])
 	type = Type.values()[Type.keys().find(data["type"])]
 	if FileAccess.file_exists(data["ability_icon"]):
 		active_ability_icon = load(data["ability_icon"])
@@ -193,7 +195,7 @@ func can_active_ability() -> bool:
 
 
 func get_texture() -> Texture2D:
-	return get_node("Node2D/Sprite2D").texture
+	return icon
 
 
 func has_active_ability() -> bool:

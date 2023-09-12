@@ -1,56 +1,43 @@
-[gd_scene load_steps=4 format=3 uid="uid://l7jamfdo82o1"]
+[gd_scene load_steps=7 format=3 uid="uid://l7jamfdo82o1"]
 
 [ext_resource type="Script" path="res://InventoryItem.gd" id="2"]
-[ext_resource type="Texture2D" uid="uid://biyfmrbftutbs" path="res://Art/weapons/katana_1.png" id="2_qyr7r"]
-[ext_resource type="Texture2D" uid="uid://c535uh5i7hsc8" path="res://Art/progress bar.png" id="3_32dfv"]
+[ext_resource type="Texture2D" uid="uid://devpx70x22gpo" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/icons base.png" id="2_fedqx"]
+[ext_resource type="Texture2D" uid="uid://d0wii4pgsr82l" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/icon_frame.png" id="2_yk7hb"]
+[ext_resource type="Texture2D" uid="uid://b5hj6a0ryvuww" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weap_condition_bar_frame.png" id="3_xxadb"]
+[ext_resource type="Texture2D" uid="uid://dkyt1eqee8dmm" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weap_condition_bar_fill.png" id="4_ttt0i"]
 
-[node name="InventoryItem" type="Control"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_03pqv"]
+atlas = ExtResource("2_fedqx")
+region = Rect2(0, 0, 16, 16)
+
+[node name="InventoryItem" type="MarginContainer"]
+modulate = Color(0.462745, 0.462745, 0.462745, 1)
 texture_filter = 1
-custom_minimum_size = Vector2(16, 16)
-layout_mode = 3
-anchors_preset = 0
 offset_right = 16.0
 offset_bottom = 16.0
 script = ExtResource("2")
 
-[node name="ReferenceRect" type="ReferenceRect" parent="."]
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_yk7hb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
 layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-border_color = Color(0.45098, 0.396078, 0.396078, 1)
-border_width = 2.0
-editor_only = false
-
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.1
-anchor_top = 0.1
-anchor_right = 0.9
-anchor_bottom = 0.9
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_qyr7r")
-expand_mode = 2
-stretch_mode = 5
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
 offset_left = 2.0
-offset_top = -3.0
-offset_right = -2.0
-offset_bottom = -1.5
-grow_horizontal = 2
-grow_vertical = 0
+offset_top = 2.0
+offset_right = 18.0
+offset_bottom = 21.0
+theme_override_constants/separation = -1
+
+[node name="TextureRect" type="TextureRect" parent="Background/VBoxContainer"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_03pqv")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Background/VBoxContainer"]
+layout_mode = 2
 value = 100.0
-nine_patch_stretch = true
-texture_progress = ExtResource("3_32dfv")
+texture_under = ExtResource("3_xxadb")
+texture_progress = ExtResource("4_ttt0i")
 
 [node name="StatusContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-offset_right = 4.0
-offset_bottom = 4.0
+layout_mode = 2

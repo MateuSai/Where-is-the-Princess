@@ -9,7 +9,7 @@ const INVENTORY_ITEM_SCENE: PackedScene = preload("res://InventoryItem.tscn")
 @onready var player_life_component: LifeComponent = get_node("../LifeComponent")
 
 @onready var hearts: Hearts = $MarginContainer/ArmorConditionBar/Hearts
-@onready var inventory: HBoxContainer = get_node("PanelContainer/Inventory")
+@onready var inventory: HBoxContainer = get_node("Inventory")
 
 
 func _ready() -> void:
