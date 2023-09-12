@@ -2,7 +2,7 @@ extends Armor
 
 
 func _init() -> void:
-	initialize("MERCENARY", "", load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armor_02.png"), 10, load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_mercenary_icon.png"), 15, 5)
+	initialize("MERCENARY", "MERCENARY_ARMOR_DESCRIPTION", load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armor_02.png"), 10, load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_mercenary_icon.png"), 15, 5)
 
 
 func enable_ability_effect(player: Player) -> void:

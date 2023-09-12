@@ -264,7 +264,7 @@ radius = 4.0
 [node name="FlyingCreature" instance=ExtResource("1")]
 texture_filter = 0
 script = ExtResource("6")
-souls = 1
+is_boss = false
 accerelation = 20
 max_speed = 50
 flying = true
