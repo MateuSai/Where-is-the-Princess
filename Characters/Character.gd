@@ -17,6 +17,7 @@ var damage_multiplier: int = 1
 
 var can_move: bool = true
 
+@export var mass: float = 1
 @export var accerelation: int = 10
 @export var max_speed: int = 100
 
@@ -69,11 +70,11 @@ func _on_damage_taken(_dam: int, dir: Vector2, force: int) -> void:
 #		if hp > 0:
 			#state_machine.set_state(state_machine.states.hurt)
 	if can_be_knocked_back:
-		velocity += dir * force
+		velocity += dir * force / (mass / 3)
 	if life_component.hp == 0:
 		state_machine.set_state(state_machine.states.dead)
 		if can_be_knocked_back:
-			velocity += dir * force
+			velocity += dir * force / (mass / 3)
 
 
 #func set_hp(new_hp: int) -> void:

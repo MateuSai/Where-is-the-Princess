@@ -80,7 +80,8 @@ _data = {
 
 [node name="SpiderEgg" instance=ExtResource("1_u8gmx")]
 script = ExtResource("2_t1q62")
-souls = 1
+is_boss = false
+mass = 3.0
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("2_kp3rr")
@@ -99,7 +100,7 @@ libraries = {
 "": SubResource("AnimationLibrary_3ymel")
 }
 
-[node name="LifeComponent" parent="." index="6"]
+[node name="LifeComponent" parent="." index="5"]
 hp = 1
 max_hp = 1
 

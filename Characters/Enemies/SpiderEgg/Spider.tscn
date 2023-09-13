@@ -195,6 +195,7 @@ radius = 4.0
 [node name="Spider" instance=ExtResource("1_bow3n")]
 script = ExtResource("2_ftttc")
 is_boss = false
+mass = 0.5
 max_speed = 80
 
 [node name="FiniteStateMachine" parent="." index="0"]
