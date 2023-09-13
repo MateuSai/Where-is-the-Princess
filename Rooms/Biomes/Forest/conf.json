@@ -18,7 +18,9 @@
 			"num_combat_rooms": 1,
 			"num_special_rooms": 0,
 
-			"override_combat_rooms": ["res://Rooms/Biomes/Dungeon/Combat/Room1.tscn"],
+			"overwrite_combat_rooms": ["res://Rooms/Biomes/Dungeon/Combat/Room1.tscn"],
+
+			"overwrite_connections": [[0, 1], [1, 2]]
 		}
 	},
 }

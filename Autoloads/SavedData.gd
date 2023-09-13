@@ -156,12 +156,12 @@ func get_num_rooms(type: String) -> int:
 		return biome_conf["default_num_" + type + "_rooms"]
 
 
-## This function assumes all the names you put on the override conf array are correct. If you you put some room names that don't exist, the game will crash
-func get_override_room_names(type: String) -> Array:
+## This function assumes all the names you put on the overwrite conf array are correct. If you you put some room names that don't exist, the game will crash
+func get_overwrite_room_names(type: String) -> Array:
 	var room_names: Array = []
 
-	if biome_conf.has("levels") and biome_conf.levels.has(str(run_stats.level)) and biome_conf.levels[str(run_stats.level)].has("override_" + type + "_rooms"):
-		room_names = biome_conf.levels[str(run_stats.level)]["override_" + type + "_rooms"]
+	if biome_conf.has("levels") and biome_conf.levels.has(str(run_stats.level)) and biome_conf.levels[str(run_stats.level)].has("overwrite" + type + "_rooms"):
+		room_names = biome_conf.levels[str(run_stats.level)]["overwrite" + type + "_rooms"]
 		#print(room_names)
 #		room_names = room_names.map(func(room_name: String) -> String:
 #			return room_name + ".tscn"
@@ -169,6 +169,15 @@ func get_override_room_names(type: String) -> Array:
 		#print(room_names)
 
 	return room_names
+
+
+func get_overwrite_connections() -> Array:
+	var connections: Array = []
+
+	if biome_conf.has("levels") and biome_conf.levels.has(str(run_stats.level)) and biome_conf.levels[str(run_stats.level)].has("overwrite_connections"):
+		connections = biome_conf.levels[str(run_stats.level)]["overwrite_connections"]
+
+	return connections
 
 
 func get_ignored_rooms() -> PackedStringArray:

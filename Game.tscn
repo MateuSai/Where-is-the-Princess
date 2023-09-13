@@ -48,7 +48,6 @@ shader_parameter/color = Color(0, 0, 0, 1)
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("3")
-debug = false
 
 [node name="Rooms" type="Node2D" parent="."]
 y_sort_enabled = true

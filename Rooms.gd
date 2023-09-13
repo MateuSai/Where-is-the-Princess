@@ -117,9 +117,9 @@ func _physics_process(delta: float) -> void:
 func _get_rooms(type: String) -> PackedStringArray:
 	var room_paths: PackedStringArray
 
-	var override_room_names: PackedStringArray = PackedStringArray(SavedData.get_override_room_names(type.split("/")[type.split("/").size()-1].to_lower()))
-	if not override_room_names.is_empty():
-		room_paths = override_room_names
+	var overwrite_room_names: PackedStringArray = PackedStringArray(SavedData.get_overwrite_room_names(type.split("/")[type.split("/").size()-1].to_lower()))
+	if not overwrite_room_names.is_empty():
+		room_paths = overwrite_room_names
 	else:
 		if type.to_lower().begins_with("end"):
 			room_paths = SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "end", type.split("/")[1])
@@ -260,6 +260,8 @@ func _create_corridors() -> void:
 		delaunay_astar.connect_points(delaunay_indices[i+1], delaunay_indices[i+2])
 		delaunay_astar.connect_points(delaunay_indices[i+2], delaunay_indices[i])
 
+	var overwrite_connections: Array = SavedData.get_overwrite_connections()
+
 	mst_astar = AStar2D.new()
 	mst_astar.add_point(mst_astar.get_available_point_id(), room_centers[0])
 	delaunay_astar.set_point_disabled(0)
@@ -286,8 +288,17 @@ func _create_corridors() -> void:
 						print_rich("\t[color=yellow]Point " + str(j) + " is disabled[/color]")
 					continue
 				var point2: Vector2 = delaunay_astar.get_point_position(j)
-			# If the node is closer, make it the closest
 				if delaunay_astar.get_point_connections(room_centers.find(point)).has(j) and point.distance_to(point2) < min_dist:
+					if not overwrite_connections.is_empty():
+						var block_connection: bool = true
+						for connection in overwrite_connections:
+							if (connection[0] == id and connection[1] == room_centers.find(point2)) or (connection[0] == room_centers.find(point2) and connection[1] == id):
+								block_connection = false
+								break
+						if block_connection:
+							if debug:
+								print_rich("\t[color=yellow]Connection between " + str(id) + " and " + str(room_centers.find(point2)) +  " is not possible because the connections are overwritten[/color]")
+							continue
 					var room_connection: RoomConnection = await _is_connection_possible(id, room_centers.find(point2))
 					if not room_connection:
 						if debug:
@@ -320,34 +331,35 @@ func _create_corridors() -> void:
 		await get_tree().process_frame
 		await get_tree().create_timer(pause_between_steps).timeout
 
+	if overwrite_connections.is_empty():
 	# Añadimos alguna conexion extra
-	if debug:
-		print_rich("[b]--- Rooms: Adding extra connections to mst ---[/b]")
-	for id in delaunay_astar.get_point_count():
-		delaunay_astar.set_point_disabled(id, false)
-	var points_that_could_be_connected: Array[Array] = []
-	for id in delaunay_astar.get_point_count():
-		for id2 in range(id + 1, delaunay_astar.get_point_count()):
-			# print(str(id) + ": " + str(delaunay_astar.get_point_connections(id)))
-			if delaunay_astar.get_point_connections(id).has(id2) and not mst_astar.get_point_connections(id).has(id2) and not points_that_could_be_connected.has([id, id2]) and not points_that_could_be_connected.has([id2, id]):
-				points_that_could_be_connected.push_back([id, id2])
-	if debug:
-		print("Connections not used after mst: " + str(points_that_could_be_connected))
+		if debug:
+			print_rich("[b]--- Rooms: Adding extra connections to mst ---[/b]")
+		for id in delaunay_astar.get_point_count():
+			delaunay_astar.set_point_disabled(id, false)
+		var points_that_could_be_connected: Array[Array] = []
+		for id in delaunay_astar.get_point_count():
+			for id2 in range(id + 1, delaunay_astar.get_point_count()):
+				# print(str(id) + ": " + str(delaunay_astar.get_point_connections(id)))
+				if delaunay_astar.get_point_connections(id).has(id2) and not mst_astar.get_point_connections(id).has(id2) and not points_that_could_be_connected.has([id, id2]) and not points_that_could_be_connected.has([id2, id]):
+					points_that_could_be_connected.push_back([id, id2])
+		if debug:
+			print("Connections not used after mst: " + str(points_that_could_be_connected))
 
-	var number_of_extra_connections: int = round(points_that_could_be_connected.size() * SavedData.get_biome_conf().extra_connections)
-	if debug:
-		print("Desired number of extra connections: " + str(number_of_extra_connections))
-	var i: int = number_of_extra_connections
-	while i > 0 and not points_that_could_be_connected.is_empty():
-		var rand: int = randi() % points_that_could_be_connected.size()
-		var room_connection: RoomConnection = await _is_connection_possible(points_that_could_be_connected[rand][0], points_that_could_be_connected[rand][1])
-		if room_connection:
-			await _create_corridor_between_rooms(points_that_could_be_connected[rand][0], points_that_could_be_connected[rand][1], room_connection)
-			mst_astar.connect_points(points_that_could_be_connected[rand][0], points_that_could_be_connected[rand][1])
-			i -= 1
-		points_that_could_be_connected.remove_at(rand)
-	if debug:
-		print("")
+		var number_of_extra_connections: int = round(points_that_could_be_connected.size() * SavedData.get_biome_conf().extra_connections)
+		if debug:
+			print("Desired number of extra connections: " + str(number_of_extra_connections))
+		var i: int = number_of_extra_connections
+		while i > 0 and not points_that_could_be_connected.is_empty():
+			var rand: int = randi() % points_that_could_be_connected.size()
+			var room_connection: RoomConnection = await _is_connection_possible(points_that_could_be_connected[rand][0], points_that_could_be_connected[rand][1])
+			if room_connection:
+				await _create_corridor_between_rooms(points_that_could_be_connected[rand][0], points_that_could_be_connected[rand][1], room_connection)
+				mst_astar.connect_points(points_that_could_be_connected[rand][0], points_that_could_be_connected[rand][1])
+				i -= 1
+			points_that_could_be_connected.remove_at(rand)
+		if debug:
+			print("")
 
 	if debug:
 		queue_redraw()
