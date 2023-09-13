@@ -21,6 +21,21 @@ color_ramp = SubResource("GradientTexture1D_5eww5")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ifdgv"]
 
+[sub_resource type="Animation" id="Animation_5y110"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Area2D/CollisionShape2D:shape:radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [10.0]
+}
+
 [sub_resource type="Animation" id="Animation_kwf0g"]
 resource_name = "explode"
 tracks/0/type = "value"
@@ -50,21 +65,6 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_5y110"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Area2D/CollisionShape2D:shape:radius")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [10.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pigv6"]
 _data = {
 "RESET": SubResource("Animation_5y110"),
@@ -72,7 +72,7 @@ _data = {
 }
 
 [node name="WarriorArmorAbility" type="GPUParticles2D"]
-amount = 32
+amount = 64
 process_material = SubResource("ParticleProcessMaterial_mm301")
 explosiveness = 0.95
 script = ExtResource("1_y8ov5")
