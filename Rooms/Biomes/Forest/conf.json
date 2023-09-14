@@ -23,4 +23,6 @@
 			"overwrite_connections": [[0, 1], [1, 2]]
 		}
 	},
+
+	"music": "res://Audio/Music/Incompetech/Shamanistic.mp3",
 }

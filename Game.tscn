@@ -241,3 +241,6 @@ texture = ExtResource("16_0uph7")
 z_index = 3
 material = SubResource("ShaderMaterial_nogqy")
 centered = false
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+bus = &"Music"

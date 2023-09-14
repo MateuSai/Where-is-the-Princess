@@ -37,6 +37,10 @@ func _ready() -> void:
 
 	await rooms.generation_completed
 
+	if SavedData.get_biome_conf().has("music"):
+		$Music.stream = load(SavedData.get_biome_conf().music)
+		$Music.play()
+
 	camera.enabled = false
 	var player: Player = PLAYER_SCENE.instantiate()
 	player.position = rooms.start_room.get_node("PlayerSpawnPos").global_position
