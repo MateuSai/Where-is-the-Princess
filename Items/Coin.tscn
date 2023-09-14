@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://d3aysukpev2qj"]
+[gd_scene load_steps=10 format=3 uid="uid://d3aysukpev2qj"]
 
 [ext_resource type="Texture2D" uid="uid://bhhqlnuamgk2u" path="res://Art/items/coin.png" id="1_pusvp"]
 [ext_resource type="Script" path="res://Items/Coin.gd" id="1_r5ad0"]
+[ext_resource type="AudioStream" uid="uid://yo78ksk5wqp6" path="res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Coin/CoinDrop3.wav" id="3_w1p88"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ltgog"]
 atlas = ExtResource("1_pusvp")
@@ -55,3 +56,7 @@ frame_progress = 0.560551
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ni61e")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_w1p88")
+bus = &"Sounds"
