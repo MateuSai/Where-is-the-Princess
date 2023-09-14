@@ -12,6 +12,7 @@ func _ready() -> void:
 	$CompleteDrainingTimer.timeout.connect(func():
 		set_process(false)
 		character_to_give_life.life_component.hp += 1
+		character_to_drain_life.life_component.hp -= 1
 		queue_free()
 	)
 
