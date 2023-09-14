@@ -1,7 +1,6 @@
 @icon("res://Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f0.png")
 
-extends CharacterBody2D
-class_name Character
+class_name Character extends CharacterBody2D
 
 const DUST_SCENE: PackedScene = preload("res://Characters/Player/Dust.tscn")
 const HIT_EFFECT_SCENE: PackedScene = preload("res://Characters/HitEffect.tscn")
