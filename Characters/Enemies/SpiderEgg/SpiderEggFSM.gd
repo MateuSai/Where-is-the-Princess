@@ -44,4 +44,3 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 		states.dead:
 			$"../HatchTimer".stop()
 			# parent.spawn_loot()
-			animation_player.play("dead")

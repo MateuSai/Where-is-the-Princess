@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c8b3fy5wfn4dp"]
+[gd_scene load_steps=9 format=3 uid="uid://c8b3fy5wfn4dp"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_u8gmx"]
 [ext_resource type="Script" path="res://Characters/Enemies/SpiderEgg/SpiderEggFSM.gd" id="2_kp3rr"]
@@ -21,23 +21,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_gvcmb"]
-resource_name = "dead"
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"queue_free"
-}]
 }
 
 [sub_resource type="Animation" id="Animation_i8sv0"]
@@ -74,13 +57,13 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ymel"]
 _data = {
 "RESET": SubResource("Animation_alpcw"),
-"dead": SubResource("Animation_gvcmb"),
 "hatch": SubResource("Animation_i8sv0")
 }
 
 [node name="SpiderEgg" instance=ExtResource("1_u8gmx")]
 script = ExtResource("2_t1q62")
-souls = 1
+is_boss = false
+mass = 3.0
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("2_kp3rr")
@@ -99,7 +82,7 @@ libraries = {
 "": SubResource("AnimationLibrary_3ymel")
 }
 
-[node name="LifeComponent" parent="." index="6"]
+[node name="LifeComponent" parent="." index="5"]
 hp = 1
 max_hp = 1
 

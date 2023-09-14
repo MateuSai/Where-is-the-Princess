@@ -110,6 +110,8 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			$"../PathTimer".wait_time = 0.15
 			parent.max_speed = 160
 			parent.accerelation = 70
+			parent.mass = 150
+			parent.can_move = true
 		states.bear_run:
 			rock_attack_timer.start(randf_range(0.8, 2.0))
 		states.bear_melee_attack:

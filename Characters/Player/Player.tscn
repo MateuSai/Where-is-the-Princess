@@ -358,6 +358,7 @@ radius = 215.188
 collision_layer = 2
 collision_mask = 21
 script = ExtResource("4")
+accerelation = 40
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("5")
