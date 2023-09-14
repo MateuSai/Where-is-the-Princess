@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdc7lhfsxohm6"
-path="res://.godot/imported/warrior_copy.png-ea262d7d9913af7598358aa07db07c96.ctex"
+uid="uid://ddfk7ve8i5iwf"
+path="res://.godot/imported/snake.png-2e996b4aa17279ed143caa85f7e28669.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/warrior_copy.png"
-dest_files=["res://.godot/imported/warrior_copy.png-ea262d7d9913af7598358aa07db07c96.ctex"]
+source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/snake/snake.png"
+dest_files=["res://.godot/imported/snake.png-2e996b4aa17279ed143caa85f7e28669.ctex"]
 
 [params]
 
