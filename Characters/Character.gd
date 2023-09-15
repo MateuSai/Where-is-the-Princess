@@ -17,7 +17,7 @@ var damage_multiplier: int = 1
 var can_move: bool = true
 
 @export var mass: float = 1
-@export var accerelation: int = 10
+@export var accerelation: int = 40
 @export var max_speed: int = 100
 
 @export var flying: bool = false

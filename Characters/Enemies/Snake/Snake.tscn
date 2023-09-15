@@ -1,11 +1,64 @@
-[gd_scene load_steps=16 format=3 uid="uid://b2wrxbbw242n4"]
+[gd_scene load_steps=19 format=3 uid="uid://b2wrxbbw242n4"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_siu4v"]
+[ext_resource type="Script" path="res://Characters/Enemies/Snake/SnakeFSM.gd" id="2_hw2wv"]
 [ext_resource type="Texture2D" uid="uid://ddfk7ve8i5iwf" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/snake/snake.png" id="2_wpghp"]
+[ext_resource type="Texture2D" uid="uid://d04uxwluqy5gw" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/player_shadow.png" id="4_mbahi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vvom2"]
 radius = 3.0
 height = 12.0
+
+[sub_resource type="Animation" id="Animation_1dqv8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_8a4vm"]
+resource_name = "hug"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [36, 37, 38, 39]
+}
+
+[sub_resource type="Animation" id="Animation_ugryq"]
+resource_name = "hug_up"
+length = 0.8
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [54, 55, 56, 57]
+}
 
 [sub_resource type="Animation" id="Animation_f7gk0"]
 resource_name = "idle"
@@ -25,21 +78,6 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3]
 }
 
-[sub_resource type="Animation" id="Animation_1dqv8"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="Animation" id="Animation_mqxp8"]
 resource_name = "idle_up"
 loop_mode = 1
@@ -55,6 +93,42 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_nrnqg"]
+resource_name = "jump"
+length = 0.45
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [31, 32, 33]
+}
+
+[sub_resource type="Animation" id="Animation_blt4f"]
+resource_name = "jump_up"
+length = 0.45
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [49, 50, 51]
 }
 
 [sub_resource type="Animation" id="Animation_tsqj7"]
@@ -95,7 +169,8 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_8yluh"]
 resource_name = "prejump"
-step = 0.2
+length = 0.75
+step = 0.15
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -103,16 +178,15 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [24, 25, 26, 27, 30]
 }
 
-[sub_resource type="Animation" id="Animation_nrnqg"]
-resource_name = "jump"
-length = 0.45
-loop_mode = 1
+[sub_resource type="Animation" id="Animation_m5xox"]
+resource_name = "prejump_up"
+length = 0.75
 step = 0.15
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -121,80 +195,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [31, 32, 33]
-}
-
-[sub_resource type="Animation" id="Animation_8a4vm"]
-resource_name = "hug"
-length = 0.8
-loop_mode = 1
-step = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [36, 37, 38, 39]
-}
-
-[sub_resource type="Animation" id="Animation_m5xox"]
-resource_name = "prejump_up"
-step = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [42, 43, 44, 45, 48]
-}
-
-[sub_resource type="Animation" id="Animation_blt4f"]
-resource_name = "jump_up"
-length = 0.45
-loop_mode = 1
-step = 0.15
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [49, 50, 51]
-}
-
-[sub_resource type="Animation" id="Animation_ugryq"]
-resource_name = "hug_up"
-length = 0.8
-loop_mode = 1
-step = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [54, 55, 56, 57]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gsg56"]
@@ -212,20 +216,42 @@ _data = {
 "prejump_up": SubResource("Animation_m5xox")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_03p2t"]
+radius = 7.07107
+
 [node name="Snake" instance=ExtResource("1_siu4v")]
 is_boss = false
+accerelation = 20
+max_speed = 50
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="Shadow" type="Sprite2D" parent="." index="0"]
+texture = ExtResource("4_mbahi")
+
+[node name="FiniteStateMachine" parent="." index="1"]
+script = ExtResource("2_hw2wv")
+
+[node name="Sprite2D" parent="." index="2"]
 position = Vector2(0, -3)
 texture = ExtResource("2_wpghp")
 hframes = 6
 vframes = 10
 
-[node name="CollisionShape2D" parent="." index="2"]
+[node name="CollisionShape2D" parent="." index="3"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_vvom2")
 
-[node name="AnimationPlayer" parent="." index="3"]
+[node name="AnimationPlayer" parent="." index="4"]
 libraries = {
 "": SubResource("AnimationLibrary_gsg56")
 }
+
+[node name="PlayerDetector" type="Area2D" parent="." index="10"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector" index="0"]
+shape = SubResource("CircleShape2D_03p2t")
+
+[node name="JumpTimer" type="Timer" parent="." index="11"]
+wait_time = 0.8
+one_shot = true

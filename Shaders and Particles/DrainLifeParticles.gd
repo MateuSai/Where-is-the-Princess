@@ -33,7 +33,7 @@ func start_draining(from: Character, to: Character) -> void:
 	set_process(true)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	position = character_to_drain_life.global_position
 	rotation = (character_to_give_life.global_position - character_to_drain_life.global_position).angle()
 	lifetime = (character_to_give_life.global_position - character_to_drain_life.global_position).length() / process_material.initial_velocity_min
