@@ -26,5 +26,5 @@ func enable_ability_effect(player: Player) -> void:
 	drain_life_particles.start_draining(closer_enemy, player)
 
 
-func disable_ability_effect(player: Player) -> void:
+func disable_ability_effect(_player: Player) -> void:
 	pass

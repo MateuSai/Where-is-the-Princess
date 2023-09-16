@@ -27,7 +27,7 @@ func go_to_player() -> void:
 
 
 @warning_ignore("shadowed_variable")
-func _on_player_entered(player: Player) -> void:
+func _on_player_entered(_player: Player) -> void:
 	set_physics_process(false)
 	collision_shape.free()
 	$AudioStreamPlayer2D.play(0.73)
