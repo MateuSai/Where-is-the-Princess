@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://b2wrxbbw242n4"]
+[gd_scene load_steps=21 format=3 uid="uid://b2wrxbbw242n4"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_siu4v"]
 [ext_resource type="Script" path="res://Characters/Enemies/Snake/SnakeFSM.gd" id="2_hw2wv"]
+[ext_resource type="Script" path="res://Characters/Enemies/Snake/Snake.gd" id="2_tcp35"]
 [ext_resource type="Texture2D" uid="uid://ddfk7ve8i5iwf" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/snake/snake.png" id="2_wpghp"]
 [ext_resource type="Texture2D" uid="uid://d04uxwluqy5gw" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/player_shadow.png" id="4_mbahi"]
 
@@ -22,6 +23,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_8a4vm"]
@@ -201,6 +214,23 @@ tracks/0/keys = {
 "values": [42, 43, 44, 45, 48]
 }
 
+[sub_resource type="Animation" id="Animation_5kxqa"]
+resource_name = "shake"
+length = 0.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(4, 3), Vector2(0, 1), Vector2(-2, -2), Vector2(4, -2), Vector2(-3, 2), Vector2(0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gsg56"]
 _data = {
 "RESET": SubResource("Animation_1dqv8"),
@@ -213,13 +243,15 @@ _data = {
 "move": SubResource("Animation_tsqj7"),
 "move_up": SubResource("Animation_ichqu"),
 "prejump": SubResource("Animation_8yluh"),
-"prejump_up": SubResource("Animation_m5xox")
+"prejump_up": SubResource("Animation_m5xox"),
+"shake": SubResource("Animation_5kxqa")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_03p2t"]
 radius = 7.07107
 
 [node name="Snake" instance=ExtResource("1_siu4v")]
+script = ExtResource("2_tcp35")
 is_boss = false
 accerelation = 20
 max_speed = 50
@@ -254,4 +286,8 @@ shape = SubResource("CircleShape2D_03p2t")
 
 [node name="JumpTimer" type="Timer" parent="." index="11"]
 wait_time = 0.8
+one_shot = true
+
+[node name="IdleTimer" type="Timer" parent="." index="12"]
+wait_time = 2.0
 one_shot = true

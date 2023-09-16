@@ -1,6 +1,5 @@
 class_name Weapons extends Node2D
 
-
 signal weapon_switched(prev_index: int, new_index: int)
 signal weapon_picked_up(weapon: Weapon)
 signal weapon_droped(index: int)
@@ -12,6 +11,16 @@ var current_weapon: Weapon: set = set_current_weapon
 var max_weapons: int = 6
 
 enum {UP, DOWN}
+
+var disabled: bool = false:
+	set(new_value):
+		disabled = new_value
+		if disabled:
+			hide()
+			set_process_unhandled_input(false)
+		else:
+			show()
+			set_process_unhandled_input(true)
 
 
 func load_previous_weapons() -> void:
@@ -49,6 +58,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func move(mouse_direction: Vector2) -> void:
+	if disabled:
+		return
+
 	var prev_current_weap_rot: float = current_weapon.rotation
 	current_weapon.move(mouse_direction)
 	#if (prev_current_weap_rot > 0 and current_weapon.rotation < 0) or (prev_current_weap_rot < 0 and current_weapon.rotation > 0):
