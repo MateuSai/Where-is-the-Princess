@@ -1,7 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://c1s6h80t6l0tv"]
+[gd_scene load_steps=13 format=3 uid="uid://c1s6h80t6l0tv"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_i0dld"]
+[ext_resource type="Script" path="res://Characters/Enemies/SpearTribal/SpearTribalFSM.gd" id="2_bph2t"]
 [ext_resource type="Texture2D" uid="uid://bftxcn3nqdd2h" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_02.png" id="2_h1c7u"]
+[ext_resource type="Texture2D" uid="uid://dsluspdkijyfh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_02_spear.png" id="3_u0grl"]
+[ext_resource type="Script" path="res://Characters/Hitbox.gd" id="4_apwfa"]
 
 [sub_resource type="Animation" id="Animation_uxc2d"]
 resource_name = "idle"
@@ -95,10 +98,18 @@ _data = {
 "move_up": SubResource("Animation_4caxj")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o0mlt"]
+size = Vector2(4, 6)
+
 [node name="SpearTribal" instance=ExtResource("1_i0dld")]
 is_boss = false
+mass = 50.0
+
+[node name="FiniteStateMachine" parent="." index="0"]
+script = ExtResource("2_bph2t")
 
 [node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, -5)
 texture = ExtResource("2_h1c7u")
 hframes = 6
 vframes = 4
@@ -107,3 +118,18 @@ vframes = 4
 libraries = {
 "": SubResource("AnimationLibrary_oyins")
 }
+
+[node name="SpearPivot" type="Node2D" parent="." index="9"]
+position = Vector2(0, -3)
+
+[node name="Sprite2D" type="Sprite2D" parent="SpearPivot" index="0"]
+position = Vector2(8, 0)
+texture = ExtResource("3_u0grl")
+
+[node name="Hitbox" type="Area2D" parent="SpearPivot/Sprite2D" index="0"]
+script = ExtResource("4_apwfa")
+knockback_force = 500
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpearPivot/Sprite2D/Hitbox" index="0"]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_o0mlt")

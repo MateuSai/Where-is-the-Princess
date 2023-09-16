@@ -257,7 +257,20 @@ func _spawn_item(item_string: String) -> void:
 
 
 func _spawn_enemy(enemy_string: String) -> void:
+	var enemy: Enemy
+	if enemy_string.is_absolute_path():
+		var enemy_scene: PackedScene = load(enemy_string)
+		if not enemy_scene:
+			printerr("Error: invalid scene path")
+			return
+		enemy = enemy_scene.instantiate()
+	else:
+		if not Globals.ENEMIES.has(enemy_string.to_pascal_case()):
+			printerr("Error: no registered enmy with this name")
+			return
+		enemy = load(Globals.ENEMIES[enemy_string.to_pascal_case()].path).instantiate()
+
 	hide()
-	var enemy: Enemy = load(enemy_string).instantiate()
+
 	get_tree().current_scene.get_node("Rooms").rooms[0].add_child(enemy)
 	enemy.global_position = Globals.player.position + Vector2.RIGHT * 16
