@@ -2,11 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_8vtrn"]
 [ext_resource type="Script" path="res://Characters/Enemies/NakedMark/NakedMark.gd" id="2_nly1j"]
-[ext_resource type="Texture2D" uid="uid://bawnyvbb14ks" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Jumping reptile/Jumping reptile.png" id="2_o8ww0"]
+[ext_resource type="Texture2D" uid="uid://bawnyvbb14ks" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/reptiles/reptile.png" id="2_o8ww0"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="3_8e0vo"]
 [ext_resource type="Script" path="res://Characters/Enemies/NakedMark/NakedMarkFSM.gd" id="4_idtya"]
 [ext_resource type="Script" path="res://Characters/Hitbox.gd" id="4_nfynq"]
-[ext_resource type="Texture2D" uid="uid://hovi8qetgs0q" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Jumping reptile/spear-end.png" id="5_t4wok"]
+[ext_resource type="Texture2D" uid="uid://hovi8qetgs0q" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/reptiles/spear-end.png" id="5_t4wok"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ypopd"]
 radius = 2.0
@@ -202,6 +202,7 @@ height = 12.0
 
 [node name="NakedMark" instance=ExtResource("1_8vtrn")]
 script = ExtResource("2_nly1j")
+is_boss = false
 accerelation = null
 max_speed = null
 flying = null

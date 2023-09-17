@@ -1,9 +1,13 @@
 extends FiniteStateMachine
 
+@onready var spear_animation_player: AnimationPlayer = $"../SpearPivot/AnimationPlayer"
+#@onready var attack_animation_leftover_timer: Timer = $"../AttackAnimationLeftoverTimer"
+
 
 func _init() -> void:
 	_add_state("idle")
 	_add_state("move")
+	_add_state("attack")
 	_add_state("dead")
 
 
@@ -12,6 +16,7 @@ func _ready() -> void:
 
 
 func _state_logic(_delta: float) -> void:
+	parent.point_to_player()
 	match state:
 		states.move:
 			parent.chase()
@@ -30,25 +35,46 @@ func _state_logic(_delta: float) -> void:
 
 
 func _get_transition() -> int:
-	var dis: float = (parent.player.position - parent.global_position).length()
 	match state:
 		states.idle:
-			return states.move
-#		states.move:
-#			if dis <= 16:
-#				return states.attack
-#		states.attack:
-#			if dis > 16:
-#				return states.chase
+			if not spear_animation_player.is_playing():
+				if parent.distance_to_player > parent.MAX_DISTANCE_TO_PLAYER or parent.distance_to_player < parent.MIN_DISTANCE_TO_PLAYER:
+					return states.move
+				else:
+					return states.attack
+		states.move:
+			if parent.distance_to_player < parent.MAX_DISTANCE_TO_PLAYER and parent.distance_to_player > parent.MIN_DISTANCE_TO_PLAYER:
+				if not spear_animation_player.is_playing():
+					return states.attack
+				else:
+					return states.idle
+		states.attack:
+			if parent.distance_to_player > parent.MAX_DISTANCE_TO_PLAYER or parent.distance_to_player < parent.MIN_DISTANCE_TO_PLAYER:
+				return states.move
 	return -1
 
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
 		states.idle:
-			pass
+			if parent.mov_direction.y >= 0:
+				animation_player.play("idle")
+			else:
+				animation_player.play("idle_up")
 			#animation_player.play("fly")
+		states.attack:
+			if parent.mov_direction.y >= 0:
+				animation_player.play("idle")
+			else:
+				animation_player.play("idle_up")
+			spear_animation_player.play("attack")
 		states.dead:
 			pass
 			# parent.spawn_loot()
 			#animation_player.play("dead")
+
+
+func _exit_state(state_exited: int) -> void:
+	match state_exited:
+		states.attack:
+			spear_animation_player.play("restore")
