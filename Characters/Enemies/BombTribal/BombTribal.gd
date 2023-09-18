@@ -1,6 +1,6 @@
-class_name BlowpipeTribal extends Enemy
+class_name BombTribal extends Enemy
 
-const DART_SCENE: PackedScene = preload("res://Characters/Enemies/BlowpipeTribal/Dart.tscn")
+const BOMB_SCENE: PackedScene = preload("res://Characters/Enemies/BlowpipeTribal/Dart.tscn")
 
 const MAX_DISTANCE_TO_PLAYER: int = 130
 const MIN_DISTANCE_TO_PLAYER: int = 70
@@ -44,7 +44,7 @@ func _on_PathTimer_timeout() -> void:
 			aim_raycast.target_position = player.position - global_position
 			if can_attack and state_machine.state == state_machine.states.idle and not aim_raycast.is_colliding():
 				can_attack = false
-				_throw_dart()
+				_throw_bomb()
 				attack_timer.start()
 	else:
 		mov_direction = Vector2.ZERO
@@ -55,8 +55,8 @@ func _get_path_to_move_away_from_player() -> void:
 	navigation_agent.target_position = global_position + dir * 100
 
 
-func _throw_dart() -> void:
-	var projectile: Area2D = DART_SCENE.instantiate()
+func _throw_bomb() -> void:
+	var projectile: Area2D = BOMB_SCENE.instantiate()
 	projectile.exclude.push_back(self)
 	projectile.launch(global_position, (player.position - global_position).normalized(), projectile_speed)
 	get_tree().current_scene.add_child(projectile)

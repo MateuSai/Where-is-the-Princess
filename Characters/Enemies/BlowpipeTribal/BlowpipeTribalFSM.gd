@@ -50,5 +50,5 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			#animation_player.play("move")
 		states.dead:
 			# parent.spawn_loot()
-			animation_player.play("dead")
+			pass
 

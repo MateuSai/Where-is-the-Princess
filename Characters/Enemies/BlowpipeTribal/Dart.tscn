@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://wgyjvnas6yth"]
+
+[ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/Projectile.tscn" id="1_1uoos"]
+[ext_resource type="Texture2D" uid="uid://sa8ropgwiq1u" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_01_dart.png" id="2_n6qqi"]
+[ext_resource type="Script" path="res://Characters/Enemies/BlowpipeTribal/Dart.gd" id="2_v427h"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_22s0m"]
+radius = 1.0
+height = 6.0
+
+[node name="Dart" instance=ExtResource("1_1uoos")]
+collision_mask = 7
+script = ExtResource("2_v427h")
+
+[node name="Sprite2D" parent="." index="0"]
+rotation = 1.5708
+texture = ExtResource("2_n6qqi")
+
+[node name="CollisionShape2D" parent="." index="1"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_22s0m")

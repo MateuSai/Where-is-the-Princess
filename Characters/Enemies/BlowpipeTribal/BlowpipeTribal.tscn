@@ -1,13 +1,29 @@
-[gd_scene load_steps=14 format=3 uid="uid://bdbwos0s5sc1d"]
+[gd_scene load_steps=15 format=3 uid="uid://bdbwos0s5sc1d"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_qa4sw"]
 [ext_resource type="Texture2D" uid="uid://mto5b6cnjswl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_01.png" id="2_qsc6j"]
 [ext_resource type="Script" path="res://Characters/Enemies/BlowpipeTribal/BlowpipeTribal.gd" id="2_thi7f"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="3_k2c77"]
 [ext_resource type="Script" path="res://Characters/Enemies/BlowpipeTribal/BlowpipeTribalFSM.gd" id="3_p78pm"]
+[ext_resource type="Texture2D" uid="uid://cnu7btarwtkdr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_01_blowpipe.png" id="6_ocmak"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_23s0p"]
 radius = 4.12311
+
+[sub_resource type="Animation" id="Animation_efacm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_bitd3"]
 resource_name = "idle"
@@ -26,8 +42,10 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5]
 }
 
-[sub_resource type="Animation" id="Animation_efacm"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_ea1so"]
+resource_name = "idle_up"
+length = 0.6
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -35,10 +53,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0]
+"values": [12, 13, 14, 15, 16, 17]
 }
 
 [sub_resource type="Animation" id="Animation_1shun"]
@@ -56,23 +74,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [6, 7, 8, 9, 10, 11]
-}
-
-[sub_resource type="Animation" id="Animation_ea1so"]
-resource_name = "idle_up"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [12, 13, 14, 15, 16, 17]
 }
 
 [sub_resource type="Animation" id="Animation_gsai0"]
@@ -110,6 +111,8 @@ collision_mask = 21
 script = ExtResource("2_thi7f")
 projectile_speed = 150
 is_boss = false
+accerelation = 30
+max_speed = 70
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("3_p78pm")
@@ -142,3 +145,11 @@ shape = SubResource("CapsuleShape2D_w2kga")
 [node name="AttackTimer" type="Timer" parent="." index="11"]
 wait_time = 1.5
 one_shot = true
+
+[node name="BlowpipePivot" type="Node2D" parent="." index="12"]
+position = Vector2(0, -3)
+
+[node name="Sprite2D" type="Sprite2D" parent="BlowpipePivot" index="0"]
+position = Vector2(5, 0)
+rotation = 1.5708
+texture = ExtResource("6_ocmak")
