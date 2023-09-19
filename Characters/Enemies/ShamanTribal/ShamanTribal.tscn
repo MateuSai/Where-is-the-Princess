@@ -1,10 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://bgxlsjal10iir"]
+[gd_scene load_steps=16 format=3 uid="uid://bgxlsjal10iir"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_aq1of"]
 [ext_resource type="Texture2D" uid="uid://d4b0r3wlt5g0v" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_04.png" id="2_2yyp0"]
 [ext_resource type="Script" path="res://Characters/Enemies/ShamanTribal/ShamanTribal.gd" id="2_hqlqb"]
+[ext_resource type="Script" path="res://Characters/Enemies/ShamanTribal/ShamanTribalFSM.gd" id="3_8eupy"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="3_66fwb"]
 [ext_resource type="Script" path="res://Components/DropMaskOnDeadComponent.gd" id="4_qlk0v"]
+[ext_resource type="Texture2D" uid="uid://c1hfqlvs1ew5b" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_04_scepter.png" id="6_m7udh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gjfod"]
 radius = 3.0
@@ -110,6 +112,9 @@ collision_mask = 23
 script = ExtResource("2_hqlqb")
 is_boss = false
 
+[node name="FiniteStateMachine" parent="." index="0"]
+script = ExtResource("3_8eupy")
+
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(0, -5)
 texture = ExtResource("2_2yyp0")
@@ -135,3 +140,10 @@ script = ExtResource("3_66fwb")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
 position = Vector2(0, -4)
 shape = SubResource("CapsuleShape2D_r3ph5")
+
+[node name="ScepterPivot" type="Node2D" parent="." index="11"]
+position = Vector2(0, -3)
+
+[node name="Sprite2D" type="Sprite2D" parent="ScepterPivot" index="0"]
+position = Vector2(9, 0)
+texture = ExtResource("6_m7udh")

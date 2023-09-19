@@ -6,7 +6,7 @@ var type: Type
 
 
 func _init() -> void:
-	add_to_group("masks")
+	add_to_group("tribal_masks")
 
 
 @warning_ignore("shadowed_variable", "shadowed_variable_base_class")
