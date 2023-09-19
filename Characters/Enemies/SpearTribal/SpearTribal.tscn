@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c1s6h80t6l0tv"]
+[gd_scene load_steps=22 format=3 uid="uid://c1s6h80t6l0tv"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_i0dld"]
 [ext_resource type="Script" path="res://Characters/Enemies/SpearTribal/SpearTribalFSM.gd" id="2_bph2t"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dsluspdkijyfh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_02_spear.png" id="3_u0grl"]
 [ext_resource type="Script" path="res://Characters/Hitbox.gd" id="4_apwfa"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="4_d76fk"]
+[ext_resource type="Script" path="res://Components/DropMaskOnDeadComponent.gd" id="6_40j5t"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3ccd5"]
 radius = 3.0
@@ -110,6 +111,33 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o0mlt"]
 size = Vector2(4, 6)
 
+[sub_resource type="Animation" id="Animation_v2h7x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="Animation" id="Animation_x3q1e"]
 resource_name = "attack"
 length = 0.9
@@ -151,33 +179,6 @@ tracks/2/keys = {
 "args": [],
 "method": &"_update_spear_hitbox"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_v2h7x"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -8)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D/Hitbox/CollisionShape2D:disabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_72jgy"]
@@ -253,10 +254,13 @@ libraries = {
 path_desired_distance = 1.0
 target_desired_distance = 1.0
 
-[node name="PathTimer" parent="." index="8"]
+[node name="DropMaskOnDeadComponent" type="Node" parent="." index="7"]
+script = ExtResource("6_40j5t")
+
+[node name="PathTimer" parent="." index="9"]
 wait_time = 0.25
 
-[node name="SpearPivot" type="Node2D" parent="." index="10"]
+[node name="SpearPivot" type="Node2D" parent="." index="11"]
 position = Vector2(0, -3)
 
 [node name="Sprite2D" type="Sprite2D" parent="SpearPivot" index="0"]
