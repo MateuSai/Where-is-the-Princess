@@ -1,9 +1,9 @@
 class_name BombTribal extends Enemy
 
-const BOMB_SCENE: PackedScene = preload("res://Characters/Enemies/BlowpipeTribal/Dart.tscn")
+const BOMB_PARABOLA_SCENE: PackedScene = preload("res://Characters/Enemies/BombTribal/BombParabola.tscn")
 
-const MAX_DISTANCE_TO_PLAYER: int = 130
-const MIN_DISTANCE_TO_PLAYER: int = 70
+const MAX_DISTANCE_TO_PLAYER: int = 140
+const MIN_DISTANCE_TO_PLAYER: int = 60
 
 @export var projectile_speed: int = 150
 
@@ -13,24 +13,12 @@ var distance_to_player: float
 
 @onready var attack_timer: Timer = get_node("AttackTimer")
 @onready var aim_raycast: RayCast2D = get_node("AimRayCast")
-@onready var blowpipe_pivot: Node2D = $BlowpipePivot
 
 
 func _ready() -> void:
 	super()
 
 	attack_timer.timeout.connect(_on_attack_timer_timeout)
-
-
-func _process(_delta: float) -> void:
-	#super(delta)
-
-	var vector_to_player: Vector2 = (player.position - global_position)
-	blowpipe_pivot.rotation = vector_to_player.angle()
-	if blowpipe_pivot.get_index() == 0 and vector_to_player.y > 0:
-		move_child(blowpipe_pivot, get_child_count()-1)
-	elif blowpipe_pivot.get_index() == get_child_count()-1 and vector_to_player.y < 0:
-		move_child(blowpipe_pivot, 0)
 
 
 func _on_PathTimer_timeout() -> void:
@@ -56,10 +44,12 @@ func _get_path_to_move_away_from_player() -> void:
 
 
 func _throw_bomb() -> void:
-	var projectile: Area2D = BOMB_SCENE.instantiate()
-	projectile.exclude.push_back(self)
-	projectile.launch(global_position, (player.position - global_position).normalized(), projectile_speed)
-	get_tree().current_scene.add_child(projectile)
+	var bomb_parabola: BombParabola = BOMB_PARABOLA_SCENE.instantiate()
+	#projectile.exclude.push_back(self)
+	#projectile.launch(global_position, (player.position - global_position).normalized(), projectile_speed)
+	get_tree().current_scene.add_child(bomb_parabola)
+	bomb_parabola.position = global_position
+	bomb_parabola.start((player.position - global_position).normalized(), (player.position - global_position).length())
 
 
 

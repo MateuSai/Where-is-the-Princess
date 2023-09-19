@@ -1,12 +1,28 @@
-[gd_scene load_steps=13 format=3 uid="uid://ciwgqhupjyf73"]
+[gd_scene load_steps=14 format=3 uid="uid://ciwgqhupjyf73"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_w254w"]
 [ext_resource type="Texture2D" uid="uid://dflxhw20b7xaw" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_03.png" id="2_866yt"]
 [ext_resource type="Script" path="res://Characters/Enemies/BombTribal/BombTribal.gd" id="2_knqtw"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="3_3e340"]
+[ext_resource type="Script" path="res://Characters/Enemies/BombTribal/BombTribalFSM.gd" id="3_fqgm1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_07vmc"]
 radius = 3.16228
+
+[sub_resource type="Animation" id="Animation_myd05"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_83sqt"]
 resource_name = "idle"
@@ -25,8 +41,10 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5]
 }
 
-[sub_resource type="Animation" id="Animation_myd05"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_dy6xg"]
+resource_name = "idle_up"
+length = 0.6
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -34,10 +52,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0]
+"values": [12, 13, 14, 15, 16, 17]
 }
 
 [sub_resource type="Animation" id="Animation_qy66b"]
@@ -55,23 +73,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [6, 7, 8, 9, 10, 11]
-}
-
-[sub_resource type="Animation" id="Animation_dy6xg"]
-resource_name = "idle_up"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [12, 13, 14, 15, 16, 17]
 }
 
 [sub_resource type="Animation" id="Animation_topv7"]
@@ -111,6 +112,9 @@ projectile_speed = 150
 is_boss = false
 accerelation = 30
 max_speed = 80
+
+[node name="FiniteStateMachine" parent="." index="0"]
+script = ExtResource("3_fqgm1")
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(0, -5)

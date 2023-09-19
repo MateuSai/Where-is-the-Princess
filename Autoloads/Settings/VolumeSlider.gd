@@ -5,7 +5,7 @@ class_name VolumeSlider extends HSlider
 
 func _init() -> void:
 	max_value = 1.0
-	step = 0.1
+	step = 0.02
 
 	value_changed.connect(_on_value_changed)
 

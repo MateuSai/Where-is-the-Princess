@@ -5,7 +5,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_w327c"]
 _data = {
-"points": PackedVector2Array(-2.70154, 1.71938, 2.70154, -1.71938, 0, 0, -4.10462, -0.596922, 4.10462, 0.596922, 39, -9, -4.94646, -2.14031, 4.94646, 2.14031, 74, 0)
+"points": PackedVector2Array(-2.70154, 1.71938, 2.70154, -1.71938, 0, 0, -4.10462, -0.596922, 4.10462, 0.596922, 39, -9, -4.94646, -2.14031, 4.94646, 2.14031, 85, 0)
 }
 point_count = 3
 
@@ -14,7 +14,7 @@ curve = SubResource("Curve2D_w327c")
 script = ExtResource("1_gk0g7")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
-rotation = -0.566788
+rotation = -0.566787
 loop = false
 
 [node name="Bomb" parent="PathFollow2D" instance=ExtResource("2_ud46o")]
