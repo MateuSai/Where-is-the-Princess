@@ -77,6 +77,16 @@ func _process_command(command: String) -> void:
 							_set_player_hp(splitted_command[2])
 						else:
 							printerr("You must specify the new hp")
+					"armor condition", "ac", "armor cond":
+						if splitted_command.size() > 2:
+							_set_armor_condition(splitted_command[2])
+						else:
+							printerr("You must specify the new condition")
+					"current weapon condition", "weapon condition", "wc", "weapon cond":
+						if splitted_command.size() > 2:
+							_set_current_weapon_condition(splitted_command[2])
+						else:
+							printerr("You must specify the new condition")
 					"worldcol":
 						if splitted_command.size() > 2:
 							_set_player_worldcol(splitted_command[2])
@@ -173,13 +183,31 @@ func _process_command(command: String) -> void:
 
 func _set_player_hp(hp_string: String) -> void:
 	if not hp_string.is_valid_float():
-		push_error("Invalid value for player hp")
+		printerr("Invalid value for player hp")
 		return
 
 	hide()
 	Globals.player.life_component.hp = int(hp_string)
 #	var new_hp: int = int(clamp(int(hp_string), 0.0, 100.0))
 #	Globals.player.hp = new_hp
+
+
+func _set_armor_condition(condition_string: String) -> void:
+	if not condition_string.is_valid_int():
+		printerr("Invalid value for armor condition")
+		return
+
+	hide()
+	Globals.player.armor.condition = int(condition_string)
+
+
+func _set_current_weapon_condition(condition_string: String) -> void:
+	if not condition_string.is_valid_int():
+		printerr("Invalid value for weapon condition")
+		return
+
+	hide()
+	Globals.player.weapons.current_weapon.stats.condition = int(condition_string)
 
 
 func _set_player_worldcol(worldcol: String) -> void:
