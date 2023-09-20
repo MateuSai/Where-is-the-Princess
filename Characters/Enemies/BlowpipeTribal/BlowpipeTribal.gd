@@ -58,7 +58,7 @@ func _get_path_to_move_away_from_player() -> void:
 func _throw_dart() -> void:
 	var projectile: Area2D = DART_SCENE.instantiate()
 	projectile.exclude.push_back(self)
-	projectile.launch(global_position, (player.position - global_position).normalized(), projectile_speed)
+	projectile.launch(global_position, (player.position - global_position).normalized(), projectile_speed, true)
 	get_tree().current_scene.add_child(projectile)
 
 
