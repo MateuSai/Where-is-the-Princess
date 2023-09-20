@@ -1,0 +1,285 @@
+[gd_scene load_steps=22 format=3 uid="uid://c1s6h80t6l0tv"]
+
+[ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_i0dld"]
+[ext_resource type="Script" path="res://Characters/Enemies/SpearTribal/SpearTribalFSM.gd" id="2_bph2t"]
+[ext_resource type="Texture2D" uid="uid://bftxcn3nqdd2h" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_02.png" id="2_h1c7u"]
+[ext_resource type="Script" path="res://Characters/Enemies/SpearTribal/SpearTribal.gd" id="2_lvfj2"]
+[ext_resource type="Texture2D" uid="uid://dsluspdkijyfh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_02_spear.png" id="3_u0grl"]
+[ext_resource type="Script" path="res://Characters/Hitbox.gd" id="4_apwfa"]
+[ext_resource type="Script" path="res://Characters/HurtBox.gd" id="4_d76fk"]
+[ext_resource type="Script" path="res://Components/DropMaskOnDeadComponent.gd" id="6_40j5t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3ccd5"]
+radius = 3.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hnj3p"]
+radius = 4.0
+height = 12.0
+
+[sub_resource type="Animation" id="Animation_ig8gm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_uxc2d"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_3tsfy"]
+resource_name = "idle_up"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16, 17]
+}
+
+[sub_resource type="Animation" id="Animation_n8lvo"]
+resource_name = "move"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_4caxj"]
+resource_name = "move_up"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [18, 19, 20, 21, 22, 23]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oyins"]
+_data = {
+"RESET": SubResource("Animation_ig8gm"),
+"idle": SubResource("Animation_uxc2d"),
+"idle_up": SubResource("Animation_3tsfy"),
+"move": SubResource("Animation_n8lvo"),
+"move_up": SubResource("Animation_4caxj")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o0mlt"]
+size = Vector2(4, 6)
+
+[sub_resource type="Animation" id="Animation_v2h7x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_x3q1e"]
+resource_name = "attack"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -8), Vector2(16, -2), Vector2(16, -2), Vector2(0, -8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_update_spear_hitbox"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_72jgy"]
+resource_name = "restore"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0d1ni"]
+_data = {
+"RESET": SubResource("Animation_v2h7x"),
+"attack": SubResource("Animation_x3q1e"),
+"restore": SubResource("Animation_72jgy")
+}
+
+[node name="SpearTribal" instance=ExtResource("1_i0dld")]
+collision_mask = 21
+script = ExtResource("2_lvfj2")
+is_boss = false
+mass = 50.0
+accerelation = 10
+max_speed = 70
+
+[node name="FiniteStateMachine" parent="." index="0"]
+script = ExtResource("2_bph2t")
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, -5)
+texture = ExtResource("2_h1c7u")
+hframes = 6
+vframes = 4
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource("CircleShape2D_3ccd5")
+
+[node name="HurtBox" type="Area2D" parent="." index="3"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("4_d76fk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_hnj3p")
+
+[node name="AnimationPlayer" parent="." index="4"]
+libraries = {
+"": SubResource("AnimationLibrary_oyins")
+}
+
+[node name="NavigationAgent2D" parent="." index="5"]
+path_desired_distance = 1.0
+target_desired_distance = 1.0
+
+[node name="DropMaskOnDeadComponent" type="Node" parent="." index="7"]
+script = ExtResource("6_40j5t")
+
+[node name="PathTimer" parent="." index="9"]
+wait_time = 0.25
+
+[node name="SpearPivot" type="Node2D" parent="." index="11"]
+position = Vector2(0, -3)
+
+[node name="Sprite2D" type="Sprite2D" parent="SpearPivot" index="0"]
+position = Vector2(0, -8)
+rotation = 1.5708
+texture = ExtResource("3_u0grl")
+
+[node name="Hitbox" type="Area2D" parent="SpearPivot/Sprite2D" index="0"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_apwfa")
+knockback_force = 100
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpearPivot/Sprite2D/Hitbox" index="0"]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_o0mlt")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SpearPivot" index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_0d1ni")
+}

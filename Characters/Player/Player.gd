@@ -32,10 +32,17 @@ var rotating_items: Array[Node2D] = []
 
 @onready var armor_effect_timer: Timer = $Timers/ArmorEffectTimer
 @onready var armor_recharge_timer: Timer = $Timers/ArmorRechargeTimer
+@onready var mirage_timer: Timer = $Timers/MirageTimer
+
+@onready var mirage: TextureRect = $UI/Mirage
 
 
 func _ready() -> void:
 	super()
+
+	disable_mirage()
+
+	mirage_timer.timeout.connect(disable_mirage)
 
 	weapons.weapon_picked_up.emit(weapons.get_child(0))
 	weapons.load_previous_weapons()
@@ -216,6 +223,18 @@ func remove_rotating_item(node: Node2D) -> void:
 
 func can_pick_up_weapons() -> bool:
 	return weapons.can_pick_up_weapons()
+
+
+func enable_mirage() -> void:
+	mirage.material.shader = load("res://Shaders and Particles/Mirage.gdshader")
+	mirage.show()
+
+	mirage_timer.start()
+
+
+func disable_mirage() -> void:
+	mirage.hide()
+	mirage.material.shader = null
 
 
 func _use_armor_ability() -> void:

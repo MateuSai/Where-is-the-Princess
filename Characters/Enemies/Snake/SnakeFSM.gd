@@ -4,9 +4,12 @@ const MIN_DISTANCE_TO_JUMP: int = 80
 
 var player_inside: bool = false
 
+var player_attacks_when_hugged: int = 0
+
 @onready var collision_shape: CollisionShape2D = $"../CollisionShape2D"
 @onready var player_detector: Area2D = $"../PlayerDetector"
 @onready var jump_timer: Timer = $"../JumpTimer"
+@onready var idle_timer: Timer = $"../IdleTimer"
 
 
 func _init() -> void:
@@ -30,9 +33,20 @@ func _ready() -> void:
 		player_inside = false
 	)
 
+	set_process_unhandled_input(false)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_attack"):
+		player_attacks_when_hugged += 1
+		animation_player.play("shake")
+
 
 func _state_logic(_delta: float) -> void:
 	match state:
+		states.idle:
+			pass
+			#parent.move()
 		states.move:
 			parent.chase()
 			parent.move()
@@ -56,6 +70,9 @@ func _state_logic(_delta: float) -> void:
 func _get_transition() -> int:
 	var dis: float = (parent.player.position - parent.global_position).length()
 	match state:
+		states.idle:
+			if idle_timer.is_stopped():
+				return states.move
 		states.move:
 			if dis <= MIN_DISTANCE_TO_JUMP:
 				return states.prejump
@@ -67,11 +84,21 @@ func _get_transition() -> int:
 				return states.move
 			elif player_inside:
 				return states.hug
+		states.hug:
+			if player_attacks_when_hugged >= 3:
+				return states.idle
 	return -1
 
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
+		states.idle:
+			if parent.mov_direction.y >= 0:
+				animation_player.play("idle")
+			elif parent.mov_direction.y < 0:
+				animation_player.play("idle_up")
+
+			idle_timer.start()
 		states.move:
 			pass
 			#animation_player.play("fly")
@@ -93,12 +120,16 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 
 			jump_timer.start()
 		states.hug:
+			parent.mov_direction = Vector2.ZERO
+			player_attacks_when_hugged = 0
 			collision_shape.set_deferred("disabled", true)
+			parent.player.weapons.disabled = true
 			parent.player.can_move = false
 			animation_player.play("hug")
 			for child in parent.get_children():
 				if child is Node2D:
 					child.position.y -= 4
+			set_process_unhandled_input(true)
 		states.dead:
 			pass
 			# parent.spawn_loot()
@@ -107,13 +138,17 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 
 func _exit_state(state_exited: int) -> void:
 	match state_exited:
+		states.idle:
+			idle_timer.stop()
 		states.jump:
 			parent.flying = false
 			parent.max_speed = 50
 			jump_timer.stop()
 		states.hug:
 			collision_shape.set_deferred("disabled", false)
+			parent.player.weapons.disabled = false
 			parent.player.can_move = true
 			for child in parent.get_children():
 				if child is Node2D:
 					child.position.y += 4
+			set_process_unhandled_input(false)

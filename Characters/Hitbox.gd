@@ -92,7 +92,9 @@ func _on_area_entered(area: Area2D) -> void:
 
 func _collide(node: Node2D, dam: int = damage) -> void:
 	#print(body.name)
-	if node.has_node("LifeComponent"):
+	if node is Bomb:
+		node.hit(knockback_direction, knockback_force)
+	elif node.has_node("LifeComponent"):
 		node.get_node("LifeComponent").take_damage(dam, knockback_direction, knockback_force)
 	elif node is RigidBody2D:
 		node.apply_impulse(knockback_direction * knockback_force * 5)

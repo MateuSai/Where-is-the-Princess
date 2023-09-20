@@ -1,0 +1,259 @@
+[gd_scene load_steps=22 format=3 uid="uid://bgxlsjal10iir"]
+
+[ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_aq1of"]
+[ext_resource type="Texture2D" uid="uid://d4b0r3wlt5g0v" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_04.png" id="2_2yyp0"]
+[ext_resource type="Script" path="res://Characters/Enemies/ShamanTribal/ShamanTribal.gd" id="2_hqlqb"]
+[ext_resource type="Script" path="res://Characters/Enemies/ShamanTribal/ShamanTribalFSM.gd" id="3_8eupy"]
+[ext_resource type="Script" path="res://Characters/HurtBox.gd" id="3_66fwb"]
+[ext_resource type="Script" path="res://Components/DropMaskOnDeadComponent.gd" id="4_qlk0v"]
+[ext_resource type="Texture2D" uid="uid://c1hfqlvs1ew5b" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_04_scepter.png" id="6_m7udh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gjfod"]
+radius = 3.0
+
+[sub_resource type="Animation" id="Animation_37yl5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_x1thg"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_jul82"]
+resource_name = "idle_up"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16, 17]
+}
+
+[sub_resource type="Animation" id="Animation_p51ra"]
+resource_name = "move"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_rqylo"]
+resource_name = "move_up"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [18, 19, 20, 21, 22, 23]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nvww2"]
+_data = {
+"RESET": SubResource("Animation_37yl5"),
+"idle": SubResource("Animation_x1thg"),
+"idle_up": SubResource("Animation_jul82"),
+"move": SubResource("Animation_p51ra"),
+"move_up": SubResource("Animation_rqylo")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r3ph5"]
+radius = 4.0
+height = 12.0
+
+[sub_resource type="Gradient" id="Gradient_35kib"]
+offsets = PackedFloat32Array(0, 0.804196, 1)
+colors = PackedColorArray(0.811765, 0.188235, 0.192157, 1, 0.811765, 0.188235, 0.192157, 1, 0.811765, 0.188235, 0.192157, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_j3bvd"]
+gradient = SubResource("Gradient_35kib")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6tpwv"]
+emission_shape = 1
+emission_sphere_radius = 3.0
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 15.0
+initial_velocity_max = 30.0
+orbit_velocity_min = 0.5
+orbit_velocity_max = 0.8
+color_ramp = SubResource("GradientTexture1D_j3bvd")
+
+[sub_resource type="Animation" id="Animation_7srvl"]
+resource_name = "resurrect"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(9, 0), Vector2(8, -5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/GPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_resurrect_ally"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_ghpyf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(9, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/GPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vi7be"]
+_data = {
+"RESET": SubResource("Animation_ghpyf"),
+"resurrect": SubResource("Animation_7srvl")
+}
+
+[node name="ShamanTribal" instance=ExtResource("1_aq1of")]
+collision_mask = 23
+script = ExtResource("2_hqlqb")
+is_boss = false
+mass = 50.0
+accerelation = 20
+max_speed = 50
+
+[node name="FiniteStateMachine" parent="." index="0"]
+script = ExtResource("3_8eupy")
+
+[node name="Sprite2D" parent="." index="1"]
+position = Vector2(0, -5)
+texture = ExtResource("2_2yyp0")
+hframes = 6
+vframes = 4
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource("CircleShape2D_gjfod")
+
+[node name="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_nvww2")
+}
+
+[node name="DropMaskOnDeadComponent" type="Node" parent="." index="6"]
+script = ExtResource("4_qlk0v")
+
+[node name="SearchTribalMaskTimer" type="Timer" parent="." index="10"]
+
+[node name="HurtBox" type="Area2D" parent="." index="11"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("3_66fwb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_r3ph5")
+
+[node name="ScepterPivot" type="Node2D" parent="." index="12"]
+position = Vector2(0, -3)
+
+[node name="Sprite2D" type="Sprite2D" parent="ScepterPivot" index="0"]
+position = Vector2(9, 0)
+texture = ExtResource("6_m7udh")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ScepterPivot/Sprite2D" index="0"]
+position = Vector2(0, -4)
+emitting = false
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_6tpwv")
+
+[node name="ScepterAnimationPlayer" type="AnimationPlayer" parent="ScepterPivot" index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_vi7be")
+}
