@@ -22,5 +22,5 @@ func _spawn_mask() -> void:
 	else:
 		printerr("Error: Invalid parent for DropMaskOnDeadComponent component")
 
-	tribal_mask.position = enemy.global_position
-	get_tree().current_scene.add_child(tribal_mask)
+	tribal_mask.position = enemy.position
+	enemy.room.add_child(tribal_mask)

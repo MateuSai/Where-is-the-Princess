@@ -4,6 +4,8 @@ enum Type { BLOWPIPE, SPEAR, BOMB, SHAMAN }
 
 var type: Type
 
+@onready var room: DungeonRoom = get_parent()
+
 
 func _init() -> void:
 	add_to_group("tribal_masks")
@@ -25,3 +27,12 @@ func _ready() -> void:
 	tween.tween_property(self, "position:y", initial_y, 0.25)
 	tween.tween_property(self, "position:y", initial_y - 2, 0.25)
 	tween.tween_property(self, "position:y", initial_y, 0.25)
+
+
+func resurrect() -> void:
+	var enemy: Enemy = load(["res://Characters/Enemies/BlowpipeTribal/BlowpipeTribal.tscn", "res://Characters/Enemies/SpearTribal/SpearTribal.tscn", "res://Characters/Enemies/BombTribal/BombTribal.tscn", "res://Characters/Enemies/ShamanTribal/ShamanTribal.tscn"][type]).instantiate()
+	enemy.position = position
+	room.add_child(enemy)
+	room.num_enemies += 1
+
+	queue_free()

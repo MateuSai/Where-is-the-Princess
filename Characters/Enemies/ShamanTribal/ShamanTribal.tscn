@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bgxlsjal10iir"]
+[gd_scene load_steps=22 format=3 uid="uid://bgxlsjal10iir"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_aq1of"]
 [ext_resource type="Texture2D" uid="uid://d4b0r3wlt5g0v" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_04.png" id="2_2yyp0"]
@@ -107,10 +107,107 @@ _data = {
 radius = 4.0
 height = 12.0
 
+[sub_resource type="Gradient" id="Gradient_35kib"]
+offsets = PackedFloat32Array(0, 0.804196, 1)
+colors = PackedColorArray(0.811765, 0.188235, 0.192157, 1, 0.811765, 0.188235, 0.192157, 1, 0.811765, 0.188235, 0.192157, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_j3bvd"]
+gradient = SubResource("Gradient_35kib")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6tpwv"]
+emission_shape = 1
+emission_sphere_radius = 3.0
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 15.0
+initial_velocity_max = 30.0
+orbit_velocity_min = 0.5
+orbit_velocity_max = 0.8
+color_ramp = SubResource("GradientTexture1D_j3bvd")
+
+[sub_resource type="Animation" id="Animation_7srvl"]
+resource_name = "resurrect"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(9, 0), Vector2(8, -5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/GPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_resurrect_ally"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_ghpyf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(9, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D/GPUParticles2D:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vi7be"]
+_data = {
+"RESET": SubResource("Animation_ghpyf"),
+"resurrect": SubResource("Animation_7srvl")
+}
+
 [node name="ShamanTribal" instance=ExtResource("1_aq1of")]
 collision_mask = 23
 script = ExtResource("2_hqlqb")
 is_boss = false
+mass = 50.0
+accerelation = 20
+max_speed = 50
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("3_8eupy")
@@ -132,7 +229,9 @@ libraries = {
 [node name="DropMaskOnDeadComponent" type="Node" parent="." index="6"]
 script = ExtResource("4_qlk0v")
 
-[node name="HurtBox" type="Area2D" parent="." index="10"]
+[node name="SearchTribalMaskTimer" type="Timer" parent="." index="10"]
+
+[node name="HurtBox" type="Area2D" parent="." index="11"]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("3_66fwb")
@@ -141,9 +240,20 @@ script = ExtResource("3_66fwb")
 position = Vector2(0, -4)
 shape = SubResource("CapsuleShape2D_r3ph5")
 
-[node name="ScepterPivot" type="Node2D" parent="." index="11"]
+[node name="ScepterPivot" type="Node2D" parent="." index="12"]
 position = Vector2(0, -3)
 
 [node name="Sprite2D" type="Sprite2D" parent="ScepterPivot" index="0"]
 position = Vector2(9, 0)
 texture = ExtResource("6_m7udh")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ScepterPivot/Sprite2D" index="0"]
+position = Vector2(0, -4)
+emitting = false
+amount = 12
+process_material = SubResource("ParticleProcessMaterial_6tpwv")
+
+[node name="ScepterAnimationPlayer" type="AnimationPlayer" parent="ScepterPivot" index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_vi7be")
+}
