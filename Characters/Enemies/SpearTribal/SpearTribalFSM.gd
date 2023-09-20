@@ -1,5 +1,7 @@
 extends FiniteStateMachine
 
+@onready var spear_hitbox_collision_shape: CollisionShape2D = $"../SpearPivot/Sprite2D/Hitbox/CollisionShape2D"
+@onready var charge_raycast: RayCast2D = $"../SpearPivot/Sprite2D/ChargeRayCast"
 @onready var spear_animation_player: AnimationPlayer = $"../SpearPivot/AnimationPlayer"
 #@onready var attack_animation_leftover_timer: Timer = $"../AttackAnimationLeftoverTimer"
 
@@ -8,6 +10,7 @@ func _init() -> void:
 	_add_state("idle")
 	_add_state("move")
 	_add_state("attack")
+	_add_state("charge")
 	_add_state("dead")
 
 
@@ -51,6 +54,9 @@ func _get_transition() -> int:
 		states.attack:
 			if parent.distance_to_player > parent.MAX_DISTANCE_TO_PLAYER or parent.distance_to_player < parent.MIN_DISTANCE_TO_PLAYER:
 				return states.move
+		states.charge:
+			if not spear_animation_player.is_playing() or charge_raycast.is_colliding():
+				return states.idle
 	return -1
 
 
@@ -68,6 +74,8 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			else:
 				animation_player.play("idle_up")
 			spear_animation_player.play("attack")
+		states.charge:
+			parent.max_speed = 150
 		states.dead:
 			pass
 			# parent.spawn_loot()
@@ -78,3 +86,6 @@ func _exit_state(state_exited: int) -> void:
 	match state_exited:
 		states.attack:
 			spear_animation_player.play("restore")
+		states.charge:
+			parent.max_speed = 50
+			spear_hitbox_collision_shape.disabled = true
