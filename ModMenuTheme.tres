@@ -1,0 +1,20 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://dggfxvljqvjxg"]
+
+[ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="1_o2tuy"]
+[ext_resource type="Texture2D" uid="uid://bmkoty1ctfcb5" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/check-box_full.png" id="1_rll7o"]
+[ext_resource type="Texture2D" uid="uid://c4oo7brys315y" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/panel-basic.png" id="1_wi58x"]
+[ext_resource type="Texture2D" uid="uid://6egabvvgm1fs" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/check-box_empty.png" id="2_7x1ca"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ka0pa"]
+texture = ExtResource("1_wi58x")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[resource]
+default_font = ExtResource("1_o2tuy")
+default_font_size = 10
+CheckBox/icons/checked = ExtResource("1_rll7o")
+CheckBox/icons/unchecked = ExtResource("2_7x1ca")
+PopupPanel/styles/panel = SubResource("StyleBoxTexture_ka0pa")
