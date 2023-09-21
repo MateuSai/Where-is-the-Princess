@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_gt5q8"]
 [ext_resource type="Script" path="res://Weapons/Melee/MeleeWeapon.gd" id="2_7som3"]
 [ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="3_ht21p"]
-[ext_resource type="Texture2D" uid="uid://tn7bpukhe0kh" path="res://Art/weapons/Spear.png" id="4_bfx2a"]
+[ext_resource type="Texture2D" uid="uid://tn7bpukhe0kh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Spear.png" id="4_bfx2a"]
 [ext_resource type="Shader" path="res://Shaders and Particles/Fire.gdshader" id="5_07mwr"]
 [ext_resource type="Material" uid="uid://d3h3v51wspjjw" path="res://Shaders and Particles/PixelExplosionMaterial.tres" id="5_r0vpa"]
 [ext_resource type="Texture2D" uid="uid://dfnyu2au1agfw" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/weapon_sword_1.png" id="6_tttmk"]
@@ -339,8 +339,9 @@ _data = {
 
 [node name="Spear" instance=ExtResource("1_gt5q8")]
 script = ExtResource("2_7som3")
-backwards_animation_second_attack = false
-type = 0
+num_normal_attacks = 1
+increase_num_normal_attacks_on_ability = true
+invert_scale_when_looking_left = false
 throw_speed = 400
 
 [node name="Node2D" parent="." index="0"]
@@ -373,7 +374,7 @@ libraries = {
 "": SubResource("AnimationLibrary_kgo3b")
 }
 
-[node name="Spear" type="Sprite2D" parent="." index="4"]
+[node name="Spear" type="Sprite2D" parent="." index="3"]
 visible = false
 material = ExtResource("5_r0vpa")
 position = Vector2(45, -17)

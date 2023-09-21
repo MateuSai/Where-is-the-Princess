@@ -1,7 +1,7 @@
 class_name WeaponStats extends Resource
 
 @export var weapon_path: String
-@export var condition: float = 100
+@export var condition: float = 100: set = set_condition
 signal condition_changed(new_condition: int)
 
 signal souls_changed(new_souls, souls_to_activate_ability)
