@@ -2,7 +2,7 @@ class_name SpearTribal extends Enemy
 
 const MAX_DISTANCE_TO_PLAYER: int = 24
 const MIN_DISTANCE_TO_PLAYER: int = 8
-const MIN_DISTANCE_TO_CHARGE: int = 40
+const MIN_DISTANCE_TO_CHARGE: int = 64
 
 var distance_to_player: float
 
