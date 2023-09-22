@@ -12,7 +12,7 @@ var auto_aim: bool:
 		return settings.get_value("Accessibility", "auto_aim", false)
 signal auto_aim_changed(new_value: bool)
 
-var MAPPEABLE_ACTIONS: PackedStringArray = PackedStringArray(["ui_attack", "ui_previous_weapon", "ui_next_weapon", "ui_throw", "ui_active_ability", "ui_armor_ability", "ui_pause", "ui_minimap"])
+var MAPPEABLE_ACTIONS: PackedStringArray = PackedStringArray(["ui_attack", "ui_previous_weapon", "ui_next_weapon", "ui_throw_weapon", "ui_active_ability", "ui_armor_ability", "ui_pause", "ui_minimap"])
 
 @onready var tab_container: TabContainer = $TabContainer
 

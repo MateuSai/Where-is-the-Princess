@@ -53,7 +53,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			_switch_weapon(UP)
 		elif event.is_action_released("ui_next_weapon"):
 			_switch_weapon(DOWN)
-		elif event.is_action_pressed("ui_throw") and current_weapon.get_index() != 0:
+		elif event.is_action_pressed("ui_throw_weapon") and current_weapon.get_index() != 0:
 			_drop_weapon()
 
 
