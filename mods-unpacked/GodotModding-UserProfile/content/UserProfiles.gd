@@ -25,6 +25,7 @@ const TEXT_CURRENT_PROFILE := "TEXT_CURRENT_PROFILE"
 #@onready var button_profile_name_submit: Button = $"%ButtonProfileNameSubmit"
 #@onready var button_new_profile: Button = $"%ButtonNewProfile"
 @onready var info_text: Label = $"%InfoText"
+@onready var restart_button: Button = $MarginContainer/VBoxContainer/HBoxContainer/RestartButton
 
 
 func _ready() -> void:
@@ -101,11 +102,11 @@ func _on_ButtonDeleteProfile_pressed():
 	var profile_to_delete := ModLoaderStore.current_user_profile
 	# Switch to default profile
 	if not ModLoaderUserProfile.set_profile(ModLoaderUserProfile.get_profile("default")):
-		info_text.text = TEXT_PROFILE_SELECT_ERROR
+		_set_info_text(TEXT_PROFILE_SELECT_ERROR)
 		return
 	# Delete the profile
 	if not ModLoaderUserProfile.delete_profile(profile_to_delete):
-		info_text.text = TEXT_PROFILE_DELETE_ERROR
+		_set_info_text(TEXT_PROFILE_DELETE_ERROR)
 		return
 
 	_update_ui()
@@ -116,7 +117,7 @@ func _on_ButtonProfileNameSubmit_pressed() -> void:
 	if not ModLoaderUserProfile.create_profile(input_profile_name.text):
 		# If there was an error creating the profile
 		# Add error message to the info text label
-		info_text.text = TEXT_PROFILE_CREATE_ERROR
+		_set_info_text(TEXT_PROFILE_CREATE_ERROR)
 		# And return early
 		return
 
@@ -129,35 +130,43 @@ func _on_ButtonProfileNameSubmit_pressed() -> void:
 func _on_ProfileSelect_item_selected(index: int) -> void:
 	var user_profile := ModLoaderUserProfile.get_profile(profile_select.get_item_text(index))
 	if not ModLoaderUserProfile.set_profile(user_profile):
-		info_text.text = TEXT_PROFILE_SELECT_ERROR
+		_set_info_text(TEXT_PROFILE_SELECT_ERROR)
 		return
 
 	_update_ui()
 
-	info_text.text = TEXT_RESTART
+	_set_info_text(TEXT_RESTART)
 
 
 func _on_ModList_mod_is_active_changed(mod_id: String, is_active: bool)  -> void:
 	if is_active:
 		if not ModLoaderUserProfile.enable_mod(mod_id):
-			info_text.text = TEXT_MOD_ENABLE_ERROR
+			_set_info_text(TEXT_MOD_ENABLE_ERROR)
 			return
 	else:
 		if not ModLoaderUserProfile.disable_mod(mod_id):
-			info_text.text = TEXT_MOD_DISABLE_ERROR
+			_set_info_text(TEXT_MOD_DISABLE_ERROR)
 			return
 
-	info_text.text = TEXT_RESTART
+	_set_info_text(TEXT_RESTART)
 
 
 func _on_ModList_mod_current_config_changed(mod_id: String, current_config_name: String):
 	var config := ModLoaderConfig.get_config(mod_id, current_config_name)
 
 	if not config:
-		info_text.text = TEXT_MOD_CURRENT_CONFIG_CHANGE_ERROR
+		_set_info_text(TEXT_MOD_CURRENT_CONFIG_CHANGE_ERROR)
 
 	ModLoaderConfig.set_current_config(config)
 
 
 func _on_ModLoader_current_config_changed(_config: ModConfig) -> void:
 	_update_ui()
+
+
+func _set_info_text(new_text: String) -> void:
+	info_text.text = new_text
+	if new_text == TEXT_RESTART:
+		restart_button.show()
+	else:
+		restart_button.hide()
