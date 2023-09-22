@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://d0qfeecooxxpf"]
+
+[ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="1_l8aod"]
+
+[resource]
+default_font = ExtResource("1_l8aod")
+default_font_size = 10

@@ -4,14 +4,14 @@ class_name UserProfilesPopup
 
 @export var user_profile_section: PackedScene
 #@export var text_select_profile := "Select Profile"
-const TEXT_RESTART := "A game restart is required to apply the settings"
-const TEXT_PROFILE_CREATE_ERROR := "There was an error creating the profile - check logs"
-const TEXT_PROFILE_SELECT_ERROR := "There was an error selecting the profile - check logs"
-const TEXT_PROFILE_DELETE_ERROR := "There was an error deleting the profile - check logs"
-const TEXT_MOD_ENABLE_ERROR := "There was an error enabling the mod - check logs"
-const TEXT_MOD_DISABLE_ERROR := "There was an error disabling the mod - check logs"
-const TEXT_MOD_CURRENT_CONFIG_CHANGE_ERROR := "There was an error changing the config - check logs"
-const TEXT_CURRENT_PROFILE := " (Current Profile)"
+const TEXT_RESTART := "A_GAME_RESTART_IS_REQUIRED_TO_APPLY_THE_SETTINGS"
+const TEXT_PROFILE_CREATE_ERROR := "TEXT_PROFILE_CREATE_ERROR"
+const TEXT_PROFILE_SELECT_ERROR := "TEXT_PROFILE_SELECT_ERROR"
+const TEXT_PROFILE_DELETE_ERROR := "TEXT_PROFILE_DELETE_ERROR"
+const TEXT_MOD_ENABLE_ERROR := "TEXT_MOD_ENABLE_ERROR"
+const TEXT_MOD_DISABLE_ERROR := "TEXT_MOD_DISABLE_ERROR"
+const TEXT_MOD_CURRENT_CONFIG_CHANGE_ERROR := "TEXT_MOD_CURRENT_CONFIG_CHANGE_ERROR"
+const TEXT_CURRENT_PROFILE := "TEXT_CURRENT_PROFILE"
 
 # I can't put a material on the PopupPanel, so I'm using the material of his panel.
 # It seems it always have the same name, you can check it on the remote tab
@@ -77,7 +77,7 @@ func _populate_profile_select() -> void:
 
 	for user_profile in ModLoaderUserProfile.get_all_as_array():
 		var is_current_profile := true if ModLoaderUserProfile.get_current().name == user_profile.name else false
-		profile_select.add_item(user_profile.name + TEXT_CURRENT_PROFILE if is_current_profile else user_profile.name)
+		profile_select.add_item(tr(TEXT_CURRENT_PROFILE) % user_profile.name if is_current_profile else user_profile.name)
 
 		# Get the item index of the current profile
 		if is_current_profile:

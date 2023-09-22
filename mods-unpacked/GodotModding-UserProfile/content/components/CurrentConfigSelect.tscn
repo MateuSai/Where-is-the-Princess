@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://0ti1bfblst4b"]
+[gd_scene load_steps=3 format=3 uid="uid://0ti1bfblst4b"]
 
 [ext_resource type="Script" path="res://mods-unpacked/GodotModding-UserProfile/content/components/CurrentConfigSelect.gd" id="1"]
+[ext_resource type="Theme" uid="uid://d0qfeecooxxpf" path="res://SmallFontTheme.tres" id="1_me42i"]
 
 [node name="CurrentConfigSelect" type="OptionButton"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource("1_me42i")
 script = ExtResource("1")
 
 [connection signal="item_selected" from="." to="." method="_on_CurrentConfigSelect_item_selected"]

@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2wlhqt5essa5"]
+[gd_scene load_steps=8 format=3 uid="uid://d2wlhqt5essa5"]
 
 [ext_resource type="Script" path="res://mods-unpacked/GodotModding-UserProfile/content/UserProfiles.gd" id="1"]
-[ext_resource type="Theme" uid="uid://dggfxvljqvjxg" path="res://ModMenuTheme.tres" id="1_jeo4a"]
+[ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="1_sjeye"]
 [ext_resource type="PackedScene" uid="uid://xykxxh0rnm8q" path="res://mods-unpacked/GodotModding-UserProfile/content/ModList.tscn" id="3"]
+[ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="3_l4c8n"]
 [ext_resource type="Texture2D" uid="uid://dbbbvokfj8ogi" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/panel-tittle.png" id="4_431jk"]
+[ext_resource type="Theme" uid="uid://d0qfeecooxxpf" path="res://SmallFontTheme.tres" id="4_g35go"]
 [ext_resource type="FontFile" uid="uid://chicvvurmnu8" path="res://Fonts/Poco.ttf" id="5_oesc6"]
 
 [node name="UserProfiles" type="PopupPanel"]
@@ -11,10 +13,8 @@ disable_3d = true
 transparent_bg = true
 canvas_item_default_texture_filter = 0
 size = Vector2i(300, 200)
-visible = true
 transparent = true
-theme = ExtResource("1_jeo4a")
-theme_type_variation = &"small_font"
+theme = ExtResource("1_sjeye")
 script = ExtResource("1")
 user_profile_section = ExtResource("3")
 
@@ -22,10 +22,11 @@ user_profile_section = ExtResource("3")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+theme_override_constants/margin_top = 24
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -33,7 +34,6 @@ layout_mode = 2
 [node name="LabelSelectProfile" type="Label" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
 text = "Select Profile"
 
 [node name="ProfileSelection" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
@@ -43,15 +43,20 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("4_g35go")
 
 [node name="ButtonNewProfile" type="Button" parent="MarginContainer/VBoxContainer/ProfileSelection"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_l4c8n")
+theme_override_font_sizes/font_size = 10
 text = " + "
 
 [node name="ButtonDeleteProfile" type="Button" parent="MarginContainer/VBoxContainer/ProfileSelection"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_l4c8n")
+theme_override_font_sizes/font_size = 10
 text = " - "
 
 [node name="ProfileSettings" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
@@ -68,7 +73,6 @@ size_flags_vertical = 3
 
 [node name="LabelProfileSettings" type="Label" parent="MarginContainer/VBoxContainer/ProfileSettings/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
 text = "Profile Settings"
 
 [node name="UserProfileSections" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ProfileSettings/ScrollContainer/VBoxContainer"]
@@ -83,16 +87,19 @@ layout_mode = 2
 [node name="InfoText" type="Label" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_l4c8n")
+theme_override_font_sizes/font_size = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchors_preset = 10
 anchor_right = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = -4.0
-offset_bottom = 196.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 192.0
 grow_horizontal = 2
 size_flags_vertical = 0
+mouse_filter = 2
 alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
@@ -126,10 +133,10 @@ size = Vector2i(200, 104)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 196.0
-offset_bottom = 100.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 192.0
+offset_bottom = 96.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PopupNewProfile/MarginContainer"]
 layout_mode = 2

@@ -1,12 +1,20 @@
-[gd_resource type="Theme" load_steps=12 format=3 uid="uid://b0askjdx1bs38"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://b0askjdx1bs38"]
 
 [ext_resource type="Texture2D" uid="uid://6egabvvgm1fs" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/check-box_empty.png" id="1_5yv1o"]
 [ext_resource type="FontFile" uid="uid://drbvct1q4mkwc" path="res://Fonts/Alkhemikal.ttf" id="1_gud3r"]
 [ext_resource type="Texture2D" uid="uid://bmkoty1ctfcb5" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/check-box_full.png" id="2_32d82"]
+[ext_resource type="Texture2D" uid="uid://c4oo7brys315y" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/panel-basic.png" id="3_ewg2q"]
 [ext_resource type="Texture2D" uid="uid://b4t5w5brookj3" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/scroll_bar-V_normal.png" id="3_hvyo0"]
 [ext_resource type="Texture2D" uid="uid://cwunf3wfblkfj" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/scrol_bar-V_hover.png" id="4_dm86b"]
 [ext_resource type="Texture2D" uid="uid://cxip228mknh1v" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/scrol_bar-V_pressed.png" id="5_7nx62"]
 [ext_resource type="Texture2D" uid="uid://b1sbft2fjsa1r" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/scroll-V_empty.png" id="6_6cq8h"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ughoq"]
+texture = ExtResource("3_ewg2q")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fnehf"]
 texture = ExtResource("3_hvyo0")
@@ -35,6 +43,7 @@ default_font = ExtResource("1_gud3r")
 default_font_size = 16
 CheckBox/icons/checked = ExtResource("2_32d82")
 CheckBox/icons/unchecked = ExtResource("1_5yv1o")
+PopupPanel/styles/panel = SubResource("StyleBoxTexture_ughoq")
 VScrollBar/styles/grabber = SubResource("StyleBoxTexture_fnehf")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_00m7y")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_wcobi")
