@@ -7,6 +7,7 @@ MERCENARY,Mercenary,Mercenari,Mercenario,傭兵
 ,,,,
 PLAY,Play,Juga,Jugar,遊び
 RESUME,Resume,Resumir,Resumir,レジューム
+RESTART,Restart,,,
 MODS,Mods,Mods,Mods,MODS
 SETTINGS,Settings,Configuració,Configuración,設定
 QUIT,Quit,Surt,Salir,退く
@@ -22,6 +23,16 @@ AUDIO,Audio,Àudio,Audio,音響
 MASTER_VOLUME,Master Volume,Volum Mestre,Volumen Maestro,
 MUSIC_VOLUME,Music Volume,Volum Música,Volumen Música,
 SOUNDS_VOLUME,Sounds Volume,Volum Sorolls,Volumen Sonidos,
+,,,,
+,,,,
+A_GAME_RESTART_IS_REQUIRED_TO_APPLY_THE_SETTINGS,A game restart is required to apply the settings,,,
+TEXT_PROFILE_CREATE_ERROR,There was an error creating the profile - check logs,,,
+TEXT_PROFILE_SELECT_ERROR,There was an error selecting the profile - check logs,,,
+TEXT_PROFILE_DELETE_ERROR,There was an error deleting the profile - check logs,,,
+TEXT_MOD_ENABLE_ERROR,There was an error enabling the mod - check logs,,,
+TEXT_MOD_DISABLE_ERROR,There was an error disabling the mod - check logs,,,
+TEXT_MOD_CURRENT_CONFIG_CHANGE_ERROR,There was an error changing the config - check logs,,,
+TEXT_CURRENT_PROFILE,%s (Current Profile),,,
 ,,,,
 ,,,,
 SWORD,Sword,Espasa,Espada,剣

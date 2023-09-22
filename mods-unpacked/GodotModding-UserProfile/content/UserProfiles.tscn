@@ -1,10 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://d2wlhqt5essa5"]
+[gd_scene load_steps=9 format=3 uid="uid://d2wlhqt5essa5"]
 
 [ext_resource type="Script" path="res://mods-unpacked/GodotModding-UserProfile/content/UserProfiles.gd" id="1"]
+[ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="1_sjeye"]
 [ext_resource type="PackedScene" uid="uid://xykxxh0rnm8q" path="res://mods-unpacked/GodotModding-UserProfile/content/ModList.tscn" id="3"]
+[ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="3_l4c8n"]
+[ext_resource type="Texture2D" uid="uid://dbbbvokfj8ogi" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/panel-tittle.png" id="4_431jk"]
+[ext_resource type="Theme" uid="uid://d0qfeecooxxpf" path="res://SmallFontTheme.tres" id="4_g35go"]
+[ext_resource type="FontFile" uid="uid://chicvvurmnu8" path="res://Fonts/Poco.ttf" id="5_oesc6"]
+[ext_resource type="Script" path="res://ui/RestartButton.gd" id="6_y6p66"]
 
 [node name="UserProfiles" type="PopupPanel"]
+disable_3d = true
+transparent_bg = true
+canvas_item_default_texture_filter = 0
 size = Vector2i(300, 200)
+transparent = true
+theme = ExtResource("1_sjeye")
 script = ExtResource("1")
 user_profile_section = ExtResource("3")
 
@@ -12,10 +23,11 @@ user_profile_section = ExtResource("3")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+theme_override_constants/margin_top = 24
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -32,15 +44,20 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("4_g35go")
 
 [node name="ButtonNewProfile" type="Button" parent="MarginContainer/VBoxContainer/ProfileSelection"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_l4c8n")
+theme_override_font_sizes/font_size = 10
 text = " + "
 
 [node name="ButtonDeleteProfile" type="Button" parent="MarginContainer/VBoxContainer/ProfileSelection"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_l4c8n")
+theme_override_font_sizes/font_size = 10
 text = " - "
 
 [node name="ProfileSettings" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
@@ -68,9 +85,58 @@ size_flags_vertical = 3
 [node name="ModList" parent="MarginContainer/VBoxContainer/ProfileSettings/ScrollContainer/VBoxContainer/UserProfileSections" instance=ExtResource("3")]
 layout_mode = 2
 
-[node name="InfoText" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="InfoText" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_l4c8n")
+theme_override_font_sizes/font_size = 10
+
+[node name="RestartButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_l4c8n")
+theme_override_font_sizes/font_size = 10
+text = "RESTART"
+script = ExtResource("6_y6p66")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = 192.0
+grow_horizontal = 2
+size_flags_vertical = 0
+mouse_filter = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("4_431jk")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 1
+
+[node name="Label" type="Label" parent="HBoxContainer/MarginContainer/MarginContainer"]
+layout_mode = 2
+text = "MODS"
 
 [node name="PopupNewProfile" type="PopupPanel" parent="."]
 unique_name_in_owner = true
@@ -80,10 +146,10 @@ size = Vector2i(200, 104)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PopupNewProfile/MarginContainer"]
 layout_mode = 2
@@ -99,6 +165,7 @@ layout_mode = 2
 
 [node name="LabelProfileName" type="Label" parent="PopupNewProfile/MarginContainer/VBoxContainer/VBoxContainer/ProfileName/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("5_oesc6")
 text = "Profile Name"
 
 [node name="InputProfileName" type="LineEdit" parent="PopupNewProfile/MarginContainer/VBoxContainer/VBoxContainer/ProfileName/VBoxContainer"]
