@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=20 format=3 uid="uid://b0askjdx1bs38"]
+[gd_resource type="Theme" load_steps=25 format=3 uid="uid://b0askjdx1bs38"]
 
 [ext_resource type="FontFile" uid="uid://drbvct1q4mkwc" path="res://Fonts/Alkhemikal.ttf" id="1_gud3r"]
 [ext_resource type="Texture2D" uid="uid://tmi2660xc1ma" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_hover.png" id="1_kevbw"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://cwunf3wfblkfj" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/scrol_bar-V_hover.png" id="4_dm86b"]
 [ext_resource type="Texture2D" uid="uid://cxip228mknh1v" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/scrol_bar-V_pressed.png" id="5_7nx62"]
 [ext_resource type="Texture2D" uid="uid://b1sbft2fjsa1r" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/scroll-V_empty.png" id="6_6cq8h"]
+[ext_resource type="Texture2D" uid="uid://cba7f2sr576l3" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/slider_grab.png" id="6_oop4m"]
+[ext_resource type="Texture2D" uid="uid://d3eo3xbqoajs6" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/slider_bar.png" id="7_3r1xb"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_65uj7"]
 texture = ExtResource("1_kevbw")
@@ -33,7 +35,23 @@ texture_margin_top = 4.0
 texture_margin_right = 4.0
 texture_margin_bottom = 4.0
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_it4ax"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hy320"]
+texture = ExtResource("7_3r1xb")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+texture_margin_bottom = 3.0
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j3vci"]
+texture = ExtResource("3_ewg2q")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_73vy8"]
 texture = ExtResource("3_ewg2q")
 texture_margin_left = 4.0
 texture_margin_top = 4.0
@@ -65,14 +83,22 @@ texture_margin_bottom = 3.0
 [resource]
 default_font = ExtResource("1_gud3r")
 default_font_size = 16
+Button/colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
 Button/styles/hover = SubResource("StyleBoxTexture_65uj7")
 Button/styles/normal = SubResource("StyleBoxTexture_akudp")
 Button/styles/pressed = SubResource("StyleBoxTexture_kxq70")
 CheckBox/icons/checked = ExtResource("1_pp2h6")
+CheckBox/icons/radio_checked = ExtResource("1_pp2h6")
+CheckBox/icons/radio_unchecked = ExtResource("2_cm5ob")
 CheckBox/icons/unchecked = ExtResource("2_cm5ob")
-Label/colors/font_outline_color = Color(0, 0, 0, 1)
-Label/constants/outline_size = 1
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_it4ax")
+HSlider/icons/grabber = ExtResource("6_oop4m")
+HSlider/styles/slider = SubResource("StyleBoxTexture_hy320")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_j3vci")
+PopupMenu/icons/radio_checked = ExtResource("1_pp2h6")
+PopupMenu/icons/radio_unchecked = ExtResource("2_cm5ob")
+PopupMenu/styles/panel = SubResource("StyleBoxTexture_73vy8")
 VScrollBar/styles/grabber = SubResource("StyleBoxTexture_fnehf")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_00m7y")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_wcobi")
