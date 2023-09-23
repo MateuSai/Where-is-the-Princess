@@ -78,7 +78,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			attack()
 		elif charge_particles.emitting:
 			_strong_attack()
-	elif event.is_action_pressed("ui_active_ability") and has_active_ability() and not is_busy() and can_active_ability():
+	elif event.is_action_pressed("ui_weapon_ability") and has_active_ability() and not is_busy() and can_active_ability():
 		_active_ability()
 
 
