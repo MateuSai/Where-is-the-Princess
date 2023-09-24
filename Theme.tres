@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=25 format=3 uid="uid://b0askjdx1bs38"]
+[gd_resource type="Theme" load_steps=40 format=3 uid="uid://b0askjdx1bs38"]
 
 [ext_resource type="FontFile" uid="uid://drbvct1q4mkwc" path="res://Fonts/Alkhemikal.ttf" id="1_gud3r"]
 [ext_resource type="Texture2D" uid="uid://tmi2660xc1ma" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_hover.png" id="1_kevbw"]
@@ -12,7 +12,15 @@
 [ext_resource type="Texture2D" uid="uid://cxip228mknh1v" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/scrol_bar-V_pressed.png" id="5_7nx62"]
 [ext_resource type="Texture2D" uid="uid://b1sbft2fjsa1r" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/scroll-V_empty.png" id="6_6cq8h"]
 [ext_resource type="Texture2D" uid="uid://cba7f2sr576l3" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/slider_grab.png" id="6_oop4m"]
+[ext_resource type="Texture2D" uid="uid://bbgryaebndevj" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/slider_grab-pressed.png" id="7_1gmir"]
 [ext_resource type="Texture2D" uid="uid://d3eo3xbqoajs6" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/slider_bar.png" id="7_3r1xb"]
+[ext_resource type="Texture2D" uid="uid://grfyhyvfnduv" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/slider_bar-fill.png" id="7_kk8vb"]
+[ext_resource type="Texture2D" uid="uid://8fp5nex2pvim" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/slider_grab-hover.png" id="8_prk36"]
+[ext_resource type="Texture2D" uid="uid://by8877qnfkex2" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/slider_bar-fill-hover.png" id="10_vodfy"]
+[ext_resource type="Texture2D" uid="uid://dm37e8mo0rwq8" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/tab-selected.png" id="12_82iax"]
+[ext_resource type="Texture2D" uid="uid://ciqdr2ry3ec6u" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/tab-hover.png" id="12_gawhf"]
+[ext_resource type="Texture2D" uid="uid://chirooaqoilt1" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/panel-pop-up.png" id="12_tj1ee"]
+[ext_resource type="Texture2D" uid="uid://b5hg1i2p4771d" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/tab-unselected.png" id="14_cegmw"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_65uj7"]
 texture = ExtResource("1_kevbw")
@@ -37,12 +45,20 @@ texture_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_it4ax"]
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8cuyt"]
+texture = ExtResource("7_kk8vb")
+texture_margin_left = 3.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jt8tc"]
+texture = ExtResource("10_vodfy")
+texture_margin_left = 3.0
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hy320"]
 texture = ExtResource("7_3r1xb")
 texture_margin_left = 3.0
-texture_margin_top = 3.0
+texture_margin_top = 5.0
 texture_margin_right = 3.0
-texture_margin_bottom = 3.0
+texture_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j3vci"]
 texture = ExtResource("3_ewg2q")
@@ -52,11 +68,44 @@ texture_margin_right = 4.0
 texture_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_73vy8"]
-texture = ExtResource("3_ewg2q")
+texture = ExtResource("12_tj1ee")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p0q2m"]
+texture = ExtResource("12_tj1ee")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5sg6s"]
+texture = ExtResource("12_gawhf")
 texture_margin_left = 4.0
 texture_margin_top = 4.0
 texture_margin_right = 4.0
-texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nvuer"]
+texture = ExtResource("12_82iax")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_asdh3"]
+texture = ExtResource("14_cegmw")
+texture_margin_left = 3.0
+texture_margin_top = 2.0
+texture_margin_right = 3.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qmom5"]
+texture = ExtResource("1_l11wo")
+texture_margin_left = 3.0
+texture_margin_top = 3.0
+texture_margin_right = 3.0
+expand_margin_top = 4.0
+region_rect = Rect2(0, 0, 16, 13)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fnehf"]
 texture = ExtResource("3_hvyo0")
@@ -83,8 +132,8 @@ texture_margin_bottom = 3.0
 [resource]
 default_font = ExtResource("1_gud3r")
 default_font_size = 16
-Button/colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
-Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/colors/font_color = Color(0.321569, 0.188235, 0.0980392, 1)
+Button/colors/font_hover_color = Color(0.372549, 0.219608, 0.117647, 1)
 Button/styles/hover = SubResource("StyleBoxTexture_65uj7")
 Button/styles/normal = SubResource("StyleBoxTexture_akudp")
 Button/styles/pressed = SubResource("StyleBoxTexture_kxq70")
@@ -94,11 +143,21 @@ CheckBox/icons/radio_unchecked = ExtResource("2_cm5ob")
 CheckBox/icons/unchecked = ExtResource("2_cm5ob")
 CheckBox/styles/focus = SubResource("StyleBoxEmpty_it4ax")
 HSlider/icons/grabber = ExtResource("6_oop4m")
+HSlider/icons/grabber_disabled = ExtResource("7_1gmir")
+HSlider/icons/grabber_highlight = ExtResource("8_prk36")
+HSlider/styles/grabber_area = SubResource("StyleBoxTexture_8cuyt")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxTexture_jt8tc")
 HSlider/styles/slider = SubResource("StyleBoxTexture_hy320")
+Label/colors/font_color = Color(0.321569, 0.188235, 0.0980392, 1)
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_j3vci")
 PopupMenu/icons/radio_checked = ExtResource("1_pp2h6")
 PopupMenu/icons/radio_unchecked = ExtResource("2_cm5ob")
 PopupMenu/styles/panel = SubResource("StyleBoxTexture_73vy8")
+TabContainer/styles/panel = SubResource("StyleBoxTexture_p0q2m")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxTexture_5sg6s")
+TabContainer/styles/tab_selected = SubResource("StyleBoxTexture_nvuer")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_asdh3")
+TabContainer/styles/tabbar_background = SubResource("StyleBoxTexture_qmom5")
 VScrollBar/styles/grabber = SubResource("StyleBoxTexture_fnehf")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_00m7y")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_wcobi")

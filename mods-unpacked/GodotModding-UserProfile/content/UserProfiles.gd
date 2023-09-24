@@ -32,6 +32,8 @@ func _ready() -> void:
 #	panel.material = ShaderMaterial.new()
 #	panel.material.shader = load("res://mods-unpacked/GodotModding-UserProfile/assets/shader/blur.tres")
 
+	hide()
+
 	_populate_profile_select()
 	_generate_user_profile_section()
 

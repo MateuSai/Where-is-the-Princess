@@ -22,6 +22,7 @@ func _init(action_name: String) -> void:
 
 	var name_label: Label = Label.new()
 	name_label.text = action_name.to_upper()
+	name_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 	container.add_child(name_label)
 
 #	var control: Control = Control.new()
