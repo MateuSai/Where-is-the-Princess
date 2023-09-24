@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bekcqxfxkfcf5"]
+[gd_scene load_steps=6 format=3 uid="uid://bekcqxfxkfcf5"]
 
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="1_xivxa"]
 [ext_resource type="Script" path="res://ui/DebugUI.gd" id="2_ueqtf"]
 [ext_resource type="Script" path="res://ui/DebugInfo.gd" id="3_gy65f"]
 [ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="4_4w6it"]
-[ext_resource type="FontFile" uid="uid://dues33f2o08he" path="res://Fonts/Unbalanced.ttf" id="4_nnix6"]
 [ext_resource type="Script" path="res://ui/Terminal.gd" id="5_b66fm"]
 
 [node name="DebugUI" type="Control"]
@@ -57,6 +56,7 @@ offset_left = -216.0
 offset_top = -24.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_fonts/font = ExtResource("4_nnix6")
+theme_override_fonts/font = ExtResource("4_4w6it")
+theme_override_font_sizes/font_size = 10
 caret_blink = true
 script = ExtResource("5_b66fm")

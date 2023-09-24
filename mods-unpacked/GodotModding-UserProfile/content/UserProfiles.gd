@@ -1,4 +1,4 @@
-extends PopupPanel
+extends Popup
 class_name UserProfilesPopup
 
 
@@ -25,7 +25,7 @@ const TEXT_CURRENT_PROFILE := "TEXT_CURRENT_PROFILE"
 #@onready var button_profile_name_submit: Button = $"%ButtonProfileNameSubmit"
 #@onready var button_new_profile: Button = $"%ButtonNewProfile"
 @onready var info_text: Label = $"%InfoText"
-@onready var restart_button: Button = $MarginContainer/VBoxContainer/HBoxContainer/RestartButton
+@onready var restart_button: Button = $VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/RestartButton
 
 
 func _ready() -> void:

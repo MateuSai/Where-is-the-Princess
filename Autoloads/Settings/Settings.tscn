@@ -196,12 +196,12 @@ layout_mode = 2
 script = ExtResource("5_7s8v8")
 bus = "Sounds"
 
-[node name="ACCESIBILITY" type="ScrollContainer" parent="TabContainer"]
+[node name="ACCESSIBILITY" type="ScrollContainer" parent="TabContainer"]
 visible = false
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="TabContainer/ACCESIBILITY"]
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/ACCESSIBILITY"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 4
@@ -209,29 +209,29 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/ACCESIBILITY/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/ACCESSIBILITY/MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/ACCESIBILITY/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/ACCESSIBILITY/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TabContainer/ACCESIBILITY/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="TabContainer/ACCESSIBILITY/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "SCREEN_FLASHES"
 
-[node name="ScreenFlashesCheckBox" type="CheckBox" parent="TabContainer/ACCESIBILITY/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ScreenFlashesCheckBox" type="CheckBox" parent="TabContainer/ACCESSIBILITY/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 script = ExtResource("7_twuuk")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/ACCESIBILITY/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/ACCESSIBILITY/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TabContainer/ACCESIBILITY/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="TabContainer/ACCESSIBILITY/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "AUTO_AIM"
 
-[node name="AutoAimCheckBox" type="CheckBox" parent="TabContainer/ACCESIBILITY/MarginContainer/VBoxContainer/HBoxContainer2"]
+[node name="AutoAimCheckBox" type="CheckBox" parent="TabContainer/ACCESSIBILITY/MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 10
 script = ExtResource("8_vwxws")

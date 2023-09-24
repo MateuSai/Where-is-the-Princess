@@ -19,14 +19,14 @@ columns = 3
 [node name="LabelModName" type="Label" parent="Grid"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Mod Name"
+text = "MOD_NAME"
 
 [node name="LabelActiveState" type="Label" parent="Grid"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "active"
+text = "ACTIVE"
 
 [node name="LabelCurrentConfig" type="Label" parent="Grid"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "current config"
+text = "CURRENT_CONFIG"
