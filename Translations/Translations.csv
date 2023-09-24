@@ -1,20 +1,20 @@
 keys,en,ca,es,ja
 UNDERPANTS,Underpants,Roba interior,Ropa interior,パンツ
-UNDERPANTS_DESC,Why wear an armor? You are faster with only your underpants.,,,
+UNDERPANTS_DESC,Why wear an armor? You are faster with only your underpants.,,¿Para qué usar armadura? Eres más rápido sólo con tu ropa interior.,
 KNIGHT,Knight,Cavaller,Caballero,騎士
 MERCENARY,Mercenary,Mercenari,Mercenario,傭兵
 ,,,,
 ,,,,
 PLAY,Play,Juga,Jugar,遊び
 RESUME,Resume,Resumir,Resumir,レジューム
-RESTART,Restart,,,
+RESTART,Restart,,Reiniciar,
 MODS,Mods,Mods,Mods,MODS
 SETTINGS,Settings,Configuració,Configuración,設定
 QUIT,Quit,Surt,Salir,退く
 ,,,,
 ,,,,
 GENERAL,General,General,General,
-INPUT,Input,Input,Input,入力
+INPUT,Input,Input,Mapeo de teclas,入力
 AUDIO,Audio,Àudio,Audio,音響
 ACCESSIBILITY,Accessibility,Accessibilitat,Accesibilidad,
 ,,,,
@@ -44,12 +44,12 @@ MOD_NAME,Mod Name,Nom del Mod,Nombre del Mod,
 ACTIVE,Active,Actiu,Activo,
 CURRENT_CONFIG,Current Config,Configuració Actual,Configuración Actual,
 A_GAME_RESTART_IS_REQUIRED_TO_APPLY_THE_SETTINGS,A game restart is required to apply the settings,Reinicia el joc per aplicar els canvis,Es necesario reiniciar el juego para aplicar los cambios,
-TEXT_PROFILE_CREATE_ERROR,There was an error creating the profile - check logs,Hi ha hagut un error creant el perfil - mira els logs,Ha habido un error creando el perfil - mira los logs,
-TEXT_PROFILE_SELECT_ERROR,There was an error selecting the profile - check logs,Hi ha hagut un error seleccionant el perfil - mira els logs,Ha habido un error seleccionando el perfil - mira los logs,
-TEXT_PROFILE_DELETE_ERROR,There was an error deleting the profile - check logs,Hi ha hagut un error eliminant el perfil - mira els logs,Ha habido un error eliminando el perfil - mira los logs,
-TEXT_MOD_ENABLE_ERROR,There was an error enabling the mod - check logs,Hi ha hagut un error activant el mod - mira els logs,Ha habido un error activando el mod - mira los logs,
-TEXT_MOD_DISABLE_ERROR,There was an error disabling the mod - check logs,Hi ha hagut un error desactivant el mod - mira els logs,Ha habido un error desactivando el mod - mira los logs,
-TEXT_MOD_CURRENT_CONFIG_CHANGE_ERROR,There was an error changing the config - check logs,Hi ha hagut un error canviant la configuració - mira els logs,Ha habido un error cambiando la configuración - mira los logs,
+TEXT_PROFILE_CREATE_ERROR,There was an error creating the profile - check logs,Hi ha hagut un error creant el perfil - mira els registres,Ha habido un error creando el perfil - mira los registros,
+TEXT_PROFILE_SELECT_ERROR,There was an error selecting the profile - check logs,Hi ha hagut un error seleccionant el perfil - mira els registres,Ha habido un error seleccionando el perfil - mira los registros,
+TEXT_PROFILE_DELETE_ERROR,There was an error deleting the profile - check logs,Hi ha hagut un error eliminant el perfil - mira els registres,Ha habido un error eliminando el perfil - mira los registros,
+TEXT_MOD_ENABLE_ERROR,There was an error enabling the mod - check logs,Hi ha hagut un error activant el mod - mira els registres,Ha habido un error activando el mod - mira los registros,
+TEXT_MOD_DISABLE_ERROR,There was an error disabling the mod - check logs,Hi ha hagut un error desactivant el mod - mira els registres,Ha habido un error desactivando el mod - mira los registros,
+TEXT_MOD_CURRENT_CONFIG_CHANGE_ERROR,There was an error changing the config - check logs,Hi ha hagut un error canviant la configuració - mira els registres,Ha habido un error cambiando la configuración - mira los registros,
 TEXT_CURRENT_PROFILE,%s (Current Profile),%s (Perfil Actual),%s (Perfil Actual),
 ,,,,
 ,,,,
