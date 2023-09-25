@@ -51,11 +51,14 @@ func _ready() -> void:
 
 	animation_player.animation_finished.connect(_on_animation_finished)
 
+
+	hitbox.exclude.push_back(Globals.player)
+
+
+func load_modifiers() -> void:
 	for modifier in stats.modifiers:
 		# modifier.equip(get_parent().get_parent())
 		modifier.equip(self)
-
-	hitbox.exclude.push_back(Globals.player)
 
 
 func _load_csv_data(data: Dictionary) -> void:

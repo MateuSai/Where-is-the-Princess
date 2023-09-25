@@ -41,6 +41,8 @@ func load_previous_weapons() -> void:
 		weapon_picked_up.emit(weapon)
 		weapon_switched.emit(get_child_count() - 2, get_child_count() - 1)
 
+		weapon.load_modifiers()
+
 	set_current_weapon(get_child(SavedData.run_stats.equipped_weapon_index))
 	current_weapon.show()
 

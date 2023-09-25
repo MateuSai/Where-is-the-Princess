@@ -16,6 +16,7 @@ signal armor_changed(new_armor: Armor)
 var mouse_direction: Vector2
 
 var throw_piercing: int = 1
+var extra_fire_damage: int = 0
 
 var rotating_items: Array[Node2D] = []
 
