@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=49 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -20,8 +20,10 @@
 [ext_resource type="Texture2D" uid="uid://b8f4x48lm0jow" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small_heart_animation.tres" id="14_vne45"]
 [ext_resource type="Texture2D" uid="uid://6cihr7lwp1or" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_UI_full.png" id="14_wyeiy"]
 [ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png" id="15_41qtp"]
+[ext_resource type="Texture2D" uid="uid://ch36g5p2vavvh" path="res://Art/screen_border.png" id="15_hwc5t"]
 [ext_resource type="Script" path="res://ui/ArmorConditionBar.gd" id="15_rb2hy"]
 [ext_resource type="Texture2D" uid="uid://c41g1tbc5cfub" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Weapon_UI_skil_big.png" id="16_6018t"]
+[ext_resource type="Script" path="res://Characters/Player/HitBorderEffect.gd" id="16_pcr8i"]
 [ext_resource type="Script" path="res://ui/WeaponAbilityIcon.gd" id="16_rikns"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="17_bwb1j"]
 [ext_resource type="Script" path="res://ui/RightBottomGameVBoxContainer.gd" id="18_j8x6c"]
@@ -436,7 +438,21 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("13_gnjg7")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI" index="1"]
+[node name="HitBorderEffect" type="NinePatchRect" parent="UI" index="1"]
+modulate = Color(0.65098, 0.113725, 0.0980392, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("15_hwc5t")
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+script = ExtResource("16_pcr8i")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI" index="2"]
 texture_filter = 1
 offset_right = 40.0
 offset_bottom = 40.0
@@ -490,7 +506,7 @@ texture_under = ExtResource("19_bc3n7")
 texture_progress = ExtResource("19_bc3n7")
 tint_under = Color(0.411765, 0.411765, 0.411765, 1)
 
-[node name="Inventory" type="HBoxContainer" parent="UI" index="2"]
+[node name="Inventory" type="HBoxContainer" parent="UI" index="3"]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -503,7 +519,7 @@ size_flags_horizontal = 4
 theme_override_constants/separation = -1
 alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="UI" index="3"]
+[node name="MarginContainer2" type="MarginContainer" parent="UI" index="4"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -522,7 +538,7 @@ texture_under = ExtResource("16_6018t")
 texture_progress = ExtResource("21_ohq06")
 script = ExtResource("16_rikns")
 
-[node name="RightBottomGameVBoxContainer" type="VBoxContainer" parent="UI" index="4"]
+[node name="RightBottomGameVBoxContainer" type="VBoxContainer" parent="UI" index="5"]
 texture_filter = 1
 anchors_preset = 3
 anchor_left = 1.0

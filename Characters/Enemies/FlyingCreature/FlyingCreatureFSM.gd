@@ -38,7 +38,7 @@ func _get_transition() -> int:
 			if dis <= 10:
 				return states.attack
 		states.attack:
-			if dis > 16:
+			if dis > 14:
 				return states.chase
 	return -1
 

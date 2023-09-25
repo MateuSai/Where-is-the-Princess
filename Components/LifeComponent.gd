@@ -1,6 +1,7 @@
 class_name LifeComponent extends Node
 
 var invincible: bool = false
+var invincible_after_being_hitted_time: float = 0.4
 var invincible_after_being_hitted: bool = false
 var invincible_after_being_hitted_timer: Timer
 
@@ -39,7 +40,7 @@ func take_damage(dam: int, dir: Vector2, force: int) -> void:
 	damage_taken.emit(dam, dir, force)
 
 	invincible_after_being_hitted = true
-	invincible_after_being_hitted_timer.start(0.4)
+	invincible_after_being_hitted_timer.start(invincible_after_being_hitted_time)
 
 
 func _must_ignore_damage() -> bool:
