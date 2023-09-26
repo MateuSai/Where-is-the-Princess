@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=46 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="1_0pcgl"]
 [ext_resource type="Script" path="res://BaseCamp.gd" id="1_tpf7m"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://ui/WardrobeUI.gd" id="4_nybk1"]
 [ext_resource type="Texture2D" uid="uid://daudq4kfwccvu" path="res://Art/Status Conditions/condition_status_top_fire_full_16x16.png" id="4_ypw36"]
 [ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png" id="5_jugum"]
+[ext_resource type="AudioStream" uid="uid://b1tftw38lyigm" path="res://Audio/Sounds/624425__foleyhaven__fire_burning_03.wav" id="6_i287g"]
 [ext_resource type="Texture2D" uid="uid://cpda4qwx1x4j6" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/sign.png" id="9_dti1o"]
 [ext_resource type="PackedScene" uid="uid://bqcn0vo0ait26" path="res://Rooms/RichardTheGigachadWizard.tscn" id="11_vh5i5"]
 [ext_resource type="FontFile" uid="uid://chicvvurmnu8" path="res://Fonts/Poco.ttf" id="12_qu1vg"]
@@ -126,6 +127,13 @@ texture = ExtResource("5_jugum")
 texture_scale = 1.2
 height = 50.0
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="TileMap/Campfire"]
+stream = ExtResource("6_i287g")
+volume_db = -5.0
+autoplay = true
+max_distance = 500.0
+bus = &"Sounds"
+
 [node name="Player" parent="." instance=ExtResource("1_0pcgl")]
 position = Vector2(165, 181)
 
@@ -221,8 +229,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = 196.0
-offset_bottom = 146.0
+offset_right = -4.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_nybk1")
