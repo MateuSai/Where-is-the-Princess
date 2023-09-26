@@ -47,6 +47,10 @@ enabled=PackedStringArray("res://addons/csv-data-importer/plugin.cfg")
 
 import/blender/enabled=false
 
+[gui]
+
+fonts/dynamic_fonts/use_oversampling=false
+
 [importer_defaults]
 
 texture={

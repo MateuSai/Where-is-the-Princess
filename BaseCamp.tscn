@@ -13,8 +13,8 @@
 [ext_resource type="AudioStream" uid="uid://b1tftw38lyigm" path="res://Audio/Sounds/624425__foleyhaven__fire_burning_03.wav" id="6_i287g"]
 [ext_resource type="Texture2D" uid="uid://cpda4qwx1x4j6" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/sign.png" id="9_dti1o"]
 [ext_resource type="PackedScene" uid="uid://bqcn0vo0ait26" path="res://Rooms/RichardTheGigachadWizard.tscn" id="11_vh5i5"]
-[ext_resource type="FontFile" uid="uid://chicvvurmnu8" path="res://Fonts/Poco.ttf" id="12_qu1vg"]
 [ext_resource type="PackedScene" uid="uid://cjc0h245lbmpd" path="res://Weapons/Melee/Katana/Katana.tscn" id="12_trlvh"]
+[ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="13_2uruh"]
 [ext_resource type="PackedScene" uid="uid://bu6m7pa3yuk4r" path="res://Weapons/Melee/DragonKiller/DragonKiller.tscn" id="16_885t0"]
 [ext_resource type="PackedScene" uid="uid://13du3vo5int6" path="res://Items/Soul.tscn" id="17_6xbxo"]
 [ext_resource type="AudioStream" uid="uid://dsphctheyll2w" path="res://Audio/Music/Gymnopédie no. 1 (for Harp).mp3" id="18_0hiag"]
@@ -131,7 +131,7 @@ height = 50.0
 stream = ExtResource("6_i287g")
 volume_db = -5.0
 autoplay = true
-max_distance = 500.0
+max_distance = 300.0
 bus = &"Sounds"
 
 [node name="Player" parent="." instance=ExtResource("1_0pcgl")]
@@ -216,7 +216,7 @@ color = Color(0.294118, 0.294118, 0.294118, 1)
 
 [node name="WardrobePopup" type="PopupPanel" parent="."]
 disable_3d = true
-canvas_item_default_texture_filter = 3
+canvas_item_default_texture_filter = 0
 size = Vector2i(200, 150)
 content_scale_mode = 1
 content_scale_aspect = 3
@@ -229,8 +229,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
+offset_right = 196.0
+offset_bottom = 146.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_nybk1")
@@ -251,7 +251,7 @@ layout_mode = 2
 
 [node name="DescriptionLabel" type="Label" parent="WardrobePopup/WardrobeUI/HBoxContainer/ArmorDetails"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("12_qu1vg")
+theme_override_fonts/font = ExtResource("13_2uruh")
 theme_override_font_sizes/font_size = 10
 autowrap_mode = 3
 
