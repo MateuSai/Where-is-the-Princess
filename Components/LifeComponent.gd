@@ -6,7 +6,7 @@ var invincible_after_being_hitted: bool = false
 var invincible_after_being_hitted_timer: Timer
 
 ## Value between 0 and 100 where 0 is impossible to block and 100 is 100% blocking probability
-var block_probability: int = 0
+var block_probability: int = 50
 
 var damage_taken_multiplier: int = 1
 
@@ -50,6 +50,9 @@ func _must_ignore_damage() -> bool:
 	if block_probability > 0:
 		if randi() % 100 < block_probability:
 			#print_debug("Blocked")
+			var block_sound: AutoFreeSound = AutoFreeSound.new()
+			get_tree().current_scene.add_child(block_sound)
+			block_sound.start(load("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hammer/HammerMetal1.wav"), "Sounds", get_parent().global_position)
 			return true
 
 	return false
