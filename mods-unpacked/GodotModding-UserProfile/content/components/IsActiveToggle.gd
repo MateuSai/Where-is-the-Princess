@@ -1,5 +1,4 @@
-class_name IsActiveToggle
-extends CheckBox
+class_name IsActiveToggle extends ButtonWithSound
 
 
 signal is_active_toggled(mod_id, is_active)

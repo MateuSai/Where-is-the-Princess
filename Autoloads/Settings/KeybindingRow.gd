@@ -1,4 +1,4 @@
-class_name KeybindingRow extends Button
+class_name KeybindingRow extends ButtonWithSound
 
 signal key_selected()
 
@@ -39,6 +39,8 @@ func _init(action_name: String) -> void:
 
 
 func _ready() -> void:
+	super()
+
 	set_process_input(false)
 
 

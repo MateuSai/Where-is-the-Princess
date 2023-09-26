@@ -1,8 +1,10 @@
-extends OptionButton
+extends OptionButtonWithSound
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	super()
+
 	for locale in TranslationServer.get_loaded_locales():
 		add_item(locale)
 

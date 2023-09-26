@@ -1,5 +1,4 @@
-class_name CurrentConfigSelect
-extends OptionButton
+class_name CurrentConfigSelect extends OptionButtonWithSound
 
 
 signal current_config_selected(mod_id, config_name)

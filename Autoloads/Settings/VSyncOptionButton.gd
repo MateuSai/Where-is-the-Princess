@@ -1,7 +1,9 @@
-extends OptionButton
+extends OptionButtonWithSound
 
 
 func _ready() -> void:
+	super()
+
 	add_item("DISABLED")
 	add_item("ENABLED")
 	add_item("ADAPTATIVE")

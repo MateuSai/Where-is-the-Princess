@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d2wlhqt5essa5"]
+[gd_scene load_steps=10 format=3 uid="uid://d2wlhqt5essa5"]
 
 [ext_resource type="Script" path="res://mods-unpacked/GodotModding-UserProfile/content/UserProfiles.gd" id="1"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="1_sjeye"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dbbbvokfj8ogi" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/panel-tittle.png" id="4_431jk"]
 [ext_resource type="Theme" uid="uid://d0qfeecooxxpf" path="res://SmallFontTheme.tres" id="4_g35go"]
 [ext_resource type="FontFile" uid="uid://chicvvurmnu8" path="res://Fonts/Poco.ttf" id="5_oesc6"]
+[ext_resource type="Script" path="res://ui/ButtonWithSound.gd" id="6_0p5f2"]
 [ext_resource type="Script" path="res://ui/RestartButton.gd" id="6_y6p66"]
 
 [node name="UserProfiles" type="Popup"]
@@ -14,7 +15,6 @@ disable_3d = true
 transparent_bg = true
 canvas_item_default_texture_filter = 0
 size = Vector2i(300, 228)
-visible = true
 transparent = true
 theme = ExtResource("1_sjeye")
 script = ExtResource("1")
@@ -80,6 +80,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("4_g35go")
+script = ExtResource("6_0p5f2")
 
 [node name="ButtonNewProfile" type="Button" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ProfileSelection"]
 unique_name_in_owner = true
@@ -87,6 +88,7 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("3_l4c8n")
 theme_override_font_sizes/font_size = 10
 text = " + "
+script = ExtResource("6_0p5f2")
 
 [node name="ButtonDeleteProfile" type="Button" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ProfileSelection"]
 unique_name_in_owner = true
@@ -94,6 +96,7 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("3_l4c8n")
 theme_override_font_sizes/font_size = 10
 text = " - "
+script = ExtResource("6_0p5f2")
 
 [node name="ProfileSettings" type="MarginContainer" parent="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -178,6 +181,7 @@ caret_blink_interval = 0.5
 unique_name_in_owner = true
 layout_mode = 2
 text = "OK"
+script = ExtResource("6_0p5f2")
 
 [connection signal="item_selected" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ProfileSelection/ProfileSelect" to="." method="_on_ProfileSelect_item_selected"]
 [connection signal="pressed" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ProfileSelection/ButtonNewProfile" to="." method="_on_ButtonNewProfile_pressed"]
