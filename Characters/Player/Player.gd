@@ -10,7 +10,7 @@ signal temporal_passive_item_picked_up(item: TemporalPassiveItem)
 signal temporal_passive_item_unequiped(item: TemporalPassiveItem)
 signal permanent_passive_item_picked_up(item: PermanentPassiveItem)
 
-var armor: Armor = null : set = set_armor
+var armor: Armor = NoArmor.new() : set = set_armor
 signal armor_changed(new_armor: Armor)
 
 var mouse_direction: Vector2
@@ -36,6 +36,8 @@ var rotating_items: Array[Node2D] = []
 @onready var mirage_timer: Timer = $Timers/MirageTimer
 
 @onready var mirage: TextureRect = $UI/Mirage
+
+@onready var equip_armor_sound: AudioStreamPlayer = $EquipArmorSound
 
 
 func _ready() -> void:
@@ -182,17 +184,22 @@ func switch_camera() -> void:
 
 
 func set_armor(new_armor: Armor) -> void:
+	assert(new_armor != null)
+
 	if new_armor == armor:
 		return
-	if armor:
-		if not armor_effect_timer.is_stopped():
-			armor_effect_timer.stop()
-			armor.disable_ability_effect(self)
-		elif not armor_recharge_timer.is_stopped():
-			armor_recharge_timer.stop()
-			armor.disable_ability_effect(self)
-		armor.unequip(self)
+
+	if not armor_effect_timer.is_stopped():
+		armor_effect_timer.stop()
+		armor.disable_ability_effect(self)
+	elif not armor_recharge_timer.is_stopped():
+		armor_recharge_timer.stop()
+		armor.disable_ability_effect(self)
+	armor.unequip(self)
+
 	armor = new_armor
+	#if not armor is NoArmor:
+	equip_armor_sound.play()
 	armor.equip(self)
 	SavedData.run_stats.armor = armor
 	sprite.texture = armor.sprite_sheet

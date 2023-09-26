@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dhift2qs6kcl5"
+path="res://.godot/imported/ArmorLeatherMetal1.wav-f636ab4d0972f4e3b92653914beeeb24.sample"
+
+[deps]
+
+source_file="res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Equipement (menu)/ArmorLeatherMetal1.wav"
+dest_files=["res://.godot/imported/ArmorLeatherMetal1.wav-f636ab4d0972f4e3b92653914beeeb24.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
