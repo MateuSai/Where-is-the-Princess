@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=56 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -38,6 +38,7 @@
 [ext_resource type="Script" path="res://ui/QuitButton.gd" id="33_ftyjl"]
 [ext_resource type="Script" path="res://ui/PauseWeaponInventory.gd" id="34_30ssx"]
 [ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="34_y5gnn"]
+[ext_resource type="AudioStream" uid="uid://ddvfc4vghai55" path="res://Audio/Sounds/540275__zepurple__pick-up-tool.wav" id="39_184bl"]
 
 [sub_resource type="CircleShape2D" id="18"]
 radius = 3.0
@@ -696,6 +697,11 @@ one_shot = true
 [node name="EquipArmorSound" type="AudioStreamPlayer" parent="." index="15"]
 stream = ExtResource("33_3bfpk")
 volume_db = -5.0
+bus = &"Sounds"
+
+[node name="EquipWeaponSound" type="AudioStreamPlayer" parent="." index="16"]
+stream = ExtResource("39_184bl")
+volume_db = -8.0
 bus = &"Sounds"
 
 [connection signal="permanent_passive_item_picked_up" from="." to="UI/MarginContainer/ArmorConditionBar/PassiveItemsContainer" method="_on_player_permanent_passive_item_picked_up"]

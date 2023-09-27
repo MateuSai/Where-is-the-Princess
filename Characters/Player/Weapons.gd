@@ -23,6 +23,9 @@ var disabled: bool = false:
 			set_process_unhandled_input(true)
 
 
+@onready var equip_weapon_sound: AudioStreamPlayer = $"../EquipWeaponSound"
+
+
 func load_previous_weapons() -> void:
 	get_child(0).hide()
 	get_child(0).set_process_unhandled_input(false)
@@ -112,6 +115,8 @@ func pick_up_weapon(weapon: Weapon) -> void:
 
 	weapon_picked_up.emit(weapon)
 	weapon_switched.emit(prev_index, new_index)
+
+	equip_weapon_sound.play()
 
 
 func _drop_weapon() -> void:
