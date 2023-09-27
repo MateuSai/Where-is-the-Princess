@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://jvc34qam0obx"]
+[gd_scene load_steps=7 format=3 uid="uid://jvc34qam0obx"]
 
 [ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="1"]
 [ext_resource type="Script" path="res://Weapons/Weapon.gd" id="2"]
 [ext_resource type="Script" path="res://Weapons/WeaponHitbox.gd" id="3"]
+[ext_resource type="AudioStream" uid="uid://cpi8xdb0i2rbv" path="res://Audio/Sounds/446013__slavicmagic__metal_bash1.wav" id="4_lganj"]
 
 [sub_resource type="ShaderMaterial" id="1"]
 resource_local_to_scene = true
@@ -58,5 +59,9 @@ collision_mask = 3
 [node name="CoolDownTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="DestroyWeaponSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_lganj")
+bus = &"Sounds"
 
 [connection signal="body_entered" from="Node2D/Sprite2D/PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]
