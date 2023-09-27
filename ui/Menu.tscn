@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://886ogqps7117"]
+[gd_scene load_steps=14 format=3 uid="uid://886ogqps7117"]
 
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="1_tdw3g"]
 [ext_resource type="Script" path="res://ui/PlayButton.gd" id="2_cpu8h"]
@@ -6,7 +6,31 @@
 [ext_resource type="Texture2D" uid="uid://b1nbyyumv3x5u" path="res://Art/warrior.png" id="3_3w6iw"]
 [ext_resource type="Script" path="res://ui/ModsButton.gd" id="3_ajgyq"]
 [ext_resource type="Script" path="res://ui/QuitButton.gd" id="4_0l3tl"]
+[ext_resource type="Texture2D" uid="uid://bp6rbf2gw15f5" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_normal_x2_size.png" id="4_0ug1y"]
 [ext_resource type="Script" path="res://ui/SettingsButton.gd" id="4_ylb3d"]
+[ext_resource type="Texture2D" uid="uid://bs075q8gb23ih" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_hover_x2_size.png" id="5_ykegd"]
+[ext_resource type="Texture2D" uid="uid://c7w1c828j4ok0" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_pressed_x2_size.png" id="6_7wai4"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_013d5"]
+texture = ExtResource("4_0ug1y")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eiwq5"]
+texture = ExtResource("5_ykegd")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8iryt"]
+texture = ExtResource("6_7wai4")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -35,30 +59,47 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -72.0
-offset_top = -9.5
-offset_right = -2.0
-offset_bottom = 98.5
+offset_left = -61.0
+offset_top = 11.5
+offset_right = 71.0
+offset_bottom = 183.5
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.5, 0.5)
 
 [node name="PlayButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
 text = "PLAY"
 script = ExtResource("2_cpu8h")
 
 [node name="ModsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
 text = "MODS"
 script = ExtResource("3_ajgyq")
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
 text = "SETTINGS"
 script = ExtResource("4_ylb3d")
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
 text = "QUIT"
 script = ExtResource("4_0l3tl")
 
