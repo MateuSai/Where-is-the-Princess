@@ -2,7 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_bl8c5"]
 [ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="2_lmpvs"]
-[ext_resource type="Texture2D" uid="uid://dv23ariebhak2" path="res://Art/weapons/dagger.png" id="3_vxd16"]
+[ext_resource type="Script" path="res://Weapons/Melee/MeleeWeapon.gd" id="2_xa6l8"]
+[ext_resource type="Texture2D" uid="uid://dv23ariebhak2" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/dagger.png" id="3_vxd16"]
 [ext_resource type="Texture2D" uid="uid://evihltxw1ud3" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/effects (new)/slash_effect_anim_spritesheet.png" id="4_enpbj"]
 
 [sub_resource type="ShaderMaterial" id="6"]
@@ -138,7 +139,7 @@ tracks/9/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_ict7v"]
-resource_name = "attack"
+resource_name = "attack_1"
 length = 0.4
 step = 0.05
 tracks/0/type = "value"
@@ -238,17 +239,19 @@ tracks/7/keys = {
 "values": [Vector2(-5, -4), Vector2(-2.00002, 6.99999), Vector2(-5, -4)]
 }
 
-[sub_resource type="Animation" id="Animation_vds0l"]
-resource_name = "charge"
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ypj85"]
 _data = {
 "RESET": SubResource("Animation_8hb7s"),
-"attack": SubResource("Animation_ict7v"),
-"charge": SubResource("Animation_vds0l")
+"attack_1": SubResource("Animation_ict7v")
 }
 
 [node name="Dagger" instance=ExtResource("1_bl8c5")]
+script = ExtResource("2_xa6l8")
+num_normal_attacks = 1
+increase_num_normal_attacks_on_ability = true
+invert_scale_when_looking_left = true
+throw_speed = 200
+has_charged_attack = false
 
 [node name="Sprite2D" parent="Node2D" index="0"]
 material = SubResource("6")

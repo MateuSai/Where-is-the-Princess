@@ -112,8 +112,8 @@ collision_mask = 21
 script = ExtResource("2_thi7f")
 projectile_speed = 150
 is_boss = false
-accerelation = 30
-max_speed = 70
+accerelation = 20
+max_speed = 55
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("3_p78pm")

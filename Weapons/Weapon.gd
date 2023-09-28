@@ -76,14 +76,19 @@ func _load_csv_data(data: Dictionary) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_attack") and not animation_player.is_playing():
-		_charge()
-	elif event.is_action_released("ui_attack"):
-		if animation_player.is_playing() and animation_player.current_animation.begins_with("charge"):
+	if has_strong_attack():
+		if event.is_action_pressed("ui_attack") and not animation_player.is_playing():
+			_charge()
+		elif event.is_action_released("ui_attack"):
+			if animation_player.is_playing() and animation_player.current_animation.begins_with("charge"):
+				attack()
+			elif charge_particles.emitting:
+				_strong_attack()
+	else:
+		if event.is_action_pressed("ui_attack"):
 			attack()
-		elif charge_particles.emitting:
-			_strong_attack()
-	elif event.is_action_pressed("ui_weapon_ability") and has_active_ability() and not is_busy() and can_active_ability():
+
+	if event.is_action_pressed("ui_weapon_ability") and has_active_ability() and not is_busy() and can_active_ability():
 		_active_ability()
 
 
@@ -206,6 +211,10 @@ func get_texture() -> Texture2D:
 
 func has_active_ability() -> bool:
 	return (animation_player.has_animation("active_ability") or animation_player.has_animation("active_ability_1")) and active_ability_icon
+
+
+func has_strong_attack() -> bool:
+	return animation_player.has_animation("charge") or animation_player.has_animation("charge_1")
 
 
 func can_pick_up_soul() -> bool:

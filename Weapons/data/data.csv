@@ -9,4 +9,4 @@ WarHammer,WAR_HAMMER,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/w
 SharpAxe,SHARP_AXE,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/Sharp_axe_icon.png,AXE,2,2,1.5,Filos en varias direcciones,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/Sharp Axe UI icon.png,10,2,4,0,
 SmallAxe,SMALL_AXE,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/Small_axe_icon.png,AXE,2,1,1,Filo grande,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/Small Axe UI icon.png,3,4,2,1,
 WarAxe,WAR_AXE,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/War_axe_icon.png,AXE,2,2,1,Bumerang attack,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/War axe UI icon.png,5,2,3,0,
-Dagger,DAGGER,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/Dagger_icon.png,DAGGER,,1,0,NULL,,0,0,0,0,
+Dagger,DAGGER,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/Dagger_icon.png,DAGGER,1,1,0,NULL,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/Dagger_icon.png,0,0,0,0,
