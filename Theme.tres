@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=40 format=3 uid="uid://b0askjdx1bs38"]
+[gd_resource type="Theme" load_steps=42 format=3 uid="uid://b0askjdx1bs38"]
 
 [ext_resource type="FontFile" uid="uid://drbvct1q4mkwc" path="res://Fonts/Alkhemikal.ttf" id="1_gud3r"]
 [ext_resource type="Texture2D" uid="uid://tmi2660xc1ma" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_hover.png" id="1_kevbw"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://ciqdr2ry3ec6u" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/tab-hover.png" id="12_gawhf"]
 [ext_resource type="Texture2D" uid="uid://chirooaqoilt1" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/panel-pop-up.png" id="12_tj1ee"]
 [ext_resource type="Texture2D" uid="uid://b5hg1i2p4771d" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/tab-unselected.png" id="14_cegmw"]
+[ext_resource type="Texture2D" uid="uid://dbbbvokfj8ogi" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/panel-tittle.png" id="14_i3h1y"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_65uj7"]
 texture = ExtResource("1_kevbw")
@@ -73,6 +74,13 @@ texture_margin_left = 2.0
 texture_margin_top = 2.0
 texture_margin_right = 2.0
 texture_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b2mtb"]
+texture = ExtResource("14_i3h1y")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_p0q2m"]
 texture = ExtResource("12_tj1ee")
@@ -147,6 +155,7 @@ PanelContainer/styles/panel = SubResource("StyleBoxTexture_j3vci")
 PopupMenu/icons/radio_checked = ExtResource("1_pp2h6")
 PopupMenu/icons/radio_unchecked = ExtResource("2_cm5ob")
 PopupMenu/styles/panel = SubResource("StyleBoxTexture_73vy8")
+PopupPanel/styles/panel = SubResource("StyleBoxTexture_b2mtb")
 TabContainer/styles/panel = SubResource("StyleBoxTexture_p0q2m")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxTexture_5sg6s")
 TabContainer/styles/tab_selected = SubResource("StyleBoxTexture_nvuer")
