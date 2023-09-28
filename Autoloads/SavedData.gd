@@ -160,8 +160,8 @@ func get_num_rooms(type: String) -> int:
 func get_overwrite_room_names(type: String) -> Array:
 	var room_names: Array = []
 
-	if biome_conf.has("levels") and biome_conf.levels.has(str(run_stats.level)) and biome_conf.levels[str(run_stats.level)].has("overwrite" + type + "_rooms"):
-		room_names = biome_conf.levels[str(run_stats.level)]["overwrite" + type + "_rooms"]
+	if biome_conf.has("levels") and biome_conf.levels.has(str(run_stats.level)) and biome_conf.levels[str(run_stats.level)].has("overwrite_" + type + "_rooms"):
+		room_names = biome_conf.levels[str(run_stats.level)]["overwrite_" + type + "_rooms"]
 		#print(room_names)
 #		room_names = room_names.map(func(room_name: String) -> String:
 #			return room_name + ".tscn"

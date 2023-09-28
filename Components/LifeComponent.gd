@@ -6,7 +6,7 @@ var invincible_after_being_hitted: bool = false
 var invincible_after_being_hitted_timer: Timer
 
 ## Value between 0 and 100 where 0 is impossible to block and 100 is 100% blocking probability
-var block_probability: int = 50
+var block_probability: int = 0
 
 var damage_taken_multiplier: int = 1
 
