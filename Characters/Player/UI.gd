@@ -11,12 +11,32 @@ const INVENTORY_ITEM_SCENE: PackedScene = preload("res://InventoryItem.tscn")
 @onready var hearts: Hearts = $MarginContainer/ArmorConditionBar/Hearts
 @onready var inventory: HBoxContainer = get_node("Inventory")
 
+@onready var color_rect: ColorRect = $ColorRect
+@onready var pause_menu: Control = $PauseMenu
+
 
 func _ready() -> void:
+	color_rect.hide()
+	pause_menu.hide()
+
+	$PauseMenu/MarginContainer/SeedLabel.text = str(Globals.run_seed)
+
 	#max_hp = player_life_component.max_hp
 	player_life_component.hp_changed.connect(_on_player_hp_changed)
 	hearts.update_hearts(player_life_component.max_hp)
 	#_update_health_bar(100)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_pause"):
+		if pause_menu.visible:
+			pause_menu.hide()
+			color_rect.hide()
+			get_tree().paused = false
+		else:
+			pause_menu.show()
+			color_rect.show()
+			get_tree().paused = true
 
 
 #func _update_health_bar(new_value: int) -> void:

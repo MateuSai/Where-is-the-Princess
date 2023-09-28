@@ -33,6 +33,8 @@ var tween: Tween = null
 @onready var player_detector: Area2D = weapon_sprite.get_node("PlayerDetector")
 @onready var cool_down_timer: Timer = get_node("CoolDownTimer")
 
+@onready var destroy_sound: AudioStreamPlayer = $DestroyWeaponSound
+
 
 func _ready() -> void:
 	var data: Dictionary = preload("res://Weapons/data/data.csv").records
@@ -174,6 +176,7 @@ func destroy() -> void:
 	weapon_sprite.material = ResourceLoader.load("res://Shaders and Particles/PixelExplosionMaterial.tres", "ShaderMaterial", ResourceLoader.CACHE_MODE_IGNORE)
 	#weapon_sprite.material.resource_local_to_scene = true
 	#weapon_sprite.material.set("shader_parameter/progress", 0)
+	destroy_sound.play()
 	await create_tween().tween_property(weapon_sprite.material, "shader_parameter/progress", 1, 10).finished
 	#await get_tree().create_timer(1).timeout
 	queue_free()
