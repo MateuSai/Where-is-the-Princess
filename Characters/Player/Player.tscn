@@ -697,6 +697,7 @@ one_shot = true
 [node name="EquipArmorSound" type="AudioStreamPlayer" parent="." index="15"]
 stream = ExtResource("33_3bfpk")
 volume_db = -5.0
+max_polyphony = 3
 bus = &"Sounds"
 
 [node name="EquipWeaponSound" type="AudioStreamPlayer" parent="." index="16"]
