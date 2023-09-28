@@ -14,7 +14,7 @@
 			"num_combat_rooms": 5,
 			"num_special_rooms": 2,
 
-			"overwrite_combat_rooms": ["res://Rooms/Biomes/Forest/Combat/ForestMiddleRoom2.tscn"],
+			"overwrite_combat_rooms": ["res://Rooms/Biomes/Forest/Combat/ForestMiddleRoom3.tscn"],
 		},
 		"2": {
 			"num_combat_rooms": 1,
