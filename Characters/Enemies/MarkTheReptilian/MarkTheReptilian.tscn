@@ -113,6 +113,8 @@ radius = 9.0
 [node name="MarkTheReptilian" instance=ExtResource("1_x7mf0")]
 collision_mask = 21
 script = ExtResource("2_xkgd3")
+is_boss = false
+accerelation = null
 
 [node name="PlayerShadow" type="Sprite2D" parent="." index="0"]
 position = Vector2(0, 2)
@@ -141,6 +143,10 @@ shape = SubResource("CircleShape2D_h6mu2")
 libraries = {
 "": SubResource("AnimationLibrary_5lyfx")
 }
+
+[node name="LifeComponent" parent="." index="7"]
+hp = 10
+max_hp = 10
 
 [node name="PickUpSpearArea" type="Area2D" parent="." index="9"]
 collision_layer = 0

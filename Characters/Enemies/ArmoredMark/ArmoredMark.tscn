@@ -116,6 +116,7 @@ height = 16.0
 [node name="ArmoredMark" instance=ExtResource("1_56eiu")]
 collision_mask = 13
 script = ExtResource("2_rvy7v")
+is_boss = false
 accerelation = 30
 max_speed = 75
 
@@ -139,6 +140,10 @@ shape = SubResource("CircleShape2D_uf0uv")
 libraries = {
 "": SubResource("AnimationLibrary_nmtf8")
 }
+
+[node name="LifeComponent" parent="." index="6"]
+hp = 15
+max_hp = 15
 
 [node name="PickUpBallArea" type="Area2D" parent="." index="8"]
 collision_layer = 0
