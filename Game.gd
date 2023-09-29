@@ -15,16 +15,17 @@ signal player_added()
 
 
 func _ready() -> void:
+	if Globals.debug:
+		set_process_input(true)
+	else:
+		set_process_input(false)
+
 	if debug:
 		camera.zoom = Vector2(0.2, 0.2)
-
-		set_process_input(true)
 
 		generating_dungeon_canvas_layer.hide()
 		rooms.spawn_rooms()
 	else:
-		set_process_input(false)
-
 		generating_dungeon_canvas_layer.show()
 #		generation_thread = Thread.new()
 #		generation_thread.start(rooms.spawn_rooms)
