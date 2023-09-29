@@ -17,6 +17,7 @@ var map_rect: Rect2 = Rect2(0, 0, 0, 0)
 var fog_sprite: Sprite2D
 
 @onready var rooms: Rooms = $"../../Rooms"
+@onready var scroll_container: ScrollContainer = $MinimapScrollContainer
 @onready var container: MarginContainer = $MinimapScrollContainer/PanelContainer/MarginContainer
 @onready var map_name_label: Label = $MinimapScrollContainer/PanelContainer/MapNameLabel
 @onready var player_icon: Sprite2D = $MinimapScrollContainer/PanelContainer/PlayerIcon
@@ -136,6 +137,15 @@ func _process(_delta: float) -> void:
 #		print(room_tilemaps[1].position)
 
 	player_icon.position = Globals.player.position / 4 - map_rect.position + Vector2.ONE * 4 * TILE_SIZE
+
+
+func scroll_to_player() -> void:
+	await get_tree().process_frame
+	await get_tree().process_frame
+	@warning_ignore("narrowing_conversion")
+	scroll_container.scroll_horizontal = player_icon.position.x - size.x / 2
+	@warning_ignore("narrowing_conversion")
+	scroll_container.scroll_vertical = player_icon.position.y - size.y / 2
 
 
 func _discover_room(room: DungeonRoom) -> void:
