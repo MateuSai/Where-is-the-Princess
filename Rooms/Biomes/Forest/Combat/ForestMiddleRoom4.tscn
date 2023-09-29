@@ -24,7 +24,22 @@ position = Vector2(553, 120)
 position = Vector2(248, 311)
 
 [node name="Marker2D" type="Marker2D" parent="EnemyPositions" index="0"]
-position = Vector2(121, 65)
+position = Vector2(200, 170)
+script = ExtResource("4_qt8fw")
+enemy_name = "NakedMark"
+
+[node name="Marker2D4" type="Marker2D" parent="EnemyPositions" index="1"]
+position = Vector2(364, 222)
+script = ExtResource("4_qt8fw")
+enemy_name = "NakedMark"
+
+[node name="Marker2D2" type="Marker2D" parent="EnemyPositions" index="2"]
+position = Vector2(295, 221)
+script = ExtResource("4_qt8fw")
+enemy_name = "MarkTheReptilian"
+
+[node name="Marker2D3" type="Marker2D" parent="EnemyPositions" index="3"]
+position = Vector2(321, 169)
 script = ExtResource("4_qt8fw")
 enemy_name = "Snake"
 
