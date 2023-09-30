@@ -17,7 +17,7 @@ var damage_multiplier: int = 1
 var can_move: bool = true
 
 @export var mass: float = 1
-@export var accerelation: int = 40
+@export var acceleration: int = 40
 @export var max_speed: int = 100
 
 @export var flying: bool = false
@@ -38,6 +38,22 @@ func _ready() -> void:
 	life_component.damage_taken.connect(_on_damage_taken)
 	life_component.died.connect(_on_died)
 
+	var data: Dictionary = preload("res://Characters/data.csv").records
+	if data.has(name):
+		var weapon_data: Dictionary = data[name]
+		_load_csv_data(weapon_data)
+
+
+func _load_csv_data(data: Dictionary) -> void:
+	life_component.max_hp = data.max_hp
+	life_component.hp = data.max_hp
+
+	mass = data.mass
+	acceleration = data.acceleration
+	max_speed = data.max_speed
+	flying = bool(data.flying)
+	can_be_knocked_back = bool(data.can_be_knocked_back)
+
 
 func _physics_process(_delta: float) -> void:
 	move_and_slide()
@@ -46,7 +62,7 @@ func _physics_process(_delta: float) -> void:
 
 func move() -> void:
 	mov_direction = mov_direction.normalized()
-	velocity += mov_direction * accerelation
+	velocity += mov_direction * acceleration
 	velocity = velocity.limit_length(max_speed)
 
 

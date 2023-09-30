@@ -29,6 +29,13 @@ func _ready() -> void:
 	)
 
 
+func _load_csv_data(data: Dictionary) -> void:
+	super(data)
+
+	souls = data.souls
+	is_boss = bool(data.is_boss)
+
+
 func spawn_loot() -> void:
 	for i in 3:
 		var coin: Coin = COIN_SCENE.instantiate()

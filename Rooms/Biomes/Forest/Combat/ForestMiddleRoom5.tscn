@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2334yweiyml3"]
+[gd_scene load_steps=5 format=3 uid="uid://dv8mjs08043am"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_b78vs"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_c5jng"]
@@ -19,9 +19,29 @@ position = Vector2(280, -40)
 position = Vector2(72, 248)
 
 [node name="Marker2D" type="Marker2D" parent="EnemyPositions" index="0"]
-position = Vector2(121, 65)
+position = Vector2(188, 125)
 script = ExtResource("4_mi6po")
-enemy_name = "Snake"
+enemy_name = "ArmoredMark"
+
+[node name="Marker2D2" type="Marker2D" parent="EnemyPositions" index="1"]
+position = Vector2(166, 87)
+script = ExtResource("4_mi6po")
+enemy_name = "FlyingCreature"
+
+[node name="Marker2D3" type="Marker2D" parent="EnemyPositions" index="2"]
+position = Vector2(195, 170)
+script = ExtResource("4_mi6po")
+enemy_name = "FlyingCreature"
+
+[node name="Marker2D4" type="Marker2D" parent="EnemyPositions" index="3"]
+position = Vector2(140, 125)
+script = ExtResource("4_mi6po")
+enemy_name = "FlyingCreature"
+
+[node name="Marker2D5" type="Marker2D" parent="EnemyPositions" index="4"]
+position = Vector2(270, 197)
+script = ExtResource("4_mi6po")
+enemy_name = "MarkTheReptilian"
 
 [node name="TeleportPosition" parent="." index="6"]
 position = Vector2(192, 122)
