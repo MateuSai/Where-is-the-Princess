@@ -14,15 +14,21 @@
 			"num_combat_rooms": 5,
 			"num_special_rooms": 2,
 
+
+			"overwrite_start_rooms": ["res://Rooms/Biomes/Forest/Start/ForestSpawnRoom0.tscn"],
 			"overwrite_combat_rooms": ["res://Rooms/Biomes/Forest/Combat/ForestMiddleRoom5.tscn"],
+			"overwrite_end_forest_rooms": ["res://Rooms/Biomes/Forest/End/Forest/ForestEndRoom1.tscn"],
 		},
 		"2": {
 			"num_combat_rooms": 1,
 			"num_special_rooms": 0,
 
+			"overwrite_start_rooms": ["res://Rooms/Biomes/Forest/Start/ForestSpawnRoom2.tscn"],
 			"overwrite_combat_rooms": ["res://Rooms/Biomes/Forest/BossFightRoom.tscn"],
+			"overwrite_end_forest_rooms": [],
+			"overwrite_end_sewer_rooms": [],
 
-			"overwrite_connections": [[0, 1], [1, 2]]
+			"overwrite_connections": [[0, 2], [2, 1]]
 		}
 	},
 

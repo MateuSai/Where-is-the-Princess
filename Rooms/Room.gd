@@ -65,7 +65,7 @@ func get_separation_steering_dir(rooms: Array[DungeonRoom], delta: float) -> Vec
 	for room in rooms:
 		if room == self:
 			continue
-		var vector_to_room: Vector2 = (room.position + room.vector_to_center) - (position + vector_to_center)
+		var vector_to_room: Vector2 = ((room.position + Vector2(room.tilemap.get_used_rect().position * Rooms.TILE_SIZE)) + room.vector_to_center) - ((position + Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE)) + vector_to_center)
 		if vector_to_room.length() < (radius + room.radius):
 			dir += vector_to_room * (vector_to_room.length() - radius - room.radius)
 
