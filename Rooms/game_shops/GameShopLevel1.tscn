@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dt58rwqk2borq"]
+
+[ext_resource type="PackedScene" uid="uid://5orvhxdckhxm" path="res://Rooms/Shop.tscn" id="1_ef4u1"]
+[ext_resource type="Script" path="res://Rooms/ShopItemMarker.gd" id="2_ha11h"]
+[ext_resource type="Texture2D" uid="uid://d2boldtqkpcn1" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/merchant_stuff_01.png" id="3_qfjs4"]
+
+[node name="GameShopLevel1" instance=ExtResource("1_ef4u1")]
+
+[node name="Positions" type="Node2D" parent="." index="0"]
+
+[node name="ShopItemMarker" type="Marker2D" parent="Positions" index="0"]
+position = Vector2(7, -9)
+script = ExtResource("2_ha11h")
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="1"]
+position = Vector2(0, -8)
+texture = ExtResource("3_qfjs4")
