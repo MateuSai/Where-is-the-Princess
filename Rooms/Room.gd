@@ -32,8 +32,8 @@ signal last_enemy_died(enemy: Enemy)
 
 @onready var tilemap: TileMap = get_node("TileMap")
 @onready var black_tilemap: TileMap = get_node("BlackTileMap")
-@onready var vector_to_center: Vector2 = tilemap.get_used_rect().position * Rooms.TILE_SIZE + tilemap.get_used_rect().size * Rooms.TILE_SIZE / 2
-@onready var radius: float = (vector_to_center - Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE)).length() * 1
+@onready var vector_to_center: Vector2 = ((tilemap.get_used_rect().size/2) + tilemap.get_used_rect().position) * Rooms.TILE_SIZE
+@onready var radius: float = (tilemap.get_used_rect().size.length() * Rooms.TILE_SIZE) / 2.0
 @onready var entries: Array[Node2D] = [get_node("Entries/Left"), get_node("Entries/Up"), get_node("Entries/Right"), get_node("Entries/Down")]
 @onready var door_container: Node2D = get_node("Doors")
 @onready var enemy_positions_container: Node2D = get_node("EnemyPositions")
@@ -56,8 +56,9 @@ func _ready() -> void:
 
 func _draw() -> void:
 	pass
-#	if get_parent().get_parent().debug:
-#		draw_circle(vector_to_center, (vector_to_center - Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE)).length(), Color.RED)
+	if get_parent().get_parent().debug:
+		draw_circle(vector_to_center, radius, Color.RED)
+		#draw_circle(vector_to_center, (vector_to_center - Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE)).length(), Color.RED)
 
 
 func get_separation_steering_dir(rooms: Array[DungeonRoom], delta: float) -> Vector2:
@@ -65,7 +66,7 @@ func get_separation_steering_dir(rooms: Array[DungeonRoom], delta: float) -> Vec
 	for room in rooms:
 		if room == self:
 			continue
-		var vector_to_room: Vector2 = ((room.position + Vector2(room.tilemap.get_used_rect().position * Rooms.TILE_SIZE)) + room.vector_to_center) - ((position + Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE)) + vector_to_center)
+		var vector_to_room: Vector2 = (room.position + room.vector_to_center) - (position + vector_to_center)
 		if vector_to_room.length() < (radius + room.radius):
 			dir += vector_to_room * (vector_to_room.length() - radius - room.radius)
 
@@ -278,21 +279,33 @@ func _on_player_entered_room() -> void:
 		#_open_doors()
 
 
-func get_random_circle_spawn_point(circle_radius: float) -> Vector2:
+func get_random_spawn_point(spawn_shape: Rooms.SpawnShape) -> Vector2:
+	if name.begins_with("Boss"):
+		pass
 	var directions_with_entry: Array[EntryDirection] = []
 	for dir in [EntryDirection.LEFT, EntryDirection.UP, EntryDirection.RIGHT, EntryDirection.DOWN]:
 		if _has_entry(dir):
 			directions_with_entry.push_back(dir)
 
-	if directions_with_entry.size() == 4:
-		return Vector2.RIGHT.rotated(randf_range(0, 2 * PI) * randf_range(0, circle_radius))
+	var entries_dir: Vector2 = Vector2.ZERO
+	for dir in directions_with_entry:
+		entries_dir += [Vector2.LEFT, Vector2.UP, Vector2.RIGHT, Vector2.DOWN][dir]
+	entries_dir *= -1
+
+	if directions_with_entry.size() == 4 or entries_dir == Vector2.ZERO:
+		if spawn_shape is Rooms.CircleSpawnShape:
+			return Vector2.RIGHT.rotated(randf_range(0, 2 * PI) * randf_range(0, spawn_shape.radius - spawn_shape.MARGIN))
+		else: # Rectangle
+			return Vector2(randf_range(spawn_shape.MARGIN, spawn_shape.size.x - spawn_shape.MARGIN), randf_range(spawn_shape.MARGIN, spawn_shape.size.y - spawn_shape.MARGIN))
 	else:
-		var entries_dir: Vector2 = Vector2.ZERO
-		for dir in directions_with_entry:
-			entries_dir += [Vector2.LEFT, Vector2.UP, Vector2.RIGHT, Vector2.DOWN][dir]
-		entries_dir *= -1
-		#print(name + " " + str(entries_dir) + " " + str(directions_with_entry))
-		return Vector2.RIGHT.rotated(randf_range(entries_dir.angle() - PI/8, entries_dir.angle() + PI/8)) * circle_radius
+		#print(name + " " + str(en tries_dir) + " " + str(directions_with_entry))
+		if spawn_shape is Rooms.CircleSpawnShape:
+			return Vector2.RIGHT.rotated(randf_range(entries_dir.angle() - PI/8, entries_dir.angle() + PI/8)) * spawn_shape.radius
+		else: # Rectangle
+			entries_dir = ((entries_dir + Vector2.ONE) / 2.0).normalized()
+#			entries_dir.x = clamp(entries_dir.x, 0, 1)
+#			entries_dir.y = clamp(entries_dir.y, 0, 1)
+			return spawn_shape.size * entries_dir
 
 
 func get_rect() -> Rect2:

@@ -16,10 +16,14 @@
 
 
 			"overwrite_start_rooms": ["res://Rooms/Biomes/Forest/Start/ForestSpawnRoom0.tscn"],
-			"overwrite_combat_rooms": ["res://Rooms/Biomes/Forest/Combat/ForestMiddleRoom5.tscn"],
+			"overwrite_combat_rooms": [],
 			"overwrite_end_forest_rooms": ["res://Rooms/Biomes/Forest/End/Forest/ForestEndRoom1.tscn"],
 		},
 		"2": {
+			"spawn_shape_type": "rectangle",
+			"spawn_shape_width": 5,
+			"spawn_shape_height": 300,
+
 			"num_combat_rooms": 1,
 			"num_special_rooms": 0,
 

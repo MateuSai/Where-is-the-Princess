@@ -2,8 +2,6 @@ class_name Rooms extends Node2D
 
 const BIOMES_FOLDER_PATH: String = "res://Rooms/Biomes/"
 
-const SPAWN_CIRCLE_RADIUS: float = 100
-
 const TILE_SIZE: int = 16
 const MIN_SEPARATION_BETWEEN_ENTRIES: int = TILE_SIZE * 2
 static var ATLAS_ID: int
@@ -34,6 +32,8 @@ enum RoomConnection {
 	L_225,
 	L_135,
 }
+
+var spawn_shape: SpawnShape = CircleSpawnShape.new(100)
 
 var rooms: Array[DungeonRoom] = []
 var start_room: DungeonRoom
@@ -175,6 +175,10 @@ func _get_end_rooms() -> Array[PackedStringArray]:
 
 
 func spawn_rooms() -> void:
+	var overwrite_spawn_shape: SpawnShape = SavedData.get_overwrite_spawn_shape()
+	if overwrite_spawn_shape:
+		spawn_shape = overwrite_spawn_shape
+
 	var room_names: Dictionary = {
 		"start": _get_rooms("Start"),
 		"combat": _get_rooms("Combat"),
@@ -229,7 +233,10 @@ func spawn_rooms() -> void:
 	for room in rooms:
 		# Ya que ya hemos posicionado start y end antes
 		#if not room in [start_room, end_room]:
-		room.float_position = room.get_random_circle_spawn_point(SPAWN_CIRCLE_RADIUS)
+		room.float_position = room.get_random_spawn_point(spawn_shape) - room.vector_to_center
+		if room.name.begins_with("Boss"):
+			print(room.vector_to_center)
+			print(room.float_position)
 		# add_child(room)
 		if debug:
 			room.get_node("DebugRoomId").text = str(rooms.find(room))
@@ -964,3 +971,23 @@ func _draw() -> void:
 #		r = u
 #
 #	return Vector2(radius * r * cos(t), radius * r * sin(t))
+
+
+class SpawnShape:
+	const MARGIN: int = 20
+
+
+class CircleSpawnShape extends SpawnShape:
+	var radius: float
+
+	@warning_ignore("shadowed_variable")
+	func _init(radius: float) -> void:
+		self.radius = radius
+
+
+class RectangleSpawnShape extends SpawnShape:
+	var size: Vector2
+
+	@warning_ignore("shadowed_variable")
+	func _init(size: Vector2) -> void:
+		self.size = size
