@@ -149,6 +149,24 @@ func get_biome_conf() -> Dictionary:
 	return biome_conf
 
 
+func get_overwrite_spawn_shape() -> Rooms.SpawnShape:
+	if biome_conf.has("levels") and biome_conf.levels.has(str(SavedData.run_stats.level)) and biome_conf["levels"][str(SavedData.run_stats.level)].has("spawn_shape_type"):
+		match biome_conf["levels"][str(SavedData.run_stats.level)]["spawn_shape_type"].to_lower():
+			"circle":
+				if biome_conf["levels"][str(SavedData.run_stats.level)].has("spawn_shape_radius"):
+					var radius: float = biome_conf["levels"][str(SavedData.run_stats.level)]["spawn_shape_radius"]
+					return Rooms.CircleSpawnShape.new(radius)
+				else:
+					printerr("Error overwritting spawn shape, you must specify a radius using the key spawn_shape_radius")
+			"rectangle":
+				if biome_conf["levels"][str(SavedData.run_stats.level)].has("spawn_shape_width") and biome_conf["levels"][str(SavedData.run_stats.level)].has("spawn_shape_height"):
+					return Rooms.RectangleSpawnShape.new(Vector2(biome_conf["levels"][str(SavedData.run_stats.level)]["spawn_shape_width"], biome_conf["levels"][str(SavedData.run_stats.level)]["spawn_shape_height"]))
+				else:
+					printerr("Error overwritting spawn shape, you must specify a width and height using the keys spawn_shape_width and spawn_shape_height")
+
+	return null
+
+
 func get_num_rooms(type: String) -> int:
 	if biome_conf.has("levels") and biome_conf.levels.has(str(SavedData.run_stats.level)) and biome_conf["levels"][str(SavedData.run_stats.level)].has("num_" + type + "_rooms"):
 		return biome_conf.levels[str(SavedData.run_stats.level)]["num_" + type + "_rooms"]

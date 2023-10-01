@@ -143,9 +143,9 @@ func scroll_to_player() -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 	@warning_ignore("narrowing_conversion")
-	scroll_container.scroll_horizontal = player_icon.position.x - size.x / 2
+	scroll_container.scroll_horizontal = player_icon.position.x - size.x / 2.0
 	@warning_ignore("narrowing_conversion")
-	scroll_container.scroll_vertical = player_icon.position.y - size.y / 2
+	scroll_container.scroll_vertical = player_icon.position.y - size.y / 2.0
 
 
 func _discover_room(room: DungeonRoom) -> void:
