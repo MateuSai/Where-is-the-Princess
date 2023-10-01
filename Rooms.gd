@@ -2,7 +2,7 @@ class_name Rooms extends Node2D
 
 const BIOMES_FOLDER_PATH: String = "res://Rooms/Biomes/"
 
-const SPAWN_CIRCLE_RADIUS: float = 200
+const SPAWN_CIRCLE_RADIUS: float = 100
 
 const TILE_SIZE: int = 16
 const MIN_SEPARATION_BETWEEN_ENTRIES: int = TILE_SIZE * 2
@@ -117,7 +117,7 @@ func _physics_process(delta: float) -> void:
 func _get_rooms(type: String) -> PackedStringArray:
 	var room_paths: PackedStringArray
 
-	var overwrite_room_names: PackedStringArray = PackedStringArray(SavedData.get_overwrite_room_names(type.split("/")[type.split("/").size()-1].to_lower()))
+	var overwrite_room_names: PackedStringArray = PackedStringArray(SavedData.get_overwrite_room_names(type.replace("/", "_").to_lower()))
 	if not overwrite_room_names.is_empty():
 		room_paths = overwrite_room_names
 	else:
@@ -209,8 +209,8 @@ func spawn_rooms() -> void:
 	for i in num_special_rooms:
 		rooms.push_back(load(room_names.special[randi() % room_names.special.size()]).instantiate())
 
-	var num_normal_rooms: int = SavedData.get_num_rooms("combat")
-	for i in num_normal_rooms:
+	var num_combat_rooms: int = SavedData.get_num_rooms("combat")
+	for i in num_combat_rooms:
 		#rooms.push_back(INTERMEDIATE_ROOMS[0].instantiate())
 		rooms.push_back(load(room_names.combat[randi() % room_names.combat.size()]).instantiate())
 

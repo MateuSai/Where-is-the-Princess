@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dnsqkrrt1oode"]
+[gd_scene load_steps=5 format=3 uid="uid://ds30uenhmyqj4"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_1cqdd"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_e01ab"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/Forest/TikiTorch.tscn" id="3_eode6"]
+[ext_resource type="PackedScene" uid="uid://b2gbblx0gk0fu" path="res://Characters/npcs/el_barquero/ElBarquero.tscn" id="4_wvenh"]
 
 [node name="ForestEndRoom0" instance=ExtResource("1_1cqdd")]
 
@@ -26,3 +27,6 @@ position = Vector2(55, 52)
 
 [node name="TikiTorch" parent="TikiTorch/TikiTorch" index="4" instance=ExtResource("3_eode6")]
 position = Vector2(87, -114)
+
+[node name="ElBarquero" parent="." index="9" instance=ExtResource("4_wvenh")]
+position = Vector2(115, -19)

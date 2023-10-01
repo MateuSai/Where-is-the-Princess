@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bj0he7rx725ge"]
+[gd_scene load_steps=4 format=3 uid="uid://drgtd5g52x5ar"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_tj5eg"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/Forest/TikiTorch.tscn" id="2_77vv7"]
