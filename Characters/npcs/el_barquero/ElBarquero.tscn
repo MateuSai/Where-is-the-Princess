@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b2gbblx0gk0fu"]
+[gd_scene load_steps=9 format=3 uid="uid://b2gbblx0gk0fu"]
 
 [ext_resource type="PackedScene" uid="uid://xvaekjyf4uxl" path="res://Characters/npcs/NPC.tscn" id="1_o8uhg"]
 [ext_resource type="Texture2D" uid="uid://ib4rwtywvtg5" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/el_barquero_0.png" id="2_to81w"]
@@ -6,8 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://c4s3b55q7okgl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/el_barquero_2.png" id="4_ljkv1"]
 [ext_resource type="Texture2D" uid="uid://qryhknep3ltn" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/el_barquero_3.png" id="5_v77nw"]
 [ext_resource type="Texture2D" uid="uid://cdifqglbgfarn" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/el_barquero_4.png" id="6_u75pv"]
-[ext_resource type="Shader" path="res://Shaders and Particles/Simple2DWater.gdshader" id="7_ysqk4"]
-[ext_resource type="Texture2D" uid="uid://6ht61advku7b" path="res://Art/white.png" id="8_n6g4k"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eeaai"]
 animations = [{
@@ -35,34 +33,6 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_20myy"]
 height = 52.0
 
-[sub_resource type="Gradient" id="Gradient_ian0y"]
-colors = PackedColorArray(0, 0, 0.835294, 1, 0.278431, 0.278431, 0.94902, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_sumta"]
-gradient = SubResource("Gradient_ian0y")
-repeat = 1
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_ybfyq"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wkdqo"]
-seamless = true
-noise = SubResource("FastNoiseLite_ybfyq")
-
-[sub_resource type="Gradient" id="Gradient_43alt"]
-colors = PackedColorArray(0, 0.788235, 0, 1, 3.1285e-07, 0.442769, 0.332071, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_2p77l"]
-gradient = SubResource("Gradient_43alt")
-width = 16
-height = 8
-repeat = 1
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8y8i6"]
-shader = ExtResource("7_ysqk4")
-shader_parameter/bg = SubResource("GradientTexture2D_sumta")
-shader_parameter/wave1 = SubResource("GradientTexture2D_2p77l")
-shader_parameter/noise = SubResource("NoiseTexture2D_wkdqo")
-
 [node name="ElBarquero" instance=ExtResource("1_o8uhg")]
 
 [node name="AnimatedSprite" parent="." index="0"]
@@ -72,9 +42,5 @@ autoplay = "default"
 frame_progress = 0.377537
 
 [node name="CollisionShape2D" parent="InteractArea" index="0"]
+visible = false
 shape = SubResource("CapsuleShape2D_20myy")
-
-[node name="Sprite2D" type="Sprite2D" parent="." index="3"]
-material = SubResource("ShaderMaterial_8y8i6")
-position = Vector2(142, 7)
-texture = ExtResource("8_n6g4k")
