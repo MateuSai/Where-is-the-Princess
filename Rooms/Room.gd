@@ -30,6 +30,8 @@ signal closed()
 signal cleared()
 signal last_enemy_died(enemy: Enemy)
 
+@onready var disable_horizontal_separation_steering: bool = SavedData.get_disable_horizontal_separation_steering()
+
 @onready var tilemap: TileMap = get_node("TileMap")
 @onready var black_tilemap: TileMap = get_node("BlackTileMap")
 @onready var vector_to_center: Vector2 = ((tilemap.get_used_rect().size/2) + tilemap.get_used_rect().position) * Rooms.TILE_SIZE
@@ -68,10 +70,15 @@ func get_separation_steering_dir(rooms: Array[DungeonRoom], delta: float) -> Vec
 			continue
 		var vector_to_room: Vector2 = (room.position + room.vector_to_center) - (position + vector_to_center)
 		if vector_to_room.length() < (radius + room.radius):
-			dir -= vector_to_room# * (vector_to_room.length() - radius - room.radius)
+			# vector_to_room is a vector to the other room, but we don't want to move in that direction, bhut in the other. We will only add the direction if the room areas are colliding. If they are colliding just at the limit (vector_to_room.length() - radius - room.radius) will be 0, so that room won't affect this room movement. As the rooms glow closer (vector_to_room.length() - radius - room.radius) will increase negatively, so if the rooms are on the same position it will be equal to vector_to_room.length(). The fact that this value is negative makes the rooms separate instead of coming closer
+			dir += vector_to_room * (vector_to_room.length() - radius - room.radius)
+			#dir -= 1 - (vector_to_room)
 
-	#float_position += dir.normalized() * 50 * randf_range(0.9, 1.1) * delta
-	float_position += dir * randf_range(0.9, 1.1) * delta
+	if disable_horizontal_separation_steering:
+		dir.x = 0
+
+	float_position += dir.normalized() * 500 * randf_range(0.9, 1.1) * delta
+	#float_position += dir * randf_range(0.9, 1.1) * delta
 	position = round(float_position/Rooms.TILE_SIZE) * Rooms.TILE_SIZE
 
 	return dir

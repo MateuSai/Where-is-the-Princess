@@ -167,6 +167,12 @@ func get_overwrite_spawn_shape() -> Rooms.SpawnShape:
 	return null
 
 
+func get_disable_horizontal_separation_steering() -> bool:
+	if biome_conf.has("levels") and biome_conf.levels.has(str(SavedData.run_stats.level)) and biome_conf["levels"][str(SavedData.run_stats.level)].has("disable_horizontal_separation_steering"):
+		return biome_conf["levels"][str(SavedData.run_stats.level)]["disable_horizontal_separation_steering"]
+	return false
+
+
 func get_num_rooms(type: String) -> int:
 	if biome_conf.has("levels") and biome_conf.levels.has(str(SavedData.run_stats.level)) and biome_conf["levels"][str(SavedData.run_stats.level)].has("num_" + type + "_rooms"):
 		return biome_conf.levels[str(SavedData.run_stats.level)]["num_" + type + "_rooms"]

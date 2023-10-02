@@ -234,9 +234,9 @@ func spawn_rooms() -> void:
 		# Ya que ya hemos posicionado start y end antes
 		#if not room in [start_room, end_room]:
 		room.float_position = room.get_random_spawn_point(spawn_shape) - room.vector_to_center
-		if room.name.begins_with("Boss"):
-			print(room.vector_to_center)
-			print(room.float_position)
+#		if room.name.begins_with("Boss"):
+#			print(room.vector_to_center)
+#			print(room.float_position)
 		# add_child(room)
 		if debug:
 			room.get_node("DebugRoomId").text = str(rooms.find(room))
@@ -320,7 +320,7 @@ func _create_corridors() -> void:
 					#p = point
 
 		if first_room_id == -1:
-			#assert(false)
+			assert(false)
 			push_error("first_room_id is null")
 			continue
 		var n: int = room_centers.find(min_p)
