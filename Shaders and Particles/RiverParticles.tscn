@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b8yp0n2pqxvhi" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/water_particles_small.png" id="2_cig8u"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rnm32"]
+blend_mode = 1
 particles_animation = true
 particles_anim_h_frames = 4
 particles_anim_v_frames = 2
@@ -26,6 +27,7 @@ sub_emitter_mode = 1
 sub_emitter_frequency = 4.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_c0u63"]
+blend_mode = 1
 particles_animation = true
 particles_anim_h_frames = 4
 particles_anim_v_frames = 2
@@ -46,9 +48,9 @@ color = Color(0.388235, 0.447059, 0.333333, 1)
 anim_offset_max = 1.0
 
 [node name="RiverParticles" type="GPUParticles2D"]
-z_index = -1
+z_index = -2
 material = SubResource("CanvasItemMaterial_rnm32")
-amount = 92
+amount = 500
 process_material = SubResource("ParticleProcessMaterial_2ekxf")
 texture = ExtResource("1_mg2b7")
 lifetime = 12.0
@@ -57,7 +59,7 @@ visibility_rect = Rect2(-2300, -100, 2300, 200)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_c0u63")
-amount = 128
+amount = 200
 process_material = SubResource("ParticleProcessMaterial_twj5w")
 texture = ExtResource("2_cig8u")
 lifetime = 12.0
