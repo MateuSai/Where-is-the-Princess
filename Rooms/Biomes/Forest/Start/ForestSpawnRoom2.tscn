@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://drgtd5g52x5ar"]
+[gd_scene load_steps=6 format=3 uid="uid://drgtd5g52x5ar"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_tj5eg"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/Forest/TikiTorch.tscn" id="2_77vv7"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="2_824uq"]
+[ext_resource type="PackedScene" uid="uid://ctxt5ksnwkaw1" path="res://Shaders and Particles/RiverParticles.tscn" id="4_71qyw"]
+[ext_resource type="PackedScene" uid="uid://b2gbblx0gk0fu" path="res://Characters/npcs/el_barquero/ElBarquero.tscn" id="5_js8gs"]
 
 [node name="ForestSpawnRoom0" instance=ExtResource("1_tj5eg")]
 
@@ -26,3 +28,9 @@ position = Vector2(155, 74)
 
 [node name="TeleportPosition" parent="." index="9"]
 position = Vector2(154, 74)
+
+[node name="RiverParticles" parent="." index="11" instance=ExtResource("4_71qyw")]
+position = Vector2(405, 225)
+
+[node name="ElBarquero" parent="." index="12" instance=ExtResource("5_js8gs")]
+position = Vector2(150, 132)

@@ -320,6 +320,7 @@ func _create_corridors() -> void:
 					#p = point
 
 		if first_room_id == -1:
+			#assert(false)
 			push_error("first_room_id is null")
 			continue
 		var n: int = room_centers.find(min_p)
