@@ -247,13 +247,19 @@ func spawn_rooms() -> void:
 
 func _create_corridors() -> void:
 	#var room_centers: Array[Vector2] = []
-	for room in rooms:
-		room_centers.push_back(room.position + room.vector_to_center)
+	for i in rooms.size():
+		room_centers.push_back(rooms[i].position + rooms[i].vector_to_center)
+		if debug:
+			print("Room " + str(i) + " center position: " + str(room_centers[i]))
 
+	if debug:
+		print_rich("[b]--- Rooms: creating delaunay ---[/b]")
 	delaunay_indices = Geometry2D.triangulate_delaunay(room_centers)
 	#print(delaunay_indices)
 	#print(room_centers)
 	if debug:
+		print("Delaunay: " + str(delaunay_indices))
+
 		queue_redraw()
 		await get_tree().process_frame
 		await get_tree().create_timer(pause_between_steps).timeout
@@ -275,6 +281,9 @@ func _create_corridors() -> void:
 
 	if debug:
 		print_rich("[b]--- Rooms: creating mst ---[/b]")
+		print("delaunay_astar connections (between indices, not room ids):")
+		for i in delaunay_astar.get_point_count():
+			print("" + str(i) + ": " + str(delaunay_astar.get_point_connections(i)))
 	# We start with 1 because we already have added the room 0
 	for i in range(1, delaunay_astar.get_point_count()):
 		var min_room_connection: RoomConnection = RoomConnection.NONE
@@ -294,34 +303,45 @@ func _create_corridors() -> void:
 					if debug:
 						print_rich("\t[color=yellow]Point " + str(j) + " is disabled[/color]")
 					continue
+
 				var point2: Vector2 = delaunay_astar.get_point_position(j)
-				if delaunay_astar.get_point_connections(room_centers.find(point)).has(j) and point.distance_to(point2) < min_dist:
-					if not overwrite_connections.is_empty():
-						var block_connection: bool = true
-						for connection in overwrite_connections:
-							if (connection[0] == id and connection[1] == room_centers.find(point2)) or (connection[0] == room_centers.find(point2) and connection[1] == id):
-								block_connection = false
-								break
-						if block_connection:
+				if debug:
+					print_rich("\tChecking room " + str(room_centers.find(point2)) + "")
+
+				if delaunay_astar.get_point_connections(room_centers.find(point)).has(j):
+					if point.distance_to(point2) < min_dist:
+						if not overwrite_connections.is_empty():
+							var block_connection: bool = true
+							for connection in overwrite_connections:
+								if (connection[0] == id and connection[1] == room_centers.find(point2)) or (connection[0] == room_centers.find(point2) and connection[1] == id):
+									block_connection = false
+									break
+							if block_connection:
+								if debug:
+									print_rich("\t[color=yellow]Connection between " + str(id) + " and " + str(room_centers.find(point2)) +  " is not possible because the connections are overwritten[/color]")
+								continue
+						var room_connection: RoomConnection = await _is_connection_possible(id, room_centers.find(point2))
+						if not room_connection:
 							if debug:
-								print_rich("\t[color=yellow]Connection between " + str(id) + " and " + str(room_centers.find(point2)) +  " is not possible because the connections are overwritten[/color]")
+								print_rich("\t\t[color=yellow]No available connection to " + str(j) + "[/color]")
 							continue
-					var room_connection: RoomConnection = await _is_connection_possible(id, room_centers.find(point2))
-					if not room_connection:
+						min_room_connection = room_connection
+						first_room_id = id
+						min_dist = point.distance_to(point2)
+						min_p = point2
 						if debug:
-							print_rich("\t[color=yellow]No available connection to " + str(j) + "[/color]")
-						continue
-					min_room_connection = room_connection
-					first_room_id = id
-					min_dist = point.distance_to(point2)
-					min_p = point2
+							print_rich("\t[color=green]Available connection to " + str(j) + ": " + RoomConnection.keys()[room_connection] + "[/color]")
+						#p = point
+					else:
+						if debug:
+							print_rich("\t\t[color=yellow]Rooms " + str(room_centers.find(point)) + " and " + str(room_centers.find(point2)) + " are to close[/color]")
+				else:
 					if debug:
-						print_rich("\t[color=green]Available connection to " + str(j) + ": " + RoomConnection.keys()[room_connection] + "[/color]")
-					#p = point
+						print_rich("\t\t[color=yellow]delaunay_astar does not have any connections between room " + str(room_centers.find(point)) + " and " + str(room_centers.find(point2)) + "[/color]")
 
 		if first_room_id == -1:
-			assert(false)
-			push_error("first_room_id is null")
+			#assert(false)
+			push_error("first_room_id is null. There are no more possibles connections but there is some room/rooms that are not connected yet")
 			continue
 		var n: int = room_centers.find(min_p)
 		mst_astar.add_point(n, min_p)
