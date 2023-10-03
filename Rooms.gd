@@ -117,9 +117,9 @@ func _physics_process(delta: float) -> void:
 func _get_rooms(type: String) -> PackedStringArray:
 	var room_paths: PackedStringArray
 
-	var overwrite_room_names: PackedStringArray = PackedStringArray(SavedData.get_overwrite_room_names(type.replace("/", "_").to_lower()))
-	if not overwrite_room_names.is_empty():
-		room_paths = overwrite_room_names
+	var overwrite_room_paths: PackedStringArray = PackedStringArray(SavedData.get_overwrite_room_paths(type.replace("/", "_").to_lower()))
+	if not overwrite_room_paths.is_empty():
+		room_paths = overwrite_room_paths
 	else:
 		if type.to_lower().begins_with("end"):
 			room_paths = SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "end", type.split("/")[1])
@@ -179,25 +179,25 @@ func spawn_rooms() -> void:
 	if overwrite_spawn_shape:
 		spawn_shape = overwrite_spawn_shape
 
-	var room_names: Dictionary = {
+	var room_paths: Dictionary = {
 		"start": _get_rooms("Start"),
 		"combat": _get_rooms("Combat"),
 		"special": _get_rooms("Special"),
 		"end": _get_end_rooms(),
 	}
 
-#	room_names.start.append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "start"))
-#	room_names.combat.append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "combat"))
-#	room_names.special.append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "special"))
-#	for end_to in room_names.end:
-#		room_names.end[end_to].append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "special"))
+#	room_paths.start.append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "start"))
+#	room_paths.combat.append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "combat"))
+#	room_paths.special.append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "special"))
+#	for end_to in room_paths.end:
+#		room_paths.end[end_to].append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "special"))
 
-	# print(room_names)
-	start_room = load(room_names.start[randi() % room_names.start.size()]).instantiate()
+	# print(room_paths)
+	start_room = load(room_paths.start[randi() % room_paths.start.size()]).instantiate()
 	rooms.push_back(start_room)
 
 	var end_rooms: Array[DungeonRoom] = []
-	for array in room_names.end:
+	for array in room_paths.end:
 		if array.is_empty():
 			continue
 		var end_room: DungeonRoom = load(array[randi() % array.size()]).instantiate()
@@ -211,12 +211,18 @@ func spawn_rooms() -> void:
 	#inter_rooms.append_array(SavedData.custom_rooms)
 	var num_special_rooms: int = SavedData.get_num_rooms("special")
 	for i in num_special_rooms:
-		rooms.push_back(load(room_names.special[randi() % room_names.special.size()]).instantiate())
+		var random_speacial_room_path: String = room_paths.special[randi() % room_paths.special.size()]
+		rooms.push_back(load(random_speacial_room_path).instantiate())
+		room_paths.special.remove_at(room_paths.special.find(random_speacial_room_path)) # So the same special room is not spawned 2 times
+		if room_paths.special.is_empty():
+			if debug:
+				print_rich("[color=yellow]" + str(num_special_rooms) + " should have spawned, but only " + str(i+1) + "did, since there are not enough special rooms[/color]")
+			break
 
 	var num_combat_rooms: int = SavedData.get_num_rooms("combat")
 	for i in num_combat_rooms:
 		#rooms.push_back(INTERMEDIATE_ROOMS[0].instantiate())
-		rooms.push_back(load(room_names.combat[randi() % room_names.combat.size()]).instantiate())
+		rooms.push_back(load(room_paths.combat[randi() % room_paths.combat.size()]).instantiate())
 
 	for room in rooms:
 		room.name += "_" + str(rooms.find(room))

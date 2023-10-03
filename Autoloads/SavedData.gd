@@ -181,18 +181,18 @@ func get_num_rooms(type: String) -> int:
 
 
 ## This function assumes all the names you put on the overwrite conf array are correct. If you you put some room names that don't exist, the game will crash
-func get_overwrite_room_names(type: String) -> Array:
-	var room_names: Array = []
+func get_overwrite_room_paths(type: String) -> Array:
+	var room_paths: Array = []
 
 	if biome_conf.has("levels") and biome_conf.levels.has(str(run_stats.level)) and biome_conf.levels[str(run_stats.level)].has("overwrite_" + type + "_rooms"):
-		room_names = biome_conf.levels[str(run_stats.level)]["overwrite_" + type + "_rooms"]
-		#print(room_names)
-#		room_names = room_names.map(func(room_name: String) -> String:
+		room_paths = biome_conf.levels[str(run_stats.level)]["overwrite_" + type + "_rooms"]
+		#print(room_paths)
+#		room_paths = room_paths.map(func(room_name: String) -> String:
 #			return room_name + ".tscn"
 #		)
-		#print(room_names)
+		#print(room_paths)
 
-	return room_names
+	return room_paths
 
 
 func get_overwrite_connections() -> Array:
