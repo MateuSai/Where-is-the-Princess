@@ -21,7 +21,7 @@
 		},
 		"2": {
 			"spawn_shape_type": "rectangle",
-			"spawn_shape_width": 64,
+			"spawn_shape_width": 200,
 			"spawn_shape_height": 300,
 			"disable_horizontal_separation_steering": true,
 

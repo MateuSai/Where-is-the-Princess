@@ -190,3 +190,13 @@ func _change_to_controller_mode(device: int) -> void:
 
 func get_joypad_event_image_id(event: InputEventJoypadButton) -> String:
 	return Globals.controller_type + "_joypad_button_" + str(event.button_index)
+
+
+func exit_level(biome: String = "") -> void:
+	if biome.is_empty() or biome == SavedData.run_stats.biome:
+		SavedData.run_stats.level += 1
+		#SceneTransistor.start_transition_to("res://Game.tscn")
+	else:
+		SavedData.change_biome(biome)
+
+	SceneTransistor.start_transition_to("res://Game.tscn")

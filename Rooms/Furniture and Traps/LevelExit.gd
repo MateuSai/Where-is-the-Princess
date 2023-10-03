@@ -8,12 +8,7 @@ class_name LevelExit extends Area2D
 func _on_Stairs_body_entered(_body: CharacterBody2D) -> void:
 	collision_shape.set_deferred("disabled", true)
 	# SavedData.run_stats.level += 1
-	if next_biome.is_empty() or next_biome == SavedData.run_stats.biome:
-		SavedData.run_stats.level += 1
-		SceneTransistor.start_transition_to("res://Game.tscn")
-	else:
-		SavedData.change_biome(next_biome)
-		SceneTransistor.start_transition_to("res://Game.tscn")
+	Globals.exit_level(next_biome)
 #	if SavedData.run_stats.level > SavedData.get_biome_info().levels:
 #		if SavedData.get_biome_info().has("next_biome"):
 #			SavedData.change_biome(SavedData.get_biome_info()["next_biome"])
