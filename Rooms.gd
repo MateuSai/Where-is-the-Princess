@@ -214,9 +214,9 @@ func spawn_rooms() -> void:
 		var random_speacial_room_path: String = room_paths.special[randi() % room_paths.special.size()]
 		rooms.push_back(load(random_speacial_room_path).instantiate())
 		room_paths.special.remove_at(room_paths.special.find(random_speacial_room_path)) # So the same special room is not spawned 2 times
-		if room_paths.special.is_empty():
+		if room_paths.special.is_empty() and (i+1) < num_special_rooms:
 			if debug:
-				print_rich("[color=yellow]" + str(num_special_rooms) + " should have spawned, but only " + str(i+1) + "did, since there are not enough special rooms[/color]")
+				print_rich("[color=yellow]" + str(num_special_rooms) + " special rooms should have spawned, but only " + str(i+1) + " did, since there are not enough special rooms[/color]")
 			break
 
 	var num_combat_rooms: int = SavedData.get_num_rooms("combat")

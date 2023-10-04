@@ -48,7 +48,7 @@ color = Color(0.388235, 0.447059, 0.333333, 1)
 anim_offset_max = 1.0
 
 [node name="RiverParticles" type="GPUParticles2D"]
-z_index = -2
+z_index = -1
 material = SubResource("CanvasItemMaterial_rnm32")
 amount = 500
 process_material = SubResource("ParticleProcessMaterial_2ekxf")
