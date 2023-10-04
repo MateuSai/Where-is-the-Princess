@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpmpcvnbhfml6"]
+
+[ext_resource type="AudioStream" uid="uid://c56ll0o2w6lvb" path="res://Audio/Sounds/642776__nicoproson__river-gurgling-detailed.wav" id="1_so37n"]
+
+[node name="RiverAudioStreamPlayer2D" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_so37n")
+volume_db = -12.0
+autoplay = true
+max_distance = 350.0
+bus = &"Sounds"

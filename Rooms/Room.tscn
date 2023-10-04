@@ -70,6 +70,7 @@ layer_4/z_index = -2
 layer_4/tile_data = PackedInt32Array()
 
 [node name="BlackTileMap" type="TileMap" parent="."]
+visible = false
 z_index = 1
 material = SubResource("ShaderMaterial_u4la0")
 tile_set = SubResource("TileSet_up5gx")

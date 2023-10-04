@@ -503,6 +503,15 @@ func _create_fog() -> void:
 		await get_tree().create_timer(0.2).timeout
 
 
+func clear_room_fog(rect: Rect2) -> void:
+	@warning_ignore("narrowing_conversion")
+	var image: Image = Image.create(rect.size.x, rect.size.y, false, Image.FORMAT_RGBAH)
+	#var light: Image = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png").get_image()
+	#light.convert(Image.FORMAT_RGBAH)
+	fog_image.blend_rect(image, Rect2(Vector2.ZERO, image.get_size()), rect.position)
+	fog_sprite.texture = ImageTexture.create_from_image(fog_image)
+
+
 func _create_corridor_between_rooms(id: int, connection_with: int, room_connection: RoomConnection) -> void:
 	var dif: Vector2 = room_centers[connection_with] - room_centers[id]
 	match room_connection:

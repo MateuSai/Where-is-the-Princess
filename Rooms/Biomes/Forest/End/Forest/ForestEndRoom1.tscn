@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ds30uenhmyqj4"]
+[gd_scene load_steps=7 format=3 uid="uid://ds30uenhmyqj4"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_1cqdd"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_e01ab"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/Forest/TikiTorch.tscn" id="3_eode6"]
 [ext_resource type="PackedScene" uid="uid://b2gbblx0gk0fu" path="res://Characters/npcs/el_barquero/ElBarquero.tscn" id="4_wvenh"]
 [ext_resource type="PackedScene" uid="uid://ctxt5ksnwkaw1" path="res://Shaders and Particles/RiverParticles.tscn" id="5_qdah3"]
+[ext_resource type="PackedScene" uid="uid://dpmpcvnbhfml6" path="res://Audio/Sounds/RiverAudioStreamPlayer2D.tscn" id="6_klrcr"]
 
 [node name="ForestEndRoom0" instance=ExtResource("1_1cqdd")]
 
@@ -35,3 +36,6 @@ position = Vector2(115, -19)
 
 [node name="RiverParticles" parent="." index="12" instance=ExtResource("5_qdah3")]
 position = Vector2(408, -114)
+
+[node name="RiverAudioStreamPlayer2D" parent="." index="13" instance=ExtResource("6_klrcr")]
+position = Vector2(154, -104)
