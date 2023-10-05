@@ -61,7 +61,7 @@ layer_1/tile_data = PackedInt32Array()
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.294118, 0.294118, 0.294118, 1)
+color = Color(0.137255, 0.137255, 0.137255, 1)
 
 [node name="GeneratingDungeonCanvasLayer" type="CanvasLayer" parent="."]
 

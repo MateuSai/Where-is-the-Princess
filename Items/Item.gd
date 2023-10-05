@@ -20,15 +20,15 @@ func pick_up(_player: Player) -> void:
 
 
 func get_icon() -> Texture:
-	printerr("You must override get_icon on " + get_script().get_path())
+	push_error("You must override get_icon on " + get_script().get_path())
 	return null
 
 
 func get_coin_cost() -> int:
-	printerr("You should override get_coin_cost on " + get_script().get_path())
+	#printerr("You should override get_coin_cost on " + get_script().get_path())
 	return 10
 
 
 func get_dark_soul_cost() -> int:
-	printerr("You should override get_dark_soul_cost on " + get_script().get_path())
+	#printerr("You should override get_dark_soul_cost on " + get_script().get_path())
 	return 1

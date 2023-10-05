@@ -59,6 +59,7 @@ signal room_visited(room: DungeonRoom)
 
 @export var num_levels: int = 5
 
+var map_rect: Rect2 = Rect2(0, 0, 0, 0)
 var fog_image: Image = Image.new()
 
 @onready var fog_sprite: Sprite2D = $"../FogSprite"
@@ -111,6 +112,7 @@ func _physics_process(delta: float) -> void:
 		set_physics_process(false)
 		await _create_corridors()
 		_create_fog()
+		start_room._on_player_entered_room()
 		#start_room._on_player_entered_room()
 
 
@@ -485,9 +487,11 @@ func _create_corridors() -> void:
 
 
 func _create_fog() -> void:
-	var map_rect: Rect2 = Rect2(0, 0, 0, 0)
 	for room in rooms:
 		map_rect = map_rect.merge(room.get_rect())
+	var MARGIN: int = 64
+	map_rect.position -= Vector2.ONE * MARGIN
+	map_rect.size += Vector2.ONE * MARGIN * 2
 	fog_sprite.position = map_rect.position
 	@warning_ignore("narrowing_conversion")
 	fog_image = Image.create(map_rect.size.x, map_rect.size.y, false, Image.FORMAT_RGBAH)
@@ -503,12 +507,16 @@ func _create_fog() -> void:
 		await get_tree().create_timer(0.2).timeout
 
 
-func clear_room_fog(rect: Rect2) -> void:
-	@warning_ignore("narrowing_conversion")
-	var image: Image = Image.create(rect.size.x, rect.size.y, false, Image.FORMAT_RGBAH)
-	#var light: Image = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png").get_image()
-	#light.convert(Image.FORMAT_RGBAH)
-	fog_image.blend_rect(image, Rect2(Vector2.ZERO, image.get_size()), rect.position)
+func clear_room_fog(at_pos: Vector2, room_white_image: Image) -> void:
+#	for tile_cell in tilemap.get_used_cells(0):
+#		var rect: Rect2 = Rect2(tilemap.get_parent().position + Vector2(tile_cell * Rooms.TILE_SIZE), Vector2.ONE * Rooms.TILE_SIZE)
+#		@warning_ignore("narrowing_conversion")
+#		var image: Image = Image.create(rect.size.x, rect.size.y, false, Image.FORMAT_RGBAH)
+#		image.fill(Color.WHITE)
+#		#var light: Image = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png").get_image()
+#		#light.convert(Image.FORMAT_RGBAH)
+#		var image_size: Vector2 = image.get_size()
+	fog_image.blend_rect(room_white_image, Rect2(Vector2.ZERO, room_white_image.get_size()), at_pos - map_rect.position)
 	fog_sprite.texture = ImageTexture.create_from_image(fog_image)
 
 

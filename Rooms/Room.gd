@@ -25,6 +25,8 @@ enum EntryDirection {
 }
 var used_entries: Array[Node] = []
 
+var room_white_image: Image
+
 signal player_entered()
 signal closed()
 signal cleared()
@@ -55,12 +57,33 @@ func _ready() -> void:
 	if get_parent().get_parent().debug:
 		black_tilemap.hide()
 
+	_generate_room_white_image()
+
 
 func _draw() -> void:
 	pass
 #	if get_parent().get_parent().debug:
 #		draw_circle(vector_to_center, radius, Color.RED)
 		#draw_circle(vector_to_center, (vector_to_center - Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE)).length(), Color.RED)
+
+
+func _generate_room_white_image() -> void:
+	room_white_image = Image.create(tilemap.get_used_rect().size.x * Rooms.TILE_SIZE, tilemap.get_used_rect().size.y * Rooms.TILE_SIZE, false, Image.FORMAT_RGBAH)
+
+	var tile_cells: Array = tilemap.get_used_cells(0)
+	#tile_cells.append_array(tilemap.get_used_cells(1))
+	for tile_cell in tile_cells:
+		if tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.UPPER_WALL_COOR, Rooms.UPPER_WALL_LEFT_COOR, Rooms.UPPER_WALL_LEFT_CORNER_COOR, Rooms.UPPER_WALL_RIGHT_COOR, Rooms.UPPER_WALL_RIGHT_CORNER_COOR, Rooms.LEFT_WALL_COOR, Rooms.RIGHT_WALL_COOR, Rooms.LAST_LEFT_WALL_COOR, Rooms.LAST_RIGHT_WALL_COOR]:
+			continue
+
+		var rect: Rect2 = Rect2(tilemap.get_parent().position + Vector2(tile_cell * Rooms.TILE_SIZE), Vector2.ONE * Rooms.TILE_SIZE)
+		@warning_ignore("narrowing_conversion")
+		var image: Image = Image.create(rect.size.x, rect.size.y, false, Image.FORMAT_RGBAH)
+		image.fill(Color.WHITE)
+		#var light: Image = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png").get_image()
+		#light.convert(Image.FORMAT_RGBAH)
+		var image_size: Vector2 = image.get_size()
+		room_white_image.blend_rect(image, Rect2(Vector2.ZERO, image_size), rect.position)
 
 
 func get_separation_steering_dir(rooms: Array[DungeonRoom], delta: float) -> Vector2:
@@ -267,6 +290,8 @@ func _spawn_enemies() -> void:
 
 func _on_player_entered_room() -> void:
 	player_entered.emit()
+
+	get_parent().clear_room_fog(position, room_white_image)
 
 	for door in door_container.get_children():
 		door.player_entered_room.disconnect(_on_player_entered_room)

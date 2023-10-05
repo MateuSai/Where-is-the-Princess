@@ -1,117 +1,81 @@
-// cloudy skies shader
-// inspired from shadertoy shader made by Drift (https://www.shadertoy.com/view/4tdSWr)
-
 shader_type canvas_item;
 
-uniform float cloudscale = 1.1;
-uniform float speed = 0.01;
-uniform float clouddark = 0.5;
-uniform float cloudlight = 0.3;
-uniform float cloudcover = 0.2;
-uniform float cloudalpha = 8.0;
-uniform float skytint = 0.5;
-uniform vec3 skycolour1 = vec3(0.2, 0.4, 0.6);
-uniform vec3 skycolour2 = vec3(0.4, 0.7, 1.0);
-uniform mat2 m = mat2(vec2(1.6,1.2),vec2(-1.2,1.6)); // changement
+uniform float transparency : hint_range(0, 1) = 0.8;
 
-// functions
+uniform vec4 color0 : source_color = vec4(0.01, 0.0, 1.0, 1.0);
+uniform vec4 color1 : source_color = vec4(0.32, 0.2, 1.0, 1.0);
+uniform vec4 color2 : source_color = vec4(0.34, 0.41, 1.0, 1.0);
+uniform vec4 color3 : source_color = vec4(0.39, 0.52, 1.0, 1.0);
 
-vec2 hash( vec2 p ) {
-                p = vec2(dot(p,vec2(127.1,311.7)), dot(p,vec2(269.5,183.3)));
-                return -1.0 + 2.0*fract(sin(p)*43758.5453123);
+uniform vec2 Direction = vec2(1, 1);
+uniform float Speed = 1.00;
+
+uniform float thresholds[3];
+//my values: [0.6, 0.66, 0.75]
+
+uniform int OCTAVE = 8;
+uniform int pixel_size = 1;
+uniform float dithering = 2.5;
+
+vec2 random(vec2 uv){
+    uv = vec2( dot(uv, vec2(127.1,311.7) ),
+               dot(uv, vec2(269.5,183.3) ) );
+    return -1.0 + 2.0 * fract(sin(uv) * 43758.5453123);
 }
 
-float noise( in vec2 p ) {
-    float K1 = 0.366025404; // (sqrt(3)-1)/2;
-    float K2 = 0.211324865; // (3-sqrt(3))/6;
-                vec2 i = floor(p + (p.x+p.y)*K1);
-    vec2 a = p - i + (i.x+i.y)*K2;
-    vec2 o = (a.x>a.y) ? vec2(1.0,0.0) : vec2(0.0,1.0); //vec2 of = 0.5 + 0.5*vec2(sign(a.x-a.y), sign(a.y-a.x));
-    vec2 b = a - o + K2;
-                vec2 c = a - 1.0 + 2.0*K2;
-    vec3 h = max(0.5-vec3(dot(a,a), dot(b,b), dot(c,c) ), 0.0 );
-                vec3 n = h*h*h*h*vec3( dot(a,hash(i+0.0)), dot(b,hash(i+o)), dot(c,hash(i+1.0)));
-    return dot(n, vec3(70.0));
+float noise(vec2 uv) {
+    vec2 uv_index = floor(uv);
+    vec2 uv_fract = fract(uv);
+
+    vec2 blur = smoothstep(0.0, 1.0, uv_fract);
+
+    return mix( mix( dot( random(uv_index + vec2(0.0,0.0) ), uv_fract - vec2(0.0,0.0) ),
+                     dot( random(uv_index + vec2(1.0,0.0) ), uv_fract - vec2(1.0,0.0) ), blur.x),
+                mix( dot( random(uv_index + vec2(0.0,1.0) ), uv_fract - vec2(0.0,1.0) ),
+                     dot( random(uv_index + vec2(1.0,1.0) ), uv_fract - vec2(1.0,1.0) ), blur.x), blur.y) + 0.5;
 }
 
-float fbm(vec2 n) {
-                float total = 0.0, amplitude = 0.1;
-                for (int i = 0; i < 7; i++) {
-                               total += noise(n) * amplitude;
-                               n = m * n;
-                               amplitude *= 0.4;
-                }
-                return total;
+float fbm(vec2 input){
+	float value = 0.0;
+	float scale = 0.2;
+
+	input *= TIME/3000.0 + 1.0;
+
+	for(int i = 0; i < OCTAVE; i++){
+		value += noise(input)*scale;
+		input *= dithering;
+	}
+
+	return clamp(value, 0.0, 1.0);
 }
 
-// fragment shader
+float get_pixelated_moving_colors(vec2 uv, vec2 direction, float speed) {
+	speed = speed / 1000.0;
+	direction*=-1.0;
+	vec2 moving_uv = uv + (direction * TIME * speed) + vec2(0.5/float(pixel_size));
+	vec2 pixel_uv = round((moving_uv) * float(pixel_size)) / float(pixel_size);
+	float pixelated_color = fbm(pixel_uv);
+	return pixelated_color;
+}
 
-void fragment() {
-vec2 res = 1.0 / SCREEN_PIXEL_SIZE;
-vec2 p = FRAGCOORD.xy / res.xy; // changement
-                vec2 uv = p*vec2(res.x/res.y,1.0);    // changement
-    float time = TIME * speed ;
-    float q = fbm(uv * cloudscale * 0.5);
+vec4 smooth_extreme_colors(float color) {
+	// Dark to light
+	if (color<=thresholds[0]) {
+        return color0;
+    } else if (thresholds[0]<color && color<=thresholds[1]) {
+        return color1;
+    } else if (thresholds[1]<color && color<=thresholds[2]) {
+        return color2;
+    } else if (thresholds[2]<=color) {
+        return color3;
+	}
+}
 
-    //ridged noise shape
-                float r = 0.0;
-                uv *= cloudscale;
-    uv += q - time;
-    float weight = 0.8;
-    for (int i=0; i<8; i++){
-                               r += abs(weight*noise( uv ));
-        uv = m*uv + time;
-                               weight *= 0.7;
-    }
+void fragment(){
+	if (COLOR.a > 0.0001){
+	float pixelated_color = get_pixelated_moving_colors(UV, Direction, Speed);
+	vec4 smoothed_color = smooth_extreme_colors(pixelated_color);
 
-    //noise shape
-                float f = 0.0;
-    uv = p*vec2(res.x/res.y,1.0); // changement
-                uv *= cloudscale;
-    uv += q - time;
-    weight = 0.7;
-    for (int i=0; i<8; i++){
-                               f += weight*noise( uv );
-        uv = m*uv + time;
-                               weight *= 0.6;
-    }
-
-    f *= r + f;
-
-    //noise colour
-    float c = 0.0;
-    time = TIME * speed * 2.0;
-    uv = p*vec2(res.x/res.y,1.0); // changement
-                uv *= cloudscale*2.0;
-    uv += q - time;
-    weight = 0.4;
-    for (int i=0; i<7; i++){
-                               c += weight*noise( uv );
-        uv = m*uv + time;
-                               weight *= 0.6;
-    }
-
-    //noise ridge colour
-    float c1 = 0.0;
-    time = TIME * speed * 3.0;
-    uv = p*vec2(res.x/res.y,1.0);
-                uv *= cloudscale*3.0;
-    uv += q - time;
-    weight = 0.4;
-    for (int i=0; i<7; i++){
-                               c1 += abs(weight*noise( uv ));
-        uv = m*uv + time;
-                               weight *= 0.6;
-    }
-
-    c += c1;
-
-    vec3 skycolour = mix(skycolour2, skycolour1, p.y);
-    vec3 cloudcolour = vec3(0.3, 0.3, 0.3) * clamp((clouddark + cloudlight*c), 0.0, 1.0);
-
-    f = cloudcover + cloudalpha*f*r;
-
-    vec3 result = mix(skycolour, clamp(skytint * skycolour + cloudcolour, 0.0, 1.0), clamp(f + c, 0.0, 1.0));
-
-    COLOR.rgb = vec3(result);
+	COLOR = smoothed_color * transparency;
+	}
 }
