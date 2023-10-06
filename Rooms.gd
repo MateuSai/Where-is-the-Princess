@@ -59,6 +59,7 @@ signal room_visited(room: DungeonRoom)
 
 @export var num_levels: int = 5
 
+var map_rect: Rect2 = Rect2(0, 0, 0, 0)
 var fog_image: Image = Image.new()
 
 @onready var fog_sprite: Sprite2D = $"../FogSprite"
@@ -111,15 +112,16 @@ func _physics_process(delta: float) -> void:
 		set_physics_process(false)
 		await _create_corridors()
 		_create_fog()
+		start_room._on_player_entered_room()
 		#start_room._on_player_entered_room()
 
 
 func _get_rooms(type: String) -> PackedStringArray:
 	var room_paths: PackedStringArray
 
-	var overwrite_room_names: PackedStringArray = PackedStringArray(SavedData.get_overwrite_room_names(type.replace("/", "_").to_lower()))
-	if not overwrite_room_names.is_empty():
-		room_paths = overwrite_room_names
+	var overwrite_room_paths: PackedStringArray = PackedStringArray(SavedData.get_overwrite_room_paths(type.replace("/", "_").to_lower()))
+	if not overwrite_room_paths.is_empty():
+		room_paths = overwrite_room_paths
 	else:
 		if type.to_lower().begins_with("end"):
 			room_paths = SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "end", type.split("/")[1])
@@ -179,25 +181,25 @@ func spawn_rooms() -> void:
 	if overwrite_spawn_shape:
 		spawn_shape = overwrite_spawn_shape
 
-	var room_names: Dictionary = {
+	var room_paths: Dictionary = {
 		"start": _get_rooms("Start"),
 		"combat": _get_rooms("Combat"),
 		"special": _get_rooms("Special"),
 		"end": _get_end_rooms(),
 	}
 
-#	room_names.start.append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "start"))
-#	room_names.combat.append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "combat"))
-#	room_names.special.append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "special"))
-#	for end_to in room_names.end:
-#		room_names.end[end_to].append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "special"))
+#	room_paths.start.append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "start"))
+#	room_paths.combat.append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "combat"))
+#	room_paths.special.append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "special"))
+#	for end_to in room_paths.end:
+#		room_paths.end[end_to].append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "special"))
 
-	# print(room_names)
-	start_room = load(room_names.start[randi() % room_names.start.size()]).instantiate()
+	# print(room_paths)
+	start_room = load(room_paths.start[randi() % room_paths.start.size()]).instantiate()
 	rooms.push_back(start_room)
 
 	var end_rooms: Array[DungeonRoom] = []
-	for array in room_names.end:
+	for array in room_paths.end:
 		if array.is_empty():
 			continue
 		var end_room: DungeonRoom = load(array[randi() % array.size()]).instantiate()
@@ -211,12 +213,18 @@ func spawn_rooms() -> void:
 	#inter_rooms.append_array(SavedData.custom_rooms)
 	var num_special_rooms: int = SavedData.get_num_rooms("special")
 	for i in num_special_rooms:
-		rooms.push_back(load(room_names.special[randi() % room_names.special.size()]).instantiate())
+		var random_speacial_room_path: String = room_paths.special[randi() % room_paths.special.size()]
+		rooms.push_back(load(random_speacial_room_path).instantiate())
+		room_paths.special.remove_at(room_paths.special.find(random_speacial_room_path)) # So the same special room is not spawned 2 times
+		if room_paths.special.is_empty() and (i+1) < num_special_rooms:
+			if debug:
+				print_rich("[color=yellow]" + str(num_special_rooms) + " special rooms should have spawned, but only " + str(i+1) + " did, since there are not enough special rooms[/color]")
+			break
 
 	var num_combat_rooms: int = SavedData.get_num_rooms("combat")
 	for i in num_combat_rooms:
 		#rooms.push_back(INTERMEDIATE_ROOMS[0].instantiate())
-		rooms.push_back(load(room_names.combat[randi() % room_names.combat.size()]).instantiate())
+		rooms.push_back(load(room_paths.combat[randi() % room_paths.combat.size()]).instantiate())
 
 	for room in rooms:
 		room.name += "_" + str(rooms.find(room))
@@ -247,13 +255,19 @@ func spawn_rooms() -> void:
 
 func _create_corridors() -> void:
 	#var room_centers: Array[Vector2] = []
-	for room in rooms:
-		room_centers.push_back(room.position + room.vector_to_center)
+	for i in rooms.size():
+		room_centers.push_back(rooms[i].position + rooms[i].vector_to_center)
+		if debug:
+			print("Room " + str(i) + " center position: " + str(room_centers[i]))
 
+	if debug:
+		print_rich("[b]--- Rooms: creating delaunay ---[/b]")
 	delaunay_indices = Geometry2D.triangulate_delaunay(room_centers)
 	#print(delaunay_indices)
 	#print(room_centers)
 	if debug:
+		print("Delaunay: " + str(delaunay_indices))
+
 		queue_redraw()
 		await get_tree().process_frame
 		await get_tree().create_timer(pause_between_steps).timeout
@@ -275,6 +289,9 @@ func _create_corridors() -> void:
 
 	if debug:
 		print_rich("[b]--- Rooms: creating mst ---[/b]")
+		print("delaunay_astar connections (between indices, not room ids):")
+		for i in delaunay_astar.get_point_count():
+			print("" + str(i) + ": " + str(delaunay_astar.get_point_connections(i)))
 	# We start with 1 because we already have added the room 0
 	for i in range(1, delaunay_astar.get_point_count()):
 		var min_room_connection: RoomConnection = RoomConnection.NONE
@@ -294,34 +311,45 @@ func _create_corridors() -> void:
 					if debug:
 						print_rich("\t[color=yellow]Point " + str(j) + " is disabled[/color]")
 					continue
+
 				var point2: Vector2 = delaunay_astar.get_point_position(j)
-				if delaunay_astar.get_point_connections(room_centers.find(point)).has(j) and point.distance_to(point2) < min_dist:
-					if not overwrite_connections.is_empty():
-						var block_connection: bool = true
-						for connection in overwrite_connections:
-							if (connection[0] == id and connection[1] == room_centers.find(point2)) or (connection[0] == room_centers.find(point2) and connection[1] == id):
-								block_connection = false
-								break
-						if block_connection:
+				if debug:
+					print_rich("\tChecking room " + str(room_centers.find(point2)) + "")
+
+				if delaunay_astar.get_point_connections(room_centers.find(point)).has(j):
+					if point.distance_to(point2) < min_dist:
+						if not overwrite_connections.is_empty():
+							var block_connection: bool = true
+							for connection in overwrite_connections:
+								if (connection[0] == id and connection[1] == room_centers.find(point2)) or (connection[0] == room_centers.find(point2) and connection[1] == id):
+									block_connection = false
+									break
+							if block_connection:
+								if debug:
+									print_rich("\t[color=yellow]Connection between " + str(id) + " and " + str(room_centers.find(point2)) +  " is not possible because the connections are overwritten[/color]")
+								continue
+						var room_connection: RoomConnection = await _is_connection_possible(id, room_centers.find(point2))
+						if not room_connection:
 							if debug:
-								print_rich("\t[color=yellow]Connection between " + str(id) + " and " + str(room_centers.find(point2)) +  " is not possible because the connections are overwritten[/color]")
+								print_rich("\t\t[color=yellow]No available connection to " + str(j) + "[/color]")
 							continue
-					var room_connection: RoomConnection = await _is_connection_possible(id, room_centers.find(point2))
-					if not room_connection:
+						min_room_connection = room_connection
+						first_room_id = id
+						min_dist = point.distance_to(point2)
+						min_p = point2
 						if debug:
-							print_rich("\t[color=yellow]No available connection to " + str(j) + "[/color]")
-						continue
-					min_room_connection = room_connection
-					first_room_id = id
-					min_dist = point.distance_to(point2)
-					min_p = point2
+							print_rich("\t[color=green]Available connection to " + str(j) + ": " + RoomConnection.keys()[room_connection] + "[/color]")
+						#p = point
+					else:
+						if debug:
+							print_rich("\t\t[color=yellow]Rooms " + str(room_centers.find(point)) + " and " + str(room_centers.find(point2)) + " are to close[/color]")
+				else:
 					if debug:
-						print_rich("\t[color=green]Available connection to " + str(j) + ": " + RoomConnection.keys()[room_connection] + "[/color]")
-					#p = point
+						print_rich("\t\t[color=yellow]delaunay_astar does not have any connections between room " + str(room_centers.find(point)) + " and " + str(room_centers.find(point2)) + "[/color]")
 
 		if first_room_id == -1:
-			assert(false)
-			push_error("first_room_id is null")
+			#assert(false)
+			push_error("first_room_id is null. There are no more possibles connections but there is some room/rooms that are not connected yet")
 			continue
 		var n: int = room_centers.find(min_p)
 		mst_astar.add_point(n, min_p)
@@ -450,6 +478,7 @@ func _create_corridors() -> void:
 
 	for room in rooms:
 		room.add_doors_and_walls(corridor_tile_map)
+		room.generate_room_white_image()
 
 	if debug:
 		await get_tree().process_frame
@@ -459,9 +488,11 @@ func _create_corridors() -> void:
 
 
 func _create_fog() -> void:
-	var map_rect: Rect2 = Rect2(0, 0, 0, 0)
 	for room in rooms:
 		map_rect = map_rect.merge(room.get_rect())
+	var MARGIN: int = 64
+	map_rect.position -= Vector2.ONE * MARGIN
+	map_rect.size += Vector2.ONE * MARGIN * 2
 	fog_sprite.position = map_rect.position
 	@warning_ignore("narrowing_conversion")
 	fog_image = Image.create(map_rect.size.x, map_rect.size.y, false, Image.FORMAT_RGBAH)
@@ -475,6 +506,19 @@ func _create_fog() -> void:
 		fog_image.blend_rect(light, Rect2(Vector2.ZERO, light.get_size()), Globals.player.position - map_rect.position - light.get_size()/2.0)
 		fog_sprite.texture = ImageTexture.create_from_image(fog_image)
 		await get_tree().create_timer(0.2).timeout
+
+
+func clear_room_fog(at_pos: Vector2, room_white_image: Image) -> void:
+#	for tile_cell in tilemap.get_used_cells(0):
+#		var rect: Rect2 = Rect2(tilemap.get_parent().position + Vector2(tile_cell * Rooms.TILE_SIZE), Vector2.ONE * Rooms.TILE_SIZE)
+#		@warning_ignore("narrowing_conversion")
+#		var image: Image = Image.create(rect.size.x, rect.size.y, false, Image.FORMAT_RGBAH)
+#		image.fill(Color.WHITE)
+#		#var light: Image = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png").get_image()
+#		#light.convert(Image.FORMAT_RGBAH)
+#		var image_size: Vector2 = image.get_size()
+	fog_image.blend_rect(room_white_image, Rect2(Vector2.ZERO, room_white_image.get_size()), at_pos - map_rect.position)
+	fog_sprite.texture = ImageTexture.create_from_image(fog_image)
 
 
 func _create_corridor_between_rooms(id: int, connection_with: int, room_connection: RoomConnection) -> void:

@@ -21,7 +21,7 @@
 		},
 		"2": {
 			"spawn_shape_type": "rectangle",
-			"spawn_shape_width": 64,
+			"spawn_shape_width": 200,
 			"spawn_shape_height": 300,
 			"disable_horizontal_separation_steering": true,
 
@@ -33,7 +33,7 @@
 			"overwrite_end_forest_rooms": [],
 			"overwrite_end_sewer_rooms": [],
 
-			"overwrite_connections": [[0, 2], [2, 1]]
+			"_overwrite_connections": [[0, 2], [2, 1]]
 		}
 	},
 

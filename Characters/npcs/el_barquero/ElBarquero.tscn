@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://b2gbblx0gk0fu"]
+[gd_scene load_steps=10 format=3 uid="uid://b2gbblx0gk0fu"]
 
 [ext_resource type="PackedScene" uid="uid://xvaekjyf4uxl" path="res://Characters/npcs/NPC.tscn" id="1_o8uhg"]
+[ext_resource type="Script" path="res://Characters/npcs/el_barquero/ElBarquero.gd" id="2_rhmx5"]
 [ext_resource type="Texture2D" uid="uid://ib4rwtywvtg5" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/el_barquero_0.png" id="2_to81w"]
 [ext_resource type="Texture2D" uid="uid://dy82sbrv8eq1f" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/el_barquero_1.png" id="3_ahpmr"]
 [ext_resource type="Texture2D" uid="uid://c4s3b55q7okgl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/el_barquero_2.png" id="4_ljkv1"]
@@ -34,6 +35,7 @@ animations = [{
 height = 52.0
 
 [node name="ElBarquero" instance=ExtResource("1_o8uhg")]
+script = ExtResource("2_rhmx5")
 
 [node name="AnimatedSprite" parent="." index="0"]
 position = Vector2(0, -10)
