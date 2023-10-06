@@ -232,7 +232,8 @@ func spawn_rooms() -> void:
 			visited_rooms.push_back(room)
 			room_visited.emit(room)
 		)
-		add_child(room)
+		call_deferred("add_child", room)
+	await get_tree().process_frame
 
 	#start_room._on_player_entered_room()
 #	var start_room_pos: Vector2 = start_room.get_random_circle_spawn_point(SPAWN_CIRCLE_RADIUS)

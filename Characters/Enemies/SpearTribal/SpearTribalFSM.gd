@@ -103,6 +103,6 @@ func _exit_state(state_exited: int) -> void:
 			spear_animation_player.play("restore")
 		states.charge:
 			parent.max_speed = 70
-			parent.accerelation = 10
+			parent.acceleration = 10
 			spear_hitbox_collision_shape.disabled = true
 			spear_animation_player.stop()
