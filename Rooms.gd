@@ -504,19 +504,22 @@ func _add_lights() -> void:
 				var light: Node2D = TIKI_TORCH_SCENE.instantiate()
 				light.position = corridor_tile_map.map_to_local(cell) + Vector2.DOWN * 27
 				add_child(light)
-				await get_tree().create_timer(add_light_pause).timeout
+				if debug:
+					await get_tree().create_timer(add_light_pause).timeout
 		elif corridor_tile_map.get_cell_atlas_coords(0, cell) == LEFT_WALL_COOR:
 			if cell.y % 6 == 0:
 				var light: Node2D = TIKI_TORCH_SCENE.instantiate()
 				light.position = corridor_tile_map.map_to_local(cell) + Vector2.RIGHT * 10
 				add_child(light)
-				await get_tree().create_timer(add_light_pause).timeout
+				if debug:
+					await get_tree().create_timer(add_light_pause).timeout
 		elif corridor_tile_map.get_cell_atlas_coords(0, cell) == RIGHT_WALL_COOR:
 			if cell.y % 6 == 0:
 				var light: Node2D = TIKI_TORCH_SCENE.instantiate()
 				light.position = corridor_tile_map.map_to_local(cell) + Vector2.LEFT * 10
 				add_child(light)
-				await get_tree().create_timer(add_light_pause).timeout
+				if debug:
+					await get_tree().create_timer(add_light_pause).timeout
 
 
 func _create_fog() -> void:
