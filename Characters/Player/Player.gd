@@ -119,6 +119,8 @@ func _exit_tree() -> void:
 
 
 func _process(_delta: float) -> void:
+	camera.position = camera.position.lerp(position, 0.08)
+
 	# sm.update(_delta)
 	if Settings.auto_aim:
 		mouse_direction = auto_aim_area.get_direction()
