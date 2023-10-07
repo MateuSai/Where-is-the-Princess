@@ -43,7 +43,8 @@ var mst_astar: AStar2D = null
 @onready var debug: bool = get_parent().debug
 @export var debug_check_entry_positions: bool = false
 @export var pause_between_steps: float = 1.2
-@export var add_tile_group_time: float = 0.02
+@export var add_tile_group_time: float = 0.0002
+@export var add_light_pause: float = 0.2
 var room_centers: Array[Vector2] = []
 var delaunay_indices: PackedInt32Array
 # Tengo que declarar esto aquí porque esta wea culiada no me deja dibujar fuera de _draw
@@ -483,9 +484,39 @@ func _create_corridors() -> void:
 
 	if debug:
 		await get_tree().process_frame
+		await get_tree().create_timer(pause_between_steps).timeout
+
+	await _add_lights()
+
+	if debug:
+		await get_tree().process_frame
 		await get_tree().create_timer(pause_between_steps * 2).timeout
 
 	generation_completed.emit()
+
+
+func _add_lights() -> void:
+	var TIKI_TORCH_SCENE: PackedScene = load("res://Rooms/Biomes/Forest/TikiTorch.tscn")
+
+	for cell in corridor_tile_map.get_used_cells(0):
+		if corridor_tile_map.get_cell_atlas_coords(0, cell) == UPPER_WALL_COOR:
+			if cell.x % 6 == 0 :
+				var light: Node2D = TIKI_TORCH_SCENE.instantiate()
+				light.position = corridor_tile_map.map_to_local(cell) + Vector2.DOWN * 27
+				add_child(light)
+				await get_tree().create_timer(add_light_pause).timeout
+		elif corridor_tile_map.get_cell_atlas_coords(0, cell) == LEFT_WALL_COOR:
+			if cell.y % 6 == 0:
+				var light: Node2D = TIKI_TORCH_SCENE.instantiate()
+				light.position = corridor_tile_map.map_to_local(cell) + Vector2.RIGHT * 10
+				add_child(light)
+				await get_tree().create_timer(add_light_pause).timeout
+		elif corridor_tile_map.get_cell_atlas_coords(0, cell) == RIGHT_WALL_COOR:
+			if cell.y % 6 == 0:
+				var light: Node2D = TIKI_TORCH_SCENE.instantiate()
+				light.position = corridor_tile_map.map_to_local(cell) + Vector2.LEFT * 10
+				add_child(light)
+				await get_tree().create_timer(add_light_pause).timeout
 
 
 func _create_fog() -> void:
