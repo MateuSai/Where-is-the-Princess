@@ -38,6 +38,8 @@ var rotating_items: Array[Node2D] = []
 @onready var mirage: TextureRect = $UI/Mirage
 
 @onready var equip_armor_sound: AudioStreamPlayer = $EquipArmorSound
+@onready var eat_sound: AudioStreamPlayer = $EatSound
+@onready var burp_sound: AudioStreamPlayer = $BurpSound
 
 
 func _ready() -> void:
@@ -105,6 +107,8 @@ func _ready() -> void:
 #	sm = state_machine
 #	sm.set_current_state(sm.states["idle"])
 
+	eat_sound.finished.connect(burp_sound.play)
+
 
 func _restore_previous_state() -> void:
 	life_component.hp = SavedData.run_stats.hp
@@ -119,6 +123,8 @@ func _exit_tree() -> void:
 
 
 func _process(_delta: float) -> void:
+	camera.position = camera.position.lerp(position, 0.08)
+
 	# sm.update(_delta)
 	if Settings.auto_aim:
 		mouse_direction = auto_aim_area.get_direction()

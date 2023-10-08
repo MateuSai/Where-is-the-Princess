@@ -55,7 +55,9 @@ func _load_csv_data(data: Dictionary) -> void:
 	can_be_knocked_back = bool(data.can_be_knocked_back)
 
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	state_machine.physics_process(delta)
+
 	move_and_slide()
 	velocity = lerp(velocity, Vector2.ZERO, FRICTION)
 

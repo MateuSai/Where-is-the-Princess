@@ -33,6 +33,7 @@ func _input(_event: InputEvent) -> void:
 func _start_splash_screen() -> void:
 	if _splash_screens.size() == 0:
 		get_tree().change_scene_to_packed(_move_to)
+		SceneTransistor.scene_changed.emit(_move_to.resource_path)
 	else:
 		var splash_screen: SplashScreen = _splash_screens.pop_front()
 		splash_screen.start()

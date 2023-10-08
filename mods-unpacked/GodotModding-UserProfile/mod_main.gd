@@ -8,7 +8,8 @@ var mod_dir_path := ""
 var extensions_dir_path := ""
 var translations_dir_path := ""
 
-@onready var user_profile_dialog = load("res://mods-unpacked/GodotModding-UserProfile/content/UserProfiles.tscn").instantiate()
+const USER_PROFILE_DIALOG_PATH: String = "res://mods-unpacked/GodotModding-UserProfile/content/UserProfiles.tscn"
+var user_profile_dialog: UserProfilesPopup
 
 
 func _init() -> void:
@@ -31,9 +32,25 @@ func add_translations() -> void:
 
 
 func _ready():
+	SceneTransistor.scene_changed.connect(func(new_scene_path: String):
+		if new_scene_path.get_file().trim_suffix(".tscn") == "Menu":
+			_add_popup()
+		else:
+			_remove_popup()
+	)
+
+
+func _add_popup() -> void:
+	user_profile_dialog = load(USER_PROFILE_DIALOG_PATH).instantiate()
 	get_tree().root.call_deferred("add_child", user_profile_dialog)
 
 	handle_config()
+
+
+func _remove_popup() -> void:
+	if user_profile_dialog:
+		user_profile_dialog.queue_free()
+		user_profile_dialog = null
 
 
 func handle_config() -> void:
