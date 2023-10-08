@@ -38,6 +38,8 @@ var rotating_items: Array[Node2D] = []
 @onready var mirage: TextureRect = $UI/Mirage
 
 @onready var equip_armor_sound: AudioStreamPlayer = $EquipArmorSound
+@onready var eat_sound: AudioStreamPlayer = $EatSound
+@onready var burp_sound: AudioStreamPlayer = $BurpSound
 
 
 func _ready() -> void:
@@ -104,6 +106,8 @@ func _ready() -> void:
 #
 #	sm = state_machine
 #	sm.set_current_state(sm.states["idle"])
+
+	eat_sound.finished.connect(burp_sound.play)
 
 
 func _restore_previous_state() -> void:

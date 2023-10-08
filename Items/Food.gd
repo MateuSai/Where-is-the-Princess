@@ -15,3 +15,4 @@ func get_icon() -> Texture:
 
 func pick_up(player: Player) -> void:
 	player.life_component.hp += 1
+	player.eat_sound.play()
