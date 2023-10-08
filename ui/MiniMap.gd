@@ -21,12 +21,16 @@ var fog_sprite: Sprite2D
 @onready var container: MarginContainer = $MinimapScrollContainer/PanelContainer/MarginContainer
 @onready var map_name_label: Label = $MinimapScrollContainer/PanelContainer/MapNameLabel
 @onready var player_icon: Sprite2D = $MinimapScrollContainer/PanelContainer/PlayerIcon
+
+@onready var update_fog_timer: Timer = $UpdateFogTimer
 #@onready var tilemap: TileMap = $TileMap
 
 
 func _ready() -> void:
 	set_process(false)
 	popup_hide.connect(func(): set_process(false))
+
+	update_fog_timer.timeout.connect(_update_fog)
 
 
 func set_up() -> void:
@@ -93,18 +97,40 @@ func set_up() -> void:
 	map_name_label.text = SavedData.run_stats.biome
 	#map_name_label.position = Vector2.ZERO
 
-	while is_instance_valid(Globals.player):
-		if $"../../FogSprite".texture:
-			var world_fog_image: Image = $"../../FogSprite".texture.get_image()
-			world_fog_image.shrink_x2()
-			world_fog_image.shrink_x2()
-			fog_sprite.texture = ImageTexture.create_from_image(world_fog_image)
-	#		var light: Image = load("res://Art/light_fire.png").get_image()
-	#		light.convert(Image.FORMAT_RGBAH)
-	#		# light.resize(light.get_width() * 5, light.get_height() * 5)
-	#		fog_image.blend_rect(light, Rect2(Vector2.ZERO, light.get_size()), Globals.player.position - entire_map_rect.position - light.get_size()/2.0)
-	#		fog_sprite.texture = ImageTexture.create_from_image(fog_image)
-		await get_tree().create_timer(0.5).timeout
+	#await owner.player_added
+
+	visibility_changed.connect(func():
+		if visible:
+			_on_draw()
+		else:
+			_on_hide()
+	)
+
+
+func _on_draw() -> void:
+	_update_fog()
+	update_fog_timer.start()
+
+
+func _on_hide() -> void:
+	update_fog_timer.stop()
+
+
+
+func _update_fog() -> void:
+	if not is_instance_valid(Globals.player):
+		return
+
+	if $"../../FogSprite".texture:
+		var world_fog_image: Image = $"../../FogSprite".texture.get_image()
+		world_fog_image.shrink_x2()
+		world_fog_image.shrink_x2()
+		fog_sprite.texture = ImageTexture.create_from_image(world_fog_image)
+#		var light: Image = load("res://Art/light_fire.png").get_image()
+#		light.convert(Image.FORMAT_RGBAH)
+#		# light.resize(light.get_width() * 5, light.get_height() * 5)
+#		fog_image.blend_rect(light, Rect2(Vector2.ZERO, light.get_size()), Globals.player.position - entire_map_rect.position - light.get_size()/2.0)
+#		fog_sprite.texture = ImageTexture.create_from_image(fog_image)
 
 
 func _input(event: InputEvent) -> void:

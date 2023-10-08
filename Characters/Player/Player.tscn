@@ -415,7 +415,7 @@ script = ExtResource("5_uyohi")
 position = Vector2(0, -3)
 
 [node name="Camera2D" type="Camera2D" parent="." index="7"]
-top_level = true
+position_smoothing_enabled = true
 script = ExtResource("9_es44d")
 
 [node name="FlashSprite" type="Sprite2D" parent="Camera2D" index="0"]
