@@ -28,9 +28,9 @@ func _ready() -> void:
 	set_process(false)
 	popup_hide.connect(func(): set_process(false))
 
-	rooms.room_visited.connect(_discover_room)
 
-	await owner.player_added
+func set_up() -> void:
+	rooms.room_visited.connect(_discover_room)
 
 	tileset.tile_size = Vector2i(TILE_SIZE, TILE_SIZE)
 	var atlas: TileSetAtlasSource = TileSetAtlasSource.new()

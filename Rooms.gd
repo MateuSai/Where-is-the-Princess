@@ -490,6 +490,13 @@ func _create_corridors() -> void:
 
 	if debug:
 		await get_tree().process_frame
+		await get_tree().create_timer(pause_between_steps).timeout
+
+	$"../UI/MiniMap".set_up()
+	_divide_corridor_tile_map()
+
+	if debug:
+		await get_tree().process_frame
 		await get_tree().create_timer(pause_between_steps * 2).timeout
 
 	generation_completed.emit()
@@ -1017,6 +1024,31 @@ func _create_l_corridor(from: Node, to: Node, from_dir: DungeonRoom.EntryDirecti
 			x_coord += (-1 if horizontal_dir == DungeonRoom.EntryDirection.LEFT else 1)
 			if debug:
 				await get_tree().create_timer(add_tile_group_time).timeout
+
+
+## We have to use this aberration to divide the tilemap because if we don't do it, the lights turn on and off whenever thay please. Because the tilemap is 1 object, it can't have more than 16 lights at the same time, apparently
+func _divide_corridor_tile_map() -> void:
+	var BLOCK_SIZE: int = 16
+	var rect: Rect2 = corridor_tile_map.get_used_rect()
+	var x_blocks: int = ceil(rect.size.x / BLOCK_SIZE)
+	var y_blocks: int = ceil(rect.size.y / BLOCK_SIZE)
+
+	for i in x_blocks:
+		for ii in y_blocks:
+			var block_tilemap: TileMap = TileMap.new()
+			block_tilemap.add_layer(-1)
+			block_tilemap.set_layer_z_index(0, -1)
+			block_tilemap.tile_set = corridor_tile_map.tile_set
+
+			for x in range(rect.position.x + i * BLOCK_SIZE, rect.position.x + (i * BLOCK_SIZE) + BLOCK_SIZE):
+				for y in range(rect.position.y + ii * BLOCK_SIZE, rect.position.y + (ii * BLOCK_SIZE) + BLOCK_SIZE):
+					for layer in corridor_tile_map.get_layers_count():
+						block_tilemap.set_cell(layer, Vector2i(x, y), ATLAS_ID, corridor_tile_map.get_cell_atlas_coords(layer, Vector2i(x, y)))
+
+			add_child(block_tilemap)
+
+	corridor_tile_map.queue_free()
+	corridor_tile_map = null # At this point this tilemap should not be accessed
 
 
 func _draw() -> void:
