@@ -1,0 +1,8 @@
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://bboaq8rmne41i"]
+
+[ext_resource type="Texture2D" uid="uid://bebdetcqpkno0" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/tileset/full tilemap sewers.png" id="1_ifvej"]
+[ext_resource type="Texture2D" uid="uid://dx3iq2tybr2lb" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/tileset/full tilemap sewers_normal.png" id="2_efq14"]
+
+[resource]
+diffuse_texture = ExtResource("1_ifvej")
+normal_texture = ExtResource("2_efq14")

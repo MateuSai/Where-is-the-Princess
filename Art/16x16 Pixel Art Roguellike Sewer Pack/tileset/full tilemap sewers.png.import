@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bebdetcqpkno0"
-path="res://.godot/imported/full tilemap sewers.png-075fbecad19b1a6528ff879f0934c6e0.ctex"
+path="res://.godot/imported/full tilemap sewers.png-55efd44a4cdfe9602cee28b98498d312.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full tilemap sewers.png"
-dest_files=["res://.godot/imported/full tilemap sewers.png-075fbecad19b1a6528ff879f0934c6e0.ctex"]
+source_file="res://Art/16x16 Pixel Art Roguellike Sewer Pack/tileset/full tilemap sewers.png"
+dest_files=["res://.godot/imported/full tilemap sewers.png-55efd44a4cdfe9602cee28b98498d312.ctex"]
 
 [params]
 

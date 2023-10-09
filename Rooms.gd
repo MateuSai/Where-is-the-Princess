@@ -1028,7 +1028,7 @@ func _create_l_corridor(from: Node, to: Node, from_dir: DungeonRoom.EntryDirecti
 
 ## We have to use this aberration to divide the tilemap because if we don't do it, the lights turn on and off whenever thay please. Because the tilemap is 1 object, it can't have more than 16 lights at the same time, apparently
 func _divide_corridor_tile_map() -> void:
-	var BLOCK_SIZE: int = 16
+	var BLOCK_SIZE: int = 8
 	var rect: Rect2 = corridor_tile_map.get_used_rect()
 	var x_blocks: int = ceil(rect.size.x / BLOCK_SIZE)
 	var y_blocks: int = ceil(rect.size.y / BLOCK_SIZE)
