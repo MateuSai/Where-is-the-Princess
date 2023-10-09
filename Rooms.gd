@@ -62,6 +62,7 @@ signal room_visited(room: DungeonRoom)
 
 var map_rect: Rect2 = Rect2(0, 0, 0, 0)
 var fog_image: Image = Image.new()
+const FOG_PADDING: int = 128
 
 @onready var fog_sprite: Sprite2D = $"../FogSprite"
 
@@ -532,9 +533,8 @@ func _add_lights() -> void:
 func _create_fog() -> void:
 	for room in rooms:
 		map_rect = map_rect.merge(room.get_rect())
-	var MARGIN: int = 64
-	map_rect.position -= Vector2.ONE * MARGIN
-	map_rect.size += Vector2.ONE * MARGIN * 2
+	map_rect.position -= Vector2.ONE * FOG_PADDING
+	map_rect.size += Vector2.ONE * FOG_PADDING * 2
 	fog_sprite.position = map_rect.position
 	@warning_ignore("narrowing_conversion")
 	fog_image = Image.create(map_rect.size.x, map_rect.size.y, false, Image.FORMAT_RGBAH)
