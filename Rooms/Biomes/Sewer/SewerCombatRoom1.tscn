@@ -1,0 +1,52 @@
+[gd_scene load_steps=6 format=3 uid="uid://cdxvn8cjc4pnr"]
+
+[ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_va6h1"]
+[ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_05m42"]
+[ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_ntm4j"]
+[ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_0pnak"]
+[ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="5_ivsi8"]
+
+[node name="SewerCombatRoom1" instance=ExtResource("1_va6h1")]
+
+[node name="TileMap" parent="." index="0"]
+layer_0/tile_data = PackedInt32Array(327681, 131077, 3, 262145, 131077, 2, 262144, 131077, 2, 196608, 262149, 2, 131072, 131077, 1, 65537, 131077, 3, 65538, 131077, 2, 2, 131077, 2, 3, 131077, 3, 4, 131077, 3, 5, 131077, 2, 6, 131077, 2, 65542, 262149, 3, 65543, 262149, 3, 131079, 524293, 1, 196615, 524293, 3, 196614, 5, 3, 262150, 131077, 1, 262149, 393221, 3, 262148, 393221, 3, 196612, 393221, 2, 196613, 393221, 3, 131077, 393221, 1, 327686, 5, 2, 327685, 393221, 3, 327684, 393221, 2, 262151, 524293, 3, 327687, 524293, 3, 393222, 131077, 1, 393221, 393221, 3, 131078, 458757, 1, 65541, 262149, 3, 131076, 393221, 1, 131075, 327685, 1, 196611, 327685, 2, 196610, 131077, 2, 196609, 131077, 2, 327682, 65541, 3, 327683, 327685, 2, 262147, 327685, 2, 262146, 131077, 3, 131074, 327685, 2, 131073, 65541, 3, 65540, 262149, 3, 65539, 262149, 3, 393218, 65541, 1, 393219, 327685, 1, 393220, 393221, 3, 393223, 524293, 3, 393224, 524293, 3, 458760, 524293, 3, 458759, 524293, 3, 458758, 5, 3, 458757, 393221, 3, 458756, 393221, 3, 262152, 524293, 3, 196616, 524293, 3, 196617, 196613, 2, 262153, 196613, 2, 327688, 524293, 3, 393225, 5, 3, 327689, 196613, 1, 327690, 131077, 1, 262154, 65541, 3, 196619, 262149, 2, 131083, 131077, 3, 131082, 65541, 3, 65546, 131077, 2, 65545, 196613, 3, 131081, 196613, 2, 196618, 262149, 2, 65544, 262149, 3, 8, 131077, 2, 131080, 524293, 1, 7, 262149, 2, 9, 131077, 2, 10, 65541, 1, 65536, 458757, 4, 1, 458757, 4, -65534, 524293, 5, -65533, 458757, 4, -65532, 524293, 5, -65531, 458757, 4, -65530, 458757, 5, -65529, 393221, 4, -65528, 524293, 5, -65527, 524293, 4, -65526, 524293, 4, 65547, 393221, 4, -131070, 131077, 7, -131069, 131077, 7, -131068, 131077, 7, -131067, 131077, 7, -131066, 131077, 7, -131065, 131077, 7, -131064, 131077, 7, -131063, 131077, 7, -131062, 131077, 7, -131071, 262149, 4, -131061, 196613, 4, -65536, 262149, 4, 12, 196613, 4, 65535, 262149, 4, -65535, 327685, 7, 11, 65541, 7, 0, 327685, 7)
+layer_1/tile_data = PackedInt32Array(131071, 262149, 5, 196607, 262149, 5, 262143, 262149, 5, 327679, 262149, 6, 262144, 327685, 6, 327680, 262149, 6, 327681, 327685, 6, 393217, 262149, 6, 393218, 131077, 6, 393219, 327685, 6, 458755, 262149, 6, 458756, 131077, 6, 458757, 131077, 6, 458758, 131077, 6, 458759, 131077, 6, 458760, 131077, 6, 458761, 196613, 6, 393225, 65541, 6, 393226, 196613, 6, 327690, 65541, 6, 327691, 196613, 6, 262155, 196613, 5, 196619, 65541, 6, 196620, 196613, 6, 131084, 196613, 5, 65548, 196613, 5, -65525, 196613, 5)
+
+[node name="VerticalEntry" parent="Entries/Left" index="0" instance=ExtResource("2_05m42")]
+position = Vector2(7, 83)
+
+[node name="HorizontalEntry" parent="Entries/Up" index="0" instance=ExtResource("3_ntm4j")]
+position = Vector2(231, 9)
+
+[node name="VerticalEntry" parent="Entries/Right" index="0" instance=ExtResource("2_05m42")]
+position = Vector2(362, 118)
+
+[node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("3_ntm4j")]
+position = Vector2(105, 250)
+
+[node name="HorizontalEntry2" parent="Entries/Down" index="1" instance=ExtResource("3_ntm4j")]
+position = Vector2(200, 234)
+
+[node name="EnemyMarker" type="Marker2D" parent="EnemyPositions" index="0"]
+position = Vector2(94, 108)
+script = ExtResource("4_0pnak")
+enemy_name = "SpiderEgg"
+
+[node name="EnemyMarker2" type="Marker2D" parent="EnemyPositions" index="1"]
+position = Vector2(207, 86)
+script = ExtResource("4_0pnak")
+enemy_name = "SpiderEgg"
+
+[node name="EnemyMarker3" type="Marker2D" parent="EnemyPositions" index="2"]
+position = Vector2(273, 170)
+script = ExtResource("4_0pnak")
+enemy_name = "SpiderEgg"
+
+[node name="TeleportPosition" parent="." index="6"]
+position = Vector2(210, 113)
+
+[node name="Torch2" parent="." index="8" instance=ExtResource("5_ivsi8")]
+position = Vector2(157, -10)
+
+[node name="Torch3" parent="." index="9" instance=ExtResource("5_ivsi8")]
+position = Vector2(46, 102)
