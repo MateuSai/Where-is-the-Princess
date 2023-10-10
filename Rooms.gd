@@ -42,6 +42,7 @@ var mst_astar: AStar2D = null
 # DEBUG
 @onready var debug: bool = get_parent().debug
 @export var debug_check_entry_positions: bool = false
+@export var use_delaunay: bool = false
 @export var pause_between_steps: float = 1.2
 @export var add_tile_group_time: float = 0.0002
 @export var add_light_pause: float = 0.2
@@ -263,40 +264,54 @@ func _create_corridors() -> void:
 		if debug:
 			print("Room " + str(i) + " center position: " + str(room_centers[i]))
 
-	if debug:
-		print_rich("[b]--- Rooms: creating delaunay ---[/b]")
-	delaunay_indices = Geometry2D.triangulate_delaunay(room_centers)
-	#print(delaunay_indices)
-	#print(room_centers)
-	if debug:
-		print("Delaunay: " + str(delaunay_indices))
+	var initial_astar: AStar2D = AStar2D.new()
 
+	if use_delaunay:
+		if debug:
+			print_rich("[b]--- Rooms: creating delaunay ---[/b]")
+		delaunay_indices = Geometry2D.triangulate_delaunay(room_centers)
+		#print(delaunay_indices)
+		#print(room_centers)
+		if debug:
+			print("Delaunay: " + str(delaunay_indices))
+
+	if debug:
 		queue_redraw()
 		await get_tree().process_frame
 		await get_tree().create_timer(pause_between_steps).timeout
 
-	var delaunay_astar: AStar2D = AStar2D.new()
-	for i in room_centers.size():
-		delaunay_astar.add_point(i, room_centers[i])
-	for i in delaunay_indices.size() / 3.0:
-		i = i * 3
-		delaunay_astar.connect_points(delaunay_indices[i], delaunay_indices[i+1])
-		delaunay_astar.connect_points(delaunay_indices[i+1], delaunay_indices[i+2])
-		delaunay_astar.connect_points(delaunay_indices[i+2], delaunay_indices[i])
+	if use_delaunay:
+		for i in room_centers.size():
+			initial_astar.add_point(i, room_centers[i])
+		for i in delaunay_indices.size() / 3.0:
+			i = i * 3
+			initial_astar.connect_points(delaunay_indices[i], delaunay_indices[i+1])
+			initial_astar.connect_points(delaunay_indices[i+1], delaunay_indices[i+2])
+			initial_astar.connect_points(delaunay_indices[i+2], delaunay_indices[i])
+	else:
+		# Connect each room with all the others
+		for i in room_centers.size():
+			initial_astar.add_point(i, room_centers[i])
+		for i in room_centers.size():
+			for j in room_centers.size():
+				if i == j:
+					continue
+				initial_astar.connect_points(i, j)
+
 
 	var overwrite_connections: Array = SavedData.get_overwrite_connections()
 
 	mst_astar = AStar2D.new()
 	mst_astar.add_point(mst_astar.get_available_point_id(), room_centers[0])
-	delaunay_astar.set_point_disabled(0)
+	initial_astar.set_point_disabled(0)
 
 	if debug:
 		print_rich("[b]--- Rooms: creating mst ---[/b]")
-		print("delaunay_astar connections (between indices, not room ids):")
-		for i in delaunay_astar.get_point_count():
-			print("" + str(i) + ": " + str(delaunay_astar.get_point_connections(i)))
+		print("initial_astar connections (between indices, not room ids):")
+		for i in initial_astar.get_point_count():
+			print("" + str(i) + ": " + str(initial_astar.get_point_connections(i)))
 	# We start with 1 because we already have added the room 0
-	for i in range(1, delaunay_astar.get_point_count()):
+	for i in range(1, initial_astar.get_point_count()):
 		var min_room_connection: RoomConnection = RoomConnection.NONE
 		var min_dist: float = INF  # Minimum distance found so far
 		var min_p: Vector2  # Position of that node
@@ -308,18 +323,18 @@ func _create_corridors() -> void:
 				print("Checking room " + str(id) + " neighbours")
 			var point: Vector2 = mst_astar.get_point_position(id)
 			# Loop through the remaining nodes in the given array
-			#print(delaunay_astar.get_point_count())
-			for j in delaunay_astar.get_point_count():
-				if delaunay_astar.is_point_disabled(j):
+			#print(initial_astar.get_point_count())
+			for j in initial_astar.get_point_count():
+				if initial_astar.is_point_disabled(j):
 					if debug:
 						print_rich("\t[color=yellow]Point " + str(j) + " is disabled[/color]")
 					continue
 
-				var point2: Vector2 = delaunay_astar.get_point_position(j)
+				var point2: Vector2 = initial_astar.get_point_position(j)
 				if debug:
 					print_rich("\tChecking room " + str(room_centers.find(point2)) + "")
 
-				if delaunay_astar.get_point_connections(room_centers.find(point)).has(j):
+				if initial_astar.get_point_connections(room_centers.find(point)).has(j):
 					if point.distance_to(point2) < min_dist:
 						if not overwrite_connections.is_empty():
 							var block_connection: bool = true
@@ -348,7 +363,7 @@ func _create_corridors() -> void:
 							print_rich("\t\t[color=yellow]Rooms " + str(room_centers.find(point)) + " and " + str(room_centers.find(point2)) + " are to close[/color]")
 				else:
 					if debug:
-						print_rich("\t\t[color=yellow]delaunay_astar does not have any connections between room " + str(room_centers.find(point)) + " and " + str(room_centers.find(point2)) + "[/color]")
+						print_rich("\t\t[color=yellow]initial_astar does not have any connections between room " + str(room_centers.find(point)) + " and " + str(room_centers.find(point2)) + "[/color]")
 
 		if first_room_id == -1:
 			#assert(false)
@@ -358,7 +373,7 @@ func _create_corridors() -> void:
 		mst_astar.add_point(n, min_p)
 		mst_astar.connect_points(first_room_id, n)
 
-		delaunay_astar.set_point_disabled(room_centers.find(min_p))
+		initial_astar.set_point_disabled(room_centers.find(min_p))
 		if min_room_connection:
 			await _create_corridor_between_rooms(first_room_id, n, min_room_connection)
 		#rooms_not_used.remove_at(rooms_not_used.find(min_p))
@@ -374,18 +389,18 @@ func _create_corridors() -> void:
 	# Añadimos alguna conexion extra
 		if debug:
 			print_rich("[b]--- Rooms: Adding extra connections to mst ---[/b]")
-		for id in delaunay_astar.get_point_count():
-			delaunay_astar.set_point_disabled(id, false)
+		for id in initial_astar.get_point_count():
+			initial_astar.set_point_disabled(id, false)
 		var points_that_could_be_connected: Array[Array] = []
-		for id in delaunay_astar.get_point_count():
-			for id2 in range(id + 1, delaunay_astar.get_point_count()):
-				# print(str(id) + ": " + str(delaunay_astar.get_point_connections(id)))
-				if delaunay_astar.get_point_connections(id).has(id2) and not mst_astar.get_point_connections(id).has(id2) and not points_that_could_be_connected.has([id, id2]) and not points_that_could_be_connected.has([id2, id]):
+		for id in initial_astar.get_point_count():
+			for id2 in range(id + 1, initial_astar.get_point_count()):
+				# print(str(id) + ": " + str(initial_astar.get_point_connections(id)))
+				if initial_astar.get_point_connections(id).has(id2) and not mst_astar.get_point_connections(id).has(id2) and not points_that_could_be_connected.has([id, id2]) and not points_that_could_be_connected.has([id2, id]):
 					points_that_could_be_connected.push_back([id, id2])
 		if debug:
 			print("Connections not used after mst: " + str(points_that_could_be_connected))
 
-		var number_of_extra_connections: int = round(points_that_could_be_connected.size() * SavedData.get_biome_conf().extra_connections)
+		var number_of_extra_connections: int = (round(rooms.size() - 1) * SavedData.get_biome_conf().extra_connections)
 		if debug:
 			print("Desired number of extra connections: " + str(number_of_extra_connections))
 		var i: int = number_of_extra_connections
