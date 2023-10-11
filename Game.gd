@@ -8,6 +8,11 @@ var generation_thread: Thread = null
 
 signal player_added()
 
+var drag_enabled: bool = false
+var mouse_pos_at_start_of_drag: Vector2
+var scroll_horizontal_at_start_of_drag: int = 0
+var scroll_vertical_at_start_of_drag: int = 0
+
 # @onready var ui: MainUi = get_node("UI")
 @onready var rooms: Rooms = get_node("Rooms")
 @onready var camera: Camera2D = get_node("Camera2D")
@@ -15,6 +20,8 @@ signal player_added()
 
 
 func _ready() -> void:
+	set_process(false)
+
 	if Globals.debug:
 		set_process_input(true)
 	else:
@@ -66,6 +73,24 @@ func _input(event: InputEvent) -> void:
 	elif event.is_action_pressed("ui_page_down"):
 		SavedData.run_stats.level += 1
 		get_tree().reload_current_scene()
+
+	if event.is_action_pressed("ui_drag_minimap"):
+		mouse_pos_at_start_of_drag = get_local_mouse_position()
+		scroll_horizontal_at_start_of_drag = camera.position.x
+		scroll_vertical_at_start_of_drag = camera.position.y
+		drag_enabled = true
+		set_process(true)
+	if event.is_action_released("ui_drag_minimap"):
+		drag_enabled = false
+		set_process(false)
+
+
+func _process(delta: float) -> void:
+	if drag_enabled:
+		@warning_ignore("narrowing_conversion")
+		camera.position.x = scroll_horizontal_at_start_of_drag - get_local_mouse_position().x + mouse_pos_at_start_of_drag.x
+		@warning_ignore("narrowing_conversion")
+		camera.position.y = scroll_vertical_at_start_of_drag - get_local_mouse_position().y + mouse_pos_at_start_of_drag.y
 
 
 func _exit_tree() -> void:

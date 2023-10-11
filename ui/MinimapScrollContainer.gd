@@ -6,6 +6,10 @@ var scroll_horizontal_at_start_of_drag: int = 0
 var scroll_vertical_at_start_of_drag: int = 0
 
 
+func _ready() -> void:
+	set_process(false)
+
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_drag_minimap"):
 		mouse_pos_at_start_of_drag = get_local_mouse_position()
