@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=16 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -10,7 +10,6 @@
 [ext_resource type="FontFile" uid="uid://drbvct1q4mkwc" path="res://Fonts/Alkhemikal.ttf" id="13_kxa6p"]
 [ext_resource type="Texture2D" uid="uid://cm2mxt7vas7t4" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/minimap_9-patch_bigger.png" id="13_s3von"]
 [ext_resource type="Shader" path="res://Shaders and Particles/IntensityToTransparency.gdshader" id="14_qjw3b"]
-[ext_resource type="PackedScene" uid="uid://bekcqxfxkfcf5" path="res://ui/DebugUI.tscn" id="15_amogy"]
 [ext_resource type="Texture2D" uid="uid://bl8w6y7gf8ubx" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/icon_map.png" id="16_0uph7"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
@@ -142,8 +141,6 @@ texture = ExtResource("16_0uph7")
 
 [node name="UpdateFogTimer" type="Timer" parent="UI/MiniMap"]
 wait_time = 0.7
-
-[node name="DebugUI" parent="UI" instance=ExtResource("15_amogy")]
 
 [node name="FogSprite" type="Sprite2D" parent="."]
 z_index = 3

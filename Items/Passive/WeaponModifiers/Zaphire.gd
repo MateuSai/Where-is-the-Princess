@@ -1,8 +1,8 @@
-class_name IceCube extends StatusWeaponModifier
+class_name Zaphire extends StatusWeaponModifier
 
 
 func get_icon() -> Texture:
-	return load("res://Art/19+ icons/boostB.png")
+	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Items/Zaphire_item.png")
 
 
 #func _init() -> void:
