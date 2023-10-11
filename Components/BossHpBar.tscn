@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=3 uid="uid://dihstm6j1hf3l"]
+
+[ext_resource type="Texture2D" uid="uid://blc7s1nyrwwyy" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/boss_healthbar_empty.png" id="1_8chd7"]
+[ext_resource type="Texture2D" uid="uid://b4hfrexn4mflr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/boss_name_UI.png" id="1_c2yol"]
+[ext_resource type="Theme" uid="uid://d0qfeecooxxpf" path="res://SmallFontTheme.tres" id="1_qt6wv"]
+[ext_resource type="Texture2D" uid="uid://slbo0ucuicwg" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/boss_healthbar_full.png" id="2_1lipn"]
+
+[node name="BossHpBar" type="CanvasLayer"]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 159.0
+offset_bottom = 44.0
+theme = ExtResource("1_qt6wv")
+theme_override_constants/separation = -3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_c2yol")
+patch_margin_left = 20
+patch_margin_right = 20
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/MarginContainer"]
+layout_mode = 2
+text = "Boden"
+horizontal_alignment = 1
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="VBoxContainer"]
+z_index = -1
+custom_minimum_size = Vector2(0, 14)
+layout_mode = 2
+value = 50.0
+nine_patch_stretch = true
+stretch_margin_left = 8
+stretch_margin_right = 8
+texture_under = ExtResource("1_8chd7")
+texture_progress = ExtResource("2_1lipn")
