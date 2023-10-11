@@ -4,7 +4,7 @@ var weapon: Weapon
 
 @onready var texture_rect: TextureRect = $Background/VBoxContainer/TextureRect
 @onready var condition_bar: TextureProgressBar = $Background/VBoxContainer/TextureProgressBar
-@onready var status_container: HBoxContainer = get_node("StatusContainer")
+@onready var status_container: HBoxContainer = %StatusContainer
 
 
 @warning_ignore("shadowed_variable")
@@ -41,11 +41,11 @@ func update_condition(new_condition: float) -> void:
 
 
 func add_status_icon(status: StatusComponent.Status) -> void:
-	match status:
-		StatusComponent.Status.FIRE:
-			var icon: TextureRect = TextureRect.new()
-			icon.texture = load("res://Art/weapon modifier icons/fire.png")
-			status_container.add_child(icon)
+#	match status:
+#		StatusComponent.Status.FIRE:
+	var icon: TextureRect = TextureRect.new()
+	icon.texture = load(["res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Items/Ruby_icon.png", "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Items/Zaphire_icon.png", "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Items/Topaz_icon.png"][status])
+	status_container.add_child(icon)
 
 
 func _get_tooltip(_at_position: Vector2) -> String:

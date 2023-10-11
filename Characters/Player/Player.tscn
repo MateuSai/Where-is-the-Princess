@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=59 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -38,6 +38,7 @@
 [ext_resource type="Script" path="res://ui/QuitButton.gd" id="33_ftyjl"]
 [ext_resource type="Script" path="res://ui/PauseWeaponInventory.gd" id="34_30ssx"]
 [ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="34_y5gnn"]
+[ext_resource type="PackedScene" uid="uid://bekcqxfxkfcf5" path="res://ui/DebugUI.tscn" id="36_mdex8"]
 [ext_resource type="AudioStream" uid="uid://ddvfc4vghai55" path="res://Audio/Sounds/540275__zepurple__pick-up-tool.wav" id="39_184bl"]
 [ext_resource type="AudioStream" uid="uid://bmektc0a3ocp4" path="res://Audio/Sounds/429924__julalvr__2-macho-comewav.wav" id="40_ndcss"]
 [ext_resource type="AudioStream" uid="uid://70di52o5u7oq" path="res://Audio/Sounds/324514__deleted_user_2104797__burp.wav" id="41_cbyot"]
@@ -664,6 +665,10 @@ grow_vertical = 0
 theme_override_constants/separation = -1
 alignment = 1
 script = ExtResource("34_30ssx")
+
+[node name="DebugUI" parent="UI" index="8" instance=ExtResource("36_mdex8")]
+process_mode = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="Marker2D" type="Marker2D" parent="DustPositions" index="0"]
 
