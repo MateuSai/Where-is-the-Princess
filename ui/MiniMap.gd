@@ -15,6 +15,7 @@ var map_rect: Rect2 = Rect2(0, 0, 0, 0)
 #var corridors_tilemap_duplicate: TileMap
 #var fog_image: Image = Image.new()
 var fog_sprite: Sprite2D
+#var fog_image: Image
 
 @onready var rooms: Rooms = $"../../Rooms"
 @onready var scroll_container: ScrollContainer = $MinimapScrollContainer
@@ -66,6 +67,7 @@ func set_up() -> void:
 	fog_sprite.material = fog_sprite_material
 	fog_sprite.centered = false
 	fog_sprite.z_index = 10
+	#fog_sprite.offset = Vector2.ONE * rooms.FOG_PADDING
 	fog_sprite.position.y += -TOP_MARGIN
 	#fog_sprite.scale /= content_scale_factor
 	map_rect = Rect2(0, 0, 0, 0)
@@ -76,6 +78,8 @@ func set_up() -> void:
 		map_rect = map_rect.merge(room_rect)
 	map_rect.position.y += TOP_MARGIN
 	map_rect.size.y += -TOP_MARGIN
+
+	#fog_image = Image.create(map_rect.size.x, map_rect.size.y, false, Image.FORMAT_RGBH)
 
 	minimap_corridors_tilemap.position = -map_rect.position# + Vector2(size.x / 2.0, 0)
 	#container.position = map_rect.position / content_scale_factor
@@ -123,6 +127,8 @@ func _update_fog() -> void:
 
 	if $"../../FogSprite".texture:
 		var world_fog_image: Image = $"../../FogSprite".texture.get_image()
+		world_fog_image = world_fog_image.get_region(Rect2(Vector2i.ONE * rooms.FOG_PADDING, world_fog_image.get_size() - Vector2i.ONE * rooms.FOG_PADDING * 2))
+		#world_fog_image.crop(world_fog_image.get_width() - rooms.FOG_PADDING * 2, world_fog_image.get_height() - rooms.FOG_PADDING * 2)
 		world_fog_image.shrink_x2()
 		world_fog_image.shrink_x2()
 		fog_sprite.texture = ImageTexture.create_from_image(world_fog_image)

@@ -167,6 +167,13 @@ func get_overwrite_spawn_shape() -> Rooms.SpawnShape:
 	return null
 
 
+func get_vertical_corridor_symmetric_lights() -> bool:
+	if biome_conf.has("vertical_corridor_symmetric_lights"):
+		return biome_conf.vertical_corridor_symmetric_lights
+	else:
+		return false
+
+
 func get_disable_horizontal_separation_steering() -> bool:
 	if biome_conf.has("levels") and biome_conf.levels.has(str(SavedData.run_stats.level)) and biome_conf["levels"][str(SavedData.run_stats.level)].has("disable_horizontal_separation_steering"):
 		return biome_conf["levels"][str(SavedData.run_stats.level)]["disable_horizontal_separation_steering"]

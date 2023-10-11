@@ -37,7 +37,6 @@ shader_parameter/color = Color(0, 0, 0, 1)
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("3")
-debug = false
 
 [node name="Rooms" type="Node2D" parent="."]
 y_sort_enabled = true
@@ -61,7 +60,7 @@ layer_1/tile_data = PackedInt32Array()
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.0313726, 0.0313726, 0.0313726, 1)
+color = Color(0.172549, 0.172549, 0.172549, 1)
 
 [node name="GeneratingDungeonCanvasLayer" type="CanvasLayer" parent="."]
 
