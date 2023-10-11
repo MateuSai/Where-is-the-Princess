@@ -530,14 +530,16 @@ func _add_lights() -> void:
 				if debug:
 					await get_tree().create_timer(add_light_pause).timeout
 		elif corridor_tile_map.get_cell_atlas_coords(0, cell) == LEFT_WALL_COOR:
-			if cell.y % 8 == 0:
+			@warning_ignore("integer_division")
+			if cell.y % 8 == 0 if SavedData.get_vertical_corridor_symmetric_lights() else (cell.y % 14) == 7:
 				var light: Node2D = TIKI_TORCH_SCENE.instantiate()
 				light.position = corridor_tile_map.map_to_local(cell) + Vector2.RIGHT * 10
 				add_child(light)
 				if debug:
 					await get_tree().create_timer(add_light_pause).timeout
 		elif corridor_tile_map.get_cell_atlas_coords(0, cell) == RIGHT_WALL_COOR:
-			if cell.y % 8 == 0:
+			@warning_ignore("integer_division")
+			if cell.y % 8 == 0 if SavedData.get_vertical_corridor_symmetric_lights() else (cell.y % 14) == 0:
 				var light: Node2D = TIKI_TORCH_SCENE.instantiate()
 				light.position = corridor_tile_map.map_to_local(cell) + Vector2.LEFT * 10
 				add_child(light)
