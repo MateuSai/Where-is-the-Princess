@@ -17,6 +17,7 @@ var mouse_direction: Vector2
 
 var throw_piercing: int = 1
 var extra_fire_damage: int = 0
+var attract_souls_even_on_combat: bool = false
 
 var rotating_items: Array[Node2D] = []
 

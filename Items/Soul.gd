@@ -11,9 +11,12 @@ var acc: Vector2 = Vector2.ZERO
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	body_entered.connect(_on_player_entered)
-	set_physics_process(false)
-	# create_tween().tween_property(self, "position", position + Vector2.RIGHT * 200, 5.0)
-	create_tween().tween_property(self, "position", position + Vector2.RIGHT.rotated(randf_range(0, 2 * PI)) * randf_range(10, 18), 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	if player.attract_souls_even_on_combat:
+		set_physics_process(true)
+	else:
+		set_physics_process(false)
+		# create_tween().tween_property(self, "position", position + Vector2.RIGHT * 200, 5.0)
+		create_tween().tween_property(self, "position", position + Vector2.RIGHT.rotated(randf_range(0, 2 * PI)) * randf_range(10, 18), 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 
 
 func _physics_process(delta: float) -> void:

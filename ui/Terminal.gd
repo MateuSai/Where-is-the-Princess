@@ -112,6 +112,8 @@ func _process_command(command: String) -> void:
 							_set_dark_souls(splitted_command[2])
 						else:
 							printerr("You must specify the new value of the dark souls")
+					_:
+						printerr("Invalid argument for set")
 			else:
 				printerr("Invalid number of arguments, you must specify what to set")
 		"spawn":

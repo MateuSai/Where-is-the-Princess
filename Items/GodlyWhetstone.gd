@@ -1,8 +1,8 @@
-class_name Whetstone extends Item
+class_name GodlyWhetstone extends Item
 
 
 func get_icon() -> Texture:
-	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Items/whetstone.png")
+	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Items/whetstone_max.png")
 
 
 func can_pick_up(player: Player) -> bool:
@@ -10,4 +10,4 @@ func can_pick_up(player: Player) -> bool:
 
 
 func pick_up(player: Player) -> void:
-	player.weapons.current_weapon.stats.set_condition(player.weapons.current_weapon.stats.condition + 50)
+	player.weapons.current_weapon.stats.set_condition(100)
