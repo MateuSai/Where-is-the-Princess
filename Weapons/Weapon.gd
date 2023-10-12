@@ -13,7 +13,7 @@ enum Type {
 @export var description: String = ""
 @export var icon: Texture = null ## 16x16 weapon icon, the one that appears on the bottom of the screen
 
-@export var condition_degrade_by_attack: float = 5
+@export var condition_cost_per_normal_attack: float = 5
 
 @export var active_ability_icon: Texture ## Icon of the weapon's active ability
 @export var souls_to_activate_ability: int = 3 ## The souls you need to collect in order to activate the ability
@@ -67,6 +67,7 @@ func _load_csv_data(data: Dictionary) -> void:
 	weapon_name = data["name"]
 	icon = load(data["icon"])
 	type = Type.values()[Type.keys().find(data["type"])]
+	condition_cost_per_normal_attack = data.condition_cost_per_normal_attack
 	if FileAccess.file_exists(data["ability_icon"]):
 		active_ability_icon = load(data["ability_icon"])
 	else:

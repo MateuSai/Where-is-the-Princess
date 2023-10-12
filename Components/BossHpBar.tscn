@@ -1,45 +1,59 @@
-[gd_scene load_steps=5 format=3 uid="uid://dihstm6j1hf3l"]
+[gd_scene load_steps=6 format=3 uid="uid://dihstm6j1hf3l"]
 
-[ext_resource type="Texture2D" uid="uid://blc7s1nyrwwyy" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/boss_healthbar_empty.png" id="1_8chd7"]
-[ext_resource type="Texture2D" uid="uid://b4hfrexn4mflr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/boss_name_UI.png" id="1_c2yol"]
 [ext_resource type="Theme" uid="uid://d0qfeecooxxpf" path="res://SmallFontTheme.tres" id="1_qt6wv"]
-[ext_resource type="Texture2D" uid="uid://slbo0ucuicwg" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/boss_healthbar_full.png" id="2_1lipn"]
+[ext_resource type="Script" path="res://Components/BossHpBar.gd" id="1_rh41o"]
+[ext_resource type="Texture2D" uid="uid://db7uuxjdd1rbj" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/boss_name_UI-new.png" id="3_w1f3c"]
+[ext_resource type="Texture2D" uid="uid://cmwips5k1bgd1" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/boss_healthbar_empty-new.png" id="4_tmugh"]
+[ext_resource type="Texture2D" uid="uid://cjepw6jmghxlx" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/boss_healthbar_full-new.png" id="5_nabrb"]
 
 [node name="BossHpBar" type="CanvasLayer"]
+script = ExtResource("1_rh41o")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_right = 159.0
-offset_bottom = 44.0
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 24.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
 theme = ExtResource("1_qt6wv")
-theme_override_constants/separation = -3
+theme_override_constants/separation = -2
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/MarginContainer"]
+[node name="NinePatchRect" type="NinePatchRect" parent="HBoxContainer/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
-texture = ExtResource("1_c2yol")
+size_flags_vertical = 8
+texture = ExtResource("3_w1f3c")
 patch_margin_left = 20
 patch_margin_right = 20
+axis_stretch_vertical = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = -2
 
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer/MarginContainer"]
+[node name="NameLabel" type="Label" parent="HBoxContainer/VBoxContainer/MarginContainer/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
-text = "Boden"
+text = "BodenTheDruid"
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="VBoxContainer"]
+[node name="HpBar" type="TextureProgressBar" parent="HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
 z_index = -1
-custom_minimum_size = Vector2(0, 14)
+custom_minimum_size = Vector2(0, 12)
 layout_mode = 2
-value = 50.0
 nine_patch_stretch = true
 stretch_margin_left = 8
 stretch_margin_right = 8
-texture_under = ExtResource("1_8chd7")
-texture_progress = ExtResource("2_1lipn")
+texture_under = ExtResource("4_tmugh")
+texture_progress = ExtResource("5_nabrb")
