@@ -27,7 +27,7 @@ signal ability_effect_ended()
 
 
 @warning_ignore("shadowed_variable")
-func initialize(name: String, description: String, sprite_sheet: Texture, condition: int, ability_icon: Texture, recharge_time: float = 2, effect_duration: float = -1) -> void:
+func initialize(name: String, description: String, sprite_sheet: Texture, condition: int, ability_icon: Texture = null, recharge_time: float = 2, effect_duration: float = -1) -> void:
 	self.name = name
 	self.description = description
 	self.sprite_sheet = sprite_sheet

@@ -16,7 +16,7 @@ var data: Dictionary = {
 	"undiscovered_weapons": PackedStringArray(["res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn"]),
 
 	"equipped_armor": "res://Armors/NoArmor.gd",
-	"discovered_armors": PackedStringArray(["res://Armors/MercenaryArmor.gd", "res://Armors/WarriorArmor.gd", "res://Armors/NecromancerArmor.gd"]),
+	"discovered_armors": PackedStringArray(["res://Armors/CommonerClothes.gd", "res://Armors/LeatherArmor.gd", "res://Armors/MercenaryArmor.gd", "res://Armors/WarriorArmor.gd", "res://Armors/NecromancerArmor.gd"]),
 
 	"discovered_permanent_items": PackedStringArray(["res://Items/Passive/Permanent/StrongThrow.gd", "res://Items/Passive/Permanent/ToughSkin.gd"]),
 	"undiscovered_permanent_items": PackedStringArray(["res://Items/Passive/Permanent/EnhancedBoots.gd"]),
