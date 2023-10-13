@@ -44,12 +44,14 @@ var mst_astar: AStar2D = null
 @export var debug_check_entry_positions: bool = false
 @export var use_delaunay: bool = false
 @export var pause_between_steps: float = 1.2
-@export var add_tile_group_time: float = 0.0002
+@export var add_tile_group_time: float = 0.0003
 @export var add_light_pause: float = 0.2
 var room_centers: Array[Vector2] = []
 var delaunay_indices: PackedInt32Array
 # Tengo que declarar esto aquí porque esta wea culiada no me deja dibujar fuera de _draw
 var vertical_corridor_rect: Rect2
+var vertical_corridor_1_rect: Rect2
+var vertical_corridor_2_rect: Rect2
 var horizontal_corridor_rect: Rect2
 var horizontal_corridor_1_rect: Rect2
 var horizontal_corridor_2_rect: Rect2
@@ -91,6 +93,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.is_pressed() and event.keycode == KEY_S:
 			debug_check_entry_positions = !debug_check_entry_positions
+			queue_redraw()
 
 
 func _physics_process(delta: float) -> void:
@@ -761,9 +764,10 @@ func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_
 				if abs(dis) < TILE_SIZE * 5 or (directions[0] == DungeonRoom.EntryDirection.UP and id_entry_position.y < connection_with_entry_position.y) or (directions[0] == DungeonRoom.EntryDirection.DOWN and id_entry_position.y > connection_with_entry_position.y):
 					continue
 
-				var vertical_corridor_1_rect: Rect2 = Rect2(connection_with_entry_position, Vector2(TILE_SIZE * 4, center))
-				var vertical_corridor_2_rect: Rect2 = Rect2(id_entry_position, Vector2(TILE_SIZE * 4, dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1))
-				horizontal_corridor_rect = Rect2(connection_with_entry_position + Vector2.DOWN * center + Vector2.UP * TILE_SIZE * 2, Vector2(id_entry_position.x - connection_with_entry_position.x, TILE_SIZE * 4))
+				vertical_corridor_1_rect = Rect2(connection_with_entry_position, Vector2(TILE_SIZE * 4, center)).abs()
+				vertical_corridor_2_rect = Rect2(id_entry_position, Vector2(TILE_SIZE * 4, center if dis < 0 else -center)).abs()
+				#vertical_corridor_2_rect = Rect2(id_entry_position, Vector2(TILE_SIZE * 4, dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1)).abs()
+				horizontal_corridor_rect = Rect2(connection_with_entry_position + Vector2.DOWN * center + Vector2.UP * TILE_SIZE * 2, Vector2(id_entry_position.x - connection_with_entry_position.x, TILE_SIZE * 4)).abs()
 
 				for room in rooms:
 #					if room == rooms[ids[0]] or room == rooms[ids[1]]:
@@ -775,7 +779,7 @@ func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_
 					if debug_check_entry_positions:
 						queue_redraw()
 						await get_tree().create_timer(0.6).timeout
-					if (room != rooms[ids[1]] and room_rect.intersects(vertical_corridor_1_rect.abs())) or (room != rooms[ids[0]] and room_rect.intersects(vertical_corridor_2_rect.abs())) or room_rect.intersects(horizontal_corridor_rect.abs()):
+					if (room != rooms[ids[1]] and room_rect.intersects(vertical_corridor_1_rect)) or (room != rooms[ids[0]] and room_rect.intersects(vertical_corridor_2_rect)) or room_rect.intersects(horizontal_corridor_rect):
 						connection_possible = false
 
 				if connection_possible:
@@ -1069,24 +1073,27 @@ func _divide_corridor_tile_map() -> void:
 
 
 func _draw() -> void:
-	return
+	#return
 #	if not debug:
 #		return
 
-	if mst_astar == null:
-		for i in delaunay_indices.size() / 3.0:
-			draw_line(room_centers[delaunay_indices[i*3]], room_centers[delaunay_indices[i*3+1]], Color.GREEN, 7)
-			draw_line(room_centers[delaunay_indices[i*3+1]], room_centers[delaunay_indices[i*3+2]], Color.GREEN, 7)
-			draw_line(room_centers[delaunay_indices[i*3+2]], room_centers[delaunay_indices[i*3]], Color.GREEN, 7)
-	else:
+#	if mst_astar == null:
+#		for i in delaunay_indices.size() / 3.0:
+#			draw_line(room_centers[delaunay_indices[i*3]], room_centers[delaunay_indices[i*3+1]], Color.GREEN, 7)
+#			draw_line(room_centers[delaunay_indices[i*3+1]], room_centers[delaunay_indices[i*3+2]], Color.GREEN, 7)
+#			draw_line(room_centers[delaunay_indices[i*3+2]], room_centers[delaunay_indices[i*3]], Color.GREEN, 7)
+#	else:
+	if mst_astar != null:
 		for i in mst_astar.get_point_count():
 			for j in mst_astar.get_point_connections(i):
 				draw_line(room_centers[room_centers.find(mst_astar.get_point_position(i))], room_centers[room_centers.find(mst_astar.get_point_position(j))], Color.YELLOW, 7)
 
 	draw_rect(vertical_corridor_rect, Color.DEEP_SKY_BLUE, true)
-	draw_rect(horizontal_corridor_rect, Color.DEEP_SKY_BLUE, true)
-	draw_rect(horizontal_corridor_1_rect, Color.DEEP_SKY_BLUE, true)
-	draw_rect(horizontal_corridor_2_rect, Color.DEEP_SKY_BLUE, true)
+	draw_rect(vertical_corridor_1_rect, Color.ORANGE, true)
+	draw_rect(vertical_corridor_2_rect, Color.DARK_RED, true)
+	draw_rect(horizontal_corridor_rect, Color.YELLOW, true)
+	draw_rect(horizontal_corridor_1_rect, Color.BLACK, true)
+	draw_rect(horizontal_corridor_2_rect, Color.WHITE, true)
 	draw_rect(room_rect, Color.WEB_MAROON, true)
 
 
