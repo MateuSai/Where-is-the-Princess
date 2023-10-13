@@ -1073,7 +1073,7 @@ func _divide_corridor_tile_map() -> void:
 
 
 func _draw() -> void:
-	#return
+	return
 #	if not debug:
 #		return
 
