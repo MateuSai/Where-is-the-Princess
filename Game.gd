@@ -85,7 +85,7 @@ func _input(event: InputEvent) -> void:
 		set_process(false)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if drag_enabled:
 		@warning_ignore("narrowing_conversion")
 		camera.position.x = scroll_horizontal_at_start_of_drag - get_local_mouse_position().x + mouse_pos_at_start_of_drag.x

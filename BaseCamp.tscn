@@ -346,7 +346,6 @@ on_floor = true
 type = null
 weapon_name = null
 description = null
-condition_degrade_by_attack = null
 souls_to_activate_ability = null
 active_ability_condition_cost = null
 
