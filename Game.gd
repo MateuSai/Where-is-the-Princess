@@ -10,8 +10,8 @@ signal player_added()
 
 var drag_enabled: bool = false
 var mouse_pos_at_start_of_drag: Vector2
-var scroll_horizontal_at_start_of_drag: int = 0
-var scroll_vertical_at_start_of_drag: int = 0
+var scroll_horizontal_at_start_of_drag: float = 0
+var scroll_vertical_at_start_of_drag: float = 0
 
 # @onready var ui: MainUi = get_node("UI")
 @onready var rooms: Rooms = get_node("Rooms")

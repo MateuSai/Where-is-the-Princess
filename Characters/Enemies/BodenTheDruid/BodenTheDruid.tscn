@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://q3ghrubxoxtm"]
+[gd_scene load_steps=37 format=3 uid="uid://q3ghrubxoxtm"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_vhffd"]
 [ext_resource type="Script" path="res://Characters/Enemies/BodenTheDruid/BodenTheDruid.gd" id="2_uu817"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bctb0rjt8x8pv" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/boss_druid/druid_scepter_petit.png" id="7_swe87"]
 [ext_resource type="Script" path="res://Characters/Hitbox.gd" id="9_qd8sd"]
 [ext_resource type="Texture2D" uid="uid://h2wccuohbfru" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/boss_druid/rock.png" id="10_hb7ex"]
+[ext_resource type="PackedScene" uid="uid://dihstm6j1hf3l" path="res://Components/BossHpBar.tscn" id="11_4bxbk"]
 
 [sub_resource type="Animation" id="Animation_bic4f"]
 length = 0.001
@@ -631,9 +632,13 @@ radius = 8.0
 
 [node name="BodenTheDruid" instance=ExtResource("1_vhffd")]
 script = ExtResource("2_uu817")
+souls = 1
 is_boss = true
 mass = 60.0
+acceleration = 40
 max_speed = 50
+flying = false
+can_be_knocked_back = true
 
 [node name="StaffPivot" type="Node2D" parent="." index="0"]
 position = Vector2(0, -4)
@@ -731,3 +736,5 @@ texture = ExtResource("10_hb7ex")
 
 [node name="RockAttackTimer" type="Timer" parent="." index="15"]
 one_shot = true
+
+[node name="BossHpBar" parent="." index="17" instance=ExtResource("11_4bxbk")]

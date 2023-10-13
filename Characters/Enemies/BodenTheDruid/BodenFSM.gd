@@ -109,7 +109,7 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			$"../StaffPivot".queue_free()
 			$"../PathTimer".wait_time = 0.15
 			parent.max_speed = 160
-			parent.accerelation = 70
+			parent.acceleration = 70
 			parent.mass = 150
 			parent.can_move = true
 		states.bear_run:

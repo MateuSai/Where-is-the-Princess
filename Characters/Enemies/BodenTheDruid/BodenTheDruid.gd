@@ -5,7 +5,7 @@ const BIRD_SCENE: PackedScene = preload("res://Weapons/Projectiles/Bird.tscn")
 const MAX_DISTANCE_TO_PLAYER: int = 70
 const MIN_DISTANCE_TO_PLAYER: int = 45
 
-const TRANSFORM_AT_HP: int = 2
+const BEAR_HP: int = 25
 
 var is_bear: bool = false
 
@@ -34,15 +34,21 @@ func _ready() -> void:
 		lightning_attack_timer.start(randf_range(2.5, 3.5))
 	)
 
-	life_component.hp_changed.connect(_on_transform)
+
+func _on_died() -> void:
+	if not is_bear:
+		_transform()
+	else:
+		super()
 
 
-func _on_transform(new_hp: int) -> void:
-	if new_hp <= TRANSFORM_AT_HP:
-		is_bear = true
-		state_machine.set_state(state_machine.states.transform)
-
-		life_component.hp_changed.disconnect(_on_transform)
+func _transform() -> void:
+	is_bear = true
+	life_component.max_hp = BEAR_HP
+	life_component.hp = BEAR_HP
+	name = "BodenTheBear"
+	$BossHpBar.name_label.text = name
+	state_machine.set_state(state_machine.states.transform)
 
 
 func move_staff() -> void:

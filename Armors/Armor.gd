@@ -8,7 +8,7 @@ signal condition_changed(new_condition: int)
 ## The armor will also receive the damage taken by the player. When the condition reaches 0, the armor will be destroyed and you be in your underpants
 @export var condition: int:
 	set(new_condition):
-		condition = clamp(new_condition, 0, 100)
+		condition = clamp(new_condition, 0, max_condition)
 		condition_changed.emit(condition)
 var max_condition: int
 
@@ -31,8 +31,8 @@ func initialize(name: String, description: String, sprite_sheet: Texture, condit
 	self.name = name
 	self.description = description
 	self.sprite_sheet = sprite_sheet
-	self.condition = condition
 	self.max_condition = condition
+	self.condition = condition
 	self.ability_icon = ability_icon
 	self.recharge_time = recharge_time
 	self.effect_duration = effect_duration
