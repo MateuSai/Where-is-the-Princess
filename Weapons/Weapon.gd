@@ -260,6 +260,7 @@ func get_info() -> String:
 	return tr(weapon_name) + "\n\n" + tr(Type.keys()[type])
 
 
+@warning_ignore("shadowed_variable")
 static func _add_damage_modifier_by_type(type: Type, dam: int) -> void:
 	if damage_modifiers_by_type.has(type):
 		damage_modifiers_by_type[type] += dam
@@ -267,5 +268,6 @@ static func _add_damage_modifier_by_type(type: Type, dam: int) -> void:
 		damage_modifiers_by_type[type] = dam
 
 
+@warning_ignore("shadowed_variable")
 static func _remove_damage_modifier_by_type(type: Type, dam: int) -> void:
 	damage_modifiers_by_type[type] -= dam
