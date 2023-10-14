@@ -200,3 +200,17 @@ func exit_level(biome: String = "") -> void:
 		SavedData.change_biome(biome)
 
 	SceneTransistor.start_transition_to("res://Game.tscn")
+
+
+func add_weapon_damage_modifier_by_type(type: Weapon.Type, dam: int) -> void:
+	Weapon._add_damage_modifier_by_type(type, dam)
+	var weapons_of_this_type: Array[Node] = get_tree().get_nodes_in_group(Weapon.Type.keys()[type])
+	for weapon in weapons_of_this_type:
+		weapon.damage += dam
+
+
+func remove_weapon_damage_modifier_by_type(type: Weapon.Type, dam: int) -> void:
+	Weapon._remove_damage_modifier_by_type(type, dam)
+	var weapons_of_this_type: Array[Node] = get_tree().get_nodes_in_group(Weapon.Type.keys()[type])
+	for weapon in weapons_of_this_type:
+		weapon.damage -= dam

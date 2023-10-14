@@ -19,6 +19,7 @@ enum Type {
 @export var souls_to_activate_ability: int = 3 ## The souls you need to collect in order to activate the ability
 @export_range(0.0, 100.0) var active_ability_condition_cost: float = 10 ## The weapon condition will decrease this amount after using the ability. Remember all the weapons have 100 condition initially
 
+static var damage_modifiers_by_type: Dictionary = {}
 @export var damage: int = 1:
 	set(new_damage):
 		damage = new_damage
@@ -60,6 +61,8 @@ func _ready() -> void:
 	if stats == null:
 		stats = WeaponStats.new(scene_file_path, souls_to_activate_ability)
 
+	add_to_group(Type.keys()[type])
+
 	stats.condition_changed.connect(_on_condition_changed)
 
 	animation_player.animation_started.connect(_on_animation_started)
@@ -67,6 +70,12 @@ func _ready() -> void:
 
 	hitbox.exclude.push_back(Globals.player)
 	#hitbox.damage = damage
+
+	if damage_modifiers_by_type.has(type):
+		self.damage = damage + damage_modifiers_by_type[type]
+	else:
+		self.damage = damage
+	self.ability_damage = ability_damage
 
 
 func load_modifiers() -> void:
@@ -249,3 +258,14 @@ func _on_animation_finished(anim_name: String) -> void:
 
 func get_info() -> String:
 	return tr(weapon_name) + "\n\n" + tr(Type.keys()[type])
+
+
+static func _add_damage_modifier_by_type(type: Type, dam: int) -> void:
+	if damage_modifiers_by_type.has(type):
+		damage_modifiers_by_type[type] += dam
+	else:
+		damage_modifiers_by_type[type] = dam
+
+
+static func _remove_damage_modifier_by_type(type: Type, dam: int) -> void:
+	damage_modifiers_by_type[type] -= dam

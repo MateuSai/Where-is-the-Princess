@@ -251,7 +251,6 @@ num_normal_attacks = 1
 increase_num_normal_attacks_on_ability = true
 invert_scale_when_looking_left = true
 throw_speed = 200
-has_charged_attack = false
 
 [node name="Sprite2D" parent="Node2D" index="0"]
 material = SubResource("6")
