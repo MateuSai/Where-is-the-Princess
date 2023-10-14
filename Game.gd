@@ -31,17 +31,17 @@ func _ready() -> void:
 		camera.zoom = Vector2(0.2, 0.2)
 
 		generating_dungeon_canvas_layer.hide()
-		rooms.spawn_rooms()
+		#rooms.spawn_rooms()
 	else:
 		generating_dungeon_canvas_layer.show()
-		rooms.generation_completed.connect(func():
-			#generation_thread.wait_to_finish()
-			generation_thread.wait_to_finish()
-			generation_thread = null
-			generating_dungeon_canvas_layer.hide()
-		)
-		generation_thread = Thread.new()
-		generation_thread.start(rooms.spawn_rooms)
+	rooms.generation_completed.connect(func():
+		#generation_thread.wait_to_finish()
+		generation_thread.wait_to_finish()
+		generation_thread = null
+		generating_dungeon_canvas_layer.hide()
+	)
+	generation_thread = Thread.new()
+	generation_thread.start(rooms.spawn_rooms)
 		#rooms.spawn_rooms()
 
 	await rooms.generation_completed

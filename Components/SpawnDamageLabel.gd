@@ -9,7 +9,15 @@ func _ready() -> void:
 	life_component = get_node_or_null("../LifeComponent")
 	assert(life_component)
 
-	life_component.damage_taken.connect(_spawn_label)
+	if Settings.damage_numbers:
+		life_component.damage_taken.connect(_spawn_label)
+
+	Settings.damage_numbers_changed.connect(func(new_value: bool):
+		if new_value and not life_component.damage_taken.is_connected(_spawn_label):
+			life_component.damage_taken.connect(_spawn_label)
+		elif not new_value and life_component.damage_taken.is_connected(_spawn_label):
+			life_component.damage_taken.disconnect(_spawn_label)
+	)
 
 
 func _spawn_label(dam: int, dir: Vector2, _force: int) -> void:
