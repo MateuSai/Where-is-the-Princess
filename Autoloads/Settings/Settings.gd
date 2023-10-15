@@ -2,14 +2,26 @@ extends Popup
 
 const SETTINGS_PATH: String = "user://settings.cfg"
 
+const GENERAL_SECTION: String = "General"
+const INPUT_SECTION: String = "Input"
+const AUDIO_SECTION: String = "Audio"
+const ACCESSIBILITY_SECTION: String = "Accessibility"
+
 var settings: ConfigFile = null
 
+var damage_numbers: bool:
+	get:
+		return settings.get_value(GENERAL_SECTION, "damage_numbers", true)
+	set(new_value):
+		settings.set_value(GENERAL_SECTION, "damage_numbers", new_value)
+		damage_numbers_changed.emit(new_value)
+signal damage_numbers_changed(new_value: bool)
 var screen_flashes: bool:
 	get:
-		return settings.get_value("Accessibility", "screen_flashes", true)
+		return settings.get_value(ACCESSIBILITY_SECTION, "screen_flashes", true)
 var auto_aim: bool:
 	get:
-		return settings.get_value("Accessibility", "auto_aim", false)
+		return settings.get_value(ACCESSIBILITY_SECTION, "auto_aim", false)
 signal auto_aim_changed(new_value: bool)
 
 var MAPPEABLE_ACTIONS: PackedStringArray = PackedStringArray(["ui_attack", "ui_previous_weapon", "ui_next_weapon", "ui_throw_weapon", "ui_weapon_ability", "ui_armor_ability", "ui_minimap"])
@@ -25,7 +37,7 @@ func _ready() -> void:
 	hide()
 
 #	# Esta wea es para que se generen las traducciones
-#	tab_container.get_node("General").name = tr("General")
+#	tab_container.get_node(GENERAL_SECTION).name = tr(GENERAL_SECTION)
 	popup_hide.connect(_save_settings)
 
 #	for action in MAPPEABLE_ACTIONS:
@@ -47,10 +59,10 @@ func _ready() -> void:
 
 
 func _save_settings() -> void:
-	settings.set_value("General", "language", TranslationServer.get_locale())
-	settings.set_value("General", "window_mode", DisplayServer.window_get_mode())
-	settings.set_value("General", "vsync_mode", DisplayServer.window_get_vsync_mode())
-	settings.set_value("General", "fps", Engine.max_fps)
+	settings.set_value(GENERAL_SECTION, "language", TranslationServer.get_locale())
+	settings.set_value(GENERAL_SECTION, "window_mode", DisplayServer.window_get_mode())
+	settings.set_value(GENERAL_SECTION, "vsync_mode", DisplayServer.window_get_vsync_mode())
+	settings.set_value(GENERAL_SECTION, "fps", Engine.max_fps)
 
 	for action in MAPPEABLE_ACTIONS:
 		var saved_keys: Dictionary = {}
@@ -77,11 +89,11 @@ func _save_settings() -> void:
 				}
 			else:
 				push_warning("Unhandled case!!")
-		settings.set_value("Input", action, saved_keys)
+		settings.set_value(INPUT_SECTION, action, saved_keys)
 
-	settings.set_value("Audio", "master_volume", AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")))
-	settings.set_value("Audio", "music_volume", AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")))
-	settings.set_value("Audio", "sounds_volume", AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Sounds")))
+	settings.set_value(AUDIO_SECTION, "master_volume", AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Master")))
+	settings.set_value(AUDIO_SECTION, "music_volume", AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Music")))
+	settings.set_value(AUDIO_SECTION, "sounds_volume", AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Sounds")))
 
 	settings.save(SETTINGS_PATH)
 
@@ -90,7 +102,7 @@ func _load_settings() -> void:
 	settings = ConfigFile.new()
 	settings.load(SETTINGS_PATH)
 
-	var language: String = settings.get_value("General", "language", "")
+	var language: String = settings.get_value(GENERAL_SECTION, "language", "")
 	if not language.is_empty():
 		TranslationServer.set_locale(language)
 	else:
@@ -101,12 +113,12 @@ func _load_settings() -> void:
 			TranslationServer.set_locale("ca")
 		else:
 			TranslationServer.set_locale("en")
-	DisplayServer.window_set_mode(settings.get_value("General", "window_mode", DisplayServer.WINDOW_MODE_WINDOWED))
-	DisplayServer.window_set_vsync_mode(settings.get_value("General", "vsync_mode", DisplayServer.VSYNC_ADAPTIVE))
-	Engine.max_fps = settings.get_value("General", "fps", 60)
+	DisplayServer.window_set_mode(settings.get_value(GENERAL_SECTION, "window_mode", DisplayServer.WINDOW_MODE_WINDOWED))
+	DisplayServer.window_set_vsync_mode(settings.get_value(GENERAL_SECTION, "vsync_mode", DisplayServer.VSYNC_ADAPTIVE))
+	Engine.max_fps = settings.get_value(GENERAL_SECTION, "fps", 60)
 
 	for action in MAPPEABLE_ACTIONS:
-		var saved_keys: Dictionary = settings.get_value("Input", action, {})
+		var saved_keys: Dictionary = settings.get_value(INPUT_SECTION, action, {})
 		if not saved_keys.is_empty():
 			InputMap.erase_action(action)
 			InputMap.add_action(action)
@@ -131,11 +143,11 @@ func _load_settings() -> void:
 			else:
 				push_warning("Unhandled case!!")
 
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), settings.get_value("Audio", "master_volume", 0))
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), settings.get_value("Audio", "music_volume", 0))
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sounds"), settings.get_value("Audio", "sounds_volume", 0))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), settings.get_value(AUDIO_SECTION, "master_volume", 0))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), settings.get_value(AUDIO_SECTION, "music_volume", 0))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sounds"), settings.get_value(AUDIO_SECTION, "sounds_volume", 0))
 
 
 func set_auto_aim(new_value: bool) -> void:
-	settings.set_value("Accessibility", "auto_aim", new_value)
+	settings.set_value(ACCESSIBILITY_SECTION, "auto_aim", new_value)
 	auto_aim_changed.emit(new_value)

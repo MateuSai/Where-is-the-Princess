@@ -67,6 +67,8 @@ var map_rect: Rect2 = Rect2(0, 0, 0, 0)
 var fog_image: Image = Image.new()
 const FOG_PADDING: int = 128
 
+@onready var reload_on_eror: bool = get_parent().reload_on_generation_eror
+
 @onready var fog_sprite: Sprite2D = $"../FogSprite"
 
 # @onready var player: CharacterBody2D = get_parent().get_node("Player")
@@ -116,7 +118,9 @@ func _physics_process(delta: float) -> void:
 
 	if no_more_rooms_moving:
 		set_physics_process(false)
-		await _create_corridors()
+		var ok: bool = await _create_corridors()
+		if not ok:
+			return
 		_create_fog()
 		start_room._on_player_entered_room()
 		#start_room._on_player_entered_room()
@@ -260,7 +264,7 @@ func spawn_rooms() -> void:
 	set_physics_process(true)
 
 
-func _create_corridors() -> void:
+func _create_corridors() -> bool:
 	#var room_centers: Array[Vector2] = []
 	for i in rooms.size():
 		room_centers.push_back(rooms[i].position + rooms[i].vector_to_center)
@@ -371,6 +375,9 @@ func _create_corridors() -> void:
 		if first_room_id == -1:
 			#assert(false)
 			push_error("first_room_id is null. There are no more possibles connections but there is some room/rooms that are not connected yet")
+			if reload_on_eror:
+				owner.reload_generation("Could not connect all rooms")
+				return false
 			continue
 		var n: int = room_centers.find(min_p)
 		mst_astar.add_point(n, min_p)
@@ -519,6 +526,8 @@ func _create_corridors() -> void:
 		await get_tree().create_timer(pause_between_steps * 2).timeout
 
 	generation_completed.emit()
+
+	return true
 
 
 func _add_lights() -> void:
@@ -1073,7 +1082,7 @@ func _divide_corridor_tile_map() -> void:
 
 
 func _draw() -> void:
-	#return
+	return
 #	if not debug:
 #		return
 

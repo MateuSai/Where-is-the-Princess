@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bnr0w37wgidyn"]
+[gd_scene load_steps=13 format=3 uid="uid://bnr0w37wgidyn"]
 
 [ext_resource type="Script" path="res://Autoloads/Settings/Settings.gd" id="1_4y760"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="2_fjhtw"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Autoloads/Settings/Input.gd" id="5_nnjus"]
 [ext_resource type="Script" path="res://Autoloads/Settings/FPSHSlider.gd" id="5_p1umr"]
 [ext_resource type="Script" path="res://Autoloads/Settings/ScreenFlashesCheckBox.gd" id="7_twuuk"]
+[ext_resource type="Script" path="res://Autoloads/Settings/DamageNumbersCheckBox.gd" id="7_vbuvo"]
 [ext_resource type="Script" path="res://Autoloads/Settings/AutoAimCheckBox.gd" id="8_vwxws"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k5rc5"]
@@ -18,7 +19,7 @@ process_mode = 3
 disable_3d = true
 transparent_bg = true
 canvas_item_default_texture_filter = 0
-size = Vector2i(300, 180)
+size = Vector2i(300, 182)
 visible = true
 transparent = true
 theme = ExtResource("2_fjhtw")
@@ -30,7 +31,7 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = 300.0
-offset_bottom = 180.0
+offset_bottom = 182.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_fjhtw")
@@ -102,6 +103,20 @@ min_value = 1.0
 max_value = 60.0
 value = 20.0
 script = ExtResource("5_p1umr")
+
+[node name="DamageNumbersHBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/GENERAL/VBoxContainer/DamageNumbersHBoxContainer"]
+layout_mode = 2
+text = "DAMAGE_NUMBERS"
+
+[node name="DamageNumbersCheckBox" type="CheckBox" parent="TabContainer/GENERAL/VBoxContainer/DamageNumbersHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+button_pressed = true
+flat = true
+script = ExtResource("7_vbuvo")
 
 [node name="INPUT" type="ScrollContainer" parent="TabContainer"]
 visible = false

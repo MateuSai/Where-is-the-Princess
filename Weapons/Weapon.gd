@@ -7,6 +7,8 @@ enum Type {
 	SPEAR,
 	SWORD,
 	HAMMER,
+	DAGGER,
+	AXE,
 }
 @export var type: Type
 @export var weapon_name: String = ""
@@ -18,6 +20,18 @@ enum Type {
 @export var active_ability_icon: Texture ## Icon of the weapon's active ability
 @export var souls_to_activate_ability: int = 3 ## The souls you need to collect in order to activate the ability
 @export_range(0.0, 100.0) var active_ability_condition_cost: float = 10 ## The weapon condition will decrease this amount after using the ability. Remember all the weapons have 100 condition initially
+
+static var damage_modifiers_by_type: Dictionary = {}
+@export var damage: int = 1:
+	set(new_damage):
+		damage = new_damage
+		if animation_player and not animation_player.current_animation.begins_with("active_ability"):
+			hitbox.damage = damage
+@export var ability_damage: int = 2:
+	set(new_ability_damage):
+		ability_damage = new_ability_damage
+		if animation_player and animation_player.current_animation.begins_with("active_ability"):
+			hitbox.damage = ability_damage
 
 var stats: WeaponStats = null
 
@@ -49,12 +63,21 @@ func _ready() -> void:
 	if stats == null:
 		stats = WeaponStats.new(scene_file_path, souls_to_activate_ability)
 
+	add_to_group(Type.keys()[type])
+
 	stats.condition_changed.connect(_on_condition_changed)
 
+	animation_player.animation_started.connect(_on_animation_started)
 	animation_player.animation_finished.connect(_on_animation_finished)
 
-
 	hitbox.exclude.push_back(Globals.player)
+	#hitbox.damage = damage
+
+	if damage_modifiers_by_type.has(type):
+		self.damage = damage + damage_modifiers_by_type[type]
+	else:
+		self.damage = damage
+	self.ability_damage = ability_damage
 
 
 func load_modifiers() -> void:
@@ -67,6 +90,8 @@ func _load_csv_data(data: Dictionary) -> void:
 	weapon_name = data["name"]
 	icon = load(data["icon"])
 	type = Type.values()[Type.keys().find(data["type"])]
+	damage = data.damage
+	ability_damage = data.ability_damage
 	condition_cost_per_normal_attack = data.condition_cost_per_normal_attack
 	if FileAccess.file_exists(data["ability_icon"]):
 		active_ability_icon = load(data["ability_icon"])
@@ -222,10 +247,29 @@ func can_pick_up_soul() -> bool:
 	return has_active_ability() and stats.souls < souls_to_activate_ability
 
 
+func _on_animation_started(anim_name: StringName) -> void:
+	if anim_name.begins_with("active_ability"):
+		hitbox.damage = ability_damage
+
+
 func _on_animation_finished(anim_name: String) -> void:
 	if anim_name.begins_with("active_ability"):
+		hitbox.damage = damage
 		stats.set_condition(stats.condition - active_ability_condition_cost)
 
 
 func get_info() -> String:
 	return tr(weapon_name) + "\n\n" + tr(Type.keys()[type])
+
+
+@warning_ignore("shadowed_variable")
+static func _add_damage_modifier_by_type(type: Type, dam: int) -> void:
+	if damage_modifiers_by_type.has(type):
+		damage_modifiers_by_type[type] += dam
+	else:
+		damage_modifiers_by_type[type] = dam
+
+
+@warning_ignore("shadowed_variable")
+static func _remove_damage_modifier_by_type(type: Type, dam: int) -> void:
+	damage_modifiers_by_type[type] -= dam
