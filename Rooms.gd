@@ -67,6 +67,8 @@ var map_rect: Rect2 = Rect2(0, 0, 0, 0)
 var fog_image: Image = Image.new()
 const FOG_PADDING: int = 128
 
+@onready var reload_on_eror: bool = get_parent().reload_on_generation_eror
+
 @onready var fog_sprite: Sprite2D = $"../FogSprite"
 
 # @onready var player: CharacterBody2D = get_parent().get_node("Player")

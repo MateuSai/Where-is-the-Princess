@@ -3,6 +3,7 @@ extends Node2D
 const PLAYER_SCENE: PackedScene = preload("res://Characters/Player/Player.tscn")
 
 @export var debug: bool = true
+@export var reload_on_generation_eror: bool = true
 
 var generation_thread: Thread = null
 

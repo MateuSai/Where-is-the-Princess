@@ -7,6 +7,8 @@ enum Type {
 	SPEAR,
 	SWORD,
 	HAMMER,
+	DAGGER,
+	AXE,
 }
 @export var type: Type
 @export var weapon_name: String = ""
