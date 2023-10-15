@@ -97,3 +97,10 @@ func _process(_delta: float) -> void:
 func _exit_tree() -> void:
 	if generation_thread:
 		generation_thread.wait_to_finish()
+
+
+func reload_generation(msg: String) -> void:
+	generation_thread.wait_to_finish()
+	generation_thread = null
+	print_rich("[color=purple]%s. Reloading level generation...[/color]" % msg)
+	get_tree().reload_current_scene()
