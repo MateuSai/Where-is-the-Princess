@@ -1,8 +1,8 @@
-class_name Zaphire extends StatusWeaponModifier
+class_name Sapphire extends StatusWeaponModifier
 
 
 func get_icon() -> Texture:
-	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Items/Zaphire_item.png")
+	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Items/Sapphire_item.png")
 
 
 #func _init() -> void:

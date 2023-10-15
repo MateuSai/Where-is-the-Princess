@@ -34,7 +34,14 @@ func enable_pick_up() -> void:
 @warning_ignore("shadowed_variable")
 func initialize(item: Item) -> void:
 	self.item = item
-	texture = item.get_icon()
+	if item is Rune:
+		texture = item.RUNE_TEX
+		var sprite: Sprite2D = Sprite2D.new()
+		sprite.material = load("res://unshaded.tres")
+		sprite.texture = item.get_icon()
+		add_child(sprite)
+	else:
+		texture = item.get_icon()
 
 
 func can_pick_up_item(player: Player) -> bool:

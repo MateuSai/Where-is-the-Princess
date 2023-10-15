@@ -1,4 +1,4 @@
-class_name SwordProficiency extends PermanentPassiveItem
+class_name SwordRune extends Rune
 
 
 func equip(_player: Player) -> void:
@@ -10,4 +10,4 @@ func unequip(_player: Player) -> void:
 
 
 func get_icon() -> Texture:
-	return load("res://Art/items/boots_icon.png")
+	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Items/rune_alf.png")

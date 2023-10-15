@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdny64uh68d0n"
-path="res://.godot/imported/Zaphire_item.png-88709f0f6d89f9b3f489b652538b15cd.ctex"
+uid="uid://bfseqdam54lds"
+path="res://.godot/imported/rune_base.png-dea900a592d15e8e4f1ccd6c9ba374ab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Items/Zaphire_item.png"
-dest_files=["res://.godot/imported/Zaphire_item.png-88709f0f6d89f9b3f489b652538b15cd.ctex"]
+source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Items/rune_base.png"
+dest_files=["res://.godot/imported/rune_base.png-dea900a592d15e8e4f1ccd6c9ba374ab.ctex"]
 
 [params]
 
