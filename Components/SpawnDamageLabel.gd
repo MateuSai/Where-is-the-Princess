@@ -23,7 +23,7 @@ func _ready() -> void:
 func _spawn_label(dam: int, dir: Vector2, _force: int) -> void:
 	var label: DamageLabel = DamageLabel.new()
 	get_tree().current_scene.add_child(label)
-	label.spawn(dam, dir, character.global_position)
+	label.spawn(dam, dir, character.global_position + character.get_node("Sprite2D").position)
 #	label.theme = load("res://SmallFontTheme.tres")
 #	label.z_index = 2
 #	label.text = str(dam)
@@ -43,11 +43,14 @@ class DamageLabel extends Label:
 		z_index = 2
 
 	func spawn(dam: int, dir: Vector2, pos: Vector2) -> void:
+		#print(theme.get_font_size("font_size", ""))
 		text = str(dam)
+		pos.y -= theme.get_font_size("font_size", "") * 0.5
+		pos.x -= text.length() * theme.get_font_size("font_size", "") * 0.5
 		position = pos
 
 		var tween: Tween = create_tween()
 		tween.set_parallel(true)
-		tween.tween_property(self, "position", pos + dir * 24, 0.6)
+		tween.tween_property(self, "position", pos + dir * 32, 0.6)
 		tween.tween_property(self, "modulate:a", 0.0, 0.6)
 		tween.finished.connect(queue_free)
