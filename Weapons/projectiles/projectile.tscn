@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://gwe3pqdm131b"]
 
 [ext_resource type="Texture2D" uid="uid://b7d5isgmaelfl" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/goblin/goblin_knife.png" id="1"]
-[ext_resource type="Script" path="res://Weapons/Projectile.gd" id="2"]
+[ext_resource type="Script" path="res://Weapons/projectiles/projectile.gd" id="2"]
 
 [node name="Projectile" type="Area2D"]
 collision_layer = 8

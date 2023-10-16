@@ -14,7 +14,7 @@ func unequip(_player: Player) -> void:
 	Globals.remove_weapon_damage_modifier_by_type(Weapon.Type.SWORD, 1)
 	Globals.remove_weapon_damage_modifier_by_type(Weapon.Type.HAMMER, 1)
 	Globals.remove_weapon_damage_modifier_by_type(Weapon.Type.DAGGER, 1)
-	Globals.remove_weapon_damage_modifier_by_type(Weapon.Type.AXE, 1)
+	Globals.remove_weapon_damage_modifier_by_typed(Weapon.Type.AXE, 1)
 
 
 func get_icon() -> Texture:

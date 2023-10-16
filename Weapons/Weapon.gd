@@ -9,6 +9,8 @@ enum Type {
 	HAMMER,
 	DAGGER,
 	AXE,
+
+	BOW,
 }
 @export var type: Type
 @export var weapon_name: String = ""
@@ -22,16 +24,8 @@ enum Type {
 @export_range(0.0, 100.0) var active_ability_condition_cost: float = 10 ## The weapon condition will decrease this amount after using the ability. Remember all the weapons have 100 condition initially
 
 static var damage_modifiers_by_type: Dictionary = {}
-@export var damage: int = 1:
-	set(new_damage):
-		damage = new_damage
-		if animation_player and not animation_player.current_animation.begins_with("active_ability"):
-			hitbox.damage = damage
-@export var ability_damage: int = 2:
-	set(new_ability_damage):
-		ability_damage = new_ability_damage
-		if animation_player and animation_player.current_animation.begins_with("active_ability"):
-			hitbox.damage = ability_damage
+@export var damage: int = 1: set = set_damage
+@export var ability_damage: int = 2: set = set_ability_damage
 
 var stats: WeaponStats = null
 
@@ -41,7 +35,6 @@ signal used_active_ability()
 
 var tween: Tween = null
 @onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
-@onready var hitbox: WeaponHitbox = get_node("Node2D/Sprite2D/Hitbox")
 @onready var charge_particles: GPUParticles2D = get_node("Node2D/Sprite2D/ChargeParticles")
 @onready var weapon_sprite: Sprite2D = get_node("Node2D/Sprite2D")
 @onready var player_detector: Area2D = weapon_sprite.get_node("PlayerDetector")
@@ -69,9 +62,6 @@ func _ready() -> void:
 
 	animation_player.animation_started.connect(_on_animation_started)
 	animation_player.animation_finished.connect(_on_animation_finished)
-
-	hitbox.exclude.push_back(Globals.player)
-	#hitbox.damage = damage
 
 	if damage_modifiers_by_type.has(type):
 		self.damage = damage + damage_modifiers_by_type[type]
@@ -107,12 +97,12 @@ func _unhandled_input(event: InputEvent) -> void:
 			_charge()
 		elif event.is_action_released("ui_attack"):
 			if animation_player.is_playing() and animation_player.current_animation.begins_with("charge"):
-				attack()
+				_attack()
 			elif charge_particles.emitting:
 				_strong_attack()
 	else:
 		if event.is_action_pressed("ui_attack"):
-			attack()
+			_attack()
 
 	if event.is_action_pressed("ui_weapon_ability") and has_active_ability() and not is_busy() and can_active_ability():
 		_active_ability()
@@ -121,14 +111,13 @@ func _unhandled_input(event: InputEvent) -> void:
 func move(mouse_direction: Vector2) -> void:
 	#if not animation_player.is_playing() or animation_player.current_animation == "charge":
 	rotation = mouse_direction.angle()
-	hitbox.knockback_direction = mouse_direction
 #	if scale.y == 1 and mouse_direction.x < 0:
 #		scale.y = -1
 #	elif scale.y == -1 and mouse_direction.x > 0:
 #		scale.y = 1
 
 
-func attack() -> void:
+func _attack() -> void:
 	animation_player.play("attack")
 
 
@@ -196,7 +185,6 @@ func destroy() -> void:
 	animation_player.stop(true)
 
 	player_detector.queue_free()
-	hitbox.queue_free()
 
 	# Shader culiada, tengo que quitar el offset del sprite para que funcione bien
 	weapon_sprite.position += weapon_sprite.offset
@@ -248,13 +236,11 @@ func can_pick_up_soul() -> bool:
 
 
 func _on_animation_started(anim_name: StringName) -> void:
-	if anim_name.begins_with("active_ability"):
-		hitbox.damage = ability_damage
+	pass
 
 
 func _on_animation_finished(anim_name: String) -> void:
 	if anim_name.begins_with("active_ability"):
-		hitbox.damage = damage
 		stats.set_condition(stats.condition - active_ability_condition_cost)
 
 
@@ -273,3 +259,11 @@ static func _add_damage_modifier_by_type(type: Type, dam: int) -> void:
 @warning_ignore("shadowed_variable")
 static func _remove_damage_modifier_by_type(type: Type, dam: int) -> void:
 	damage_modifiers_by_type[type] -= dam
+
+
+func set_damage(new_damage: int) -> void:
+		damage = new_damage
+
+
+func set_ability_damage(new_ability_damage: int) -> void:
+		ability_damage = new_ability_damage

@@ -1,0 +1,103 @@
+[gd_scene load_steps=11 format=3 uid="uid://d3qmv5odokhfh"]
+
+[ext_resource type="PackedScene" uid="uid://dfwr6ghpa5ecq" path="res://Weapons/Ranged/ranged_weapon.tscn" id="1_wh4io"]
+[ext_resource type="Script" path="res://Weapons/Ranged/Bows/Bow.gd" id="2_r4y4g"]
+[ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="3_jnuwf"]
+[ext_resource type="Texture2D" uid="uid://ban50bsyexwl3" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/wooden_bow.png" id="4_f3ix4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cqanw"]
+resource_local_to_scene = true
+shader = ExtResource("3_jnuwf")
+shader_parameter/active = false
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w37w4"]
+radius = 4.94974
+height = 21.2132
+
+[sub_resource type="Animation" id="Animation_b30ji"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_7wog6"]
+resource_name = "charge"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_qkpdb"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_spawn_projectile"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hgeu0"]
+_data = {
+"RESET": SubResource("Animation_b30ji"),
+"attack": SubResource("Animation_qkpdb"),
+"charge": SubResource("Animation_7wog6")
+}
+
+[node name="WoodenBow" instance=ExtResource("1_wh4io")]
+script = ExtResource("2_r4y4g")
+
+[node name="Sprite2D" parent="Node2D" index="0"]
+material = SubResource("ShaderMaterial_cqanw")
+rotation = 0.0
+texture = ExtResource("4_f3ix4")
+offset = Vector2(5, 0)
+hframes = 5
+
+[node name="PlayerDetector" parent="Node2D/Sprite2D" index="1"]
+rotation = 0.0
+
+[node name="CollisionShape2D" parent="Node2D/Sprite2D/PlayerDetector" index="0"]
+position = Vector2(6.36396, -0.707084)
+shape = SubResource("CapsuleShape2D_w37w4")
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_hgeu0")
+}

@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bijrhew8a3gho"]
 
-[ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/Projectile.tscn" id="1_lu580"]
+[ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/projectiles/projectile.tscn" id="1_lu580"]
 [ext_resource type="Texture2D" uid="uid://d3k4s1b7yqp1y" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/Sharp axe multi directional edges.png" id="2_2x7vp"]
 [ext_resource type="Script" path="res://Weapons/Melee/SharpAxe/SharpAxeProjectile.gd" id="2_m2r3q"]
 

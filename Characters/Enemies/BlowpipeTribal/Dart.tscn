@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://wgyjvnas6yth"]
 
-[ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/Projectile.tscn" id="1_1uoos"]
+[ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/projectiles/projectile.tscn" id="1_1uoos"]
 [ext_resource type="Texture2D" uid="uid://sa8ropgwiq1u" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_01_dart.png" id="2_n6qqi"]
 [ext_resource type="Script" path="res://Characters/Enemies/BlowpipeTribal/Dart.gd" id="2_v427h"]
 

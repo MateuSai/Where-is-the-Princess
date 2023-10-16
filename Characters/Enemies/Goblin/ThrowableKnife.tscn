@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://gfa4qnde1ng"]
 
-[ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/Projectile.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/projectiles/projectile.tscn" id="1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_br7x4"]
 resource_local_to_scene = true

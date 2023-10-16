@@ -20,6 +20,8 @@ var throw_rot_speed: float = 0
 var piercing: int = 1
 var bodies_pierced: int = 0
 
+@onready var hitbox: WeaponHitbox = get_node("Node2D/Sprite2D/Hitbox")
+
 
 func _ready() -> void:
 	super()
@@ -28,6 +30,8 @@ func _ready() -> void:
 	)
 	set_physics_process(false)
 	set_process_unhandled_input(false)
+
+	hitbox.exclude.push_back(Globals.player)
 
 
 func _load_csv_data(data: Dictionary) -> void:
@@ -66,7 +70,7 @@ func _pick_up() -> void:
 	attack_num = 0
 
 
-func attack() -> void:
+func _attack() -> void:
 	if attack_num == 1 and not animation_player.has_animation("attack_2"):
 		animation_player.play_backwards("attack_1")
 	else:
@@ -145,8 +149,40 @@ func add_status_inflicter(status: StatusComponent.Status, amount: int = 1) -> vo
 
 func move(mouse_direction: Vector2) -> void:
 	super(mouse_direction)
+	hitbox.knockback_direction = mouse_direction
 	if invert_scale_when_looking_left:
 		if scale.y == 1 and mouse_direction.x < 0:
 			scale.y = -1
 		elif scale.y == -1 and mouse_direction.x > 0:
 			scale.y = 1
+
+
+func destroy() -> void:
+	hitbox.queue_free()
+	super()
+
+
+func set_damage(new_damage: int) -> void:
+		super(new_damage)
+		if animation_player and not animation_player.current_animation.begins_with("active_ability"):
+			hitbox.damage = damage
+
+
+func set_ability_damage(new_ability_damage: int) -> void:
+		super(new_ability_damage)
+		if animation_player and animation_player.current_animation.begins_with("active_ability"):
+			hitbox.damage = ability_damage
+
+
+func _on_animation_started(anim_name: StringName) -> void:
+	super(anim_name)
+
+	if anim_name.begins_with("active_ability"):
+		hitbox.damage = ability_damage
+
+
+func _on_animation_finished(anim_name: String) -> void:
+	super(anim_name)
+
+	if anim_name.begins_with("active_ability"):
+		hitbox.damage = damage

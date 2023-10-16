@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://p7161svlkyev"]
 
-[ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/Projectile.tscn" id="1_0jkd7"]
+[ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/projectiles/projectile.tscn" id="1_0jkd7"]
 [ext_resource type="Texture2D" uid="uid://c47xqp7lwurpe" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/Katana Air Slash.png" id="2_6tpsh"]
 [ext_resource type="Script" path="res://Weapons/Melee/Katana/KatanaProjectile.gd" id="2_k63w4"]
 

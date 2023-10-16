@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d0cyi71h3v3u4"]
 
-[ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/Projectile.tscn" id="1_n0aex"]
-[ext_resource type="Texture2D" uid="uid://h2wccuohbfru" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/Boss druid/rock.png" id="2_mrekp"]
+[ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/projectiles/projectile.tscn" id="1_n0aex"]
+[ext_resource type="Texture2D" uid="uid://h2wccuohbfru" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/boss_druid/rock.png" id="2_mrekp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b7mtu"]
 radius = 8.60232
