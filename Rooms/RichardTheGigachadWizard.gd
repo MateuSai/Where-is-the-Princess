@@ -8,7 +8,7 @@ const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/Spa
 func _ready() -> void:
 	interact_area.player_interacted.connect(func():
 		interact_area.queue_free()
-		var possible_items: Array[WeaponModifier] = [Ruby.new(), Zaphire.new(), Topaz.new()]
+		var possible_items: Array[WeaponModifier] = [Ruby.new(), Sapphire.new(), Topaz.new()]
 		possible_items.shuffle()
 		var item_on_floor_1: ItemOnFloor = _spawn_item(possible_items.pop_back(), position + Vector2(-8, 10))
 		var item_on_floor_2: ItemOnFloor = _spawn_item(possible_items.pop_back(), position + Vector2(8, 10))
