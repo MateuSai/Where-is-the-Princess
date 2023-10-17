@@ -6,11 +6,17 @@ func _unhandled_input(event: InputEvent) -> void:
 		_charge()
 	elif event.is_action_released("ui_attack"):
 		if animation_player.is_playing() and animation_player.current_animation.begins_with("charge") and weapon_sprite.frame > 0:
-			_attack()
+			_bow_attack(animation_player.current_animation_position / animation_player.current_animation_length)
 		elif weapon_sprite.frame > 0:
-			_attack()
+			_bow_attack(1.0)
 		else:
 			animation_player.play("RESET")
 
 	if event.is_action_pressed("ui_weapon_ability") and has_active_ability() and not is_busy() and can_active_ability():
 		_active_ability()
+
+
+## Charge has a value between 0 and 1 where 1 is max charged
+func _bow_attack(charge: float) -> void:
+	projectile_speed = 100 + 150 * charge
+	_attack()

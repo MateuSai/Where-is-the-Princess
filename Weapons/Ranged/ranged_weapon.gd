@@ -1,5 +1,7 @@
 class_name RangedWeapon extends Weapon
 
+var projectile_speed: int
+
 # Path to projectile scene
 @export_file("*.tscn") var projectile_scene_path: String
 @export_file var shoot_sound_path: String
@@ -25,7 +27,7 @@ func _spawn_projectile() -> void:
 	projectile.damage = damage
 	projectile.exclude.push_back(Globals.player)
 	get_tree().current_scene.add_child(projectile)
-	projectile.launch(spawn_projectile_pos.global_position, Vector2.RIGHT.rotated(rotation), 150, true)
+	projectile.launch(spawn_projectile_pos.global_position, Vector2.RIGHT.rotated(rotation), projectile_speed, true)
 
 
 #func _on_animation_started(anim_name: StringName) -> void:
