@@ -33,6 +33,12 @@ func _ready() -> void:
 
 	hitbox.exclude.push_back(Globals.player)
 
+	match type:
+		Type.HAMMER:
+			hitbox.flesh_sounds = IMPACT_FLESH_SOUNDS
+		_:
+			hitbox.flesh_sounds = CUT_FLESH_SOUNDS
+
 
 func _load_csv_data(data: Dictionary) -> void:
 	super(data)
@@ -49,20 +55,20 @@ func _physics_process(delta: float) -> void:
 func _on_collided_with_something(col_mat: Hitbox.CollisionMaterial = Hitbox.CollisionMaterial.FLESH) -> void:
 	# Double degrade amount if we collide with stone
 	stats.set_condition(stats.condition - round(condition_cost_per_normal_attack * (col_mat+1)))
-	match col_mat:
-		Hitbox.CollisionMaterial.FLESH:
-			var audio: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
-			audio.bus = "Sounds"
-			audio.position = global_position
-			audio.volume_db = -8
-			match type:
-				Type.HAMMER:
-					audio.stream = IMPACT_FLESH_SOUNDS[randi() % IMPACT_FLESH_SOUNDS.size()]
-				_:
-					audio.stream = CUT_FLESH_SOUNDS[randi() % CUT_FLESH_SOUNDS.size()]
-			get_tree().current_scene.add_child(audio)
-			audio.finished.connect(audio.queue_free)
-			audio.play()
+#	match col_mat:
+#		Hitbox.CollisionMaterial.FLESH:
+#			var audio: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
+#			audio.bus = "Sounds"
+#			audio.position = global_position
+#			audio.volume_db = -8
+#			match type:
+#				Type.HAMMER:
+#					audio.stream = IMPACT_FLESH_SOUNDS[randi() % IMPACT_FLESH_SOUNDS.size()]
+#				_:
+#					audio.stream = CUT_FLESH_SOUNDS[randi() % CUT_FLESH_SOUNDS.size()]
+#			get_tree().current_scene.add_child(audio)
+#			audio.finished.connect(audio.queue_free)
+#			audio.play()
 
 
 func _pick_up() -> void:

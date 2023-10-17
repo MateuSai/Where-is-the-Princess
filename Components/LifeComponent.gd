@@ -52,7 +52,7 @@ func _must_ignore_damage() -> bool:
 			#print_debug("Blocked")
 			var block_sound: AutoFreeSound = AutoFreeSound.new()
 			get_tree().current_scene.add_child(block_sound)
-			block_sound.start(load("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hammer/HammerMetal1.wav"), "Sounds", get_parent().global_position)
+			block_sound.start(load("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hammer/HammerMetal1.wav"), get_parent().global_position)
 			return true
 
 	return false

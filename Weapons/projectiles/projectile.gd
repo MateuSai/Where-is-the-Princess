@@ -28,9 +28,11 @@ func _physics_process(delta: float) -> void:
 		rotation += rot_dir * delta
 
 
-func _collide(body: Node2D, _dam: int = damage) -> void:
-	if body.get("life_component") != null:
-		body.life_component.take_damage(damage, knockback_direction, knockback_force)
+func _collide(node: Node2D, _dam: int = damage) -> void:
+	collided_with_something.emit(node)
+
+	if node.get("life_component") != null:
+		node.life_component.take_damage(damage, knockback_direction, knockback_force)
 	destroy()
 
 

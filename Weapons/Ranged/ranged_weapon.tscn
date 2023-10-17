@@ -56,4 +56,8 @@ one_shot = true
 stream = ExtResource("3_0waa1")
 bus = &"Sounds"
 
+[node name="ShootSound" type="AudioStreamPlayer" parent="."]
+volume_db = -10.0
+bus = &"Sounds"
+
 [connection signal="body_entered" from="Node2D/Sprite2D/PlayerDetector" to="." method="_on_PlayerDetector_body_entered" flags=18]

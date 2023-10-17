@@ -6,7 +6,7 @@ var knockback_direction: Vector2 = Vector2.ZERO
 
 var exclude: Array[Node2D] = []
 
-signal collided_with_something(body: Node2D)
+signal collided_with_something(node: Node2D)
 
 @onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
 @onready var timer: Timer = Timer.new()
@@ -15,6 +15,9 @@ enum CollisionMaterial {
 	FLESH,
 	STONE,
 }
+# Overwrite from weapon
+# var stone_sounds: Array[AudioStream] = []
+var flesh_sounds: Array[AudioStream] = []
 
 # personajes a los quales hemos hecho daño. Se va a vaciar cada vez que el timer termine
 var entities_inside: Array = []
@@ -29,6 +32,13 @@ func _ready() -> void:
 	body_exited.connect(_remove_entity_if_it_is_inside)
 	area_entered.connect(_on_area_entered)
 	area_exited.connect(_remove_entity_if_it_is_inside)
+
+	collided_with_something.connect(func(node: Node2D):
+		if node is Character and not flesh_sounds.is_empty():
+			var audio: AutoFreeSound = AutoFreeSound.new()
+			get_tree().current_scene.add_child(audio)
+			audio.start(flesh_sounds[randi() % flesh_sounds.size()], global_position, -8)
+	)
 
 
 func _add_entity(entity: Node2D) -> void:
@@ -82,7 +92,6 @@ func _loop_and_collide(entity_target: Node2D) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	collided_with_something.emit(body)
 	_add_entity_if_node_has_one(body)
 
 
@@ -91,6 +100,8 @@ func _on_area_entered(area: Area2D) -> void:
 
 
 func _collide(node: Node2D, dam: int = damage) -> void:
+	collided_with_something.emit(node)
+
 	#print(body.name)
 	if node is Bomb:
 		node.hit(knockback_direction, knockback_force)

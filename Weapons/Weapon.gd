@@ -19,13 +19,15 @@ enum Type {
 
 @export var condition_cost_per_normal_attack: float = 5
 
+@export_group("Active Ability")
 @export var active_ability_icon: Texture ## Icon of the weapon's active ability
 @export var souls_to_activate_ability: int = 3 ## The souls you need to collect in order to activate the ability
 @export_range(0.0, 100.0) var active_ability_condition_cost: float = 10 ## The weapon condition will decrease this amount after using the ability. Remember all the weapons have 100 condition initially
+@export var ability_damage: int = 2: set = set_ability_damage
+@export_group("")
 
 static var damage_modifiers_by_type: Dictionary = {}
 @export var damage: int = 1: set = set_damage
-@export var ability_damage: int = 2: set = set_ability_damage
 
 var stats: WeaponStats = null
 
