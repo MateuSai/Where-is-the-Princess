@@ -55,7 +55,7 @@ func _on_armor_ability_used() -> void:
 
 func _on_armor_ability_effect_ended() -> void:
 	armor_ability_tween = create_tween()
-	armor_ability_tween.tween_property(armor_ability_bar, "value", 100, current_armor.recharge_time)
+	armor_ability_tween.tween_property(armor_ability_bar, "value", 100, player.get_armor_recharge_time())
 	await armor_ability_tween.finished
 	var shine_effect: Sprite2D = ARMOR_SHINE_EFFECT.instantiate()
 	shine_effect.position = armor_ability_bar.position

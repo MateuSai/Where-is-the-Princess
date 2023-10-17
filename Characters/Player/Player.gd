@@ -18,6 +18,9 @@ var mouse_direction: Vector2
 var throw_piercing: int = 1
 var extra_fire_damage: int = 0
 var attract_souls_even_on_combat: bool = false
+var armor_ability_recharge_time_reduction: float = 0.0:
+	set(new_value):
+		armor_ability_recharge_time_reduction = clamp(new_value, 0.0, 0.95)
 
 var rotating_items: Array[Node2D] = []
 
@@ -264,9 +267,13 @@ func _use_armor_ability() -> void:
 		await armor_effect_timer.timeout
 	armor.ability_effect_ended.emit()
 
-	armor_recharge_timer.start(armor.recharge_time)
+	armor_recharge_timer.start(get_armor_recharge_time())
 	await armor_recharge_timer.timeout
 
 	armor.is_able_to_use_ability = true
 
 	armor.disable_ability_effect(self)
+
+
+func get_armor_recharge_time() -> float:
+	return armor.recharge_time * (1.0 - armor_ability_recharge_time_reduction)
