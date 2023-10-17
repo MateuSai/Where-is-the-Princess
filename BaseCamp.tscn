@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=47 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="1_0pcgl"]
 [ext_resource type="Script" path="res://BaseCamp.gd" id="1_tpf7m"]
@@ -29,6 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://cs8527eyei1sa" path="res://Weapons/Melee/WarHammer/WarHammer.tscn" id="28_loeac"]
 [ext_resource type="PackedScene" uid="uid://bj8qo4b41vtbu" path="res://Weapons/Melee/SharpAxe/SharpAxe.tscn" id="28_qb8lk"]
 [ext_resource type="PackedScene" uid="uid://c8pix6j8t15oo" path="res://Weapons/Melee/SmallAxe/SmallAxe.tscn" id="29_5p8c5"]
+[ext_resource type="PackedScene" uid="uid://d3qmv5odokhfh" path="res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn" id="31_pmolu"]
 [ext_resource type="PackedScene" uid="uid://dt58rwqk2borq" path="res://Rooms/game_shops/GameShopLevel1.tscn" id="31_rm7le"]
 
 [sub_resource type="Gradient" id="Gradient_nhg8o"]
@@ -386,3 +387,7 @@ on_floor = true
 
 [node name="GameShopLevel1" parent="." instance=ExtResource("31_rm7le")]
 position = Vector2(70, 228)
+
+[node name="WoodenBow" parent="." instance=ExtResource("31_pmolu")]
+position = Vector2(185, 174)
+on_floor = true
