@@ -58,6 +58,7 @@ func _ready() -> void:
 	if stats == null:
 		stats = WeaponStats.new(scene_file_path, souls_to_activate_ability)
 
+	set_process_unhandled_input(false)
 	add_to_group(Type.keys()[type])
 
 	stats.condition_changed.connect(_on_condition_changed)

@@ -29,6 +29,8 @@ func _spawn_projectile() -> void:
 	get_tree().current_scene.add_child(projectile)
 	projectile.launch(spawn_projectile_pos.global_position, Vector2.RIGHT.rotated(rotation), projectile_speed, true)
 
+	stats.condition -= condition_cost_per_normal_attack
+
 
 #func _on_animation_started(anim_name: StringName) -> void:
 #	super(anim_name)

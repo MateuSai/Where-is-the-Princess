@@ -2,7 +2,7 @@ class_name SoulAmulet extends PermanentPassiveItem
 
 
 func get_icon() -> Texture:
-	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Items/armor_shard.png")
+	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Items/soul_amulet.png")
 
 
 func equip(player: Player) -> void:
