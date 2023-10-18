@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://sjogqt886hdm"]
+[gd_scene load_steps=6 format=3 uid="uid://sjogqt886hdm"]
 
 [ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/projectiles/projectile.tscn" id="1_tf6vx"]
 [ext_resource type="Texture2D" uid="uid://bf4puqk00byo1" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/arrow.png" id="2_3myfu"]
 [ext_resource type="Script" path="res://Weapons/projectiles/arrow.gd" id="2_kkqy7"]
+[ext_resource type="Material" uid="uid://cmyqibox7jjbf" path="res://unshaded.tres" id="3_ft0t1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2mdse"]
 resource_local_to_scene = true
@@ -18,6 +19,7 @@ damage = null
 knockback_force = null
 
 [node name="Sprite2D" parent="." index="0"]
+material = ExtResource("3_ft0t1")
 rotation = 1.5708
 texture = ExtResource("2_3myfu")
 

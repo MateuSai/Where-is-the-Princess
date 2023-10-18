@@ -1,6 +1,7 @@
 class_name RangedWeapon extends Weapon
 
 var projectile_speed: int
+var ability_projectile_speed: int = 300
 
 # Path to projectile scene
 @export_file("*.tscn") var projectile_scene_path: String
@@ -19,20 +20,35 @@ func _load_csv_data(data: Dictionary) -> void:
 		shoot_sound.stream = load(shoot_sound_path)
 
 
-func _spawn_projectile() -> void:
+## rot_offser is in radians
+func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> void:
 	if shoot_sound.stream:
 		shoot_sound.play()
 
-	var projectile: Projectile = load(projectile_scene_path).instantiate()
-	projectile.damage = damage
-	projectile.exclude.push_back(Globals.player)
-	get_tree().current_scene.add_child(projectile)
-	projectile.launch(spawn_projectile_pos.global_position, Vector2.RIGHT.rotated(rotation), projectile_speed, true)
+	var angle_step: float = angle / clamp(amount - 1, 1, INF)
+	var initial_offset: float = -angle / 2
 
-	stats.condition -= condition_cost_per_normal_attack
+	var spawned_projectiles: Array[Projectile] = []
+
+	for i in amount:
+		var projectile: Projectile = load(projectile_scene_path).instantiate()
+		projectile.damage = damage
+
+		projectile.exclude.push_back(Globals.player)
+		# So the projectiles don't collide between them
+		for other_projectile in spawned_projectiles:
+			other_projectile.exclude.push_back(projectile)
+			projectile.exclude.push_back(other_projectile)
+		spawned_projectiles.push_back(projectile)
+
+		get_tree().current_scene.add_child(projectile)
+		projectile.launch(spawn_projectile_pos.global_position, Vector2.RIGHT.rotated(rotation + initial_offset + i * angle_step), projectile_speed, true)
+
+		stats.condition -= condition_cost_per_normal_attack
 
 
-#func _on_animation_started(anim_name: StringName) -> void:
-#	super(anim_name)
-#
-#	if anim_name.begins_with("")
+func _on_animation_started(anim_name: StringName) -> void:
+	super(anim_name)
+
+	if anim_name.begins_with("active_ability"):
+		projectile_speed = ability_projectile_speed

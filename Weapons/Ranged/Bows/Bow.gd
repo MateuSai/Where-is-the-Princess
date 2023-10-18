@@ -18,9 +18,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 ## Charge has a value between 0 and 1 where 1 is max charged
 func _bow_attack(charge: float) -> void:
-	projectile_speed = int(85 + 180 * charge) # The speed is truncated, a difference of 1 is very small anyway
+	projectile_speed = int(80 + 230 * charge) # The speed is truncated, a difference of 1 is very small anyway
 
 	if is_equal_approx(charge, 1.0):
+		damage += 2
+	elif charge > 0.6:
 		damage += 1
 
 	_attack()
@@ -29,4 +31,6 @@ func _bow_attack(charge: float) -> void:
 	await animation_player.animation_finished # We wait until attack animation is finished
 
 	if is_equal_approx(charge, 1.0):
+		damage -= 2
+	elif charge > 0.6:
 		damage -= 1
