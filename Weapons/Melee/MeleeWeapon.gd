@@ -53,7 +53,8 @@ func _physics_process(delta: float) -> void:
 
 func _on_collided_with_something(col_mat: Hitbox.CollisionMaterial = Hitbox.CollisionMaterial.FLESH) -> void:
 	# Double degrade amount if we collide with stone
-	stats.set_condition(stats.condition - round(condition_cost_per_normal_attack * (col_mat+1)))
+	_decrease_weapon_condition(round(condition_cost_per_normal_attack * (col_mat+1)))
+	#stats.set_condition(stats.condition - round(condition_cost_per_normal_attack * (col_mat+1)))
 #	match col_mat:
 #		Hitbox.CollisionMaterial.FLESH:
 #			var audio: AudioStreamPlayer2D = AudioStreamPlayer2D.new()

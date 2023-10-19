@@ -57,4 +57,5 @@ func _go_back_to_before_throw_state() -> void:
 		await trail_animation_player.animation_finished
 		$Node2D/Sprite2D/TrailSprite.hide()
 
-		stats.set_condition(stats.condition - active_ability_condition_cost)
+		_decrease_weapon_condition(active_ability_condition_cost)
+#		stats.set_condition(stats.condition - active_ability_condition_cost)
