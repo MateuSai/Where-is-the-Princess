@@ -1,6 +1,6 @@
 class_name BodenTheDruid extends Enemy
 
-const BIRD_SCENE: PackedScene = preload("res://Weapons/Projectiles/Bird.tscn")
+const BIRD_SCENE: PackedScene = preload("res://Weapons/projectiles/Bird.tscn")
 
 const MAX_DISTANCE_TO_PLAYER: int = 70
 const MIN_DISTANCE_TO_PLAYER: int = 45
