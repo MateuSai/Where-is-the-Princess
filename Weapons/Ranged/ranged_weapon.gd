@@ -44,7 +44,8 @@ func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> void:
 		get_tree().current_scene.add_child(projectile)
 		projectile.launch(spawn_projectile_pos.global_position, Vector2.RIGHT.rotated(rotation + initial_offset + i * angle_step), projectile_speed, true)
 
-		stats.condition -= condition_cost_per_normal_attack
+		_decrease_weapon_condition(condition_cost_per_normal_attack)
+#		stats.condition -= condition_cost_per_normal_attack
 
 
 func _on_animation_started(anim_name: StringName) -> void:

@@ -244,7 +244,8 @@ func _on_animation_started(anim_name: StringName) -> void:
 
 func _on_animation_finished(anim_name: String) -> void:
 	if anim_name.begins_with("active_ability"):
-		stats.set_condition(stats.condition - active_ability_condition_cost)
+		_decrease_weapon_condition(active_ability_condition_cost)
+#		stats.set_condition(stats.condition - active_ability_condition_cost)
 
 
 func get_info() -> String:
@@ -270,3 +271,7 @@ func set_damage(new_damage: int) -> void:
 
 func set_ability_damage(new_ability_damage: int) -> void:
 		ability_damage = new_ability_damage
+
+
+func _decrease_weapon_condition(by: float) -> void:
+	stats.condition -= by * (1 - Globals.player.weapon_degradation_reduction)

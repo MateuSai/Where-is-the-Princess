@@ -414,6 +414,18 @@ script = ExtResource("5_uyohi")
 
 [node name="Dagger" parent="Weapons" index="0" instance=ExtResource("5_nk70o")]
 position = Vector2(0, -3)
+num_normal_attacks = null
+increase_num_normal_attacks_on_ability = null
+throw_speed = null
+on_floor = null
+type = null
+weapon_name = null
+description = null
+condition_cost_per_normal_attack = null
+souls_to_activate_ability = null
+active_ability_condition_cost = null
+ability_damage = null
+damage = null
 
 [node name="Camera2D" type="Camera2D" parent="." index="7"]
 position_smoothing_enabled = true

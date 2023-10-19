@@ -5,6 +5,7 @@ const HOLOGRAM_TEXTURE: Texture = preload("res://Art/hologram_lines-b1399a8d.png
 
 var price: int = 10
 
+@onready var price_label: Label = %PriceLabel
 @onready var currency_icon: TextureRect = $HBoxContainer/TextureRect
 
 
@@ -13,7 +14,12 @@ func initialize(item: Item) -> void:
 	super(item)
 
 	if get_tree().current_scene.name == "Game":
-		price = item.get_coin_cost()
+		await get_tree().current_scene.player_added
+		_update_coin_price(Globals.player.shop_discount)
+		Globals.player.shop_discount_changed.connect(func(new_value: float):
+			_update_coin_price(new_value)
+		)
+#		price = round(item.get_coin_cost() * (1 - Globals.player.shop_discount))
 		currency_icon.texture = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small_coin.tres")
 	else: # BaseCamp
 		assert(get_tree().current_scene.name == "BaseCamp")
@@ -29,13 +35,17 @@ func initialize(item: Item) -> void:
 		hologram_sprite.material.set_shader_parameter("hologramTexture", HOLOGRAM_TEXTURE)
 		add_child(hologram_sprite)
 
-	$HBoxContainer/Label.text = str(price)
+		price_label.text = str(price)
 
 
 func _ready() -> void:
 	super()
 
 	enable_pick_up()
+
+func _update_coin_price(discount: float) -> void:
+	price = round(item.get_coin_cost() * (1 - discount))
+	price_label.text = str(price)
 
 
 func can_pick_up_item(player: Player) -> bool:

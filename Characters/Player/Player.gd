@@ -21,6 +21,15 @@ var attract_souls_even_on_combat: bool = false
 var armor_ability_recharge_time_reduction: float = 0.0:
 	set(new_value):
 		armor_ability_recharge_time_reduction = clamp(new_value, 0.0, 0.95)
+signal shop_discount_changed(new_value: float)
+var shop_discount: float = 0.0: ## 0 = no discount, 1 = free
+	set(new_value):
+		shop_discount = new_value
+		shop_discount_changed.emit(shop_discount)
+## 0 = normal degradation, 1 = no degradation. This value can't be higher than 0.9
+var weapon_degradation_reduction: float = 0.0:
+	set(new_value):
+		weapon_degradation_reduction = clamp(new_value, 0.0, 0.9)
 
 var rotating_items: Array[Node2D] = []
 
