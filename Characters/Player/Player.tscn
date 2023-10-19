@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=60 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -42,6 +42,7 @@
 [ext_resource type="AudioStream" uid="uid://ddvfc4vghai55" path="res://Audio/Sounds/540275__zepurple__pick-up-tool.wav" id="39_184bl"]
 [ext_resource type="AudioStream" uid="uid://bmektc0a3ocp4" path="res://Audio/Sounds/429924__julalvr__2-macho-comewav.wav" id="40_ndcss"]
 [ext_resource type="AudioStream" uid="uid://70di52o5u7oq" path="res://Audio/Sounds/324514__deleted_user_2104797__burp.wav" id="41_cbyot"]
+[ext_resource type="PackedScene" uid="uid://bikd00kecbdlq" path="res://Components/interact_area_selector.tscn" id="43_8bx65"]
 
 [sub_resource type="CircleShape2D" id="18"]
 radius = 3.0
@@ -733,6 +734,8 @@ bus = &"Sounds"
 stream = ExtResource("41_cbyot")
 volume_db = -5.0
 bus = &"Sounds"
+
+[node name="InteractAreaSelector" parent="." index="20" instance=ExtResource("43_8bx65")]
 
 [connection signal="permanent_passive_item_picked_up" from="." to="UI/MarginContainer/ArmorConditionBar/PassiveItemsContainer" method="_on_player_permanent_passive_item_picked_up"]
 [connection signal="weapon_condition_changed" from="Weapons" to="UI" method="_on_weapon_condition_changed"]

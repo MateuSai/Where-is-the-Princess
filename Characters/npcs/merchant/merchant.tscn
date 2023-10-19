@@ -1,0 +1,49 @@
+[gd_scene load_steps=10 format=3 uid="uid://b6ja3nf05o23h"]
+
+[ext_resource type="PackedScene" uid="uid://xvaekjyf4uxl" path="res://Characters/npcs/NPC.tscn" id="1_ba6g5"]
+[ext_resource type="Texture2D" uid="uid://caolrdyik7o5f" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/new_mechant_idle_down_01.png" id="2_1vnnp"]
+[ext_resource type="Texture2D" uid="uid://bm05fm5n2y1vj" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/new_mechant_idle_down_02.png" id="3_taun6"]
+[ext_resource type="Texture2D" uid="uid://dahwth0xa472d" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/new_mechant_idle_down_03.png" id="4_klrse"]
+[ext_resource type="Texture2D" uid="uid://bl51fpoc27rep" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/new_mechant_idle_down_04.png" id="5_o511y"]
+[ext_resource type="Texture2D" uid="uid://b3ovr8f26by8s" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/new_mechant_idle_down_05.png" id="6_ebphx"]
+[ext_resource type="Texture2D" uid="uid://tdweu1dahji" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/new_mechant_idle_down_06.png" id="7_a2gjc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s467e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_1vnnp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_taun6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_klrse")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_o511y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ebphx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_a2gjc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uyeip"]
+radius = 2.82843
+
+[node name="Merchant" instance=ExtResource("1_ba6g5")]
+
+[node name="AnimatedSprite" parent="." index="0"]
+position = Vector2(0, -5)
+sprite_frames = SubResource("SpriteFrames_s467e")
+autoplay = "default"
+frame_progress = 0.614669
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_uyeip")

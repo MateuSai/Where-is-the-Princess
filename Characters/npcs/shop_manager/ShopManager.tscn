@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bvmptejkwems2" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/wizard_idle_down_05.png" id="6_qyus4"]
 [ext_resource type="Texture2D" uid="uid://bjxksrjv2fikh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/wizard_idle_down_06.png" id="7_a3k05"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ba25l"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_2ubcb"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -41,9 +41,9 @@ radius = 3.0
 
 [node name="AnimatedSprite" parent="." index="0"]
 position = Vector2(0, -5)
-sprite_frames = SubResource("SpriteFrames_ba25l")
+sprite_frames = SubResource("SpriteFrames_2ubcb")
 autoplay = "default"
-frame_progress = 0.649206
+frame_progress = 0.862613
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CircleShape2D_s1svh")

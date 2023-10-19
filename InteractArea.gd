@@ -16,14 +16,14 @@ var sprite_material: ShaderMaterial
 func _ready() -> void:
 	set_collision_layer_value(1, false)
 	set_collision_mask_value(1, false)
-	set_collision_mask_value(2, true) #Player
+	set_collision_layer_value(7, true) # Interact Area
 
 	sprite_material = ShaderMaterial.new()
 	sprite_material.shader = load("res://Shaders and Particles/Outline.gdshader")
 	sprite.material = sprite_material
 
-	body_entered.connect(_on_player_entered)
-	body_exited.connect(_on_player_exited)
+#	body_entered.connect(_on_player_entered)
+#	body_exited.connect(_on_player_exited)
 
 	_on_player_exited(null)
 
