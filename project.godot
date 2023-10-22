@@ -24,6 +24,7 @@ SceneTransistor="*res://Autoloads/SceneTransistor.tscn"
 SavedData="*res://Autoloads/SavedData.gd"
 Settings="*res://Autoloads/Settings/Settings.tscn"
 Globals="*res://Autoloads/Globals.gd"
+InfoPanel="*res://ui/info_panel/info_panel.tscn"
 
 [display]
 

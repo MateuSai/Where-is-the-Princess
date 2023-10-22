@@ -5,9 +5,13 @@ var closer_area: InteractArea = null:
 		if new_closer_area != closer_area:
 			if closer_area:
 				closer_area._on_player_exited(player)
+				if closer_area.get_parent() is ItemOnFloor:
+					InfoPanel.stop_showing()
 			closer_area = new_closer_area
 			if closer_area:
 				closer_area._on_player_entered(player)
+				if closer_area.get_parent() is ItemOnFloor:
+					InfoPanel.show_at(closer_area.global_position, "ITEM_NAME", "dfgvhbjkldxfcgvhbjnk ghdhfgjh csdfsfd")
 var interact_areas: Array[InteractArea] = []
 
 @onready var player: Player = get_parent()
