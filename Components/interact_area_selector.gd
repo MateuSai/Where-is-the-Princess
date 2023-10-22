@@ -8,9 +8,6 @@ var closer_area: InteractArea = null:
 			closer_area = new_closer_area
 			if closer_area:
 				closer_area._on_player_entered(player)
-			else:
-				if interact_areas.is_empty():
-					update_closer_area_timer.stop()
 var interact_areas: Array[InteractArea] = []
 
 @onready var player: Player = get_parent()
@@ -23,6 +20,8 @@ func _ready() -> void:
 
 	area_entered.connect(_on_interact_area_entered)
 	area_exited.connect(_on_interact_area_exited)
+
+	update_closer_area_timer.timeout.connect(_on_update_closer_area_timer_timeout)
 
 
 func _on_interact_area_entered(area: Area2D) -> void:
@@ -39,6 +38,8 @@ func _on_interact_area_exited(area: Area2D) -> void:
 	interact_areas.erase(area)
 	if area == closer_area:
 		self.closer_area = null
+	if interact_areas.is_empty():
+		update_closer_area_timer.stop()
 
 
 func _on_update_closer_area_timer_timeout() -> void:
