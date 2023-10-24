@@ -9,6 +9,10 @@ func get_icon() -> Texture:
 	return load("res://Art/items/shield_icon.png")
 
 
+func get_quality() -> Item.Quality:
+	return Item.Quality.CHINGON
+
+
 #func _init() -> void:
 #	_initialize(load("res://Art/items/ShieldAnimation.tres"))
 

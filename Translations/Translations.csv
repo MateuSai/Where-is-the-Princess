@@ -4,6 +4,13 @@ UNDERPANTS_DESC,Why wear an armor? You are faster with only your underpants.,,¿
 KNIGHT,Knight,Cavaller,Caballero,騎士
 MERCENARY,Mercenary,Mercenari,Mercenario,傭兵
 ,,,,
+MAGIC_SHIELD,Magic Shield,Escut Màgic,Escudo Mágico,
+MAGIC_SHIELD_DESCRIPTION,A shield that orbits around the player,Un escut que orbita al voltant del jugador,Un escudo que orbita alrededor del jugador,
+MAGIC_SWORD,Magic Sword,Espasa Màgic,Espada Mágico,
+MAGIC_SWORD_DESCRIPTION,A sword that orbits around the player,Una espasa que orbita al voltant del jugador,Una espada que orbita alrededor del jugador,
+AXE_RUNE,,,,
+AXE_RUNE_DESCRIPTION,,,,
+,,,,
 ,,,,
 PLAY,Play,Juga,Jugar,遊び
 RESUME,Resume,Resumir,Resumir,レジューム

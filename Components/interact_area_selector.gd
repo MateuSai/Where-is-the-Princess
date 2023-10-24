@@ -11,7 +11,7 @@ var closer_area: InteractArea = null:
 			if closer_area:
 				closer_area._on_player_entered(player)
 				if closer_area.get_parent() is ItemOnFloor:
-					InfoPanel.show_at(closer_area.global_position, "ITEM_NAME", "dfgvhbjkldxfcgvhbjnk ghdhfgjh csdfsfd")
+					InfoPanel.show_at(closer_area.global_position, closer_area.get_parent().item)
 var interact_areas: Array[InteractArea] = []
 
 @onready var player: Player = get_parent()

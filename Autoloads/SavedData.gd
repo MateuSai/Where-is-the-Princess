@@ -20,8 +20,8 @@ var data: Dictionary = {
 
 	"discovered_permanent_items": PackedStringArray(["res://Items/Passive/Permanent/StrongThrow.gd", "res://Items/Passive/Permanent/ToughSkin.gd"]),
 	"undiscovered_permanent_items": PackedStringArray(["res://Items/Passive/Permanent/EnhancedBoots.gd"]),
-	"discovered_temporal_items": PackedStringArray(["res://Items/Passive/Temporal/MagicSword.gd"]),
-	"undiscovered_temporal_items": PackedStringArray(["res://Items/Passive/Temporal/MagicShield.gd"]),
+	"discovered_temporal_items": PackedStringArray([]),
+	"undiscovered_temporal_items": PackedStringArray(["res://Items/Passive/Temporal/MagicShield.gd", "res://Items/Passive/Temporal/MagicSword.gd"]),
 
 	"shop_unlocked": false,
 }

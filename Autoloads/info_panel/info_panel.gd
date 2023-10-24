@@ -11,13 +11,19 @@ func _ready() -> void:
 	hide()
 
 
-func show_at(pos: Vector2, item_name: String, item_description: String) -> void:
+func show_at(pos: Vector2, item: Item) -> void:
 	if fade_tween:
 		fade_tween.kill()
 		fade_tween = null
 
-	name_label.text = item_name
-	description_label.text = item_description
+	name_label.text = item.get_item_name()
+	match item.get_quality():
+		Item.Quality.COMMON:
+			name_label.modulate = Color.WHITE
+		Item.Quality.CHINGON:
+			name_label.modulate = Color.BLUE
+	description_label.text = item.get_item_description()
+	size.y = 0
 
 	position = pos
 	modulate.a = 1.0
