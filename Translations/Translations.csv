@@ -3,6 +3,12 @@ UNDERPANTS,Underpants,Roba interior,Ropa interior,パンツ
 UNDERPANTS_DESC,Why wear an armor? You are faster with only your underpants.,,¿Para qué usar armadura? Eres más rápido sólo con tu ropa interior.,
 KNIGHT,Knight,Cavaller,Caballero,騎士
 MERCENARY,Mercenary,Mercenari,Mercenario,傭兵
+FARMER_CLOTHES,Farmer Clothes,Roba de Pagès,Ropa de Granjero,
+IMPROVISED_ARMOR,Improvised Armor,Armadura Improvisada,Armadura Improvisada,
+NECROMANCER_ARMOR,Necromancer Armor,Armadura de Nigromant,Armadura de Nigromante,
+NECROMANCER_ARMOR_DESCRIPTION,Stole life from the enemies to restore your armor.,Roba vida dels enemics per restaurar la teva armadura.,Roba vida a los enemigos para restaurar tu armadura.,
+COMMONER_CLOTHES,Commoner Clothes,Roba de Plebeu,Ropa de Plebeyo,
+COMMONER_CLOTHES_DESCRIPTION,"Increases damage with daggers,",Augmenta el dany de les dagues.,Aumenta el daño de las dagas.,
 ,,,,
 MAGIC_SHIELD,Magic Shield,Escut Màgic,Escudo Mágico,
 MAGIC_SHIELD_DESCRIPTION,A shield that orbits around the player,Un escut que orbita al voltant del jugador,Un escudo que orbita alrededor del jugador,
