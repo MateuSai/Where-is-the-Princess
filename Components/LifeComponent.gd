@@ -10,13 +10,13 @@ var block_probability: int = 0
 
 var damage_taken_multiplier: int = 1
 
+@export var max_hp: int = 4
 @export var hp: int:
 	set(new_hp):
 		hp = clamp(new_hp, 0, max_hp)
 		hp_changed.emit(hp)
 		if hp == 0:
 			died.emit()
-@export var max_hp: int = 4
 
 signal hp_changed(new_hp: int)
 signal damage_taken(dam: int, dir: Vector2, force: int)

@@ -16,7 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://cjc0h245lbmpd" path="res://Weapons/Melee/Katana/Katana.tscn" id="12_trlvh"]
 [ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="13_2uruh"]
 [ext_resource type="PackedScene" uid="uid://bu6m7pa3yuk4r" path="res://Weapons/Melee/DragonKiller/DragonKiller.tscn" id="16_885t0"]
-[ext_resource type="PackedScene" uid="uid://13du3vo5int6" path="res://Items/Soul.tscn" id="17_6xbxo"]
 [ext_resource type="AudioStream" uid="uid://dsphctheyll2w" path="res://Audio/Music/Gymnopédie no. 1 (for Harp).mp3" id="18_0hiag"]
 [ext_resource type="PackedScene" uid="uid://cwb0heh4qdkh8" path="res://Rooms/Chest.tscn" id="19_vtxkp"]
 [ext_resource type="PackedScene" uid="uid://b78s3rdcjmo8a" path="res://Weapons/Melee/OrcSword/OrcSword.tscn" id="20_vg655"]
@@ -29,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://cs8527eyei1sa" path="res://Weapons/Melee/WarHammer/WarHammer.tscn" id="28_loeac"]
 [ext_resource type="PackedScene" uid="uid://bj8qo4b41vtbu" path="res://Weapons/Melee/SharpAxe/SharpAxe.tscn" id="28_qb8lk"]
 [ext_resource type="PackedScene" uid="uid://c8pix6j8t15oo" path="res://Weapons/Melee/SmallAxe/SmallAxe.tscn" id="29_5p8c5"]
+[ext_resource type="PackedScene" uid="uid://bau1jfwsnyo2o" path="res://Characters/practice_dummy.tscn" id="31_1hy67"]
 [ext_resource type="PackedScene" uid="uid://d3qmv5odokhfh" path="res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn" id="31_pmolu"]
 [ext_resource type="PackedScene" uid="uid://dt58rwqk2borq" path="res://Rooms/game_shops/GameShopLevel1.tscn" id="31_rm7le"]
 
@@ -287,42 +287,6 @@ on_floor = true
 position = Vector2(235, 168)
 on_floor = true
 
-[node name="Soul" parent="." instance=ExtResource("17_6xbxo")]
-position = Vector2(73, 101)
-
-[node name="Soul2" parent="." instance=ExtResource("17_6xbxo")]
-position = Vector2(73, 130)
-
-[node name="Soul3" parent="." instance=ExtResource("17_6xbxo")]
-position = Vector2(92, 131)
-
-[node name="Soul4" parent="." instance=ExtResource("17_6xbxo")]
-position = Vector2(92, 160)
-
-[node name="Soul5" parent="." instance=ExtResource("17_6xbxo")]
-position = Vector2(217, 85)
-
-[node name="Soul6" parent="." instance=ExtResource("17_6xbxo")]
-position = Vector2(217, 114)
-
-[node name="Soul7" parent="." instance=ExtResource("17_6xbxo")]
-position = Vector2(236, 115)
-
-[node name="Soul8" parent="." instance=ExtResource("17_6xbxo")]
-position = Vector2(236, 144)
-
-[node name="Soul9" parent="." instance=ExtResource("17_6xbxo")]
-position = Vector2(265, 84)
-
-[node name="Soul10" parent="." instance=ExtResource("17_6xbxo")]
-position = Vector2(265, 113)
-
-[node name="Soul11" parent="." instance=ExtResource("17_6xbxo")]
-position = Vector2(284, 114)
-
-[node name="Soul12" parent="." instance=ExtResource("17_6xbxo")]
-position = Vector2(284, 143)
-
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("18_0hiag")
 volume_db = -8.0
@@ -391,3 +355,6 @@ position = Vector2(70, 228)
 [node name="WoodenBow" parent="." instance=ExtResource("31_pmolu")]
 position = Vector2(185, 174)
 on_floor = true
+
+[node name="PracticeDummy" parent="." instance=ExtResource("31_1hy67")]
+position = Vector2(141, 127)
