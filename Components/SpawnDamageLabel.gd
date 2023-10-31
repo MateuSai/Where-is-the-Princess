@@ -40,6 +40,8 @@ func _spawn_label(dam: int, dir: Vector2, _force: int) -> void:
 class DamageLabel extends Label:
 	func _init() -> void:
 		theme = load("res://SmallFontTheme.tres")
+		add_theme_color_override("font_outline_color", Color.BLACK)
+		add_theme_constant_override("outline_size", 2)
 		z_index = 2
 
 	func spawn(dam: int, dir: Vector2, pos: Vector2) -> void:
