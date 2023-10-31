@@ -8,6 +8,11 @@ class_name Item extends Resource
 #	icon = get_icon()
 #	#icon = item_icon
 
+enum Quality {
+	COMMON,
+	CHINGON,
+}
+
 
 ## This function is executed to check if we can pick up the item. For example, we can't pick a whetstone if we have the first weapon equipped or if the weapon condition is already 100
 func can_pick_up(_player: Player) -> bool:
@@ -24,6 +29,10 @@ func get_icon() -> Texture:
 	return null
 
 
+func get_quality() -> Quality:
+	return Quality.COMMON
+
+
 func get_coin_cost() -> int:
 	#printerr("You should override get_coin_cost on " + get_script().get_path())
 	return 10
@@ -32,3 +41,11 @@ func get_coin_cost() -> int:
 func get_dark_soul_cost() -> int:
 	#printerr("You should override get_dark_soul_cost on " + get_script().get_path())
 	return 1
+
+
+func get_item_name() -> String:
+	return get_script().get_path().get_basename().get_file().to_snake_case().to_upper()
+
+
+func get_item_description() -> String:
+	return get_script().get_path().get_basename().get_file().to_snake_case().to_upper() + "_DESCRIPTION"

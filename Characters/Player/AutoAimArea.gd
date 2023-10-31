@@ -1,17 +1,9 @@
-class_name AutoAimArea extends Area2D
-
-var closer_enemy: Enemy = null
-
-var enemies_inside: Array[Enemy] = []
+class_name AutoAimArea extends EnemyDetector
 
 @onready var player: Player = owner
-@onready var collision_shape: CollisionShape2D = $CollisionShape2D
-@onready var set_closer_enemy_timer: Timer = $SetCloserEnemyTimer
 
 func _ready() -> void:
-	body_entered.connect(_on_enemy_entered)
-	body_exited.connect(_on_enemy_exited)
-	set_closer_enemy_timer.timeout.connect(_update_closer_enemy)
+	super()
 
 	Settings.auto_aim_changed.connect(_on_auto_aim_changed)
 	_on_auto_aim_changed(Settings.auto_aim)
@@ -37,23 +29,3 @@ func _on_auto_aim_changed(new_value: bool) -> void:
 		_enable()
 	else:
 		_disable()
-
-
-func _enable() -> void:
-	set_closer_enemy_timer.start()
-	collision_shape.set_deferred("disabled", false)
-
-
-func _disable() -> void:
-	set_closer_enemy_timer.stop()
-	collision_shape.set_deferred("disabled", true)
-
-
-func _on_enemy_entered(enemy: Enemy) -> void:
-	enemies_inside.push_back(enemy)
-
-
-func _on_enemy_exited(enemy: Enemy) -> void:
-	enemies_inside.erase(enemy)
-	if enemy == closer_enemy:
-		_update_closer_enemy()

@@ -10,7 +10,7 @@ var rot_dir: int = [-1, 1][randi() % 2]
 
 
 @warning_ignore("shadowed_variable")
-func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: bool = false) -> void:
+func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: bool = false, homing = 0) -> void:
 	position = initial_position
 	direction = dir
 	knockback_direction = dir

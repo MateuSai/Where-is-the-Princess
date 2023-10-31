@@ -1,4 +1,4 @@
-@icon("res://Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f0.png")
+@icon("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/new_mechant_idle_down_01.png")
 
 class_name Character extends CharacterBody2D
 

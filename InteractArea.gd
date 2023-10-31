@@ -16,6 +16,7 @@ var sprite_material: ShaderMaterial
 func _ready() -> void:
 	set_collision_layer_value(1, false)
 	set_collision_mask_value(1, false)
+	set_collision_mask_value(2, true) # To detect player
 	set_collision_layer_value(7, true) # Interact Area
 
 	sprite_material = ShaderMaterial.new()

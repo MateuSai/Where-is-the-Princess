@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=74 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -33,15 +33,20 @@
 [ext_resource type="Texture2D" uid="uid://cac17vxsy4c22" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/boss_soul_animation.tres" id="26_3xjxs"]
 [ext_resource type="Script" path="res://Characters/Player/AutoAimArea.gd" id="28_r7ct4"]
 [ext_resource type="Script" path="res://ui/PauseMenu.gd" id="31_wgvip"]
+[ext_resource type="Script" path="res://ui/ButtonWithSound.gd" id="32_7v412"]
 [ext_resource type="Script" path="res://ui/SettingsButton.gd" id="32_s7s57"]
+[ext_resource type="Texture2D" uid="uid://bp6rbf2gw15f5" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_normal_x2_size.png" id="32_yd8tt"]
 [ext_resource type="AudioStream" uid="uid://dhift2qs6kcl5" path="res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Equipement (menu)/ArmorLeatherMetal1.wav" id="33_3bfpk"]
+[ext_resource type="Texture2D" uid="uid://bs075q8gb23ih" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_hover_x2_size.png" id="33_ewonj"]
 [ext_resource type="Script" path="res://ui/QuitButton.gd" id="33_ftyjl"]
 [ext_resource type="Script" path="res://ui/PauseWeaponInventory.gd" id="34_30ssx"]
+[ext_resource type="Texture2D" uid="uid://c7w1c828j4ok0" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_pressed_x2_size.png" id="34_ghh16"]
 [ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="34_y5gnn"]
 [ext_resource type="PackedScene" uid="uid://bekcqxfxkfcf5" path="res://ui/DebugUI.tscn" id="36_mdex8"]
 [ext_resource type="AudioStream" uid="uid://ddvfc4vghai55" path="res://Audio/Sounds/540275__zepurple__pick-up-tool.wav" id="39_184bl"]
 [ext_resource type="AudioStream" uid="uid://bmektc0a3ocp4" path="res://Audio/Sounds/429924__julalvr__2-macho-comewav.wav" id="40_ndcss"]
 [ext_resource type="AudioStream" uid="uid://70di52o5u7oq" path="res://Audio/Sounds/324514__deleted_user_2104797__burp.wav" id="41_cbyot"]
+[ext_resource type="PackedScene" uid="uid://bd7vx6mtgudv" path="res://Components/enemy_detector.tscn" id="42_ctcpp"]
 [ext_resource type="PackedScene" uid="uid://bikd00kecbdlq" path="res://Components/interact_area_selector.tscn" id="43_8bx65"]
 
 [sub_resource type="CircleShape2D" id="18"]
@@ -371,8 +376,71 @@ shader = ExtResource("13_siyxg")
 shader_parameter/frequency = 100.0
 shader_parameter/depth = 0.01
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_6okok"]
-radius = 215.188
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_puc8s"]
+texture = ExtResource("32_yd8tt")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b25h3"]
+texture = ExtResource("33_ewonj")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xjbsq"]
+texture = ExtResource("34_ghh16")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iltp2"]
+texture = ExtResource("32_yd8tt")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1scw3"]
+texture = ExtResource("33_ewonj")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gm3k0"]
+texture = ExtResource("34_ghh16")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dh0a5"]
+texture = ExtResource("32_yd8tt")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s7wgx"]
+texture = ExtResource("33_ewonj")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tvwmx"]
+texture = ExtResource("34_ghh16")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cevl8"]
+radius = 114.28
 
 [node name="Player" instance=ExtResource("1")]
 collision_layer = 2
@@ -446,8 +514,8 @@ libraries = {
 
 [node name="LifeComponent" parent="." index="9"]
 script = ExtResource("11_up6en")
-hp = 2
 max_hp = 2
+hp = 2
 
 [node name="UI" type="CanvasLayer" parent="." index="10"]
 script = ExtResource("7_24kdb")
@@ -626,26 +694,41 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -34.0
-offset_top = -44.5
-offset_right = 34.0
-offset_bottom = 44.5
+offset_left = -68.0
+offset_top = -70.0
+offset_right = 68.0
+offset_bottom = 70.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(68, 70)
 size_flags_vertical = 4
 theme = ExtResource("17_bwb1j")
 
 [node name="ResumeButton" type="Button" parent="UI/PauseMenu/VBoxContainer" index="0"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_puc8s")
+theme_override_styles/hover = SubResource("StyleBoxTexture_b25h3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_xjbsq")
 text = "RESUME"
+script = ExtResource("32_7v412")
 
 [node name="SettingsButton" type="Button" parent="UI/PauseMenu/VBoxContainer" index="1"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_iltp2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_1scw3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_gm3k0")
 text = "SETTINGS"
 script = ExtResource("32_s7s57")
 
 [node name="QuitButton" type="Button" parent="UI/PauseMenu/VBoxContainer" index="2"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_dh0a5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_s7wgx")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_tvwmx")
 text = "QUIT"
 script = ExtResource("33_ftyjl")
 
@@ -690,18 +773,11 @@ texture = ExtResource("15_41qtp")
 texture_scale = 0.5
 height = 16.0
 
-[node name="AutoAimArea" type="Area2D" parent="." index="13"]
-visible = false
-collision_layer = 0
-collision_mask = 4
+[node name="AutoAimArea" parent="." index="13" instance=ExtResource("42_ctcpp")]
 script = ExtResource("28_r7ct4")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AutoAimArea" index="0"]
-visible = false
-shape = SubResource("CircleShape2D_6okok")
-
-[node name="SetCloserEnemyTimer" type="Timer" parent="AutoAimArea" index="1"]
-wait_time = 0.3
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AutoAimArea" index="1"]
+shape = SubResource("CircleShape2D_cevl8")
 
 [node name="Timers" type="Node" parent="." index="14"]
 
