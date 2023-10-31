@@ -25,6 +25,7 @@ var can_move: bool = true
 @export var can_be_knocked_back: bool = true
 
 @onready var state_machine: Node = get_node("FiniteStateMachine")
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = get_node("Sprite2D")
 @onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
 @onready var life_component: LifeComponent = get_node("LifeComponent")

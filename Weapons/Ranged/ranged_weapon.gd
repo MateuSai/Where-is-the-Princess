@@ -42,7 +42,7 @@ func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> void:
 		spawned_projectiles.push_back(projectile)
 
 		get_tree().current_scene.add_child(projectile)
-		projectile.launch(spawn_projectile_pos.global_position, Vector2.RIGHT.rotated(rotation + initial_offset + i * angle_step), projectile_speed, true)
+		projectile.launch(spawn_projectile_pos.global_position, Vector2.RIGHT.rotated(rotation + initial_offset + i * angle_step), projectile_speed, true, Globals.player.projectiles_homing_degree)
 
 		_decrease_weapon_condition(condition_cost_per_normal_attack)
 #		stats.condition -= condition_cost_per_normal_attack

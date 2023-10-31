@@ -1,12 +1,67 @@
-[gd_scene load_steps=7 format=3 uid="uid://bau1jfwsnyo2o"]
+[gd_scene load_steps=11 format=3 uid="uid://bau1jfwsnyo2o"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1_00shp"]
 [ext_resource type="Script" path="res://Characters/practice_dummy.gd" id="2_n6sje"]
-[ext_resource type="Texture2D" uid="uid://caolrdyik7o5f" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/new_mechant_idle_down_01.png" id="2_vk6li"]
+[ext_resource type="Texture2D" uid="uid://b476vyuaoyqqj" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/test_dummy_unbreakable.png" id="3_yamq7"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="4_hu5yl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yvc4d"]
 radius = 3.0
+
+[sub_resource type="Animation" id="Animation_sg5rx"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_5x51v"]
+resource_name = "damage"
+length = 0.48
+step = 0.12
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.24, 0.36, 0.48),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 1]
+}
+
+[sub_resource type="Animation" id="Animation_a4eep"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qtt5k"]
+_data = {
+"RESET": SubResource("Animation_a4eep"),
+"damage": SubResource("Animation_5x51v"),
+"idle": SubResource("Animation_sg5rx")
+}
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cuhec"]
 radius = 4.0
@@ -17,20 +72,31 @@ collision_layer = 4
 collision_mask = 0
 script = ExtResource("2_n6sje")
 mass = 20.0
+acceleration = null
+max_speed = null
+flying = null
 can_be_knocked_back = false
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(0, -6)
-texture = ExtResource("2_vk6li")
+texture = ExtResource("3_yamq7")
+hframes = 5
 
 [node name="CollisionShape2D" parent="." index="2"]
+visible = false
 shape = SubResource("CircleShape2D_yvc4d")
+
+[node name="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_qtt5k")
+}
 
 [node name="LifeComponent" parent="." index="4"]
 max_hp = 500
 hp = 500
 
 [node name="HurtBox" type="Area2D" parent="." index="7"]
+visible = false
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("4_hu5yl")
