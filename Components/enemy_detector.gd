@@ -1,9 +1,9 @@
 class_name EnemyDetector extends Area2D
 
 
-var closer_enemy: Enemy = null
+var closer_enemy: Character = null
 
-var enemies_inside: Array[Enemy] = []
+var enemies_inside: Array[Character] = []
 
 @onready var collision_shape: CollisionShape2D = get_node_or_null("CollisionShape2D")
 @onready var set_closer_enemy_timer: Timer = $SetCloserEnemyTimer
@@ -28,6 +28,7 @@ func _update_closer_enemy() -> void:
 
 func _enable() -> void:
 	set_closer_enemy_timer.start()
+	_update_closer_enemy()
 	collision_shape.set_deferred("disabled", false)
 
 
@@ -36,11 +37,11 @@ func _disable() -> void:
 	collision_shape.set_deferred("disabled", true)
 
 
-func _on_enemy_entered(enemy: Enemy) -> void:
+func _on_enemy_entered(enemy: Node2D) -> void:
 	enemies_inside.push_back(enemy)
 
 
-func _on_enemy_exited(enemy: Enemy) -> void:
+func _on_enemy_exited(enemy: Node2D) -> void:
 	enemies_inside.erase(enemy)
 	if enemy == closer_enemy:
 		_update_closer_enemy()

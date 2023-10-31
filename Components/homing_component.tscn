@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Components/homing_component.gd" id="2_4yoiy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ip5jb"]
-radius = 28.0179
+radius = 467.472
 
 [node name="HomingComponent" instance=ExtResource("1_xxdpq")]
 script = ExtResource("2_4yoiy")

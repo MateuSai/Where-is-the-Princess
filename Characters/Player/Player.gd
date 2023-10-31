@@ -30,7 +30,7 @@ var shop_discount: float = 0.0: ## 0 = no discount, 1 = free
 var weapon_degradation_reduction: float = 0.0:
 	set(new_value):
 		weapon_degradation_reduction = clamp(new_value, 0.0, 0.9)
-var projectiles_homing_degree: float = 0.1
+var projectiles_homing_degree: float = 0.02
 
 var rotating_items: Array[Node2D] = []
 
