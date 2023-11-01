@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bdef5lo3ytbom"
-path="res://.godot/imported/slime_medium.png-43a7bcd32a90475aef56f1e5406f00ed.ctex"
+path="res://.godot/imported/slime_medium.png-c5ac9eeb2b244d7aa7ba32659535f924.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/slime_medium.png"
-dest_files=["res://.godot/imported/slime_medium.png-43a7bcd32a90475aef56f1e5406f00ed.ctex"]
+source_file="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/slime/slime_medium.png"
+dest_files=["res://.godot/imported/slime_medium.png-c5ac9eeb2b244d7aa7ba32659535f924.ctex"]
 
 [params]
 
