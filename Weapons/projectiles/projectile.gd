@@ -2,8 +2,13 @@ class_name Projectile extends Hitbox
 
 const HOMING_COMPONENT_SCENE: PackedScene = preload("res://Components/homing_component.tscn")
 
-var direction: Vector2 = Vector2.ZERO
+var direction: Vector2 = Vector2.ZERO:
+	set(new_dir):
+		direction = new_dir
+		if rotate_to_dir and not random_rotate:
+			rotation = direction.angle()
 var speed: int = 0
+var rotate_to_dir: bool = false
 
 @export var random_rotate: bool = false
 var rot_dir: int = [-1, 1][randi() % 2]
@@ -14,12 +19,13 @@ var rot_dir: int = [-1, 1][randi() % 2]
 @warning_ignore("shadowed_variable")
 func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: bool = false, homing_degree: float = 0.0) -> void:
 	position = initial_position
-	direction = dir
 	knockback_direction = dir
 	self.speed = speed
+	self.rotate_to_dir = rotate_to_dir
+	self.direction = dir
 
-	if rotate_to_dir:
-		rotation = dir.angle()
+#	if rotate_to_dir:
+#		rotation = dir.angle()
 
 	if homing_degree > 0.0:
 		var homing_component: HomingComponent = HOMING_COMPONENT_SCENE.instantiate()

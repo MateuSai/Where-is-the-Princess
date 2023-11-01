@@ -274,4 +274,4 @@ func set_ability_damage(new_ability_damage: int) -> void:
 
 
 func _decrease_weapon_condition(by: float) -> void:
-	stats.condition -= by * (1 - Globals.player.weapon_degradation_reduction)
+	stats.condition -= (by + 0.5 * stats.modifiers.size()) * (1 - Globals.player.weapon_degradation_reduction)
