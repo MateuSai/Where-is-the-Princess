@@ -9,5 +9,8 @@ radius = 467.472
 [node name="HomingComponent" instance=ExtResource("1_xxdpq")]
 script = ExtResource("2_4yoiy")
 
+[node name="SetCloserEnemyTimer" parent="." index="0"]
+wait_time = 0.2
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CircleShape2D_ip5jb")

@@ -28,8 +28,8 @@ func _update_closer_enemy() -> void:
 
 func _enable() -> void:
 	set_closer_enemy_timer.start()
-	_update_closer_enemy()
 	collision_shape.set_deferred("disabled", false)
+	_update_closer_enemy()
 
 
 func _disable() -> void:
@@ -39,6 +39,8 @@ func _disable() -> void:
 
 func _on_enemy_entered(enemy: Node2D) -> void:
 	enemies_inside.push_back(enemy)
+	if closer_enemy == null:
+		closer_enemy = enemy
 
 
 func _on_enemy_exited(enemy: Node2D) -> void:
