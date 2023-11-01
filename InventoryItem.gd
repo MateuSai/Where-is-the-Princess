@@ -5,6 +5,7 @@ var weapon: Weapon
 @onready var texture_rect: TextureRect = $Background/VBoxContainer/TextureRect
 @onready var condition_bar: TextureProgressBar = $Background/VBoxContainer/TextureProgressBar
 @onready var status_container: HBoxContainer = %StatusContainer
+@onready var arrow_icon: TextureRect = %ArrowIcon
 
 
 @warning_ignore("shadowed_variable")
@@ -17,6 +18,11 @@ func initialize(weapon: Weapon) -> void:
 		condition_bar.tint_progress = Color.SILVER
 	else:
 		update_condition(weapon.stats.condition)
+
+	if weapon is Bow:
+		arrow_icon.show()
+	else:
+		arrow_icon.hide()
 
 
 #func _ready() -> void:

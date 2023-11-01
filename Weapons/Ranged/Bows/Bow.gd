@@ -1,4 +1,4 @@
-class_name Bow extends RangedWeapon
+class_name Bow extends BowOrCrossbowWeapon
 
 
 func _unhandled_input(event: InputEvent) -> void:
