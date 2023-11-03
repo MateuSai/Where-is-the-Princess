@@ -50,5 +50,15 @@ func can_pick_up_item(player: Player) -> bool:
 
 func _pick_item_and_free() -> void:
 	if can_pick_up_item(Globals.player):
+		if item is ArrowModifier:
+			assert(Globals.player.weapons.current_weapon is BowOrCrossbowWeapon)
+
+			# Create a new item on floor wwith the current arrow type
+			var current_arrow_type_item_on_floor: ItemOnFloor = preload("res://Items/ItemOnFloor.tscn").instantiate()
+			current_arrow_type_item_on_floor.position = position
+			get_tree().current_scene.add_child(current_arrow_type_item_on_floor)
+			current_arrow_type_item_on_floor.initialize([load("res://Items/Passive/WeaponModifiers/arrows/normal_arrow_modifier.gd"), load("res://Items/Passive/WeaponModifiers/arrows/homing_arrow_modifier.gd"), load("res://Items/Passive/WeaponModifiers/arrows/piercing_arrow_modifier.gd")][Globals.player.weapons.current_weapon.arrow_type].new())
+			current_arrow_type_item_on_floor.enable_pick_up()
+
 		item.pick_up(interact_area.player)
 		queue_free()
