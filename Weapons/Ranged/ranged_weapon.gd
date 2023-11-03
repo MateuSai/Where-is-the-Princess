@@ -20,8 +20,8 @@ func _load_csv_data(data: Dictionary) -> void:
 		shoot_sound.stream = load(shoot_sound_path)
 
 
-## rot_offser is in radians
-func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> void:
+## rot_offser is in radians. Returns an array containing the spawned projectiles
+func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> Array[Projectile]:
 	if shoot_sound.stream:
 		shoot_sound.play()
 
@@ -42,10 +42,12 @@ func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> void:
 		spawned_projectiles.push_back(projectile)
 
 		get_tree().current_scene.add_child(projectile)
-		projectile.launch(spawn_projectile_pos.global_position, Vector2.RIGHT.rotated(rotation + initial_offset + i * angle_step), projectile_speed, true, Globals.player.projectiles_homing_degree)
+		projectile.launch(spawn_projectile_pos.global_position, Vector2.RIGHT.rotated(rotation + initial_offset + i * angle_step), projectile_speed, true)
 
 		_decrease_weapon_condition(condition_cost_per_normal_attack)
 #		stats.condition -= condition_cost_per_normal_attack
+
+	return spawned_projectiles
 
 
 func _on_animation_started(anim_name: StringName) -> void:

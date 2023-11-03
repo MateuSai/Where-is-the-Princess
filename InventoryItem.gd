@@ -21,6 +21,10 @@ func initialize(weapon: Weapon) -> void:
 
 	if weapon is Bow:
 		arrow_icon.show()
+		weapon.arrow_type_changed.connect(func(new_type: Arrow.Type):
+			arrow_icon.texture = Arrow.MODIFIER_TEXTURES[new_type]
+		)
+		arrow_icon.texture = Arrow.MODIFIER_TEXTURES[weapon.arrow_type]
 	else:
 		arrow_icon.hide()
 

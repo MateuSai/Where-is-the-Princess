@@ -13,11 +13,14 @@ var rotate_to_dir: bool = false
 @export var random_rotate: bool = false
 var rot_dir: int = [-1, 1][randi() % 2]
 
+var piercing: int = 0
+var bodies_pierced: int = 0
+
 @export var can_be_destroyed: bool = true
 
 
 @warning_ignore("shadowed_variable")
-func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: bool = false, homing_degree: float = 0.0) -> void:
+func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: bool = false) -> void:
 	position = initial_position
 	knockback_direction = dir
 	self.speed = speed
@@ -26,11 +29,6 @@ func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: 
 
 #	if rotate_to_dir:
 #		rotation = dir.angle()
-
-	if homing_degree > 0.0:
-		var homing_component: HomingComponent = HOMING_COMPONENT_SCENE.instantiate()
-		homing_component.homing_degree = homing_degree
-		add_child(homing_component)
 
 	#rotation += dir.angle() + PI/4
 
@@ -46,7 +44,12 @@ func _collide(node: Node2D, _dam: int = damage) -> void:
 
 	if node.get("life_component") != null:
 		node.life_component.take_damage(damage, knockback_direction, knockback_force)
-	destroy()
+		if bodies_pierced >= piercing:
+			destroy()
+		else:
+			bodies_pierced += 1
+	else:
+		destroy()
 
 
 func destroy() -> void:
