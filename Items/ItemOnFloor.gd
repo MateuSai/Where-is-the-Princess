@@ -49,5 +49,6 @@ func can_pick_up_item(player: Player) -> bool:
 
 
 func _pick_item_and_free() -> void:
-	item.pick_up(interact_area.player)
-	queue_free()
+	if can_pick_up_item(Globals.player):
+		item.pick_up(interact_area.player)
+		queue_free()

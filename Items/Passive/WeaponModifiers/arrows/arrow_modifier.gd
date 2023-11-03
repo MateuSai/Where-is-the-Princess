@@ -19,3 +19,7 @@ func can_pick_up(player: Player) -> bool:
 
 func get_icon() -> Texture:
 	return Arrow.TEXTURES[type]
+
+
+func pick_up(player: Player) -> void:
+	player.pick_up_passive_item(self)
