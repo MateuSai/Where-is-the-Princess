@@ -29,6 +29,7 @@ func _collide(node: Node2D, _dam: int = damage) -> void:
 	if type == Type.EXPLOSIVE:
 		var explosion: Explosion = load("res://Weapons/projectiles/explosion.tscn").instantiate()
 		explosion.position = position
+		await get_tree().process_frame
 		get_tree().current_scene.add_child(explosion)
 		destroy()
 		return
