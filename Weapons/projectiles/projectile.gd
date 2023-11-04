@@ -1,3 +1,4 @@
+@icon("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/boss_druid/rock.png")
 class_name Projectile extends Hitbox
 
 const HOMING_COMPONENT_SCENE: PackedScene = preload("res://Components/homing_component.tscn")
@@ -15,6 +16,8 @@ var rot_dir: int = [-1, 1][randi() % 2]
 
 var piercing: int = 0
 var bodies_pierced: int = 0
+
+var bounces_remaining: int = 2
 
 @export var can_be_destroyed: bool = true
 
@@ -49,8 +52,20 @@ func _collide(node: Node2D, _dam: int = damage) -> void:
 		else:
 			bodies_pierced += 1
 	else:
-		destroy()
+		if bounces_remaining > 0:
+			bounces_remaining -= 1
+			_bounce()
+		else:
+			destroy()
 
 
 func destroy() -> void:
 	queue_free()
+
+
+func _bounce() -> void:
+	var space_state: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
+	var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(position, position + direction * 8, collision_mask)
+	var result: Dictionary = space_state.intersect_ray(query)
+
+	direction = direction.bounce(result.normal)

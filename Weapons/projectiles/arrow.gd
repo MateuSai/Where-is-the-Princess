@@ -31,7 +31,11 @@ func _collide(node: Node2D, _dam: int = damage) -> void:
 		else:
 			bodies_pierced += 1
 	else:
-		_attach_projectile(node)
+		if bounces_remaining > 0:
+			bounces_remaining -= 1
+			_bounce()
+		else:
+			_attach_projectile(node)
 
 
 func _attach_projectile(body: Node2D) -> void:
