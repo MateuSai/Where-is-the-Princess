@@ -2,13 +2,14 @@
 class_name Arrow extends Projectile
 
 const WORLD_IMPACT_SOUNDS: Array[AudioStreamWAV] = [preload("res://Audio/Sounds/impact/521242__cyoung510__arrow_hits_target_1.wav"), preload("res://Audio/Sounds/impact/521242__cyoung510__arrow_hits_target_2.wav"), preload("res://Audio/Sounds/impact/521242__cyoung510__arrow_hits_target_3.wav")]
-const TEXTURES: Array[Texture] = [preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/arrow.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/homing_arrow.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/piercing_arrow.png")]
-const MODIFIER_TEXTURES: Array[Texture] = [preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/default_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/homing_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/piercing_arrow_icon.png")]
+const TEXTURES: Array[Texture] = [preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/arrow.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/homing_arrow.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/piercing_arrow.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/bouncing_arrow.png")]
+const MODIFIER_TEXTURES: Array[Texture] = [preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/default_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/homing_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/piercing_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/bouncing_arrow_icon.png")]
 
 enum Type {
 	NORMAL,
 	HOMING,
 	PIERCING,
+	BOUNCING,
 }
 var type: Type = Type.NORMAL: set = _set_type
 
@@ -71,3 +72,5 @@ func _set_type(new_type: Type) -> void:
 			add_child(homing_component)
 		Type.PIERCING:
 			piercing += 1
+		Type.BOUNCING:
+			bounces_remaining += 1

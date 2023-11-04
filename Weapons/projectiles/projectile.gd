@@ -17,7 +17,7 @@ var rot_dir: int = [-1, 1][randi() % 2]
 var piercing: int = 0
 var bodies_pierced: int = 0
 
-var bounces_remaining: int = 2
+var bounces_remaining: int = 0
 
 @export var can_be_destroyed: bool = true
 
@@ -65,7 +65,11 @@ func destroy() -> void:
 
 func _bounce() -> void:
 	var space_state: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
-	var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(position, position + direction * 8, collision_mask)
+	var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(position - direction * 4, position + direction * 16, collision_mask)
 	var result: Dictionary = space_state.intersect_ray(query)
 
-	direction = direction.bounce(result.normal)
+	if not result.is_empty():
+		direction = direction.bounce(result.normal)
+	else: # For some reason the projectile has not found the body which it collided with. We don't count it as a bounce
+		push_error("For some reason the projectile has not found the body which it collided with")
+		bounces_remaining += 1
