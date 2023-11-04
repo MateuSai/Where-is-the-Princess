@@ -5,6 +5,7 @@ var weapon: Weapon
 @onready var texture_rect: TextureRect = $Background/VBoxContainer/TextureRect
 @onready var condition_bar: TextureProgressBar = $Background/VBoxContainer/TextureProgressBar
 @onready var status_container: HBoxContainer = %StatusContainer
+@onready var arrow_icon: TextureRect = %ArrowIcon
 
 
 @warning_ignore("shadowed_variable")
@@ -17,6 +18,15 @@ func initialize(weapon: Weapon) -> void:
 		condition_bar.tint_progress = Color.SILVER
 	else:
 		update_condition(weapon.stats.condition)
+
+	if weapon is Bow:
+		arrow_icon.show()
+		weapon.arrow_type_changed.connect(func(new_type: Arrow.Type):
+			arrow_icon.texture = Arrow.MODIFIER_TEXTURES[new_type]
+		)
+		arrow_icon.texture = Arrow.MODIFIER_TEXTURES[weapon.arrow_type]
+	else:
+		arrow_icon.hide()
 
 
 #func _ready() -> void:
@@ -44,7 +54,7 @@ func add_status_icon(status: StatusComponent.Status) -> void:
 #	match status:
 #		StatusComponent.Status.FIRE:
 	var icon: TextureRect = TextureRect.new()
-	icon.texture = load(["res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Items/Ruby_icon.png", "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Items/Sapphire_icon.png", "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Items/Topaz_icon.png"][status])
+	icon.texture = load(["res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Ruby_icon.png", "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Sapphire_icon.png", "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Topaz_icon.png"][status])
 	status_container.add_child(icon)
 
 

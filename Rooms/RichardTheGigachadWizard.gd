@@ -22,7 +22,7 @@ func _spawn_item(item: WeaponModifier, pos: Vector2) -> ItemOnFloor:
 	explosion.position = pos
 	get_parent().add_child(explosion)
 
-	var item_on_floor: ItemOnFloor = load("res://Items/ItemOnFloor.tscn").instantiate()
+	var item_on_floor: ItemOnFloor = load("res://items/item_on_floor.tscn").instantiate()
 	item_on_floor.position = pos
 	item_on_floor.initialize(item)
 	get_parent().add_child(item_on_floor)

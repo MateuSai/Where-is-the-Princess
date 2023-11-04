@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://cyfrse4f5lihp"]
 
 [ext_resource type="Texture2D" uid="uid://bu6f7y7mv63om" path="res://Art/Furniture and room elements/tiki_torch.png" id="1_i8jtk"]
-[ext_resource type="Shader" path="res://Shaders and Particles/Fire.gdshader" id="2_yksvn"]
+[ext_resource type="Shader" path="res://shaders_and_particles/Fire.gdshader" id="2_yksvn"]
 [ext_resource type="Texture2D" uid="uid://daudq4kfwccvu" path="res://Art/Status Conditions/condition_status_top_fire_full_16x16.png" id="3_4bbpa"]
 [ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png" id="4_cxn5a"]
 

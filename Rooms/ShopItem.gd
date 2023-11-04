@@ -1,6 +1,6 @@
 class_name ShopItem extends ItemOnFloor
 
-const HOLOGRAM_SHADER: Shader = preload("res://Shaders and Particles/hologram.gdshader")
+const HOLOGRAM_SHADER: Shader = preload("res://shaders_and_particles/hologram.gdshader")
 const HOLOGRAM_TEXTURE: Texture = preload("res://Art/hologram_lines-b1399a8d.png")
 
 var price: int = 10

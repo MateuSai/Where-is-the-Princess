@@ -279,7 +279,7 @@ func _spawn_weapon(weapon_string: String) -> void:
 func _spawn_item(item_string: String) -> void:
 	hide()
 	var item: Item = load(item_string).new()
-	var item_on_floor: ItemOnFloor = load("res://Items/ItemOnFloor.tscn").instantiate()
+	var item_on_floor: ItemOnFloor = load("res://items/item_on_floor.tscn").instantiate()
 	item_on_floor.position = Globals.player.position + Vector2.RIGHT * 16
 	item_on_floor.initialize(item)
 	get_tree().current_scene.add_child(item_on_floor)

@@ -209,11 +209,21 @@ func add_status_inflicter(_status: StatusComponent.Status, _amount: int = 1) -> 
 
 
 func add_weapon_modifier(item: WeaponModifier) -> void:
-	for modifier in stats.modifiers:
-		if item.get_script().get_path() == modifier.get_script().get_path():
-			assert(modifier is StatusWeaponModifier)
-			modifier.amount += 1
-			return
+	if item is StatusWeaponModifier:
+		for modifier in stats.modifiers:
+			if modifier is StatusWeaponModifier:
+				if item.get_script().get_path() == modifier.get_script().get_path():
+					#assert(modifier is StatusWeaponModifier)
+					modifier.amount += 1
+					return
+	elif item is ArrowModifier:
+		# We remove the previous modifier
+		for modifier in stats.modifiers:
+			if modifier is ArrowModifier:
+#				modifier.unequip(self) # there is no action to be done when the modifier is unequipped, for the moment
+				stats.modifiers.erase(modifier)
+				modifier = null
+				break
 
 	stats.modifiers.push_back(item)
 
@@ -238,7 +248,7 @@ func can_pick_up_soul() -> bool:
 	return has_active_ability() and stats.souls < souls_to_activate_ability
 
 
-func _on_animation_started(anim_name: StringName) -> void:
+func _on_animation_started(_anim_name: StringName) -> void:
 	pass
 
 

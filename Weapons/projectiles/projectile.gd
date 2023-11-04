@@ -1,3 +1,4 @@
+@icon("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/boss_druid/rock.png")
 class_name Projectile extends Hitbox
 
 const HOMING_COMPONENT_SCENE: PackedScene = preload("res://Components/homing_component.tscn")
@@ -13,11 +14,16 @@ var rotate_to_dir: bool = false
 @export var random_rotate: bool = false
 var rot_dir: int = [-1, 1][randi() % 2]
 
+var piercing: int = 0
+var bodies_pierced: int = 0
+
+var bounces_remaining: int = 0
+
 @export var can_be_destroyed: bool = true
 
 
 @warning_ignore("shadowed_variable")
-func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: bool = false, homing_degree: float = 0.0) -> void:
+func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: bool = false) -> void:
 	position = initial_position
 	knockback_direction = dir
 	self.speed = speed
@@ -26,11 +32,6 @@ func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: 
 
 #	if rotate_to_dir:
 #		rotation = dir.angle()
-
-	if homing_degree > 0.0:
-		var homing_component: HomingComponent = HOMING_COMPONENT_SCENE.instantiate()
-		homing_component.homing_degree = homing_degree
-		add_child(homing_component)
 
 	#rotation += dir.angle() + PI/4
 
@@ -46,8 +47,29 @@ func _collide(node: Node2D, _dam: int = damage) -> void:
 
 	if node.get("life_component") != null:
 		node.life_component.take_damage(damage, knockback_direction, knockback_force)
-	destroy()
+		if bodies_pierced >= piercing:
+			destroy()
+		else:
+			bodies_pierced += 1
+	else:
+		if bounces_remaining > 0:
+			bounces_remaining -= 1
+			_bounce()
+		else:
+			destroy()
 
 
 func destroy() -> void:
 	queue_free()
+
+
+func _bounce() -> void:
+	var space_state: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
+	var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(position - direction * 4, position + direction * 16, collision_mask)
+	var result: Dictionary = space_state.intersect_ray(query)
+
+	if not result.is_empty():
+		direction = direction.bounce(result.normal)
+	else: # For some reason the projectile has not found the body which it collided with. We don't count it as a bounce
+		push_error("For some reason the projectile has not found the body which it collided with")
+		bounces_remaining += 1

@@ -29,6 +29,24 @@ tracks/0/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_5ha7j"]
+resource_name = "active_ability"
+length = 0.1
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [25.0, 3],
+"method": &"_spawn_projectile"
+}]
+}
+
 [sub_resource type="Animation" id="Animation_qkpdb"]
 resource_name = "attack"
 length = 0.4
@@ -74,24 +92,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4]
-}
-
-[sub_resource type="Animation" id="Animation_5ha7j"]
-resource_name = "active_ability"
-length = 0.1
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [25.0, 3],
-"method": &"_spawn_projectile"
-}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hgeu0"]

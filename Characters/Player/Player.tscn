@@ -16,7 +16,7 @@
 [ext_resource type="Script" path="res://ui/Hearts.gd" id="12_ft4r3"]
 [ext_resource type="Texture2D" uid="uid://cnuc0egwdfmpd" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_UI_empty.png" id="13_3w18a"]
 [ext_resource type="Texture2D" uid="uid://6ht61advku7b" path="res://Art/white.png" id="13_gnjg7"]
-[ext_resource type="Shader" path="res://Shaders and Particles/Mirage.gdshader" id="13_siyxg"]
+[ext_resource type="Shader" path="res://shaders_and_particles/Mirage.gdshader" id="13_siyxg"]
 [ext_resource type="Texture2D" uid="uid://b8f4x48lm0jow" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small_heart_animation.tres" id="14_vne45"]
 [ext_resource type="Texture2D" uid="uid://6cihr7lwp1or" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_UI_full.png" id="14_wyeiy"]
 [ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png" id="15_41qtp"]

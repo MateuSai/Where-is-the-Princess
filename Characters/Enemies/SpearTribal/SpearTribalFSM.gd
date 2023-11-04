@@ -23,7 +23,7 @@ func _state_logic(_delta: float) -> void:
 	match state:
 		states.move:
 			parent.point_to_player()
-			parent.chase()
+			parent.move_to_target()
 			parent.move()
 			if parent.mov_direction.y >= 0 and animation_player.current_animation != "move":
 				animation_player.play("move")

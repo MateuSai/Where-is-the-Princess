@@ -11,7 +11,7 @@ func _init() -> void:
 
 #func _state_logic(_delta: float) -> void:
 #	if state == states.chase:
-#		parent.chase()
+#		parent.move_to_target()
 #		parent.move()
 #		if parent.mov_direction.y >= 0 and animation_player.current_animation != "walk":
 #			animation_player.play("walk")
