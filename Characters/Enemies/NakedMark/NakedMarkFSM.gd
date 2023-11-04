@@ -18,7 +18,7 @@ func _ready() -> void:
 
 func _state_logic(_delta: float) -> void:
 	if state == states.chase:
-		parent.chase()
+		parent.move_to_target()
 		parent.move()
 		parent.point_to_player()
 		if parent.mov_direction.y >= 0 and animation_player.current_animation != "walk":

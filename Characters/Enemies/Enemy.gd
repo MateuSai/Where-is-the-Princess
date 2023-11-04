@@ -57,7 +57,7 @@ func spawn_loot() -> void:
 			get_tree().current_scene.call_deferred("add_child", soul)
 
 
-func chase() -> void:
+func move_to_target() -> void:
 	if not navigation_agent.is_target_reached():
 		if can_move:
 			var vector_to_next_point: Vector2 = navigation_agent.get_next_path_position() - global_position

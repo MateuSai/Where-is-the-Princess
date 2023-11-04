@@ -17,7 +17,7 @@ func _state_logic(_delta: float) -> void:
 			parent.move_shield_to_player()
 		states.move:
 			parent.move_shield_to_player()
-			parent.chase()
+			parent.move_to_target()
 			parent.move()
 
 

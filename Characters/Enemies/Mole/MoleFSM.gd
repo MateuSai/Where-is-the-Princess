@@ -23,7 +23,7 @@ func _state_logic(_delta: float) -> void:
 				sprite.flip_h = false
 			elif vector_to_player.x < 0 and not sprite.flip_h:
 				sprite.flip_h = true
-#		parent.chase()
+#		parent.move_to_target()
 #		parent.move()
 #		if parent.mov_direction.y >= 0 and animation_player.current_animation != "fly":
 #			animation_player.play("fly")

@@ -19,7 +19,7 @@ func _ready() -> void:
 
 func _state_logic(_delta: float) -> void:
 	if state == states.jump:
-		parent.chase()
+		parent.move_to_target()
 		parent.move()
 
 

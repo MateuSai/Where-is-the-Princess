@@ -41,7 +41,7 @@ func _state_logic(_delta: float) -> void:
 			elif dir_to_player.y < 0 and animation_player.current_animation != "idle_up":
 				animation_player.play("idle_up")
 		states.move:
-			parent.chase()
+			parent.move_to_target()
 			parent.move()
 			var dir_to_player: Vector2 = (parent.player.position - parent.global_position).normalized()
 			if dir_to_player.y >= 0 and animation_player.current_animation != "move":
