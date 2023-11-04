@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://1dog8g4x0l0a" path="res://Characters/npcs/shop_manager/ShopManager.tscn" id="3_mn8uv"]
 [ext_resource type="Texture2D" uid="uid://d0fqpxt1mb637" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/jail_back.png" id="4_8jggl"]
 [ext_resource type="Texture2D" uid="uid://ncjnllmfkyfd" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/jail_front.png" id="5_80v4d"]
-[ext_resource type="Script" path="res://InteractArea.gd" id="6_dek2i"]
+[ext_resource type="Script" path="res://interact_area.gd" id="6_dek2i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l5k0i"]
 size = Vector2(18, 9)

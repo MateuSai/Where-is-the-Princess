@@ -58,7 +58,7 @@ func _pick_item_and_free() -> void:
 			var current_arrow_type_item_on_floor: ItemOnFloor = preload("res://items/item_on_floor.tscn").instantiate()
 			current_arrow_type_item_on_floor.position = position
 			get_tree().current_scene.add_child(current_arrow_type_item_on_floor)
-			current_arrow_type_item_on_floor.initialize([load("res://items/Passive/WeaponModifiers/arrows/normal_arrow_modifier.gd"), load("res://items/Passive/WeaponModifiers/arrows/homing_arrow_modifier.gd"), load("res://items/Passive/WeaponModifiers/arrows/piercing_arrow_modifier.gd"), load("res://items/Passive/WeaponModifiers/arrows/bouncing_arrow_modifier.gd")][Globals.player.weapons.current_weapon.arrow_type].new())
+			current_arrow_type_item_on_floor.initialize([load("res://items/Passive/WeaponModifiers/arrows/normal_arrow_modifier.gd"), load("res://items/Passive/WeaponModifiers/arrows/homing_arrow_modifier.gd"), load("res://items/Passive/WeaponModifiers/arrows/piercing_arrow_modifier.gd"), load("res://items/Passive/WeaponModifiers/arrows/bouncing_arrow_modifier.gd"), load("res://items/Passive/WeaponModifiers/arrows/explosive_arrow_modifier.gd")][Globals.player.weapons.current_weapon.arrow_type].new())
 			current_arrow_type_item_on_floor.enable_pick_up()
 
 		item.pick_up(interact_area.player)

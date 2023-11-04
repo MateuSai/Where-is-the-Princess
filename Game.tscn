@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://ui/MinimapScrollContainer.gd" id="13_f54tc"]
 [ext_resource type="FontFile" uid="uid://drbvct1q4mkwc" path="res://Fonts/Alkhemikal.ttf" id="13_kxa6p"]
 [ext_resource type="Texture2D" uid="uid://cm2mxt7vas7t4" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/minimap_9-patch_bigger.png" id="13_s3von"]
-[ext_resource type="Shader" path="res://Shaders and Particles/IntensityToTransparency.gdshader" id="14_qjw3b"]
+[ext_resource type="Shader" path="res://shaders_and_particles/IntensityToTransparency.gdshader" id="14_qjw3b"]
 [ext_resource type="Texture2D" uid="uid://bl8w6y7gf8ubx" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/icon_map.png" id="16_0uph7"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]

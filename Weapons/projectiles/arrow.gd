@@ -2,14 +2,15 @@
 class_name Arrow extends Projectile
 
 const WORLD_IMPACT_SOUNDS: Array[AudioStreamWAV] = [preload("res://Audio/Sounds/impact/521242__cyoung510__arrow_hits_target_1.wav"), preload("res://Audio/Sounds/impact/521242__cyoung510__arrow_hits_target_2.wav"), preload("res://Audio/Sounds/impact/521242__cyoung510__arrow_hits_target_3.wav")]
-const TEXTURES: Array[Texture] = [preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/arrow.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/homing_arrow.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/piercing_arrow.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/bouncing_arrow.png")]
-const MODIFIER_TEXTURES: Array[Texture] = [preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/default_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/homing_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/piercing_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/bouncing_arrow_icon.png")]
+const TEXTURES: Array[Texture] = [preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/arrow.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/homing_arrow.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/piercing_arrow.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/bouncing_arrow.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/explosive_arrow.png")]
+const MODIFIER_TEXTURES: Array[Texture] = [preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/default_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/homing_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/piercing_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/bouncing_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/explosive_arrow_icon.png")]
 
 enum Type {
 	NORMAL,
 	HOMING,
 	PIERCING,
 	BOUNCING,
+	EXPLOSIVE,
 }
 var type: Type = Type.NORMAL: set = _set_type
 
@@ -24,6 +25,13 @@ func _ready() -> void:
 
 func _collide(node: Node2D, _dam: int = damage) -> void:
 	collided_with_something.emit(node)
+
+	if type == Type.EXPLOSIVE:
+		var explosion: Explosion = load("res://Weapons/projectiles/explosion.tscn").instantiate()
+		explosion.position = position
+		get_tree().current_scene.add_child(explosion)
+		destroy()
+		return
 
 	if node.get("life_component") != null:
 		node.life_component.take_damage(damage, knockback_direction, knockback_force)
@@ -74,3 +82,5 @@ func _set_type(new_type: Type) -> void:
 			piercing += 1
 		Type.BOUNCING:
 			bounces_remaining += 1
+		Type.EXPLOSIVE:
+			pass

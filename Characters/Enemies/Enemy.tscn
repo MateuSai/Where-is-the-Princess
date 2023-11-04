@@ -7,13 +7,8 @@
 collision_layer = 4
 collision_mask = 5
 script = ExtResource("2_cslvc")
-souls = null
-is_boss = null
-mass = null
-acceleration = null
-max_speed = null
-flying = null
-can_be_knocked_back = null
+souls = 1
+is_boss = false
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="4"]
 path_desired_distance = 8.0

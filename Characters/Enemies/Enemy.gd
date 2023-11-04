@@ -70,6 +70,20 @@ func move_to_target() -> void:
 			mov_direction = Vector2.ZERO
 
 
+func target_random_near_position() -> void:
+	var max_iterations: int = 10
+	var iterations: int = 0
+
+	while iterations < max_iterations:
+		navigation_agent.target_position = global_position + Vector2(randf_range(-64, 64), randf_range(-64, 64))
+		if navigation_agent.is_target_reachable():
+			return
+
+		iterations += 1
+
+	push_error("To many iterations to determine new close random position")
+
+
 func _on_change_dir() -> void:
 	sprite.flip_h = !sprite.flip_h
 

@@ -62,7 +62,7 @@ func set_up() -> void:
 
 	fog_sprite = Sprite2D.new()
 	var fog_sprite_material: ShaderMaterial = ShaderMaterial.new()
-	fog_sprite_material.shader = load("res://Shaders and Particles/IntensityToTransparency.gdshader")
+	fog_sprite_material.shader = load("res://shaders_and_particles/IntensityToTransparency.gdshader")
 	fog_sprite_material.set("shader_parameter/color", Color("ceae6f"))
 	fog_sprite.material = fog_sprite_material
 	fog_sprite.centered = false

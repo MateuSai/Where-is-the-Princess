@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://d0aeanhr1oo7b"]
+[gd_scene load_steps=12 format=3 uid="uid://d0aeanhr1oo7b"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_j6hdd"]
 [ext_resource type="Texture2D" uid="uid://bdef5lo3ytbom" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/slime/slime_medium.png" id="2_j0jdm"]
+[ext_resource type="Script" path="res://Characters/Enemies/Slime/Slime.gd" id="2_pr2d3"]
 [ext_resource type="Script" path="res://Characters/Enemies/Slime/SlimeFSM.gd" id="2_sr0ej"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dsime"]
@@ -104,13 +105,7 @@ _data = {
 }
 
 [node name="Slime" instance=ExtResource("1_j6hdd")]
-souls = 1
-is_boss = false
-mass = 1.0
-acceleration = 40
-max_speed = 100
-flying = false
-can_be_knocked_back = true
+script = ExtResource("2_pr2d3")
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("2_sr0ej")
@@ -128,3 +123,6 @@ shape = SubResource("CircleShape2D_dsime")
 libraries = {
 "": SubResource("AnimationLibrary_7ak3e")
 }
+
+[node name="PathTimer" parent="." index="7"]
+wait_time = 1.5

@@ -254,7 +254,7 @@ func can_pick_up_weapons() -> bool:
 
 
 func enable_mirage() -> void:
-	mirage.material.shader = load("res://Shaders and Particles/Mirage.gdshader")
+	mirage.material.shader = load("res://shaders_and_particles/Mirage.gdshader")
 	mirage.show()
 
 	mirage_timer.start()
