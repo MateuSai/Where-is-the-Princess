@@ -220,7 +220,7 @@ func add_weapon_modifier(item: WeaponModifier) -> void:
 		# We remove the previous modifier
 		for modifier in stats.modifiers:
 			if modifier is ArrowModifier:
-				modifier.unequip(self)
+#				modifier.unequip(self) # there is no action to be done when the modifier is unequipped, for the moment
 				stats.modifiers.erase(modifier)
 				modifier = null
 				break

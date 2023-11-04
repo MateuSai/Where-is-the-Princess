@@ -4,6 +4,7 @@ class_name BowOrCrossbowWeapon extends RangedWeapon
 signal arrow_type_changed(new_type: Arrow.Type)
 var arrow_type: Arrow.Type = Arrow.Type.NORMAL:
 	set(new_type):
+#		print("New arrow type is: " + Arrow.Type.keys()[new_type])
 		arrow_type = new_type
 		arrow_type_changed.emit(arrow_type)
 

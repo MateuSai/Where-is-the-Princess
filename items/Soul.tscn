@@ -1,0 +1,105 @@
+[gd_scene load_steps=16 format=3 uid="uid://13du3vo5int6"]
+
+[ext_resource type="Script" path="res://items/Soul.gd" id="1_lnn2q"]
+[ext_resource type="Texture2D" uid="uid://c0aq1e34c7cv2" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small soul anim.png" id="2_cu8un"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rqd3x"]
+light_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5mwr6"]
+atlas = ExtResource("2_cu8un")
+region = Rect2(0, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23oeo"]
+atlas = ExtResource("2_cu8un")
+region = Rect2(10, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nj8mq"]
+atlas = ExtResource("2_cu8un")
+region = Rect2(20, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_73rp2"]
+atlas = ExtResource("2_cu8un")
+region = Rect2(30, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgmd0"]
+atlas = ExtResource("2_cu8un")
+region = Rect2(40, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tjdi8"]
+atlas = ExtResource("2_cu8un")
+region = Rect2(50, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eiyfj"]
+atlas = ExtResource("2_cu8un")
+region = Rect2(60, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqjc5"]
+atlas = ExtResource("2_cu8un")
+region = Rect2(70, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_43l46"]
+atlas = ExtResource("2_cu8un")
+region = Rect2(80, 0, 10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6g6rg"]
+atlas = ExtResource("2_cu8un")
+region = Rect2(90, 0, 10, 10)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uirnp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5mwr6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23oeo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nj8mq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_73rp2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xgmd0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tjdi8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eiyfj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bqjc5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_43l46")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6g6rg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 9.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_letcm"]
+radius = 4.0
+
+[node name="Soul" type="Area2D"]
+texture_filter = 1
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_lnn2q")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_rqd3x")
+position = Vector2(0, -3)
+sprite_frames = SubResource("SpriteFrames_uirnp")
+autoplay = "default"
+frame_progress = 0.212336
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_letcm")

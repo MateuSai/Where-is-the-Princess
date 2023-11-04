@@ -18,10 +18,10 @@ var data: Dictionary = {
 	"equipped_armor": "res://Armors/NoArmor.gd",
 	"discovered_armors": PackedStringArray(["res://Armors/CommonerClothes.gd", "res://Armors/LeatherArmor.gd", "res://Armors/MercenaryArmor.gd", "res://Armors/WarriorArmor.gd", "res://Armors/NecromancerArmor.gd", "res://Armors/improvised_armor.gd", "res://Armors/farmer_clothes.gd"]),
 
-	"discovered_permanent_items": PackedStringArray(["res://Items/Passive/Permanent/StrongThrow.gd", "res://Items/Passive/Permanent/ToughSkin.gd"]),
-	"undiscovered_permanent_items": PackedStringArray(["res://Items/Passive/Permanent/EnhancedBoots.gd"]),
+	"discovered_permanent_items": PackedStringArray(["res://items/Passive/Permanent/StrongThrow.gd", "res://items/Passive/Permanent/ToughSkin.gd"]),
+	"undiscovered_permanent_items": PackedStringArray(["res://items/Passive/Permanent/EnhancedBoots.gd"]),
 	"discovered_temporal_items": PackedStringArray([]),
-	"undiscovered_temporal_items": PackedStringArray(["res://Items/Passive/Temporal/MagicShield.gd", "res://Items/Passive/Temporal/MagicSword.gd"]),
+	"undiscovered_temporal_items": PackedStringArray(["res://items/Passive/Temporal/MagicShield.gd", "res://items/Passive/Temporal/MagicSword.gd"]),
 
 	"shop_unlocked": false,
 }

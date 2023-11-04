@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=3 uid="uid://cwb0heh4qdkh8"]
 
 [ext_resource type="Script" path="res://Rooms/Chest.gd" id="1_7hiks"]
-[ext_resource type="Shader" path="res://Shaders and Particles/Outline.gdshader" id="1_wkqy5"]
+[ext_resource type="Shader" path="res://shaders_and_particles/outline.gdshader" id="1_wkqy5"]
 [ext_resource type="Texture2D" uid="uid://d12c48adyyo6i" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/chest_closed_anim_f0.png" id="2_qmjgh"]
 [ext_resource type="Texture2D" uid="uid://60nxx4fjigi2" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/chest_closed_anim_f1.png" id="3_5b1t1"]
 [ext_resource type="Texture2D" uid="uid://u8osgjt213qv" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/chest_closed_anim_f2.png" id="4_108i8"]
@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cjdjskaeaox64" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/chest_closed_anim_f6.png" id="8_noxsy"]
 [ext_resource type="Texture2D" uid="uid://g0f5eg46p0eg" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/chest_closed_anim_f7.png" id="9_n37h4"]
 [ext_resource type="Texture2D" uid="uid://lqnxtcgavclb" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/chest_open.png" id="10_5dvtw"]
-[ext_resource type="Script" path="res://InteractArea.gd" id="12_gnivr"]
+[ext_resource type="Script" path="res://interact_area.gd" id="12_gnivr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_utqfl"]
 shader = ExtResource("1_wkqy5")

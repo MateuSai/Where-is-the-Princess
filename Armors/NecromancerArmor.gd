@@ -1,6 +1,6 @@
 extends Armor
 
-const DRAIN_LIFE_PARTICLES_SCENE: PackedScene = preload("res://Shaders and Particles/DrainLifeParticles.tscn")
+const DRAIN_LIFE_PARTICLES_SCENE: PackedScene = preload("res://shaders_and_particles/DrainLifeParticles.tscn")
 
 func _init() -> void:
 	initialize("NECROMANCER", "NECROMANCER_ARMOR_DESCRIPTION", load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armor_04.png"), 10, load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_necromancer_icon.png"), 2, 2)

@@ -2,8 +2,8 @@
 class_name Enemy extends Character
 
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/SpawnExplosion.tscn")
-const COIN_SCENE: PackedScene = preload("res://Items/Coin.tscn")
-const SOUL_SCENE: PackedScene = preload("res://Items/Soul.tscn")
+const COIN_SCENE: PackedScene = preload("res://items/Coin.tscn")
+const SOUL_SCENE: PackedScene = preload("res://items/Soul.tscn")
 
 @export var souls: int = 1
 
@@ -51,7 +51,7 @@ func spawn_loot() -> void:
 
 	if is_boss:
 		for i in 1:
-			var soul: DarkSoulOnFloor = load("res://Items/DarkSoul.tscn").instantiate()
+			var soul: DarkSoulOnFloor = load("res://items/DarkSoul.tscn").instantiate()
 			room.cleared.connect(soul.go_to_player)
 			soul.position = global_position
 			get_tree().current_scene.call_deferred("add_child", soul)

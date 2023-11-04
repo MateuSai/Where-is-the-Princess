@@ -54,7 +54,7 @@ func add_status_icon(status: StatusComponent.Status) -> void:
 #	match status:
 #		StatusComponent.Status.FIRE:
 	var icon: TextureRect = TextureRect.new()
-	icon.texture = load(["res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Items/Ruby_icon.png", "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Items/Sapphire_icon.png", "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Items/Topaz_icon.png"][status])
+	icon.texture = load(["res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Ruby_icon.png", "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Sapphire_icon.png", "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Topaz_icon.png"][status])
 	status_container.add_child(icon)
 
 
