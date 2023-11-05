@@ -1,3 +1,4 @@
+@icon("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/wooden_bow_icon.png")
 class_name BowOrCrossbowWeapon extends RangedWeapon
 
 

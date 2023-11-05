@@ -221,3 +221,4 @@ func remove_weapon_damage_modifier_by_type(type: Weapon.Type, dam: int) -> void:
 ## This function will be called every time we change scene
 func _on_scene_changed(_new_scene: String) -> void:
 	Weapon.damage_modifiers_by_type = {} # Reset damage modifiers so they don't acummulate
+	AcidPuddle.characters_inside = []

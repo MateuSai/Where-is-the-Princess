@@ -49,7 +49,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_qkpdb"]
 resource_name = "attack"
-length = 0.4
+length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -118,6 +118,9 @@ rotation = 0.0
 [node name="CollisionShape2D" parent="Node2D/Sprite2D/PlayerDetector" index="0"]
 position = Vector2(6.36396, -0.707084)
 shape = SubResource("CapsuleShape2D_w37w4")
+
+[node name="SpawnProjectilePos" parent="Node2D/Sprite2D" index="2"]
+position = Vector2(6, 0)
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {
