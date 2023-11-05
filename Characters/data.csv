@@ -1,5 +1,5 @@
 node_name,max_hp,mass,acceleration,max_speed,flying,can_be_knocked_back,,souls,is_boss
-Player,2,60,40,100,0,1,,,
+Player,6,60,40,100,0,1,,,
 ,,,,,,,,,
 MarkTheReptilian,10,60,30,100,0,1,,1,0
 NakedMark,8,55,30,100,0,1,,1,0

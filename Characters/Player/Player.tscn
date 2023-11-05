@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=75 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -17,7 +17,6 @@
 [ext_resource type="Texture2D" uid="uid://cnuc0egwdfmpd" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_UI_empty.png" id="13_3w18a"]
 [ext_resource type="Texture2D" uid="uid://6ht61advku7b" path="res://Art/white.png" id="13_gnjg7"]
 [ext_resource type="Shader" path="res://shaders_and_particles/Mirage.gdshader" id="13_siyxg"]
-[ext_resource type="Texture2D" uid="uid://b8f4x48lm0jow" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small_heart_animation.tres" id="14_vne45"]
 [ext_resource type="Texture2D" uid="uid://6cihr7lwp1or" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_UI_full.png" id="14_wyeiy"]
 [ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png" id="15_41qtp"]
 [ext_resource type="Texture2D" uid="uid://ch36g5p2vavvh" path="res://Art/screen_border.png" id="15_hwc5t"]
@@ -442,10 +441,23 @@ texture_margin_bottom = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_cevl8"]
 radius = 114.28
 
+[sub_resource type="Gradient" id="Gradient_txo17"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ijv28"]
+gradient = SubResource("Gradient_txo17")
+width = 2
+height = 8
+
 [node name="Player" instance=ExtResource("1")]
 collision_layer = 2
 collision_mask = 21
 script = ExtResource("4")
+mass = null
+acceleration = null
+max_speed = null
+flying = null
+can_be_knocked_back = null
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("5")
@@ -568,13 +580,6 @@ offset_right = 95.0
 offset_bottom = 16.0
 theme_override_constants/separation = -1
 script = ExtResource("12_ft4r3")
-
-[node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/ArmorConditionBar/Hearts" index="0"]
-custom_minimum_size = Vector2(9, 9)
-layout_mode = 2
-texture = ExtResource("14_vne45")
-expand_mode = 1
-stretch_mode = 1
 
 [node name="PassiveItemsContainer" type="HFlowContainer" parent="UI/MarginContainer/ArmorConditionBar" index="1"]
 layout_mode = 2
@@ -812,6 +817,15 @@ volume_db = -5.0
 bus = &"Sounds"
 
 [node name="InteractAreaSelector" parent="." index="20" instance=ExtResource("43_8bx65")]
+
+[node name="AcidBar" type="TextureProgressBar" parent="." index="21"]
+offset_left = 7.0
+offset_top = -8.0
+offset_right = 9.0
+value = 50.0
+fill_mode = 3
+texture_progress = SubResource("GradientTexture2D_ijv28")
+tint_progress = Color(0, 0.768627, 0.368627, 1)
 
 [connection signal="permanent_passive_item_picked_up" from="." to="UI/MarginContainer/ArmorConditionBar/PassiveItemsContainer" method="_on_player_permanent_passive_item_picked_up"]
 [connection signal="weapon_condition_changed" from="Weapons" to="UI" method="_on_weapon_condition_changed"]

@@ -34,6 +34,8 @@ var can_move: bool = true
 
 var mov_direction: Vector2 = Vector2.ZERO
 
+var acid_progress: float = 0.0: set = set_acid_progress ## Value between 0 and 1
+
 
 func _ready() -> void:
 	life_component.damage_taken.connect(_on_damage_taken)
@@ -114,3 +116,15 @@ func spawn_dust() -> void:
 		var dust: Sprite2D = DUST_SCENE.instantiate()
 		dust.position = dust_position.position + position
 		get_parent().get_child(get_index() - 1).add_sibling(dust)
+
+
+func set_acid_progress(new_value: float) -> void:
+	acid_progress = clamp(new_value, 0.0, 1.0)
+
+
+func start_progressing_acid() -> void:
+	pass
+
+
+func stop_progressing_acid() -> void:
+	pass

@@ -23,7 +23,7 @@ func _ready() -> void:
 
 	#max_hp = player_life_component.max_hp
 	player_life_component.hp_changed.connect(_on_player_hp_changed)
-	hearts.update_hearts(player_life_component.max_hp)
+	hearts.update_hearts(player_life_component.max_hp, player_life_component.max_hp)
 	#_update_health_bar(100)
 
 
@@ -45,7 +45,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _on_player_hp_changed(new_hp: int) -> void:
-	hearts.update_hearts(new_hp)
+	hearts.update_hearts(player_life_component.max_hp, new_hp)
 #	var new_health: int = int((100 - MIN_HEALTH) * float(new_hp) / max_hp) + MIN_HEALTH
 #	_update_health_bar(new_health)
 
