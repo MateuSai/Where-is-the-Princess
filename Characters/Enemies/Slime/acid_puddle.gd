@@ -1,3 +1,4 @@
+## The acid progress is applied on the Character class
 class_name AcidPuddle extends Area2D
 
 
@@ -20,6 +21,7 @@ func _on_body_entered(body: Node2D) -> void:
 			object = body,
 			count = 1,
 		})
+		body.start_progressing_acid()
 	else:
 		character_dic.count += 1
 
@@ -33,6 +35,7 @@ func _on_body_exited(body: Node2D) -> void:
 	character_dic.count -= 1
 	if character_dic.count == 0:
 		characters_inside.erase(character_dic)
+		body.stop_progressing_acid()
 
 
 func _get_character_dic(body: Node2D) -> Dictionary:

@@ -55,11 +55,15 @@ var rotating_items: Array[Node2D] = []
 @onready var eat_sound: AudioStreamPlayer = $EatSound
 @onready var burp_sound: AudioStreamPlayer = $BurpSound
 
+@onready var acid_bar: TextureProgressBar = $AcidBar
+
 
 func _ready() -> void:
 	super()
 
 	disable_mirage()
+
+	acid_bar.hide()
 
 	mirage_timer.timeout.connect(disable_mirage)
 
@@ -287,3 +291,9 @@ func _use_armor_ability() -> void:
 
 func get_armor_recharge_time() -> float:
 	return armor.recharge_time * (1.0 - armor_ability_recharge_time_reduction)
+
+
+func set_acid_progress(new_value: float) -> void:
+	super(new_value)
+
+	acid_bar.value = acid_progress * 100
