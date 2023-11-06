@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://damj8rl1ks0wt"
-path="res://.godot/imported/progress hazard bar.png-18a4d25ce94e67f18d7df35a67a7da1b.ctex"
+path="res://.godot/imported/under_hazard_bar.png-03105719c987febf1e3ce44373432cf5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/progress hazard bar.png"
-dest_files=["res://.godot/imported/progress hazard bar.png-18a4d25ce94e67f18d7df35a67a7da1b.ctex"]
+source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/under_hazard_bar.png"
+dest_files=["res://.godot/imported/under_hazard_bar.png-03105719c987febf1e3ce44373432cf5.ctex"]
 
 [params]
 

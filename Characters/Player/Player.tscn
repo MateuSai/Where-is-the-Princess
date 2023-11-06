@@ -47,6 +47,8 @@
 [ext_resource type="AudioStream" uid="uid://70di52o5u7oq" path="res://Audio/Sounds/324514__deleted_user_2104797__burp.wav" id="41_cbyot"]
 [ext_resource type="PackedScene" uid="uid://bd7vx6mtgudv" path="res://Components/enemy_detector.tscn" id="42_ctcpp"]
 [ext_resource type="PackedScene" uid="uid://bikd00kecbdlq" path="res://Components/interact_area_selector.tscn" id="43_8bx65"]
+[ext_resource type="Texture2D" uid="uid://damj8rl1ks0wt" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/under_hazard_bar.png" id="48_cmvmn"]
+[ext_resource type="Texture2D" uid="uid://dbkp2b2ecyu83" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/progress_hazard_bar.png" id="49_cukxb"]
 
 [sub_resource type="CircleShape2D" id="18"]
 radius = 3.0
@@ -441,14 +443,6 @@ texture_margin_bottom = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_cevl8"]
 radius = 114.28
 
-[sub_resource type="Gradient" id="Gradient_txo17"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ijv28"]
-gradient = SubResource("Gradient_txo17")
-width = 2
-height = 8
-
 [node name="Player" instance=ExtResource("1")]
 collision_layer = 2
 collision_mask = 21
@@ -816,11 +810,13 @@ bus = &"Sounds"
 [node name="AcidBar" type="TextureProgressBar" parent="." index="21"]
 offset_left = 7.0
 offset_top = -8.0
-offset_right = 9.0
+offset_right = 11.0
+offset_bottom = 2.0
 value = 50.0
 fill_mode = 3
-texture_progress = SubResource("GradientTexture2D_ijv28")
-tint_progress = Color(0, 0.768627, 0.368627, 1)
+texture_under = ExtResource("48_cmvmn")
+texture_progress = ExtResource("49_cukxb")
+tint_progress = Color(0, 0.45098, 0.207843, 1)
 
 [connection signal="permanent_passive_item_picked_up" from="." to="UI/MarginContainer/ArmorConditionBar/PassiveItemsContainer" method="_on_player_permanent_passive_item_picked_up"]
 [connection signal="weapon_condition_changed" from="Weapons" to="UI" method="_on_weapon_condition_changed"]
