@@ -51,6 +51,9 @@ var mov_direction: Vector2 = Vector2.ZERO
 var inside_acid: bool = false
 var acid_progress: float = 0.0: set = set_acid_progress ## Value between 0 and 1
 
+## The name of the scene file (after removing .tscn)
+@onready var character_name: String = scene_file_path.get_file().trim_suffix(".tscn")
+
 @onready var state_machine: Node = get_node("FiniteStateMachine")
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = get_node("Sprite2D")
@@ -67,8 +70,8 @@ func _ready() -> void:
 	acid_damage_timer.timeout.connect(_on_acid_damage_timer_timeout)
 
 	var data: Dictionary = preload("res://Characters/data.csv").records
-	if data.has(name):
-		var weapon_data: Dictionary = data[name]
+	if data.has(character_name):
+		var weapon_data: Dictionary = data[character_name]
 		_load_csv_data(weapon_data)
 
 
