@@ -1,10 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3yuyls7me0eq"]
+[gd_scene load_steps=7 format=3 uid="uid://cd5fx06ytpicn"]
 
-[ext_resource type="Script" path="res://Characters/Enemies/Slime/acid_puddle.gd" id="1_sqn8v"]
-[ext_resource type="Texture2D" uid="uid://lkiksehle5gg" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/slime/slime_acid_puddle.png" id="2_ryh65"]
+[ext_resource type="Script" path="res://Characters/Enemies/MediumSlime/acid_puddle.gd" id="1_x18gh"]
+[ext_resource type="Texture2D" uid="uid://dhiesu7ps0p36" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/slime/slime_acid_puddle_smol.png" id="2_1qwos"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_3i8ll"]
-radius = 8.06226
+[sub_resource type="CircleShape2D" id="CircleShape2D_eogm3"]
+radius = 4.0
 
 [sub_resource type="Animation" id="Animation_ieg06"]
 length = 0.001
@@ -84,17 +84,17 @@ _data = {
 [node name="AcidPuddle" type="Area2D"]
 collision_layer = 0
 collision_mask = 6
-script = ExtResource("1_sqn8v")
+script = ExtResource("1_x18gh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, 16)
-texture = ExtResource("2_ryh65")
+texture = ExtResource("2_1qwos")
 hframes = 4
 vframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 16)
-shape = SubResource("CircleShape2D_3i8ll")
+shape = SubResource("CircleShape2D_eogm3")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "puddle"

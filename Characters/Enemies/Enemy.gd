@@ -103,9 +103,13 @@ func _get_path_to_player() -> void:
 func _on_died() -> void:
 	super()
 
-	spawn_loot()
-
 	await get_tree().create_timer(0.5, false).timeout
+
+	_on_died_0_5_seconds_later()
+
+
+func _on_died_0_5_seconds_later() -> void:
+	spawn_loot()
 
 	var spawn_explosion: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()
 	spawn_explosion.position = global_position
