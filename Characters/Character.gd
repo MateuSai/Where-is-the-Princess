@@ -24,6 +24,33 @@ var can_move: bool = true
 
 @export var can_be_knocked_back: bool = true
 
+enum Resistance {
+	FIRE = 1,
+	ACID = 2,
+	FREEZE = 4,
+	ELECTRICITY = 8,
+}
+var resistances: int = 0 # I can't make an exported using an enum to select flags, so, change this variable from the script if you need to
+
+enum BodyType {
+	FLESH,
+	SLIME,
+}
+@export var body_type: BodyType = BodyType.FLESH:
+	set(new_body_type):
+		body_type = new_body_type
+#		resistances = 0
+#		match body_type:
+#			BodyType.FLESH:
+#				pass
+#			BodyType.SLIME:
+#				add_resistance(Resistance.ACID)
+
+var mov_direction: Vector2 = Vector2.ZERO
+
+var inside_acid: bool = false
+var acid_progress: float = 0.0: set = set_acid_progress ## Value between 0 and 1
+
 @onready var state_machine: Node = get_node("FiniteStateMachine")
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = get_node("Sprite2D")
@@ -31,15 +58,13 @@ var can_move: bool = true
 @onready var life_component: LifeComponent = get_node("LifeComponent")
 @onready var dust_positions: Node2D = $DustPositions
 # @onready var status_conditions_container: HBoxContainer = get_node("StatusConditionsContainer")
-
-var mov_direction: Vector2 = Vector2.ZERO
-
-var acid_progress: float = 0.0: set = set_acid_progress ## Value between 0 and 1
+@onready var acid_damage_timer: Timer = $AcidDamageTimer
 
 
 func _ready() -> void:
 	life_component.damage_taken.connect(_on_damage_taken)
 	life_component.died.connect(_on_died)
+	acid_damage_timer.timeout.connect(_on_acid_damage_timer_timeout)
 
 	var data: Dictionary = preload("res://Characters/data.csv").records
 	if data.has(name):
@@ -56,9 +81,17 @@ func _load_csv_data(data: Dictionary) -> void:
 	max_speed = data.max_speed
 	flying = bool(data.flying)
 	can_be_knocked_back = bool(data.can_be_knocked_back)
+	@warning_ignore("int_as_enum_without_cast")
+	body_type = BodyType.keys().find(data.body_type)
+	resistances = data.resistances
 
 
 func _physics_process(delta: float) -> void:
+	if inside_acid and acid_damage_timer.is_stopped():
+		acid_progress += 0.7 * delta
+	elif acid_progress > 0.0 and not inside_acid:
+		acid_progress -= 0.7 * delta
+
 	state_machine.physics_process(delta)
 
 	move_and_slide()
@@ -121,10 +154,29 @@ func spawn_dust() -> void:
 func set_acid_progress(new_value: float) -> void:
 	acid_progress = clamp(new_value, 0.0, 1.0)
 
+	if acid_progress == 1.0:
+		sprite.modulate = Color.GREEN
+		acid_damage_timer.start()
+		_on_acid_damage_timer_timeout()
+
 
 func start_progressing_acid() -> void:
-	pass
+	inside_acid = true
 
 
 func stop_progressing_acid() -> void:
-	pass
+	inside_acid = false
+	sprite.modulate = Color.WHITE
+	acid_damage_timer.stop()
+
+
+func _on_acid_damage_timer_timeout() -> void:
+	life_component.take_damage(1, Vector2.ZERO, 0)
+
+
+func add_resistance(resistance: Resistance) -> void:
+	resistances |= resistance
+
+
+func has_resistance(resistance: Resistance) -> bool:
+	return resistances & resistance

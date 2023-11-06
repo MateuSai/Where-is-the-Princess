@@ -297,3 +297,12 @@ func set_acid_progress(new_value: float) -> void:
 	super(new_value)
 
 	acid_bar.value = acid_progress * 100
+
+	if acid_progress == 0.0:
+		acid_bar.hide()
+
+
+func start_progressing_acid() -> void:
+	super()
+
+	acid_bar.show()

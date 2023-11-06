@@ -27,3 +27,5 @@ hp = 4
 
 [node name="SpawnDamageLabel" type="Node" parent="."]
 script = ExtResource("4_l103p")
+
+[node name="AcidDamageTimer" type="Timer" parent="."]
