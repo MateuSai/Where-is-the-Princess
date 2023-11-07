@@ -1,6 +1,7 @@
 extends FiniteStateMachine
 
 #@onready var hitbox: Hitbox = $"../Hitbox"
+@onready var pathfinding_component: PathfindingComponent = $"../PathfindingComponent"
 
 
 func _init() -> void:
@@ -17,8 +18,8 @@ func _ready() -> void:
 func _state_logic(_delta: float) -> void:
 	match state:
 		states.wander:
-			if parent.navigation_agent.is_target_reached() or not parent.navigation_agent.is_target_reachable():
-				parent.target_random_near_position()
+#			if parent.navigation_agent.is_target_reached() or not parent.navigation_agent.is_target_reachable():
+#				parent.target_random_near_position()
 			parent.move_to_target()
 			parent.move()
 			if parent.mov_direction.y >= 0 and animation_player.current_animation != "move":
@@ -26,7 +27,7 @@ func _state_logic(_delta: float) -> void:
 			elif parent.mov_direction.y < 0 and animation_player.current_animation != "move_up":
 				animation_player.play("move_up")
 		states.circle_player:
-			parent.circle_player()
+#			parent.circle_player()
 			parent.move_to_target()
 			parent.move()
 			if parent.mov_direction.y >= 0 and animation_player.current_animation != "move":
@@ -54,10 +55,12 @@ func _get_transition() -> int:
 	return -1
 
 
-#func _enter_state(_previous_state: int, new_state: int) -> void:
-#	match new_state:
-#		states.wander:
-#			parent.target_random_near_position()
-#		states.dead:
-#			# parent.spawn_loot()
-#			animation_player.play("dead")
+func _enter_state(_previous_state: int, new_state: int) -> void:
+	match new_state:
+		states.wander:
+			pathfinding_component.mode = PathfindingComponent.Wander.new()
+		states.circle_player:
+			pathfinding_component.mode = PathfindingComponent.Circle.new()
+		states.dead:
+			# parent.spawn_loot()
+			animation_player.play("dead")

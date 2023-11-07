@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dkpis7w2h85hp"]
+[gd_scene load_steps=4 format=3 uid="uid://dkpis7w2h85hp"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Enemies/Enemy.gd" id="2_cslvc"]
+[ext_resource type="Script" path="res://Components/pathfinding_component.gd" id="3_cumr6"]
 
 [node name="Enemy" groups=["enemies"] instance=ExtResource("1")]
 collision_layer = 4
@@ -10,16 +11,13 @@ script = ExtResource("2_cslvc")
 souls = 1
 is_boss = false
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="4"]
+[node name="PathfindingComponent" type="Node" parent="." index="0"]
+script = ExtResource("3_cumr6")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="5"]
 path_desired_distance = 8.0
 target_desired_distance = 8.0
-
-[node name="PathTimer" type="Timer" parent="." index="7"]
-wait_time = 0.5
-autostart = true
 
 [node name="ParallizeTimer" type="Timer" parent="." index="8"]
 wait_time = 2.0
 one_shot = true
-
-[connection signal="timeout" from="PathTimer" to="." method="_on_PathTimer_timeout"]
