@@ -1,12 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://d0aeanhr1oo7b"]
+[gd_scene load_steps=11 format=3 uid="uid://ce5wtvqmpishq"]
 
-[ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_j6hdd"]
-[ext_resource type="Texture2D" uid="uid://bdef5lo3ytbom" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/slime/slime_medium.png" id="2_j0jdm"]
-[ext_resource type="Script" path="res://Characters/Enemies/Slime/Slime.gd" id="2_pr2d3"]
-[ext_resource type="Script" path="res://Characters/Enemies/Slime/SlimeFSM.gd" id="2_sr0ej"]
+[ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_ns6ap"]
+[ext_resource type="Script" path="res://Characters/Enemies/MediumSlime/MediumSlime.gd" id="2_aca5l"]
+[ext_resource type="PackedScene" uid="uid://cd5fx06ytpicn" path="res://Characters/Enemies/SmallSlime/small_acid_puddle.tscn" id="3_4pgwv"]
+[ext_resource type="Script" path="res://Characters/Enemies/SmallSlime/SmallSlimeFSM.gd" id="3_8r764"]
+[ext_resource type="Texture2D" uid="uid://bc3dwiqjvlh3p" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/slime/slime_smol.png" id="4_vnn04"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_dsime"]
-radius = 3.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_aya2n"]
+radius = 2.0
 
 [sub_resource type="Animation" id="Animation_rtbd1"]
 length = 0.001
@@ -41,24 +42,6 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5]
 }
 
-[sub_resource type="Animation" id="Animation_md53c"]
-resource_name = "idle_up"
-length = 0.9
-loop_mode = 1
-step = 0.15
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [12, 13, 14, 15, 16, 17]
-}
-
 [sub_resource type="Animation" id="Animation_qqn0k"]
 resource_name = "move"
 length = 0.9
@@ -77,47 +60,29 @@ tracks/0/keys = {
 "values": [6, 7, 8, 9, 10, 11]
 }
 
-[sub_resource type="Animation" id="Animation_arblf"]
-resource_name = "move_up"
-length = 0.9
-loop_mode = 1
-step = 0.15
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [12, 13, 14, 15, 16, 17]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7ak3e"]
 _data = {
 "RESET": SubResource("Animation_rtbd1"),
 "idle": SubResource("Animation_3sunn"),
-"idle_up": SubResource("Animation_md53c"),
-"move": SubResource("Animation_qqn0k"),
-"move_up": SubResource("Animation_arblf")
+"move": SubResource("Animation_qqn0k")
 }
 
-[node name="Slime" instance=ExtResource("1_j6hdd")]
-script = ExtResource("2_pr2d3")
+[node name="SmallSlime" instance=ExtResource("1_ns6ap")]
+script = ExtResource("2_aca5l")
+acid_puddle_scene = ExtResource("3_4pgwv")
+child_slime_scene = null
 
 [node name="FiniteStateMachine" parent="." index="0"]
-script = ExtResource("2_sr0ej")
+script = ExtResource("3_8r764")
 
 [node name="Sprite2D" parent="." index="1"]
 position = Vector2(0, -5)
-texture = ExtResource("2_j0jdm")
+texture = ExtResource("4_vnn04")
 hframes = 6
-vframes = 4
+vframes = 2
 
 [node name="CollisionShape2D" parent="." index="2"]
-shape = SubResource("CircleShape2D_dsime")
+shape = SubResource("CircleShape2D_aya2n")
 
 [node name="AnimationPlayer" parent="." index="3"]
 libraries = {
@@ -128,5 +93,5 @@ libraries = {
 wait_time = 1.5
 
 [node name="SpawnPuddleTimer" type="Timer" parent="." index="10"]
-wait_time = 0.3
+wait_time = 0.08
 autostart = true

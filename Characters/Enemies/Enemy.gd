@@ -9,6 +9,9 @@ const SOUL_SCENE: PackedScene = preload("res://items/Soul.tscn")
 
 @export var is_boss: bool = false
 
+var rot_around_character_dir: int = [1, -1][randi() % 2]
+var distance_to_character_when_rotating_around_it: int = 20
+
 @onready var room: DungeonRoom = get_parent()
 @onready var player: Player = get_tree().current_scene.get_node("Player")
 @onready var navigation_agent: NavigationAgent2D = get_node("NavigationAgent2D")
@@ -84,6 +87,18 @@ func target_random_near_position() -> void:
 	push_error("To many iterations to determine new close random position")
 
 
+func circle_player() -> void:
+	if navigation_agent.is_target_reached():
+		navigation_agent.target_position = _get_closer_position_to_circle_player()
+	elif not navigation_agent.is_target_reachable():
+		rot_around_character_dir *= -1
+		navigation_agent.target_position = _get_closer_position_to_circle_player()
+
+
+func _get_closer_position_to_circle_player() -> Vector2:
+	return global_position + (player.position - global_position).normalized().rotated(rot_around_character_dir * PI/2) * 8
+
+
 func _on_change_dir() -> void:
 	sprite.flip_h = !sprite.flip_h
 
@@ -103,9 +118,13 @@ func _get_path_to_player() -> void:
 func _on_died() -> void:
 	super()
 
-	spawn_loot()
-
 	await get_tree().create_timer(0.5, false).timeout
+
+	_on_died_0_5_seconds_later()
+
+
+func _on_died_0_5_seconds_later() -> void:
+	spawn_loot()
 
 	var spawn_explosion: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()
 	spawn_explosion.position = global_position

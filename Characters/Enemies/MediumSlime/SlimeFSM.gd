@@ -5,12 +5,13 @@ extends FiniteStateMachine
 
 func _init() -> void:
 	_add_state("wander")
+	_add_state("circle_player")
 #	_add_state("attack")
 	_add_state("dead")
 
 
 func _ready() -> void:
-	set_state(states.wander)
+	set_state(states.circle_player)
 
 
 func _state_logic(_delta: float) -> void:
@@ -18,6 +19,14 @@ func _state_logic(_delta: float) -> void:
 		states.wander:
 			if parent.navigation_agent.is_target_reached() or not parent.navigation_agent.is_target_reachable():
 				parent.target_random_near_position()
+			parent.move_to_target()
+			parent.move()
+			if parent.mov_direction.y >= 0 and animation_player.current_animation != "move":
+				animation_player.play("move")
+			elif parent.mov_direction.y < 0 and animation_player.current_animation != "move_up":
+				animation_player.play("move_up")
+		states.circle_player:
+			parent.circle_player()
 			parent.move_to_target()
 			parent.move()
 			if parent.mov_direction.y >= 0 and animation_player.current_animation != "move":

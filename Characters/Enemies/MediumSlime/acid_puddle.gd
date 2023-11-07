@@ -6,14 +6,26 @@ static var characters_inside: Array[Dictionary] = []
 
 
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 func _ready() -> void:
 	sprite.frame_coords.y = randi() % sprite.vframes
 
+	body_entered.connect(_on_body_entered)
+	body_exited.connect(_on_body_exited)
+
+	animation_player.play("spawn")
+	await animation_player.animation_finished
+	animation_player.play("puddle")
+	animation_player.seek(randf_range(0, 4), true)
+
 
 func _on_body_entered(body: Node2D) -> void:
 	assert(body is Character)
+
+	if body.has_resistance(Character.Resistance.ACID):
+		return
 
 	var character_dic: Dictionary = _get_character_dic(body)
 	if character_dic.is_empty():
@@ -28,6 +40,9 @@ func _on_body_entered(body: Node2D) -> void:
 
 func _on_body_exited(body: Node2D) -> void:
 	assert(body is Character)
+
+	if body.has_resistance(Character.Resistance.ACID):
+		return
 
 	var character_dic: Dictionary = _get_character_dic(body)
 	assert(not character_dic.is_empty())
