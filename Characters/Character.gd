@@ -52,7 +52,7 @@ var inside_acid: bool = false
 var acid_progress: float = 0.0: set = set_acid_progress ## Value between 0 and 1
 
 ## The name of the scene file (after removing .tscn)
-@onready var character_name: String = scene_file_path.get_file().trim_suffix(".tscn")
+@onready var character_name: String = scene_file_path.get_file().trim_suffix(".tscn").to_pascal_case()
 
 @onready var state_machine: Node = get_node("FiniteStateMachine")
 @onready var animation_player: AnimationPlayer = $AnimationPlayer

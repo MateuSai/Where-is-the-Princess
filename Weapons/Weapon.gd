@@ -24,10 +24,12 @@ enum Type {
 @export var souls_to_activate_ability: int = 3 ## The souls you need to collect in order to activate the ability
 @export_range(0.0, 100.0) var active_ability_condition_cost: float = 10 ## The weapon condition will decrease this amount after using the ability. Remember all the weapons have 100 condition initially
 @export var ability_damage: int = 2: set = set_ability_damage
+@export var ability_knockback: int = 300: set = set_ability_knockback
 @export_group("")
 
 static var damage_modifiers_by_type: Dictionary = {}
 @export var damage: int = 1: set = set_damage
+@export var knockback: int = 300: set = set_knockback
 
 var stats: WeaponStats = null
 
@@ -36,6 +38,10 @@ signal status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
 signal used_active_ability()
 
 var tween: Tween = null
+
+## The name of the scene file (after removing .tscn)
+@onready var weapon_id: String = scene_file_path.get_file().trim_suffix(".tscn").to_pascal_case()
+
 @onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
 @onready var charge_particles: GPUParticles2D = get_node("Node2D/Sprite2D/ChargeParticles")
 @onready var weapon_sprite: Sprite2D = get_node("Node2D/Sprite2D")
@@ -47,7 +53,7 @@ var tween: Tween = null
 
 func _ready() -> void:
 	var data: Dictionary = preload("res://Weapons/data/data.csv").records
-	if data.has(name):
+	if data.has(weapon_id):
 		var weapon_data: Dictionary = data[name]
 		_load_csv_data(weapon_data)
 
@@ -84,7 +90,9 @@ func _load_csv_data(data: Dictionary) -> void:
 	icon = load(data["icon"])
 	type = Type.values()[Type.keys().find(data["type"])]
 	damage = data.damage
+	knockback = data.knockback
 	ability_damage = data.ability_damage
+	ability_knockback = data.ability_knockback
 	condition_cost_per_normal_attack = data.condition_cost_per_normal_attack
 	if FileAccess.file_exists(data["ability_icon"]):
 		active_ability_icon = load(data["ability_icon"])
@@ -281,6 +289,14 @@ func set_damage(new_damage: int) -> void:
 
 func set_ability_damage(new_ability_damage: int) -> void:
 		ability_damage = new_ability_damage
+
+
+func set_knockback(new_knockback: int) -> void:
+	knockback = new_knockback
+
+
+func set_ability_knockback(new_ability_knockback: int) -> void:
+	ability_knockback = new_ability_knockback
 
 
 func _decrease_weapon_condition(by: float) -> void:
