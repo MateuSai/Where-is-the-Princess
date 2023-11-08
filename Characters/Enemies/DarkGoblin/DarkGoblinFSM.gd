@@ -18,7 +18,7 @@ func _init() -> void:
 	_add_state("dead")
 
 
-func _ready() -> void:
+func start() -> void:
 	swap_cooldown_timer.start(randf_range(MIN_ABILTY_COOLDOWN, MAX_ABILITY_COOLDOWN))
 	attack_timer.start(randf_range(MIN_ATTACK_COOLDOWN, MAX_ATTACK_COOLDOWN))
 	attack_timer.timeout.connect(func():

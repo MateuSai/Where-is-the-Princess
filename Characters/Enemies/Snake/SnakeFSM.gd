@@ -21,7 +21,7 @@ func _init() -> void:
 	_add_state("dead")
 
 
-func _ready() -> void:
+func start() -> void:
 	set_state(states.move)
 
 	player_detector.body_entered.connect(func(body: Node2D):

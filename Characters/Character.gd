@@ -74,6 +74,8 @@ func _ready() -> void:
 		var weapon_data: Dictionary = data[character_name]
 		_load_csv_data(weapon_data)
 
+	state_machine.start()
+
 
 func _load_csv_data(data: Dictionary) -> void:
 	life_component.max_hp = data.max_hp

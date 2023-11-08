@@ -68,12 +68,13 @@ class Approach extends Mode:
 
 class Circle extends Mode:
 	var rot_around_character_dir: int = [1, -1][randi() % 2]
-	var distance_to_character_when_rotating_around_it: int = 20
+#	var distance_to_character_when_rotating_around_it: int = 20
 
 	func _ready() -> void:
 		_spawn_timer(0.2)
 
-		super()
+#		super()
+		navigation_agent.target_position = _get_closer_position_to_circle_target()
 
 	func _on_timer_timeout() -> void:
 		if is_instance_valid(target):
@@ -90,7 +91,7 @@ class Circle extends Mode:
 			navigation_agent.target_position = _get_closer_position_to_circle_target()
 
 	func _get_closer_position_to_circle_target() -> Vector2:
-		return character.global_position + (target.global_position - character.global_position).normalized().rotated(rot_around_character_dir * PI/2) * 8
+		return target.global_position + (character.global_position - target.global_position).rotated(rot_around_character_dir * PI/4)
 
 
 class Wander extends Mode:
