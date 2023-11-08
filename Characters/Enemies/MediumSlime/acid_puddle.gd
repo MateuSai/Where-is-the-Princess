@@ -45,12 +45,12 @@ func _on_body_exited(body: Node2D) -> void:
 		return
 
 	var character_dic: Dictionary = _get_character_dic(body)
-	assert(not character_dic.is_empty())
 
-	character_dic.count -= 1
-	if character_dic.count == 0:
-		characters_inside.erase(character_dic)
-		body.stop_progressing_acid()
+	if not character_dic.is_empty():
+		character_dic.count -= 1
+		if character_dic.count == 0:
+			characters_inside.erase(character_dic)
+			body.stop_progressing_acid()
 
 
 func _get_character_dic(body: Node2D) -> Dictionary:

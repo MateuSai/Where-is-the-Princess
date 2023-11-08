@@ -13,7 +13,10 @@ func _init() -> void:
 
 
 func start() -> void:
-	set_state(states.circle_player)
+	if parent.mode == parent.Mode.CIRCLE:
+		set_state(states.circle_player)
+	else:
+		set_state(states.wander)
 
 
 func _state_logic(_delta: float) -> void:
@@ -71,6 +74,6 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			pathfinding_component.mode = PathfindingComponent.Approach.new()
 		states.circle_player:
 			pathfinding_component.mode = PathfindingComponent.Circle.new()
-		states.dead:
-			# parent.spawn_loot()
-			animation_player.play("dead")
+#		states.dead:
+#			# parent.spawn_loot()
+#			animation_player.play("dead")
