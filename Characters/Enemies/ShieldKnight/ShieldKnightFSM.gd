@@ -7,7 +7,7 @@ func _init() -> void:
 	_add_state("dead")
 
 
-func _ready() -> void:
+func start() -> void:
 	set_state(states.move)
 
 

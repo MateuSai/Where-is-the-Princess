@@ -14,5 +14,6 @@ BombTribal,8,50,30,60,0,1,0,FLESH,,1,0
 ShamanTribal,8,50,30,60,0,1,0,FLESH,,1,0
 SmallSlime,2,6,30,70,0,1,2,SLIME,,1,0
 MediumSlime,4,15,15,30,0,1,2,SLIME,,1,0
+BigSlime,8,70,10,20,0,1,2,SLIME,,1,0
 ,,,,,,,,,,,
 BodenTheDruid,15,55,30,70,0,1,0,FLESH,,20,1

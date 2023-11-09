@@ -169,15 +169,29 @@ func destroy() -> void:
 
 
 func set_damage(new_damage: int) -> void:
-		super(new_damage)
-		if animation_player and not animation_player.current_animation.begins_with("active_ability"):
-			hitbox.damage = damage
+	super(new_damage)
+	if animation_player and not animation_player.current_animation.begins_with("active_ability"):
+		hitbox.damage = damage
 
 
 func set_ability_damage(new_ability_damage: int) -> void:
-		super(new_ability_damage)
-		if animation_player and animation_player.current_animation.begins_with("active_ability"):
-			hitbox.damage = ability_damage
+	super(new_ability_damage)
+	if animation_player and animation_player.current_animation.begins_with("active_ability"):
+		hitbox.damage = ability_damage
+
+
+func set_knockback(new_knockback: int) -> void:
+	super(new_knockback)
+
+	if animation_player and not animation_player.current_animation.begins_with("active_ability"):
+			hitbox.knockback_force = knockback
+
+
+func set_ability_knockback(new_ability_knockback: int) -> void:
+	super(new_ability_knockback)
+
+	if animation_player and animation_player.current_animation.begins_with("active_ability"):
+		hitbox.knockback_force = ability_knockback
 
 
 func _on_animation_started(anim_name: StringName) -> void:
@@ -185,6 +199,7 @@ func _on_animation_started(anim_name: StringName) -> void:
 
 	if anim_name.begins_with("active_ability"):
 		hitbox.damage = ability_damage
+		hitbox.knockback_force = ability_knockback
 
 
 func _on_animation_finished(anim_name: String) -> void:
@@ -192,3 +207,4 @@ func _on_animation_finished(anim_name: String) -> void:
 
 	if anim_name.begins_with("active_ability"):
 		hitbox.damage = damage
+		hitbox.knockback_force = knockback

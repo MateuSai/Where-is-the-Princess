@@ -111,25 +111,27 @@ script = ExtResource("2_pr2d3")
 acid_puddle_scene = ExtResource("3_jbuec")
 child_slime_scene = ExtResource("4_bh1rj")
 
-[node name="FiniteStateMachine" parent="." index="0"]
+[node name="FiniteStateMachine" parent="." index="1"]
 script = ExtResource("2_sr0ej")
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="Sprite2D" parent="." index="2"]
 position = Vector2(0, -5)
 texture = ExtResource("2_j0jdm")
 hframes = 6
 vframes = 4
 
-[node name="CollisionShape2D" parent="." index="2"]
+[node name="CollisionShape2D" parent="." index="3"]
 shape = SubResource("CircleShape2D_dsime")
 
-[node name="AnimationPlayer" parent="." index="3"]
+[node name="AnimationPlayer" parent="." index="4"]
 libraries = {
 "": SubResource("AnimationLibrary_7ak3e")
 }
 
-[node name="PathTimer" parent="." index="7"]
-wait_time = 1.5
+[node name="NavigationAgent2D" parent="." index="5"]
+path_desired_distance = 16.0
+target_desired_distance = 16.0
+debug_enabled = true
 
 [node name="SpawnPuddleTimer" type="Timer" parent="." index="10"]
 wait_time = 0.3

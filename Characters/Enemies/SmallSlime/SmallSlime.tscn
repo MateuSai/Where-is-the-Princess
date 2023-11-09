@@ -89,9 +89,6 @@ libraries = {
 "": SubResource("AnimationLibrary_7ak3e")
 }
 
-[node name="PathTimer" parent="." index="7"]
-wait_time = 1.5
-
 [node name="SpawnPuddleTimer" type="Timer" parent="." index="10"]
 wait_time = 0.08
 autostart = true

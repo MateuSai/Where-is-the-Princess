@@ -9,6 +9,10 @@ var state: int = -1: set = set_state
 @onready var animation_player: AnimationPlayer = parent.get_node("AnimationPlayer")
 
 
+func start() -> void:
+	pass
+
+
 func physics_process(delta: float) -> void:
 	if state != -1:
 		_state_logic(delta)

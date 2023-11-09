@@ -32,7 +32,12 @@ func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> Array[Projectile]
 
 	for i in amount:
 		var projectile: Projectile = load(projectile_scene_path).instantiate()
-		projectile.damage = damage
+		if animation_player.current_animation == "active_ability":
+			projectile.damage = ability_damage
+			projectile.knockback_force = ability_knockback
+		else:
+			projectile.damage = damage
+			projectile.knockback_force = knockback
 
 		projectile.exclude.push_back(Globals.player)
 		# So the projectiles don't collide between them
