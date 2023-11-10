@@ -20,7 +20,7 @@ var can_move: bool = true
 @export var acceleration: int = 40
 @export var max_speed: int = 100
 
-@export var flying: bool = false
+@export var flying: bool = false: set = set_flying
 
 @export var can_be_knocked_back: bool = true
 
@@ -185,3 +185,7 @@ func add_resistance(resistance: Resistance) -> void:
 
 func has_resistance(resistance: Resistance) -> bool:
 	return resistances & resistance
+
+
+func set_flying(new_value: bool) -> void:
+	flying = new_value

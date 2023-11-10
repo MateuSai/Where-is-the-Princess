@@ -6,8 +6,8 @@ func _init() -> void:
 
 
 func equip(player: Player) -> void:
-	Globals.player.weapon_degradation_reduction += 0.2
+	player.weapon_degradation_reduction += 0.2
 
 
-func unequip(_player: Player) -> void:
-	Globals.player.weapon_degradation_reduction -= 0.2
+func unequip(player: Player) -> void:
+	player.weapon_degradation_reduction -= 0.2

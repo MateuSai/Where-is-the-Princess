@@ -5,6 +5,8 @@ const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/Spa
 const COIN_SCENE: PackedScene = preload("res://items/Coin.tscn")
 const SOUL_SCENE: PackedScene = preload("res://items/Soul.tscn")
 
+const FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE: int = 2
+
 @export var souls: int = 1
 
 @export var is_boss: bool = false
@@ -122,3 +124,12 @@ func parallize() -> void:
 		state_machine.set_physics_process(false)
 		$AnimationPlayer.call_deferred("stop")
 		parallize_timer.start()
+
+
+func set_flying(new_value: bool) -> void:
+	super(new_value)
+
+	if flying:
+		navigation_agent.navigation_layers |=  FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE
+	else:
+		navigation_agent.navigation_layers &= ~FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE
