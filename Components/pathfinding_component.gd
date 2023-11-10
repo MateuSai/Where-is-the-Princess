@@ -84,14 +84,38 @@ class Circle extends Mode:
 			character.mov_direction = Vector2.ZERO
 
 	func _circle_target() -> void:
-		if navigation_agent.is_target_reached():
-			navigation_agent.target_position = _get_closer_position_to_circle_target()
-		elif not navigation_agent.is_target_reachable():
-			rot_around_character_dir *= -1
-			navigation_agent.target_position = _get_closer_position_to_circle_target()
+#		if navigation_agent.is_target_reached():
+		navigation_agent.target_position = _get_closer_position_to_circle_target()
+		#print(navigation_agent.target_position)
+#		elif not navigation_agent.is_target_reachable():
+#			rot_around_character_dir *= -1
+#			navigation_agent.target_position = _get_closer_position_to_circle_target()
 
 	func _get_closer_position_to_circle_target() -> Vector2:
-		return target.global_position + (character.global_position - target.global_position).rotated(rot_around_character_dir * PI/4)
+		var new_target_position: Vector2 = target.global_position + (character.global_position - target.global_position).rotated(rot_around_character_dir * PI/4)
+		#print(new_target_position)
+#		var tile_position = character.room.tilemap.local_to_map(new_target_position - character.room.tilemap.global_position)
+#		var tile_id = character.room.tilemap.get_cell_atlas_coords(0, tile_position)
+#		var tile_data: TileData = character.room.tilemap.get_cell_tile_data(0, tile_id)
+		#print(not tile_data or tile_data.get_navigation_polygon(0))
+#		print((NavigationServer2D.map_get_closest_point(navigation_agent.get_navigation_map(), new_target_position) - character.global_position))
+#		if (NavigationServer2D.map_get_closest_point(navigation_agent.get_navigation_map(), new_target_position) - character.global_position).length() < 4:
+#			rot_around_character_dir *= -1
+#			new_target_position = target.global_position + (character.global_position - target.global_position).rotated(rot_around_character_dir * PI/4)
+#		print(navigation_agent.get_final_position())
+#		print(navigation_agent.target_position)
+#		if tile_data:
+#			print(tile_data.get_navigation_polygon(0))
+		var space_state: PhysicsDirectSpaceState2D = character.get_world_2d().direct_space_state
+		var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(character.global_position, character.global_position + character.mov_direction * 8, 1 + 16) # 1 = World, 16 = Low object
+		var result: Dictionary = space_state.intersect_ray(query)
+#		if not tile_data or tile_data.get_navigation_polygon(0) == null:
+		if not result.is_empty():
+			rot_around_character_dir *= -1
+			new_target_position = target.global_position + (character.global_position - target.global_position).rotated(rot_around_character_dir * PI/4)
+#		else:
+#			print(tile_data.get_navigation_polygon(0))
+		return new_target_position
 
 
 class Wander extends Mode:

@@ -15,8 +15,8 @@ is_boss = false
 script = ExtResource("3_cumr6")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="5"]
-path_desired_distance = 8.0
-target_desired_distance = 8.0
+path_desired_distance = 2.0
+target_desired_distance = 2.0
 
 [node name="ParallizeTimer" type="Timer" parent="." index="8"]
 wait_time = 2.0
