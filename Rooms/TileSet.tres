@@ -1,12 +1,17 @@
-[gd_resource type="TileSet" load_steps=54 format=3 uid="uid://b6ahcd27jnf2v"]
+[gd_resource type="TileSet" load_steps=55 format=3 uid="uid://b6ahcd27jnf2v"]
 
 [ext_resource type="Texture2D" uid="uid://d2e6iidvt8eo3" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full tilemap.png" id="1"]
-[ext_resource type="Texture2D" uid="uid://dobnnxla3u4rq" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest.png" id="1_8t4wc"]
-[ext_resource type="Texture2D" uid="uid://cg4j7iw6roxh0" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest normal.png" id="2_76mpx"]
+[ext_resource type="Texture2D" uid="uid://dbhadmkl0mfsc" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest.png" id="1_8t4wc"]
+[ext_resource type="Texture2D" uid="uid://gkfi47yhgcnv" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest normal.png" id="2_76mpx"]
 [ext_resource type="Texture2D" uid="uid://bbir3nubd0hb" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full_tilemap_albedo.png" id="2_fun5j"]
 [ext_resource type="Texture2D" uid="uid://bboaq8rmne41i" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/tileset/sewer_tileset_canvas_texture.tres" id="5_d6jrl"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ayd5n"]
+vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_7rbw1"]
 vertices = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
@@ -519,6 +524,38 @@ use_texture_padding = false
 0:6/0/physics_layer_0/angular_velocity = 0.0
 0:6/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 0:6/0/physics_layer_1/angular_velocity = 0.0
+17:2/0 = 0
+17:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+17:2/0/physics_layer_0/angular_velocity = 0.0
+17:2/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+17:2/0/physics_layer_1/angular_velocity = 0.0
+17:2/0/navigation_layer_1/polygon = SubResource("NavigationPolygon_7rbw1")
+17:3/0 = 0
+17:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+17:3/0/physics_layer_0/angular_velocity = 0.0
+17:3/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+17:3/0/physics_layer_1/angular_velocity = 0.0
+17:3/0/navigation_layer_1/polygon = SubResource("NavigationPolygon_7rbw1")
+29:2/0 = 0
+29:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+29:2/0/physics_layer_0/angular_velocity = 0.0
+29:2/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+29:2/0/physics_layer_1/angular_velocity = 0.0
+29:3/0 = 0
+29:3/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+29:3/0/physics_layer_0/angular_velocity = 0.0
+29:3/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+29:3/0/physics_layer_1/angular_velocity = 0.0
+24:2/0 = 0
+24:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+24:2/0/physics_layer_0/angular_velocity = 0.0
+24:2/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+24:2/0/physics_layer_1/angular_velocity = 0.0
+31:2/0 = 0
+31:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+31:2/0/physics_layer_0/angular_velocity = 0.0
+31:2/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+31:2/0/physics_layer_1/angular_velocity = 0.0
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_hcr6w"]
 polygon = PackedVector2Array(8, 8, -8, 8, -8, 6.375, 8, 6.5, 8, 6.5)

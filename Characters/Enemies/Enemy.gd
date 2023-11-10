@@ -129,7 +129,10 @@ func parallize() -> void:
 func set_flying(new_value: bool) -> void:
 	super(new_value)
 
-	if flying:
-		navigation_agent.navigation_layers |=  FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE
-	else:
-		navigation_agent.navigation_layers &= ~FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE
+	if navigation_agent:
+		if flying:
+			navigation_agent.navigation_layers |=  FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE
+#			navigation_agent.navigation_layers = 2
+		else:
+#			navigation_agent.navigation_layers = 1
+			navigation_agent.navigation_layers &= ~FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE

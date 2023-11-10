@@ -74,6 +74,7 @@ func _ready() -> void:
 		var weapon_data: Dictionary = data[character_name]
 		_load_csv_data(weapon_data)
 
+	set_flying(flying)
 	state_machine.start()
 
 

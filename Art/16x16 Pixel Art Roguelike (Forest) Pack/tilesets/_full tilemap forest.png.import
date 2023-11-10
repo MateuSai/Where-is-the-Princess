@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bym5ukjd5v866"
-path="res://.godot/imported/full tilemap forest TRIPLE.png-58375bd2f8e1b8dad7f4b52242103d95.ctex"
+uid="uid://b768he3qobihr"
+path="res://.godot/imported/_full tilemap forest.png-7bb72654d2be2443dd52c95653632e57.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest TRIPLE.png"
-dest_files=["res://.godot/imported/full tilemap forest TRIPLE.png-58375bd2f8e1b8dad7f4b52242103d95.ctex"]
+source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/_full tilemap forest.png"
+dest_files=["res://.godot/imported/_full tilemap forest.png-7bb72654d2be2443dd52c95653632e57.ctex"]
 
 [params]
 
