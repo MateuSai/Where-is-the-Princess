@@ -113,14 +113,17 @@ child_slime_scene = ExtResource("4_sih7s")
 
 [node name="FiniteStateMachine" parent="." index="1"]
 script = ExtResource("5_g0ud0")
+start_circling_at_distance = 30
+stop_circling_at_distance = 45
 
 [node name="Sprite2D" parent="." index="2"]
-position = Vector2(0, -5)
+position = Vector2(0, -9)
 texture = ExtResource("6_8f1ha")
 hframes = 10
 vframes = 4
 
 [node name="CollisionShape2D" parent="." index="3"]
+position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_po1vs")
 
 [node name="AnimationPlayer" parent="." index="4"]

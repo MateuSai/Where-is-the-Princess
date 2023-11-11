@@ -1,5 +1,8 @@
 extends FiniteStateMachine
 
+@export var start_circling_at_distance: int = 16
+@export var stop_circling_at_distance: int = 30
+
 #@onready var hitbox: Hitbox = $"../Hitbox"
 @onready var pathfinding_component: PathfindingComponent = $"../PathfindingComponent"
 
@@ -58,10 +61,10 @@ func _get_transition() -> int:
 	var dis: float = (parent.player.position - parent.global_position).length()
 	match state:
 		states.approach:
-			if dis < 16:
+			if dis < start_circling_at_distance:
 				return states.circle_player
 		states.circle_player:
-			if dis > 30:
+			if dis > stop_circling_at_distance:
 				return states.approach
 	return -1
 
