@@ -14,6 +14,10 @@ var armor: Armor = NoArmor.new() : set = set_armor
 signal armor_changed(new_armor: Armor)
 
 var mouse_direction: Vector2
+# Controller constants
+const AIM_MIN_DISTANCE: int = 45
+const AIM_MULTIPLIER: int = 200
+var previous_aim_pos: Vector2 = Vector2.ZERO
 
 var throw_piercing: int = 1
 var extra_fire_damage: int = 0
@@ -147,6 +151,8 @@ func _process(_delta: float) -> void:
 	if Settings.auto_aim:
 		mouse_direction = auto_aim_area.get_direction()
 	else:
+		if Globals.mode == Globals.Mode.CONTROLLER:
+			_controller_aim()
 		mouse_direction = (get_global_mouse_position() - global_position).normalized()
 
 	if mouse_direction.x > 0 and sprite.flip_h:
@@ -155,6 +161,28 @@ func _process(_delta: float) -> void:
 		sprite.flip_h = true
 
 	weapons.move(mouse_direction)
+
+
+func _controller_aim() -> void:
+	var window_size: Vector2 = get_viewport().size
+	var weapons_pos_in_screen: Vector2 = weapons.get_global_transform_with_canvas().origin
+	var aim_pos: Vector2 = weapons_pos_in_screen + Input.get_vector("ui_aim_left", "ui_aim_right", "ui_aim_up", "ui_aim_down") * window_size.normalized() * AIM_MULTIPLIER
+	aim_pos.x = clamp(aim_pos.x, 16.0, window_size.x - 16.0)
+	aim_pos.y = clamp(aim_pos.y, 16.0, window_size.y - 16.0)
+
+	if aim_pos.distance_squared_to(weapons_pos_in_screen) < 10:
+		if mov_direction.is_equal_approx(Vector2.ZERO): # El jugador no se esta moviendo
+			# Solo actualizamos el mouse cuando previous_position pasa a ser igual que weapons_pos_in_screen
+			if not previous_aim_pos.distance_squared_to(weapons_pos_in_screen) < 10:
+				get_viewport().warp_mouse(weapons_pos_in_screen + (previous_aim_pos - weapons_pos_in_screen).normalized() * AIM_MIN_DISTANCE)
+		else: # El jugador se esta moviendo
+			get_viewport().warp_mouse(weapons_pos_in_screen + mov_direction * AIM_MIN_DISTANCE)
+	elif (aim_pos - weapons_pos_in_screen).length() < AIM_MIN_DISTANCE:
+		get_viewport().warp_mouse(weapons_pos_in_screen + (aim_pos - weapons_pos_in_screen).normalized() * AIM_MIN_DISTANCE)
+	else:
+		get_viewport().warp_mouse(aim_pos)
+
+	previous_aim_pos = aim_pos
 
 
 func get_input() -> void:

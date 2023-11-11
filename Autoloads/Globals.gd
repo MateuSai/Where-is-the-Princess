@@ -151,6 +151,15 @@ func _ready() -> void:
 	#print(ENEMIES)
 
 
+func _input(event: InputEvent) -> void:
+#	if event is InputEventMouseMotion:
+#		print(event.as_text())
+	if (event is InputEventMouseMotion or event is InputEventKey) and mode == Mode.CONTROLLER:
+		_change_to_mouse_mode()
+	elif ((event is InputEventJoypadMotion and abs(event.axis_value) > 0.15) or event is InputEventJoypadButton) and mode == Mode.MOUSE:
+		_change_to_controller_mode(event.device)
+
+
 func get_enemy_paths(biome: String) -> Array[String]:
 	var enemy_paths: Array[String] = []
 
