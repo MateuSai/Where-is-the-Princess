@@ -133,6 +133,8 @@ func set_flying(new_value: bool) -> void:
 		if flying:
 			navigation_agent.navigation_layers |=  FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE
 #			navigation_agent.navigation_layers = 2
+			navigation_agent.set_navigation_map(room.tilemap.get_navigation_map(1))
 		else:
 #			navigation_agent.navigation_layers = 1
 			navigation_agent.navigation_layers &= ~FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE
+			navigation_agent.set_navigation_map(room.tilemap.get_navigation_map(0))
