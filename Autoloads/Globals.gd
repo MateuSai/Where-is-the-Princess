@@ -125,6 +125,10 @@ const CONTROLLER_TYPES = {
 }
 
 
+func _init() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
+
 func _ready() -> void:
 	debug = OS.get_cmdline_user_args().has("--debug")
 
@@ -154,7 +158,7 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 #	if event is InputEventMouseMotion:
 #		print(event.as_text())
-	if (event is InputEventMouseMotion or event is InputEventKey) and mode == Mode.CONTROLLER:
+	if ((event is InputEventMouseMotion and (get_tree().current_scene.name == "Menu" or get_tree().paused)) or event is InputEventKey) and mode == Mode.CONTROLLER:
 		_change_to_mouse_mode()
 	elif ((event is InputEventJoypadMotion and abs(event.axis_value) > 0.15) or event is InputEventJoypadButton) and mode == Mode.MOUSE:
 		_change_to_controller_mode(event.device)

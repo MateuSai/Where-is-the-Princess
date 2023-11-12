@@ -16,7 +16,7 @@ signal armor_changed(new_armor: Armor)
 var mouse_direction: Vector2
 # Controller constants
 const AIM_MIN_DISTANCE: int = 45
-const AIM_MULTIPLIER: int = 200
+const AIM_MULTIPLIER: int = 140
 var previous_aim_pos: Vector2 = Vector2.ZERO
 
 var throw_piercing: int = 1
@@ -152,7 +152,9 @@ func _process(_delta: float) -> void:
 		mouse_direction = auto_aim_area.get_direction()
 	else:
 		if Globals.mode == Globals.Mode.CONTROLLER:
+#			mouse_direction = _controller_aim()
 			_controller_aim()
+#		else:
 		mouse_direction = (get_global_mouse_position() - global_position).normalized()
 
 	if mouse_direction.x > 0 and sprite.flip_h:
@@ -183,6 +185,8 @@ func _controller_aim() -> void:
 		get_viewport().warp_mouse(aim_pos)
 
 	previous_aim_pos = aim_pos
+
+#	return Input.get_vector("ui_aim_left", "ui_aim_right", "ui_aim_up", "ui_aim_down").normalized()
 
 
 func get_input() -> void:
