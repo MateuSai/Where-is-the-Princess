@@ -2,7 +2,11 @@ class_name AutoFocusOnController extends Node
 
 var control_with_focus: Control = null
 
-@onready var owner_control: Control = owner
+@onready var owner_control: Control = get_parent()
+
+
+func _init() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 
 func _ready() -> void:
@@ -11,8 +15,10 @@ func _ready() -> void:
 			control_with_focus = new_control_with_focus
 	)
 
-	if Globals.mode == Globals.Mode.CONTROLLER:
-		_focus_first_control()
+	owner_control.draw.connect(func():
+		if Globals.mode == Globals.Mode.CONTROLLER:
+			_focus_first_control()
+	)
 
 	Globals.mode_changed.connect(func(new_mode: Globals.Mode):
 		if new_mode == Globals.Mode.CONTROLLER:
