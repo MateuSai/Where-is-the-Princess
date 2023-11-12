@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://886ogqps7117"]
+[gd_scene load_steps=15 format=3 uid="uid://886ogqps7117"]
 
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="1_tdw3g"]
 [ext_resource type="Script" path="res://ui/PlayButton.gd" id="2_cpu8h"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://ui/SettingsButton.gd" id="4_ylb3d"]
 [ext_resource type="Texture2D" uid="uid://bs075q8gb23ih" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_hover_x2_size.png" id="5_ykegd"]
 [ext_resource type="Texture2D" uid="uid://c7w1c828j4ok0" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_pressed_x2_size.png" id="6_7wai4"]
+[ext_resource type="Script" path="res://Components/auto_focus_on_controller.gd" id="11_rtnky"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_013d5"]
 texture = ExtResource("4_0ug1y")
@@ -108,3 +109,6 @@ script = ExtResource("4_0l3tl")
 [node name="Label" type="Label" parent="Popup"]
 offset_right = 40.0
 offset_bottom = 15.0
+
+[node name="AutoFocusFirstControl" type="Node" parent="."]
+script = ExtResource("11_rtnky")

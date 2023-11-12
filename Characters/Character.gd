@@ -184,6 +184,10 @@ func add_resistance(resistance: Resistance) -> void:
 	resistances |= resistance
 
 
+func remove_resistance(resistance: Resistance) -> void:
+	resistances &= ~resistance
+
+
 func has_resistance(resistance: Resistance) -> bool:
 	return resistances & resistance
 
