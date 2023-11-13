@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bnr0w37wgidyn"]
+[gd_scene load_steps=15 format=3 uid="uid://bnr0w37wgidyn"]
 
 [ext_resource type="Script" path="res://Autoloads/Settings/Settings.gd" id="1_4y760"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="2_fjhtw"]
@@ -10,7 +10,9 @@
 [ext_resource type="Script" path="res://Autoloads/Settings/FPSHSlider.gd" id="5_p1umr"]
 [ext_resource type="Script" path="res://Autoloads/Settings/ScreenFlashesCheckBox.gd" id="7_twuuk"]
 [ext_resource type="Script" path="res://Autoloads/Settings/DamageNumbersCheckBox.gd" id="7_vbuvo"]
+[ext_resource type="Script" path="res://Components/auto_focus_on_controller.gd" id="8_tailv"]
 [ext_resource type="Script" path="res://Autoloads/Settings/AutoAimCheckBox.gd" id="8_vwxws"]
+[ext_resource type="Script" path="res://Components/tab_container_controller_support.gd" id="12_kwxg6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k5rc5"]
 
@@ -30,8 +32,6 @@ script = ExtResource("1_4y760")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 300.0
-offset_bottom = 182.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_fjhtw")
@@ -118,6 +118,9 @@ button_pressed = true
 flat = true
 script = ExtResource("7_vbuvo")
 
+[node name="AutoFocusOnController" type="Node" parent="TabContainer/GENERAL"]
+script = ExtResource("8_tailv")
+
 [node name="INPUT" type="ScrollContainer" parent="TabContainer"]
 visible = false
 layout_mode = 2
@@ -160,6 +163,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_fjhtw")
 text = "PRESS_ANY_KEY"
+
+[node name="AutoFocusOnController" type="Node" parent="TabContainer/INPUT"]
+script = ExtResource("8_tailv")
 
 [node name="AUDIO" type="MarginContainer" parent="TabContainer"]
 visible = false
@@ -214,6 +220,9 @@ layout_mode = 2
 script = ExtResource("5_7s8v8")
 bus = "Sounds"
 
+[node name="AutoFocusOnController" type="Node" parent="TabContainer/AUDIO"]
+script = ExtResource("8_tailv")
+
 [node name="ACCESSIBILITY" type="ScrollContainer" parent="TabContainer"]
 visible = false
 layout_mode = 2
@@ -255,3 +264,9 @@ layout_mode = 2
 size_flags_horizontal = 10
 flat = true
 script = ExtResource("8_vwxws")
+
+[node name="AutoFocusOnController" type="Node" parent="TabContainer/ACCESSIBILITY"]
+script = ExtResource("8_tailv")
+
+[node name="TabContainerControllerSupport" type="Node" parent="TabContainer"]
+script = ExtResource("12_kwxg6")

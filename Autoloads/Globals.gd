@@ -156,6 +156,7 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
+#	print(event)
 #	if event is InputEventMouseMotion:
 #		print(event.as_text())
 	if ((event is InputEventMouseMotion and (get_tree().current_scene.name == "Menu" or get_tree().paused)) or event is InputEventKey) and mode == Mode.CONTROLLER:
@@ -203,8 +204,8 @@ func _change_to_controller_mode(device: int) -> void:
 	mode_changed.emit(mode)
 
 
-func get_joypad_event_image_id(event: InputEventJoypadButton) -> String:
-	return Globals.controller_type + "_joypad_button_" + str(event.button_index)
+func get_joypad_event_image_id(event: InputEvent) -> String:
+	return Globals.controller_type + "_joypad_button_" + str(event.button_index if event is InputEventJoypadButton else event.axis)
 
 
 func exit_level(biome: String = "") -> void:
