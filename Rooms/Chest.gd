@@ -20,7 +20,7 @@ func _on_opened() -> void:
 	interact_area.queue_free()
 	animation_player.play("open")
 
-	var item_on_floor: ItemOnFloor = load("res://items/ItemOnFloor.tscn").instantiate()
+	var item_on_floor: ItemOnFloor = load("res://items/item_on_floor.tscn").instantiate()
 	item_on_floor.position = position
 	item_on_floor.initialize(load(item_path).new())
 	get_parent().add_child(item_on_floor)
