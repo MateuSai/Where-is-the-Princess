@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=42 format=3 uid="uid://b0askjdx1bs38"]
+[gd_resource type="Theme" load_steps=43 format=3 uid="uid://b0askjdx1bs38"]
 
 [ext_resource type="FontFile" uid="uid://drbvct1q4mkwc" path="res://Fonts/Alkhemikal.ttf" id="1_gud3r"]
 [ext_resource type="Texture2D" uid="uid://tmi2660xc1ma" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_hover.png" id="1_kevbw"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cxip228mknh1v" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/scrol_bar-V_pressed.png" id="5_7nx62"]
 [ext_resource type="Texture2D" uid="uid://b1sbft2fjsa1r" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/scroll-V_empty.png" id="6_6cq8h"]
 [ext_resource type="Texture2D" uid="uid://cba7f2sr576l3" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/slider_grab.png" id="6_oop4m"]
+[ext_resource type="Texture2D" uid="uid://dxa0u0j11tqs5" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/check-box-big_outline.png" id="6_ynigt"]
 [ext_resource type="Texture2D" uid="uid://bbgryaebndevj" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/slider_grab-pressed.png" id="7_1gmir"]
 [ext_resource type="Texture2D" uid="uid://d3eo3xbqoajs6" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/slider_bar.png" id="7_3r1xb"]
 [ext_resource type="Texture2D" uid="uid://grfyhyvfnduv" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/slider_bar-fill.png" id="7_kk8vb"]
@@ -44,7 +45,11 @@ texture_margin_top = 4.0
 texture_margin_right = 4.0
 texture_margin_bottom = 4.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_it4ax"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eylan"]
+texture = ExtResource("6_ynigt")
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+draw_center = false
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8cuyt"]
 texture = ExtResource("7_kk8vb")
@@ -143,7 +148,7 @@ CheckBox/icons/checked = ExtResource("1_pp2h6")
 CheckBox/icons/radio_checked = ExtResource("1_pp2h6")
 CheckBox/icons/radio_unchecked = ExtResource("2_cm5ob")
 CheckBox/icons/unchecked = ExtResource("2_cm5ob")
-CheckBox/styles/focus = SubResource("StyleBoxEmpty_it4ax")
+CheckBox/styles/focus = SubResource("StyleBoxTexture_eylan")
 HSlider/icons/grabber = ExtResource("6_oop4m")
 HSlider/icons/grabber_disabled = ExtResource("7_1gmir")
 HSlider/icons/grabber_highlight = ExtResource("8_prk36")
