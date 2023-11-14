@@ -172,12 +172,18 @@ func _pick_up() -> void:
 	position = Vector2.ZERO
 
 
-func interpolate_pos(initial_pos: Vector2, final_pos: Vector2) -> void:
+func interpolate_pos(initial_pos: Vector2, final_pos: Vector2, collision_with_world_and_low_objects: bool = true) -> void:
+	if collision_with_world_and_low_objects:
+		player_detector.set_collision_mask_value(1, true)
+		player_detector.set_collision_mask_value(5, true)
+	else:
+		player_detector.set_collision_mask_value(1, false)
+		player_detector.set_collision_mask_value(5, false)
+
 	position = initial_pos
 	tween = create_tween()
 	tween.tween_property(self, "position", final_pos, 0.8).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
 	tween.finished.connect(_on_Tween_tween_completed)
-	player_detector.set_collision_mask_value(1, true)
 
 
 func _on_Tween_tween_completed() -> void:

@@ -2,11 +2,22 @@
 class_name Chest extends StaticBody2D
 
 const FRAMES: Array[Array] = [
-	[preload("res://Art/common_chest_closed.png"), preload("res://Art/common_chest_opened.png")],
-	[preload("res://Art/rare_chest_closed.png"), preload("res://Art/rare_chest_opened.png")]
+	[
+		[preload("res://Art/common_chest_closed.png"), preload("res://Art/common_chest_opened.png")],
+		[preload("res://Art/rare_chest_closed.png"), preload("res://Art/rare_chest_opened.png")]
+	],
+	[
+		[preload("res://Art/gear_chest_closed.png"), preload("res://Art/gear_chest_opened.png")]
+	]
 ]
 
+enum Type {
+	ITEM,
+	GEAR,
+}
+
 @export var item_path: String = ""
+@export var type: Type = Type.ITEM
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite
 @onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
@@ -17,15 +28,23 @@ const FRAMES: Array[Array] = [
 func _ready() -> void:
 	var item_quality: Item.Quality
 	if item_path.is_empty():
+		type = 1 #Type.values()[randi() % Type.values().size()]
 		item_quality = Item.Quality.CHINGON if randi() % 6 == 0 else Item.Quality.COMMON
 #		var permanent_item_paths: PackedStringArray = SavedData.get_discovered_permanent_item_paths()
-		item_path = SavedData.get_random_discovered_item_path(item_quality)
+		match type:
+			Type.ITEM:
+				item_path = SavedData.get_random_discovered_item_path(item_quality)
+			Type.GEAR:
+				item_quality = Item.Quality.COMMON
+				item_path = SavedData.get_random_discovered_weapon_path()
+			_:
+				push_error("Invalid chest type")
 	else:
 		item_path = load(item_path).new().get_quality()
 
 	animated_sprite.sprite_frames.clear_all()
-	animated_sprite.sprite_frames.add_frame("default", FRAMES[item_quality][0])
-	animated_sprite.sprite_frames.add_frame("default", FRAMES[item_quality][1])
+	animated_sprite.sprite_frames.add_frame("default", FRAMES[type][item_quality][0])
+	animated_sprite.sprite_frames.add_frame("default", FRAMES[type][item_quality][1])
 
 	interact_area.player_interacted.connect(_on_opened)
 
@@ -34,9 +53,18 @@ func _on_opened() -> void:
 	interact_area.queue_free()
 	animation_player.play("open")
 
-	var item_on_floor: ItemOnFloor = load("res://items/item_on_floor.tscn").instantiate()
-	item_on_floor.position = position
-	item_on_floor.initialize(load(item_path).new())
-	get_parent().add_child(item_on_floor)
-	await create_tween().tween_property(item_on_floor, "position:y", position.y + 16, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT).finished
-	item_on_floor.enable_pick_up()
+	match type:
+		Type.ITEM:
+			var item_on_floor: ItemOnFloor = load("res://items/item_on_floor.tscn").instantiate()
+			item_on_floor.position = position
+			item_on_floor.initialize(load(item_path).new())
+			get_parent().add_child(item_on_floor)
+			await create_tween().tween_property(item_on_floor, "position:y", position.y + 16, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT).finished
+			item_on_floor.enable_pick_up()
+		Type.GEAR:
+#			var shfbsdkf = load(item_path)
+			var weapon: Weapon = load(item_path).instantiate()
+			get_tree().current_scene.add_child(weapon)
+			weapon.interpolate_pos(global_position, global_position + Vector2.DOWN * 16, false)
+		_:
+			push_error("Invalid chest type")

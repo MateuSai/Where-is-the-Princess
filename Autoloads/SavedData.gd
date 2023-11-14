@@ -289,6 +289,12 @@ func get_undiscovered_weapon_paths() -> PackedStringArray:
 	return PackedStringArray(weapon_paths)
 
 
+func get_random_discovered_weapon_path() -> String:
+	var discovered_weapons: PackedStringArray = get_discovered_weapon_paths()
+
+	return discovered_weapons[randi() % discovered_weapons.size()]
+
+
 func discover_armor(armor_path: String) -> void:
 	if not data.discovered_armors.has(armor_path):
 		data.discovered_armors.push_back(armor_path)

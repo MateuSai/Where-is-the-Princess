@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://Weapons/Melee/MeleeWeapon.gd" id="2_7som3"]
 [ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="3_ht21p"]
 [ext_resource type="Texture2D" uid="uid://tn7bpukhe0kh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Spear.png" id="4_bfx2a"]
-[ext_resource type="Shader" path="res://Shaders and Particles/Fire.gdshader" id="5_07mwr"]
-[ext_resource type="Material" uid="uid://d3h3v51wspjjw" path="res://Shaders and Particles/PixelExplosionMaterial.tres" id="5_r0vpa"]
+[ext_resource type="Shader" path="res://shaders_and_particles/Fire.gdshader" id="5_07mwr"]
+[ext_resource type="Material" uid="uid://d3h3v51wspjjw" path="res://shaders_and_particles/PixelExplosionMaterial.tres" id="5_r0vpa"]
 [ext_resource type="Texture2D" uid="uid://dfnyu2au1agfw" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/weapon_sword_1.png" id="6_tttmk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_56b1u"]
