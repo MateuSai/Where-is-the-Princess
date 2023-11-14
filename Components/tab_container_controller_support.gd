@@ -65,9 +65,9 @@ func _input(event: InputEvent) -> void:
 func _change_tab(dir: int) -> void:
 	tab_container.current_tab = wrapi(tab_container.current_tab + dir, 0, tab_container.get_tab_count())
 
-	var control: Control = tab_container.get_child(tab_container.current_tab)
+#	var control: Control = tab_container.get_child(tab_container.current_tab)
 	# warning-ignore:return_value_discarded
-	_search_for_focus_control(control)
+#	_search_for_focus_control(control)
 
 
 func _put_hints_on_correct_position() -> void:
@@ -75,8 +75,8 @@ func _put_hints_on_correct_position() -> void:
 	r_hint.position = Vector2(tab_container.size.x - 30, -30)
 
 
-func _search_for_focus_control(control: Control) -> Control:
-	return null
+#func _search_for_focus_control(control: Control) -> Control:
+#	return null
 #	#print(control.name)
 #	for child in control.get_children():
 #		if not child is Control:
@@ -101,9 +101,9 @@ func _update_controller_hints(new_mode: int) -> void:
 		l_hint.show()
 		r_hint.show()
 		_put_hints_on_correct_position()
-		var control: Control = tab_container.get_child(tab_container.current_tab)
+#		var control: Control = tab_container.get_child(tab_container.current_tab)
 		# warning-ignore:return_value_discarded
-		_search_for_focus_control(control) # para que agarre focus
+#		_search_for_focus_control(control) # para que agarre focus
 		match Globals.controller_type:
 			Globals.CONTROLLER_TYPES.PS:
 				l_hint.get_node("TextureRect").texture.region = Globals.INPUT_IMAGE_RECTS.ps_joypad_button_4 # L1

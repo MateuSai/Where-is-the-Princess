@@ -52,7 +52,7 @@ func _ready() -> void:
 #			popup_centered() if not visible else hide()
 
 
-func apply_config(config: ModConfig) -> void:
+func apply_config(_config: ModConfig) -> void:
 	return
 #	label_select_profile.text = config.data.select_profile_text
 #
