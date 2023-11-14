@@ -268,15 +268,16 @@ size_flags_horizontal = 10
 flat = true
 script = ExtResource("8_vwxws")
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="TabContainer/ACCESSIBILITY/MarginContainer/VBoxContainer"]
+[node name="AimHelpHBoxContainer" type="HBoxContainer" parent="TabContainer/ACCESSIBILITY/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TabContainer/ACCESSIBILITY/MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="Label" type="Label" parent="TabContainer/ACCESSIBILITY/MarginContainer/VBoxContainer/AimHelpHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "AIM_HELP"
 
-[node name="AimHelpHSlider" type="HSlider" parent="TabContainer/ACCESSIBILITY/MarginContainer/VBoxContainer/HBoxContainer3"]
+[node name="AimHelpHSlider" type="HSlider" parent="TabContainer/ACCESSIBILITY/MarginContainer/VBoxContainer/AimHelpHBoxContainer"]
 custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
 max_value = 1.0

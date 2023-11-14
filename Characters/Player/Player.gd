@@ -148,7 +148,7 @@ func _process(_delta: float) -> void:
 	#camera.position = camera.position.lerp(position, 0.08)
 
 	# sm.update(_delta)
-	if Settings.auto_aim:
+	if Settings.auto_aim or is_equal_approx(Settings.aim_help, 1.0):
 		mouse_direction = auto_aim_area.get_direction()
 	else:
 		if Globals.mode == Globals.Mode.CONTROLLER:
@@ -156,6 +156,11 @@ func _process(_delta: float) -> void:
 			_controller_aim()
 #		else:
 		mouse_direction = (get_global_mouse_position() - global_position).normalized()
+
+		if Settings.aim_help > 0.0:
+			var closer_enemy_direction: Vector2 = auto_aim_area.get_direction_using_dir(mouse_direction, PI * Settings.aim_help)
+			if closer_enemy_direction != Vector2.ZERO:
+				mouse_direction = closer_enemy_direction
 
 	if mouse_direction.x > 0 and sprite.flip_h:
 		sprite.flip_h = false
