@@ -26,6 +26,9 @@ signal auto_aim_changed(new_value: bool)
 var aim_help: float:
 	get:
 		return settings.get_value(ACCESSIBILITY_SECTION, "aim_help", 0.0)
+	set(new_value):
+		set_aim_help(new_value)
+signal aim_help_changed(new_value: float)
 
 var MAPPEABLE_ACTIONS: PackedStringArray = PackedStringArray(["ui_attack", "ui_previous_weapon", "ui_next_weapon", "ui_throw_weapon", "ui_weapon_ability", "ui_armor_ability", "ui_minimap"])
 
@@ -154,3 +157,8 @@ func _load_settings() -> void:
 func set_auto_aim(new_value: bool) -> void:
 	settings.set_value(ACCESSIBILITY_SECTION, "auto_aim", new_value)
 	auto_aim_changed.emit(new_value)
+
+
+func set_aim_help(new_value: float) -> void:
+	settings.set_value(ACCESSIBILITY_SECTION, "aim_help", new_value)
+	aim_help_changed.emit(new_value)
