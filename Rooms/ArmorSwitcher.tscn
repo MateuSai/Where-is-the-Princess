@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Rooms/ArmorSwitcher.gd" id="1_onm17"]
 [ext_resource type="Texture2D" uid="uid://donwwtfx226cq" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/knight_idle_anim_f0.png" id="2_p07pw"]
-[ext_resource type="Script" path="res://InteractArea.gd" id="3_ynao3"]
+[ext_resource type="Script" path="res://interact_area.gd" id="3_ynao3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_stsmu"]
 radius = 4.12311

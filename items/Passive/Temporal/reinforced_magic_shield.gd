@@ -1,8 +1,8 @@
-class_name MagicShield extends TemporalPassiveItem
+class_name ReinforcedMagicShield extends TemporalPassiveItem
 
 var magic_shield_node: MagicShieldNode
 
-@export var hp: int = 2
+@export var hp: int = 8
 
 
 func get_icon() -> Texture:

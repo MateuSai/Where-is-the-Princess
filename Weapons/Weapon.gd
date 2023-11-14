@@ -54,7 +54,7 @@ var tween: Tween = null
 func _ready() -> void:
 	var data: Dictionary = preload("res://Weapons/data/data.csv").records
 	if data.has(weapon_id):
-		var weapon_data: Dictionary = data[name]
+		var weapon_data: Dictionary = data[weapon_id]
 		_load_csv_data(weapon_data)
 
 	if not on_floor:

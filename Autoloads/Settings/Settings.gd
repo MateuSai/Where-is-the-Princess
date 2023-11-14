@@ -23,6 +23,9 @@ var auto_aim: bool:
 	get:
 		return settings.get_value(ACCESSIBILITY_SECTION, "auto_aim", false)
 signal auto_aim_changed(new_value: bool)
+var aim_help: float:
+	get:
+		return settings.get_value(ACCESSIBILITY_SECTION, "aim_help", 0.0)
 
 var MAPPEABLE_ACTIONS: PackedStringArray = PackedStringArray(["ui_attack", "ui_previous_weapon", "ui_next_weapon", "ui_throw_weapon", "ui_weapon_ability", "ui_armor_ability", "ui_minimap"])
 

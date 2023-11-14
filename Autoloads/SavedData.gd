@@ -20,8 +20,8 @@ var data: Dictionary = {
 
 	"discovered_permanent_items": PackedStringArray(["res://items/Passive/Permanent/StrongThrow.gd", "res://items/Passive/Permanent/ToughSkin.gd"]),
 	"undiscovered_permanent_items": PackedStringArray(["res://items/Passive/Permanent/EnhancedBoots.gd"]),
-	"discovered_temporal_items": PackedStringArray([]),
-	"undiscovered_temporal_items": PackedStringArray(["res://items/Passive/Temporal/MagicShield.gd", "res://items/Passive/Temporal/MagicSword.gd"]),
+	"discovered_temporal_items": PackedStringArray(["res://items/Passive/Temporal/magic_shield.gd", "res://items/Passive/Temporal/reinforced_magic_shield.gd"]),
+	"undiscovered_temporal_items": PackedStringArray(["res://items/Passive/Temporal/MagicSword.gd"]),
 
 	"shop_unlocked": false,
 }
@@ -365,6 +365,19 @@ func get_undiscovered_permanent_item_paths() -> PackedStringArray:
 	var permanent_item_paths: Array = data.undiscovered_permanent_items.duplicate()
 	#permanent_item_paths.append_array(volatile_permanent_item_paths)
 	return PackedStringArray(permanent_item_paths)
+
+
+func get_random_discovered_item_path(quality: Item.Quality = Item.Quality.COMMON) -> String:
+	var possible_results: Array[String] = []
+
+	for item_path_array in [get_discovered_temporal_item_paths(), get_discovered_permanent_item_paths()]:
+		for item_path in item_path_array:
+			if load(item_path).new().get_quality() == quality:
+				possible_results.push_back(item_path)
+
+	assert(not possible_results.is_empty())
+	possible_results.shuffle()
+	return possible_results[0]
 
 
 ## This is what we use to load the stats when we changes floor or when we saves the game

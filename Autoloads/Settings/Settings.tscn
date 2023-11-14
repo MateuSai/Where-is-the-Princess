@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bnr0w37wgidyn"]
+[gd_scene load_steps=16 format=3 uid="uid://bnr0w37wgidyn"]
 
 [ext_resource type="Script" path="res://Autoloads/Settings/Settings.gd" id="1_4y760"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="2_fjhtw"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://Components/auto_focus_on_controller.gd" id="8_tailv"]
 [ext_resource type="Script" path="res://Autoloads/Settings/AutoAimCheckBox.gd" id="8_vwxws"]
 [ext_resource type="Script" path="res://Components/tab_container_controller_support.gd" id="12_kwxg6"]
+[ext_resource type="Script" path="res://Autoloads/Settings/AimHelpHSlider.gd" id="13_mrue3"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k5rc5"]
 
@@ -32,6 +33,8 @@ script = ExtResource("1_4y760")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 300.0
+offset_bottom = 182.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_fjhtw")
@@ -264,6 +267,21 @@ layout_mode = 2
 size_flags_horizontal = 10
 flat = true
 script = ExtResource("8_vwxws")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="TabContainer/ACCESSIBILITY/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/ACCESSIBILITY/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "AIM_HELP"
+
+[node name="AimHelpHSlider" type="HSlider" parent="TabContainer/ACCESSIBILITY/MarginContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+script = ExtResource("13_mrue3")
 
 [node name="AutoFocusOnController" type="Node" parent="TabContainer/ACCESSIBILITY"]
 script = ExtResource("8_tailv")
