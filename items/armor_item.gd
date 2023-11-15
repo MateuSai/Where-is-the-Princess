@@ -6,6 +6,7 @@ var armor_path: String
 var armor: Armor
 
 
+@warning_ignore("shadowed_variable")
 func initialize(armor_path: String) -> void:
 	self.armor_path = armor_path
 	self.armor = load(armor_path).new()
