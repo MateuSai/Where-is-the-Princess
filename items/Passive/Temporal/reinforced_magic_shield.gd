@@ -6,7 +6,7 @@ var magic_shield_node: MagicShieldNode
 
 
 func get_icon() -> Texture:
-	return load("res://Art/items/shield_icon.png")
+	return load("res://Art/items/shield_icon_metal.png")
 
 
 func get_quality() -> Item.Quality:
@@ -48,7 +48,7 @@ class MagicShieldNode extends StaticBody2D:
 		set_collision_layer_value(2, true)
 
 		sprite = Sprite2D.new()
-		sprite.texture = load("res://Art/items/shield_rotating_player.png")
+		sprite.texture = load("res://Art/items/shield_rotating_player_metal.png")
 		sprite.hframes = 8
 		add_child(sprite)
 		sprite.position.y += 10
