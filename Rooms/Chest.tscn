@@ -16,6 +16,7 @@ shader_parameter/inside = false
 shader_parameter/add_margins = true
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_teoxo"]
+resource_local_to_scene = true
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -33,6 +34,7 @@ animations = [{
 size = Vector2(16, 9)
 
 [sub_resource type="Animation" id="Animation_ra10b"]
+resource_local_to_scene = true
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -60,6 +62,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_5oejn"]
+resource_local_to_scene = true
 resource_name = "closed_animation"
 length = 2.0
 loop_mode = 1
@@ -77,6 +80,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_2qjsl"]
+resource_local_to_scene = true
 resource_name = "open"
 length = 0.1
 tracks/0/type = "value"
