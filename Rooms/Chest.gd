@@ -33,7 +33,7 @@ var gear_type: GearType
 func _ready() -> void:
 	var item_quality: Item.Quality
 	if item_path.is_empty():
-		type = 1 #Type.values()[randi() % Type.values().size()]
+		type = Type.values()[randi() % Type.values().size()]
 		item_quality = Item.Quality.CHINGON if randi() % 6 == 0 else Item.Quality.COMMON
 #		var permanent_item_paths: PackedStringArray = SavedData.get_discovered_permanent_item_paths()
 		match type:
