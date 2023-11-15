@@ -271,8 +271,8 @@ func get_volatile_room_paths(biome: String, room_type: String, end_to: String = 
 func discover_weapon(weapon_path: String) -> void:
 	if not data.discovered_weapons.has(weapon_path):
 		data.discovered_weapons.push_back(weapon_path)
-	if data.undiscovered_weapons.has(weapon_path):
-		data.undiscovered_weapons.remove_at(data.undiscovered_weapons.find(weapon_path))
+#	if data.undiscovered_weapons.has(weapon_path):
+#		data.undiscovered_weapons.remove_at(data.undiscovered_weapons.find(weapon_path))
 
 	save_data()
 
@@ -283,10 +283,10 @@ func get_discovered_weapon_paths() -> PackedStringArray:
 	return PackedStringArray(weapon_paths)
 
 
-func get_undiscovered_weapon_paths() -> PackedStringArray:
-	var weapon_paths: Array = data.undiscovered_weapons.duplicate()
-	#armor_paths.append_array(volatile_armor_paths)
-	return PackedStringArray(weapon_paths)
+#func get_undiscovered_weapon_paths() -> PackedStringArray:
+#	var weapon_paths: Array = data.undiscovered_weapons.duplicate()
+#	#armor_paths.append_array(volatile_armor_paths)
+#	return PackedStringArray(weapon_paths)
 
 
 func get_random_discovered_weapon_path() -> String:
@@ -323,8 +323,8 @@ func get_armor_paths() -> PackedStringArray:
 func discover_temporal_item(item_path: String) -> void:
 	if not data.discovered_temporal_items.has(item_path):
 		data.discovered_temporal_items.push_back(item_path)
-	if data.undiscovered_temporal_items.has(item_path):
-		data.undiscovered_temporal_items.remove_at(data.undiscovered_temporal_items.find(item_path))
+#	if data.undiscovered_temporal_items.has(item_path):
+#		data.undiscovered_temporal_items.remove_at(data.undiscovered_temporal_items.find(item_path))
 
 	save_data()
 
@@ -343,17 +343,17 @@ func get_discovered_temporal_item_paths() -> PackedStringArray:
 	return PackedStringArray(temporal_item_paths)
 
 
-func get_undiscovered_temporal_item_paths() -> PackedStringArray:
-	var temporal_item_paths: Array = data.undiscovered_temporal_items.duplicate()
-	#temporal_item_paths.append_array(volatile_temporal_item_paths)
-	return PackedStringArray(temporal_item_paths)
+#func get_undiscovered_temporal_item_paths() -> PackedStringArray:
+#	var temporal_item_paths: Array = data.undiscovered_temporal_items.duplicate()
+#	#temporal_item_paths.append_array(volatile_temporal_item_paths)
+#	return PackedStringArray(temporal_item_paths)
 
 
 func discover_permanent_item(item_path: String) -> void:
 	if not data.discovered_permanent_items.has(item_path):
 		data.discovered_permanent_items.push_back(item_path)
-	if data.undiscovered_permanent_items.has(item_path):
-		data.undiscovered_permanent_items.remove_at(data.undiscovered_permanent_items.find(item_path))
+#	if data.undiscovered_permanent_items.has(item_path):
+#		data.undiscovered_permanent_items.remove_at(data.undiscovered_permanent_items.find(item_path))
 
 	save_data()
 
@@ -372,10 +372,10 @@ func get_discovered_permanent_item_paths() -> PackedStringArray:
 	return PackedStringArray(permanent_item_paths)
 
 
-func get_undiscovered_permanent_item_paths() -> PackedStringArray:
-	var permanent_item_paths: Array = data.undiscovered_permanent_items.duplicate()
-	#permanent_item_paths.append_array(volatile_permanent_item_paths)
-	return PackedStringArray(permanent_item_paths)
+#func get_undiscovered_permanent_item_paths() -> PackedStringArray:
+#	var permanent_item_paths: Array = data.undiscovered_permanent_items.duplicate()
+#	#permanent_item_paths.append_array(volatile_permanent_item_paths)
+#	return PackedStringArray(permanent_item_paths)
 
 
 func get_random_discovered_item_path(quality: Item.Quality = Item.Quality.COMMON) -> String:

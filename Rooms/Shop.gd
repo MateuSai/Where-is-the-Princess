@@ -7,8 +7,8 @@ const SHOP_ITEM_SCENE: PackedScene = preload("res://Rooms/ShopItem.tscn")
 
 
 func _ready() -> void:
-	var item_paths: PackedStringArray = SavedData.get_undiscovered_temporal_item_paths().duplicate() if on_base_camp else SavedData.get_discovered_temporal_item_paths().duplicate()
-	var weapon_paths: PackedStringArray = SavedData.get_undiscovered_weapon_paths().duplicate() if on_base_camp else SavedData.get_discovered_weapon_paths().duplicate()
+	var item_paths: PackedStringArray = SavedData.get_discovered_temporal_item_paths().duplicate()
+	var weapon_paths: PackedStringArray = SavedData.get_discovered_weapon_paths().duplicate()
 
 	for marker in positions.get_children():
 		match marker.item_type:
