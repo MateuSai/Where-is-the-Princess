@@ -7,9 +7,12 @@ const SOUL_SCENE: PackedScene = preload("res://items/Soul.tscn")
 
 const FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE: int = 2
 
-@export var souls: int = 1
-
-@export var is_boss: bool = false
+@export var min_coins: int = 2
+@export var max_coins: int = 3
+@export var min_souls: int = 1
+@export var max_souls: int = 1
+@export var min_dark_souls: int = 0
+@export var max_dark_souls: int = 0
 
 @onready var room: DungeonRoom = get_parent()
 @onready var player: Player = get_tree().current_scene.get_node("Player")
@@ -19,6 +22,10 @@ const FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE: int = 2
 
 func _ready() -> void:
 	super()
+
+	assert(min_coins <= max_coins)
+	assert(min_souls <= max_souls)
+	assert(min_dark_souls <= max_dark_souls)
 
 	life_component.died.connect(func():
 		get_parent()._on_enemy_killed(self)
@@ -33,29 +40,37 @@ func _ready() -> void:
 func _load_csv_data(data: Dictionary) -> void:
 	super(data)
 
-	souls = data.souls
-	is_boss = bool(data.is_boss)
+	var splitted_coins: PackedStringArray = str(data.coins).split("-")
+	min_coins = int(splitted_coins[0])
+	max_coins = int(splitted_coins[0 if splitted_coins.size() == 1 else 1])
+
+	var splitted_souls: PackedStringArray = str(data.souls).split("-")
+	min_souls = int(splitted_souls[0])
+	max_souls = int(splitted_souls[0 if splitted_souls.size() == 1 else 1])
+
+	var splitted_dark_souls: PackedStringArray = str(data.dark_souls).split("-")
+	min_dark_souls = int(splitted_dark_souls[0])
+	max_dark_souls = int(splitted_dark_souls[0 if splitted_dark_souls.size() == 1 else 1])
 
 
 func spawn_loot() -> void:
-	for i in 3:
+	for i in randi_range(min_coins, max_coins):
 		var coin: Coin = COIN_SCENE.instantiate()
 		room.cleared.connect(coin.go_to_player)
 		coin.position = global_position
 		get_tree().current_scene.call_deferred("add_child", coin)
 
-	for i in souls:
+	for i in randi_range(min_souls, max_souls):
 		var soul: SoulItem = SOUL_SCENE.instantiate()
 		room.cleared.connect(soul.go_to_player)
 		soul.position = global_position
 		get_tree().current_scene.call_deferred("add_child", soul)
 
-	if is_boss:
-		for i in 1:
-			var soul: DarkSoulOnFloor = load("res://items/DarkSoul.tscn").instantiate()
-			room.cleared.connect(soul.go_to_player)
-			soul.position = global_position
-			get_tree().current_scene.call_deferred("add_child", soul)
+	for i in randi_range(min_dark_souls, max_dark_souls):
+		var soul: DarkSoulOnFloor = load("res://items/DarkSoul.tscn").instantiate()
+		room.cleared.connect(soul.go_to_player)
+		soul.position = global_position
+		get_tree().current_scene.call_deferred("add_child", soul)
 
 
 func move_to_target() -> void:
