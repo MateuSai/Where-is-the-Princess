@@ -61,6 +61,10 @@ func _ready() -> void:
 			var t: Transform2D = get_tree().root.get_final_transform()
 			var scale: Vector2 = t.get_scale()
 			position = -t.origin / scale + Vector2(get_tree().root.size) / scale / 2 - Vector2(size) / 2
+
+		# To save window size
+		settings.set_value(GENERAL_SECTION, "window_size", DisplayServer.window_get_size())
+		settings.save(SETTINGS_PATH)
 	)
 
 
@@ -120,6 +124,9 @@ func _load_settings() -> void:
 		else:
 			TranslationServer.set_locale("en")
 	DisplayServer.window_set_mode(settings.get_value(GENERAL_SECTION, "window_mode", DisplayServer.WINDOW_MODE_WINDOWED))
+	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED:
+		var saved_window_size: Vector2 = settings.get_value(GENERAL_SECTION, "window_size", Vector2(ProjectSettings.get_setting("display/window/size/window_width_override"), ProjectSettings.get_setting("display/window/size/window_height_override")))
+		DisplayServer.window_set_size(saved_window_size)
 	DisplayServer.window_set_vsync_mode(settings.get_value(GENERAL_SECTION, "vsync_mode", DisplayServer.VSYNC_ADAPTIVE))
 	Engine.max_fps = settings.get_value(GENERAL_SECTION, "fps", 60)
 
