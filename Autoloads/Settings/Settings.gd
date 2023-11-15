@@ -66,7 +66,7 @@ func _ready() -> void:
 
 func _save_settings() -> void:
 	settings.set_value(GENERAL_SECTION, "language", TranslationServer.get_locale())
-	settings.set_value(GENERAL_SECTION, "window_mode", DisplayServer.window_get_mode())
+	settings.set_value(GENERAL_SECTION, "window_mode", DisplayServer.window_get_mode() if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN else DisplayServer.WINDOW_MODE_WINDOWED)
 	settings.set_value(GENERAL_SECTION, "vsync_mode", DisplayServer.window_get_vsync_mode())
 	settings.set_value(GENERAL_SECTION, "fps", Engine.max_fps)
 
