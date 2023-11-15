@@ -301,6 +301,11 @@ func discover_armor(armor_path: String) -> void:
 		save_data()
 
 
+func get_random_discovered_armor_path() -> String:
+	var armor_paths: PackedStringArray = get_armor_paths()
+	return armor_paths[randi() % armor_paths.size()]
+
+
 ## Adds an armor only for this session. Use this for mods to load the armor each time the mod loads. The new armors will appear at the wardrobe on the basecamp and it may appear inside the game on the events where a random armor is choosen (like the shop)
 func add_volatile_armor(armor_path) -> void:
 	if volatile_armor_paths.has(armor_path):

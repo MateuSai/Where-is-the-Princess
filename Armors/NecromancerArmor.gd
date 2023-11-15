@@ -3,7 +3,7 @@ extends Armor
 const DRAIN_LIFE_PARTICLES_SCENE: PackedScene = preload("res://shaders_and_particles/DrainLifeParticles.tscn")
 
 func _init() -> void:
-	initialize("NECROMANCER", "NECROMANCER_ARMOR_DESCRIPTION", load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armor_04.png"), 10, load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_necromancer_icon.png"), 2, 2)
+	initialize("NECROMANCER", "NECROMANCER_ARMOR_DESCRIPTION", load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armor_04.png"), Globals.get_atlas_frame(load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armors_icons.png"), Rect2(0, 32, 16, 16)), 10, load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_necromancer_icon.png"), 2, 2)
 
 
 func enable_ability_effect(player: Player) -> void:

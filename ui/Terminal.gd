@@ -134,6 +134,8 @@ func _process_command(command: String) -> void:
 							_spawn_enemy(splitted_command[2])
 						else:
 							printerr("You must specify a enemy path")
+					"chest":
+						_spawn_chest()
 			else:
 				printerr("Invalid number of arguments, you must specify what to spawn")
 #			if splitted_command.size() > 1: # tiene otro argumento
@@ -304,3 +306,11 @@ func _spawn_enemy(enemy_string: String) -> void:
 
 	get_tree().current_scene.get_node("Rooms").rooms[0].add_child(enemy)
 	enemy.global_position = Globals.player.position + Vector2.RIGHT * 16
+
+
+func _spawn_chest() -> void:
+	var chest: Chest = preload("res://Rooms/Chest.tscn").instantiate()
+	get_tree().current_scene.add_child(chest)
+	chest.position = Globals.player.position + Vector2.RIGHT * 16
+
+	hide()

@@ -236,3 +236,10 @@ func remove_weapon_damage_modifier_by_type(type: Weapon.Type, dam: int) -> void:
 func _on_scene_changed(_new_scene: String) -> void:
 	Weapon.damage_modifiers_by_type = {} # Reset damage modifiers so they don't acummulate
 	AcidPuddle.characters_inside = []
+
+
+func get_atlas_frame(texture: Texture, region: Rect2) -> AtlasTexture:
+	var atlas: AtlasTexture = AtlasTexture.new()
+	atlas.atlas = texture
+	atlas.region = region
+	return atlas

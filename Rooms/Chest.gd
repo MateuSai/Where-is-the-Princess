@@ -15,9 +15,14 @@ enum Type {
 	ITEM,
 	GEAR,
 }
+enum GearType {
+	WEAPON,
+	ARMOR,
+}
 
 @export var item_path: String = ""
 @export var type: Type = Type.ITEM
+var gear_type: GearType
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite
 @onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
@@ -35,8 +40,13 @@ func _ready() -> void:
 			Type.ITEM:
 				item_path = SavedData.get_random_discovered_item_path(item_quality)
 			Type.GEAR:
-				item_quality = Item.Quality.COMMON
-				item_path = SavedData.get_random_discovered_weapon_path()
+				gear_type = GearType.values()[randi() % GearType.values().size()]
+				if gear_type == GearType.WEAPON: # Weapon
+					item_quality = Item.Quality.COMMON
+					item_path = SavedData.get_random_discovered_weapon_path()
+				else: # Armor
+					item_quality = Item.Quality.COMMON
+					item_path = SavedData.get_random_discovered_armor_path()
 			_:
 				push_error("Invalid chest type")
 	else:
@@ -62,9 +72,22 @@ func _on_opened() -> void:
 			await create_tween().tween_property(item_on_floor, "position:y", position.y + 16, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT).finished
 			item_on_floor.enable_pick_up()
 		Type.GEAR:
-#			var shfbsdkf = load(item_path)
-			var weapon: Weapon = load(item_path).instantiate()
-			get_tree().current_scene.add_child(weapon)
-			weapon.interpolate_pos(global_position, global_position + Vector2.DOWN * 16, false)
+			match gear_type:
+				GearType.WEAPON:
+		#			var shfbsdkf = load(item_path)
+					var weapon: Weapon = load(item_path).instantiate()
+					get_tree().current_scene.add_child(weapon)
+					weapon.interpolate_pos(global_position, global_position + Vector2.DOWN * 16, false)
+				GearType.ARMOR:
+					var item_on_floor: ItemOnFloor = load("res://items/item_on_floor.tscn").instantiate()
+					item_on_floor.position = position
+					var armor_item: ArmorItem = ArmorItem.new()
+					armor_item.initialize(item_path)
+					item_on_floor.initialize(armor_item)
+					get_parent().add_child(item_on_floor)
+					await create_tween().tween_property(item_on_floor, "position:y", position.y + 16, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT).finished
+					item_on_floor.enable_pick_up()
+				_:
+					push_error("Invalid gear type")
 		_:
 			push_error("Invalid chest type")
