@@ -10,7 +10,7 @@ var player: Player = null
 var debug: bool = false
 
 const ENEMIES_FOLDER_PATH: String = "res://Characters/Enemies/"
-var ENEMIES = {}
+var ENEMIES: Dictionary = {}
 
 const INPUT_IMAGE_RECTS: Dictionary = {
 	w = Rect2(288, 32, 16, 16),

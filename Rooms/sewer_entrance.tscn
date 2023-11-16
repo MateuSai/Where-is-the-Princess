@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://cpgi3p64qtndv"]
+
+[ext_resource type="Script" path="res://Rooms/sewer_entrance.gd" id="1_7wufq"]
+[ext_resource type="Texture2D" uid="uid://tuw2d08qijy2" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/sewer entrance.png" id="1_gqwo7"]
+[ext_resource type="Script" path="res://interact_area.gd" id="3_l80ta"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_da27q"]
+radius = 8.0
+height = 24.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xamw5"]
+radius = 11.0
+
+[node name="SewerEntrance" type="StaticBody2D"]
+script = ExtResource("1_7wufq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -11)
+texture = ExtResource("1_gqwo7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_da27q")
+
+[node name="InteractArea" type="Area2D" parent="."]
+script = ExtResource("3_l80ta")
+path_to_sprite = NodePath("../Sprite2D")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2(0, -7)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_xamw5")

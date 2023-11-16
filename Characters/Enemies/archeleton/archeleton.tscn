@@ -1,0 +1,190 @@
+[gd_scene load_steps=17 format=3 uid="uid://cqy53jjsoth3u"]
+
+[ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_3xxis"]
+[ext_resource type="Script" path="res://Characters/Enemies/archeleton/archeleton.gd" id="2_20lfo"]
+[ext_resource type="Script" path="res://Characters/Enemies/archeleton/archeleton_fsm.gd" id="2_cjwj3"]
+[ext_resource type="Texture2D" uid="uid://drcyrvghhqwug" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skeleton_base.png" id="3_0wuv3"]
+[ext_resource type="Texture2D" uid="uid://ban50bsyexwl3" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/wooden_bow.png" id="5_8vidk"]
+[ext_resource type="Script" path="res://Components/aim_component.gd" id="6_nkjaj"]
+
+[sub_resource type="Animation" id="Animation_jla0i"]
+resource_name = "attack"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_spawn_arrow"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_80pa1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_grb26"]
+_data = {
+"RESET": SubResource("Animation_80pa1"),
+"attack": SubResource("Animation_jla0i")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j6xc1"]
+radius = 3.0
+
+[sub_resource type="Animation" id="Animation_q5qk8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_73lll"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_v4hcj"]
+resource_name = "idle_up"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16, 17]
+}
+
+[sub_resource type="Animation" id="Animation_31ic4"]
+resource_name = "move"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_yeqj5"]
+resource_name = "move_up"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [18, 19, 20, 21, 22, 23]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5fsyr"]
+_data = {
+"RESET": SubResource("Animation_q5qk8"),
+"idle": SubResource("Animation_73lll"),
+"idle_up": SubResource("Animation_v4hcj"),
+"move": SubResource("Animation_31ic4"),
+"move_up": SubResource("Animation_yeqj5")
+}
+
+[node name="Archeleton" instance=ExtResource("1_3xxis")]
+script = ExtResource("2_20lfo")
+
+[node name="FiniteStateMachine" parent="." index="0"]
+script = ExtResource("2_cjwj3")
+
+[node name="Sprite2D" parent="." index="2"]
+position = Vector2(0, -5)
+texture = ExtResource("3_0wuv3")
+hframes = 6
+vframes = 4
+
+[node name="BowContainer" type="Node2D" parent="." index="3"]
+
+[node name="Sprite2D" type="Sprite2D" parent="BowContainer" index="0"]
+position = Vector2(6, -1)
+texture = ExtResource("5_8vidk")
+hframes = 5
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BowContainer" index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_grb26")
+}
+
+[node name="CollisionShape2D" parent="." index="4"]
+shape = SubResource("CircleShape2D_j6xc1")
+
+[node name="AnimationPlayer" parent="." index="5"]
+libraries = {
+"": SubResource("AnimationLibrary_5fsyr")
+}
+
+[node name="AimComponent" type="Node" parent="." index="12"]
+script = ExtResource("6_nkjaj")

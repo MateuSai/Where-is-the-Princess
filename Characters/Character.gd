@@ -35,6 +35,7 @@ var resistances: int = 0 # I can't make an exported using an enum to select flag
 enum BodyType {
 	FLESH,
 	SLIME,
+	BONES,
 }
 @export var body_type: BodyType = BodyType.FLESH:
 	set(new_body_type):

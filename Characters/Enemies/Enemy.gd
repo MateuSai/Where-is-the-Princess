@@ -7,6 +7,8 @@ const SOUL_SCENE: PackedScene = preload("res://items/Soul.tscn")
 
 const FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE: int = 2
 
+var target: Character
+
 @export var min_coins: int = 2
 @export var max_coins: int = 3
 @export var min_souls: int = 1
@@ -23,13 +25,15 @@ const FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE: int = 2
 func _ready() -> void:
 	super()
 
+	target = player
+
 	assert(min_coins <= max_coins)
 	assert(min_souls <= max_souls)
 	assert(min_dark_souls <= max_dark_souls)
 
-	life_component.died.connect(func():
-		get_parent()._on_enemy_killed(self)
-	)
+#	life_component.died.connect(func():
+#		get_parent()._on_enemy_killed(self)
+#	)
 
 	parallize_timer.timeout.connect(func():
 		#can_move = true
@@ -130,6 +134,9 @@ func _on_died_0_5_seconds_later() -> void:
 	var spawn_explosion: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()
 	spawn_explosion.position = global_position
 	get_tree().current_scene.add_child(spawn_explosion)
+
+	get_parent()._on_enemy_killed(self)
+
 	queue_free()
 
 

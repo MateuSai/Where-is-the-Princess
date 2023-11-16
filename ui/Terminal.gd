@@ -297,10 +297,13 @@ func _spawn_enemy(enemy_string: String) -> void:
 			return
 		enemy = enemy_scene.instantiate()
 	else:
-		if not Globals.ENEMIES.has(enemy_string.to_pascal_case()):
+		if Globals.ENEMIES.has(enemy_string.to_pascal_case()):
+			enemy = load(Globals.ENEMIES[enemy_string.to_pascal_case()].path).instantiate()
+		elif Globals.ENEMIES.has(enemy_string.to_snake_case()):
+			enemy = load(Globals.ENEMIES[enemy_string.to_snake_case()].path).instantiate()
+		else:
 			printerr("Error: no registered enmy with this name")
 			return
-		enemy = load(Globals.ENEMIES[enemy_string.to_pascal_case()].path).instantiate()
 
 	hide()
 

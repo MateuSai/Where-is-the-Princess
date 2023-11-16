@@ -66,6 +66,24 @@ class Approach extends Mode:
 		navigation_agent.target_position = target.global_position
 
 
+class Flee extends Mode:
+	func _ready() -> void:
+		_spawn_timer(0.4)
+
+		super()
+
+	func _on_timer_timeout() -> void:
+		if is_instance_valid(target):
+			_get_path_to_move_away_from_target()
+		else:
+			timer.stop()
+			character.mov_direction = Vector2.ZERO
+
+	func _get_path_to_move_away_from_target() -> void:
+		var dir: Vector2 = (character.global_position - target.global_position).normalized()
+		navigation_agent.target_position = character.global_position + dir * 100
+
+
 class Circle extends Mode:
 	var rot_around_character_dir: int = [1, -1][randi() % 2]
 #	var distance_to_character_when_rotating_around_it: int = 20
