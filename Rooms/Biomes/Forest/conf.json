@@ -17,7 +17,7 @@
 			"num_special_rooms": 2,
 
 
-			"overwrite_start_rooms": ["res://Rooms/Biomes/Forest/Start/ForestSpawnRoom0.tscn"],
+			"overwrite_start_rooms": ["res://Rooms/Biomes/Forest/Start/ForestSpawnRoom0.tscn", "res://Rooms/Biomes/Forest/Start/forest_spawn_room_2.tscn"],
 			"overwrite_combat_rooms": [],
 			"overwrite_end_forest_rooms": ["res://Rooms/Biomes/Forest/End/Forest/ForestEndRoom1.tscn"],
 		},

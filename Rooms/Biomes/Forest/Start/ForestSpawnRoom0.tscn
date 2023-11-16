@@ -22,14 +22,11 @@ position = Vector2(313, 68)
 [node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("2_564ok")]
 position = Vector2(88, 121)
 
-[node name="PlayerSpawnPos" type="Marker2D" parent="." index="6"]
-position = Vector2(155, 74)
-
-[node name="TeleportPosition" parent="." index="7"]
+[node name="TeleportPosition" parent="." index="6"]
 position = Vector2(154, 74)
 
-[node name="TikiTorch" parent="." index="9" instance=ExtResource("4_dcx67")]
+[node name="TikiTorch" parent="." index="8" instance=ExtResource("4_dcx67")]
 position = Vector2(90, 35)
 
-[node name="TikiTorch2" parent="." index="10" instance=ExtResource("4_dcx67")]
+[node name="TikiTorch2" parent="." index="9" instance=ExtResource("4_dcx67")]
 position = Vector2(213, 119)
