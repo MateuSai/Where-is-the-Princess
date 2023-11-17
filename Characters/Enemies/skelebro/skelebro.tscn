@@ -1,0 +1,128 @@
+[gd_scene load_steps=14 format=3 uid="uid://b0qg1ufhu6ry6"]
+
+[ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_yk06j"]
+[ext_resource type="Script" path="res://Characters/Enemies/skelebro/skelebro_fsm.gd" id="2_13wq3"]
+[ext_resource type="Script" path="res://Characters/Enemies/skelebro/skelebro.gd" id="2_kro2b"]
+[ext_resource type="Texture2D" uid="uid://jfehaj24kmy2" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_warrior.png" id="3_jqv5y"]
+[ext_resource type="PackedScene" uid="uid://mh1705nhovp2" path="res://Weapons/Melee/rustic_sword/rustic_sword.tscn" id="4_mxb4u"]
+[ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="6_geb4h"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7mq7f"]
+radius = 3.0
+
+[sub_resource type="Animation" id="Animation_kcdck"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_8lfge"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_5onuv"]
+resource_name = "idle_up"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16, 17]
+}
+
+[sub_resource type="Animation" id="Animation_78ukl"]
+resource_name = "move"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_6osfq"]
+resource_name = "move_up"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [18, 19, 20, 21, 22, 23]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wst10"]
+_data = {
+"RESET": SubResource("Animation_kcdck"),
+"idle": SubResource("Animation_8lfge"),
+"idle_up": SubResource("Animation_5onuv"),
+"move": SubResource("Animation_78ukl"),
+"move_up": SubResource("Animation_6osfq")
+}
+
+[node name="Skelebro" instance=ExtResource("1_yk06j")]
+script = ExtResource("2_kro2b")
+
+[node name="FiniteStateMachine" parent="." index="0"]
+script = ExtResource("2_13wq3")
+
+[node name="Sprite2D" parent="." index="2"]
+position = Vector2(0, -5)
+texture = ExtResource("3_jqv5y")
+hframes = 6
+vframes = 4
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("CircleShape2D_7mq7f")
+
+[node name="AnimationPlayer" parent="." index="4"]
+libraries = {
+"": SubResource("AnimationLibrary_wst10")
+}
+
+[node name="EnemyWeapons" type="Node2D" parent="." index="11"]
+script = ExtResource("6_geb4h")
+
+[node name="RusticSword" parent="EnemyWeapons" index="0" instance=ExtResource("4_mxb4u")]
