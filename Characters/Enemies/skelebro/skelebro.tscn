@@ -109,7 +109,6 @@ acceleration = 40
 max_speed = 100
 flying = false
 can_be_knocked_back = true
-body_type = null
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("2_13wq3")
