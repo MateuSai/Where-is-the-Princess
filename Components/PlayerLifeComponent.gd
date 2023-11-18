@@ -5,7 +5,7 @@ class_name PlayerLifeComponent extends LifeComponent
 @onready var hit_border_effect: HitBorderEffect = $"../UI/HitBorderEffect"
 
 
-func take_damage(dam: int, dir: Vector2, force: int) -> void:
+func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon) -> void:
 	if _must_ignore_damage():
 		return
 
@@ -14,6 +14,7 @@ func take_damage(dam: int, dir: Vector2, force: int) -> void:
 	if player.armor is NoArmor: # We decrease hp
 		hit_border_effect.effect(hit_border_effect.Type.HP, invincible_after_being_hitted_time)
 		self.hp -= dam
+		_play_hit_sound(weapon)
 	else: # we decrease armor condition
 		player.armor.condition -= dam * damage_taken_multiplier
 		hit_border_effect.effect(hit_border_effect.Type.ARMOR, invincible_after_being_hitted_time)

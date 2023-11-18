@@ -10,6 +10,15 @@ var block_probability: int = 0
 
 var damage_taken_multiplier: int = 1
 
+const BONES_HIT_SOUND: Array[AudioStream] = [preload("res://Audio/Sounds/impact/420252__redroxpeterpepper__step-skeleton.wav"), preload("res://Audio/Sounds/impact/420253__redroxpeterpepper__step-skeleton-2.wav")]
+
+enum BodyType {
+	FLESH,
+	SLIME,
+	BONES,
+}
+@export var body_type: BodyType = BodyType.FLESH
+
 @export var max_hp: int = 4
 @export var hp: int:
 	set(new_hp):
@@ -30,12 +39,13 @@ func _ready() -> void:
 	add_child(invincible_after_being_hitted_timer)
 
 
-func take_damage(dam: int, dir: Vector2, force: int) -> void:
+func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon) -> void:
 	if _must_ignore_damage():
 		return
 
 	dam *= damage_taken_multiplier
 	self.hp -= dam
+	_play_hit_sound(weapon)
 
 	damage_taken.emit(dam, dir, force)
 
@@ -56,3 +66,19 @@ func _must_ignore_damage() -> bool:
 			return true
 
 	return false
+
+
+func _play_hit_sound(weapon: Weapon) -> void:
+	if weapon == null:
+		return
+
+	var stream: AudioStream = null
+	match body_type:
+		BodyType.BONES:
+			stream = BONES_HIT_SOUND[randi() % BONES_HIT_SOUND.size()]
+
+	if stream:
+		var sound: AutoFreeSound = AutoFreeSound.new()
+		get_tree().current_scene.add_child(sound)
+		sound.start(stream, get_parent().global_position)
+

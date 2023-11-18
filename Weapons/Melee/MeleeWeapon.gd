@@ -31,6 +31,7 @@ func _ready() -> void:
 	)
 	set_physics_process(false)
 
+	hitbox.weapon = self
 #	hitbox.exclude.push_back(Globals.player)
 
 	match type:

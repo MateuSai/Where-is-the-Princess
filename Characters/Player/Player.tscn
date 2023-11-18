@@ -504,6 +504,7 @@ libraries = {
 
 [node name="LifeComponent" parent="." index="9"]
 script = ExtResource("11_up6en")
+body_type = null
 max_hp = 2
 hp = 2
 
@@ -810,7 +811,6 @@ texture_under = ExtResource("48_cmvmn")
 texture_progress = ExtResource("49_cukxb")
 tint_progress = Color(0, 0.45098, 0.207843, 1)
 
-[connection signal="permanent_passive_item_picked_up" from="." to="UI/MarginContainer/ArmorConditionBar/PassiveItemsContainer" method="_on_player_permanent_passive_item_picked_up"]
 [connection signal="weapon_condition_changed" from="Weapons" to="UI" method="_on_weapon_condition_changed"]
 [connection signal="weapon_droped" from="Weapons" to="UI" method="_on_weapon_droped"]
 [connection signal="weapon_picked_up" from="Weapons" to="UI" method="_on_weapon_picked_up"]
