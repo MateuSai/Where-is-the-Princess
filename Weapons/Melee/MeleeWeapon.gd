@@ -31,7 +31,7 @@ func _ready() -> void:
 	)
 	set_physics_process(false)
 
-	hitbox.exclude.push_back(Globals.player)
+#	hitbox.exclude.push_back(Globals.player)
 
 	match type:
 		Type.HAMMER:

@@ -123,6 +123,7 @@ libraries = {
 }
 
 [node name="EnemyWeapons" type="Node2D" parent="." index="11"]
+position = Vector2(0, -3)
 script = ExtResource("6_geb4h")
 
 [node name="RusticSword" parent="EnemyWeapons" index="0" instance=ExtResource("4_mxb4u")]

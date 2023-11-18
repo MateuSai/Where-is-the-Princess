@@ -1,12 +1,10 @@
-class_name Weapons extends Node2D
+class_name PlayerWeapons extends Weapons
 
 signal weapon_switched(prev_index: int, new_index: int)
 signal weapon_picked_up(weapon: Weapon)
 signal weapon_droped(index: int)
 signal weapon_condition_changed(weapon: Weapon, new_value: float)
 signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
-
-var current_weapon: Weapon: set = set_current_weapon
 
 var max_weapons: int = 6
 
@@ -62,18 +60,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			_drop_weapon()
 
 
-func move(mouse_direction: Vector2) -> void:
+func move(direction: Vector2) -> void:
 	if disabled:
 		return
 
-	var prev_current_weap_rot: float = current_weapon.rotation
-	current_weapon.move(mouse_direction)
-	#if (prev_current_weap_rot > 0 and current_weapon.rotation < 0) or (prev_current_weap_rot < 0 and current_weapon.rotation > 0):
-	if prev_current_weap_rot < 0 and current_weapon.rotation > 0:
-		get_parent().move_child(self, -1)
-	elif prev_current_weap_rot > 0 and current_weapon.rotation < 0:
-		get_parent().move_child(self, 0)
-	# print(current_weapon.rotation)
+	super(direction)
 
 
 func _switch_weapon(direction: int) -> void:
@@ -204,7 +195,7 @@ func _on_weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.S
 func set_current_weapon(new_weapon: Weapon) -> void:
 		if current_weapon != null:
 			current_weapon.set_process_unhandled_input(false)
-		current_weapon = new_weapon
+		super(new_weapon)
 		current_weapon.set_process_unhandled_input(true)
 
 
