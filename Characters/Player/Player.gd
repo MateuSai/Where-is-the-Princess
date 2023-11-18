@@ -42,7 +42,7 @@ var rotating_items: Array[Node2D] = []
 
 # @onready var armor_sprite: Sprite2D = get_node("ArmorSprite")
 
-@onready var weapons: Weapons = get_node("Weapons")
+@onready var weapons: PlayerWeapons = get_node("Weapons")
 @onready var camera: Camera2D = $Camera2D
 
 @onready var jump_animation_player: AnimationPlayer = get_node("JumpAnimationPlayer")

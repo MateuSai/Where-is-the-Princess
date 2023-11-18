@@ -32,21 +32,6 @@ enum Resistance {
 }
 var resistances: int = 0 # I can't make an exported using an enum to select flags, so, change this variable from the script if you need to
 
-enum BodyType {
-	FLESH,
-	SLIME,
-	BONES,
-}
-@export var body_type: BodyType = BodyType.FLESH:
-	set(new_body_type):
-		body_type = new_body_type
-#		resistances = 0
-#		match body_type:
-#			BodyType.FLESH:
-#				pass
-#			BodyType.SLIME:
-#				add_resistance(Resistance.ACID)
-
 var mov_direction: Vector2 = Vector2.ZERO
 
 var inside_acid: bool = false
@@ -89,7 +74,7 @@ func _load_csv_data(data: Dictionary) -> void:
 	flying = bool(data.flying)
 	can_be_knocked_back = bool(data.can_be_knocked_back)
 	@warning_ignore("int_as_enum_without_cast")
-	body_type = BodyType.keys().find(data.body_type)
+	life_component.body_type = life_component.BodyType.keys().find(data.body_type)
 	resistances = data.resistances
 
 
@@ -178,7 +163,7 @@ func stop_progressing_acid() -> void:
 
 
 func _on_acid_damage_timer_timeout() -> void:
-	life_component.take_damage(1, Vector2.ZERO, 0)
+	life_component.take_damage(1, Vector2.ZERO, 0, null)
 
 
 func add_resistance(resistance: Resistance) -> void:

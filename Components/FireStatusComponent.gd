@@ -37,7 +37,7 @@ func remove() -> void:
 
 
 func _on_damage_timer_timeout() -> void:
-	life_component.take_damage(1 + Globals.player.extra_fire_damage, Vector2.ZERO, 0)
+	life_component.take_damage(1 + Globals.player.extra_fire_damage, Vector2.ZERO, 0, null)
 	charges -= 1
 	if charges == 0:
 		remove()

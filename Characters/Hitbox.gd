@@ -6,6 +6,8 @@ var knockback_direction: Vector2 = Vector2.ZERO
 
 var exclude: Array[Node2D] = []
 
+var weapon: Weapon = null
+
 signal collided_with_something(node: Node2D)
 
 @onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
@@ -106,7 +108,7 @@ func _collide(node: Node2D, dam: int = damage) -> void:
 	if node is Bomb:
 		node.hit(knockback_direction, knockback_force)
 	elif node.has_node("LifeComponent"):
-		node.get_node("LifeComponent").take_damage(dam, knockback_direction, knockback_force)
+		node.get_node("LifeComponent").take_damage(dam, knockback_direction, knockback_force, weapon)
 	elif node is RigidBody2D:
 		node.apply_impulse(knockback_direction * knockback_force * 5)
 	elif node is Projectile and node.can_be_destroyed:

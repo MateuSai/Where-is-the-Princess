@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://br7c70c5injos" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/no_armor.png" id="4_kfgmg"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerFSM.gd" id="5"]
 [ext_resource type="PackedScene" uid="uid://bw0adahejc8e2" path="res://Weapons/Dagger.tscn" id="5_nk70o"]
-[ext_resource type="Script" path="res://Characters/Player/Weapons.gd" id="5_uyohi"]
+[ext_resource type="Script" path="res://Characters/Player/player_weapons.gd" id="5_uyohi"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="6_hd6on"]
 [ext_resource type="Script" path="res://Characters/Player/UI.gd" id="7_24kdb"]
 [ext_resource type="Script" path="res://Characters/Player/PassiveItemsContainer.gd" id="8_aavgb"]
@@ -485,18 +485,6 @@ script = ExtResource("5_uyohi")
 
 [node name="Dagger" parent="Weapons" index="0" instance=ExtResource("5_nk70o")]
 position = Vector2(0, -3)
-num_normal_attacks = null
-increase_num_normal_attacks_on_ability = null
-throw_speed = null
-on_floor = null
-type = null
-weapon_name = null
-description = null
-condition_cost_per_normal_attack = null
-souls_to_activate_ability = null
-active_ability_condition_cost = null
-ability_damage = null
-damage = null
 
 [node name="Camera2D" type="Camera2D" parent="." index="7"]
 position_smoothing_enabled = true
@@ -516,6 +504,7 @@ libraries = {
 
 [node name="LifeComponent" parent="." index="9"]
 script = ExtResource("11_up6en")
+body_type = null
 max_hp = 2
 hp = 2
 
@@ -822,7 +811,6 @@ texture_under = ExtResource("48_cmvmn")
 texture_progress = ExtResource("49_cukxb")
 tint_progress = Color(0, 0.45098, 0.207843, 1)
 
-[connection signal="permanent_passive_item_picked_up" from="." to="UI/MarginContainer/ArmorConditionBar/PassiveItemsContainer" method="_on_player_permanent_passive_item_picked_up"]
 [connection signal="weapon_condition_changed" from="Weapons" to="UI" method="_on_weapon_condition_changed"]
 [connection signal="weapon_droped" from="Weapons" to="UI" method="_on_weapon_droped"]
 [connection signal="weapon_picked_up" from="Weapons" to="UI" method="_on_weapon_picked_up"]

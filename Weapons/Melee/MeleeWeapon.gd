@@ -1,3 +1,4 @@
+@icon("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/Scimitar_icon.png")
 class_name MeleeWeapon extends Weapon
 
 const CUT_FLESH_SOUNDS: Array[AudioStream] = [preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Sword/MetalSlash1.wav"), preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Sword/MetalSlash2.wav"), preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Sword/MetalSlash3.wav")]
@@ -30,7 +31,8 @@ func _ready() -> void:
 	)
 	set_physics_process(false)
 
-	hitbox.exclude.push_back(Globals.player)
+	hitbox.weapon = self
+#	hitbox.exclude.push_back(Globals.player)
 
 	match type:
 		Type.HAMMER:

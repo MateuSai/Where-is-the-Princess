@@ -9,6 +9,11 @@
 texture_filter = 1
 motion_mode = 1
 script = ExtResource("1")
+mass = null
+acceleration = null
+max_speed = null
+flying = null
+can_be_knocked_back = null
 
 [node name="FiniteStateMachine" type="Node" parent="."]
 script = ExtResource("2")

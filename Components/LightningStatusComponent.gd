@@ -5,7 +5,7 @@ const EFFECT_RANGE: int = 200
 
 
 func add() -> void:
-	life_component.take_damage(1, Vector2.ZERO, 0)
+	life_component.take_damage(1, Vector2.ZERO, 0, null)
 
 	for enemy in get_tree().get_nodes_in_group("enemies"):
 		if enemy == get_parent():
