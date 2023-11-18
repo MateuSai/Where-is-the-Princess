@@ -17,5 +17,6 @@ MediumSlime,4,15,15,30,0,1,2,SLIME,,3,1,0
 BigSlime,8,70,10,20,0,1,2,SLIME,,3,1,0
 Archeleton,4,20,30,70,0,1,8,BONES,,2-3,1,0
 Skelebro,7,20,30,70,0,1,8,BONES,,2-3,1,0
+Skelebromancer,5,20,25,60,0,1,8,BONES,,2-3,1,0
 ,,,,,,,,,,,,
 BodenTheDruid,15,55,30,70,0,1,0,FLESH,,10,20,1
