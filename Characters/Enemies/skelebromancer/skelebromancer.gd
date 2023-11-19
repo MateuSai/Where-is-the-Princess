@@ -15,7 +15,8 @@ func _ready() -> void:
 		bones.life_component.died.connect(func():
 			pile_of_bones.erase(bones)
 			if pile_of_bones.is_empty():
-				_on_damage_taken(1000, Vector2.ZERO, 0)
+				spawn_skelebro_timer.stop()
+				life_component.take_damage(1000, Vector2.ZERO, 0, null)
 		)
 
 	spawn_skelebro_timer.timeout.connect(func():
