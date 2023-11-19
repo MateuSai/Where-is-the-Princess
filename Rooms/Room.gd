@@ -350,3 +350,8 @@ func get_random_spawn_point(spawn_shape: Rooms.SpawnShape) -> Vector2:
 
 func get_rect() -> Rect2:
 	return Rect2(Vector2i(position) + (tilemap.get_used_rect().position * 16), (tilemap.get_used_rect().size * 16))
+
+
+func add_enemy(enemy: Enemy) -> void:
+	num_enemies += 1
+	add_child(enemy)

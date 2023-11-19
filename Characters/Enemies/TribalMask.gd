@@ -32,7 +32,6 @@ func _ready() -> void:
 func resurrect() -> void:
 	var enemy: Enemy = load(["res://Characters/Enemies/BlowpipeTribal/BlowpipeTribal.tscn", "res://Characters/Enemies/SpearTribal/SpearTribal.tscn", "res://Characters/Enemies/BombTribal/BombTribal.tscn", "res://Characters/Enemies/ShamanTribal/ShamanTribal.tscn"][type]).instantiate()
 	enemy.position = position
-	room.add_child(enemy)
-	room.num_enemies += 1
+	room.add_enemy(enemy)
 
 	queue_free()
