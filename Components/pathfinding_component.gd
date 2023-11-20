@@ -50,6 +50,9 @@ class Mode extends Node:
 
 
 class Approach extends Mode:
+	const ZIG_ZAG_FLAG: int = 1
+	var flags: int = 0
+
 	func _ready() -> void:
 		_spawn_timer(0.4)
 
@@ -63,7 +66,11 @@ class Approach extends Mode:
 			character.mov_direction = Vector2.ZERO
 
 	func _get_path_to_target() -> void:
-		navigation_agent.target_position = target.global_position
+		var vector_to_target: Vector2 = (target.global_position - character.global_position)
+		if flags & ZIG_ZAG_FLAG and vector_to_target.length() > 24:
+			navigation_agent.target_position = character.global_position + vector_to_target.rotated([1, -1][randi() % 2] * PI/4)
+		else:
+			navigation_agent.target_position = target.global_position
 
 
 class Flee extends Mode:
