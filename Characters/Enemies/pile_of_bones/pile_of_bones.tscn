@@ -1,11 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://x1pwc7lvxpne"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_78616"]
-[ext_resource type="Texture2D" uid="uid://tuw2d08qijy2" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/sewer entrance.png" id="2_bopkm"]
 [ext_resource type="Script" path="res://Characters/Enemies/pile_of_bones/pile_of_bones.gd" id="2_drmng"]
 [ext_resource type="Script" path="res://Characters/Enemies/pile_of_bones/pile_of_bones_fsm.gd" id="3_8trrq"]
+[ext_resource type="Texture2D" uid="uid://itm8i6e0vur0" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_bonepile.png" id="4_e0im5"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_cv5vr"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_63kqn"]
+radius = 4.0
+height = 24.0
 
 [node name="PileOfBones" groups=["pile_of_bones"] instance=ExtResource("1_78616")]
 script = ExtResource("2_drmng")
@@ -19,8 +21,9 @@ can_be_knocked_back = true
 script = ExtResource("3_8trrq")
 
 [node name="Sprite2D" parent="." index="2"]
-position = Vector2(0, -8)
-texture = ExtResource("2_bopkm")
+position = Vector2(0, -4)
+texture = ExtResource("4_e0im5")
 
 [node name="CollisionShape2D" parent="." index="3"]
-shape = SubResource("CircleShape2D_cv5vr")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_63kqn")
