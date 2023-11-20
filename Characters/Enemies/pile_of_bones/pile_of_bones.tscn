@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://x1pwc7lvxpne"]
+
+[ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_78616"]
+[ext_resource type="Texture2D" uid="uid://tuw2d08qijy2" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/sewer entrance.png" id="2_bopkm"]
+[ext_resource type="Script" path="res://Characters/Enemies/pile_of_bones/pile_of_bones.gd" id="2_drmng"]
+[ext_resource type="Script" path="res://Characters/Enemies/pile_of_bones/pile_of_bones_fsm.gd" id="3_8trrq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cv5vr"]
+
+[node name="PileOfBones" groups=["pile_of_bones"] instance=ExtResource("1_78616")]
+script = ExtResource("2_drmng")
+mass = 1.0
+acceleration = 40
+max_speed = 100
+flying = false
+can_be_knocked_back = true
+
+[node name="FiniteStateMachine" parent="." index="0"]
+script = ExtResource("3_8trrq")
+
+[node name="Sprite2D" parent="." index="2"]
+position = Vector2(0, -8)
+texture = ExtResource("2_bopkm")
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("CircleShape2D_cv5vr")

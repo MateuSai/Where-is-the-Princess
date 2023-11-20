@@ -35,3 +35,10 @@ func _actually_attack() -> void:
 	current_weapon._attack()
 
 	attack_cooldown_timer.start()
+
+
+func set_current_weapon(new_weapon: Weapon) -> void:
+	super(new_weapon)
+	# Enemies weapons don't break
+	current_weapon.condition_cost_per_normal_attack = 0
+	current_weapon.active_ability_condition_cost = 0

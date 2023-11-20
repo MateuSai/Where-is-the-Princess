@@ -9,7 +9,7 @@ func _ready() -> void:
 	super()
 
 	$HatchTimer.timeout.connect(func():
-		room.num_enemies += spider_amount
+#		room.num_enemies += spider_amount
 		collision_shape.queue_free()
 		$AnimationPlayer.play("hatch")
 		life_component.hp = 0
@@ -28,4 +28,4 @@ func spawn_spiders() -> void:
 	for i in spider_amount:
 		var spider: Spider = SPIDER_SCENE.instantiate()
 		spider.position = position + Vector2.RIGHT.rotated(initial_angle + i * 2*PI/spider_amount) * 4
-		get_parent().add_child(spider)
+		room.add_enemy(spider)
