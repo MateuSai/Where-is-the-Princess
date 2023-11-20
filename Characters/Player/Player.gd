@@ -196,15 +196,15 @@ func _controller_aim() -> void:
 
 func get_input() -> void:
 	mov_direction = Vector2.ZERO
-	if can_move:
-		if Input.is_action_pressed("ui_down"):
-			mov_direction += Vector2.DOWN
-		if Input.is_action_pressed("ui_left"):
-			mov_direction += Vector2.LEFT
-		if Input.is_action_pressed("ui_right"):
-			mov_direction += Vector2.RIGHT
-		if Input.is_action_pressed("ui_up"):
-			mov_direction += Vector2.UP
+#	if can_move:
+	if Input.is_action_pressed("ui_down"):
+		mov_direction += Vector2.DOWN
+	if Input.is_action_pressed("ui_left"):
+		mov_direction += Vector2.LEFT
+	if Input.is_action_pressed("ui_right"):
+		mov_direction += Vector2.RIGHT
+	if Input.is_action_pressed("ui_up"):
+		mov_direction += Vector2.UP
 
 	if Input.is_action_just_pressed("ui_armor_ability") and armor.is_able_to_use_ability:
 		_use_armor_ability()

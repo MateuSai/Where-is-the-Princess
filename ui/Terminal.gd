@@ -138,6 +138,8 @@ func _process_command(command: String) -> void:
 						_spawn_chest()
 			else:
 				printerr("Invalid number of arguments, you must specify what to spawn")
+		"i'm fucking invincible":
+			_set_player_invincible("t")
 #			if splitted_command.size() > 1: # tiene otro argumento
 #				match splitted_command[1]:
 #					"weapon", "weap":

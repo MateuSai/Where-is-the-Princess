@@ -36,7 +36,7 @@ func _ready() -> void:
 #	)
 
 	parallize_timer.timeout.connect(func():
-		#can_move = true
+		can_move = true
 		state_machine.set_physics_process(true)
 	)
 
@@ -142,7 +142,7 @@ func _on_died_0_5_seconds_later() -> void:
 
 func parallize() -> void:
 	if can_move:
-		#can_move = false
+		can_move = false
 		state_machine.set_physics_process(false)
 		$AnimationPlayer.call_deferred("stop")
 		parallize_timer.start()

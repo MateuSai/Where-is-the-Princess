@@ -85,8 +85,8 @@ func _physics_process(delta: float) -> void:
 		acid_progress -= 0.7 * delta
 
 	state_machine.physics_process(delta)
-
-	move_and_slide()
+	if can_move:
+		move_and_slide()
 	velocity = lerp(velocity, Vector2.ZERO, FRICTION)
 
 
