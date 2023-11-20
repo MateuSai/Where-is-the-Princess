@@ -264,10 +264,13 @@ radius = 4.0
 [node name="FlyingCreature" instance=ExtResource("1")]
 texture_filter = 0
 script = ExtResource("6")
+mass = 1.0
+acceleration = 40
 max_speed = 50
 flying = true
+can_be_knocked_back = true
 
-[node name="FiniteStateMachine" parent="." index="1"]
+[node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("3")
 
 [node name="Hitbox" type="Area2D" parent="." index="2"]

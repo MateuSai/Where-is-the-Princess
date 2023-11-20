@@ -6,6 +6,14 @@ const BITE_EFFECT_SCENE: PackedScene = preload("res://Characters/Enemies/BiteEff
 @onready var hitbox_col: CollisionShape2D = $Hitbox/CollisionShape2D
 
 
+func _ready() -> void:
+	super()
+
+	var pathfinding_component: PathfindingComponent = $PathfindingComponent
+	assert(pathfinding_component.mode is PathfindingComponent.Approach)
+	pathfinding_component.mode.flags |= PathfindingComponent.Approach.ZIG_ZAG_FLAG
+
+
 func _spawn_bite_effect() -> void:
 	var effect: Sprite2D = BITE_EFFECT_SCENE.instantiate()
 	effect.global_position = hitbox_col.global_position
