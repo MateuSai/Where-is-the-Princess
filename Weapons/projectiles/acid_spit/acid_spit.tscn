@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://dngplt04orv1y"]
+
+[ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/projectiles/projectile.tscn" id="1_h5qvo"]
+[ext_resource type="Script" path="res://Weapons/projectiles/acid_spit/acid_spit.gd" id="2_50ubf"]
+[ext_resource type="Texture2D" uid="uid://dbmgmou2wnhtj" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/insector/spit_flying.png" id="3_ngbqw"]
+
+[node name="AcidSpit" instance=ExtResource("1_h5qvo")]
+collision_mask = 7
+script = ExtResource("2_50ubf")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("3_ngbqw")
+hframes = 4
