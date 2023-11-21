@@ -10,12 +10,16 @@ enum {
 	DEAD,
 }
 
+const MAX_DISTANCE_TO_PLAYER: int = 70
+const MIN_DISTANCE_TO_PLAYER: int = 45
+
 var rock_dir: Vector2
 
 @onready var MAX_DISTANCE_FOR_MELEE_ATTACK: float = $"../MeleeHitbox/CollisionShape2D".shape.radius * 2
 @onready var sprite: Sprite2D = $"../Sprite2D"
 @onready var rock_container: Node2D = $"../RockContainer"
 @onready var rock_attack_timer: Timer = $"../RockAttackTimer"
+@onready var pathfinding_component: PathfindingComponent = $"../PathfindingComponent"
 
 
 func start() -> void:
@@ -41,6 +45,12 @@ func _state_logic(_delta: float) -> void:
 
 			parent.move_staff()
 		MOVE:
+			var distance_to_player: float = (parent.target.global_position - parent.global_position).length()
+			if distance_to_player > MAX_DISTANCE_TO_PLAYER and not pathfinding_component.mode is PathfindingComponent.Approach:
+				pathfinding_component.set_mode(PathfindingComponent.Approach.new())
+			elif distance_to_player < MIN_DISTANCE_TO_PLAYER and not pathfinding_component.mode is PathfindingComponent.Flee:
+				pathfinding_component.set_mode(PathfindingComponent.Flee.new())
+
 			parent.move_to_target()
 			parent.move()
 			if parent.can_move:
@@ -69,18 +79,19 @@ func _state_logic(_delta: float) -> void:
 
 
 func _get_transition() -> int:
+	var distance_to_player: float = (parent.target.global_position - parent.global_position).length()
 	match state:
 		IDLE:
-			if parent.distance_to_player > parent.MAX_DISTANCE_TO_PLAYER or parent.distance_to_player < parent.MIN_DISTANCE_TO_PLAYER:
+			if distance_to_player > MAX_DISTANCE_TO_PLAYER or distance_to_player < MIN_DISTANCE_TO_PLAYER:
 				return MOVE
 		MOVE:
-			if parent.distance_to_player < parent.MAX_DISTANCE_TO_PLAYER and parent.distance_to_player > parent.MIN_DISTANCE_TO_PLAYER:
+			if distance_to_player < MAX_DISTANCE_TO_PLAYER and distance_to_player > MIN_DISTANCE_TO_PLAYER:
 				return IDLE
 		TRANSFORM:
 			if not animation_player.is_playing():
 				return BEAR_RUN
 		BEAR_RUN:
-			if parent.distance_to_player <= MAX_DISTANCE_FOR_MELEE_ATTACK:
+			if distance_to_player <= MAX_DISTANCE_FOR_MELEE_ATTACK:
 				return BEAR_MELEE_ATTACK
 		BEAR_MELEE_ATTACK, BEAR_THROW_ROCK:
 			if not animation_player.is_playing():
@@ -113,6 +124,7 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			parent.mass = 150
 			parent.can_move = true
 		BEAR_RUN:
+			pathfinding_component.set_mode(PathfindingComponent.Approach.new())
 			rock_attack_timer.start(randf_range(0.8, 2.0))
 		BEAR_MELEE_ATTACK:
 			var dir_to_player: Vector2 = (parent.player.position - parent.global_position).normalized()

@@ -2,14 +2,9 @@ class_name BodenTheDruid extends Enemy
 
 const BIRD_SCENE: PackedScene = preload("res://Weapons/projectiles/Bird.tscn")
 
-const MAX_DISTANCE_TO_PLAYER: int = 70
-const MIN_DISTANCE_TO_PLAYER: int = 45
-
 const BEAR_HP: int = 25
 
 var is_bear: bool = false
-
-var distance_to_player: float
 
 @onready var staff_pivot: Node2D = $StaffPivot
 @onready var staff_pivot_2: Node2D = $StaffPivot/StaffPivot2
@@ -63,27 +58,6 @@ func move_staff() -> void:
 			staff_pivot_2.scale.x = -1
 			staff.scale.x = -1
 			staff_pivot_2.rotation = PI/2
-
-
-func _on_PathTimer_timeout() -> void:
-	if is_instance_valid(player):
-		distance_to_player = (player.position - global_position).length()
-		if is_bear:
-			_get_path_to_player()
-		else:
-			if distance_to_player > MAX_DISTANCE_TO_PLAYER:
-				_get_path_to_player()
-			elif distance_to_player < MIN_DISTANCE_TO_PLAYER:
-				_get_path_to_move_away_from_player()
-			else:
-				pass
-	#			aim_raycast.target_position = player.position - global_position
-	#			if can_attack and state_machine.state == state_machine.states.idle and not aim_raycast.is_colliding():
-	#				can_attack = false
-	#				_throw_knife()
-	#				attack_timer.start()
-	else:
-		mov_direction = Vector2.ZERO
 
 
 func _get_path_to_move_away_from_player() -> void:
