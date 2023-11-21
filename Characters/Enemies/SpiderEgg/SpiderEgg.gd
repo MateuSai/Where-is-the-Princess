@@ -24,6 +24,9 @@ func _on_died() -> void:
 
 
 func spawn_spiders() -> void:
+	# Tecnically, the egg does not die, because it is still on the floor, but we need to reduce the number of enemies by one, otherwise the combat will never end
+	room.num_enemies -= 1
+
 	var initial_angle: float = randf_range(0, 2*PI/spider_amount)
 	for i in spider_amount:
 		var spider: Spider = SPIDER_SCENE.instantiate()
