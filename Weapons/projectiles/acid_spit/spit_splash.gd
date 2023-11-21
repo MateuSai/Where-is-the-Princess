@@ -5,5 +5,5 @@ const ACID_PUDDLE_SCENE: PackedScene = preload("res://Characters/Enemies/MediumS
 
 func _spawn_acid_puddle() -> void:
 	var acid_puddle: AcidPuddle = ACID_PUDDLE_SCENE.instantiate()
-	acid_puddle.global_position = global_position
 	get_tree().current_scene.add_child(acid_puddle)
+	acid_puddle.global_position = global_position - acid_puddle.sprite.position

@@ -46,7 +46,7 @@ func _collide(node: Node2D, _dam: int = damage) -> void:
 	collided_with_something.emit(node)
 
 	if node.get("life_component") != null:
-		node.life_component.take_damage(damage, knockback_direction, knockback_force)
+		node.life_component.take_damage(damage, knockback_direction, knockback_force, weapon)
 		if bodies_pierced >= piercing:
 			destroy()
 		else:

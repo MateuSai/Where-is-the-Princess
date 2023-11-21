@@ -3,6 +3,21 @@
 [ext_resource type="Texture2D" uid="uid://dei8obuoegwmk" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/insector/spit_splash.png" id="1_orrxa"]
 [ext_resource type="Script" path="res://Weapons/projectiles/acid_spit/spit_splash.gd" id="2_2mqwa"]
 
+[sub_resource type="Animation" id="Animation_1ltmu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_au1ha"]
 resource_name = "splash"
 length = 0.42
@@ -35,21 +50,6 @@ tracks/1/keys = {
 "args": [],
 "method": &"queue_free"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_1ltmu"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_84blp"]
