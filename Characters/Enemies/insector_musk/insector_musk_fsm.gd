@@ -1,75 +1,98 @@
 extends FiniteStateMachine
 
+enum {
+	HIDDEN,
+	APPROACH,
+	MELEE_ATTACK,
+	FLEE,
+	RANGED_ATTACK,
+	DEAD,
+}
+
 @onready var pathfinding_component: PathfindingComponent = $"../PathfindingComponent"
+@onready var wings: Sprite2D = $"../Wings"
 @onready var hitbox: Hitbox = $"../Hitbox"
-
-
-func _init() -> void:
-	_add_state("hidden")
-	_add_state("approach")
-	_add_state("melee_attack")
-	_add_state("flee")
-	_add_state("ranged_attack")
-	_add_state("dead")
+@onready var throw_acid_spit_timer: Timer = $"../ThrowAcidSpitTimer"
 
 
 func start() -> void:
-	set_state(states.hidden)
+	set_state(HIDDEN)
 
 
 func _state_logic(_delta: float) -> void:
 	match state:
-		states.approach, states.flee:
+		APPROACH, FLEE:
 			parent.move_to_target()
 			parent.move()
 			if parent.mov_direction.y >= 0 and animation_player.current_animation != "fly":
 				animation_player.play("fly")
+				parent.move_child(wings, 0)
 			elif parent.mov_direction.y < 0 and animation_player.current_animation != "fly_up":
 				animation_player.play("fly_up")
-		states.ranged_attack:
-			parent.spit()
+				parent.move_child(wings, parent.get_child_count())
+		HIDDEN, RANGED_ATTACK:
+			var vector_to_target: Vector2 = parent.target.global_position - parent.global_position
+
+			if vector_to_target.y >= 0 and animation_player.current_animation != "fly":
+				animation_player.play("fly")
+				parent.move_child(wings, 0)
+			elif vector_to_target.y < 0 and animation_player.current_animation != "fly_up":
+				animation_player.play("fly_up")
+				parent.move_child(wings, parent.get_child_count())
+
+			if vector_to_target.x >= 0 and wings.flip_h:
+				parent._on_change_dir()
+			elif vector_to_target.x < 0 and not wings.flip_h:
+				parent._on_change_dir()
 
 
 func _get_transition() -> int:
 	var vector_to_target: Vector2 = parent.target.global_position - parent.global_position
 	match state:
-		states.hidden:
-			if vector_to_target.length() < 50:
-				return states.ranged_attack
-		states.approach:
+		HIDDEN:
+			if vector_to_target.length() < 15:
+				return MELEE_ATTACK
+			elif vector_to_target.length() < 50:
+				return RANGED_ATTACK
+		APPROACH:
 			if vector_to_target.length() < 10:
-				return states.melee_attack
-		states.melee_attack:
+				return MELEE_ATTACK
+		MELEE_ATTACK:
 			if not animation_player.is_playing():
-				return states.flee
-		states.flee:
+				return FLEE
+		FLEE:
 			if vector_to_target.length() > 50:
-				return states.ranged_attack
-		states.ranged_attack:
+				return RANGED_ATTACK
+		RANGED_ATTACK:
 			if vector_to_target.length() < 24:
-				return states.approach
+				return APPROACH
 
 	return -1
 
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
-		states.hidden:
+		HIDDEN:
 			parent.modulate.a = 0.4
-		states.approach:
+		APPROACH:
 			pathfinding_component.set_mode(PathfindingComponent.Approach.new())
-		states.melee_attack:
+		MELEE_ATTACK:
 			hitbox.rotation = (parent.target.global_position - parent.global_position).angle()
 			hitbox.knockback_direction = Vector2.RIGHT.rotated(hitbox.rotation)
 			if parent.mov_direction.y >= 0:
 				animation_player.play("attack")
 			else:
 				animation_player.play("attack_up")
-		states.flee:
+		FLEE:
 			pathfinding_component.set_mode(PathfindingComponent.Flee.new())
+		RANGED_ATTACK:
+			throw_acid_spit_timer.start()
+			parent.spit()
 
 
 func _exit_state(state_exited: int) -> void:
 	match state_exited:
-		states.hidden:
+		HIDDEN:
 			parent.modulate.a = 1.0
+		RANGED_ATTACK:
+			throw_acid_spit_timer.stop()

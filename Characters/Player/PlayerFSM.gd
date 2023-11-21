@@ -1,20 +1,20 @@
 extends FiniteStateMachine
 
-
-func _init() -> void:
-	_add_state("idle")
-	_add_state("move")
-	_add_state("hurt")
-	_add_state("dead")
+enum {
+	IDLE,
+	MOVE,
+	HURT,
+	DEAD,
+}
 
 
 func start() -> void:
-	set_state(states.idle)
+	set_state(IDLE)
 
 
 func _state_logic(_delta: float) -> void:
 	match state:
-		states.idle:
+		IDLE:
 			parent.get_input()
 			parent.move()
 			#var mouse_direction: Vector2 = (parent.get_global_mouse_position() - parent.global_position).normalized()
@@ -22,7 +22,7 @@ func _state_logic(_delta: float) -> void:
 				animation_player.play("idle")
 			else:
 				animation_player.play("idle_up")
-		states.move:
+		MOVE:
 			parent.get_input()
 			parent.move()
 			#var mouse_direction: Vector2 = (parent.get_global_mouse_position() - parent.global_position).normalized()
@@ -41,31 +41,31 @@ func _state_logic(_delta: float) -> void:
 
 func _get_transition() -> int:
 	match state:
-		states.idle:
+		IDLE:
 			if parent.velocity.length() > 10:
-				return states.move
-		states.move:
+				return MOVE
+		MOVE:
 			if parent.velocity.length() < 10:
-				return states.idle
-		states.hurt:
+				return IDLE
+		HURT:
 			if not animation_player.is_playing():
-				return states.idle
+				return IDLE
 	return -1
 
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
-		states.idle:
+		IDLE:
 			pass
 			#animation_player.play("idle")
 			#animation_tree_state_machine.travel("idle")
-		states.move:
+		MOVE:
 			pass
 			#animation_player.play("move")
 			#animation_tree_state_machine.travel("move")
-		states.hurt:
+		HURT:
 			animation_player.play("hurt")
 			parent.weapons.cancel_attack()
-		states.dead:
+		DEAD:
 			animation_player.play("dead")
 			parent.weapons.cancel_attack()

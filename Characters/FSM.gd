@@ -1,7 +1,6 @@
 extends Node
 class_name FiniteStateMachine
 
-var states: Dictionary = {}
 var previous_state: int = -1
 var state: int = -1: set = set_state
 
@@ -27,10 +26,6 @@ func _state_logic(_delta: float) -> void:
 
 func _get_transition() -> int:
 	return -1
-
-
-func _add_state(new_state: String) -> void:
-	states[new_state] = states.size()
 
 
 func set_state(new_state: int) -> void:

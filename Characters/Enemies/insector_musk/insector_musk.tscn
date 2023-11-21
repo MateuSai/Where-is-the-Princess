@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dy6onebtjklye"]
+[gd_scene load_steps=20 format=3 uid="uid://dy6onebtjklye"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_eqhtg"]
 [ext_resource type="Script" path="res://Characters/Enemies/insector_musk/insector_musk.gd" id="2_jufq1"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://d04uxwluqy5gw" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/player_shadow.png" id="3_jjhp4"]
 [ext_resource type="Texture2D" uid="uid://bvhrlwhd4dabo" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/insector/insector_wings.png" id="3_v50kv"]
 [ext_resource type="Script" path="res://Characters/Hitbox.gd" id="7_qxftq"]
+[ext_resource type="Script" path="res://Characters/HurtBox.gd" id="8_tqopw"]
 
 [sub_resource type="Animation" id="Animation_4ebb0"]
 length = 0.001
@@ -49,6 +50,10 @@ _data = {
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ujcx0"]
 radius = 5.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6d2pt"]
+radius = 7.0
+height = 16.0
 
 [sub_resource type="Animation" id="Animation_wbxgk"]
 length = 0.001
@@ -237,8 +242,19 @@ position = Vector2(8, 0)
 shape = SubResource("CircleShape2D_ujcx0")
 disabled = true
 
-[node name="AnimationPlayer" parent="." index="7"]
+[node name="HurtBox" type="Area2D" parent="." index="6"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("8_tqopw")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0, -13)
+shape = SubResource("CapsuleShape2D_6d2pt")
+
+[node name="AnimationPlayer" parent="." index="8"]
 autoplay = "fly"
 libraries = {
 "": SubResource("AnimationLibrary_fwc3y")
 }
+
+[node name="ThrowAcidSpitTimer" type="Timer" parent="." index="15"]
