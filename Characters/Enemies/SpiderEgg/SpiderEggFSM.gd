@@ -1,8 +1,8 @@
 extends FiniteStateMachine
 
-
-func _init() -> void:
-	_add_state("dead")
+enum {
+	DEAD,
+}
 
 
 #func start() -> void:
@@ -41,6 +41,6 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 #				animation_player.play("attack")
 #			elif parent.mov_direction.y < 0 and animation_player.current_animation != "attack_up":
 #				animation_player.play("attack_up")
-		states.dead:
+		DEAD:
 			$"../HatchTimer".stop()
 			# parent.spawn_loot()

@@ -1,5 +1,12 @@
 extends FiniteStateMachine
 
+enum {
+	WANDER,
+	APPROACH,
+	CIRCLE_TARGET,
+	DEAD,
+}
+
 @export var start_circling_at_distance: int = 16
 @export var stop_circling_at_distance: int = 30
 
@@ -7,24 +14,16 @@ extends FiniteStateMachine
 @onready var pathfinding_component: PathfindingComponent = $"../PathfindingComponent"
 
 
-func _init() -> void:
-	_add_state("wander")
-	_add_state("approach")
-	_add_state("circle_player")
-#	_add_state("attack")
-	_add_state("dead")
-
-
 func start() -> void:
 	if parent.mode == parent.Mode.CIRCLE:
-		set_state(states.circle_player)
+		set_state(CIRCLE_TARGET)
 	else:
-		set_state(states.wander)
+		set_state(WANDER)
 
 
 func _state_logic(_delta: float) -> void:
 	match state:
-		states.wander:
+		WANDER:
 #			if parent.navigation_agent.is_target_reached() or not parent.navigation_agent.is_target_reachable():
 #				parent.target_random_near_position()
 			parent.move_to_target()
@@ -33,14 +32,14 @@ func _state_logic(_delta: float) -> void:
 				animation_player.play("move")
 			elif parent.mov_direction.y < 0 and animation_player.current_animation != "move_up":
 				animation_player.play("move_up")
-		states.approach:
+		APPROACH:
 			parent.move_to_target()
 			parent.move()
 			if parent.mov_direction.y >= 0 and animation_player.current_animation != "move":
 				animation_player.play("move")
 			elif parent.mov_direction.y < 0 and animation_player.current_animation != "move_up":
 				animation_player.play("move_up")
-		states.circle_player:
+		CIRCLE_TARGET:
 #			parent.circle_player()
 			parent.move_to_target()
 			parent.move()
@@ -60,22 +59,22 @@ func _state_logic(_delta: float) -> void:
 func _get_transition() -> int:
 	var dis: float = (parent.player.position - parent.global_position).length()
 	match state:
-		states.approach:
+		APPROACH:
 			if dis < start_circling_at_distance:
-				return states.circle_player
-		states.circle_player:
+				return CIRCLE_TARGET
+		CIRCLE_TARGET:
 			if dis > stop_circling_at_distance:
-				return states.approach
+				return APPROACH
 	return -1
 
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
-		states.wander:
+		WANDER:
 			pathfinding_component.mode = PathfindingComponent.Wander.new()
-		states.approach:
+		APPROACH:
 			pathfinding_component.mode = PathfindingComponent.Approach.new()
-		states.circle_player:
+		CIRCLE_TARGET:
 			pathfinding_component.mode = PathfindingComponent.Circle.new()
 #		states.dead:
 #			# parent.spawn_loot()

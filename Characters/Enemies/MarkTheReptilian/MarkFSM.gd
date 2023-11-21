@@ -1,17 +1,17 @@
 extends FiniteStateMachine
 
+enum {
+	CHASE,
+	ATTACK,
+	DEAD,
+}
+
 
 var attack_finished: bool = false
 
 
-func _init() -> void:
-	_add_state("chase")
-	_add_state("attack")
-	_add_state("dead")
-
-
 func start() -> void:
-	set_state(states.chase)
+	set_state(CHASE)
 
 	parent.spear_picked_up.connect(func():
 		attack_finished = true
@@ -19,7 +19,7 @@ func start() -> void:
 
 
 func _state_logic(_delta: float) -> void:
-	if state == states.chase:
+	if state == CHASE:
 		parent.move_to_target()
 		parent.move()
 		parent.point_to_player()
@@ -32,28 +32,28 @@ func _state_logic(_delta: float) -> void:
 func _get_transition() -> int:
 	var dis: float = (parent.player.position - parent.global_position).length()
 	match state:
-		states.chase:
+		CHASE:
 			if dis <= 64:
-				return states.attack
-		states.attack:
+				return ATTACK
+		ATTACK:
 			if attack_finished:
 				attack_finished = false
-				return states.chase
+				return CHASE
 	return -1
 
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
-		states.chase:
+		CHASE:
 			pass
 			#animation_player.play("fly")
-		states.attack:
+		ATTACK:
 			if parent.mov_direction.y >= 0:
 				animation_player.play("idle")
 			else:
 				animation_player.play("idle_up")
 			parent.attack()
-		states.dead:
+		DEAD:
 			pass
 #			if parent.spear_and_rope:
 #				parent.spear_and_rope.queue_free()
@@ -63,5 +63,5 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 
 #func _exit_state(state_exited: int) -> void:
 #	match state_exited:
-#		states.attack:
+#		ATTACK:
 #			parent.pull_back_weapon()

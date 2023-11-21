@@ -1,5 +1,11 @@
 extends FiniteStateMachine
 
+enum {
+	IDLE,
+	MOVE,
+	DEAD,
+}
+
 const MIN_ATTACK_COOLDOWN: float = 0.5
 const MAX_ATTACK_COOLDOWN: float = 1.0
 
@@ -9,13 +15,6 @@ const MAX_ABILITY_COOLDOWN: float = 4
 
 @onready var swap_cooldown_timer: Timer = get_node("../SwapCooldownTimer")
 @onready var attack_timer: Timer = get_node("../AttackTimer")
-
-
-func _init() -> void:
-	_add_state("idle")
-	_add_state("move")
-	_add_state("hurt")
-	_add_state("dead")
 
 
 func start() -> void:
@@ -29,18 +28,18 @@ func start() -> void:
 			parent.normal_attack()
 		attack_timer.start(randf_range(MIN_ATTACK_COOLDOWN, MAX_ATTACK_COOLDOWN))
 	)
-	set_state(states.move)
+	set_state(MOVE)
 
 
 func _state_logic(_delta: float) -> void:
 	match state:
-		states.idle:
+		IDLE:
 			var dir_to_player: Vector2 = (parent.player.position - parent.global_position).normalized()
 			if dir_to_player.y >= 0 and animation_player.current_animation != "idle":
 				animation_player.play("idle")
 			elif dir_to_player.y < 0 and animation_player.current_animation != "idle_up":
 				animation_player.play("idle_up")
-		states.move:
+		MOVE:
 			parent.move_to_target()
 			parent.move()
 			var dir_to_player: Vector2 = (parent.player.position - parent.global_position).normalized()
@@ -52,29 +51,24 @@ func _state_logic(_delta: float) -> void:
 
 func _get_transition() -> int:
 	match state:
-		states.idle:
+		IDLE:
 			if parent.distance_to_player > parent.MAX_DISTANCE_TO_PLAYER or parent.distance_to_player < parent.MIN_DISTANCE_TO_PLAYER:
-				return states.move
-		states.move:
+				return MOVE
+		MOVE:
 			if parent.distance_to_player < parent.MAX_DISTANCE_TO_PLAYER and parent.distance_to_player > parent.MIN_DISTANCE_TO_PLAYER:
-				return states.idle
-		states.hurt:
-			if not animation_player.is_playing():
-				return states.move
+				return IDLE
 	return -1
 
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
-		states.idle:
+		IDLE:
 			pass
 			#animation_player.play("idle")
-		states.move:
+		MOVE:
 			pass
 			#animation_player.play("move")
-		states.hurt:
-			animation_player.play("hurt")
-		states.dead:
+		DEAD:
 			attack_timer.stop()
 			# parent.spawn_loot()
 			animation_player.play("dead")

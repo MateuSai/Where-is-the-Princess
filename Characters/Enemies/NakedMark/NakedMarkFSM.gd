@@ -1,23 +1,23 @@
 extends FiniteStateMachine
 
+enum {
+	CHASE,
+	ATTACK,
+	DEAD,
+}
+
 
 @onready var spear_pivot: Node2D = $"../SpearPivot"
 @onready var spear_hitbox: Hitbox = $"../SpearPivot/Sprite2D/Hitbox"
 @onready var spear_animation_player: AnimationPlayer = $"../SpearPivot/SpearAnimationPlayer"
 
 
-func _init() -> void:
-	_add_state("chase")
-	_add_state("attack")
-	_add_state("dead")
-
-
 func start() -> void:
-	set_state(states.chase)
+	set_state(CHASE)
 
 
 func _state_logic(_delta: float) -> void:
-	if state == states.chase:
+	if state == CHASE:
 		parent.move_to_target()
 		parent.move()
 		parent.point_to_player()
@@ -30,28 +30,28 @@ func _state_logic(_delta: float) -> void:
 func _get_transition() -> int:
 	var dis: float = (parent.player.position - parent.global_position).length()
 	match state:
-		states.chase:
+		CHASE:
 			if dis <= 32:
-				return states.attack
-		states.attack:
+				return ATTACK
+		ATTACK:
 			if not spear_animation_player.is_playing():
-				return states.chase
+				return CHASE
 	return -1
 
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
-		states.chase:
+		CHASE:
 			pass
 			#animation_player.play("fly")
-		states.attack:
+		ATTACK:
 			if parent.mov_direction.y >= 0:
 				animation_player.play("idle")
 			else:
 				animation_player.play("idle_up")
 			spear_hitbox.knockback_direction = Vector2.RIGHT.rotated(spear_pivot.rotation)
 			spear_animation_player.play("attack")
-		states.dead:
+		DEAD:
 			pass
 			# parent.spawn_loot()
 			#animation_player.play("dead")
@@ -59,5 +59,5 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 
 #func _exit_state(state_exited: int) -> void:
 #	match state_exited:
-#		states.attack:
+#		ATTACK:
 #			parent.pull_back_weapon()

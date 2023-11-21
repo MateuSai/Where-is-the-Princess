@@ -1,27 +1,26 @@
 extends FiniteStateMachine
 
+enum {
+	WANDER,
+	APPROACH,
+	CIRCLE_TARGET,
+	DEAD,
+}
+
 #@onready var hitbox: Hitbox = $"../Hitbox"
 @onready var pathfinding_component: PathfindingComponent = $"../PathfindingComponent"
 
 
-func _init() -> void:
-	_add_state("wander")
-	_add_state("approach")
-	_add_state("circle_player")
-#	_add_state("attack")
-	_add_state("dead")
-
-
 func start() -> void:
 	if parent.mode == parent.Mode.CIRCLE:
-		set_state(states.circle_player)
+		set_state(CIRCLE_TARGET)
 	else:
-		set_state(states.wander)
+		set_state(WANDER)
 
 
 func _state_logic(_delta: float) -> void:
 	match state:
-		states.wander, states.approach, states.circle_player:
+		WANDER, APPROACH, CIRCLE_TARGET:
 			parent.move_to_target()
 			parent.move()
 #			if parent.mov_direction.y >= 0 and animation_player.current_animation != "move":
@@ -40,24 +39,24 @@ func _state_logic(_delta: float) -> void:
 func _get_transition() -> int:
 	var dis: float = (parent.player.position - parent.global_position).length()
 	match state:
-		states.approach:
+		APPROACH:
 			if dis < 16:
-				return states.circle_player
-		states.circle_player:
+				return CIRCLE_TARGET
+		CIRCLE_TARGET:
 			if dis > 30:
-				return states.approach
+				return APPROACH
 	return -1
 
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
-		states.wander:
+		WANDER:
 			animation_player.play("move")
 			pathfinding_component.mode = PathfindingComponent.Wander.new()
-		states.approach:
+		APPROACH:
 			animation_player.play("move")
 			pathfinding_component.mode = PathfindingComponent.Approach.new()
-		states.circle_player:
+		CIRCLE_TARGET:
 			animation_player.play("move")
 			pathfinding_component.mode = PathfindingComponent.Circle.new()
 #		states.dead:

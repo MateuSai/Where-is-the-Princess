@@ -1,23 +1,23 @@
 extends FiniteStateMachine
 
+enum {
+	IDLE,
+	MOVE,
+	RESURRECT_ALLY,
+	DEAD,
+}
+
 @onready var search_tribal_mask_timer: Timer = $"../SearchTribalMaskTimer"
 @onready var scepter_animation_player: AnimationPlayer = $"../ScepterPivot/ScepterAnimationPlayer"
 
 
-func _init() -> void:
-	_add_state("idle")
-	_add_state("move")
-	_add_state("resurrect_ally")
-	_add_state("dead")
-
-
 func start() -> void:
-	set_state(states.idle)
+	set_state(IDLE)
 
 
 func _state_logic(_delta: float) -> void:
 	match state:
-		states.move:
+		MOVE:
 			parent.move_to_target()
 			parent.move()
 			if parent.mov_direction.y >= 0 and animation_player.current_animation != "move":
@@ -35,32 +35,32 @@ func _state_logic(_delta: float) -> void:
 
 func _get_transition() -> int:
 	match state:
-		states.idle:
+		IDLE:
 			if parent.target_tribal_mask:
-				return states.resurrect_ally
-		states.resurrect_ally:
+				return RESURRECT_ALLY
+		RESURRECT_ALLY:
 			if parent.target_tribal_mask == null:
-				return states.idle
+				return IDLE
 #			if not spear_animation_player.is_playing():
 #				if parent.distance_to_player > parent.MAX_DISTANCE_TO_PLAYER or parent.distance_to_player < parent.MIN_DISTANCE_TO_PLAYER:
-#					return states.move
+#					return MOVE
 #				else:
 #					return states.attack
-#		states.move:
+#		MOVE:
 #			if parent.distance_to_player < parent.MAX_DISTANCE_TO_PLAYER and parent.distance_to_player > parent.MIN_DISTANCE_TO_PLAYER:
 #				if not spear_animation_player.is_playing():
 #					return states.attack
 #				else:
-#					return states.idle
+#					return IDLE
 #		states.attack:
 #			if parent.distance_to_player > parent.MAX_DISTANCE_TO_PLAYER or parent.distance_to_player < parent.MIN_DISTANCE_TO_PLAYER:
-#				return states.move
+#				return MOVE
 	return -1
 
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
-		states.idle:
+		IDLE:
 			if parent.mov_direction.y >= 0:
 				animation_player.play("idle")
 			else:
@@ -68,7 +68,7 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 
 			if search_tribal_mask_timer.is_stopped():
 				search_tribal_mask_timer.start()
-		states.move:
+		MOVE:
 			if search_tribal_mask_timer.is_stopped():
 				search_tribal_mask_timer.start()
 #		states.attack:
@@ -77,11 +77,11 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 #			else:
 #				animation_player.play("idle_up")
 #			spear_animation_player.play("attack")
-		states.resurrect_ally:
+		RESURRECT_ALLY:
 			scepter_animation_player.play("resurrect")
 
 			search_tribal_mask_timer.stop()
-		states.dead:
+		DEAD:
 			pass
 			# parent.spawn_loot()
 			#animation_player.play("dead")
@@ -89,7 +89,7 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 
 func _exit_state(state_exited: int) -> void:
 	match state_exited:
-		states.resurrect_ally:
+		RESURRECT_ALLY:
 			scepter_animation_player.stop()
 #		states.attack:
 #			spear_animation_player.play("restore")
