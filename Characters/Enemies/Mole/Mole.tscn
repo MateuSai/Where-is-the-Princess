@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_sqxlg"]
 [ext_resource type="Script" path="res://Characters/Enemies/Mole/Mole.gd" id="2_pw6f4"]
 [ext_resource type="Script" path="res://Characters/Enemies/Mole/MoleFSM.gd" id="3_bqtei"]
-[ext_resource type="Texture2D" uid="uid://djoj64lbg3ekp" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/mole/mole sprite sheet.png" id="4_414yk"]
+[ext_resource type="Texture2D" uid="uid://djoj64lbg3ekp" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/mole/mole sprite sheet.png" id="4_414yk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xceue"]
 radius = 5.0
@@ -102,35 +102,35 @@ _data = {
 
 [node name="Mole" instance=ExtResource("1_sqxlg")]
 script = ExtResource("2_pw6f4")
+mass = 1.0
+acceleration = 40
 max_speed = 80
+flying = false
 can_be_knocked_back = false
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("3_bqtei")
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="Sprite2D" parent="." index="2"]
 position = Vector2(0, -3)
 texture = ExtResource("4_414yk")
 hframes = 4
 vframes = 4
 
-[node name="CollisionShape2D" parent="." index="2"]
+[node name="CollisionShape2D" parent="." index="3"]
 shape = SubResource("CircleShape2D_xceue")
 
-[node name="AnimationPlayer" parent="." index="3"]
+[node name="AnimationPlayer" parent="." index="4"]
 libraries = {
 "": SubResource("AnimationLibrary_181rp")
 }
-
-[node name="PathTimer" parent="." index="4"]
-autostart = false
 
 [node name="NavigationAgent2D" parent="." index="5"]
 target_desired_distance = 16.0
 
 [node name="LifeComponent" parent="." index="6"]
-hp = 2
 max_hp = 2
+hp = 2
 
 [node name="AttackTimer" type="Timer" parent="." index="7"]
 

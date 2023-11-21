@@ -1,4 +1,4 @@
-extends FiniteStateMachine
+class_name MoleFSM extends FiniteStateMachine
 
 enum {
 	ABOVE,

@@ -27,7 +27,7 @@ func _ready() -> void:
 		attack_timer.start(randf_range(0.7, 1.5))
 	)
 
-	state_machine.set_state(state_machine.states.below)
+	state_machine.set_state(MoleFSM.BELOW)
 	#come_out()
 
 
