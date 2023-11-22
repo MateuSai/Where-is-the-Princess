@@ -1,4 +1,4 @@
-extends FiniteStateMachine
+class_name BodenTheDruidFSM extends FiniteStateMachine
 
 enum {
 	IDLE,
@@ -118,7 +118,7 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			$"../LightningAttackTimer".stop()
 			$"../LightningAttackTimer".queue_free()
 			$"../StaffPivot".queue_free()
-			$"../PathTimer".wait_time = 0.15
+#			pathfinding_component.mode.timer.wait_time = 0.15
 			parent.max_speed = 160
 			parent.acceleration = 70
 			parent.mass = 150

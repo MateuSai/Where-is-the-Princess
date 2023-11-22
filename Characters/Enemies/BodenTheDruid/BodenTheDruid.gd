@@ -43,7 +43,7 @@ func _transform() -> void:
 	life_component.hp = BEAR_HP
 	name = "BodenTheBear"
 	$BossHpBar.name_label.text = name
-	state_machine.set_state(state_machine.states.transform)
+	state_machine.set_state(BodenTheDruidFSM.TRANSFORM)
 
 
 func move_staff() -> void:
@@ -116,7 +116,7 @@ func interrupt_lightning_attack() -> void:
 
 
 func throw_rock() -> void:
-	var rock: Projectile = load("res://Weapons/Projectiles/BigRock.tscn").instantiate()
+	var rock: Projectile = load("res://Weapons/projectiles/BigRock.tscn").instantiate()
 	rock.exclude = [self]
 	get_tree().current_scene.add_child(rock)
 	rock.launch(rock_sprite.global_position + Vector2.DOWN * 33, state_machine.rock_dir.rotated(randf_range(-0.4, 0.4)), 250)
