@@ -4,9 +4,9 @@ class_name KeyIcon extends TextureRect
 
 
 func _init() -> void:
-	stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
 	size_flags_horizontal = SIZE_EXPAND | SIZE_SHRINK_END
-	size_flags_vertical = SIZE_EXPAND_FILL
+	size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	texture = AtlasTexture.new()
 	texture.atlas = preload("res://Art/kenney_input-prompts-pixel-16/Tilemap/tilemap_packed.png")
 
