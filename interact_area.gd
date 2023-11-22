@@ -6,6 +6,8 @@ var item: PassiveItem
 var player: Player = null
 
 signal player_interacted()
+signal player_entered()
+signal player_exited()
 
 var sprite_material: ShaderMaterial
 
@@ -37,11 +39,13 @@ func _unhandled_input(event: InputEvent) -> void:
 
 @warning_ignore("shadowed_variable")
 func _on_player_entered(player: Player) -> void:
+	player_entered.emit()
 	self.player = player
 	set_process_unhandled_input(true)
 	sprite_material.set("shader_parameter/width", 1)
 
 
 func _on_player_exited(_body: Node2D) -> void:
+	player_exited.emit()
 	set_process_unhandled_input(false)
 	sprite_material.set("shader_parameter/width", 0)

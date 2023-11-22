@@ -1,5 +1,5 @@
 {
-	"corridor_atlas_id": 1,
+	"corridor_atlas_id": 0,
 	"room_atlas_id": 0,
 	"extra_connections": 0.5,
 	"minimap_texture": "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest_minimap_sepia.png",

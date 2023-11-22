@@ -4,7 +4,9 @@ const HOLOGRAM_SHADER: Shader = preload("res://shaders_and_particles/hologram.gd
 const HOLOGRAM_TEXTURE: Texture = preload("res://Art/hologram_lines-b1399a8d.png")
 
 var price: int = 10
+var price_always_visible: bool
 
+@onready var price_container: HBoxContainer = $HBoxContainer
 @onready var price_label: Label = %PriceLabel
 @onready var currency_icon: TextureRect = $HBoxContainer/TextureRect
 
@@ -12,6 +14,15 @@ var price: int = 10
 @warning_ignore("shadowed_variable")
 func initialize(item: Item) -> void:
 	super(item)
+
+	price_always_visible = Settings.shop_prices_always_visible
+	Settings.shop_prices_always_visible_changed.connect(func(new_value: bool):
+		price_always_visible = new_value
+		if price_always_visible:
+			price_container.show()
+		elif not is_processing_unhandled_input():
+			price_container.hide()
+	)
 
 	if get_tree().current_scene.name == "Game":
 		await get_tree().current_scene.player_added
@@ -40,6 +51,15 @@ func initialize(item: Item) -> void:
 
 func _ready() -> void:
 	super()
+
+	interact_area.player_entered.connect(func():
+		if not price_always_visible:
+			price_container.show()
+	)
+	interact_area.player_exited.connect(func():
+		if not price_always_visible:
+			price_container.hide()
+	)
 
 	enable_pick_up()
 

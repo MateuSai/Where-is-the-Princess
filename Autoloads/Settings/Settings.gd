@@ -16,6 +16,14 @@ var damage_numbers: bool:
 		settings.set_value(GENERAL_SECTION, "damage_numbers", new_value)
 		damage_numbers_changed.emit(new_value)
 signal damage_numbers_changed(new_value: bool)
+var shop_prices_always_visible: bool:
+	get:
+		return settings.get_value(GENERAL_SECTION, "shop_prices_always_visible", true)
+	set(new_value):
+		settings.set_value(GENERAL_SECTION, "shop_prices_always_visible", new_value)
+		shop_prices_always_visible_changed.emit(new_value)
+signal shop_prices_always_visible_changed(new_value: bool)
+
 var screen_flashes: bool:
 	get:
 		return settings.get_value(ACCESSIBILITY_SECTION, "screen_flashes", true)
