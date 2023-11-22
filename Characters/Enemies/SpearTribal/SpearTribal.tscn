@@ -9,12 +9,12 @@
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="4_d76fk"]
 [ext_resource type="Script" path="res://Components/DropMaskOnDeadComponent.gd" id="6_40j5t"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_3ccd5"]
-radius = 3.0
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hnj3p"]
 radius = 4.0
 height = 12.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3ccd5"]
+radius = 3.0
 
 [sub_resource type="Animation" id="Animation_ig8gm"]
 length = 0.001
@@ -248,22 +248,20 @@ _data = {
 [node name="SpearTribal" instance=ExtResource("1_i0dld")]
 collision_mask = 21
 script = ExtResource("2_lvfj2")
-is_boss = false
 mass = 50.0
-accerelation = 10
+acceleration = 40
 max_speed = 70
+flying = false
+can_be_knocked_back = true
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("2_bph2t")
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="Sprite2D" parent="." index="2"]
 position = Vector2(0, -5)
 texture = ExtResource("2_h1c7u")
 hframes = 6
 vframes = 4
-
-[node name="CollisionShape2D" parent="." index="2"]
-shape = SubResource("CircleShape2D_3ccd5")
 
 [node name="HurtBox" type="Area2D" parent="." index="3"]
 collision_layer = 4
@@ -274,20 +272,20 @@ script = ExtResource("4_d76fk")
 position = Vector2(0, -4)
 shape = SubResource("CapsuleShape2D_hnj3p")
 
-[node name="AnimationPlayer" parent="." index="4"]
+[node name="CollisionShape2D" parent="." index="4"]
+shape = SubResource("CircleShape2D_3ccd5")
+
+[node name="AnimationPlayer" parent="." index="5"]
 libraries = {
 "": SubResource("AnimationLibrary_oyins")
 }
 
-[node name="NavigationAgent2D" parent="." index="5"]
+[node name="NavigationAgent2D" parent="." index="6"]
 path_desired_distance = 1.0
 target_desired_distance = 1.0
 
 [node name="DropMaskOnDeadComponent" type="Node" parent="." index="7"]
 script = ExtResource("6_40j5t")
-
-[node name="PathTimer" parent="." index="9"]
-wait_time = 0.25
 
 [node name="SpearPivot" type="Node2D" parent="." index="11"]
 position = Vector2(0, -3)

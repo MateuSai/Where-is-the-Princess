@@ -110,24 +110,25 @@ height = 12.0
 collision_mask = 23
 script = ExtResource("2_knqtw")
 projectile_speed = 150
-is_boss = false
 mass = 50.0
-accerelation = 30
+acceleration = 40
 max_speed = 80
+flying = false
+can_be_knocked_back = true
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("3_fqgm1")
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="Sprite2D" parent="." index="2"]
 position = Vector2(0, -5)
 texture = ExtResource("2_866yt")
 hframes = 6
 vframes = 4
 
-[node name="CollisionShape2D" parent="." index="2"]
+[node name="CollisionShape2D" parent="." index="3"]
 shape = SubResource("CircleShape2D_07vmc")
 
-[node name="AnimationPlayer" parent="." index="3"]
+[node name="AnimationPlayer" parent="." index="4"]
 libraries = {
 "": SubResource("AnimationLibrary_5kcwu")
 }

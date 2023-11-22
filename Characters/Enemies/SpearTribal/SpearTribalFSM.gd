@@ -8,6 +8,10 @@ enum {
 	DEAD,
 }
 
+const MAX_DISTANCE_TO_PLAYER: int = 24
+const MIN_DISTANCE_TO_PLAYER: int = 8
+const MIN_DISTANCE_TO_CHARGE: int = 64
+
 @onready var spear_hitbox_collision_shape: CollisionShape2D = $"../SpearPivot/Sprite2D/Hitbox/CollisionShape2D"
 @onready var charge_raycast: RayCast2D = $"../SpearPivot/Sprite2D/ChargeRayCast"
 @onready var spear_animation_player: AnimationPlayer = $"../SpearPivot/AnimationPlayer"
@@ -48,23 +52,24 @@ func _state_logic(_delta: float) -> void:
 
 
 func _get_transition() -> int:
+	var distance_to_player: float = (parent.target.global_position - parent.global_position).length()
 	match state:
 		IDLE:
 			if not spear_animation_player.is_playing():
-				if parent.distance_to_player > parent.MAX_DISTANCE_TO_PLAYER or parent.distance_to_player < parent.MIN_DISTANCE_TO_PLAYER:
+				if distance_to_player > MAX_DISTANCE_TO_PLAYER or distance_to_player < MIN_DISTANCE_TO_PLAYER:
 					return MOVE
 				else:
 					return ATTACK
 		MOVE:
-			if not aim_raycast.is_colliding() and parent.distance_to_player > parent.MIN_DISTANCE_TO_CHARGE:
+			if not aim_raycast.is_colliding() and distance_to_player > MIN_DISTANCE_TO_CHARGE:
 				return CHARGE
-			elif parent.distance_to_player < parent.MAX_DISTANCE_TO_PLAYER and parent.distance_to_player > parent.MIN_DISTANCE_TO_PLAYER:
+			elif distance_to_player < MAX_DISTANCE_TO_PLAYER and distance_to_player > MIN_DISTANCE_TO_PLAYER:
 				if not spear_animation_player.is_playing():
 					return ATTACK
 				else:
 					return IDLE
 		ATTACK:
-			if parent.distance_to_player > parent.MAX_DISTANCE_TO_PLAYER or parent.distance_to_player < parent.MIN_DISTANCE_TO_PLAYER:
+			if distance_to_player > MAX_DISTANCE_TO_PLAYER or distance_to_player < MIN_DISTANCE_TO_PLAYER:
 				return MOVE
 		CHARGE:
 			if not spear_animation_player.is_playing() or charge_raycast.is_colliding():

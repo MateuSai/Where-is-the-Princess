@@ -2,13 +2,19 @@ extends FiniteStateMachine
 
 enum {
 	IDLE,
-	MOVE,
+	APPROACH,
+	FLEE,
 	DEAD,
 }
 
+const MAX_DISTANCE_TO_PLAYER: int = 140
+const MIN_DISTANCE_TO_PLAYER: int = 60
+
+@onready var pathfinding_component: PathfindingComponent = $"../PathfindingComponent"
+
 
 func start() -> void:
-	set_state(MOVE)
+	set_state(APPROACH)
 
 
 func _state_logic(_delta: float) -> void:
@@ -19,7 +25,13 @@ func _state_logic(_delta: float) -> void:
 				animation_player.play("idle")
 			elif dir_to_player.y < 0 and animation_player.current_animation != "idle_up":
 				animation_player.play("idle_up")
-		MOVE:
+
+			parent.aim_raycast.target_position = parent.target.position - parent.global_position
+			if parent.can_attack and not parent.aim_raycast.is_colliding():
+				parent.can_attack = false
+				parent._throw_bomb()
+				parent.attack_timer.start()
+		APPROACH, FLEE:
 			parent.move_to_target()
 			parent.move()
 			var dir_to_player: Vector2 = (parent.player.position - parent.global_position).normalized()
@@ -30,12 +42,18 @@ func _state_logic(_delta: float) -> void:
 
 
 func _get_transition() -> int:
+	var distance_to_player: float = (parent.target.global_position - parent.global_position).length()
 	match state:
 		IDLE:
-			if parent.distance_to_player > parent.MAX_DISTANCE_TO_PLAYER or parent.distance_to_player < parent.MIN_DISTANCE_TO_PLAYER:
-				return MOVE
-		MOVE:
-			if parent.distance_to_player < parent.MAX_DISTANCE_TO_PLAYER and parent.distance_to_player > parent.MIN_DISTANCE_TO_PLAYER:
+			if distance_to_player > MAX_DISTANCE_TO_PLAYER:
+				return APPROACH
+			elif distance_to_player < MIN_DISTANCE_TO_PLAYER:
+				return FLEE
+		APPROACH:
+			if distance_to_player < MAX_DISTANCE_TO_PLAYER:
+				return IDLE
+		FLEE:
+			if distance_to_player > MIN_DISTANCE_TO_PLAYER:
 				return IDLE
 	return -1
 
@@ -45,10 +63,11 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 		IDLE:
 			pass
 			#animation_player.play("idle")
-		MOVE:
-			pass
-			#animation_player.play("move")
+		APPROACH:
+			pathfinding_component.set_mode(PathfindingComponent.Approach.new())
+			#animation_player.play("APPROACH")
+		FLEE:
+			pathfinding_component.set_mode(PathfindingComponent.Flee.new())
 		DEAD:
 			# parent.spawn_loot()
 			pass
-
