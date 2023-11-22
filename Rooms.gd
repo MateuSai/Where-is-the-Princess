@@ -470,14 +470,14 @@ func _create_corridors() -> bool:
 					room.mark_entry_as_used(entry)
 					for pos_node in entry.get_children():
 						var cell: Vector2i = corridor_tile_map.local_to_map(pos_node.global_position)
-						corridor_tile_map.erase_cell(0, cell)
+						corridor_tile_map.erase_cell(1, cell)
 						entry_cells.push_back(cell)
 
 	for cell_pos in corridor_tile_map.get_used_cells(0):
 		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FULL_WALL_COORDS:
-			if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.UP) == RIGHT_WALL_COOR:
+			if corridor_tile_map.get_cell_atlas_coords(1, cell_pos + Vector2i.UP) == RIGHT_WALL_COOR:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_LEFT_COOR)
-			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.UP) == LEFT_WALL_COOR:
+			elif corridor_tile_map.get_cell_atlas_coords(1, cell_pos + Vector2i.UP) == LEFT_WALL_COOR:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_RIGHT_COOR)
 			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i(1, -1)) in FULL_WALL_COORDS:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_RIGHT_COOR)
@@ -489,22 +489,22 @@ func _create_corridors() -> bool:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_COOR)
 
 			if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) == Vector2i(-1, -1) and not entry_cells.has(cell_pos + Vector2i.RIGHT + Vector2i.DOWN):
-				corridor_tile_map.set_cell(0, cell_pos + Vector2i.RIGHT, ATLAS_ID, RIGHT_WALL_COOR)
+				corridor_tile_map.set_cell(1, cell_pos + Vector2i.RIGHT, ATLAS_ID, RIGHT_WALL_COOR)
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.RIGHT + Vector2i.UP, ATLAS_ID, UPPER_WALL_RIGHT_CORNER_COOR)
 			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) == Vector2i(-1, -1) and not entry_cells.has(cell_pos + Vector2i.LEFT + Vector2i.DOWN):
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.LEFT, ATLAS_ID, LEFT_WALL_COOR)
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.LEFT + Vector2i.UP, ATLAS_ID, UPPER_WALL_LEFT_CORNER_COOR)
 		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FLOOR_TILE_COORDS and not corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) in FLOOR_TILE_COORDS:
-			if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == RIGHT_WALL_COOR:
+			if corridor_tile_map.get_cell_atlas_coords(1, cell_pos + Vector2i.DOWN) == RIGHT_WALL_COOR:
 				corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, LEFT_BOTTOM_WALL_COOR)
-			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == LEFT_WALL_COOR:
+			elif corridor_tile_map.get_cell_atlas_coords(1, cell_pos + Vector2i.DOWN) == LEFT_WALL_COOR:
 				corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, RIGHT_BOTTOM_WALL_COOR)
 			else:
 				corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, BOTTOM_WALL_COOR)
-		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) == LEFT_WALL_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == Vector2i(-1, -1) and not entry_cells.has(cell_pos + Vector2i.ONE):
-			corridor_tile_map.set_cell(0, cell_pos, ATLAS_ID, LAST_LEFT_WALL_COOR)
-		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) == RIGHT_WALL_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == Vector2i(-1, -1) and not entry_cells.has(cell_pos + Vector2i.DOWN + Vector2i.LEFT):
-			corridor_tile_map.set_cell(0, cell_pos, ATLAS_ID, LAST_RIGHT_WALL_COOR)
+		elif corridor_tile_map.get_cell_atlas_coords(1, cell_pos) == LEFT_WALL_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == Vector2i(-1, -1) and not entry_cells.has(cell_pos + Vector2i.ONE):
+			corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, LAST_LEFT_WALL_COOR)
+		elif corridor_tile_map.get_cell_atlas_coords(1, cell_pos) == RIGHT_WALL_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == Vector2i(-1, -1) and not entry_cells.has(cell_pos + Vector2i.DOWN + Vector2i.LEFT):
+			corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, LAST_RIGHT_WALL_COOR)
 
 		if debug:
 			await get_tree().create_timer(add_tile_group_time).timeout
@@ -550,7 +550,7 @@ func _add_lights() -> void:
 				add_child(light)
 				if debug:
 					await get_tree().create_timer(add_light_pause).timeout
-		elif corridor_tile_map.get_cell_atlas_coords(0, cell) == LEFT_WALL_COOR:
+		elif corridor_tile_map.get_cell_atlas_coords(1, cell) == LEFT_WALL_COOR:
 			@warning_ignore("integer_division")
 			if cell.y % 8 == 0 if SavedData.get_vertical_corridor_symmetric_lights() else (cell.y % 14) == 7:
 				var light: Node2D = TIKI_TORCH_SCENE.instantiate()
@@ -558,7 +558,7 @@ func _add_lights() -> void:
 				add_child(light)
 				if debug:
 					await get_tree().create_timer(add_light_pause).timeout
-		elif corridor_tile_map.get_cell_atlas_coords(0, cell) == RIGHT_WALL_COOR:
+		elif corridor_tile_map.get_cell_atlas_coords(1, cell) == RIGHT_WALL_COOR:
 			@warning_ignore("integer_division")
 			if cell.y % 8 == 0 if SavedData.get_vertical_corridor_symmetric_lights() else (cell.y % 14) == 0:
 				var light: Node2D = TIKI_TORCH_SCENE.instantiate()

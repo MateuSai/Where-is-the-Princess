@@ -187,10 +187,10 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 	for dir in [EntryDirection.LEFT, EntryDirection.RIGHT]:
 		for entry in entries[dir].get_children():
 			if entry in used_entries:
-				black_tilemap.set_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.UP * 2)
-				black_tilemap.set_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.UP)
-				black_tilemap.set_cell(0, black_tilemap.local_to_map(entry.position))
-				black_tilemap.set_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.DOWN)
+				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.UP * 2)
+				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.UP)
+				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position))
+				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.DOWN)
 
 				var vertical_door: Door = VERTICAL_DOOR.instantiate()
 				vertical_door.position = floor(entry.position / 16) * 16
@@ -209,23 +209,23 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 					if tilemap.get_cell_atlas_coords(0, tile_positions[0] + Vector2i.UP * 2 + Vector2i.RIGHT) == Rooms.UPPER_WALL_COOR:
 						tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, ATLAS_ID, Rooms.UPPER_WALL_LEFT_CORNER_COOR)
 					else:
-						tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, ATLAS_ID, Rooms.LEFT_WALL_COOR)
-					tilemap.set_cell(0, tile_positions[0] + Vector2i.UP, ATLAS_ID, Rooms.LEFT_WALL_COOR)
-					tilemap.set_cell(0, tile_positions[0], ATLAS_ID, Rooms.LEFT_WALL_COOR)
-					tilemap.set_cell(0, tile_positions[1], ATLAS_ID, Rooms.LEFT_WALL_COOR)
+						tilemap.set_cell(1, tile_positions[0] + Vector2i.UP * 2, ATLAS_ID, Rooms.LEFT_WALL_COOR)
+					tilemap.set_cell(1, tile_positions[0] + Vector2i.UP, ATLAS_ID, Rooms.LEFT_WALL_COOR)
+					tilemap.set_cell(1, tile_positions[0], ATLAS_ID, Rooms.LEFT_WALL_COOR)
+					tilemap.set_cell(1, tile_positions[1], ATLAS_ID, Rooms.LEFT_WALL_COOR)
 				else:
 					if tilemap.get_cell_atlas_coords(0, tile_positions[0] + Vector2i.UP * 2 + Vector2i.LEFT) == Rooms.UPPER_WALL_COOR:
 						tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, ATLAS_ID, Rooms.UPPER_WALL_RIGHT_CORNER_COOR)
 					else:
-						tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, ATLAS_ID, Rooms.RIGHT_WALL_COOR)
-					tilemap.set_cell(0, tile_positions[0] + Vector2i.UP, ATLAS_ID, Rooms.RIGHT_WALL_COOR)
-					tilemap.set_cell(0, tile_positions[0], ATLAS_ID, Rooms.RIGHT_WALL_COOR)
-					tilemap.set_cell(0, tile_positions[1], ATLAS_ID, Rooms.RIGHT_WALL_COOR)
+						tilemap.set_cell(1, tile_positions[0] + Vector2i.UP * 2, ATLAS_ID, Rooms.RIGHT_WALL_COOR)
+					tilemap.set_cell(1, tile_positions[0] + Vector2i.UP, ATLAS_ID, Rooms.RIGHT_WALL_COOR)
+					tilemap.set_cell(1, tile_positions[0], ATLAS_ID, Rooms.RIGHT_WALL_COOR)
+					tilemap.set_cell(1, tile_positions[1], ATLAS_ID, Rooms.RIGHT_WALL_COOR)
 	for dir in [EntryDirection.UP, EntryDirection.DOWN]:
 		for entry in entries[dir].get_children():
 			if entry in used_entries:
-				black_tilemap.set_cell(0, black_tilemap.local_to_map(entry.position))
-				black_tilemap.set_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.RIGHT)
+				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position))
+				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.RIGHT)
 
 				var horizontal_door: Door = HORIZONTAL_UP_DOOR.instantiate() if dir == EntryDirection.UP else HORIZONTAL_DOWN_DOOR.instantiate()
 				horizontal_door.position = floor(entry.position / 16) * 16 + Vector2(Rooms.TILE_SIZE, Rooms.TILE_SIZE + 12)
