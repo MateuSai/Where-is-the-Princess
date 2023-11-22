@@ -23,7 +23,7 @@ process_mode = 3
 disable_3d = true
 transparent_bg = true
 canvas_item_default_texture_filter = 0
-size = Vector2i(366, 187)
+size = Vector2i(300, 180)
 visible = true
 transparent = true
 theme = ExtResource("2_fjhtw")
@@ -34,73 +34,77 @@ script = ExtResource("1_4y760")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 366.0
-offset_bottom = 187.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_fjhtw")
 
-[node name="GENERAL" type="MarginContainer" parent="TabContainer"]
+[node name="GENERAL" type="ScrollContainer" parent="TabContainer"]
 layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/GENERAL"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/GENERAL"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/GENERAL/MarginContainer"]
 layout_mode = 2
 
-[node name="LanguageHBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/VBoxContainer"]
+[node name="LanguageHBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TabContainer/GENERAL/VBoxContainer/LanguageHBoxContainer"]
+[node name="Label" type="Label" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer/LanguageHBoxContainer"]
 layout_mode = 2
 text = "LANGUAGE"
 
-[node name="LanguageDropdown" type="OptionButton" parent="TabContainer/GENERAL/VBoxContainer/LanguageHBoxContainer"]
+[node name="LanguageDropdown" type="OptionButton" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer/LanguageHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 script = ExtResource("3_8fg1t")
 
-[node name="FullScreenHBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/VBoxContainer"]
+[node name="FullScreenHBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TabContainer/GENERAL/VBoxContainer/FullScreenHBoxContainer"]
+[node name="Label" type="Label" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer/FullScreenHBoxContainer"]
 layout_mode = 2
 text = "FULL_SCREEN"
 
-[node name="FullScreenCheckBox" type="CheckBox" parent="TabContainer/GENERAL/VBoxContainer/FullScreenHBoxContainer"]
+[node name="FullScreenCheckBox" type="CheckBox" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer/FullScreenHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 button_pressed = true
 flat = true
 script = ExtResource("4_wsnjl")
 
-[node name="VSyncHBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/VBoxContainer"]
+[node name="VSyncHBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TabContainer/GENERAL/VBoxContainer/VSyncHBoxContainer"]
+[node name="Label" type="Label" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer/VSyncHBoxContainer"]
 layout_mode = 2
 text = "VSYNC"
 
-[node name="VSyncOptionButton" type="OptionButton" parent="TabContainer/GENERAL/VBoxContainer/VSyncHBoxContainer"]
+[node name="VSyncOptionButton" type="OptionButton" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer/VSyncHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 script = ExtResource("5_1yr2a")
 
-[node name="FPSHBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/VBoxContainer"]
+[node name="FPSHBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TabContainer/GENERAL/VBoxContainer/FPSHBoxContainer"]
+[node name="Label" type="Label" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer/FPSHBoxContainer"]
 layout_mode = 2
 text = "FPS"
 
-[node name="FPSLabel" type="Label" parent="TabContainer/GENERAL/VBoxContainer/FPSHBoxContainer"]
+[node name="FPSLabel" type="Label" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer/FPSHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 text = "60"
 
-[node name="FPSHSlider" type="HSlider" parent="TabContainer/GENERAL/VBoxContainer/FPSHBoxContainer"]
+[node name="FPSHSlider" type="HSlider" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer/FPSHBoxContainer"]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 min_value = 1.0
@@ -108,28 +112,28 @@ max_value = 60.0
 value = 20.0
 script = ExtResource("5_p1umr")
 
-[node name="DamageNumbersHBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/VBoxContainer"]
+[node name="DamageNumbersHBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TabContainer/GENERAL/VBoxContainer/DamageNumbersHBoxContainer"]
+[node name="Label" type="Label" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer/DamageNumbersHBoxContainer"]
 layout_mode = 2
 text = "DAMAGE_NUMBERS"
 
-[node name="DamageNumbersCheckBox" type="CheckBox" parent="TabContainer/GENERAL/VBoxContainer/DamageNumbersHBoxContainer"]
+[node name="DamageNumbersCheckBox" type="CheckBox" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer/DamageNumbersHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 button_pressed = true
 flat = true
 script = ExtResource("7_vbuvo")
 
-[node name="ShopPricesAlwaysVisibleHBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/VBoxContainer"]
+[node name="ShopPricesAlwaysVisibleHBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="TabContainer/GENERAL/VBoxContainer/ShopPricesAlwaysVisibleHBoxContainer"]
+[node name="Label" type="Label" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer/ShopPricesAlwaysVisibleHBoxContainer"]
 layout_mode = 2
 text = "SHOP_PRICES_ALWAYS_VISIBLE"
 
-[node name="ShopPricesAlwaysVisibleCheckBox" type="CheckBox" parent="TabContainer/GENERAL/VBoxContainer/ShopPricesAlwaysVisibleHBoxContainer"]
+[node name="ShopPricesAlwaysVisibleCheckBox" type="CheckBox" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer/ShopPricesAlwaysVisibleHBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 button_pressed = true
