@@ -307,3 +307,28 @@ func set_ability_knockback(new_ability_knockback: int) -> void:
 
 func _decrease_weapon_condition(by: float) -> void:
 	stats.condition -= (by + 0.5 * stats.modifiers.size()) * (1 - Globals.player.weapon_degradation_reduction)
+
+
+static func get_weapon_path(weap_name: String) -> String:
+	var dir: DirAccess = DirAccess.open("res://Weapons/")
+	assert(dir)
+
+	dir.list_dir_begin()
+	var file_name: String = dir.get_next()
+	while file_name != "":
+		if dir.current_is_dir():
+			var dir2: DirAccess = DirAccess.open(dir.get_current_dir().path_join(file_name))
+			dir2.list_dir_begin()
+			var file_name2: String = dir2.get_next()
+			while file_name2 != "":
+				if file_name2 == weap_name.to_pascal_case() or file_name2 == weap_name.to_snake_case():
+					assert(FileAccess.file_exists(dir2.get_current_dir().path_join(file_name2).path_join(file_name2 + ".tscn")))
+					return dir2.get_current_dir().path_join(file_name2).path_join(file_name2 + ".tscn")
+				file_name2 = dir2.get_next()
+		else:
+			if file_name == weap_name.to_pascal_case() or file_name == weap_name.to_snake_case():
+				assert(FileAccess.file_exists(dir.get_current_dir().path_join(file_name + ".tscn")))
+				return dir.get_current_dir().path_join(file_name + ".tscn")
+		file_name = dir.get_next()
+
+	return ""

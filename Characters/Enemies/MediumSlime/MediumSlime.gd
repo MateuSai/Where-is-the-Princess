@@ -59,12 +59,3 @@ func _on_died_0_5_seconds_later() -> void:
 	_duplicate_slime()
 
 	super()
-
-
-#func _get_path_to_player() -> void:
-#	if state_machine.states.has("circle_player") and state_machine.state == state_machine.states.circle_player and (player.position - global_position).length() <= distance_to_character_when_rotating_around_it:
-#		navigation_agent.target_position = _get_closer_position_to_circle_player()
-#	elif state_machine.state == state_machine.states.wander:
-#		target_random_near_position()
-#	else:
-#		super()

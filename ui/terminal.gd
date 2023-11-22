@@ -273,8 +273,22 @@ func _get_bool_from_string(s: String) -> bool:
 
 
 func _spawn_weapon(weapon_string: String) -> void:
+	var weapon_path: String
+
+	if weapon_string.is_absolute_path():
+		if FileAccess.file_exists(weapon_string):
+			weapon_path = weapon_string
+		else:
+			printerr("There is no weapon at path: " + weapon_string)
+			return
+	else:
+		weapon_path = Weapon.get_weapon_path(weapon_string)
+		if weapon_path == "":
+			printerr("Couldn't get path to " + weapon_string)
+			return
+
 	hide()
-	var weapon: Weapon = load(weapon_string).instantiate()
+	var weapon: Weapon = load(weapon_path).instantiate()
 	weapon.position = Globals.player.position + Vector2.RIGHT * 16
 	weapon.on_floor = true
 	get_tree().current_scene.add_child(weapon)
