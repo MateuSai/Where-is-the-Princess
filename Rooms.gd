@@ -459,6 +459,7 @@ func _create_corridors() -> bool:
 			corridor_tile_map.set_cell(1, cell_pos + Vector2i.RIGHT, ATLAS_ID, RIGHT_WALL_COOR)
 
 		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.UP) == Vector2i(-1, -1):
+			corridor_tile_map.erase_cell(1, cell_pos + Vector2i.UP)
 			corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, FULL_WALL_COORDS[randi() % FULL_WALL_COORDS.size()])
 
 	var entry_cells: Array[Vector2i] = []
