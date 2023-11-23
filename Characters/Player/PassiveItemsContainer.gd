@@ -1,6 +1,15 @@
 extends HFlowContainer
 
 
+@onready var player: Player = owner
+
+
+func _ready() -> void:
+	player.permanent_passive_item_picked_up.connect(_on_player_permanent_passive_item_picked_up)
+	player.temporal_passive_item_picked_up.connect(_on_player_temporal_passive_item_picked_up)
+	player.temporal_passive_item_unequiped.connect(_on_player_temporal_passive_item_unequiped)
+
+
 func _on_player_permanent_passive_item_picked_up(item: PermanentPassiveItem) -> void:
 	var texture_rect: TextureRect = TextureRect.new()
 	texture_rect.texture = item.get_icon()
