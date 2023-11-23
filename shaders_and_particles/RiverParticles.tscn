@@ -50,12 +50,12 @@ anim_offset_max = 1.0
 [node name="RiverParticles" type="GPUParticles2D"]
 z_index = -1
 material = SubResource("CanvasItemMaterial_rnm32")
-amount = 500
+amount = 600
 process_material = SubResource("ParticleProcessMaterial_2ekxf")
 texture = ExtResource("1_mg2b7")
-lifetime = 12.0
-preprocess = 12.0
-visibility_rect = Rect2(-2300, -100, 2300, 200)
+lifetime = 20.0
+preprocess = 20.0
+visibility_rect = Rect2(-4000, -100, 4000, 200)
 local_coords = true
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
@@ -63,7 +63,7 @@ material = SubResource("CanvasItemMaterial_c0u63")
 amount = 200
 process_material = SubResource("ParticleProcessMaterial_twj5w")
 texture = ExtResource("2_cig8u")
-lifetime = 12.0
-preprocess = 12.0
-visibility_rect = Rect2(-2300, -100, 2300, 200)
+lifetime = 20.0
+preprocess = 20.0
+visibility_rect = Rect2(-4000, -100, 4000, 200)
 local_coords = true
