@@ -439,6 +439,7 @@ func _create_corridors() -> bool:
 		await get_tree().create_timer(pause_between_steps).timeout
 
 	# MODIFY TILES BEFORE APPLYING THE AUTOTILE
+	# To fill 1 tile gaps
 	for cell_pos in corridor_tile_map.get_used_cells(0):
 		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) == Vector2i(-1, -1) and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT * 2) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FLOOR_TILE_COORDS:
 			corridor_tile_map.set_cell(0, cell_pos + Vector2i.LEFT, ATLAS_ID, FLOOR_TILE_COORDS[0])
@@ -470,6 +471,7 @@ func _create_corridors() -> bool:
 					room.mark_entry_as_used(entry)
 					for pos_node in entry.get_children():
 						var cell: Vector2i = corridor_tile_map.local_to_map(pos_node.global_position)
+						corridor_tile_map.erase_cell(0, cell)
 						corridor_tile_map.erase_cell(1, cell)
 						entry_cells.push_back(cell)
 
