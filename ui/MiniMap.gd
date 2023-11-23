@@ -157,6 +157,8 @@ func _process(_delta: float) -> void:
 			if room_tilemaps[i] == null or not rooms.rooms[i] in rooms.visited_rooms:
 				continue
 			var room_tilemap: TileMap = room_tilemaps[i]
+#			print(container.get_local_mouse_position())
+#			print(Rect2(room_tilemap.position + Vector2(room_tilemap.get_used_rect().position * TILE_SIZE), room_tilemap.get_used_rect().size * TILE_SIZE))
 			if Rect2(room_tilemap.position + Vector2(room_tilemap.get_used_rect().position * TILE_SIZE), room_tilemap.get_used_rect().size * TILE_SIZE).has_point(container.get_local_mouse_position()):
 				room_selected = rooms.rooms[i]
 				room_tilemap.modulate = Color.GRAY
@@ -165,7 +167,7 @@ func _process(_delta: float) -> void:
 		if not Rect2(room_tilemap.position + Vector2(room_tilemap.get_used_rect().position * TILE_SIZE), room_tilemap.get_used_rect().size * TILE_SIZE).has_point(container.get_local_mouse_position()):
 			room_selected = null
 			room_tilemap.modulate = Color.WHITE
-#		print(container.get_local_mouse_position())
+#	print(container.get_local_mouse_position())
 #		print(room_tilemaps[1].position)
 
 	player_icon.position = Globals.player.position / 4 - map_rect.position + Vector2.ONE * 4 * TILE_SIZE
@@ -192,7 +194,7 @@ func _discover_room(room: DungeonRoom) -> void:
 	#minimap_room_tilemap.position = room.position/4
 	container.add_child(minimap_room_tilemap)
 	# I substract 1 because the first tilemap is the corridors tilemap, not a room
-	room_tilemaps[room.get_index() - 1] = minimap_room_tilemap
+	room_tilemaps[int(room.name.right(1))] = minimap_room_tilemap
 
 	minimap_room_tilemap.position = room.position/4 -map_rect.position# + Vector2(size.x / 2.0, 0)
 
