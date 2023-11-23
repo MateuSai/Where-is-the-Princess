@@ -205,6 +205,10 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 				tile_positions.push_back(tilemap.local_to_map(entry.position + entry.get_child(0).position))
 				tile_positions.push_back(tilemap.local_to_map(entry.position + entry.get_child(1).position))
 				tilemap.erase_cell(3, tile_positions[1])
+				tilemap.erase_cell(0, tile_positions[0] + Vector2i.UP * 2)
+				tilemap.erase_cell(0, tile_positions[0] + Vector2i.UP)
+				tilemap.erase_cell(0, tile_positions[0])
+				tilemap.erase_cell(0, tile_positions[1])
 				if dir == EntryDirection.LEFT:
 					if tilemap.get_cell_atlas_coords(0, tile_positions[0] + Vector2i.UP * 2 + Vector2i.RIGHT) == Rooms.UPPER_WALL_COOR:
 						tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, ATLAS_ID, Rooms.UPPER_WALL_LEFT_CORNER_COOR)
