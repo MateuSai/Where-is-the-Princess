@@ -4,6 +4,7 @@ const PLAYER_SCENE: PackedScene = preload("res://Characters/Player/Player.tscn")
 
 @export var debug: bool = true
 @export var reload_on_generation_eror: bool = true
+@export var execute_procedural_generation_on_thread: bool = true
 
 var generation_thread: Thread = null
 
@@ -35,17 +36,23 @@ func _ready() -> void:
 		#rooms.spawn_rooms()
 	else:
 		generating_dungeon_canvas_layer.show()
-	rooms.generation_completed.connect(func():
-		#generation_thread.wait_to_finish()
-		generation_thread.wait_to_finish()
-		generation_thread = null
-		generating_dungeon_canvas_layer.hide()
-	)
-	generation_thread = Thread.new()
-	generation_thread.start(rooms.spawn_rooms)
-		#rooms.spawn_rooms()
+
+	if execute_procedural_generation_on_thread:
+		rooms.generation_completed.connect(func():
+			#generation_thread.wait_to_finish()
+			generation_thread.wait_to_finish()
+			generation_thread = null
+#			generating_dungeon_canvas_layer.hide()
+		)
+		generation_thread = Thread.new()
+		generation_thread.start(rooms.spawn_rooms)
+	else:
+		rooms.spawn_rooms()
+#		generating_dungeon_canvas_layer.hide()
 
 	await rooms.generation_completed
+
+	generating_dungeon_canvas_layer.hide()
 
 	if SavedData.get_biome_conf().has("music"):
 		$Music.stream = load(SavedData.get_biome_conf().music)
@@ -100,7 +107,8 @@ func _exit_tree() -> void:
 
 
 func reload_generation(msg: String) -> void:
-	generation_thread.wait_to_finish()
-	generation_thread = null
+	if execute_procedural_generation_on_thread:
+		generation_thread.wait_to_finish()
+		generation_thread = null
 	print_rich("[color=purple]%s. Reloading level generation...[/color]" % msg)
 	get_tree().reload_current_scene()
