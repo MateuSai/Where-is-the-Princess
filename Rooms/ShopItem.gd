@@ -16,6 +16,8 @@ func initialize(item: Item) -> void:
 	super(item)
 
 	price_always_visible = Settings.shop_prices_always_visible
+	if not price_always_visible:
+		price_container.hide()
 	Settings.shop_prices_always_visible_changed.connect(func(new_value: bool):
 		price_always_visible = new_value
 		if price_always_visible:
