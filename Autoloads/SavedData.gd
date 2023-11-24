@@ -10,6 +10,8 @@ const DATA_SAVE_NAME: String = "data.json"
 var data: Dictionary = {
 	"dark_souls": 0,
 
+	"kills": {},
+
 	"ignored_rooms": PackedStringArray([]),
 
 	"discovered_weapons": PackedStringArray(["res://Weapons/Melee/Katana/Katana.tscn", "res://Weapons/Melee/Spear.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/KombatHammer/KombatHammer.tscn", "res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/Scimitar/Scimitar.tscn", "res://Weapons/Melee/SharpAxe/SharpAxe.tscn", "res://Weapons/Melee/SmallAxe/SmallAxe.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn", "res://Weapons/Melee/WarHammer/WarHammer.tscn", "res://Weapons/Melee/WarriorSword/WarriorSword.tscn", "res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn"]),
@@ -143,6 +145,17 @@ func reset_run_stats() -> void:
 func set_dark_souls(new_value: int) -> void:
 	data.dark_souls = new_value
 	dark_souls_changed.emit(data.dark_souls)
+
+
+func add_kill(enemy_id: StringName) -> void:
+	if not data.has("kills"):
+		data["kills"] = {}
+	if not data["kills"].has(enemy_id):
+		data["kills"][enemy_id] = 0
+
+	data["kills"][enemy_id] += 1
+
+	save_data()
 
 
 func get_biome_conf() -> Dictionary:
