@@ -148,7 +148,7 @@ script = ExtResource("9_r816v")
 shape = SubResource("RectangleShape2D_qm2jb")
 
 [node name="StartArea2" type="Area2D" parent="."]
-position = Vector2(128, -16)
+position = Vector2(128, -9)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("9_r816v")
@@ -157,7 +157,7 @@ script = ExtResource("9_r816v")
 shape = SubResource("RectangleShape2D_qm2jb")
 
 [node name="StartArea3" type="Area2D" parent="."]
-position = Vector2(128, -35)
+position = Vector2(128, -26)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("9_r816v")
@@ -166,7 +166,7 @@ script = ExtResource("9_r816v")
 shape = SubResource("RectangleShape2D_qm2jb")
 
 [node name="StartArea4" type="Area2D" parent="."]
-position = Vector2(128, -56)
+position = Vector2(128, -44)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("9_r816v")

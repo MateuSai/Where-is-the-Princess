@@ -102,6 +102,12 @@ _data = {
 
 [node name="Mole" instance=ExtResource("1_sqxlg")]
 script = ExtResource("2_pw6f4")
+min_coins = 2
+max_coins = 3
+min_souls = 1
+max_souls = 1
+min_dark_souls = 0
+max_dark_souls = 0
 mass = 1.0
 acceleration = 40
 max_speed = 80

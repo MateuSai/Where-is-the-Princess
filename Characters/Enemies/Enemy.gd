@@ -129,6 +129,8 @@ func _on_died() -> void:
 
 
 func _on_died_0_5_seconds_later() -> void:
+	SavedData.add_kill(id)
+
 	spawn_loot()
 
 	var spawn_explosion: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()

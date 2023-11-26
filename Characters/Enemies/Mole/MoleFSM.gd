@@ -46,7 +46,7 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			parent.come_out()
 			#animation_player.play("fly")
 			parent.attack_timer.start(randf_range(0.4, 0.8))
-			go_underground_timer.start(randf_range(1.3, 2.8))
+			go_underground_timer.start(randf_range(2.0, 3.5))
 			var vector_to_player: Vector2 = parent.player.position - parent.global_position
 			if vector_to_player.y >= 0:
 				animation_player.play("come_out")
