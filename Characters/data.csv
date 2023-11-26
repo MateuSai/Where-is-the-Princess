@@ -1,9 +1,9 @@
 id,max_hp,mass,acceleration,max_speed,flying,can_be_knocked_back,resistances,body_type,,coins,souls,dark_souls
 player,6,60,40,100,0,1,0,FLESH,,,,
 ,,,,,,,,,,,,
-mark_the_reptilian,10,60,30,100,0,1,0,FLESH,,3,1,0
-naked_mark,8,55,30,100,0,1,0,FLESH,,3,1,0
-armored_mark,15,90,30,100,0,1,0,FLESH,,3,2,0
+mark_the_reptilian,6,60,30,100,0,1,0,FLESH,,3,1,0
+naked_mark,5,55,30,100,0,1,0,FLESH,,3,1,0
+armored_mark,7,90,30,100,0,1,0,FLESH,,3,2,0
 mole,4,5,30,100,0,0,0,FLESH,,3,1,0
 spider,3,3,30,100,0,1,0,FLESH,,3,1,0
 flying_creature,4,3,20,60,1,1,0,FLESH,,2-5,1,0

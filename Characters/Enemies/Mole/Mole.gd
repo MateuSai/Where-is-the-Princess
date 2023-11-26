@@ -1,6 +1,6 @@
 class_name Mole extends Enemy
 
-const ROCK_SCENE: PackedScene = preload("res://Weapons/Projectiles/Rock.tscn")
+const ROCK_SCENE: PackedScene = preload("res://Weapons/projectiles/Rock.tscn")
 
 const HOLE_TILE_COOR: Vector2i = Vector2i(1, 4)
 #const FLOOR_TILES_ATLAS_COOR: Array[Vector2i] = [Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(2, 1), Vector2i(3, 1), Vector2i(4, 1), Vector2i(6, 1), Vector2i(7, 1), Vector2i(8, 1), Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(3, 2), Vector2i(4, 2), Vector2i(5, 2), Vector2i(6, 2), Vector2i(7, 2), Vector2i(8, 2), Vector2i(0, 3), Vector2i(2, 3), Vector2i(3, 3), Vector2i(4, 3), Vector2i(5, 3), Vector2i(6, 3), Vector2i(7, 3), Vector2i(8, 3)]
@@ -8,6 +8,7 @@ const HOLE_TILE_COOR: Vector2i = Vector2i(1, 4)
 var holes: Array[Vector2] = []
 #var floor_pos: Array[Vector2] = []
 
+## Este timer define el tiempo entre ataques cuando el topo esta en la superficie
 @onready var attack_timer: Timer = get_node("AttackTimer")
 
 
