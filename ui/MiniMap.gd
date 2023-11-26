@@ -53,10 +53,13 @@ func set_up() -> void:
 	room_tilemaps.resize(rooms.rooms.size())
 
 	var minimap_corridors_tilemap: TileMap = TileMap.new()
-	minimap_corridors_tilemap.add_layer(0)
-	minimap_corridors_tilemap.add_layer(1)
-	minimap_corridors_tilemap.tile_set = tileset
 	var world_corridor_tilemap: TileMap = $"../../Rooms/CorridorTileMap"
+
+	for layer_i in world_corridor_tilemap.get_layers_count():
+		minimap_corridors_tilemap.add_layer(layer_i)
+		minimap_corridors_tilemap.set_layer_z_index(layer_i, world_corridor_tilemap.get_layer_z_index(layer_i) + 1)
+
+	minimap_corridors_tilemap.tile_set = tileset
 	_copy_tiles(world_corridor_tilemap, minimap_corridors_tilemap)
 	container.add_child(minimap_corridors_tilemap)
 
@@ -185,10 +188,11 @@ func scroll_to_player() -> void:
 func _discover_room(room: DungeonRoom) -> void:
 	var world_room_tilemap: TileMap = room.tilemap
 	var minimap_room_tilemap: TileMap = TileMap.new()
-	minimap_room_tilemap.add_layer(0)
-	minimap_room_tilemap.add_layer(1)
-	minimap_room_tilemap.add_layer(2)
-	minimap_room_tilemap.add_layer(3)
+
+	for layer_i in world_room_tilemap.get_layers_count():
+		minimap_room_tilemap.add_layer(layer_i)
+		minimap_room_tilemap.set_layer_z_index(layer_i, world_room_tilemap.get_layer_z_index(layer_i) + 10)
+
 	minimap_room_tilemap.tile_set = tileset
 	_copy_tiles(world_room_tilemap, minimap_room_tilemap)
 	#minimap_room_tilemap.position = room.position/4
