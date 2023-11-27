@@ -57,7 +57,7 @@ func set_up() -> void:
 
 	for layer_i in world_corridor_tilemap.get_layers_count():
 		minimap_corridors_tilemap.add_layer(layer_i)
-		minimap_corridors_tilemap.set_layer_z_index(layer_i, world_corridor_tilemap.get_layer_z_index(layer_i) + 1)
+		minimap_corridors_tilemap.set_layer_z_index(layer_i, world_corridor_tilemap.get_layer_z_index(layer_i) + 2)
 
 	minimap_corridors_tilemap.tile_set = tileset
 	_copy_tiles(world_corridor_tilemap, minimap_corridors_tilemap)
@@ -191,7 +191,7 @@ func _discover_room(room: DungeonRoom) -> void:
 
 	for layer_i in world_room_tilemap.get_layers_count():
 		minimap_room_tilemap.add_layer(layer_i)
-		minimap_room_tilemap.set_layer_z_index(layer_i, world_room_tilemap.get_layer_z_index(layer_i) + 10)
+		minimap_room_tilemap.set_layer_z_index(layer_i, world_room_tilemap.get_layer_z_index(layer_i) + 2)
 
 	minimap_room_tilemap.tile_set = tileset
 	_copy_tiles(world_room_tilemap, minimap_room_tilemap)
