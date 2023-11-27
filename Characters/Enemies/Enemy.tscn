@@ -8,12 +8,17 @@
 collision_layer = 4
 collision_mask = 5
 script = ExtResource("2_cslvc")
-min_coins = null
-max_coins = null
-min_souls = null
-max_souls = null
-min_dark_souls = null
-max_dark_souls = null
+min_coins = 2
+max_coins = 3
+min_souls = 1
+max_souls = 1
+min_dark_souls = 0
+max_dark_souls = 0
+mass = 1.0
+acceleration = 40
+max_speed = 100
+flying = false
+can_be_knocked_back = true
 
 [node name="PathfindingComponent" type="Node" parent="." index="1"]
 script = ExtResource("3_cumr6")

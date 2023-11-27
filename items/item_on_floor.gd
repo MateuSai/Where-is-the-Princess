@@ -30,7 +30,7 @@ func enable_pick_up() -> void:
 	)
 
 
-# Llamar despues de _ready
+## Call after _ready
 @warning_ignore("shadowed_variable")
 func initialize(item: Item) -> void:
 	self.item = item

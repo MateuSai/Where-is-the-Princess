@@ -76,6 +76,24 @@ func spawn_loot() -> void:
 		soul.position = global_position
 		get_tree().current_scene.call_deferred("add_child", soul)
 
+	# Armor shard
+	if randi() % 10 == 0:
+		var item_on_floor: ItemOnFloor = preload("res://items/item_on_floor.tscn").instantiate()
+		item_on_floor.position = global_position + Vector2(randf_range(-8, 8), randf_range(-8, 8))
+		var armor_shard: ArmorShard = ArmorShard.new()
+		get_tree().current_scene.add_child(item_on_floor)
+		item_on_floor.initialize(armor_shard)
+		item_on_floor.enable_pick_up()
+
+	# Food
+	if randi() % 7 == 0:
+		var item_on_floor: ItemOnFloor = preload("res://items/item_on_floor.tscn").instantiate()
+		item_on_floor.position = global_position + Vector2(randf_range(-8, 8), randf_range(-8, 8))
+		var food: Food = Food.new()
+		get_tree().current_scene.add_child(item_on_floor)
+		item_on_floor.initialize(food)
+		item_on_floor.enable_pick_up()
+
 
 func move_to_target() -> void:
 	if not navigation_agent.is_target_reached():
