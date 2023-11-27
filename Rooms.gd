@@ -786,7 +786,7 @@ func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_
 					continue
 
 				vertical_corridor_1_rect = Rect2(connection_with_entry_position, Vector2(TILE_SIZE * 4, center)).abs()
-				vertical_corridor_2_rect = Rect2(id_entry_position, Vector2(TILE_SIZE * 4, center if dis < 0 else -center)).abs()
+				vertical_corridor_2_rect = Rect2(id_entry_position, Vector2(TILE_SIZE * 4, -center)).abs()
 				#vertical_corridor_2_rect = Rect2(id_entry_position, Vector2(TILE_SIZE * 4, dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1)).abs()
 				horizontal_corridor_rect = Rect2(connection_with_entry_position + Vector2.DOWN * center + Vector2.UP * TILE_SIZE * 2, Vector2(id_entry_position.x - connection_with_entry_position.x, TILE_SIZE * 4)).abs()
 
@@ -1095,28 +1095,22 @@ func _divide_corridor_tile_map() -> void:
 
 
 func _draw() -> void:
-	return
 #	if not debug:
 #		return
 
-#	if mst_astar == null:
-#		for i in delaunay_indices.size() / 3.0:
-#			draw_line(room_centers[delaunay_indices[i*3]], room_centers[delaunay_indices[i*3+1]], Color.GREEN, 7)
-#			draw_line(room_centers[delaunay_indices[i*3+1]], room_centers[delaunay_indices[i*3+2]], Color.GREEN, 7)
-#			draw_line(room_centers[delaunay_indices[i*3+2]], room_centers[delaunay_indices[i*3]], Color.GREEN, 7)
-#	else:
-	if mst_astar != null:
-		for i in mst_astar.get_point_count():
-			for j in mst_astar.get_point_connections(i):
-				draw_line(room_centers[room_centers.find(mst_astar.get_point_position(i))], room_centers[room_centers.find(mst_astar.get_point_position(j))], Color.YELLOW, 7)
+#	if mst_astar != null:
+#		for i in mst_astar.get_point_count():
+#			for j in mst_astar.get_point_connections(i):
+#				draw_line(room_centers[room_centers.find(mst_astar.get_point_position(i))], room_centers[room_centers.find(mst_astar.get_point_position(j))], Color.YELLOW, 7)
 
-	draw_rect(vertical_corridor_rect, Color.DEEP_SKY_BLUE, true)
-	draw_rect(vertical_corridor_1_rect, Color.ORANGE, true)
-	draw_rect(vertical_corridor_2_rect, Color.DARK_RED, true)
-	draw_rect(horizontal_corridor_rect, Color.YELLOW, true)
-	draw_rect(horizontal_corridor_1_rect, Color.BLACK, true)
-	draw_rect(horizontal_corridor_2_rect, Color.WHITE, true)
-	draw_rect(room_rect, Color.WEB_MAROON, true)
+	if debug_check_entry_positions:
+		draw_rect(vertical_corridor_rect, Color.DEEP_SKY_BLUE, true)
+		draw_rect(vertical_corridor_1_rect, Color.ORANGE, true)
+		draw_rect(vertical_corridor_2_rect, Color.GREEN, true)
+		draw_rect(horizontal_corridor_rect, Color.YELLOW, true)
+		draw_rect(horizontal_corridor_1_rect, Color.BLACK, true)
+		draw_rect(horizontal_corridor_2_rect, Color.WHITE, true)
+		draw_rect(room_rect, Color.WEB_MAROON, true)
 
 
 #func _get_random_point_in_circle(radius: float) -> Vector2:
