@@ -7,6 +7,7 @@ const TOP_MARGIN: int = -16
 
 var tileset: TileSet = TileSet.new()
 var room_tilemaps: Array[TileMap] = []
+var rooms_items_ui: Array[ItemsUI] = []
 
 var room_selected: DungeonRoom = null
 
@@ -51,6 +52,7 @@ func set_up() -> void:
 	tileset.add_source(atlas)
 
 	room_tilemaps.resize(rooms.rooms.size())
+	rooms_items_ui.resize(rooms.rooms.size())
 
 	var minimap_corridors_tilemap: TileMap = TileMap.new()
 	var world_corridor_tilemap: TileMap = $"../../Rooms/CorridorTileMap"
@@ -117,6 +119,11 @@ func set_up() -> void:
 func _on_draw() -> void:
 	_update_fog()
 	update_fog_timer.start()
+
+	for i in rooms_items_ui.size():
+		var items_ui: ItemsUI = rooms_items_ui[i]
+		if items_ui != null:
+			items_ui.update_items(rooms.rooms[i].get_items())
 
 
 func _on_hide() -> void:
@@ -202,8 +209,36 @@ func _discover_room(room: DungeonRoom) -> void:
 
 	minimap_room_tilemap.position = room.position/4 -map_rect.position# + Vector2(size.x / 2.0, 0)
 
+	var items_ui: HBoxContainer = ItemsUI.new()
+	items_ui.size = minimap_room_tilemap.get_used_rect().size * TILE_SIZE
+	rooms_items_ui[int(room.name.right(1))] = items_ui
+	container.add_child(items_ui)
+
+	items_ui.position = room.position/4 -map_rect.position
+
 
 func _copy_tiles(from: TileMap, to: TileMap) -> void:
 	for layer in from.get_layers_count():
 		for cell in from.get_used_cells(layer):
 			to.set_cell(layer, cell, 0, from.get_cell_atlas_coords(layer, cell))
+
+
+class ItemsUI extends HBoxContainer:
+	func _init() -> void:
+		z_index = 50
+		alignment = BoxContainer.ALIGNMENT_CENTER
+
+	func update_items(items: Array[ItemOnFloor]) -> void:
+		for i in range(get_child_count() - 1, -1, -1):
+			get_child(i).free()
+#		for child in get_children():
+#			child.queue_free()
+
+#		await get_tree().process_frame
+
+		for item in items:
+			var icon: TextureRect = TextureRect.new()
+			icon.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
+			icon.size_flags_vertical = Control.SIZE_EXPAND_FILL
+			icon.texture = item.item.get_icon()
+			add_child(icon)

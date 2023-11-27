@@ -94,6 +94,8 @@ y_sort_enabled = true
 
 [node name="Traps" type="Node2D" parent="."]
 
+[node name="Items" type="Node2D" parent="."]
+
 [node name="TeleportPosition" type="Marker2D" parent="."]
 
 [node name="DebugRoomId" type="Label" parent="."]

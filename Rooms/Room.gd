@@ -45,6 +45,7 @@ const RECT_MARGIN: int = 64
 @onready var entries: Array[Node2D] = [get_node("Entries/Left"), get_node("Entries/Up"), get_node("Entries/Right"), get_node("Entries/Down")]
 @onready var door_container: Node2D = get_node("Doors")
 @onready var enemy_positions_container: Node2D = get_node("EnemyPositions")
+@onready var items_container: Node2D = $Items
 
 
 func _ready() -> void:
@@ -368,3 +369,14 @@ func get_rect() -> Rect2:
 func add_enemy(enemy: Enemy) -> void:
 	num_enemies += 1
 	add_child(enemy)
+
+
+func add_item_on_floor(item_on_floor: ItemOnFloor, at_pos: Vector2) -> void:
+	item_on_floor.position = at_pos
+	items_container.add_child(item_on_floor)
+
+
+func get_items() -> Array[ItemOnFloor]:
+	var array: Array[ItemOnFloor] = []
+	array.assign(items_container.get_children())
+	return array
