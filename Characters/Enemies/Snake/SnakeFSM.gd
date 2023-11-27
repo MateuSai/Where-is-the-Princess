@@ -25,11 +25,15 @@ func start() -> void:
 	set_state(MOVE)
 
 	player_detector.body_entered.connect(func(body: Node2D):
-		assert(body is Player)
+		if not body is Player:
+			return
+
 		player_inside = true
 	)
 	player_detector.body_exited.connect(func(body: Node2D):
-		assert(body is Player)
+		if not body is Player:
+			return
+
 		player_inside = false
 	)
 

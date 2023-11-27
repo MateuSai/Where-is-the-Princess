@@ -252,8 +252,6 @@ radius = 7.07107
 
 [node name="Snake" instance=ExtResource("1_siu4v")]
 script = ExtResource("2_tcp35")
-is_boss = false
-accerelation = 20
 max_speed = 50
 
 [node name="Shadow" type="Sprite2D" parent="." index="0"]
@@ -262,17 +260,17 @@ texture = ExtResource("4_mbahi")
 [node name="FiniteStateMachine" parent="." index="1"]
 script = ExtResource("2_hw2wv")
 
-[node name="Sprite2D" parent="." index="2"]
+[node name="Sprite2D" parent="." index="3"]
 position = Vector2(0, -3)
 texture = ExtResource("2_wpghp")
 hframes = 6
 vframes = 10
 
-[node name="CollisionShape2D" parent="." index="3"]
+[node name="CollisionShape2D" parent="." index="4"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_vvom2")
 
-[node name="AnimationPlayer" parent="." index="4"]
+[node name="AnimationPlayer" parent="." index="5"]
 libraries = {
 "": SubResource("AnimationLibrary_gsg56")
 }

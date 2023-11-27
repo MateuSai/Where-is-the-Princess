@@ -4,7 +4,7 @@ const ABILITY_SCENE: PackedScene = preload("res://Armors/WarriorArmorAbility.tsc
 
 
 func _init() -> void:
-	initialize(10, load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_warrior_icon.png"), 1)
+	initialize(10, load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_warrior_icon.png"), 10)
 
 
 func enable_ability_effect(player: Player) -> void:
