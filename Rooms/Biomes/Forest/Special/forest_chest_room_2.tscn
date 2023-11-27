@@ -23,6 +23,9 @@ position = Vector2(250, 69)
 [node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("2_4a7w0")]
 position = Vector2(152, 156)
 
+[node name="TeleportPosition" parent="." index="6"]
+position = Vector2(132, 128)
+
 [node name="Chest" parent="." index="8" instance=ExtResource("4_yph1r")]
 position = Vector2(132, 90)
 
