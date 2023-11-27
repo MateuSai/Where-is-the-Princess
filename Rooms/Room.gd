@@ -11,6 +11,7 @@ const HORIZONTAL_UP_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps
 const HORIZONTAL_DOWN_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/HorizontalDownDoor.tscn")
 const VERTICAL_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/VerticalDoor.tscn")
 
+const WATER_LAYER_ID: int = 4
 var ATLAS_ID: int
 
 var num_enemies: int
@@ -36,6 +37,7 @@ signal last_enemy_died(enemy: Enemy)
 
 @onready var tilemap: TileMap = get_node("TileMap")
 @onready var black_tilemap: TileMap = get_node("BlackTileMap")
+@onready var tilemap_offset: Vector2i = tilemap.get_used_rect().position * Rooms.TILE_SIZE
 @onready var vector_to_center: Vector2 = ((tilemap.get_used_rect().size/2) + tilemap.get_used_rect().position) * Rooms.TILE_SIZE
 @onready var radius: float = (tilemap.get_used_rect().size.length() * Rooms.TILE_SIZE) / 2.0
 const RECT_MARGIN: int = 64
@@ -46,6 +48,11 @@ const RECT_MARGIN: int = 64
 
 
 func _ready() -> void:
+	assert(tilemap.position == Vector2.ZERO, "The tilemap must be at the position (0, 0)")
+	assert(entries[0].get_child_count() or entries[1].get_child_count() or entries[2].get_child_count() or entries[3].get_child_count(), "What are you doing!? How I'm supposed to access the room? Put at least one entry.")
+
+#	print(name + ": " + str(tilemap.get_used_rect()))
+
 	num_enemies = enemy_positions_container.get_child_count()
 
 	ATLAS_ID = SavedData.get_biome_conf().room_atlas_id
@@ -72,12 +79,13 @@ func generate_room_white_image() -> void:
 	room_white_image = Image.create(tilemap.get_used_rect().size.x * Rooms.TILE_SIZE, tilemap.get_used_rect().size.y * Rooms.TILE_SIZE, false, Image.FORMAT_RGBAH)
 
 	var tile_cells: Array = tilemap.get_used_cells(0)
+#	tile_cells.append_array(tilemap.get_used_cells(WATER_LAYER_ID))
 	#tile_cells.append_array(tilemap.get_used_cells(1))
 	for tile_cell in tile_cells:
 		if tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.UPPER_WALL_COOR, Rooms.UPPER_WALL_LEFT_COOR, Rooms.UPPER_WALL_LEFT_CORNER_COOR, Rooms.UPPER_WALL_RIGHT_COOR, Rooms.UPPER_WALL_RIGHT_CORNER_COOR, Rooms.LEFT_WALL_COOR, Rooms.RIGHT_WALL_COOR, Rooms.LAST_LEFT_WALL_COOR, Rooms.LAST_RIGHT_WALL_COOR]:
 			continue
 
-		var rect: Rect2 = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE), Vector2.ONE * Rooms.TILE_SIZE)
+		var rect: Rect2 = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - tilemap_offset), Vector2.ONE * Rooms.TILE_SIZE)
 		@warning_ignore("narrowing_conversion")
 		var image: Image = Image.create(rect.size.x, rect.size.y, false, Image.FORMAT_RGBAH)
 		image.fill(Color.WHITE)
@@ -302,7 +310,7 @@ func _spawn_enemies() -> void:
 func _on_player_entered_room() -> void:
 	player_entered.emit()
 
-	get_parent().clear_room_fog(position, room_white_image)
+	get_parent().clear_room_fog(position + Vector2(tilemap_offset), room_white_image)
 
 	for door in door_container.get_children():
 		door.player_entered_room.disconnect(_on_player_entered_room)
@@ -356,6 +364,7 @@ func get_rect() -> Rect2:
 	return Rect2(Vector2i(position) + (tilemap.get_used_rect().position * 16), (tilemap.get_used_rect().size * 16))
 
 
+## Increase num_enemies by 1 and adds the enemy to the scene tree
 func add_enemy(enemy: Enemy) -> void:
 	num_enemies += 1
 	add_child(enemy)
