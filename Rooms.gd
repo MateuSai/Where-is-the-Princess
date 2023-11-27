@@ -777,7 +777,7 @@ func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_
 				var id_entry_position: Vector2 = entry.get_children()[0].global_position
 				var connection_with_entry_position: Vector2 = other_entry.get_children()[0].global_position
 
-				const MIN_TILES_TO_MAKE_DESVIATION: int = 2
+#				const MIN_TILES_TO_MAKE_DESVIATION: int = 2
 				var dis: float = id_entry_position.y - connection_with_entry_position.y
 				var center: int = floor((dis) / 2.0)
 
