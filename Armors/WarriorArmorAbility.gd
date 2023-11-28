@@ -12,11 +12,13 @@ func _init() -> void:
 
 func _ready() -> void:
 	area.body_entered.connect(func(body: Node2D):
-		assert(body is Enemy)
+		if not body is Enemy:
+			return
 		enemies_inside.push_back(body)
 	)
 	area.body_exited.connect(func(body: Node2D):
-		assert(body is Enemy)
+		if not body is Enemy:
+			return
 		enemies_inside.erase(body)
 	)
 	area.area_entered.connect(func(area_entered: Area2D):
