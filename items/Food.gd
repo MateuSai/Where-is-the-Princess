@@ -13,6 +13,10 @@ func get_icon() -> Texture:
 	return icon
 
 
+func can_pick_up(player: Player) -> bool:
+	return player.life_component.max_hp > player.life_component.hp
+
+
 func pick_up(player: Player) -> void:
 	player.life_component.hp += 1
 	player.eat_sound.play()
