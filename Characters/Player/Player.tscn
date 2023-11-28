@@ -448,11 +448,6 @@ radius = 114.28
 collision_layer = 2
 collision_mask = 21
 script = ExtResource("4")
-mass = 1.0
-acceleration = 40
-max_speed = 100
-flying = false
-can_be_knocked_back = true
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("5")
