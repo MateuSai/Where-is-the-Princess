@@ -14,4 +14,4 @@ func get_icon() -> Texture:
 
 
 func get_symbol() -> Texture:
-	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/rune_alf.png")
+	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/rune_alfdwds.png")

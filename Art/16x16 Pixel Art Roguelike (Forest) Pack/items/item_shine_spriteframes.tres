@@ -1,0 +1,68 @@
+[gd_resource type="SpriteFrames" load_steps=10 format=3 uid="uid://ow18cam3da1q"]
+
+[ext_resource type="Texture2D" uid="uid://bmnayvxajvsdr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/item_shine_anim_5x5.png" id="1_a1xjl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4s2wh"]
+atlas = ExtResource("1_a1xjl")
+region = Rect2(0, 0, 5, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mceyp"]
+atlas = ExtResource("1_a1xjl")
+region = Rect2(5, 0, 5, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhm1k"]
+atlas = ExtResource("1_a1xjl")
+region = Rect2(10, 0, 5, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3a4bb"]
+atlas = ExtResource("1_a1xjl")
+region = Rect2(15, 0, 5, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vxq8n"]
+atlas = ExtResource("1_a1xjl")
+region = Rect2(20, 0, 5, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g5v5u"]
+atlas = ExtResource("1_a1xjl")
+region = Rect2(25, 0, 5, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cidk6"]
+atlas = ExtResource("1_a1xjl")
+region = Rect2(30, 0, 5, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_okoyn"]
+atlas = ExtResource("1_a1xjl")
+region = Rect2(35, 0, 5, 5)
+
+[resource]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4s2wh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mceyp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhm1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3a4bb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vxq8n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g5v5u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cidk6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_okoyn")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]

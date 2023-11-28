@@ -1105,7 +1105,7 @@ func _get_random_corridor_floor_tile_coor() -> Vector2i:
 
 
 func int_arr_to_vec_array(array: Array) -> Array[Vector2i]:
-	var vec_arr: Array[Vector2i]
+	var vec_arr: Array[Vector2i] = []
 	var tmp_arr: Array = []
 
 	for arr in array:
