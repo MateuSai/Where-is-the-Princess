@@ -24,6 +24,7 @@ enum GearType {
 @export var type: Type = Type.ITEM
 var gear_type: GearType
 
+@onready var room: DungeonRoom = get_parent()
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite
 @onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
 @onready var interact_area: InteractArea = get_node("InteractArea")
@@ -66,9 +67,8 @@ func _on_opened() -> void:
 	match type:
 		Type.ITEM:
 			var item_on_floor: ItemOnFloor = load("res://items/item_on_floor.tscn").instantiate()
-			item_on_floor.position = position
 			item_on_floor.initialize(load(item_path).new())
-			get_parent().add_child(item_on_floor)
+			room.add_item_on_floor(item_on_floor, position)
 			await create_tween().tween_property(item_on_floor, "position:y", position.y + 16, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT).finished
 			item_on_floor.enable_pick_up()
 		Type.GEAR:
@@ -80,11 +80,10 @@ func _on_opened() -> void:
 					weapon.interpolate_pos(global_position, global_position + Vector2.DOWN * 16, false)
 				GearType.ARMOR:
 					var item_on_floor: ItemOnFloor = load("res://items/item_on_floor.tscn").instantiate()
-					item_on_floor.position = position
 					var armor_item: ArmorItem = ArmorItem.new()
 					armor_item.initialize(load(item_path).new())
 					item_on_floor.initialize(armor_item)
-					get_parent().add_child(item_on_floor)
+					room.add_item_on_floor(item_on_floor, position)
 					await create_tween().tween_property(item_on_floor, "position:y", position.y + 16, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT).finished
 					item_on_floor.enable_pick_up()
 				_:

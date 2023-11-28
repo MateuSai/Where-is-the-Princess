@@ -329,7 +329,7 @@ func _spawn_enemy(enemy_string: String) -> void:
 
 func _spawn_chest() -> void:
 	var chest: Chest = preload("res://Rooms/Chest.tscn").instantiate()
-	get_tree().current_scene.add_child(chest)
-	chest.position = Globals.player.position + Vector2.RIGHT * 16
+	get_tree().current_scene.get_node("Rooms").rooms[0].add_child(chest)
+	chest.global_position = Globals.player.position + Vector2.RIGHT * 16
 
 	hide()

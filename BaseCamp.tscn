@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=46 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="1_0pcgl"]
 [ext_resource type="Script" path="res://BaseCamp.gd" id="1_tpf7m"]
@@ -18,7 +18,6 @@
 [ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="13_2uruh"]
 [ext_resource type="PackedScene" uid="uid://bu6m7pa3yuk4r" path="res://Weapons/Melee/DragonKiller/DragonKiller.tscn" id="16_885t0"]
 [ext_resource type="AudioStream" uid="uid://dsphctheyll2w" path="res://Audio/Music/Gymnopédie no. 1 (for Harp).mp3" id="18_0hiag"]
-[ext_resource type="PackedScene" uid="uid://cwb0heh4qdkh8" path="res://Rooms/Chest.tscn" id="19_vtxkp"]
 [ext_resource type="PackedScene" uid="uid://b78s3rdcjmo8a" path="res://Weapons/Melee/OrcSword/OrcSword.tscn" id="20_vg655"]
 [ext_resource type="PackedScene" uid="uid://cw7q01ncaqimn" path="res://Weapons/Melee/WarriorSword/WarriorSword.tscn" id="21_lb8k2"]
 [ext_resource type="PackedScene" uid="uid://cs3cwiuyg1834" path="res://Weapons/Melee/Scimitar/Scimitar.tscn" id="22_ovxvs"]
@@ -267,8 +266,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 192.0
-offset_bottom = 142.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_nybk1")
@@ -329,9 +328,6 @@ stream = ExtResource("18_0hiag")
 volume_db = -8.0
 autoplay = true
 bus = &"Music"
-
-[node name="Chest" parent="." instance=ExtResource("19_vtxkp")]
-position = Vector2(122, 154)
 
 [node name="OrcSword" parent="." instance=ExtResource("20_vg655")]
 position = Vector2(181, 121)
