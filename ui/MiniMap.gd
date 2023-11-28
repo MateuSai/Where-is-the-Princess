@@ -216,7 +216,7 @@ func _discover_room(room: DungeonRoom) -> void:
 	items_ui_container.add_child(items_ui)
 	container.add_child(items_ui_container)
 
-	items_ui.position = room.position/4 -map_rect.position
+	items_ui.position = room.position/4 + Vector2(room.tilemap_offset)/4 -map_rect.position
 
 
 func _copy_tiles(from: TileMap, to: TileMap) -> void:

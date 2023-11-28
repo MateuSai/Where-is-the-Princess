@@ -28,7 +28,7 @@ position = Vector2(217, 84)
 [node name="HorizontalEntry2" parent="Entries/Down" index="0" instance=ExtResource("3_55qbs")]
 position = Vector2(133, 154)
 
-[node name="TeleportPosition" parent="." index="6"]
+[node name="TeleportPosition" parent="." index="7"]
 position = Vector2(145, 92)
 
 [node name="TikiTorch" parent="." index="8" instance=ExtResource("4_0bxjt")]
