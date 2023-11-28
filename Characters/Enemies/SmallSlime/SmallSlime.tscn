@@ -75,16 +75,16 @@ child_slime_scene = null
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("3_8r764")
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="Sprite2D" parent="." index="2"]
 position = Vector2(0, -5)
 texture = ExtResource("4_vnn04")
 hframes = 6
 vframes = 2
 
-[node name="CollisionShape2D" parent="." index="2"]
+[node name="CollisionShape2D" parent="." index="3"]
 shape = SubResource("CircleShape2D_aya2n")
 
-[node name="AnimationPlayer" parent="." index="3"]
+[node name="AnimationPlayer" parent="." index="4"]
 libraries = {
 "": SubResource("AnimationLibrary_7ak3e")
 }

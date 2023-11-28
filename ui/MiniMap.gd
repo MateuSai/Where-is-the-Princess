@@ -209,10 +209,12 @@ func _discover_room(room: DungeonRoom) -> void:
 
 	minimap_room_tilemap.position = room.position/4 -map_rect.position# + Vector2(size.x / 2.0, 0)
 
-	var items_ui: HBoxContainer = ItemsUI.new()
+	var items_ui_container: Node2D = Node2D.new() # Otherwise the HBox will adapt to the MarginContainer
+	var items_ui: ItemsUI = ItemsUI.new()
 	items_ui.size = minimap_room_tilemap.get_used_rect().size * TILE_SIZE
 	rooms_items_ui[int(room.name.right(1))] = items_ui
-	container.add_child(items_ui)
+	items_ui_container.add_child(items_ui)
+	container.add_child(items_ui_container)
 
 	items_ui.position = room.position/4 -map_rect.position
 
@@ -223,14 +225,25 @@ func _copy_tiles(from: TileMap, to: TileMap) -> void:
 			to.set_cell(layer, cell, 0, from.get_cell_atlas_coords(layer, cell))
 
 
-class ItemsUI extends HBoxContainer:
+class ItemsUI extends MarginContainer:
+	var hflow: HFlowContainer
+
 	func _init() -> void:
 		z_index = 50
-		alignment = BoxContainer.ALIGNMENT_CENTER
+		add_theme_constant_override("margin_left", 8)
+		add_theme_constant_override("margin_top", 8)
+		add_theme_constant_override("margin_right", 8)
+		add_theme_constant_override("margin_bottom", 8)
+
+	func _ready() -> void:
+		hflow = HFlowContainer.new()
+		hflow.alignment = HFlowContainer.ALIGNMENT_CENTER
+		hflow.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+		add_child(hflow)
 
 	func update_items(items: Array[ItemOnFloor]) -> void:
-		for i in range(get_child_count() - 1, -1, -1):
-			get_child(i).free()
+		for i in range(hflow.get_child_count() - 1, -1, -1):
+			hflow.get_child(i).free()
 #		for child in get_children():
 #			child.queue_free()
 
@@ -241,4 +254,4 @@ class ItemsUI extends HBoxContainer:
 			icon.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
 			icon.size_flags_vertical = Control.SIZE_EXPAND_FILL
 			icon.texture = item.item.get_icon()
-			add_child(icon)
+			hflow.add_child(icon)

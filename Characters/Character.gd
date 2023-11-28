@@ -31,6 +31,7 @@ enum Resistance {
 	FREEZE = 4,
 	ELECTRICITY = 8,
 }
+var initial_resistances: int = 0
 var resistances: int = 0 # I can't make an exported using an enum to select flags, so, change this variable from the script if you need to
 
 var mov_direction: Vector2 = Vector2.ZERO
@@ -75,6 +76,7 @@ func _load_csv_data(data: Dictionary) -> void:
 	can_be_knocked_back = bool(data.can_be_knocked_back)
 	@warning_ignore("int_as_enum_without_cast")
 	life_component.body_type = life_component.BodyType.keys().find(data.body_type)
+	initial_resistances = data.resistances
 	resistances = data.resistances
 
 
@@ -174,8 +176,11 @@ func remove_resistance(resistance: Resistance) -> void:
 	resistances &= ~resistance
 
 
-func has_resistance(resistance: Resistance) -> bool:
-	return resistances & resistance
+func has_resistance(resistance: Resistance, initially: bool = false) -> bool:
+	if initially:
+		return initial_resistances & resistance
+	else:
+		return resistances & resistance
 
 
 func set_flying(new_value: bool) -> void:
