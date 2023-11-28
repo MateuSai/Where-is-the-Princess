@@ -1,3 +1,5 @@
 class_name Rune extends PermanentPassiveItem
 
-const RUNE_TEX: Texture = preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/rune_base.png")
+func get_symbol() -> Texture:
+	push_error("You must overwrite this function")
+	return null

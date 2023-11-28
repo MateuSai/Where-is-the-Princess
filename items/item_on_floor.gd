@@ -35,10 +35,10 @@ func enable_pick_up() -> void:
 func initialize(item: Item) -> void:
 	self.item = item
 	if item is Rune:
-		texture = item.RUNE_TEX
+		texture = item.get_icon()
 		var sprite: Sprite2D = Sprite2D.new()
 		sprite.material = load("res://unshaded.tres")
-		sprite.texture = item.get_icon()
+		sprite.texture = item.get_symbol()
 		add_child(sprite)
 	else:
 		texture = item.get_icon()
