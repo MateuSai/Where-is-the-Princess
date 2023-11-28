@@ -1,6 +1,7 @@
 @icon("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/new_mechant_idle_down_01.png")
-
 class_name Character extends CharacterBody2D
+
+const DB: Dictionary = preload("res://Characters/data.csv").records
 
 const DUST_SCENE: PackedScene = preload("res://Characters/Player/Dust.tscn")
 const HIT_EFFECT_SCENE: PackedScene = preload("res://Characters/HitEffect.tscn")
@@ -55,9 +56,8 @@ func _ready() -> void:
 	life_component.died.connect(_on_died)
 	acid_damage_timer.timeout.connect(_on_acid_damage_timer_timeout)
 
-	var data: Dictionary = preload("res://Characters/data.csv").records
-	if data.has(id):
-		var weapon_data: Dictionary = data[id]
+	if DB.has(id):
+		var weapon_data: Dictionary = DB[id]
 		_load_csv_data(weapon_data)
 
 	set_flying(flying)

@@ -411,7 +411,7 @@ class RunStats extends Resource:
 	@export var biome: String = "Forest"
 	@export var level: int = 1
 
-	@export var hp: int = 6
+	@export var hp: int = Character.DB["player"].max_hp
 	@export var weapon_stats: Array[WeaponStats] = []
 	@export var equipped_weapon_index: int = 0
 
