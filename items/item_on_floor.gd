@@ -85,6 +85,7 @@ func _spawn_shine_effect() -> void:
 	var animated_sprite: AnimatedSprite2D = AnimatedSprite2D.new()
 	animated_sprite.z_index = 1
 	animated_sprite.position.x = randf_range(-2.5, 2.5)
+	animated_sprite.position.y = randf_range(-2.5, 2.5)
 	animated_sprite.material = load("res://unshaded.tres")
 	animated_sprite.sprite_frames = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/item_shine_spriteframes.tres")
 	animated_sprite.animation_finished.connect(animated_sprite.queue_free)
@@ -94,5 +95,4 @@ func _spawn_shine_effect() -> void:
 	animated_sprite.play("default")
 	var t: Tween = create_tween()
 	t.set_parallel()
-	t.tween_property(animated_sprite, "position:y", -10, time)
-	t.tween_property(animated_sprite, "rotation", [1, -1][randi() % 2] * 1, time)
+	t.tween_property(animated_sprite, "rotation", [1, -1][randi() % 2] * 1.5, time)
