@@ -7,6 +7,7 @@ var can_pick_up: bool = false
 
 @onready var interact_area: InteractArea = get_node("InteractArea")
 @onready var spawn_shine_effect_timer: Timer = $SpawnShineEffectTimer
+@onready var visible_on_screen_notifier: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 
 
 func _ready() -> void:
@@ -25,6 +26,8 @@ func _ready() -> void:
 	)
 
 	spawn_shine_effect_timer.timeout.connect(_spawn_shine_effect)
+	visible_on_screen_notifier.screen_entered.connect(spawn_shine_effect_timer.start)
+	visible_on_screen_notifier.screen_exited.connect(spawn_shine_effect_timer.stop)
 
 
 func enable_pick_up() -> void:
@@ -80,6 +83,7 @@ func _pick_item_and_free() -> void:
 
 func _spawn_shine_effect() -> void:
 	var animated_sprite: AnimatedSprite2D = AnimatedSprite2D.new()
+	animated_sprite.position.x = randf_range(-2.5, 2.5)
 	animated_sprite.material = load("res://unshaded.tres")
 	animated_sprite.sprite_frames = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/item_shine_spriteframes.tres")
 	animated_sprite.animation_finished.connect(animated_sprite.queue_free)

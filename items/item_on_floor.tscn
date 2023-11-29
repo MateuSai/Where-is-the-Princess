@@ -34,3 +34,5 @@ shape = SubResource("CircleShape2D_5kvd4")
 [node name="SpawnShineEffectTimer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
