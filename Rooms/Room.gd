@@ -95,6 +95,7 @@ func generate_room_white_image() -> void:
 			if entry in used_entries:
 				tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir])
 				if dir in [EntryDirection.LEFT, EntryDirection.RIGHT]:
+					tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.UP)
 					tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.DOWN)
 					if dir == EntryDirection.LEFT and not increased_left_size:
 						increased_left_size = true
@@ -104,7 +105,9 @@ func generate_room_white_image() -> void:
 						increased_right_size = true
 						size.x += Rooms.TILE_SIZE
 				else: # UP, DOWN
+#					tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.LEFT)
 					tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.RIGHT)
+#					tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.RIGHT * 2)
 					if dir == EntryDirection.UP and not increased_up_size:
 						increased_up_size = true
 						room_white_image_offset.y -= Rooms.TILE_SIZE
