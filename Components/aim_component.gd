@@ -8,7 +8,8 @@ var projectile_speed: int:
 		return character.projectile_speed
 
 const FLAG_PREDICT_TRAJECTORY: int = 1
-@export_flags("Predict trajectory") var flags: int = 0
+const FLAG_REDUCE_PRECISION_WHEN_MOVING: int = 2
+@export_flags("Predict trajectory", "Reduce precision when moving") var flags: int = 0
 
 @onready var character: Character = get_parent()
 
@@ -26,6 +27,9 @@ func get_dir() -> Dictionary:
 	else:
 		res["dir"] = (target.global_position - character.global_position).normalized()
 		res["clear"] = _is_trajectory_clear(target.global_position)
+
+	if flags & FLAG_REDUCE_PRECISION_WHEN_MOVING and character.velocity.length() > 10:
+		res["dir"] = res["dir"].rotated(randf_range(-0.2, 0.2))
 
 	res.make_read_only()
 	return res

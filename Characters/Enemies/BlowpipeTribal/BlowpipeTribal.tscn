@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bdbwos0s5sc1d"]
+[gd_scene load_steps=17 format=3 uid="uid://bdbwos0s5sc1d"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_qa4sw"]
 [ext_resource type="Texture2D" uid="uid://mto5b6cnjswl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_01.png" id="2_qsc6j"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="3_k2c77"]
 [ext_resource type="Script" path="res://Characters/Enemies/BlowpipeTribal/BlowpipeTribalFSM.gd" id="3_p78pm"]
 [ext_resource type="Script" path="res://Components/DropMaskOnDeadComponent.gd" id="5_vltav"]
+[ext_resource type="Script" path="res://Components/aim_component.gd" id="6_nnf1x"]
 [ext_resource type="Texture2D" uid="uid://cnu7btarwtkdr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_01_blowpipe.png" id="6_ocmak"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_23s0p"]
@@ -111,11 +112,7 @@ height = 12.0
 collision_mask = 21
 script = ExtResource("2_thi7f")
 projectile_speed = 150
-mass = 1.0
-acceleration = 40
 max_speed = 55
-flying = false
-can_be_knocked_back = true
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("3_p78pm")
@@ -137,7 +134,11 @@ libraries = {
 [node name="DropMaskOnDeadComponent" type="Node" parent="." index="6"]
 script = ExtResource("5_vltav")
 
-[node name="HurtBox" type="Area2D" parent="." index="10"]
+[node name="AimComponent" type="Node" parent="." index="7"]
+script = ExtResource("6_nnf1x")
+flags = 2
+
+[node name="HurtBox" type="Area2D" parent="." index="11"]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("3_k2c77")
@@ -145,8 +146,6 @@ script = ExtResource("3_k2c77")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
 position = Vector2(0, -3)
 shape = SubResource("CapsuleShape2D_w2kga")
-
-[node name="AimRayCast" type="RayCast2D" parent="." index="11"]
 
 [node name="AttackTimer" type="Timer" parent="." index="12"]
 wait_time = 1.5
