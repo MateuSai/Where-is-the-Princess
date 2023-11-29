@@ -209,6 +209,7 @@ func get_joypad_event_image_id(event: InputEvent) -> String:
 
 
 func exit_level(biome: String = "") -> void:
+	biome = biome.to_lower()
 	if biome.is_empty() or biome == SavedData.run_stats.biome:
 		SavedData.run_stats.level += 1
 		#SceneTransistor.start_transition_to("res://Game.tscn")
