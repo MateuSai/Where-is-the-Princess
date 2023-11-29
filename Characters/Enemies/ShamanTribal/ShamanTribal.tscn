@@ -204,24 +204,22 @@ _data = {
 [node name="ShamanTribal" instance=ExtResource("1_aq1of")]
 collision_mask = 23
 script = ExtResource("2_hqlqb")
-is_boss = false
 mass = 50.0
-accerelation = 20
 max_speed = 50
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("3_8eupy")
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="Sprite2D" parent="." index="2"]
 position = Vector2(0, -5)
 texture = ExtResource("2_2yyp0")
 hframes = 6
 vframes = 4
 
-[node name="CollisionShape2D" parent="." index="2"]
+[node name="CollisionShape2D" parent="." index="3"]
 shape = SubResource("CircleShape2D_gjfod")
 
-[node name="AnimationPlayer" parent="." index="3"]
+[node name="AnimationPlayer" parent="." index="4"]
 libraries = {
 "": SubResource("AnimationLibrary_nvww2")
 }

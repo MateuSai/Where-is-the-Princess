@@ -7,7 +7,6 @@ const DART_SCENE: PackedScene = preload("res://Characters/Enemies/BlowpipeTribal
 var can_attack: bool = true
 
 @onready var attack_timer: Timer = get_node("AttackTimer")
-@onready var aim_raycast: RayCast2D = get_node("AimRayCast")
 @onready var blowpipe_pivot: Node2D = $BlowpipePivot
 
 
@@ -28,10 +27,10 @@ func _process(_delta: float) -> void:
 		move_child(blowpipe_pivot, 0)
 
 
-func _throw_dart() -> void:
+func _throw_dart(dir: Vector2) -> void:
 	var projectile: Area2D = DART_SCENE.instantiate()
 	projectile.exclude.push_back(self)
-	projectile.launch(global_position, (player.position - global_position).normalized(), projectile_speed, true)
+	projectile.launch(global_position, dir, projectile_speed, true)
 	get_tree().current_scene.add_child(projectile)
 
 

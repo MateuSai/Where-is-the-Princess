@@ -2,11 +2,12 @@ extends FiniteStateMachine
 
 enum {
 	IDLE,
-	MOVE,
+	FLEE,
 	RESURRECT_ALLY,
 	DEAD,
 }
 
+@onready var pathfinding_component: PathfindingComponent = $"../PathfindingComponent"
 @onready var search_tribal_mask_timer: Timer = $"../SearchTribalMaskTimer"
 @onready var scepter_animation_player: AnimationPlayer = $"../ScepterPivot/ScepterAnimationPlayer"
 
@@ -17,7 +18,7 @@ func start() -> void:
 
 func _state_logic(_delta: float) -> void:
 	match state:
-		MOVE:
+		FLEE:
 			parent.move_to_target()
 			parent.move()
 			if parent.mov_direction.y >= 0 and animation_player.current_animation != "move":
@@ -34,12 +35,20 @@ func _state_logic(_delta: float) -> void:
 
 
 func _get_transition() -> int:
+	var dis_to_target: float = (parent.target.position - parent.global_position).length()
 	match state:
 		IDLE:
-			if parent.target_tribal_mask:
+			if dis_to_target < 32:
+				return FLEE
+			elif parent.target_tribal_mask:
 				return RESURRECT_ALLY
+		FLEE:
+			if dis_to_target > 48:
+				return IDLE
 		RESURRECT_ALLY:
-			if parent.target_tribal_mask == null:
+			if dis_to_target < 32:
+				return FLEE
+			elif parent.target_tribal_mask == null:
 				return IDLE
 #			if not spear_animation_player.is_playing():
 #				if parent.distance_to_player > parent.MAX_DISTANCE_TO_PLAYER or parent.distance_to_player < parent.MIN_DISTANCE_TO_PLAYER:
@@ -68,7 +77,8 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 
 			if search_tribal_mask_timer.is_stopped():
 				search_tribal_mask_timer.start()
-		MOVE:
+		FLEE:
+			pathfinding_component.set_mode(PathfindingComponent.Flee.new())
 			if search_tribal_mask_timer.is_stopped():
 				search_tribal_mask_timer.start()
 #		states.attack:

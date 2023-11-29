@@ -549,7 +549,7 @@ func _create_corridors() -> bool:
 
 
 func _add_lights() -> void:
-	var TIKI_TORCH_SCENE: PackedScene = load("res://Rooms/Biomes/Forest/TikiTorch.tscn")
+	var TIKI_TORCH_SCENE: PackedScene = load("res://Rooms/Biomes/forest/TikiTorch.tscn")
 
 	for cell in corridor_tile_map.get_used_cells(0):
 		if corridor_tile_map.get_cell_atlas_coords(0, cell) == UPPER_WALL_COOR:
