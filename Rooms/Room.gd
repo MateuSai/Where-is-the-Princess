@@ -26,8 +26,6 @@ enum EntryDirection {
 }
 var used_entries: Array[Node] = []
 
-var room_white_image: Image
-
 signal player_entered()
 signal closed()
 signal cleared()
@@ -37,7 +35,11 @@ signal last_enemy_died(enemy: Enemy)
 
 @onready var tilemap: TileMap = get_node("TileMap")
 @onready var black_tilemap: TileMap = get_node("BlackTileMap")
+
 @onready var tilemap_offset: Vector2i = tilemap.get_used_rect().position * Rooms.TILE_SIZE
+var room_white_image: Image
+@onready var room_white_image_offset: Vector2i = tilemap_offset
+
 @onready var vector_to_center: Vector2 = ((tilemap.get_used_rect().size/2) + tilemap.get_used_rect().position) * Rooms.TILE_SIZE
 @onready var radius: float = (tilemap.get_used_rect().size.length() * Rooms.TILE_SIZE) / 2.0
 const RECT_MARGIN: int = 64
@@ -77,16 +79,48 @@ func _draw() -> void:
 
 
 func generate_room_white_image() -> void:
-	room_white_image = Image.create(tilemap.get_used_rect().size.x * Rooms.TILE_SIZE, tilemap.get_used_rect().size.y * Rooms.TILE_SIZE, false, Image.FORMAT_RGBAH)
+	var size: Vector2 = tilemap.get_used_rect().size * Rooms.TILE_SIZE
 
 	var tile_cells: Array = tilemap.get_used_cells(0)
 #	tile_cells.append_array(tilemap.get_used_cells(WATER_LAYER_ID))
 	#tile_cells.append_array(tilemap.get_used_cells(1))
+
+	# We add one more tile in the direction of the entries so the entries of the room are more visible
+	var increased_left_size: bool = false
+	var increased_right_size: bool = false
+	var increased_up_size: bool = false
+	var increased_down_size: bool = false
+	for dir in [EntryDirection.LEFT, EntryDirection.UP, EntryDirection.RIGHT, EntryDirection.DOWN]:
+		for entry in entries[dir].get_children():
+			if entry in used_entries:
+				tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir])
+				if dir in [EntryDirection.LEFT, EntryDirection.RIGHT]:
+					tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.DOWN)
+					if dir == EntryDirection.LEFT and not increased_left_size:
+						increased_left_size = true
+						room_white_image_offset.x -= Rooms.TILE_SIZE
+						size.x += Rooms.TILE_SIZE
+					elif dir == EntryDirection.RIGHT and not increased_right_size:
+						increased_right_size = true
+						size.x += Rooms.TILE_SIZE
+				else: # UP, DOWN
+					tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.RIGHT)
+					if dir == EntryDirection.UP and not increased_up_size:
+						increased_up_size = true
+						room_white_image_offset.y -= Rooms.TILE_SIZE
+						size.y += Rooms.TILE_SIZE
+					elif dir == EntryDirection.DOWN and not increased_down_size:
+						increased_down_size = true
+						size.y += Rooms.TILE_SIZE
+
+	@warning_ignore("narrowing_conversion")
+	room_white_image = Image.create(size.x, size.y, false, Image.FORMAT_RGBAH)
+
 	for tile_cell in tile_cells:
-		if tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.UPPER_WALL_COOR, Rooms.UPPER_WALL_LEFT_COOR, Rooms.UPPER_WALL_LEFT_CORNER_COOR, Rooms.UPPER_WALL_RIGHT_COOR, Rooms.UPPER_WALL_RIGHT_CORNER_COOR, Rooms.LEFT_WALL_COOR, Rooms.RIGHT_WALL_COOR, Rooms.LAST_LEFT_WALL_COOR, Rooms.LAST_RIGHT_WALL_COOR]:
+		if (tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.UPPER_WALL_COOR, Rooms.UPPER_WALL_LEFT_COOR, Rooms.UPPER_WALL_LEFT_CORNER_COOR, Rooms.UPPER_WALL_RIGHT_COOR, Rooms.UPPER_WALL_RIGHT_CORNER_COOR, Rooms.LEFT_WALL_COOR, Rooms.RIGHT_WALL_COOR, Rooms.LAST_LEFT_WALL_COOR, Rooms.LAST_RIGHT_WALL_COOR]): # if the atlas coordinates are (-1, -1), it means it's a corridor tile
 			continue
 
-		var rect: Rect2 = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - tilemap_offset), Vector2.ONE * Rooms.TILE_SIZE)
+		var rect: Rect2 = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset), Vector2.ONE * Rooms.TILE_SIZE)
 		@warning_ignore("narrowing_conversion")
 		var image: Image = Image.create(rect.size.x, rect.size.y, false, Image.FORMAT_RGBAH)
 		image.fill(Color.WHITE)
@@ -311,7 +345,7 @@ func _spawn_enemies() -> void:
 func _on_player_entered_room() -> void:
 	player_entered.emit()
 
-	get_parent().clear_room_fog(position + Vector2(tilemap_offset), room_white_image)
+	get_parent().clear_room_fog(position + Vector2(room_white_image_offset), room_white_image)
 
 	for door in door_container.get_children():
 		door.player_entered_room.disconnect(_on_player_entered_room)
@@ -361,7 +395,8 @@ func get_random_spawn_point(spawn_shape: Rooms.SpawnShape) -> Vector2:
 			return spawn_shape.size * entries_dir
 
 
-func get_rect() -> Rect2:
+func get_rect() -> Rect2i:
+#	return Rect2i(tilemap.get_used_rect().position * Rooms.TILE_SIZE, tilemap.get_used_rect().size * Rooms.TILE_SIZE)
 	return Rect2(Vector2i(position) + (tilemap.get_used_rect().position * 16), (tilemap.get_used_rect().size * 16))
 
 

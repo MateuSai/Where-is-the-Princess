@@ -64,7 +64,7 @@ func start_game() -> void:
 		run_seed = randi()
 	else:
 		run_seed = int(seed_spin_box.value)
-	run_seed = 2391748376
+#	run_seed = 1577493068
 	print("Seed: " + str(run_seed) + "\n")
 	seed(run_seed)
 	Globals.run_seed = run_seed
