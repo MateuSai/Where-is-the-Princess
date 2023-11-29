@@ -135,8 +135,8 @@ func _physics_process(delta: float) -> void:
 func _get_rooms(type: String) -> PackedStringArray:
 	var room_paths: PackedStringArray
 
-	var overwrite_room_paths: PackedStringArray = PackedStringArray(SavedData.get_overwrite_room_paths(type.replace("/", "_").to_lower()))
-	if not overwrite_room_paths.is_empty():
+	var overwrite_room_paths: PackedStringArray = SavedData.get_overwrite_room_paths(type.replace("/", "_").to_lower())
+	if overwrite_room_paths.is_empty() or not overwrite_room_paths[0].is_empty():
 		room_paths = overwrite_room_paths
 	else:
 		if type.to_lower().begins_with("end"):
