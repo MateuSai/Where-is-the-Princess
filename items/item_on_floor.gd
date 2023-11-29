@@ -83,6 +83,7 @@ func _pick_item_and_free() -> void:
 
 func _spawn_shine_effect() -> void:
 	var animated_sprite: AnimatedSprite2D = AnimatedSprite2D.new()
+	animated_sprite.z_index = 1
 	animated_sprite.position.x = randf_range(-2.5, 2.5)
 	animated_sprite.material = load("res://unshaded.tres")
 	animated_sprite.sprite_frames = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/item_shine_spriteframes.tres")
