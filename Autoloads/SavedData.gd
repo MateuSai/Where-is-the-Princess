@@ -406,7 +406,7 @@ func get_random_discovered_item_path(quality: Item.Quality = Item.Quality.COMMON
 class RunStats extends Resource:
 	signal coins_changed(new_coins: int)
 
-	@export var biome: String = "forest"
+	@export var biome: String = "sewer"
 	@export var level: int = 1
 
 	@export var hp: int = Character.DB["player"].max_hp

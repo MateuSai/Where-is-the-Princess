@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://bjqwewytm1wo2"]
 
 [ext_resource type="PackedScene" uid="uid://r88elkkvv60o" path="res://Rooms/Furniture and Traps/Door.tscn" id="1_c0qxw"]
-[ext_resource type="Texture2D" uid="uid://b6y3mgi5gesan" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/forest_horizontal_door_canvas_texture.tres" id="2_167qi"]
+[ext_resource type="Texture2D" uid="uid://b6y3mgi5gesan" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/doors/forest_horizontal_door_canvas_texture.tres" id="2_167qi"]
 
 [sub_resource type="Animation" id="Animation_j0muy"]
 length = 0.001

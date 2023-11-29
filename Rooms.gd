@@ -6,7 +6,7 @@ const TILE_SIZE: int = 16
 const MIN_SEPARATION_BETWEEN_ENTRIES: int = TILE_SIZE * 2
 static var ATLAS_ID: int
 
-const FLOOR_TILE_COORDS: Array[Vector2i] = [Vector2i(3, 1), Vector2i(5, 2), Vector2i(5, 3)]
+const FLOOR_TILE_COORDS: Array[Vector2i] = [Vector2i(3, 1), Vector2i(5, 2), Vector2i(5, 3), Vector2i(0, 2), Vector2i(0, 3)]
 var CORRIDOR_FLOOR_TILE_COORDS: Array[Vector2i]
 const FULL_WALL_COORDS: Array[Vector2i] = [Vector2i(6, 4), Vector2i(7, 4), Vector2i(8, 4), Vector2i(6, 5), Vector2i(7, 5), Vector2i(8, 5)]
 const UPPER_WALL_COOR: Vector2i = Vector2i(2, 7)
