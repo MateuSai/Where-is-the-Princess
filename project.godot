@@ -26,6 +26,14 @@ Settings="*res://Autoloads/Settings/Settings.tscn"
 Globals="*res://Autoloads/Globals.gd"
 InfoPanel="*res://Autoloads/info_panel/info_panel.tscn"
 
+[debug]
+
+gdscript/warnings/untyped_declaration=1
+gdscript/warnings/inferred_declaration=1
+gdscript/warnings/unsafe_property_access=1
+gdscript/warnings/unsafe_method_access=1
+gdscript/warnings/unsafe_call_argument=1
+
 [display]
 
 window/size/viewport_width=432
@@ -52,6 +60,7 @@ folder_colors={
 "res://Art/": "green",
 "res://Audio/": "pink",
 "res://Autoloads/": "yellow",
+"res://Characters/": "gray",
 "res://Translations/": "purple",
 "res://addons/": "blue",
 "res://scripts/": "orange"

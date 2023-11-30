@@ -40,8 +40,9 @@ var rooms: Array[DungeonRoom] = []
 var start_room: DungeonRoom
 #var end_room: DungeonRoom
 var mst_astar: AStar2D = null
+@onready var game: Game = get_parent()
 # DEBUG
-@onready var debug: bool = get_parent().debug
+@onready var debug: bool = game.debug
 @export var debug_check_entry_positions: bool = false
 @export var use_delaunay: bool = false
 @export var pause_between_steps: float = 1.2
@@ -68,7 +69,7 @@ var map_rect: Rect2 = Rect2(0, 0, 0, 0)
 var fog_image: Image = Image.new()
 const FOG_PADDING: int = 128
 
-@onready var reload_on_eror: bool = get_parent().reload_on_generation_eror
+@onready var reload_on_eror: bool = game.reload_on_generation_eror
 
 @onready var fog_sprite: Sprite2D = $"../FogSprite"
 
@@ -83,7 +84,7 @@ func _ready() -> void:
 	var biome_conf: Dictionary = SavedData.get_biome_conf()
 	ATLAS_ID = biome_conf.corridor_atlas_id
 	if biome_conf.has("corridor_floor_tiles_coor"):
-		CORRIDOR_FLOOR_TILE_COORDS = int_arr_to_vec_array(biome_conf.corridor_floor_tiles_coor)
+		CORRIDOR_FLOOR_TILE_COORDS = int_arr_to_vec_array(biome_conf.corridor_floor_tiles_coor as Array)
 	else:
 		CORRIDOR_FLOOR_TILE_COORDS = FLOOR_TILE_COORDS
 
@@ -99,7 +100,7 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
-		if event.is_pressed() and event.keycode == KEY_K:
+		if event.is_pressed() and (event as InputEventKey).keycode == KEY_K:
 			debug_check_entry_positions = !debug_check_entry_positions
 			queue_redraw()
 
@@ -108,7 +109,7 @@ func _physics_process(delta: float) -> void:
 	var no_more_rooms_moving: bool = true
 
 	#var dirs: Array[Vector2] = []
-	for room in rooms:
+	for room: DungeonRoom in rooms:
 		var dir: Vector2 = room.get_separation_steering_dir(rooms, delta)
 		#dirs.push_back(dir)
 		if dir != Vector2.ZERO:
@@ -149,20 +150,20 @@ func _get_rooms(type: String) -> PackedStringArray:
 			push_error("Error opening " + BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "!")
 			return []
 		if rooms_dir:
-			for file in rooms_dir.get_files():
+			for file: String in rooms_dir.get_files():
 				room_paths.push_back(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "/" + file)
 
-		for i in range(room_paths.size()-1, -1, -1):
+		for i: int in range(room_paths.size()-1, -1, -1):
 			room_paths[i] = room_paths[i].trim_suffix(".remap")
-			var room_scene_state: SceneState = load(room_paths[i]).get_state()
-			for ii in room_scene_state.get_node_property_count(0):
+			var room_scene_state: SceneState = (load(room_paths[i]) as PackedScene).get_state()
+			for ii: int in room_scene_state.get_node_property_count(0):
 				if room_scene_state.get_node_property_name(0, ii) == "levels":
 					var levels: String = room_scene_state.get_node_property_value(0, ii)
 					if (levels.length() == 1 and levels.is_valid_int() and int(levels) != SavedData.run_stats.level) or (levels.length() >= 3 and levels.find("-") != -1 and (int(levels.split("-")[0]) > SavedData.run_stats.level or int(levels.split("-")[1]) < SavedData.run_stats.level)):
 						room_paths.remove_at(i)
 					break
 
-	for ignored_room_path in SavedData.get_ignored_rooms():
+	for ignored_room_path: String in SavedData.get_ignored_rooms():
 		if room_paths.has(ignored_room_path):
 			room_paths.remove_at(room_paths.find(ignored_room_path))
 
@@ -176,7 +177,7 @@ func _get_end_rooms() -> Array[PackedStringArray]:
 		return []
 
 	var end_rooms: Array[PackedStringArray] = []
-	for dir in end_rooms_dir.get_directories():
+	for dir: String in end_rooms_dir.get_directories():
 		end_rooms.push_back(_get_rooms("End/" + dir))
 
 	# Discard rooms of other levels
@@ -211,7 +212,7 @@ func spawn_rooms() -> void:
 #		room_paths.end[end_to].append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "special"))
 
 	# print(room_paths)
-	start_room = load(room_paths.start[randi() % room_paths.start.size()]).instantiate()
+	start_room = (load(room_paths.start[randi() % room_paths.start.size()]) as PackedScene).instantiate()
 	rooms.push_back(start_room)
 
 	var end_rooms: Array[DungeonRoom] = []
@@ -260,6 +261,7 @@ func spawn_rooms() -> void:
 		# Ya que ya hemos posicionado start y end antes
 		#if not room in [start_room, end_room]:
 		room.float_position = room.get_random_spawn_point(spawn_shape) - room.vector_to_center
+		#print(room.float_position)
 #		if room.name.begins_with("Boss"):
 #			print(room.vector_to_center)
 #			print(room.float_position)
@@ -931,6 +933,7 @@ func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: Du
 	return []
 
 
+#region Create corridors
 # above and below are entries, with 2 children
 func _create_vertical_corridor(above: Node, below: Node) -> void:
 	assert(above.get_child_count() == 2 and below.get_child_count() == 2)
@@ -1072,6 +1075,7 @@ func _create_l_corridor(from: Node, to: Node, from_dir: DungeonRoom.EntryDirecti
 			x_coord += (-1 if horizontal_dir == DungeonRoom.EntryDirection.LEFT else 1)
 			if debug:
 				await get_tree().create_timer(add_tile_group_time).timeout
+#endregion
 
 
 ## We have to use this aberration to divide the tilemap because if we don't do it, the lights turn on and off whenever thay please. Because the tilemap is 1 object, it can't have more than 16 lights at the same time, apparently

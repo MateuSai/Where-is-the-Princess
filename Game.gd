@@ -1,4 +1,4 @@
-extends Node2D
+class_name Game extends Node2D
 
 const PLAYER_SCENE: PackedScene = preload("res://Characters/Player/Player.tscn")
 
@@ -38,7 +38,7 @@ func _ready() -> void:
 		generating_dungeon_canvas_layer.show()
 
 	if execute_procedural_generation_on_thread:
-		rooms.generation_completed.connect(func():
+		rooms.generation_completed.connect(func() -> void:
 			#generation_thread.wait_to_finish()
 			generation_thread.wait_to_finish()
 			generation_thread = null

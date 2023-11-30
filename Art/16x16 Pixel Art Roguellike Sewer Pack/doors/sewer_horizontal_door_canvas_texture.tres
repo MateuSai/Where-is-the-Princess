@@ -1,3 +1,8 @@
-[gd_resource type="CanvasTexture" format=3 uid="uid://bewssolv6qvvc"]
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://bewssolv6qvvc"]
+
+[ext_resource type="Texture2D" uid="uid://cmi3of7ebk2vg" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/doors/horizontal_door(sewer).png" id="1_4o6u0"]
+[ext_resource type="Texture2D" uid="uid://b7y0urts5be8y" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/doors/horizontal_door(sewer) normal.png" id="2_igq8y"]
 
 [resource]
+diffuse_texture = ExtResource("1_4o6u0")
+normal_texture = ExtResource("2_igq8y")

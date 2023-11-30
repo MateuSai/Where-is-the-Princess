@@ -90,7 +90,7 @@ func generate_room_white_image() -> void:
 	var increased_right_size: bool = false
 	var increased_up_size: bool = false
 	var increased_down_size: bool = false
-	for dir in [EntryDirection.LEFT, EntryDirection.UP, EntryDirection.RIGHT, EntryDirection.DOWN]:
+	for dir: EntryDirection in [EntryDirection.LEFT, EntryDirection.UP, EntryDirection.RIGHT, EntryDirection.DOWN]:
 		for entry in entries[dir].get_children():
 			if entry in used_entries:
 				tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir])
@@ -119,7 +119,7 @@ func generate_room_white_image() -> void:
 	@warning_ignore("narrowing_conversion")
 	room_white_image = Image.create(size.x, size.y, false, Image.FORMAT_RGBAH)
 
-	for tile_cell in tile_cells:
+	for tile_cell: Vector2i in tile_cells:
 		if (tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.UPPER_WALL_COOR, Rooms.UPPER_WALL_LEFT_COOR, Rooms.UPPER_WALL_LEFT_CORNER_COOR, Rooms.UPPER_WALL_RIGHT_COOR, Rooms.UPPER_WALL_RIGHT_CORNER_COOR, Rooms.LEFT_WALL_COOR, Rooms.RIGHT_WALL_COOR, Rooms.LAST_LEFT_WALL_COOR, Rooms.LAST_RIGHT_WALL_COOR]): # if the atlas coordinates are (-1, -1), it means it's a corridor tile
 			continue
 
@@ -189,7 +189,7 @@ func get_random_entry(dir: EntryDirection, to_connect_to: Node = null) -> Node:
 	var usable_entries: Array[Node] = direction_entries.duplicate()
 
 	if to_connect_to != null:
-		usable_entries = usable_entries.filter(func(entry: Node2D):
+		usable_entries = usable_entries.filter(func(entry: Node2D) -> void:
 			return is_connection_between_entries_possible(entry, dir, to_connect_to)
 #			match dir:
 #				EntryDirection.LEFT:
@@ -230,7 +230,7 @@ func mark_entry_as_used(entry: Node) -> void:
 
 
 func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
-	for dir in [EntryDirection.LEFT, EntryDirection.RIGHT]:
+	for dir: EntryDirection in [EntryDirection.LEFT, EntryDirection.RIGHT]:
 		for entry in entries[dir].get_children():
 			if entry in used_entries:
 				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.UP * 2)
@@ -271,7 +271,7 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 					tilemap.set_cell(1, tile_positions[0] + Vector2i.UP, ATLAS_ID, Rooms.RIGHT_WALL_COOR)
 					tilemap.set_cell(1, tile_positions[0], ATLAS_ID, Rooms.RIGHT_WALL_COOR)
 					tilemap.set_cell(1, tile_positions[1], ATLAS_ID, Rooms.RIGHT_WALL_COOR)
-	for dir in [EntryDirection.UP, EntryDirection.DOWN]:
+	for dir: EntryDirection in [EntryDirection.UP, EntryDirection.DOWN]:
 		for entry in entries[dir].get_children():
 			if entry in used_entries:
 				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position))
@@ -370,10 +370,10 @@ func _on_player_entered_room() -> void:
 
 
 func get_random_spawn_point(spawn_shape: Rooms.SpawnShape) -> Vector2:
-	if name.begins_with("Boss"):
-		pass
+	#if name.begins_with("Boss"):
+		#pass
 	var directions_with_entry: Array[EntryDirection] = []
-	for dir in [EntryDirection.LEFT, EntryDirection.UP, EntryDirection.RIGHT, EntryDirection.DOWN]:
+	for dir: EntryDirection in [EntryDirection.LEFT, EntryDirection.UP, EntryDirection.RIGHT, EntryDirection.DOWN]:
 		if _has_entry(dir):
 			directions_with_entry.push_back(dir)
 
@@ -384,7 +384,7 @@ func get_random_spawn_point(spawn_shape: Rooms.SpawnShape) -> Vector2:
 
 	if directions_with_entry.size() == 4 or entries_dir == Vector2.ZERO:
 		if spawn_shape is Rooms.CircleSpawnShape:
-			return Vector2.RIGHT.rotated(randf_range(0, 2 * PI) * randf_range(0, spawn_shape.radius - spawn_shape.MARGIN))
+			return Vector2.RIGHT.rotated(randf_range(0, 2 * PI)) * randf_range(0, spawn_shape.radius - spawn_shape.MARGIN)
 		else: # Rectangle
 			return Vector2(randf_range(spawn_shape.MARGIN, spawn_shape.size.x - spawn_shape.MARGIN), randf_range(spawn_shape.MARGIN, spawn_shape.size.y - spawn_shape.MARGIN))
 	else:
