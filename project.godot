@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Godot4RoguelikeProject"
 run/main_scene="res://splash_screen/splash_screen_manager.tscn"
-config/features=PackedStringArray("4.1")
+config/features=PackedStringArray("4.2")
 boot_splash/image="res://wekufu logo screen.png"
 config/icon="res://icon.png"
 
@@ -45,6 +45,17 @@ version_control/autoload_on_startup=true
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/csv-data-importer/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://Art/": "green",
+"res://Audio/": "pink",
+"res://Autoloads/": "yellow",
+"res://Translations/": "purple",
+"res://addons/": "blue",
+"res://scripts/": "orange"
+}
 
 [filesystem]
 
