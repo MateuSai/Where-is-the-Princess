@@ -19,6 +19,7 @@ var scroll_vertical_at_start_of_drag: float = 0
 @onready var rooms: Rooms = get_node("Rooms")
 @onready var camera: Camera2D = get_node("Camera2D")
 @onready var generating_dungeon_canvas_layer: CanvasLayer = get_node("GeneratingDungeonCanvasLayer")
+@onready var music: AudioStreamPlayer = $Music
 
 
 func _ready() -> void:
@@ -55,12 +56,14 @@ func _ready() -> void:
 	generating_dungeon_canvas_layer.hide()
 
 	if SavedData.get_biome_conf().has("music"):
-		$Music.stream = load(SavedData.get_biome_conf().music)
-		$Music.play()
+		var stream: AudioStream = load(SavedData.get_biome_conf().music as String)
+		assert(stream)
+		music.stream = stream
+		music.play()
 
 	camera.enabled = false
 	var player: Player = PLAYER_SCENE.instantiate()
-	player.position = rooms.start_room.get_node("TeleportPosition").global_position
+	player.position = rooms.start_room.teleport_position.global_position
 #	player.hp_changed.connect(ui._on_Player_hp_changed)
 #	player.weapon_condition_changed.connect(ui._on_player_weapon_condition_changed)
 #	player.weapon_droped.connect(ui._on_Player_weapon_droped)

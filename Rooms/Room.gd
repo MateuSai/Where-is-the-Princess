@@ -35,6 +35,7 @@ signal last_enemy_died(enemy: Enemy)
 
 @onready var tilemap: TileMap = get_node("TileMap")
 @onready var black_tilemap: TileMap = get_node("BlackTileMap")
+@onready var teleport_position: Marker2D = $TeleportPosition
 
 @onready var tilemap_offset: Vector2i = tilemap.get_used_rect().position * Rooms.TILE_SIZE
 var room_white_image: Image

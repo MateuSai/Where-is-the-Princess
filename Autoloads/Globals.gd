@@ -156,6 +156,9 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
+	# Fix for godot 4.2
+	if not get_tree().current_scene:
+		return
 #	print(event)
 #	if event is InputEventMouseMotion:
 #		print(event.as_text())
