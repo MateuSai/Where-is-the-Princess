@@ -1,4 +1,4 @@
-class_name Rooms extends Node2D
+class_name Rooms extends NavigationRegion2D
 
 const BIOMES_FOLDER_PATH: String = "res://Rooms/Biomes/"
 
@@ -545,6 +545,40 @@ func _create_corridors() -> bool:
 	if debug:
 		await get_tree().process_frame
 		await get_tree().create_timer(pause_between_steps * 2).timeout
+
+	bake_navigation_polygon(false)
+
+	for room in rooms:
+		var tilemap_clone: TileMap = TileMap.new()
+
+		#var tileset: TileSet = TileSet.new()
+		#tileset.tile_size = Vector2i(TILE_SIZE, TILE_SIZE)
+		#var atlas: TileSetAtlasSource = TileSetAtlasSource.new()
+		#atlas.texture = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest.png")
+		#atlas.texture_region_size = Vector2i(TILE_SIZE, TILE_SIZE)
+		#@warning_ignore("integer_division")
+		#var width_tiles: int = atlas.texture.get_width()/TILE_SIZE
+		#@warning_ignore("integer_division")
+		#var height_tiles: int = atlas.texture.get_height()/TILE_SIZE
+		#for i in width_tiles:
+			#for j in height_tiles:
+				#atlas.create_tile(Vector2i(i, j))
+		#tileset.add_source(atlas)
+#
+		#for layer_i in room.tilemap.get_layers_count():
+			#tilemap_clone.add_layer(layer_i)
+			#tilemap_clone.set_layer_z_index(layer_i, room.tilemap.get_layer_z_index(layer_i))
+#
+		#tileset.add_navigation_layer()
+		#tileset.add_navigation_layer()
+		tilemap_clone.tile_set = room.tilemap.tile_set
+
+		for layer in room.tilemap.get_layers_count():
+			for cell in room.tilemap.get_used_cells(layer):
+				tilemap_clone.set_cell(layer, cell, 0, room.tilemap.get_cell_atlas_coords(layer, cell))
+		room.tilemap.queue_free()
+		room.add_child(tilemap_clone)
+		room.tilemap = tilemap_clone
 
 	generation_completed.emit()
 

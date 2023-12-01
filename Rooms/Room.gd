@@ -73,9 +73,9 @@ func _ready() -> void:
 		black_tilemap.hide()
 
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_armor_ability"):
-		$NavigationRegion2D.bake_navigation_polygon()
+#func _input(event: InputEvent) -> void:
+	#if event.is_action_pressed("ui_armor_ability"):
+		#bake_navigation_polygon()
 
 
 func _draw() -> void:
@@ -382,6 +382,7 @@ func _on_player_entered_room() -> void:
 func get_random_spawn_point(spawn_shape: Rooms.SpawnShape) -> Vector2:
 	#if name.begins_with("Boss"):
 		#pass
+
 	var directions_with_entry: Array[EntryDirection] = []
 	for dir: EntryDirection in [EntryDirection.LEFT, EntryDirection.UP, EntryDirection.RIGHT, EntryDirection.DOWN]:
 		if _has_entry(dir):

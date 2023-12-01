@@ -41,7 +41,6 @@ tile_set = ExtResource("1")
 format = 2
 layer_0/name = "Floor and superior walls"
 layer_0/z_index = -1
-layer_0/navigation_enabled = false
 layer_1/name = "Bottom and Lateral walls"
 layer_1/z_index = 1
 layer_1/tile_data = PackedInt32Array()
