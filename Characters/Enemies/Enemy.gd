@@ -35,7 +35,7 @@ func _ready() -> void:
 #		get_parent()._on_enemy_killed(self)
 #	)
 
-	parallize_timer.timeout.connect(func():
+	parallize_timer.timeout.connect(func() -> void:
 		can_move = true
 		state_machine.set_physics_process(true)
 	)
@@ -58,20 +58,20 @@ func _load_csv_data(data: Dictionary) -> void:
 
 
 func spawn_loot() -> void:
-	for i in randi_range(min_coins, max_coins):
+	for i: int in randi_range(min_coins, max_coins):
 		var coin: Coin = COIN_SCENE.instantiate()
 		room.cleared.connect(coin.go_to_player)
 		coin.position = global_position
 		get_tree().current_scene.call_deferred("add_child", coin)
 
-	for i in randi_range(min_souls, max_souls):
+	for i: int in randi_range(min_souls, max_souls):
 		var soul: SoulItem = SOUL_SCENE.instantiate()
 		room.cleared.connect(soul.go_to_player)
 		soul.position = global_position
 		get_tree().current_scene.call_deferred("add_child", soul)
 
-	for i in randi_range(min_dark_souls, max_dark_souls):
-		var soul: DarkSoulOnFloor = load("res://items/DarkSoul.tscn").instantiate()
+	for i: int in randi_range(min_dark_souls, max_dark_souls):
+		var soul: DarkSoulOnFloor = (load("res://items/DarkSoul.tscn") as PackedScene).instantiate()
 		room.cleared.connect(soul.go_to_player)
 		soul.position = global_position
 		get_tree().current_scene.call_deferred("add_child", soul)
@@ -153,7 +153,7 @@ func _on_died_0_5_seconds_later() -> void:
 	spawn_explosion.position = global_position
 	get_tree().current_scene.add_child(spawn_explosion)
 
-	get_parent()._on_enemy_killed(self)
+	room._on_enemy_killed(self)
 
 	queue_free()
 

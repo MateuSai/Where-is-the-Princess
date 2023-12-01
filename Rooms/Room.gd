@@ -31,6 +31,8 @@ signal closed()
 signal cleared()
 signal last_enemy_died(enemy: Enemy)
 
+@onready var rooms: Rooms = get_parent()
+
 @onready var disable_horizontal_separation_steering: bool = SavedData.get_disable_horizontal_separation_steering()
 
 @onready var tilemap: TileMap = get_node("TileMap")
@@ -62,13 +64,18 @@ func _ready() -> void:
 	ATLAS_ID = SavedData.get_biome_conf().room_atlas_id
 
 	black_tilemap.modulate = ProjectSettings.get("rendering/environment/defaults/default_clear_color")
-	for cell_pos in tilemap.get_used_cells(0):
+	for cell_pos: Vector2i in tilemap.get_used_cells(0):
 		black_tilemap.set_cell(0, cell_pos, 0, Vector2i(0, 0))
-	for cell_pos in tilemap.get_used_cells(1):
+	for cell_pos: Vector2i in tilemap.get_used_cells(1):
 		black_tilemap.set_cell(0, cell_pos, 0, Vector2i(0, 0))
 
-	if get_parent().get_parent().debug:
+	if rooms.game.debug:
 		black_tilemap.hide()
+
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_armor_ability"):
+		$NavigationRegion2D.bake_navigation_polygon()
 
 
 func _draw() -> void:
@@ -92,7 +99,7 @@ func generate_room_white_image() -> void:
 	var increased_up_size: bool = false
 	var increased_down_size: bool = false
 	for dir: EntryDirection in [EntryDirection.LEFT, EntryDirection.UP, EntryDirection.RIGHT, EntryDirection.DOWN]:
-		for entry in entries[dir].get_children():
+		for entry: Node2D in entries[dir].get_children():
 			if entry in used_entries:
 				tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir])
 				if dir in [EntryDirection.LEFT, EntryDirection.RIGHT]:
@@ -134,11 +141,11 @@ func generate_room_white_image() -> void:
 		room_white_image.blend_rect(image, Rect2(Vector2.ZERO, image_size), rect.position)
 
 
-func get_separation_steering_dir(rooms: Array[DungeonRoom], delta: float) -> Vector2:
+func get_separation_steering_dir(rooms_array: Array[DungeonRoom], delta: float) -> Vector2:
 	var dir: Vector2 = Vector2.ZERO
 	var this_room_rect: Rect2 = room_rect
 	this_room_rect.position += position
-	for room in rooms:
+	for room: DungeonRoom in rooms_array:
 		if room == self:
 			continue
 		var vector_to_room: Vector2 = (room.position + room.vector_to_center) - (position + vector_to_center)
@@ -178,7 +185,7 @@ func get_entries(dir: EntryDirection) -> Array[Node]:
 	return entries[dir].get_children()
 
 
-func get_random_entry(dir: EntryDirection, to_connect_to: Node = null) -> Node:
+func get_random_entry(dir: EntryDirection, to_connect_to: Node2D = null) -> Node:
 	var direction_entries: Array[Node] = entries[dir].get_children()
 #	for entry in used_entries:
 #		if direction_entries.has(entry):
@@ -211,7 +218,7 @@ func get_random_entry(dir: EntryDirection, to_connect_to: Node = null) -> Node:
 	return rand_entry
 
 
-func is_connection_between_entries_possible(this_room_entry: Node, this_room_entry_dir: EntryDirection, other_room_entry: Node) -> bool:
+func is_connection_between_entries_possible(this_room_entry: Node2D, this_room_entry_dir: EntryDirection, other_room_entry: Node2D) -> bool:
 	match this_room_entry_dir:
 		EntryDirection.LEFT:
 			return other_room_entry.global_position.x < this_room_entry.global_position.x - Rooms.MIN_SEPARATION_BETWEEN_ENTRIES
@@ -232,7 +239,7 @@ func mark_entry_as_used(entry: Node) -> void:
 
 func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 	for dir: EntryDirection in [EntryDirection.LEFT, EntryDirection.RIGHT]:
-		for entry in entries[dir].get_children():
+		for entry: Node2D in entries[dir].get_children():
 			if entry in used_entries:
 				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.UP * 2)
 				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.UP)
@@ -249,8 +256,8 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 				door_container.add_child(vertical_door)
 			else:
 				var tile_positions: Array[Vector2i] = []
-				tile_positions.push_back(tilemap.local_to_map(entry.position + entry.get_child(0).position))
-				tile_positions.push_back(tilemap.local_to_map(entry.position + entry.get_child(1).position))
+				tile_positions.push_back(tilemap.local_to_map(entry.position + (entry.get_child(0) as Marker2D).position))
+				tile_positions.push_back(tilemap.local_to_map(entry.position + (entry.get_child(1) as Marker2D).position))
 				tilemap.erase_cell(3, tile_positions[1])
 				tilemap.erase_cell(0, tile_positions[0] + Vector2i.UP * 2)
 				tilemap.erase_cell(0, tile_positions[0] + Vector2i.UP)
@@ -273,7 +280,7 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 					tilemap.set_cell(1, tile_positions[0], ATLAS_ID, Rooms.RIGHT_WALL_COOR)
 					tilemap.set_cell(1, tile_positions[1], ATLAS_ID, Rooms.RIGHT_WALL_COOR)
 	for dir: EntryDirection in [EntryDirection.UP, EntryDirection.DOWN]:
-		for entry in entries[dir].get_children():
+		for entry: Node2D in entries[dir].get_children():
 			if entry in used_entries:
 				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position))
 				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.RIGHT)
@@ -286,8 +293,8 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 					corridor_tilemap.erase_cell(1, corridor_tilemap.local_to_map(entry.global_position) + Vector2i.UP + Vector2i.RIGHT)
 			else:
 				var tile_positions: Array[Vector2i] = []
-				tile_positions.push_back(tilemap.local_to_map(entry.position + entry.get_child(0).position))
-				tile_positions.push_back(tilemap.local_to_map(entry.position + entry.get_child(1).position))
+				tile_positions.push_back(tilemap.local_to_map(entry.position + (entry.get_child(0) as Marker2D).position))
+				tile_positions.push_back(tilemap.local_to_map(entry.position + (entry.get_child(1) as Marker2D).position))
 				if dir == EntryDirection.UP:
 					tilemap.set_cell(0, tile_positions[0] + Vector2i.LEFT, ATLAS_ID, Rooms.UPPER_WALL_COOR)
 					tilemap.set_cell(0, tile_positions[0], ATLAS_ID, Rooms.UPPER_WALL_COOR)
@@ -301,7 +308,7 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 					tilemap.set_cell(1, tile_positions[1], ATLAS_ID, Rooms.BOTTOM_WALL_COOR)
 					tilemap.set_cell(1, tile_positions[1] + Vector2i.RIGHT, ATLAS_ID, Rooms.BOTTOM_WALL_COOR)
 
-	for door in door_container.get_children():
+	for door: Door in door_container.get_children():
 		door.player_entered_room.connect(_on_player_entered_room)
 
 
@@ -316,12 +323,12 @@ func _on_enemy_killed(enemy: Enemy) -> void:
 
 
 func _open_doors() -> void:
-	for door in door_container.get_children():
+	for door: Door in door_container.get_children():
 		door.open()
 
 
 func _close_entrance() -> void:
-	for door in door_container.get_children():
+	for door: Door in door_container.get_children():
 		door.close()
 #	for entry_position in entrance.get_children():
 #		tilemap.set_cell(1, tilemap.local_to_map(entry_position.position), 1, Vector2i.ZERO)
@@ -331,12 +338,14 @@ func _close_entrance() -> void:
 func _spawn_enemies() -> void:
 	var enemy_paths: Array[String] = Globals.get_enemy_paths(SavedData.run_stats.biome)
 
-	for enemy_marker in enemy_positions_container.get_children():
+	for enemy_marker: EnemyMarker in enemy_positions_container.get_children():
 		var enemy: CharacterBody2D
 		if enemy_marker.enemy_name.is_empty():
-			enemy = load(enemy_paths[randi() % enemy_paths.size()]).instantiate()
+			var enemy_scene: PackedScene = load(enemy_paths[randi() % enemy_paths.size()])
+			enemy = enemy_scene.instantiate()
 		else:
-			enemy = load(Globals.ENEMIES[enemy_marker.enemy_name].path).instantiate()
+			var enemy_scene: PackedScene = load(Globals.ENEMIES[enemy_marker.enemy_name].path as String)
+			enemy = enemy_scene.instantiate()
 		enemy.position = enemy_marker.position
 		call_deferred("add_child", enemy)
 
@@ -349,9 +358,9 @@ func _spawn_enemies() -> void:
 func _on_player_entered_room() -> void:
 	player_entered.emit()
 
-	get_parent().clear_room_fog(position + Vector2(room_white_image_offset), room_white_image)
+	rooms.clear_room_fog(position + Vector2(room_white_image_offset), room_white_image)
 
-	for door in door_container.get_children():
+	for door: Door in door_container.get_children():
 		door.player_entered_room.disconnect(_on_player_entered_room)
 
 	if num_enemies > 0:
@@ -379,7 +388,7 @@ func get_random_spawn_point(spawn_shape: Rooms.SpawnShape) -> Vector2:
 			directions_with_entry.push_back(dir)
 
 	var entries_dir: Vector2 = Vector2.ZERO
-	for dir in directions_with_entry:
+	for dir: EntryDirection in directions_with_entry:
 		entries_dir += [Vector2.LEFT, Vector2.UP, Vector2.RIGHT, Vector2.DOWN][dir]
 	entries_dir *= -1
 

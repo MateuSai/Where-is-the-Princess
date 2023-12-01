@@ -13,17 +13,17 @@ enum DoorOrientation {VERTICAL, HORIZONTAL_UP, HORIZONTAL_DOWN}
 
 
 func _ready() -> void:
-	player_detector.body_entered.connect(func(_body: Node2D):
+	player_detector.body_entered.connect(func(_body: Node2D) -> void:
 		emit_signal("player_entered_room")
 	)
 
 	match door_type:
 		DoorOrientation.VERTICAL:
-			sprite.texture = load(SavedData.get_biome_conf().vertical_door_texture)
+			sprite.texture = load(SavedData.get_biome_conf().vertical_door_texture as String) as Texture
 		DoorOrientation.HORIZONTAL_UP:
-			sprite.texture = load(SavedData.get_biome_conf().horizontal_up_door_texture)
+			sprite.texture = load(SavedData.get_biome_conf().horizontal_up_door_texture as String) as Texture
 		DoorOrientation.HORIZONTAL_DOWN:
-			sprite.texture = load(SavedData.get_biome_conf().horizontal_down_door_texture)
+			sprite.texture = load(SavedData.get_biome_conf().horizontal_down_door_texture as String) as Texture
 
 #	if top_sprite:
 #		top_sprite.texture = load(SavedData.get_biome_conf().horizontal_door_top_texture)

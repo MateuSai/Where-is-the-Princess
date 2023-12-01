@@ -61,6 +61,7 @@ folder_colors={
 "res://Audio/": "pink",
 "res://Autoloads/": "yellow",
 "res://Characters/": "gray",
+"res://Rooms/": "red",
 "res://Translations/": "purple",
 "res://addons/": "blue",
 "res://scripts/": "orange"

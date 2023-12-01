@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5r3tfiqw1srd"]
+[gd_scene load_steps=6 format=3 uid="uid://b5r3tfiqw1srd"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_n7yta"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="2_564ok"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="3_17mvu"]
-[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/Forest/TikiTorch.tscn" id="4_dcx67"]
+[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="4_dcx67"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_dgto2"]
+outlines = Array[PackedVector2Array]([PackedVector2Array(-2, -9, -2, 136, 345, 131, 331, -6)])
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [node name="ForestSpawnRoom0" instance=ExtResource("1_n7yta")]
 
@@ -22,7 +26,7 @@ position = Vector2(313, 68)
 [node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("2_564ok")]
 position = Vector2(88, 121)
 
-[node name="TeleportPosition" parent="." index="6"]
+[node name="TeleportPosition" parent="." index="7"]
 position = Vector2(154, 74)
 
 [node name="TikiTorch" parent="." index="8" instance=ExtResource("4_dcx67")]
@@ -30,3 +34,6 @@ position = Vector2(90, 35)
 
 [node name="TikiTorch2" parent="." index="9" instance=ExtResource("4_dcx67")]
 position = Vector2(213, 119)
+
+[node name="NavigationRegion2D" parent="." index="11"]
+navigation_polygon = SubResource("NavigationPolygon_dgto2")
