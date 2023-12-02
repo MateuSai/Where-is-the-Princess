@@ -1,9 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://7oeqdu22e1q5"]
+[gd_scene load_steps=10 format=3 uid="uid://7oeqdu22e1q5"]
 
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="1"]
 [ext_resource type="Script" path="res://Rooms/Room.gd" id="1_2v2ib"]
 [ext_resource type="Texture2D" uid="uid://4diatv3rr660" path="res://brow_square.png" id="3_6fxjx"]
 [ext_resource type="Shader" path="res://shaders_and_particles/Clouds.gdshader" id="3_pjntw"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_nquda"]
+resource_local_to_scene = true
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u4la0"]
 shader = ExtResource("3_pjntw")
@@ -29,10 +33,11 @@ sources/0 = SubResource("TileSetAtlasSource_3ye2p")
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4loq4"]
 light_mode = 1
 
-[node name="Room" type="Node2D"]
+[node name="Room" type="NavigationRegion2D"]
 show_behind_parent = true
 y_sort_enabled = true
 texture_filter = 1
+navigation_polygon = SubResource("NavigationPolygon_nquda")
 script = ExtResource("1_2v2ib")
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -41,6 +46,7 @@ tile_set = ExtResource("1")
 format = 2
 layer_0/name = "Floor and superior walls"
 layer_0/z_index = -1
+layer_0/navigation_enabled = false
 layer_1/name = "Bottom and Lateral walls"
 layer_1/z_index = 1
 layer_1/tile_data = PackedInt32Array()

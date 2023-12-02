@@ -1,4 +1,4 @@
-class_name DungeonRoom extends Node2D
+class_name DungeonRoom extends NavigationRegion2D
 
 ## If empty, the room will appear on all the levels of the biome. If it has a number, the room will appear on the specified level. If it has a range, it will appear on all the levels inclusive. For example, [code]1-3[/code] will make the room appear on the levels 1, 2, and 3 of his biome.
 ## [br][br]
@@ -73,9 +73,12 @@ func _ready() -> void:
 		black_tilemap.hide()
 
 
-#func _input(event: InputEvent) -> void:
-	#if event.is_action_pressed("ui_armor_ability"):
-		#bake_navigation_polygon()
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_armor_ability"):
+		bake_navigation_polygon()
+		var navigation_transform: Transform2D = get_global_transform()
+		#navigation_transform.origin += Vector2(tilemap_offset)
+		NavigationServer2D.region_set_transform(get_region_rid(), navigation_transform)
 
 
 func _draw() -> void:

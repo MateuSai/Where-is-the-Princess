@@ -546,10 +546,10 @@ func _create_corridors() -> bool:
 		await get_tree().process_frame
 		await get_tree().create_timer(pause_between_steps * 2).timeout
 
-	bake_navigation_polygon(false)
+	#bake_navigation_polygon(false)
 
-	for room in rooms:
-		var tilemap_clone: TileMap = TileMap.new()
+	#for room in rooms:
+		#var tilemap_clone: TileMap = TileMap.new()
 
 		#var tileset: TileSet = TileSet.new()
 		#tileset.tile_size = Vector2i(TILE_SIZE, TILE_SIZE)
@@ -571,14 +571,14 @@ func _create_corridors() -> bool:
 #
 		#tileset.add_navigation_layer()
 		#tileset.add_navigation_layer()
-		tilemap_clone.tile_set = room.tilemap.tile_set
-
-		for layer in room.tilemap.get_layers_count():
-			for cell in room.tilemap.get_used_cells(layer):
-				tilemap_clone.set_cell(layer, cell, 0, room.tilemap.get_cell_atlas_coords(layer, cell))
-		room.tilemap.queue_free()
-		room.add_child(tilemap_clone)
-		room.tilemap = tilemap_clone
+		#tilemap_clone.tile_set = room.tilemap.tile_set
+#
+		#for layer in room.tilemap.get_layers_count():
+			#for cell in room.tilemap.get_used_cells(layer):
+				#tilemap_clone.set_cell(layer, cell, 0, room.tilemap.get_cell_atlas_coords(layer, cell))
+		#room.tilemap.queue_free()
+		#room.add_child(tilemap_clone)
+		#room.tilemap = tilemap_clone
 
 	generation_completed.emit()
 
