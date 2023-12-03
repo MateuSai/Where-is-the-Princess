@@ -40,6 +40,7 @@ signal last_enemy_died(enemy: Enemy)
 @onready var disable_horizontal_separation_steering: bool = SavedData.get_disable_horizontal_separation_steering()
 
 @onready var tilemap: TileMap = get_node("TileMap")
+@onready var flying_units_navigation_tilemap: TileMap = $FlyingUnitsNavigationTileMap
 @onready var black_tilemap: TileMap = get_node("BlackTileMap")
 @onready var teleport_position: Marker2D = $TeleportPosition
 
@@ -76,7 +77,7 @@ func _ready() -> void:
 	if rooms.game.debug:
 		black_tilemap.hide()
 
-	$TileMap2.hide()
+	flying_units_navigation_tilemap.show()
 
 
 func _draw() -> void:
@@ -452,6 +453,14 @@ func _generate_flying_units_navigation() -> void:
 	navigation_mesh_flying_units.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_EXPLICIT
 	# Set appropriated parameters for the size of your agents.
 	navigation_mesh_flying_units.agent_radius = navigation_polygon.agent_radius
+
+	for cell: Vector2i in tilemap.get_used_cells(0):
+		var tile_data: TileData = tilemap.get_cell_tile_data(0, cell)
+		if not tile_data:
+			continue
+
+		if tile_data.get_navigation_polygon(0) or tile_data.get_navigation_polygon(1): # Flying units can move on short world objects and the same tiles as the ground units
+			flying_units_navigation_tilemap.set_cell(0, cell, 0)
 
 	# Create the source geometry resource that will hold the parsed geometry data.
 	var source_geometry_data: NavigationMeshSourceGeometryData2D = NavigationMeshSourceGeometryData2D.new()

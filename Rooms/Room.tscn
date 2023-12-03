@@ -78,7 +78,7 @@ layer_4/name = "Water"
 layer_4/z_index = -2
 layer_4/tile_data = PackedInt32Array()
 
-[node name="TileMap2" type="TileMap" parent="." groups=["flying_units_navigation_polygon_source_group"]]
+[node name="FlyingUnitsNavigationTileMap" type="TileMap" parent="." groups=["flying_units_navigation_polygon_source_group"]]
 tile_set = SubResource("TileSet_x0g25")
 format = 2
 layer_0/navigation_enabled = false

@@ -174,7 +174,6 @@ func set_flying(new_value: bool) -> void:
 			add_resistance(Resistance.ACID)
 			#navigation_agent.navigation_layers |=  FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE
 #			navigation_agent.navigation_layers = 2
-			var adsd = room.navigation_map_flying_units
 			navigation_agent.set_navigation_map(room.navigation_map_flying_units)
 		else:
 			if not has_resistance(Resistance.ACID, true):

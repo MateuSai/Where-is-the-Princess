@@ -1,4 +1,4 @@
-class_name Rooms extends NavigationRegion2D
+class_name Rooms extends Node2D
 
 const BIOMES_FOLDER_PATH: String = "res://Rooms/Biomes/"
 

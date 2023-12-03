@@ -11,7 +11,7 @@ var can_pick_up: bool = false
 
 
 func _ready() -> void:
-	interact_area.body_entered.connect(func(player: Player):
+	interact_area.body_entered.connect(func(player: Player) -> void:
 		can_pick_up = can_pick_up_item(player)
 		if can_pick_up:
 			interact_area.sprite_material.set("shader_parameter/color", Color.WHITE)
@@ -20,7 +20,7 @@ func _ready() -> void:
 			interact_area.sprite_material.set("shader_parameter/color", Color.RED)
 			interact_area.sprite_material.set("shader_parameter/interior_color", Color("#8f20178d"))
 	)
-	interact_area.body_exited.connect(func(_player: Player):
+	interact_area.body_exited.connect(func(_player: Player) -> void:
 		if not can_pick_up:
 			interact_area.sprite_material.set("shader_parameter/interior_color", Color.TRANSPARENT)
 	)
@@ -31,7 +31,7 @@ func _ready() -> void:
 
 
 func enable_pick_up() -> void:
-	interact_area.player_interacted.connect(func():
+	interact_area.player_interacted.connect(func() -> void:
 		if not can_pick_up:
 			return
 		_pick_item_and_free()
@@ -46,7 +46,7 @@ func initialize(item: Item) -> void:
 		texture = item.get_icon()
 		var sprite: Sprite2D = Sprite2D.new()
 		sprite.material = load("res://unshaded.tres")
-		sprite.texture = item.get_symbol()
+		sprite.texture = (item as Rune).get_symbol()
 		add_child(sprite)
 	else:
 		texture = item.get_icon()
