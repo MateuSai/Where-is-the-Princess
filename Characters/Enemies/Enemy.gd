@@ -169,15 +169,16 @@ func parallize() -> void:
 func set_flying(new_value: bool) -> void:
 	super(new_value)
 
-	#if navigation_agent:
-		#if flying:
-			#add_resistance(Resistance.ACID)
+	if navigation_agent:
+		if flying:
+			add_resistance(Resistance.ACID)
 			#navigation_agent.navigation_layers |=  FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE
-##			navigation_agent.navigation_layers = 2
-			#navigation_agent.set_navigation_map(room.tilemap.get_navigation_map(1))
-		#else:
-			#if not has_resistance(Resistance.ACID, true):
-				#remove_resistance(Resistance.ACID)
-##			navigation_agent.navigation_layers = 1
+#			navigation_agent.navigation_layers = 2
+			var adsd = room.navigation_map_flying_units
+			navigation_agent.set_navigation_map(room.navigation_map_flying_units)
+		else:
+			if not has_resistance(Resistance.ACID, true):
+				remove_resistance(Resistance.ACID)
+#			navigation_agent.navigation_layers = 1
 			#navigation_agent.navigation_layers &= ~FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE
-			#navigation_agent.set_navigation_map(room.tilemap.get_navigation_map(0))
+			navigation_agent.set_navigation_map(room.get_navigation_map())

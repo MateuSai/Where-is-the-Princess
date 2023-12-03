@@ -7,7 +7,10 @@
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ftn3s"]
 resource_local_to_scene = true
+vertices = PackedVector2Array(166, 79, 302, 66, 318, 66, 318, 94, 270, 94, 274, 66, 254, 66, 216, 118, 222, 110, 222, 126, 214, 121, 215, 116, 215, 115, 50, 126, 210, 121, 164, 82, 210, 115, 50, 110, 160, 82, 302, 34, 274, 46, 190, 34, 254, 46, 270, 110, 34, 110, 34, 94, 87, 37, 91, 37, 160, 76, 18, 94, 18, 50, 34, 50, 34, 34, 87, 34, 162, 34, 162, 2, 190, 2, 165, 76, 165, 77, 93, 34)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 1, 0), PackedInt32Array(6, 5, 0), PackedInt32Array(7, 8, 9, 10), PackedInt32Array(8, 7, 11, 12), PackedInt32Array(10, 9, 13, 14), PackedInt32Array(15, 16, 14, 13, 17, 18), PackedInt32Array(19, 1, 5, 20), PackedInt32Array(21, 19, 20, 22), PackedInt32Array(4, 23, 8, 0), PackedInt32Array(0, 8, 12, 16, 15), PackedInt32Array(18, 17, 24, 25, 26, 27, 28), PackedInt32Array(25, 29, 30, 31), PackedInt32Array(31, 32, 33, 26), PackedInt32Array(34, 35, 36, 21, 37), PackedInt32Array(21, 22, 6, 0, 38, 37), PackedInt32Array(39, 34, 37, 28, 27), PackedInt32Array(25, 31, 26)])
 source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 2.0
 
 [node name="ForestSpawnRoom0" instance=ExtResource("1_n7yta")]
 navigation_polygon = SubResource("NavigationPolygon_ftn3s")
@@ -18,6 +21,10 @@ layer_1/tile_data = PackedInt32Array(458759, 65536, 6, 458756, 327680, 6, 458755
 layer_2/tile_data = PackedInt32Array(196614, 0, 1, 327693, 327680, 0, 262158, 262144, 0, 262150, 458752, 0, 327687, 458752, 0, 393227, 458752, 0, 327686, 524288, 0, 327692, 524288, 0, 262155, 524288, 0, 262160, 524288, 0, 196625, 524288, 0, 196610, 458752, 0, 327683, 458752, 0, 131073, 589824, 0, 196624, 589824, 3)
 layer_3/tile_data = PackedInt32Array(327699, 131072, 6)
 
+[node name="TileMap2" parent="." index="1"]
+visible = false
+layer_0/tile_data = PackedInt32Array(131074, 0, 0, 196610, 0, 0, 196609, 0, 0, 262145, 0, 0, 262146, 0, 0, 327682, 0, 0, 327681, 0, 0, 393218, 0, 0, 393219, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 393229, 0, 0, 393230, 0, 0, 393231, 0, 0, 393232, 0, 0, 327696, 0, 0, 327697, 0, 0, 327698, 0, 0, 327699, 0, 0, 262163, 0, 0, 262162, 0, 0, 262161, 0, 0, 262160, 0, 0, 196625, 0, 0, 131089, 0, 0, 131090, 0, 0, 196626, 0, 0, 131088, 0, 0, 131087, 0, 0, 131086, 0, 0, 196622, 0, 0, 196623, 0, 0, 262159, 0, 0, 327695, 0, 0, 327694, 0, 0, 262158, 0, 0, 262157, 0, 0, 327693, 0, 0, 327692, 0, 0, 327691, 0, 0, 262155, 0, 0, 196620, 0, 0, 196621, 0, 0, 131084, 0, 0, 131085, 0, 0, 131083, 0, 0, 131082, 0, 0, 196618, 0, 0, 196617, 0, 0, 196616, 0, 0, 196615, 0, 0, 131079, 0, 0, 131078, 0, 0, 196614, 0, 0, 196613, 0, 0, 131076, 0, 0, 131075, 0, 0, 131077, 0, 0, 131080, 0, 0, 131081, 0, 0, 196612, 0, 0, 196611, 0, 0, 262147, 0, 0, 327684, 0, 0, 262148, 0, 0, 327683, 0, 0, 327685, 0, 0, 327686, 0, 0, 393222, 0, 0, 393223, 0, 0, 393221, 0, 0, 393220, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 0, 0, 393228, 0, 0, 327690, 0, 0, 327689, 0, 0, 327688, 0, 0, 327687, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0, 262156, 0, 0, 196619, 0, 0, 65547, 0, 0, 65546, 0, 0, 10, 0, 0, 11, 0, 0)
+
 [node name="HorizontalEntry" parent="Entries/Up" index="0" instance=ExtResource("2_564ok")]
 position = Vector2(168, 7)
 
@@ -27,9 +34,6 @@ position = Vector2(313, 68)
 [node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("2_564ok")]
 position = Vector2(88, 121)
 
-[node name="TeleportPosition" parent="." index="7"]
-position = Vector2(154, 74)
-
 [node name="TikiTorch" parent="." index="8" instance=ExtResource("4_dcx67")]
 position = Vector2(90, 35)
 
@@ -38,3 +42,6 @@ position = Vector2(163, 80)
 
 [node name="TikiTorch2" parent="." index="10" instance=ExtResource("4_dcx67")]
 position = Vector2(213, 119)
+
+[node name="TeleportPosition" parent="." index="11"]
+position = Vector2(154, 74)

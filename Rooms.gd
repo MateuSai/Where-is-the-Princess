@@ -528,6 +528,7 @@ func _create_corridors() -> bool:
 	for room in rooms:
 		room.add_doors_and_walls(corridor_tile_map)
 		room.generate_room_white_image()
+		room.setup_navigation()
 
 	if debug:
 		await get_tree().process_frame
