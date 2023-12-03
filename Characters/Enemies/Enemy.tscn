@@ -14,18 +14,13 @@ min_souls = 1
 max_souls = 1
 min_dark_souls = 0
 max_dark_souls = 0
-mass = 1.0
-acceleration = 40
-max_speed = 100
-flying = false
-can_be_knocked_back = true
 
 [node name="PathfindingComponent" type="Node" parent="." index="1"]
 script = ExtResource("3_cumr6")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="5"]
-path_desired_distance = 2.0
-target_desired_distance = 2.0
+path_desired_distance = 8.0
+target_desired_distance = 8.0
 
 [node name="ParallizeTimer" type="Timer" parent="." index="8"]
 wait_time = 2.0

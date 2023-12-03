@@ -213,13 +213,15 @@ func get_overwrite_room_paths(type: String) -> PackedStringArray:
 		return [""]
 
 
-func get_overwrite_connections() -> Array:
+func get_overwrite_connections() -> Array[Array]:
 	var connections: Array = []
 
 	if biome_conf.has("levels") and biome_conf.levels.has(str(run_stats.level)) and biome_conf.levels[str(run_stats.level)].has("overwrite_connections"):
 		connections = biome_conf.levels[str(run_stats.level)]["overwrite_connections"]
 
-	return connections
+	var ret: Array[Array] = []
+	ret.assign(connections)
+	return ret
 
 
 func get_ignored_rooms() -> PackedStringArray:
@@ -406,7 +408,7 @@ func get_random_discovered_item_path(quality: Item.Quality = Item.Quality.COMMON
 class RunStats extends Resource:
 	signal coins_changed(new_coins: int)
 
-	@export var biome: String = "sewer"
+	@export var biome: String = "forest"
 	@export var level: int = 1
 
 	@export var hp: int = Character.DB["player"].max_hp
@@ -422,3 +424,25 @@ class RunStats extends Resource:
 
 	@export var permanent_passive_items: Array[PermanentPassiveItem] = []
 	@export var temporal_passive_items: Array[TemporalPassiveItem] = []
+
+
+
+class Data:
+	var dark_souls: int = 0
+
+	var kills: Dictionary = {}
+
+	var ignored_rooms: PackedStringArray = PackedStringArray([])
+
+	var discovered_weapons: PackedStringArray = PackedStringArray(["res://Weapons/Melee/Katana/Katana.tscn", "res://Weapons/Melee/Spear.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/KombatHammer/KombatHammer.tscn", "res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/Scimitar/Scimitar.tscn", "res://Weapons/Melee/SharpAxe/SharpAxe.tscn", "res://Weapons/Melee/SmallAxe/SmallAxe.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn", "res://Weapons/Melee/WarHammer/WarHammer.tscn", "res://Weapons/Melee/WarriorSword/WarriorSword.tscn", "res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn"])
+	#"undiscovered_weapons": PackedStringArray(["res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn"]),
+
+	var equipped_armor: String = "res://Armors/NoArmor.gd"
+	var discovered_armors: PackedStringArray = PackedStringArray(["res://Armors/CommonerClothes.gd", "res://Armors/LeatherArmor.gd", "res://Armors/MercenaryArmor.gd", "res://Armors/WarriorArmor.gd", "res://Armors/NecromancerArmor.gd", "res://Armors/improvised_armor.gd", "res://Armors/farmer_clothes.gd"])
+
+	var discovered_permanent_items: PackedStringArray = PackedStringArray(["res://items/Passive/Permanent/StrongThrow.gd", "res://items/Passive/Permanent/ToughSkin.gd", "res://items/Passive/Permanent/EnhancedBoots.gd", "res://items/Passive/Permanent/meteor_stone.gd", "res://items/Passive/Permanent/SoulAmulet.gd", "res://items/Passive/Permanent/runes/AxeRune.gd", "res://items/Passive/Permanent/runes/HammerRune.gd", "res://items/Passive/Permanent/runes/MeleeRune.gd", "res://items/Passive/Permanent/runes/SpearRune.gd", "res://items/Passive/Permanent/runes/SwordRune.gd"])
+#	"undiscovered_permanent_items": PackedStringArray(["res://items/Passive/Permanent/EnhancedBoots.gd"]),
+	var discovered_temporal_items: PackedStringArray = PackedStringArray(["res://items/Passive/Temporal/magic_shield.gd", "res://items/Passive/Temporal/reinforced_magic_shield.gd", "res://items/Passive/Temporal/MagicSword.gd"])
+#	"undiscovered_temporal_items": PackedStringArray(["res://items/Passive/Temporal/MagicSword.gd"]),
+
+	var shop_unlocked: bool = false

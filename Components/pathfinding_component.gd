@@ -70,6 +70,7 @@ class Approach extends Mode:
 		if flags & ZIG_ZAG_FLAG and vector_to_target.length() > 24:
 			navigation_agent.target_position = character.global_position + vector_to_target.rotated([1, -1][randi() % 2] * PI/4)
 		else:
+			print(target.global_position)
 			navigation_agent.target_position = target.global_position
 
 

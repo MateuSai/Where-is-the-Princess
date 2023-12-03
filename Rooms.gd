@@ -1,4 +1,4 @@
-class_name Rooms extends Node2D
+class_name Rooms extends NavigationRegion2D
 
 const BIOMES_FOLDER_PATH: String = "res://Rooms/Biomes/"
 
@@ -198,12 +198,10 @@ func spawn_rooms() -> void:
 	if overwrite_spawn_shape:
 		spawn_shape = overwrite_spawn_shape
 
-	var room_paths: Dictionary = {
-		"start": _get_rooms("Start"),
-		"combat": _get_rooms("Combat"),
-		"special": _get_rooms("Special"),
-		"end": _get_end_rooms(),
-	}
+	var start_room_paths: PackedStringArray = _get_rooms("Start")
+	var combat_room_paths: PackedStringArray = _get_rooms("Combat")
+	var special_room_paths: PackedStringArray = _get_rooms("Special")
+	var end_room_paths: Array[PackedStringArray] = _get_end_rooms()
 
 #	room_paths.start.append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "start"))
 #	room_paths.combat.append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "combat"))
@@ -212,14 +210,15 @@ func spawn_rooms() -> void:
 #		room_paths.end[end_to].append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "special"))
 
 	# print(room_paths)
-	start_room = (load(room_paths.start[randi() % room_paths.start.size()]) as PackedScene).instantiate()
+	start_room = (load(start_room_paths[randi() % start_room_paths.size()]) as PackedScene).instantiate()
 	rooms.push_back(start_room)
 
 	var end_rooms: Array[DungeonRoom] = []
-	for array in room_paths.end:
+	for array: PackedStringArray in end_room_paths:
 		if array.is_empty():
 			continue
-		var end_room: DungeonRoom = load(array[randi() % array.size()]).instantiate()
+		var room_scene: PackedScene = load(array[randi() % array.size()])
+		var end_room: DungeonRoom = room_scene.instantiate()
 		end_rooms.push_back(end_room)
 		rooms.push_back(end_room)
 
@@ -229,23 +228,25 @@ func spawn_rooms() -> void:
 	#var inter_rooms: Array[PackedScene] = INTERMEDIATE_ROOMS.duplicate(true)
 	#inter_rooms.append_array(SavedData.custom_rooms)
 	var num_special_rooms: int = SavedData.get_num_rooms("special")
-	for i in num_special_rooms:
-		var random_speacial_room_path: String = room_paths.special[randi() % room_paths.special.size()]
-		rooms.push_back(load(random_speacial_room_path).instantiate())
-		room_paths.special.remove_at(room_paths.special.find(random_speacial_room_path)) # So the same special room is not spawned 2 times
-		if room_paths.special.is_empty() and (i+1) < num_special_rooms:
+	for i: int in num_special_rooms:
+		var random_speacial_room_path: String = special_room_paths[randi() % special_room_paths.size()]
+		var random_special_room_scene: PackedScene = load(random_speacial_room_path)
+		rooms.push_back(random_special_room_scene.instantiate())
+		special_room_paths.remove_at(special_room_paths.find(random_speacial_room_path)) # So the same special room is not spawned 2 times
+		if special_room_paths.is_empty() and (i+1) < num_special_rooms:
 			if debug:
 				print_rich("[color=yellow]" + str(num_special_rooms) + " special rooms should have spawned, but only " + str(i+1) + " did, since there are not enough special rooms[/color]")
 			break
 
 	var num_combat_rooms: int = SavedData.get_num_rooms("combat")
-	for i in num_combat_rooms:
+	for i: int in num_combat_rooms:
 		#rooms.push_back(INTERMEDIATE_ROOMS[0].instantiate())
-		rooms.push_back(load(room_paths.combat[randi() % room_paths.combat.size()]).instantiate())
+		var combat_room_scene: PackedScene = load(combat_room_paths[randi() % combat_room_paths.size()])
+		rooms.push_back(combat_room_scene.instantiate())
 
-	for room in rooms:
+	for room: DungeonRoom in rooms:
 		room.name += "_" + str(rooms.find(room))
-		room.player_entered.connect(func():
+		room.player_entered.connect(func() -> void:
 			visited_rooms.push_back(room)
 			room_visited.emit(room)
 		)
@@ -257,7 +258,7 @@ func spawn_rooms() -> void:
 #	var start_room_pos: Vector2 = start_room.get_random_circle_spawn_point(SPAWN_CIRCLE_RADIUS)
 #	rooms[0].float_position = start_room_pos # rooms[0] es la habitación de spawn
 #	rooms[1].float_position = start_room_pos * -1 # rooms[1] es la habitación de salida
-	for room in rooms:
+	for room: DungeonRoom in rooms:
 		# Ya que ya hemos posicionado start y end antes
 		#if not room in [start_room, end_room]:
 		room.float_position = room.get_random_spawn_point(spawn_shape) - room.vector_to_center
@@ -267,7 +268,7 @@ func spawn_rooms() -> void:
 #			print(room.float_position)
 		# add_child(room)
 		if debug:
-			room.get_node("DebugRoomId").text = str(rooms.find(room))
+			(room.get_node("DebugRoomId") as Label).text = str(rooms.find(room))
 
 	# return
 	set_physics_process(true)
@@ -275,7 +276,7 @@ func spawn_rooms() -> void:
 
 func _create_corridors() -> bool:
 	#var room_centers: Array[Vector2] = []
-	for i in rooms.size():
+	for i: int in rooms.size():
 		room_centers.push_back(rooms[i].position + rooms[i].vector_to_center)
 		if debug:
 			print("Room " + str(i) + " center position: " + str(room_centers[i]))
@@ -297,25 +298,25 @@ func _create_corridors() -> bool:
 		await get_tree().create_timer(pause_between_steps).timeout
 
 	if use_delaunay:
-		for i in room_centers.size():
+		for i: int in room_centers.size():
 			initial_astar.add_point(i, room_centers[i])
-		for i in delaunay_indices.size() / 3.0:
+		for i: int in delaunay_indices.size() / 3.0:
 			i = i * 3
 			initial_astar.connect_points(delaunay_indices[i], delaunay_indices[i+1])
 			initial_astar.connect_points(delaunay_indices[i+1], delaunay_indices[i+2])
 			initial_astar.connect_points(delaunay_indices[i+2], delaunay_indices[i])
 	else:
 		# Connect each room with all the others
-		for i in room_centers.size():
+		for i: int in room_centers.size():
 			initial_astar.add_point(i, room_centers[i])
-		for i in room_centers.size():
-			for j in room_centers.size():
+		for i: int in room_centers.size():
+			for j: int in room_centers.size():
 				if i == j:
 					continue
 				initial_astar.connect_points(i, j)
 
 
-	var overwrite_connections: Array = SavedData.get_overwrite_connections()
+	var overwrite_connections: Array[Array] = SavedData.get_overwrite_connections()
 
 	mst_astar = AStar2D.new()
 	mst_astar.add_point(mst_astar.get_available_point_id(), room_centers[0])
@@ -324,23 +325,23 @@ func _create_corridors() -> bool:
 	if debug:
 		print_rich("[b]--- Rooms: creating mst ---[/b]")
 		print("initial_astar connections (between indices, not room ids):")
-		for i in initial_astar.get_point_count():
+		for i: int in initial_astar.get_point_count():
 			print("" + str(i) + ": " + str(initial_astar.get_point_connections(i)))
 	# We start with 1 because we already have added the room 0
-	for i in range(1, initial_astar.get_point_count()):
+	for i: int in range(1, initial_astar.get_point_count()):
 		var min_room_connection: RoomConnection = RoomConnection.NONE
 		var min_dist: float = INF  # Minimum distance found so far
 		var min_p: Vector2  # Position of that node
 		#var p = null  # Current position
 		var first_room_id: int = -1
 		# Loop through the points in the path
-		for id in mst_astar.get_point_ids():
+		for id: int in mst_astar.get_point_ids():
 			if debug:
 				print("Checking room " + str(id) + " neighbours")
 			var point: Vector2 = mst_astar.get_point_position(id)
 			# Loop through the remaining nodes in the given array
 			#print(initial_astar.get_point_count())
-			for j in initial_astar.get_point_count():
+			for j: int in initial_astar.get_point_count():
 				if initial_astar.is_point_disabled(j):
 					if debug:
 						print_rich("\t[color=yellow]Point " + str(j) + " is disabled[/color]")
@@ -354,7 +355,7 @@ func _create_corridors() -> bool:
 					if point.distance_to(point2) < min_dist:
 						if not overwrite_connections.is_empty():
 							var block_connection: bool = true
-							for connection in overwrite_connections:
+							for connection: Array[int] in overwrite_connections:
 								if (connection[0] == id and connection[1] == room_centers.find(point2)) or (connection[0] == room_centers.find(point2) and connection[1] == id):
 									block_connection = false
 									break
@@ -385,7 +386,7 @@ func _create_corridors() -> bool:
 			#assert(false)
 			push_error("first_room_id is null. There are no more possibles connections but there is some room/rooms that are not connected yet")
 			if reload_on_eror:
-				owner.reload_generation("Could not connect all rooms")
+				game.reload_generation("Could not connect all rooms")
 				return false
 			continue
 		var n: int = room_centers.find(min_p)
@@ -408,11 +409,11 @@ func _create_corridors() -> bool:
 	# Añadimos alguna conexion extra
 		if debug:
 			print_rich("[b]--- Rooms: Adding extra connections to mst ---[/b]")
-		for id in initial_astar.get_point_count():
+		for id: int in initial_astar.get_point_count():
 			initial_astar.set_point_disabled(id, false)
 		var points_that_could_be_connected: Array[Array] = []
-		for id in initial_astar.get_point_count():
-			for id2 in range(id + 1, initial_astar.get_point_count()):
+		for id: int in initial_astar.get_point_count():
+			for id2: int in range(id + 1, initial_astar.get_point_count()):
 				# print(str(id) + ": " + str(initial_astar.get_point_connections(id)))
 				if initial_astar.get_point_connections(id).has(id2) and not mst_astar.get_point_connections(id).has(id2) and not points_that_could_be_connected.has([id, id2]) and not points_that_could_be_connected.has([id2, id]):
 					points_that_could_be_connected.push_back([id, id2])
@@ -544,6 +545,40 @@ func _create_corridors() -> bool:
 	if debug:
 		await get_tree().process_frame
 		await get_tree().create_timer(pause_between_steps * 2).timeout
+
+	#bake_navigation_polygon(false)
+
+	#for room in rooms:
+		#var tilemap_clone: TileMap = TileMap.new()
+
+		#var tileset: TileSet = TileSet.new()
+		#tileset.tile_size = Vector2i(TILE_SIZE, TILE_SIZE)
+		#var atlas: TileSetAtlasSource = TileSetAtlasSource.new()
+		#atlas.texture = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest.png")
+		#atlas.texture_region_size = Vector2i(TILE_SIZE, TILE_SIZE)
+		#@warning_ignore("integer_division")
+		#var width_tiles: int = atlas.texture.get_width()/TILE_SIZE
+		#@warning_ignore("integer_division")
+		#var height_tiles: int = atlas.texture.get_height()/TILE_SIZE
+		#for i in width_tiles:
+			#for j in height_tiles:
+				#atlas.create_tile(Vector2i(i, j))
+		#tileset.add_source(atlas)
+#
+		#for layer_i in room.tilemap.get_layers_count():
+			#tilemap_clone.add_layer(layer_i)
+			#tilemap_clone.set_layer_z_index(layer_i, room.tilemap.get_layer_z_index(layer_i))
+#
+		#tileset.add_navigation_layer()
+		#tileset.add_navigation_layer()
+		#tilemap_clone.tile_set = room.tilemap.tile_set
+#
+		#for layer in room.tilemap.get_layers_count():
+			#for cell in room.tilemap.get_used_cells(layer):
+				#tilemap_clone.set_cell(layer, cell, 0, room.tilemap.get_cell_atlas_coords(layer, cell))
+		#room.tilemap.queue_free()
+		#room.add_child(tilemap_clone)
+		#room.tilemap = tilemap_clone
 
 	generation_completed.emit()
 
