@@ -7,26 +7,7 @@ const USER_FOLDER: String = "user://"
 #const MODS_CONF_FILE_NAME: String = "mods_conf.json"
 const DATA_SAVE_NAME: String = "data.json"
 
-var data: Dictionary = {
-	"dark_souls": 0,
-
-	"kills": {},
-
-	"ignored_rooms": PackedStringArray([]),
-
-	"discovered_weapons": PackedStringArray(["res://Weapons/Melee/Katana/Katana.tscn", "res://Weapons/Melee/Spear.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/KombatHammer/KombatHammer.tscn", "res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/Scimitar/Scimitar.tscn", "res://Weapons/Melee/SharpAxe/SharpAxe.tscn", "res://Weapons/Melee/SmallAxe/SmallAxe.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn", "res://Weapons/Melee/WarHammer/WarHammer.tscn", "res://Weapons/Melee/WarriorSword/WarriorSword.tscn", "res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn"]),
-	#"undiscovered_weapons": PackedStringArray(["res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn"]),
-
-	"equipped_armor": "res://Armors/NoArmor.gd",
-	"discovered_armors": PackedStringArray(["res://Armors/CommonerClothes.gd", "res://Armors/LeatherArmor.gd", "res://Armors/MercenaryArmor.gd", "res://Armors/WarriorArmor.gd", "res://Armors/NecromancerArmor.gd", "res://Armors/improvised_armor.gd", "res://Armors/farmer_clothes.gd"]),
-
-	"discovered_permanent_items": PackedStringArray(["res://items/Passive/Permanent/StrongThrow.gd", "res://items/Passive/Permanent/ToughSkin.gd", "res://items/Passive/Permanent/EnhancedBoots.gd", "res://items/Passive/Permanent/meteor_stone.gd", "res://items/Passive/Permanent/SoulAmulet.gd", "res://items/Passive/Permanent/runes/AxeRune.gd", "res://items/Passive/Permanent/runes/HammerRune.gd", "res://items/Passive/Permanent/runes/MeleeRune.gd", "res://items/Passive/Permanent/runes/SpearRune.gd", "res://items/Passive/Permanent/runes/SwordRune.gd"]),
-#	"undiscovered_permanent_items": PackedStringArray(["res://items/Passive/Permanent/EnhancedBoots.gd"]),
-	"discovered_temporal_items": PackedStringArray(["res://items/Passive/Temporal/magic_shield.gd", "res://items/Passive/Temporal/reinforced_magic_shield.gd", "res://items/Passive/Temporal/MagicSword.gd"]),
-#	"undiscovered_temporal_items": PackedStringArray(["res://items/Passive/Temporal/MagicSword.gd"]),
-
-	"shop_unlocked": false,
-}
+var data: Data
 
 var volatile_room_paths: Dictionary = {}
 
@@ -88,7 +69,7 @@ func save_data() -> void:
 	if not file:
 		printerr("Error opening " + USER_FOLDER + DATA_SAVE_NAME + " for writing!! I can't save your data, bro")
 		return
-	file.store_string(JSON.stringify(data, "\t"))
+	file.store_string(JSON.stringify(data.to_dic(), "\t"))
 	file.close()
 	#print(JSON.new().stringify(data, "\t"))
 
@@ -99,9 +80,10 @@ func _load_data() -> void:
 		print("Save data found. Loading it...")
 		var json: JSON = JSON.new()
 		json.parse(file.get_as_text())
-		data.merge(json.data, true)
+		data = Data.from_dic(json.data as Dictionary)
 	else:
 		print("No save data found, using default value...")
+		data = Data.new()
 
 
 #func save_mods_conf() -> void:
@@ -446,3 +428,27 @@ class Data:
 #	"undiscovered_temporal_items": PackedStringArray(["res://items/Passive/Temporal/MagicSword.gd"]),
 
 	var shop_unlocked: bool = false
+
+
+	static func from_dic(dic: Dictionary) -> Data:
+		var data: Data = Data.new()
+
+		for key: String in dic.keys():
+			if data.get(key) != null:
+				data.set(key, dic[key])
+			else:
+				printerr("Invalid property: " + key)
+
+		return data
+
+	func to_dic() -> Dictionary:
+		var dic: Dictionary = {}
+
+		for property_dic: Dictionary in get_property_list():
+			assert(property_dic.name is StringName)
+			var property_name: StringName = property_dic.name
+			if property_name in ["RefCounted", "script", "Built-in script"]:
+				continue
+			dic[property_name] = get(property_name)
+
+		return dic
