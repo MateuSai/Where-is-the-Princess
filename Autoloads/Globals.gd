@@ -116,10 +116,10 @@ enum Mode {
 	MOUSE,
 	CONTROLLER,
 }
-signal mode_changed(new_mode)
+signal mode_changed(new_mode: Mode)
 var controller_device: int
 var controller_type: String
-const CONTROLLER_TYPES = {
+const CONTROLLER_TYPES: Dictionary = {
 	PS = "ps",
 	XBOX = "xbox",
 }
@@ -134,7 +134,7 @@ func _ready() -> void:
 
 	var enemies_folder: DirAccess = DirAccess.open(ENEMIES_FOLDER_PATH)
 	assert(enemies_folder != null)
-	for enemy_folder in enemies_folder.get_directories():
+	for enemy_folder: String in enemies_folder.get_directories():
 		if not enemies_folder.file_exists(enemy_folder + "/" + enemy_folder + ".tscn"):
 			push_error(enemy_folder + "/" + enemy_folder + ".tscn" + " not found on " + ENEMIES_FOLDER_PATH)
 			continue
@@ -225,14 +225,14 @@ func exit_level(biome: String = "") -> void:
 func add_weapon_damage_modifier_by_type(type: Weapon.Type, dam: int) -> void:
 	Weapon._add_damage_modifier_by_type(type, dam)
 	var weapons_of_this_type: Array[Node] = get_tree().get_nodes_in_group(Weapon.Type.keys()[type])
-	for weapon in weapons_of_this_type:
+	for weapon: Weapon in weapons_of_this_type:
 		weapon.damage += dam
 
 
 func remove_weapon_damage_modifier_by_type(type: Weapon.Type, dam: int) -> void:
 	Weapon._remove_damage_modifier_by_type(type, dam)
 	var weapons_of_this_type: Array[Node] = get_tree().get_nodes_in_group(Weapon.Type.keys()[type])
-	for weapon in weapons_of_this_type:
+	for weapon: Weapon in weapons_of_this_type:
 		weapon.damage -= dam
 
 

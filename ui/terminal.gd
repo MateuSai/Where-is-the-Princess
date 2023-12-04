@@ -4,14 +4,14 @@ var last_command: String = ""
 
 
 func _ready() -> void:
-	draw.connect(func():
+	draw.connect(func() -> void:
 		get_tree().paused = true
 		#show()
 		set_process_input(true)
 		#get_tree().current_scene.get_node("%UI").is_external_thing_opened = true
 		grab_focus()
 	)
-	hidden.connect(func():
+	hidden.connect(func() -> void:
 		get_tree().paused = false
 		#hide()
 		set_process_input(false)
@@ -45,7 +45,7 @@ func _process_command(command: String) -> void:
 		return
 
 	var splitted_command_by_quotation_marks: Array = command.split("\"")
-	for i in range(splitted_command_by_quotation_marks.size() - 1, -1, -1):
+	for i: int in range(splitted_command_by_quotation_marks.size() - 1, -1, -1):
 		if splitted_command_by_quotation_marks[i] in ["", " "]:
 			splitted_command_by_quotation_marks.remove_at(i)
 		# elemento que no esta entre comillas
@@ -55,7 +55,7 @@ func _process_command(command: String) -> void:
 			# si tiene espacios lo dividimos
 			if splitted_command_by_quotation_marks[i].count(" "):
 				var splitted_by_spaces: PackedStringArray = splitted_command_by_quotation_marks[i].split(" ")
-				for j in range(splitted_by_spaces.size() - 1, -1, -1):
+				for j: int in range(splitted_by_spaces.size() - 1, -1, -1):
 					# eliminamos los elementos vacios
 					if splitted_by_spaces[i] in ["", " "]:
 						splitted_by_spaces.remove_at(j)
@@ -140,6 +140,8 @@ func _process_command(command: String) -> void:
 				printerr("Invalid number of arguments, you must specify what to spawn")
 		"i'm fucking invincible":
 			_set_player_invincible("t")
+		"reload", "rel", "r":
+			_reload()
 #			if splitted_command.size() > 1: # tiene otro argumento
 #				match splitted_command[1]:
 #					"weapon", "weap":
@@ -339,3 +341,8 @@ func _spawn_chest() -> void:
 	chest.global_position = Globals.player.position + Vector2.RIGHT * 16
 
 	hide()
+
+
+func _reload() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()
