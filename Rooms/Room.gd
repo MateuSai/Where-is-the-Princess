@@ -77,7 +77,7 @@ func _ready() -> void:
 	if rooms.game.debug:
 		black_tilemap.hide()
 
-	flying_units_navigation_tilemap.show()
+	flying_units_navigation_tilemap.hide()
 
 
 func _draw() -> void:
@@ -410,18 +410,22 @@ func get_random_spawn_point(spawn_shape: Rooms.SpawnShape) -> Vector2:
 
 	if directions_with_entry.size() == 4 or entries_dir == Vector2.ZERO:
 		if spawn_shape is Rooms.CircleSpawnShape:
-			return Vector2.RIGHT.rotated(randf_range(0, 2 * PI)) * randf_range(0, spawn_shape.radius - spawn_shape.MARGIN)
+			var circle_spawn_shape: Rooms.CircleSpawnShape = spawn_shape
+			return Vector2.RIGHT.rotated(randf_range(0, 2 * PI)) * randf_range(0, circle_spawn_shape.radius - circle_spawn_shape.MARGIN)
 		else: # Rectangle
-			return Vector2(randf_range(spawn_shape.MARGIN, spawn_shape.size.x - spawn_shape.MARGIN), randf_range(spawn_shape.MARGIN, spawn_shape.size.y - spawn_shape.MARGIN))
+			var rectangle_spawn_shape: Rooms.RectangleSpawnShape = spawn_shape
+			return Vector2(randf_range(rectangle_spawn_shape.MARGIN, rectangle_spawn_shape.size.x - rectangle_spawn_shape.MARGIN), randf_range(rectangle_spawn_shape.MARGIN, rectangle_spawn_shape.size.y - rectangle_spawn_shape.MARGIN))
 	else:
 		#print(name + " " + str(en tries_dir) + " " + str(directions_with_entry))
 		if spawn_shape is Rooms.CircleSpawnShape:
-			return Vector2.RIGHT.rotated(randf_range(entries_dir.angle() - PI/8, entries_dir.angle() + PI/8)) * spawn_shape.radius
+			var circle_spawn_shape: Rooms.CircleSpawnShape = spawn_shape
+			return Vector2.RIGHT.rotated(randf_range(entries_dir.angle() - PI/8, entries_dir.angle() + PI/8)) * circle_spawn_shape.radius
 		else: # Rectangle
+			var rectangle_spawn_shape: Rooms.RectangleSpawnShape = spawn_shape
 			entries_dir = ((entries_dir + Vector2.ONE) / 2.0).normalized()
 #			entries_dir.x = clamp(entries_dir.x, 0, 1)
 #			entries_dir.y = clamp(entries_dir.y, 0, 1)
-			return spawn_shape.size * entries_dir
+			return rectangle_spawn_shape.size * entries_dir
 
 
 func get_rect() -> Rect2i:

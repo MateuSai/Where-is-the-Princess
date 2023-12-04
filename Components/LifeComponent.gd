@@ -16,6 +16,7 @@ enum BodyType {
 	FLESH,
 	SLIME,
 	BONES,
+	WOOD,
 }
 @export var body_type: BodyType = BodyType.FLESH
 
@@ -31,11 +32,13 @@ signal hp_changed(new_hp: int)
 signal damage_taken(dam: int, dir: Vector2, force: int)
 signal died()
 
+@onready var parent: Node2D = get_parent()
+
 
 func _ready() -> void:
 	invincible_after_being_hitted_timer = Timer.new()
 	invincible_after_being_hitted_timer.one_shot = true
-	invincible_after_being_hitted_timer.timeout.connect(func(): invincible_after_being_hitted = false)
+	invincible_after_being_hitted_timer.timeout.connect(func() -> void: invincible_after_being_hitted = false)
 	add_child(invincible_after_being_hitted_timer)
 
 
@@ -62,7 +65,9 @@ func _must_ignore_damage() -> bool:
 			#print_debug("Blocked")
 			var block_sound: AutoFreeSound = AutoFreeSound.new()
 			get_tree().current_scene.add_child(block_sound)
-			block_sound.start(load("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hammer/HammerMetal1.wav"), get_parent().global_position)
+			var stream: AudioStream = load("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hammer/HammerMetal1.wav")
+			assert(stream)
+			block_sound.start(stream, parent.global_position)
 			return true
 
 	return false
@@ -80,5 +85,5 @@ func _play_hit_sound(weapon: Weapon) -> void:
 	if stream:
 		var sound: AutoFreeSound = AutoFreeSound.new()
 		get_tree().current_scene.add_child(sound)
-		sound.start(stream, get_parent().global_position)
+		sound.start(stream, parent.global_position)
 

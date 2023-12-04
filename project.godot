@@ -28,6 +28,8 @@ InfoPanel="*res://Autoloads/info_panel/info_panel.tscn"
 
 [debug]
 
+gdscript/warnings/property_used_as_function=2
+gdscript/warnings/constant_used_as_function=2
 gdscript/warnings/untyped_declaration=1
 gdscript/warnings/inferred_declaration=1
 gdscript/warnings/unsafe_property_access=1
