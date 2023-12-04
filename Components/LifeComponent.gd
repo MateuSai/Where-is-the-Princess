@@ -10,7 +10,8 @@ var block_probability: int = 0
 
 var damage_taken_multiplier: int = 1
 
-const BONES_HIT_SOUND: Array[AudioStream] = [preload("res://Audio/Sounds/impact/420252__redroxpeterpepper__step-skeleton.wav"), preload("res://Audio/Sounds/impact/420253__redroxpeterpepper__step-skeleton-2.wav")]
+const BONES_HIT_SOUNDS: Array[AudioStream] = [preload("res://Audio/Sounds/impact/420252__redroxpeterpepper__step-skeleton.wav"), preload("res://Audio/Sounds/impact/420253__redroxpeterpepper__step-skeleton-2.wav")]
+const WOOD_HIT_SOUNDS: Array[AudioStream] = [preload("res://Audio/Sounds/impact/547414__ian_g__wood-hit.wav")]
 
 enum BodyType {
 	FLESH,
@@ -80,7 +81,9 @@ func _play_hit_sound(weapon: Weapon) -> void:
 	var stream: AudioStream = null
 	match body_type:
 		BodyType.BONES:
-			stream = BONES_HIT_SOUND[randi() % BONES_HIT_SOUND.size()]
+			stream = BONES_HIT_SOUNDS[randi() % BONES_HIT_SOUNDS.size()]
+		BodyType.WOOD:
+			stream = WOOD_HIT_SOUNDS[randi() % WOOD_HIT_SOUNDS.size()]
 
 	if stream:
 		var sound: AutoFreeSound = AutoFreeSound.new()

@@ -9,6 +9,7 @@ enum Status {
 	LIGHTNING,
 }
 
+@onready var character: Character = get_parent()
 
 #func _init() -> void:
 #	fill_mode = FILL_BOTTOM_TO_TOP

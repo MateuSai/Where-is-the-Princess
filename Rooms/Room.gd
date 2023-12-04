@@ -5,6 +5,9 @@ class_name DungeonRoom extends NavigationRegion2D
 ## If the value is invalid, an error will appear and the room will not be used
 @export var levels: String = ""
 
+const GROUND_UNITS_NAVIGATION_GROUP: StringName = "navigation_polygon_source_group"
+const FLYING_UNITS_NAVIGATION_GROUP: StringName = "flying_units_navigation_polygon_source_group"
+
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/SpawnExplosion.tscn")
 
 const HORIZONTAL_UP_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/HorizontalUpDoor.tscn")
@@ -29,6 +32,7 @@ var used_entries: Array[Node] = []
 var agent_radius: int = 1
 var navigation_map_flying_units: RID
 var navigation_region_flying_units: RID
+signal navigation_updated()
 
 signal player_entered()
 signal closed()
@@ -78,6 +82,10 @@ func _ready() -> void:
 		black_tilemap.hide()
 
 	flying_units_navigation_tilemap.hide()
+
+
+func _exit_tree() -> void:
+	_free_navigation()
 
 
 func _draw() -> void:
@@ -174,13 +182,20 @@ func setup_navigation() -> void:
 	navigation_polygon.agent_radius = agent_radius
 	navigation_polygon.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_EXPLICIT
 
-	bake_navigation_polygon(false)
+	update_navigation()
+
+
+func update_navigation() -> void:
+	bake_navigation_polygon(true)
 	NavigationServer2D.region_set_transform(get_region_rid(), get_global_transform())
 
+	_free_navigation()
 	_generate_flying_units_navigation()
 	NavigationServer2D.region_set_transform(navigation_region_flying_units, get_global_transform())
 	#set_navigation_map(navigation_map_flying_units)
 	#bake_navigation_polygon(false)
+
+	navigation_updated.emit()
 
 
 func _has_entry(dir: EntryDirection) -> bool:
@@ -513,3 +528,8 @@ func _generate_flying_units_navigation() -> void:
 
 	# Set navigation mesh for the region.
 	NavigationServer2D.region_set_navigation_polygon(navigation_region_flying_units, navigation_mesh_flying_units)
+
+
+func _free_navigation() -> void:
+	NavigationServer2D.free_rid(navigation_map_flying_units)
+	NavigationServer2D.free_rid(navigation_region_flying_units)

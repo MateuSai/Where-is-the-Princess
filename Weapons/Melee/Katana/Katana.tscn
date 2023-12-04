@@ -16,11 +16,11 @@ size = Vector2(2.93156, 4.00453)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ccslb"]
 spread = 180.0
-gravity = Vector3(0, 0, 0)
 initial_velocity_min = 20.0
 initial_velocity_max = 40.0
 angular_velocity_min = 10.0
 angular_velocity_max = 40.0
+gravity = Vector3(0, 0, 0)
 turbulence_enabled = true
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eohjf"]
@@ -616,7 +616,6 @@ texture = ExtResource("4_npc6b")
 offset = Vector2(0, -8)
 
 [node name="Hitbox" parent="Node2D/Sprite2D" index="0"]
-collision_mask = 44
 damage = 2
 knockback_force = 200
 

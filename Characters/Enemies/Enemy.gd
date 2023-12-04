@@ -175,9 +175,17 @@ func set_flying(new_value: bool) -> void:
 			#navigation_agent.navigation_layers |=  FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE
 #			navigation_agent.navigation_layers = 2
 			navigation_agent.set_navigation_map(room.navigation_map_flying_units)
+			room.navigation_updated.connect(_on_flying_enemy_navigation_updated)
 		else:
+			if room.navigation_updated.is_connected(_on_flying_enemy_navigation_updated):
+				room.navigation_updated.disconnect(_on_flying_enemy_navigation_updated)
+
 			if not has_resistance(Resistance.ACID, true):
 				remove_resistance(Resistance.ACID)
 #			navigation_agent.navigation_layers = 1
 			#navigation_agent.navigation_layers &= ~FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE
 			navigation_agent.set_navigation_map(room.get_navigation_map())
+
+
+func _on_flying_enemy_navigation_updated() -> void:
+	navigation_agent.set_navigation_map(room.navigation_map_flying_units)

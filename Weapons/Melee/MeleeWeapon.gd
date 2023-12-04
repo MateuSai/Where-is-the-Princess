@@ -26,7 +26,7 @@ var bodies_pierced: int = 0
 
 func _ready() -> void:
 	super()
-	hitbox.collided_with_something.connect(func(_body: Node2D):
+	hitbox.collided_with_something.connect(func(_body: Node2D) -> void:
 		_on_collided_with_something()
 	)
 	set_physics_process(false)
@@ -107,7 +107,7 @@ func throw() -> void:
 	if type == Type.SWORD:
 		throw_rot_speed = 25 if attack_num == 0 else -25
 	get_parent().throw_weapon()
-	hitbox.get_node("CollisionShape2D").disabled = false
+	(hitbox.get_node("CollisionShape2D") as CollisionShape2D).disabled = false
 	hitbox.set_collision_mask_value(1, true) # Para que pueda colisionar con paredes
 	hitbox.body_entered.disconnect(hitbox._on_body_entered)
 	hitbox.body_entered.connect(_throw_body_entered_hitbox)
@@ -151,7 +151,7 @@ func add_status_inflicter(status: StatusComponent.Status, amount: int = 1) -> vo
 		status_inflicter_component.name = StatusComponent.Status.keys()[status] + "Inflicter"
 		add_child(status_inflicter_component)
 
-	for i in amount:
+	for i: int in amount:
 		status_inflicter_added.emit(self, status)
 
 

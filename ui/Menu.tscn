@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="1_tdw3g"]
 [ext_resource type="Script" path="res://ui/PlayButton.gd" id="2_cpu8h"]
-[ext_resource type="Script" path="res://ui/Menu.gd" id="2_mof80"]
+[ext_resource type="Script" path="res://ui/menu.gd" id="2_mof80"]
 [ext_resource type="Texture2D" uid="uid://b1nbyyumv3x5u" path="res://Art/warrior.png" id="3_3w6iw"]
 [ext_resource type="Script" path="res://ui/ModsButton.gd" id="3_ajgyq"]
 [ext_resource type="Script" path="res://ui/QuitButton.gd" id="4_0l3tl"]
@@ -48,6 +48,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -31.0714
+offset_bottom = 31.0714
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_3w6iw")

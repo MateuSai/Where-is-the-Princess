@@ -30,8 +30,8 @@ func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> Array[Projectile]
 
 	var spawned_projectiles: Array[Projectile] = []
 
-	for i in amount:
-		var projectile: Projectile = load(projectile_scene_path).instantiate()
+	for i: int in amount:
+		var projectile: Projectile = (load(projectile_scene_path) as PackedScene).instantiate()
 		projectile.weapon = self
 		if animation_player.current_animation == "active_ability":
 			projectile.damage = ability_damage
@@ -42,7 +42,7 @@ func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> Array[Projectile]
 
 		projectile.exclude.push_back(Globals.player)
 		# So the projectiles don't collide between them
-		for other_projectile in spawned_projectiles:
+		for other_projectile: Projectile in spawned_projectiles:
 			other_projectile.exclude.push_back(projectile)
 			projectile.exclude.push_back(other_projectile)
 		spawned_projectiles.push_back(projectile)

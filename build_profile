@@ -1,0 +1,9 @@
+{
+	"disabled_build_options": {
+		"disable_3d": true
+	},
+	"disabled_classes": [
+		"Node3D"
+	],
+	"type": "build_profile"
+}

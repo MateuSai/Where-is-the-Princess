@@ -13,16 +13,16 @@ func _ready() -> void:
 
 
 func add() -> void:
-	get_parent().modulate = Color.DEEP_SKY_BLUE
+	character.modulate = Color.DEEP_SKY_BLUE
 
 	if status_timer.is_stopped():
-		get_parent().max_speed -= 30
+		character.max_speed -= 30
 	status_timer.start()
 
 	super()
 
 
 func remove() -> void:
-	get_parent().modulate = Color.WHITE
-	get_parent().max_speed += 30
+	character.modulate = Color.WHITE
+	character.max_speed += 30
 	super()

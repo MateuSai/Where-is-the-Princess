@@ -35,7 +35,7 @@ func _ready() -> void:
 	area_entered.connect(_on_area_entered)
 	area_exited.connect(_remove_entity_if_it_is_inside)
 
-	collided_with_something.connect(func(node: Node2D):
+	collided_with_something.connect(func(node: Node2D) -> void:
 		if node is Character and not flesh_sounds.is_empty():
 			var audio: AutoFreeSound = AutoFreeSound.new()
 			get_tree().current_scene.add_child(audio)
@@ -106,13 +106,13 @@ func _collide(node: Node2D, dam: int = damage) -> void:
 
 	#print(body.name)
 	if node is Bomb:
-		node.hit(knockback_direction, knockback_force)
+		(node as Bomb).hit(knockback_direction, knockback_force)
 	elif node.has_node("LifeComponent"):
 		(node.get_node("LifeComponent") as LifeComponent).take_damage(dam, knockback_direction, knockback_force, weapon)
 	elif node is RigidBody2D:
-		node.apply_impulse(knockback_direction * knockback_force * 5)
-	elif node is Projectile and node.can_be_destroyed:
-		node.destroy()
+		(node as RigidBody2D).apply_impulse(knockback_direction * knockback_force * 5)
+	elif node is Projectile and (node as Projectile).can_be_destroyed:
+		(node as Projectile).destroy()
 	else:
 		print_debug("Unhandled collision!")
 
