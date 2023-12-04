@@ -81,10 +81,10 @@ const FOG_PADDING: int = 128
 func _ready() -> void:
 	set_physics_process(false)
 
-	var biome_conf: Dictionary = SavedData.get_biome_conf()
+	var biome_conf: SavedData.BiomeConf = SavedData.get_biome_conf()
 	ATLAS_ID = biome_conf.corridor_atlas_id
-	if biome_conf.has("corridor_floor_tiles_coor"):
-		CORRIDOR_FLOOR_TILE_COORDS = int_arr_to_vec_array(biome_conf.corridor_floor_tiles_coor as Array)
+	if not biome_conf.corridor_floor_tiles_coor.is_empty():
+		CORRIDOR_FLOOR_TILE_COORDS = int_arr_to_vec_array(biome_conf.corridor_floor_tiles_coor)
 	else:
 		CORRIDOR_FLOOR_TILE_COORDS = FLOOR_TILE_COORDS
 

@@ -6,6 +6,8 @@ var dir: Vector2
 var speed: float
 
 @onready var bomb_parabola: BombParabola = owner
+@onready var hitbox: Hitbox = $Hitbox
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 func _ready() -> void:
@@ -25,7 +27,7 @@ func hit(dir: Vector2, force: float) -> void:
 
 	reflected = true
 
-	$Hitbox.set_collision_mask_value(3, true) # To make it collide with enemies
+	hitbox.set_collision_mask_value(3, true) # To make it collide with enemies
 
 	self.dir = dir
 	self.speed = force
@@ -57,19 +59,20 @@ func _on_body_entered(_body: Node2D) -> void:
 func _spawn_shrapnel() -> void:
 	set_physics_process(false)
 
-	$AnimationPlayer.pause()
+	animation_player.pause()
 
 	var num: int = randi() % 3 + 3
 	var initial_rot: float = randf_range(0, 2*PI / (num - 1))
 	var shrapnels: Array = []
-	for i in num:
-		var shrapnel: Sprite2D = load("res://Characters/Enemies/BombTribal/Shrapnel.tscn").instantiate()
+	for i: int in num:
+		var shrapnel_scene: PackedScene = load("res://Characters/Enemies/BombTribal/Shrapnel.tscn")
+		var shrapnel: Sprite2D = shrapnel_scene.instantiate()
 		shrapnel.rotation = initial_rot + (2*PI / (num - 1)) * i + randf_range(-0.2, 0.2)
 		add_child(shrapnel)
 		move_child(shrapnel, 0)
 		shrapnels.push_back(shrapnel)
 
 	await get_tree().process_frame
-	$AnimationPlayer.play()
-	for shrapnel in shrapnels:
-		shrapnel.get_node("AnimationPlayer").play("explode")
+	animation_player.play()
+	for shrapnel: Sprite2D in shrapnels:
+		(shrapnel.get_node("AnimationPlayer") as AnimationPlayer).play("explode")

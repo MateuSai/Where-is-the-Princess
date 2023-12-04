@@ -55,7 +55,7 @@ func _ready() -> void:
 
 	generating_dungeon_canvas_layer.hide()
 
-	if SavedData.get_biome_conf().has("music"):
+	if not SavedData.get_biome_conf().music.is_empty():
 		var stream: AudioStream = load(SavedData.get_biome_conf().music as String)
 		assert(stream)
 		music.stream = stream

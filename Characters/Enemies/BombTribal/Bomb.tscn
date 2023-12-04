@@ -142,7 +142,7 @@ shape = SubResource("CircleShape2D_retui")
 disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "explode"
 libraries = {
 "": SubResource("AnimationLibrary_rfyn5")
 }
+autoplay = "explode"
