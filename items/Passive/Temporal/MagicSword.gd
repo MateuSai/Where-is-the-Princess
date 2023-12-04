@@ -13,13 +13,13 @@ func get_icon() -> Texture:
 func equip(player: Player) -> void:
 	magic_sword_node = MagicSwordNode.new()
 	magic_sword_node.life_component.hp = hp
-	magic_sword_node.hp_changed.connect(func(new_hp: int): hp = new_hp)
-	magic_sword_node.destroyed.connect(func(): player.unequip_passive_item(self))
+	magic_sword_node.hp_changed.connect(func(new_hp: int) -> void: hp = new_hp)
+	magic_sword_node.destroyed.connect(func() -> void: player.unequip_passive_item(self))
 	player.add_rotating_item(magic_sword_node)
 
 
 func unequip(player: Player) -> void:
-	var particles: GPUParticles2D = load("res://shaders_and_particles/DestroyParticles.tscn").instantiate()
+	var particles: GPUParticles2D = (load("res://shaders_and_particles/DestroyParticles.tscn") as PackedScene).instantiate()
 	particles.position = magic_sword_node.sprite.global_position
 	magic_sword_node.get_tree().current_scene.add_child(particles)
 	player.remove_rotating_item(magic_sword_node)
@@ -44,7 +44,7 @@ class MagicSwordNode extends WeaponHitbox:
 		set_collision_mask_value(3, true)
 		set_collision_mask_value(4, true)
 
-		collided_with_something.connect(func(_body: Node2D):
+		collided_with_something.connect(func(_body: Node2D) -> void:
 			life_component.hp -= 1
 		)
 
@@ -67,8 +67,8 @@ class MagicSwordNode extends WeaponHitbox:
 		life_component.max_hp = 5
 		#life_component.hp = 2
 
-		life_component.hp_changed.connect(func(new_hp: int): hp_changed.emit(new_hp))
-		life_component.died.connect(func(): destroyed.emit())
+		life_component.hp_changed.connect(func(new_hp: int) -> void: hp_changed.emit(new_hp))
+		life_component.died.connect(func() -> void: destroyed.emit())
 		add_child(life_component)
 
 

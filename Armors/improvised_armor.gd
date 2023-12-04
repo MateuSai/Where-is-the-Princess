@@ -18,4 +18,4 @@ func get_sprite_sheet() -> Texture:
 
 
 func get_icon() -> Texture:
-	return Globals.get_atlas_frame(load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armors_icons.png"), Rect2(16, 32, 16, 16))
+	return Globals.get_atlas_frame(load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armors_icons.png") as Texture, Rect2(16, 32, 16, 16))
