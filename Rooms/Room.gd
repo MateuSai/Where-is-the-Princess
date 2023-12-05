@@ -211,12 +211,14 @@ func _has_entry(dir: EntryDirection) -> bool:
 #	return entries[dir].get_children()[0].global_position
 
 
-func get_entries(dir: EntryDirection) -> Array[Node]:
-	return entries[dir].get_children()
+func get_entries(dir: EntryDirection) -> Array[Node2D]:
+	var arr: Array[Node2D] = []
+	arr.assign(entries[dir].get_children())
+	return arr
 
 
 func get_random_entry(dir: EntryDirection, to_connect_to: Node2D = null) -> Node:
-	var direction_entries: Array[Node] = entries[dir].get_children()
+	var direction_entries: Array[Node2D] = get_entries(dir)
 #	for entry in used_entries:
 #		if direction_entries.has(entry):
 #			direction_entries.erase(entry)
@@ -224,7 +226,7 @@ func get_random_entry(dir: EntryDirection, to_connect_to: Node2D = null) -> Node
 #	if direction_entries.is_empty():
 #		return null
 #	else:
-	var usable_entries: Array[Node] = direction_entries.duplicate()
+	var usable_entries: Array[Node2D] = direction_entries.duplicate()
 
 	if to_connect_to != null:
 		usable_entries = usable_entries.filter(func(entry: Node2D) -> void:
@@ -531,5 +533,7 @@ func _generate_flying_units_navigation() -> void:
 
 
 func _free_navigation() -> void:
-	NavigationServer2D.free_rid(navigation_map_flying_units)
-	NavigationServer2D.free_rid(navigation_region_flying_units)
+	if navigation_map_flying_units.is_valid():
+		NavigationServer2D.free_rid(navigation_map_flying_units)
+	if navigation_region_flying_units.is_valid():
+		NavigationServer2D.free_rid(navigation_region_flying_units)

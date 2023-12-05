@@ -3,7 +3,7 @@ class_name Item extends Resource
 #var icon: Texture
 #
 #
-##@warning_ignore("shadowed_variable")
+#@warning_ignore("shadowed_variable")
 #func _initialize(item_icon: Texture) -> void:
 #	icon = get_icon()
 #	#icon = item_icon
@@ -34,12 +34,10 @@ func get_quality() -> Quality:
 
 
 func get_coin_cost() -> int:
-	#printerr("You should override get_coin_cost on " + get_script().get_path())
 	return 10
 
 
 func get_dark_soul_cost() -> int:
-	#printerr("You should override get_dark_soul_cost on " + get_script().get_path())
 	return 1
 
 

@@ -156,8 +156,8 @@ func is_busy() -> bool:
 
 
 func _on_PlayerDetector_body_entered(body: Node2D) -> void:
-	if body is Player and body.can_pick_up_weapons():
-		body.weapons.pick_up_weapon(self)
+	if body is Player and (body as Player).can_pick_up_weapons():
+		(body as Player).weapons.pick_up_weapon(self)
 		_pick_up()
 	else:
 		if tween:
@@ -224,9 +224,9 @@ func add_status_inflicter(_status: StatusComponent.Status, _amount: int = 1) -> 
 
 func add_weapon_modifier(item: WeaponModifier) -> void:
 	if item is StatusWeaponModifier:
-		for modifier in stats.modifiers:
+		for modifier: WeaponModifier in stats.modifiers:
 			if modifier is StatusWeaponModifier:
-				if item.get_script().get_path() == modifier.get_script().get_path():
+				if (item.get_script() as Script).get_path() == (modifier.get_script() as Script).get_path():
 					#assert(modifier is StatusWeaponModifier)
 					modifier.amount += 1
 					return

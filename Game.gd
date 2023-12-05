@@ -30,6 +30,8 @@ func _ready() -> void:
 	else:
 		set_process_input(false)
 
+	rooms.generation_completed.connect(_on_rooms_generation_completed)
+
 	if debug:
 		camera.zoom = Vector2(0.2, 0.2)
 
@@ -40,7 +42,6 @@ func _ready() -> void:
 
 	if execute_procedural_generation_on_thread:
 		rooms.generation_completed.connect(func() -> void:
-			#generation_thread.wait_to_finish()
 			generation_thread.wait_to_finish()
 			generation_thread = null
 #			generating_dungeon_canvas_layer.hide()
@@ -51,8 +52,8 @@ func _ready() -> void:
 		rooms.spawn_rooms()
 #		generating_dungeon_canvas_layer.hide()
 
-	await rooms.generation_completed
 
+func _on_rooms_generation_completed() -> void:
 	generating_dungeon_canvas_layer.hide()
 
 	if not SavedData.get_biome_conf().music.is_empty():
@@ -64,14 +65,8 @@ func _ready() -> void:
 	camera.enabled = false
 	var player: Player = PLAYER_SCENE.instantiate()
 	player.position = rooms.start_room.teleport_position.global_position
-#	player.hp_changed.connect(ui._on_Player_hp_changed)
-#	player.weapon_condition_changed.connect(ui._on_player_weapon_condition_changed)
-#	player.weapon_droped.connect(ui._on_Player_weapon_droped)
-#	player.weapon_picked_up.connect(ui._on_Player_weapon_picked_up)
-#	player.weapon_switched.connect(ui._on_Player_weapon_switched)
-	add_child(player)
-	# ui.initialize(player)
 
+	add_child(player)
 	player_added.emit()
 
 

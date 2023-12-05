@@ -14,7 +14,7 @@ func _ready() -> void:
 
 	set_process_input(false)
 
-	for splash_screen in _splash_screen_container.get_children():
+	for splash_screen: SplashScreen in _splash_screen_container.get_children():
 		splash_screen.hide()
 		_splash_screens.push_back(splash_screen)
 
