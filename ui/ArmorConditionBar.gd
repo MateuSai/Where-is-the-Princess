@@ -4,7 +4,7 @@ const ARMOR_SHINE_EFFECT: PackedScene = preload("res://ui/ArmorAbilityShineEffec
 
 const START_AT_VALUE: int = 29
 
-var tween: Tween
+var armor_condition_tween: Tween
 var armor_ability_tween: Tween
 
 var current_armor: Armor
@@ -19,8 +19,13 @@ func _ready() -> void:
 
 
 func _update_armor_condition(new_condition: int) -> void:
-	tween = create_tween()
-	tween.tween_property(self, "value", START_AT_VALUE + (new_condition/float(current_armor.max_condition)) * (100 - START_AT_VALUE), 1)
+	if is_instance_valid(armor_condition_tween) and armor_condition_tween.is_running():
+		armor_condition_tween.kill()
+		armor_condition_tween = null
+	armor_condition_tween = create_tween()
+	#print(str(START_AT_VALUE + (new_condition/float(current_armor.max_condition))))
+	#print(str(START_AT_VALUE + (new_condition/float(current_armor.max_condition)) * (100 - START_AT_VALUE)))
+	armor_condition_tween.tween_property(self, "value", START_AT_VALUE + (new_condition/float(current_armor.max_condition)) * (100 - START_AT_VALUE), 1)
 
 
 func _on_armor_changed(new_armor: Armor) -> void:
@@ -39,8 +44,11 @@ func _on_armor_changed(new_armor: Armor) -> void:
 	armor_ability_bar.texture_under = new_armor.ability_icon
 	armor_ability_bar.texture_progress = new_armor.ability_icon
 	armor_ability_bar.value = 100
-	new_armor.condition_changed.connect(_on_armor_condition_changed)
-	_update_armor_condition(new_armor.condition)
+	if new_armor is NoArmor:
+		value = 0
+	else:
+		new_armor.condition_changed.connect(_on_armor_condition_changed)
+		_update_armor_condition(new_armor.condition)
 	new_armor.ability_used.connect(_on_armor_ability_used)
 	new_armor.ability_effect_ended.connect(_on_armor_ability_effect_ended)
 
