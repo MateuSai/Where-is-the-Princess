@@ -5,11 +5,11 @@ extends OptionButtonWithSound
 func _ready() -> void:
 	super()
 
-	for locale in TranslationServer.get_loaded_locales():
+	for locale: String in TranslationServer.get_loaded_locales():
 		add_item(locale)
 
 	select(TranslationServer.get_loaded_locales().find(TranslationServer.get_locale()))
 
-	item_selected.connect(func(index: int):
+	item_selected.connect(func(index: int) -> void:
 		TranslationServer.set_locale(get_item_text(index))
 	)

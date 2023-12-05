@@ -13,7 +13,7 @@ func _init() -> void:
 func _ready() -> void:
 	assert(bus)
 
-	value = db_to_linear(owner.settings.get_value("Audio", bus.to_lower() + "_volume", 0))
+	value = db_to_linear(Settings.settings.get_value(Settings.AUDIO_SECTION, bus.to_lower() + "_volume", 0) as float)
 
 	# value = owner.settings[bus.to_lower() + "_volume"]
 

@@ -19,6 +19,7 @@ var fog_sprite: Sprite2D
 #var fog_image: Image
 
 @onready var rooms: Rooms = $"../../Rooms"
+@onready var real_fog_sprite: Sprite2D = $"../../FogSprite"
 @onready var scroll_container: ScrollContainer = $MinimapScrollContainer
 @onready var container: MarginContainer = $MinimapScrollContainer/PanelContainer/MarginContainer
 @onready var map_name_label: Label = $MinimapScrollContainer/PanelContainer/MapNameLabel
@@ -76,7 +77,7 @@ func set_up() -> void:
 	fog_sprite.position.y += -TOP_MARGIN
 	#fog_sprite.scale /= content_scale_factor
 	map_rect = Rect2(0, 0, 0, 0)
-	for room in rooms.rooms:
+	for room: DungeonRoom in rooms.rooms:
 		var room_rect: Rect2 = room.get_rect()
 		room_rect.position /= 4
 		room_rect.size /= 4
@@ -108,7 +109,7 @@ func set_up() -> void:
 
 	#await owner.player_added
 
-	visibility_changed.connect(func():
+	visibility_changed.connect(func() -> void:
 		if visible:
 			_on_draw()
 		else:
@@ -120,7 +121,7 @@ func _on_draw() -> void:
 	_update_fog()
 	update_fog_timer.start()
 
-	for i in rooms_items_ui.size():
+	for i: int in rooms_items_ui.size():
 		var items_ui: ItemsUI = rooms_items_ui[i]
 		if items_ui != null:
 			items_ui.update_items(rooms.rooms[i].get_items())
@@ -135,8 +136,8 @@ func _update_fog() -> void:
 	if not is_instance_valid(Globals.player):
 		return
 
-	if $"../../FogSprite".texture:
-		var world_fog_image: Image = $"../../FogSprite".texture.get_image()
+	if real_fog_sprite.texture:
+		var world_fog_image: Image = real_fog_sprite.texture.get_image()
 		world_fog_image = world_fog_image.get_region(Rect2(Vector2i.ONE * rooms.FOG_PADDING, world_fog_image.get_size() - Vector2i.ONE * rooms.FOG_PADDING * 2))
 		#world_fog_image.crop(world_fog_image.get_width() - rooms.FOG_PADDING * 2, world_fog_image.get_height() - rooms.FOG_PADDING * 2)
 		world_fog_image.shrink_x2()
@@ -155,15 +156,15 @@ func _input(event: InputEvent) -> void:
 
 	if room_selected != null:
 		if event is InputEventMouseButton:
-			if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
-				Globals.player.position = room_selected.position + room_selected.get_node("TeleportPosition").position
+			if event.is_pressed() and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
+				Globals.player.position = room_selected.position + (room_selected.get_node("TeleportPosition") as Marker2D).position
 				hide()
 
 
 
 func _process(_delta: float) -> void:
 	if room_selected == null:
-		for i in room_tilemaps.size():
+		for i: int in room_tilemaps.size():
 			if room_tilemaps[i] == null or not rooms.rooms[i] in rooms.visited_rooms:
 				continue
 			var room_tilemap: TileMap = room_tilemaps[i]
@@ -196,7 +197,7 @@ func _discover_room(room: DungeonRoom) -> void:
 	var world_room_tilemap: TileMap = room.tilemap
 	var minimap_room_tilemap: TileMap = TileMap.new()
 
-	for layer_i in world_room_tilemap.get_layers_count():
+	for layer_i: int in world_room_tilemap.get_layers_count():
 		minimap_room_tilemap.add_layer(layer_i)
 		minimap_room_tilemap.set_layer_z_index(layer_i, world_room_tilemap.get_layer_z_index(layer_i) + 2)
 
@@ -220,8 +221,8 @@ func _discover_room(room: DungeonRoom) -> void:
 
 
 func _copy_tiles(from: TileMap, to: TileMap) -> void:
-	for layer in from.get_layers_count():
-		for cell in from.get_used_cells(layer):
+	for layer: int in from.get_layers_count():
+		for cell: Vector2i in from.get_used_cells(layer):
 			to.set_cell(layer, cell, 0, from.get_cell_atlas_coords(layer, cell))
 
 
@@ -242,14 +243,14 @@ class ItemsUI extends MarginContainer:
 		add_child(hflow)
 
 	func update_items(items: Array[ItemOnFloor]) -> void:
-		for i in range(hflow.get_child_count() - 1, -1, -1):
+		for i: int in range(hflow.get_child_count() - 1, -1, -1):
 			hflow.get_child(i).free()
 #		for child in get_children():
 #			child.queue_free()
 
 #		await get_tree().process_frame
 
-		for item in items:
+		for item: ItemOnFloor in items:
 			var icon: TextureRect = TextureRect.new()
 			icon.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
 			icon.size_flags_vertical = Control.SIZE_EXPAND_FILL

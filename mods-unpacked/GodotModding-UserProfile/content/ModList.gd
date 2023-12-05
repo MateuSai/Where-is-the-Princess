@@ -1,4 +1,4 @@
-extends MarginContainer
+class_name ModList extends MarginContainer
 
 
 signal mod_is_active_changed(mod_id: String, is_active: bool)

@@ -42,7 +42,7 @@ var acid_progress: float = 0.0: set = set_acid_progress ## Value between 0 and 1
 ## The name of the scene file (after removing .tscn)
 @onready var id: String = scene_file_path.get_file().trim_suffix(".tscn").to_snake_case()
 
-@onready var state_machine: Node = get_node("FiniteStateMachine")
+@onready var state_machine: FiniteStateMachine = get_node("FiniteStateMachine")
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var sprite: Sprite2D = get_node("Sprite2D")
 @onready var collision_shape: CollisionShape2D = get_node("CollisionShape2D")
@@ -72,8 +72,10 @@ func _load_csv_data(data: Dictionary) -> void:
 	mass = data.mass
 	acceleration = data.acceleration
 	max_speed = data.max_speed
-	flying = bool(data.flying)
-	can_be_knocked_back = bool(data.can_be_knocked_back)
+	var flying_int: int = data.flying
+	flying = bool(flying_int)
+	var can_be_knocked_back_int: int = data.can_be_knocked_back
+	can_be_knocked_back = bool(can_be_knocked_back_int)
 	@warning_ignore("int_as_enum_without_cast")
 	life_component.body_type = life_component.BodyType.keys().find(data.body_type)
 	initial_resistances = data.resistances
@@ -99,7 +101,8 @@ func move() -> void:
 
 
 func add_status_condition(status: StatusComponent.Status) -> void:
-	var status_component: StatusComponent = get_node_or_null(StatusComponent.Status.keys()[status])
+	var status_key: String = StatusComponent.Status.keys()[status]
+	var status_component: StatusComponent = get_node_or_null(status_key)
 	if status_component == null:
 		status_component = [FireStatusComponent.new(), IceStatusComponent.new(), LightningStatusComponent.new()][status]
 		add_child(status_component)
@@ -119,6 +122,8 @@ func _on_damage_taken(_dam: int, dir: Vector2, force: int) -> void:
 	if can_be_knocked_back:
 		velocity += dir * force / (mass / 3)
 	if life_component.hp == 0:
+		assert(state_machine.get("DEAD"))
+		@warning_ignore("unsafe_property_access", "unsafe_call_argument")
 		state_machine.set_state(state_machine.DEAD)
 		if can_be_knocked_back:
 			velocity += dir * force / (mass / 3)
@@ -139,7 +144,7 @@ func _on_died() -> void:
 
 
 func spawn_dust() -> void:
-	for dust_position in dust_positions.get_children():
+	for dust_position: Marker2D in dust_positions.get_children():
 		var dust: Sprite2D = DUST_SCENE.instantiate()
 		dust.position = dust_position.position + position
 		get_parent().get_child(get_index() - 1).add_sibling(dust)

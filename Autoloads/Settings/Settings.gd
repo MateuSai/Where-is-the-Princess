@@ -58,7 +58,7 @@ func _ready() -> void:
 #		for event in InputMap.action_get_events(action):
 #			print(action + ": " + str(event))
 
-	get_tree().root.size_changed.connect(func():
+	get_tree().root.size_changed.connect(func() -> void:
 		if visible:
 #			var screen_size: Vector2 = get_tree().get_root().size
 #			var set_width: float = ProjectSettings.get("display/window/size/viewport_width")
@@ -82,28 +82,28 @@ func _save_settings() -> void:
 	settings.set_value(GENERAL_SECTION, "vsync_mode", DisplayServer.window_get_vsync_mode())
 	settings.set_value(GENERAL_SECTION, "fps", Engine.max_fps)
 
-	for action in MAPPEABLE_ACTIONS:
+	for action: String in MAPPEABLE_ACTIONS:
 		var saved_keys: Dictionary = {}
-		for event in InputMap.action_get_events(action):
+		for event: InputEvent in InputMap.action_get_events(action):
 			if event is InputEventKey:
 				saved_keys["keyboard_and_mouse"] = {
 					type = "key",
-					keycode = OS.get_keycode_string(event.keycode)
+					keycode = OS.get_keycode_string((event as InputEventKey).keycode)
 				}
 			elif event is InputEventMouseButton:
 				saved_keys["keyboard_and_mouse"] = {
 					type = "mouse_button",
-					button_index = event.button_index
+					button_index = (event as InputEventMouseButton).button_index
 				}
 			elif event is InputEventJoypadButton:
 				saved_keys["controller"] = {
 					type = "button",
-					button_index = event.button_index
+					button_index = (event as InputEventJoypadButton).button_index
 				}
 			elif event is InputEventJoypadMotion:
 				saved_keys["controller"] = {
 					type = "motion",
-					axis = event.axis
+					axis = (event as InputEventJoypadMotion).axis
 				}
 			else:
 				push_warning("Unhandled case!!")
@@ -131,20 +131,20 @@ func _load_settings() -> void:
 			TranslationServer.set_locale("ca")
 		else:
 			TranslationServer.set_locale("en")
-	DisplayServer.window_set_mode(settings.get_value(GENERAL_SECTION, "window_mode", DisplayServer.WINDOW_MODE_WINDOWED))
+	DisplayServer.window_set_mode(settings.get_value(GENERAL_SECTION, "window_mode", DisplayServer.WINDOW_MODE_WINDOWED) as DisplayServer.WindowMode)
 	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED:
-		var saved_window_size: Vector2 = settings.get_value(GENERAL_SECTION, "window_size", Vector2(ProjectSettings.get_setting("display/window/size/window_width_override"), ProjectSettings.get_setting("display/window/size/window_height_override")))
+		var saved_window_size: Vector2 = settings.get_value(GENERAL_SECTION, "window_size", Vector2(ProjectSettings.get_setting("display/window/size/window_width_override") as float, ProjectSettings.get_setting("display/window/size/window_height_override") as float))
 		DisplayServer.window_set_size(saved_window_size)
-	DisplayServer.window_set_vsync_mode(settings.get_value(GENERAL_SECTION, "vsync_mode", DisplayServer.VSYNC_ADAPTIVE))
+	DisplayServer.window_set_vsync_mode(settings.get_value(GENERAL_SECTION, "vsync_mode", DisplayServer.VSYNC_ADAPTIVE) as DisplayServer.VSyncMode)
 	Engine.max_fps = settings.get_value(GENERAL_SECTION, "fps", 60)
 
-	for action in MAPPEABLE_ACTIONS:
+	for action: String in MAPPEABLE_ACTIONS:
 		var saved_keys: Dictionary = settings.get_value(INPUT_SECTION, action, {})
 		if not saved_keys.is_empty():
 			InputMap.erase_action(action)
 			InputMap.add_action(action)
 			if saved_keys["keyboard_and_mouse"].type == "key":
-				var event: InputEvent = InputEventKey.new()
+				var event: InputEventKey = InputEventKey.new()
 				event.keycode = OS.find_keycode_from_string(saved_keys["keyboard_and_mouse"].keycode)
 				InputMap.action_add_event(action, event)
 			elif saved_keys["keyboard_and_mouse"].type == "mouse_button":
@@ -164,9 +164,9 @@ func _load_settings() -> void:
 			else:
 				push_warning("Unhandled case!!")
 
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), settings.get_value(AUDIO_SECTION, "master_volume", 0))
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), settings.get_value(AUDIO_SECTION, "music_volume", 0))
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sounds"), settings.get_value(AUDIO_SECTION, "sounds_volume", 0))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), settings.get_value(AUDIO_SECTION, "master_volume", 0) as float)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), settings.get_value(AUDIO_SECTION, "music_volume", 0) as float)
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sounds"), settings.get_value(AUDIO_SECTION, "sounds_volume", 0) as float)
 
 
 func set_auto_aim(new_value: bool) -> void:

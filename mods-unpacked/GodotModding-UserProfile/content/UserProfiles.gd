@@ -4,14 +4,14 @@ class_name UserProfilesPopup
 
 @export var user_profile_section: PackedScene
 #@export var text_select_profile := "Select Profile"
-const TEXT_RESTART := "A_GAME_RESTART_IS_REQUIRED_TO_APPLY_THE_SETTINGS"
-const TEXT_PROFILE_CREATE_ERROR := "TEXT_PROFILE_CREATE_ERROR"
-const TEXT_PROFILE_SELECT_ERROR := "TEXT_PROFILE_SELECT_ERROR"
-const TEXT_PROFILE_DELETE_ERROR := "TEXT_PROFILE_DELETE_ERROR"
-const TEXT_MOD_ENABLE_ERROR := "TEXT_MOD_ENABLE_ERROR"
-const TEXT_MOD_DISABLE_ERROR := "TEXT_MOD_DISABLE_ERROR"
-const TEXT_MOD_CURRENT_CONFIG_CHANGE_ERROR := "TEXT_MOD_CURRENT_CONFIG_CHANGE_ERROR"
-const TEXT_CURRENT_PROFILE := "TEXT_CURRENT_PROFILE"
+const TEXT_RESTART: String = "A_GAME_RESTART_IS_REQUIRED_TO_APPLY_THE_SETTINGS"
+const TEXT_PROFILE_CREATE_ERROR: String = "TEXT_PROFILE_CREATE_ERROR"
+const TEXT_PROFILE_SELECT_ERROR: String = "TEXT_PROFILE_SELECT_ERROR"
+const TEXT_PROFILE_DELETE_ERROR: String = "TEXT_PROFILE_DELETE_ERROR"
+const TEXT_MOD_ENABLE_ERROR: String = "TEXT_MOD_ENABLE_ERROR"
+const TEXT_MOD_DISABLE_ERROR: String = "TEXT_MOD_DISABLE_ERROR"
+const TEXT_MOD_CURRENT_CONFIG_CHANGE_ERROR: String = "TEXT_MOD_CURRENT_CONFIG_CHANGE_ERROR"
+const TEXT_CURRENT_PROFILE: String = "TEXT_CURRENT_PROFILE"
 
 # I can't put a material on the PopupPanel, so I'm using the material of his panel.
 # It seems it always have the same name, you can check it on the remote tab
@@ -78,8 +78,8 @@ func _populate_profile_select() -> void:
 
 	profile_select.clear()
 
-	for user_profile in ModLoaderUserProfile.get_all_as_array():
-		var is_current_profile := true if ModLoaderUserProfile.get_current().name == user_profile.name else false
+	for user_profile: ModUserProfile in ModLoaderUserProfile.get_all_as_array():
+		var is_current_profile: bool = true if ModLoaderUserProfile.get_current().name == user_profile.name else false
 		profile_select.add_item(tr(TEXT_CURRENT_PROFILE) % user_profile.name if is_current_profile else user_profile.name)
 
 		# Get the item index of the current profile
@@ -91,7 +91,7 @@ func _populate_profile_select() -> void:
 
 
 func _generate_user_profile_section() -> void:
-	for section in user_profile_sections.get_children():
+	for section: ModList in user_profile_sections.get_children():
 		section.clear_grid()
 		section.generate_grid(ModLoaderUserProfile.get_current())
 
@@ -100,8 +100,8 @@ func _on_ButtonNewProfile_pressed() -> void:
 	popup_new_profile.popup_centered()
 
 
-func _on_ButtonDeleteProfile_pressed():
-	var profile_to_delete := ModLoaderStore.current_user_profile
+func _on_ButtonDeleteProfile_pressed() -> void:
+	var profile_to_delete: ModUserProfile = ModLoaderStore.current_user_profile
 	# Switch to default profile
 	if not ModLoaderUserProfile.set_profile(ModLoaderUserProfile.get_profile("default")):
 		_set_info_text(TEXT_PROFILE_SELECT_ERROR)
@@ -130,7 +130,7 @@ func _on_ButtonProfileNameSubmit_pressed() -> void:
 
 
 func _on_ProfileSelect_item_selected(index: int) -> void:
-	var user_profile := ModLoaderUserProfile.get_profile(profile_select.get_item_text(index))
+	var user_profile: ModUserProfile = ModLoaderUserProfile.get_profile(profile_select.get_item_text(index))
 	if not ModLoaderUserProfile.set_profile(user_profile):
 		_set_info_text(TEXT_PROFILE_SELECT_ERROR)
 		return
@@ -153,8 +153,8 @@ func _on_ModList_mod_is_active_changed(mod_id: String, is_active: bool)  -> void
 	_set_info_text(TEXT_RESTART)
 
 
-func _on_ModList_mod_current_config_changed(mod_id: String, current_config_name: String):
-	var config := ModLoaderConfig.get_config(mod_id, current_config_name)
+func _on_ModList_mod_current_config_changed(mod_id: String, current_config_name: String) -> void:
+	var config: ModConfig= ModLoaderConfig.get_config(mod_id, current_config_name)
 
 	if not config:
 		_set_info_text(TEXT_MOD_CURRENT_CONFIG_CHANGE_ERROR)

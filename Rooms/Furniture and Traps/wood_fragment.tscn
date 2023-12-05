@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bt5pqsktalfbb"]
+
+[ext_resource type="Script" path="res://Rooms/Furniture and Traps/wood_fragment.gd" id="1_j2dps"]
+
+[node name="WoodFragment" type="Sprite2D"]
+z_index = -1
+script = ExtResource("1_j2dps")
