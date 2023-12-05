@@ -10,17 +10,17 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	get_viewport().gui_focus_changed.connect(func(new_control_with_focus: Control):
+	get_viewport().gui_focus_changed.connect(func(new_control_with_focus: Control) -> void:
 		if new_control_with_focus:
 			control_with_focus = new_control_with_focus
 	)
 
-	owner_control.draw.connect(func():
+	owner_control.draw.connect(func() -> void:
 		if Globals.mode == Globals.Mode.CONTROLLER:
 			_focus_first_control()
 	)
 
-	Globals.mode_changed.connect(func(new_mode: Globals.Mode):
+	Globals.mode_changed.connect(func(new_mode: Globals.Mode) -> void:
 		if new_mode == Globals.Mode.CONTROLLER:
 			_focus_first_control()
 		else:
@@ -37,9 +37,10 @@ func _focus_first_control() -> void:
 	else:
 		push_error("There is no control that can grab push")
 
-func _check_children(control: Control) -> Control:
-	for child_control in control.get_children():
-		if child_control is Control and child_control.focus_mode == Control.FOCUS_ALL:
+
+func _check_children(control: Node) -> Control:
+	for child_control: Node in control.get_children():
+		if child_control is Control and (child_control as Control).focus_mode == Control.FOCUS_ALL:
 			return child_control
 		else:
 			var focusable_child_of_child: Control = _check_children(child_control)

@@ -8,7 +8,7 @@ var change_to_inflict_status_effect: int = 50
 func _ready() -> void:
 	#await owner.ready
 	var hitbox: Hitbox = get_parent().hitbox
-	hitbox.collided_with_something.connect(func(body: Node2D):
+	hitbox.collided_with_something.connect(func(body: Node2D) -> void:
 		if body is Character:
 			if randi() % 100 < change_to_inflict_status_effect:
 				body.add_status_condition(status)

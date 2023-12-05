@@ -7,26 +7,7 @@ const USER_FOLDER: String = "user://"
 #const MODS_CONF_FILE_NAME: String = "mods_conf.json"
 const DATA_SAVE_NAME: String = "data.json"
 
-var data: Dictionary = {
-	"dark_souls": 0,
-
-	"kills": {},
-
-	"ignored_rooms": PackedStringArray([]),
-
-	"discovered_weapons": PackedStringArray(["res://Weapons/Melee/Katana/Katana.tscn", "res://Weapons/Melee/Spear.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/KombatHammer/KombatHammer.tscn", "res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/Scimitar/Scimitar.tscn", "res://Weapons/Melee/SharpAxe/SharpAxe.tscn", "res://Weapons/Melee/SmallAxe/SmallAxe.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn", "res://Weapons/Melee/WarHammer/WarHammer.tscn", "res://Weapons/Melee/WarriorSword/WarriorSword.tscn", "res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn"]),
-	#"undiscovered_weapons": PackedStringArray(["res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn"]),
-
-	"equipped_armor": "res://Armors/NoArmor.gd",
-	"discovered_armors": PackedStringArray(["res://Armors/CommonerClothes.gd", "res://Armors/LeatherArmor.gd", "res://Armors/MercenaryArmor.gd", "res://Armors/WarriorArmor.gd", "res://Armors/NecromancerArmor.gd", "res://Armors/improvised_armor.gd", "res://Armors/farmer_clothes.gd"]),
-
-	"discovered_permanent_items": PackedStringArray(["res://items/Passive/Permanent/StrongThrow.gd", "res://items/Passive/Permanent/ToughSkin.gd", "res://items/Passive/Permanent/EnhancedBoots.gd", "res://items/Passive/Permanent/meteor_stone.gd", "res://items/Passive/Permanent/SoulAmulet.gd", "res://items/Passive/Permanent/runes/AxeRune.gd", "res://items/Passive/Permanent/runes/HammerRune.gd", "res://items/Passive/Permanent/runes/MeleeRune.gd", "res://items/Passive/Permanent/runes/SpearRune.gd", "res://items/Passive/Permanent/runes/SwordRune.gd"]),
-#	"undiscovered_permanent_items": PackedStringArray(["res://items/Passive/Permanent/EnhancedBoots.gd"]),
-	"discovered_temporal_items": PackedStringArray(["res://items/Passive/Temporal/magic_shield.gd", "res://items/Passive/Temporal/reinforced_magic_shield.gd", "res://items/Passive/Temporal/MagicSword.gd"]),
-#	"undiscovered_temporal_items": PackedStringArray(["res://items/Passive/Temporal/MagicSword.gd"]),
-
-	"shop_unlocked": false,
-}
+var data: Data
 
 var volatile_room_paths: Dictionary = {}
 
@@ -39,7 +20,7 @@ var run_stats: RunStats = RunStats.new()
 
 #var mods: Array[Mod] = []
 
-var biome_conf: Dictionary
+var biome_conf: BiomeConf
 
 signal dark_souls_changed(new_value: int)
 
@@ -88,7 +69,7 @@ func save_data() -> void:
 	if not file:
 		printerr("Error opening " + USER_FOLDER + DATA_SAVE_NAME + " for writing!! I can't save your data, bro")
 		return
-	file.store_string(JSON.stringify(data, "\t"))
+	file.store_string(JSON.stringify(data.to_dic(), "\t"))
 	file.close()
 	#print(JSON.new().stringify(data, "\t"))
 
@@ -99,9 +80,14 @@ func _load_data() -> void:
 		print("Save data found. Loading it...")
 		var json: JSON = JSON.new()
 		json.parse(file.get_as_text())
-		data.merge(json.data, true)
+		if json.data is Dictionary:
+			data = Data.from_dic(json.data as Dictionary)
+		else:
+			printerr("Could not load file data as json, using default values...")
+			data = Data.new()
 	else:
 		print("No save data found, using default value...")
+		data = Data.new()
 
 
 #func save_mods_conf() -> void:
@@ -148,32 +134,30 @@ func set_dark_souls(new_value: int) -> void:
 
 
 func add_kill(enemy_id: StringName) -> void:
-	if not data.has("kills"):
-		data["kills"] = {}
-	if not data["kills"].has(enemy_id):
-		data["kills"][enemy_id] = 0
+	if not data.kills.has(enemy_id):
+		data.kills[enemy_id] = 0
 
-	data["kills"][enemy_id] += 1
+	data.kills[enemy_id] += 1
 
 	save_data()
 
 
-func get_biome_conf() -> Dictionary:
+func get_biome_conf() -> BiomeConf:
 	return biome_conf
 
 
 func get_overwrite_spawn_shape() -> Rooms.SpawnShape:
-	if biome_conf.has("levels") and biome_conf.levels.has(str(SavedData.run_stats.level)) and biome_conf["levels"][str(SavedData.run_stats.level)].has("spawn_shape_type"):
-		match biome_conf["levels"][str(SavedData.run_stats.level)]["spawn_shape_type"].to_lower():
+	if biome_conf.levels.has(str(SavedData.run_stats.level)) and biome_conf.levels[str(SavedData.run_stats.level)].has("spawn_shape_type"):
+		match biome_conf.levels[str(SavedData.run_stats.level)]["spawn_shape_type"].to_lower():
 			"circle":
-				if biome_conf["levels"][str(SavedData.run_stats.level)].has("spawn_shape_radius"):
+				if biome_conf.levels[str(SavedData.run_stats.level)].has("spawn_shape_radius"):
 					var radius: float = biome_conf["levels"][str(SavedData.run_stats.level)]["spawn_shape_radius"]
 					return Rooms.CircleSpawnShape.new(radius)
 				else:
 					printerr("Error overwritting spawn shape, you must specify a radius using the key spawn_shape_radius")
 			"rectangle":
-				if biome_conf["levels"][str(SavedData.run_stats.level)].has("spawn_shape_width") and biome_conf["levels"][str(SavedData.run_stats.level)].has("spawn_shape_height"):
-					return Rooms.RectangleSpawnShape.new(Vector2(biome_conf["levels"][str(SavedData.run_stats.level)]["spawn_shape_width"], biome_conf["levels"][str(SavedData.run_stats.level)]["spawn_shape_height"]))
+				if biome_conf.levels[str(SavedData.run_stats.level)].has("spawn_shape_width") and biome_conf["levels"][str(SavedData.run_stats.level)].has("spawn_shape_height"):
+					return Rooms.RectangleSpawnShape.new(Vector2(biome_conf.levels[str(SavedData.run_stats.level)]["spawn_shape_width"], biome_conf.levels[str(SavedData.run_stats.level)]["spawn_shape_height"]))
 				else:
 					printerr("Error overwritting spawn shape, you must specify a width and height using the keys spawn_shape_width and spawn_shape_height")
 
@@ -181,28 +165,28 @@ func get_overwrite_spawn_shape() -> Rooms.SpawnShape:
 
 
 func get_vertical_corridor_symmetric_lights() -> bool:
-	if biome_conf.has("vertical_corridor_symmetric_lights"):
+	if biome_conf.vertical_corridor_symmetric_lights:
 		return biome_conf.vertical_corridor_symmetric_lights
 	else:
 		return false
 
 
 func get_disable_horizontal_separation_steering() -> bool:
-	if biome_conf.has("levels") and biome_conf.levels.has(str(SavedData.run_stats.level)) and biome_conf["levels"][str(SavedData.run_stats.level)].has("disable_horizontal_separation_steering"):
-		return biome_conf["levels"][str(SavedData.run_stats.level)]["disable_horizontal_separation_steering"]
+	if biome_conf.levels.has(str(SavedData.run_stats.level)) and biome_conf.levels[str(SavedData.run_stats.level)].has("disable_horizontal_separation_steering"):
+		return biome_conf.levels[str(SavedData.run_stats.level)]["disable_horizontal_separation_steering"]
 	return false
 
 
 func get_num_rooms(type: String) -> int:
-	if biome_conf.has("levels") and biome_conf.levels.has(str(SavedData.run_stats.level)) and biome_conf["levels"][str(SavedData.run_stats.level)].has("num_" + type + "_rooms"):
+	if biome_conf.levels.has(str(SavedData.run_stats.level)) and biome_conf["levels"][str(SavedData.run_stats.level)].has("num_" + type + "_rooms"):
 		return biome_conf.levels[str(SavedData.run_stats.level)]["num_" + type + "_rooms"]
 	else:
-		return biome_conf["default_num_" + type + "_rooms"]
+		return biome_conf.get("default_num_" + type + "_rooms")
 
 
 ## This function assumes all the paths you put on the overwrite conf array are correct. If you you put some room names that don't exist, the game will crash. Returns [""] if the paths are not being overwritten
 func get_overwrite_room_paths(type: String) -> PackedStringArray:
-	if biome_conf.has("levels") and biome_conf.levels.has(str(run_stats.level)) and biome_conf.levels[str(run_stats.level)].has("overwrite_" + type + "_rooms"):
+	if biome_conf.levels.has(str(run_stats.level)) and biome_conf.levels[str(run_stats.level)].has("overwrite_" + type + "_rooms"):
 		return biome_conf.levels[str(run_stats.level)]["overwrite_" + type + "_rooms"]
 		#print(room_paths)
 #		room_paths = room_paths.map(func(room_name: String) -> String:
@@ -216,7 +200,7 @@ func get_overwrite_room_paths(type: String) -> PackedStringArray:
 func get_overwrite_connections() -> Array[Array]:
 	var connections: Array = []
 
-	if biome_conf.has("levels") and biome_conf.levels.has(str(run_stats.level)) and biome_conf.levels[str(run_stats.level)].has("overwrite_connections"):
+	if biome_conf.levels.has(str(run_stats.level)) and biome_conf.levels[str(run_stats.level)].has("overwrite_connections"):
 		connections = biome_conf.levels[str(run_stats.level)]["overwrite_connections"]
 
 	var ret: Array[Array] = []
@@ -242,8 +226,14 @@ func change_biome(new_biome: String) -> void:
 func _change_biome_conf(biome: String) -> void:
 	var json: JSON = JSON.new()
 	if json.parse(FileAccess.open(BIOMES_FOLDER_PATH + biome + "/conf.json", FileAccess.READ).get_as_text()):
-		printerr("Error reading " + BIOMES_FOLDER_PATH + biome + "/conf.json" + "!")
-	biome_conf = json.data
+		printerr("Error reading " + BIOMES_FOLDER_PATH + biome + "/conf.json" + "! Loading default biome conf...")
+		biome_conf = BiomeConf.new()
+	else:
+		if json.data is Dictionary:
+			biome_conf = BiomeConf.from_dic(json.data as Dictionary)
+		else:
+			printerr("Could not load file biome data as json, using default values...")
+			biome_conf = BiomeConf.new()
 
 
 ## room_type must be "combat", "end", "special" and "start"
@@ -320,7 +310,7 @@ func get_random_discovered_armor_path() -> String:
 
 
 ## Adds an armor only for this session. Use this for mods to load the armor each time the mod loads. The new armors will appear at the wardrobe on the basecamp and it may appear inside the game on the events where a random armor is choosen (like the shop)
-func add_volatile_armor(armor_path) -> void:
+func add_volatile_armor(armor_path: String) -> void:
 	if volatile_armor_paths.has(armor_path):
 		return
 
@@ -343,7 +333,7 @@ func discover_temporal_item(item_path: String) -> void:
 
 
 ## Adds a temporal item only for this session. Use this for mods to load the item each time the mod loads.
-func add_volatile_temporal_item(item_path) -> void:
+func add_volatile_temporal_item(item_path: String) -> void:
 	if volatile_temporal_item_paths.has(item_path):
 		return
 
@@ -372,7 +362,7 @@ func discover_permanent_item(item_path: String) -> void:
 
 
 ## Adds a permanent item only for this session. Use this for mods to load the item each time the mod loads.
-func add_volatile_permanent_item(item_path) -> void:
+func add_volatile_permanent_item(item_path: String) -> void:
 	if volatile_permanent_item_paths.has(item_path):
 		return
 
@@ -394,8 +384,8 @@ func get_discovered_permanent_item_paths() -> PackedStringArray:
 func get_random_discovered_item_path(quality: Item.Quality = Item.Quality.COMMON) -> String:
 	var possible_results: Array[String] = []
 
-	for item_path_array in [get_discovered_temporal_item_paths(), get_discovered_permanent_item_paths()]:
-		for item_path in item_path_array:
+	for item_path_array: PackedStringArray in [get_discovered_temporal_item_paths(), get_discovered_permanent_item_paths()]:
+		for item_path: String in item_path_array:
 			if load(item_path).new().get_quality() == quality:
 				possible_results.push_back(item_path)
 
@@ -426,7 +416,6 @@ class RunStats extends Resource:
 	@export var temporal_passive_items: Array[TemporalPassiveItem] = []
 
 
-
 class Data:
 	var dark_souls: int = 0
 
@@ -446,3 +435,69 @@ class Data:
 #	"undiscovered_temporal_items": PackedStringArray(["res://items/Passive/Temporal/MagicSword.gd"]),
 
 	var shop_unlocked: bool = false
+
+	static func from_dic(dic: Dictionary) -> Data:
+		var data: Data = Data.new()
+
+		for key: String in dic.keys():
+			if data.get(key) != null:
+				data.set(key, dic[key])
+			else:
+				printerr("Data: Invalid property: " + key)
+
+		return data
+
+	func to_dic() -> Dictionary:
+		var dic: Dictionary = {}
+
+		for property_dic: Dictionary in get_property_list():
+			assert(property_dic.name is String)
+			var property_name: StringName = property_dic.name
+			if property_name in ["RefCounted", "script", "Built-in script"]:
+				continue
+			dic[property_name] = get(property_name)
+
+		return dic
+
+
+class BiomeConf:
+	var corridor_atlas_id: int = 0
+	var room_atlas_id: int = 0
+	var extra_connections: float = 0.5
+	var minimap_texture: String = "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/triple tilemap forest_minimap_sepia.png"
+	var vertical_door_texture: String = "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/doors/forest_vertical_door_canvas_texture.tres"
+	var horizontal_down_door_texture: String = "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/doors/forest_horizontal_door_canvas_texture.tres"
+	var horizontal_up_door_texture: String = "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/doors/forest_horizontal_door_canvas_texture.tres"
+
+	var vertical_corridor_symmetric_lights: bool = false
+
+	var corridor_floor_tiles_coor: Array[Array] = []
+
+	var default_num_combat_rooms: int = 5
+	var default_num_special_rooms: int = 1
+	var levels: Dictionary = {}
+
+	var music: String = ""
+
+	static func from_dic(dic: Dictionary) -> BiomeConf:
+		var data: BiomeConf = BiomeConf.new()
+
+		for key: String in dic.keys():
+			if data.get(key) != null:
+				data.set(key, dic[key])
+			else:
+				printerr("BiomeConf: Invalid property: " + key)
+
+		return data
+
+	func to_dic() -> Dictionary:
+		var dic: Dictionary = {}
+
+		for property_dic: Dictionary in get_property_list():
+			assert(property_dic.name is StringName)
+			var property_name: StringName = property_dic.name
+			if property_name in ["RefCounted", "script", "Built-in script"]:
+				continue
+			dic[property_name] = get(property_name)
+
+		return dic

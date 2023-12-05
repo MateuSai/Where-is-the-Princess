@@ -116,10 +116,10 @@ enum Mode {
 	MOUSE,
 	CONTROLLER,
 }
-signal mode_changed(new_mode)
+signal mode_changed(new_mode: Mode)
 var controller_device: int
 var controller_type: String
-const CONTROLLER_TYPES = {
+const CONTROLLER_TYPES: Dictionary = {
 	PS = "ps",
 	XBOX = "xbox",
 }
@@ -134,7 +134,7 @@ func _ready() -> void:
 
 	var enemies_folder: DirAccess = DirAccess.open(ENEMIES_FOLDER_PATH)
 	assert(enemies_folder != null)
-	for enemy_folder in enemies_folder.get_directories():
+	for enemy_folder: String in enemies_folder.get_directories():
 		if not enemies_folder.file_exists(enemy_folder + "/" + enemy_folder + ".tscn"):
 			push_error(enemy_folder + "/" + enemy_folder + ".tscn" + " not found on " + ENEMIES_FOLDER_PATH)
 			continue
@@ -164,16 +164,18 @@ func _input(event: InputEvent) -> void:
 #		print(event.as_text())
 	if ((event is InputEventMouseMotion and (get_tree().current_scene.name == "Menu" or get_tree().paused)) or event is InputEventKey) and mode == Mode.CONTROLLER:
 		_change_to_mouse_mode()
-	elif ((event is InputEventJoypadMotion and abs(event.axis_value) > 0.15) or event is InputEventJoypadButton) and mode == Mode.MOUSE:
+	elif ((event is InputEventJoypadMotion and abs((event as InputEventJoypadMotion).axis_value) > 0.15) or event is InputEventJoypadButton) and mode == Mode.MOUSE:
 		_change_to_controller_mode(event.device)
 
 
 func get_enemy_paths(biome: String) -> Array[String]:
 	var enemy_paths: Array[String] = []
 
-	for enemy in ENEMIES.values():
-		if enemy.info.has("biomes"):
-			if enemy.info.biomes.has(biome):
+	for enemy: Dictionary in ENEMIES.values():
+		var enemy_info: Dictionary = enemy.info
+		if enemy_info.has("biomes"):
+			var enemy_biomes: Array = enemy_info.biomes
+			if enemy_biomes.has(biome):
 				enemy_paths.push_back(enemy.path)
 
 	return enemy_paths
@@ -208,7 +210,7 @@ func _change_to_controller_mode(device: int) -> void:
 
 
 func get_joypad_event_image_id(event: InputEvent) -> String:
-	return Globals.controller_type + "_joypad_button_" + str(event.button_index if event is InputEventJoypadButton else event.axis)
+	return Globals.controller_type + "_joypad_button_" + (str((event as InputEventJoypadButton).button_index) if event is InputEventJoypadButton else str((event as InputEventJoypadMotion).axis))
 
 
 func exit_level(biome: String = "") -> void:
@@ -225,14 +227,14 @@ func exit_level(biome: String = "") -> void:
 func add_weapon_damage_modifier_by_type(type: Weapon.Type, dam: int) -> void:
 	Weapon._add_damage_modifier_by_type(type, dam)
 	var weapons_of_this_type: Array[Node] = get_tree().get_nodes_in_group(Weapon.Type.keys()[type])
-	for weapon in weapons_of_this_type:
+	for weapon: Weapon in weapons_of_this_type:
 		weapon.damage += dam
 
 
 func remove_weapon_damage_modifier_by_type(type: Weapon.Type, dam: int) -> void:
 	Weapon._remove_damage_modifier_by_type(type, dam)
 	var weapons_of_this_type: Array[Node] = get_tree().get_nodes_in_group(Weapon.Type.keys()[type])
-	for weapon in weapons_of_this_type:
+	for weapon: Weapon in weapons_of_this_type:
 		weapon.damage -= dam
 
 

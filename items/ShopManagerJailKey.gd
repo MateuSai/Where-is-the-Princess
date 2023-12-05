@@ -1,4 +1,4 @@
-extends Area2D
+class_name JailKey extends Area2D
 
 
 var acc: Vector2 = Vector2.ZERO
@@ -30,8 +30,8 @@ func go_to_player() -> void:
 func _on_player_entered(_player: Player) -> void:
 	set_physics_process(false)
 	collision_shape.free()
-	$AudioStreamPlayer2D.play(0.73)
-	$AudioStreamPlayer2D.finished.connect(queue_free)
+	($AudioStreamPlayer2D as AudioStreamPlayer2D).play(0.73)
+	($AudioStreamPlayer2D as AudioStreamPlayer2D).finished.connect(queue_free)
 	var tween: Tween = create_tween().set_parallel(true)
 	tween.tween_property(self, "position", position + Vector2.UP * 8, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "modulate:a", 0.0, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)

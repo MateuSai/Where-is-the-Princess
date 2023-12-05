@@ -14,7 +14,7 @@ var say_something_timer: Timer
 func _ready() -> void:
 	say_something_timer = Timer.new()
 	say_something_timer.one_shot = true
-	say_something_timer.timeout.connect(func():
+	say_something_timer.timeout.connect(func() -> void:
 		if character.dialogue_box == null:
 			character.start_dialogue()
 			await character.dialogue_finished
@@ -22,13 +22,13 @@ func _ready() -> void:
 	)
 	add_child(say_something_timer)
 
-	room.cleared.connect(func():
+	room.cleared.connect(func() -> void:
 		room_cleared = true
 	)
 
 	character.dialogue_texts = dialogues_asking_for_help
 
-	room.player_entered.connect(func():
+	room.player_entered.connect(func() -> void:
 		say_something_timer.start(randf_range(3.0, 6.0))
 	)
 

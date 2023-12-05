@@ -3,7 +3,7 @@ class_name Item extends Resource
 #var icon: Texture
 #
 #
-##@warning_ignore("shadowed_variable")
+#@warning_ignore("shadowed_variable")
 #func _initialize(item_icon: Texture) -> void:
 #	icon = get_icon()
 #	#icon = item_icon
@@ -25,7 +25,7 @@ func pick_up(_player: Player) -> void:
 
 
 func get_icon() -> Texture:
-	push_error("You must override get_icon on " + get_script().get_path())
+	push_error("You must override get_icon on " + (get_script() as Script).get_path())
 	return null
 
 
@@ -34,18 +34,16 @@ func get_quality() -> Quality:
 
 
 func get_coin_cost() -> int:
-	#printerr("You should override get_coin_cost on " + get_script().get_path())
 	return 10
 
 
 func get_dark_soul_cost() -> int:
-	#printerr("You should override get_dark_soul_cost on " + get_script().get_path())
 	return 1
 
 
 func get_item_name() -> String:
-	return get_script().get_path().get_basename().get_file().to_snake_case().to_upper()
+	return (get_script() as Script).get_path().get_basename().get_file().to_snake_case().to_upper()
 
 
 func get_item_description() -> String:
-	return get_script().get_path().get_basename().get_file().to_snake_case().to_upper() + "_DESCRIPTION"
+	return (get_script() as Script).get_path().get_basename().get_file().to_snake_case().to_upper() + "_DESCRIPTION"

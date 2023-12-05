@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bphrmf6n5s7be"]
+
+[ext_resource type="Script" path="res://Rooms/Furniture and Traps/crate.gd" id="1_57qlx"]
+[ext_resource type="Texture2D" uid="uid://b6spbsun5dowr" path="res://Art/crate/crate-full_broken.png" id="1_srv81"]
+[ext_resource type="Script" path="res://Components/LifeComponent.gd" id="2_rjurv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v35wa"]
+size = Vector2(16, 10)
+
+[node name="Crate" type="StaticBody2D" groups=["flying_units_navigation_polygon_source_group", "navigation_polygon_source_group"]]
+collision_layer = 129
+collision_mask = 0
+script = ExtResource("1_57qlx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -4)
+texture = ExtResource("1_srv81")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_v35wa")
+
+[node name="LifeComponent" type="Node" parent="."]
+script = ExtResource("2_rjurv")
+body_type = 3
+hp = 4

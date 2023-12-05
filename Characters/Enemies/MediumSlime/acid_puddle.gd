@@ -24,7 +24,9 @@ func _ready() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	assert(body is Character)
 
-	if body.has_resistance(Character.Resistance.ACID):
+	var character: Character = body
+
+	if character.has_resistance(Character.Resistance.ACID):
 		return
 
 	var character_dic: Dictionary = _get_character_dic(body)
@@ -33,7 +35,7 @@ func _on_body_entered(body: Node2D) -> void:
 			object = body,
 			count = 1,
 		})
-		body.start_progressing_acid()
+		character.start_progressing_acid()
 	else:
 		character_dic.count += 1
 
@@ -41,7 +43,9 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_body_exited(body: Node2D) -> void:
 	assert(body is Character)
 
-	if body.has_resistance(Character.Resistance.ACID):
+	var character: Character = body
+
+	if character.has_resistance(Character.Resistance.ACID):
 		return
 
 	var character_dic: Dictionary = _get_character_dic(body)
@@ -50,11 +54,11 @@ func _on_body_exited(body: Node2D) -> void:
 		character_dic.count -= 1
 		if character_dic.count == 0:
 			characters_inside.erase(character_dic)
-			body.stop_progressing_acid()
+			character.stop_progressing_acid()
 
 
 func _get_character_dic(body: Node2D) -> Dictionary:
-	for dic in characters_inside:
+	for dic: Dictionary in characters_inside:
 		if dic.object == body:
 			return dic
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_21p28"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="2_rhjec"]
-[ext_resource type="PackedScene" uid="uid://cpgi3p64qtndv" path="res://Rooms/sewer_entrance.tscn" id="3_142rc"]
+[ext_resource type="PackedScene" uid="uid://cpgi3p64qtndv" path="res://Rooms/Furniture and Traps/sewer_entrance.tscn" id="3_142rc"]
 
 [node name="ForestToSewerEndRoom" instance=ExtResource("1_21p28")]
 

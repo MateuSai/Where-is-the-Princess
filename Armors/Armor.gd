@@ -54,12 +54,12 @@ func disable_ability_effect(_player: Player) -> void:
 
 ## By default will use the name of the script in this format FILE_NAME. Overwrite this function if you want a different name than the script name or you don't want to add translations
 func get_armor_name() -> String:
-	return get_script().get_path().get_basename().get_file().to_snake_case().to_upper()
+	return (get_script() as Script).get_path().get_basename().get_file().to_snake_case().to_upper()
 
 
 ## By default will use the name of the script in this format FILE_NAME_DESCRIPTION. Overwrite this function if you don't want to add translations
 func get_description() -> String:
-	return get_script().get_path().get_basename().get_file().to_snake_case().to_upper() + "_DESCRIPTION"
+	return (get_script() as Script).get_path().get_basename().get_file().to_snake_case().to_upper() + "_DESCRIPTION"
 
 
 func get_sprite_sheet() -> Texture:

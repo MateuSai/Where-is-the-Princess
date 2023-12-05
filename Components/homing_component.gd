@@ -27,7 +27,7 @@ func get_direction() -> Vector2:
 
 func _update_closer_enemy() -> void:
 	var distance_to_closer_enemy: float = (closer_enemy.global_position - projectile.position).length() if is_instance_valid(closer_enemy) else INF
-	for enemy in enemies_inside:
+	for enemy: Character in enemies_inside:
 		if enemy == closer_enemy:
 			continue
 		var distance_to_other_enemy: float = (enemy.global_position - projectile.position).length()

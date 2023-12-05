@@ -30,7 +30,7 @@ var fog_sprite: Sprite2D
 
 func _ready() -> void:
 	set_process(false)
-	popup_hide.connect(func(): set_process(false))
+	popup_hide.connect(func() -> void: set_process(false))
 
 	update_fog_timer.timeout.connect(_update_fog)
 
@@ -46,8 +46,8 @@ func set_up() -> void:
 	var width_tiles: int = atlas.texture.get_width()/TILE_SIZE
 	@warning_ignore("integer_division")
 	var height_tiles: int = atlas.texture.get_height()/TILE_SIZE
-	for i in width_tiles:
-		for j in height_tiles:
+	for i: int in width_tiles:
+		for j: int in height_tiles:
 			atlas.create_tile(Vector2i(i, j))
 	tileset.add_source(atlas)
 
@@ -57,7 +57,7 @@ func set_up() -> void:
 	var minimap_corridors_tilemap: TileMap = TileMap.new()
 	var world_corridor_tilemap: TileMap = $"../../Rooms/CorridorTileMap"
 
-	for layer_i in world_corridor_tilemap.get_layers_count():
+	for layer_i: int in world_corridor_tilemap.get_layers_count():
 		minimap_corridors_tilemap.add_layer(layer_i)
 		minimap_corridors_tilemap.set_layer_z_index(layer_i, world_corridor_tilemap.get_layer_z_index(layer_i) + 2)
 

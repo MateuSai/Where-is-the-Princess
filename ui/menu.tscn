@@ -1,33 +1,33 @@
 [gd_scene load_steps=15 format=3 uid="uid://886ogqps7117"]
 
-[ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="1_tdw3g"]
-[ext_resource type="Script" path="res://ui/PlayButton.gd" id="2_cpu8h"]
-[ext_resource type="Script" path="res://ui/Menu.gd" id="2_mof80"]
-[ext_resource type="Texture2D" uid="uid://b1nbyyumv3x5u" path="res://Art/warrior.png" id="3_3w6iw"]
-[ext_resource type="Script" path="res://ui/ModsButton.gd" id="3_ajgyq"]
-[ext_resource type="Script" path="res://ui/QuitButton.gd" id="4_0l3tl"]
-[ext_resource type="Texture2D" uid="uid://bp6rbf2gw15f5" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_normal_x2_size.png" id="4_0ug1y"]
-[ext_resource type="Script" path="res://ui/SettingsButton.gd" id="4_ylb3d"]
-[ext_resource type="Texture2D" uid="uid://bs075q8gb23ih" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_hover_x2_size.png" id="5_ykegd"]
-[ext_resource type="Texture2D" uid="uid://c7w1c828j4ok0" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_pressed_x2_size.png" id="6_7wai4"]
-[ext_resource type="Script" path="res://Components/auto_focus_on_controller.gd" id="11_rtnky"]
+[ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="1_5c4p0"]
+[ext_resource type="Script" path="res://ui/menu.gd" id="2_il0mi"]
+[ext_resource type="Texture2D" uid="uid://b1nbyyumv3x5u" path="res://Art/warrior.png" id="3_e8d4m"]
+[ext_resource type="Texture2D" uid="uid://bp6rbf2gw15f5" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_normal_x2_size.png" id="4_vkpjm"]
+[ext_resource type="Texture2D" uid="uid://bs075q8gb23ih" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_hover_x2_size.png" id="5_pp2xs"]
+[ext_resource type="Texture2D" uid="uid://c7w1c828j4ok0" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_pressed_x2_size.png" id="6_c014h"]
+[ext_resource type="Script" path="res://ui/PlayButton.gd" id="7_u7gmb"]
+[ext_resource type="Script" path="res://ui/ModsButton.gd" id="8_n6t26"]
+[ext_resource type="Script" path="res://ui/SettingsButton.gd" id="9_sf5s7"]
+[ext_resource type="Script" path="res://ui/QuitButton.gd" id="10_7y8oq"]
+[ext_resource type="Script" path="res://Components/auto_focus_on_controller.gd" id="11_vl3sd"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_013d5"]
-texture = ExtResource("4_0ug1y")
+texture = ExtResource("4_vkpjm")
 texture_margin_left = 6.0
 texture_margin_top = 6.0
 texture_margin_right = 6.0
 texture_margin_bottom = 6.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eiwq5"]
-texture = ExtResource("5_ykegd")
+texture = ExtResource("5_pp2xs")
 texture_margin_left = 6.0
 texture_margin_top = 6.0
 texture_margin_right = 6.0
 texture_margin_bottom = 6.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8iryt"]
-texture = ExtResource("6_7wai4")
+texture = ExtResource("6_c014h")
 texture_margin_left = 6.0
 texture_margin_top = 6.0
 texture_margin_right = 6.0
@@ -40,17 +40,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_tdw3g")
-script = ExtResource("2_mof80")
+theme = ExtResource("1_5c4p0")
+script = ExtResource("2_il0mi")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -31.0714
+offset_bottom = 31.0714
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_3w6iw")
+texture = ExtResource("3_e8d4m")
 expand_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -75,7 +77,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
 text = "PLAY"
-script = ExtResource("2_cpu8h")
+script = ExtResource("7_u7gmb")
 
 [node name="ModsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -84,7 +86,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
 text = "MODS"
-script = ExtResource("3_ajgyq")
+script = ExtResource("8_n6t26")
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -93,7 +95,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
 text = "SETTINGS"
-script = ExtResource("4_ylb3d")
+script = ExtResource("9_sf5s7")
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -102,7 +104,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
 text = "QUIT"
-script = ExtResource("4_0l3tl")
+script = ExtResource("10_7y8oq")
 
 [node name="Popup" type="Popup" parent="."]
 
@@ -111,4 +113,4 @@ offset_right = 40.0
 offset_bottom = 15.0
 
 [node name="AutoFocusFirstControl" type="Node" parent="."]
-script = ExtResource("11_rtnky")
+script = ExtResource("11_vl3sd")

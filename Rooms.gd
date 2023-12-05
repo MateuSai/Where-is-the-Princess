@@ -1,4 +1,4 @@
-class_name Rooms extends NavigationRegion2D
+class_name Rooms extends Node2D
 
 const BIOMES_FOLDER_PATH: String = "res://Rooms/Biomes/"
 
@@ -81,10 +81,10 @@ const FOG_PADDING: int = 128
 func _ready() -> void:
 	set_physics_process(false)
 
-	var biome_conf: Dictionary = SavedData.get_biome_conf()
+	var biome_conf: SavedData.BiomeConf = SavedData.get_biome_conf()
 	ATLAS_ID = biome_conf.corridor_atlas_id
-	if biome_conf.has("corridor_floor_tiles_coor"):
-		CORRIDOR_FLOOR_TILE_COORDS = int_arr_to_vec_array(biome_conf.corridor_floor_tiles_coor as Array)
+	if not biome_conf.corridor_floor_tiles_coor.is_empty():
+		CORRIDOR_FLOOR_TILE_COORDS = int_arr_to_vec_array(biome_conf.corridor_floor_tiles_coor)
 	else:
 		CORRIDOR_FLOOR_TILE_COORDS = FLOOR_TILE_COORDS
 
@@ -449,7 +449,7 @@ func _create_corridors() -> bool:
 
 	# MODIFY TILES BEFORE APPLYING THE AUTOTILE
 	# To fill 1 tile gaps
-	for cell_pos in corridor_tile_map.get_used_cells(0):
+	for cell_pos: Vector2i in corridor_tile_map.get_used_cells(0):
 		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) == Vector2i(-1, -1) and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT * 2) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FLOOR_TILE_COORDS:
 			corridor_tile_map.set_cell(0, cell_pos + Vector2i.LEFT, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 			if debug:
@@ -461,7 +461,7 @@ func _create_corridors() -> bool:
 
 	# CORRIDOR WALLS
 #	corridor_tile_map.set_cells_terrain_connect(0, corridor_tile_map.get_used_cells(0), 0, 0 if ATLAS_ID == 40 else 1)
-	for cell_pos in corridor_tile_map.get_used_cells(0):
+	for cell_pos: Vector2i in corridor_tile_map.get_used_cells(0):
 		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) == Vector2i(-1, -1):
 			corridor_tile_map.set_cell(1, cell_pos + Vector2i.LEFT, ATLAS_ID, LEFT_WALL_COOR)
 		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) == Vector2i(-1, -1):
@@ -472,10 +472,10 @@ func _create_corridors() -> bool:
 			corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, FULL_WALL_COORDS[randi() % FULL_WALL_COORDS.size()])
 
 	var entry_cells: Array[Vector2i] = []
-	for room in rooms:
-		for dir in [DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.DOWN]:
-			var entries: Array[Node] = room.get_entries(dir)
-			for entry in entries:
+	for room: DungeonRoom in rooms:
+		for dir: DungeonRoom.EntryDirection in [DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.DOWN]:
+			var entries: Array[Node2D] = room.get_entries(dir)
+			for entry: Node2D in entries:
 				var entry_pos: Vector2i = corridor_tile_map.local_to_map(entry.global_position)
 				if corridor_tile_map.get_cell_atlas_coords(0, entry_pos + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir]) in FLOOR_TILE_COORDS:
 					room.mark_entry_as_used(entry)
@@ -528,6 +528,7 @@ func _create_corridors() -> bool:
 	for room in rooms:
 		room.add_doors_and_walls(corridor_tile_map)
 		room.generate_room_white_image()
+		room.setup_navigation()
 
 	if debug:
 		await get_tree().process_frame
@@ -539,7 +540,7 @@ func _create_corridors() -> bool:
 		await get_tree().process_frame
 		await get_tree().create_timer(pause_between_steps).timeout
 
-	$"../UI/MiniMap".set_up()
+	($"../UI/MiniMap" as MiniMap).set_up()
 	_divide_corridor_tile_map()
 
 	if debug:
@@ -807,9 +808,9 @@ func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_
 	for i in 2:
 		var ids: Array = [[id, connection_with], [connection_with, id]][i]
 		var directions: Array = [[id_dir, connection_with_dir], [connection_with_dir, id_dir]][i]
-		var entries1: Array[Node] = rooms[ids[0]].get_entries(directions[0]).duplicate()
+		var entries1: Array[Node2D] = rooms[ids[0]].get_entries(directions[0]).duplicate()
 		entries1.shuffle()
-		var entries2: Array[Node] = rooms[ids[1]].get_entries(directions[1]).duplicate()
+		var entries2: Array[Node2D] = rooms[ids[1]].get_entries(directions[1]).duplicate()
 		entries2.shuffle()
 		for entry in entries1:
 			for other_entry in entries2:
@@ -856,9 +857,9 @@ func _check_entry_positions_horizontal_corridor(id: int, connection_with: int, i
 	for i in 2:
 		var ids: Array = [[id, connection_with], [connection_with, id]][i]
 		var directions: Array = [[id_dir, connection_with_dir], [connection_with_dir, id_dir]][i]
-		var entries1: Array[Node] = rooms[ids[0]].get_entries(directions[0]).duplicate()
+		var entries1: Array[Node2D] = rooms[ids[0]].get_entries(directions[0]).duplicate()
 		entries1.shuffle()
-		var entries2: Array[Node] = rooms[ids[1]].get_entries(directions[1]).duplicate()
+		var entries2: Array[Node2D] = rooms[ids[1]].get_entries(directions[1]).duplicate()
 		entries2.shuffle()
 		for entry in entries1:
 			for other_entry in entries2:
@@ -909,9 +910,9 @@ func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: Du
 	for i in 2:
 		var ids: Array = [[id, connection_with], [connection_with, id]][i]
 		var directions: Array = [[id_dir, connection_with_dir], [connection_with_dir, id_dir]][i]
-		var entries1: Array[Node] = rooms[ids[0]].get_entries(directions[0]).duplicate()
+		var entries1: Array[Node2D] = rooms[ids[0]].get_entries(directions[0]).duplicate()
 		entries1.shuffle()
-		var entries2: Array[Node] = rooms[ids[1]].get_entries(directions[1]).duplicate()
+		var entries2: Array[Node2D] = rooms[ids[1]].get_entries(directions[1]).duplicate()
 		entries2.shuffle()
 		for entry in entries1:
 			for other_entry in entries2:

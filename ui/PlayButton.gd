@@ -4,4 +4,4 @@ extends ButtonWithSound
 func _ready() -> void:
 	super()
 
-	pressed.connect(func(): owner.start_game())
+	pressed.connect(func() -> void: (owner as Control).start_game())

@@ -46,7 +46,9 @@ func _collide(node: Node2D, _dam: int = damage) -> void:
 	collided_with_something.emit(node)
 
 	if node.get("life_component") != null:
-		node.life_component.take_damage(damage, knockback_direction, knockback_force, weapon)
+		@warning_ignore("unsafe_property_access")
+		var life_component: LifeComponent = node.life_component
+		life_component.take_damage(damage, knockback_direction, knockback_force, weapon)
 		if bodies_pierced >= piercing:
 			destroy()
 		else:
@@ -69,7 +71,8 @@ func _bounce() -> void:
 	var result: Dictionary = space_state.intersect_ray(query)
 
 	if not result.is_empty():
-		direction = direction.bounce(result.normal)
+		var normal: Vector2 = result.normal
+		direction = direction.bounce(normal)
 	else: # For some reason the projectile has not found the body which it collided with. We don't count it as a bounce
 		push_error("For some reason the projectile has not found the body which it collided with")
 		bounces_remaining += 1

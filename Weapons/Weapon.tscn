@@ -12,11 +12,11 @@ shader_parameter/active = false
 
 [sub_resource type="ParticleProcessMaterial" id="2"]
 spread = 180.0
-gravity = Vector3(0, 0, 0)
 initial_velocity_min = 20.0
 initial_velocity_max = 40.0
 angular_velocity_min = 10.0
 angular_velocity_max = 40.0
+gravity = Vector3(0, 0, 0)
 turbulence_enabled = true
 
 [node name="Weapon" type="Node2D"]
@@ -33,7 +33,7 @@ offset = Vector2(5, -4)
 
 [node name="Hitbox" type="Area2D" parent="Node2D/Sprite2D"]
 collision_layer = 0
-collision_mask = 46
+collision_mask = 174
 script = ExtResource("3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Sprite2D/Hitbox"]

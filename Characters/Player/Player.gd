@@ -83,7 +83,7 @@ func _ready() -> void:
 	else:
 		set_armor(SavedData.run_stats.armor)
 
-	life_component.hp_changed.connect(func(new_hp: int):
+	life_component.hp_changed.connect(func(new_hp: int) -> void:
 		SavedData.run_stats.hp = new_hp
 		if new_hp == 0:
 			SceneTransistor.start_transition_to("res://BaseCamp.tscn")
@@ -102,41 +102,14 @@ func _ready() -> void:
 
 	Globals.player = self
 
-#	var state_machine: StateMachine = StateMachine.new()
-#	state_machine.add_state(State.new("idle", func() -> String:
-#		if velocity.length() > 10:
-#			return "move"
-#		return ""
-#	, func() -> void:
-#		get_input()
-#		move()
-#		animation_tree.set("parameters/" + "idle" + "/blend_position", (get_global_mouse_position() - global_position).normalized().y)
-#	, func() -> void:
-#		animation_tree_state_machine.travel("idle")
-#	))
-#	state_machine.add_state(State.new("move", func() -> String:
-#		if velocity.length() < 10:
-#				return "idle"
-#		return ""
-#	, func() -> void:
-#		get_input()
-#		move()
-#		animation_tree.set("parameters/" + "move" + "/blend_position", (get_global_mouse_position() - global_position).normalized().y)
-#	, func() -> void:
-#		animation_tree_state_machine.travel("move")
-#	))
-#
-#	sm = state_machine
-#	sm.set_current_state(sm.states["idle"])
-
 	eat_sound.finished.connect(burp_sound.play)
 
 
 func _restore_previous_state() -> void:
 	life_component.hp = SavedData.run_stats.hp
-	for permanent_passive_item in SavedData.run_stats.permanent_passive_items:
+	for permanent_passive_item: PermanentPassiveItem in SavedData.run_stats.permanent_passive_items:
 		pick_up_passive_item(permanent_passive_item)
-	for temporal_passive_item in SavedData.run_stats.temporal_passive_items:
+	for temporal_passive_item: TemporalPassiveItem in SavedData.run_stats.temporal_passive_items:
 		pick_up_passive_item(temporal_passive_item)
 
 
@@ -216,25 +189,29 @@ func add_coin() -> void:
 
 func pick_up_passive_item(item: PassiveItem) -> void:
 	if item is PermanentPassiveItem:
-		item.equip(self)
-		if not SavedData.run_stats.permanent_passive_items.has(item):
-			SavedData.run_stats.permanent_passive_items.push_back(item)
-		permanent_passive_item_picked_up.emit(item)
+		var permanent_passive_item: PermanentPassiveItem = item
+		permanent_passive_item.equip(self)
+		if not SavedData.run_stats.permanent_passive_items.has(permanent_passive_item):
+			SavedData.run_stats.permanent_passive_items.push_back(permanent_passive_item)
+		permanent_passive_item_picked_up.emit(permanent_passive_item)
 	elif item is WeaponModifier:
-		item.equip(weapons.current_weapon)
-		weapons.current_weapon.add_weapon_modifier(item)
+		var weapon_modifier_item: WeaponModifier = item
+		weapon_modifier_item.equip(weapons.current_weapon)
+		weapons.current_weapon.add_weapon_modifier(weapon_modifier_item)
 	else: # TemporalPassiveItem
-		item.equip(self)
-		if not SavedData.run_stats.temporal_passive_items.has(item):
-			SavedData.run_stats.temporal_passive_items.push_back(item)
-		temporal_passive_item_picked_up.emit(item)
+		var temporal_passive_item: TemporalPassiveItem = item
+		temporal_passive_item.equip(self)
+		if not SavedData.run_stats.temporal_passive_items.has(temporal_passive_item):
+			SavedData.run_stats.temporal_passive_items.push_back(temporal_passive_item)
+		temporal_passive_item_picked_up.emit(temporal_passive_item)
 
 
 func unequip_passive_item(item: PassiveItem) -> void:
 	assert(item is TemporalPassiveItem)
-	item.unequip(self)
-	temporal_passive_item_unequiped.emit(item)
-	SavedData.run_stats.temporal_passive_items.erase(item)
+	var temporal_passive_item: TemporalPassiveItem = item
+	temporal_passive_item.unequip(self)
+	temporal_passive_item_unequiped.emit(temporal_passive_item)
+	SavedData.run_stats.temporal_passive_items.erase(temporal_passive_item)
 
 
 func switch_camera() -> void:
@@ -277,7 +254,7 @@ func add_rotating_item(node: Node2D) -> void:
 	rotating_items.push_back(node)
 
 	var rot: float = 2*PI / rotating_items.size()
-	for i in rotating_items.size():
+	for i: int in rotating_items.size():
 		rotating_items[i].rotation = rot * i
 
 
@@ -286,7 +263,7 @@ func remove_rotating_item(node: Node2D) -> void:
 	node.queue_free()
 
 	var rot: float = 2*PI / rotating_items.size()
-	for i in rotating_items.size():
+	for i: int in rotating_items.size():
 		rotating_items[i].rotation = rot * i
 
 
@@ -295,7 +272,7 @@ func can_pick_up_weapons() -> bool:
 
 
 func enable_mirage() -> void:
-	mirage.material.shader = load("res://shaders_and_particles/Mirage.gdshader")
+	(mirage.material as ShaderMaterial).shader = load("res://shaders_and_particles/Mirage.gdshader")
 	mirage.show()
 
 	mirage_timer.start()
@@ -303,7 +280,7 @@ func enable_mirage() -> void:
 
 func disable_mirage() -> void:
 	mirage.hide()
-	mirage.material.shader = null
+	(mirage.material as ShaderMaterial).shader = null
 
 
 func _use_armor_ability() -> void:

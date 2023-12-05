@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://7oeqdu22e1q5"]
+[gd_scene load_steps=13 format=3 uid="uid://7oeqdu22e1q5"]
 
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="1"]
 [ext_resource type="Script" path="res://Rooms/Room.gd" id="1_2v2ib"]
@@ -7,7 +7,25 @@
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_nquda"]
 resource_local_to_scene = true
+source_geometry_mode = 2
 source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 2.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_7h6or"]
+vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b4afx"]
+texture = ExtResource("3_6fxjx")
+0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_7h6or")
+
+[sub_resource type="TileSet" id="TileSet_x0g25"]
+navigation_layer_0/layers = 2
+sources/0 = SubResource("TileSetAtlasSource_b4afx")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u4la0"]
 shader = ExtResource("3_pjntw")
@@ -40,7 +58,7 @@ texture_filter = 1
 navigation_polygon = SubResource("NavigationPolygon_nquda")
 script = ExtResource("1_2v2ib")
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TileMap" type="TileMap" parent="." groups=["navigation_polygon_source_group"]]
 y_sort_enabled = true
 tile_set = ExtResource("1")
 format = 2
@@ -59,6 +77,11 @@ layer_3/tile_data = PackedInt32Array()
 layer_4/name = "Water"
 layer_4/z_index = -2
 layer_4/tile_data = PackedInt32Array()
+
+[node name="FlyingUnitsNavigationTileMap" type="TileMap" parent="." groups=["flying_units_navigation_polygon_source_group"]]
+tile_set = SubResource("TileSet_x0g25")
+format = 2
+layer_0/navigation_enabled = false
 
 [node name="BlackTileMap" type="TileMap" parent="."]
 visible = false

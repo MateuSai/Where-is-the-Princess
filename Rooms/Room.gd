@@ -5,6 +5,9 @@ class_name DungeonRoom extends NavigationRegion2D
 ## If the value is invalid, an error will appear and the room will not be used
 @export var levels: String = ""
 
+const GROUND_UNITS_NAVIGATION_GROUP: StringName = "navigation_polygon_source_group"
+const FLYING_UNITS_NAVIGATION_GROUP: StringName = "flying_units_navigation_polygon_source_group"
+
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/SpawnExplosion.tscn")
 
 const HORIZONTAL_UP_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/HorizontalUpDoor.tscn")
@@ -26,6 +29,11 @@ enum EntryDirection {
 }
 var used_entries: Array[Node] = []
 
+var agent_radius: int = 1
+var navigation_map_flying_units: RID
+var navigation_region_flying_units: RID
+signal navigation_updated()
+
 signal player_entered()
 signal closed()
 signal cleared()
@@ -36,6 +44,7 @@ signal last_enemy_died(enemy: Enemy)
 @onready var disable_horizontal_separation_steering: bool = SavedData.get_disable_horizontal_separation_steering()
 
 @onready var tilemap: TileMap = get_node("TileMap")
+@onready var flying_units_navigation_tilemap: TileMap = $FlyingUnitsNavigationTileMap
 @onready var black_tilemap: TileMap = get_node("BlackTileMap")
 @onready var teleport_position: Marker2D = $TeleportPosition
 
@@ -72,13 +81,11 @@ func _ready() -> void:
 	if rooms.game.debug:
 		black_tilemap.hide()
 
+	flying_units_navigation_tilemap.hide()
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_armor_ability"):
-		bake_navigation_polygon()
-		var navigation_transform: Transform2D = get_global_transform()
-		#navigation_transform.origin += Vector2(tilemap_offset)
-		NavigationServer2D.region_set_transform(get_region_rid(), navigation_transform)
+
+func _exit_tree() -> void:
+	_free_navigation()
 
 
 func _draw() -> void:
@@ -171,6 +178,26 @@ func get_separation_steering_dir(rooms_array: Array[DungeonRoom], delta: float) 
 	return dir
 
 
+func setup_navigation() -> void:
+	navigation_polygon.agent_radius = agent_radius
+	navigation_polygon.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_EXPLICIT
+
+	update_navigation()
+
+
+func update_navigation() -> void:
+	bake_navigation_polygon(true)
+	NavigationServer2D.region_set_transform(get_region_rid(), get_global_transform())
+
+	_free_navigation()
+	_generate_flying_units_navigation()
+	NavigationServer2D.region_set_transform(navigation_region_flying_units, get_global_transform())
+	#set_navigation_map(navigation_map_flying_units)
+	#bake_navigation_polygon(false)
+
+	navigation_updated.emit()
+
+
 func _has_entry(dir: EntryDirection) -> bool:
 	var direction_entries: Array[Node] = entries[dir].get_children()
 #	for entry in used_entries:
@@ -184,12 +211,14 @@ func _has_entry(dir: EntryDirection) -> bool:
 #	return entries[dir].get_children()[0].global_position
 
 
-func get_entries(dir: EntryDirection) -> Array[Node]:
-	return entries[dir].get_children()
+func get_entries(dir: EntryDirection) -> Array[Node2D]:
+	var arr: Array[Node2D] = []
+	arr.assign(entries[dir].get_children())
+	return arr
 
 
 func get_random_entry(dir: EntryDirection, to_connect_to: Node2D = null) -> Node:
-	var direction_entries: Array[Node] = entries[dir].get_children()
+	var direction_entries: Array[Node2D] = get_entries(dir)
 #	for entry in used_entries:
 #		if direction_entries.has(entry):
 #			direction_entries.erase(entry)
@@ -197,7 +226,7 @@ func get_random_entry(dir: EntryDirection, to_connect_to: Node2D = null) -> Node
 #	if direction_entries.is_empty():
 #		return null
 #	else:
-	var usable_entries: Array[Node] = direction_entries.duplicate()
+	var usable_entries: Array[Node2D] = direction_entries.duplicate()
 
 	if to_connect_to != null:
 		usable_entries = usable_entries.filter(func(entry: Node2D) -> void:
@@ -398,18 +427,22 @@ func get_random_spawn_point(spawn_shape: Rooms.SpawnShape) -> Vector2:
 
 	if directions_with_entry.size() == 4 or entries_dir == Vector2.ZERO:
 		if spawn_shape is Rooms.CircleSpawnShape:
-			return Vector2.RIGHT.rotated(randf_range(0, 2 * PI)) * randf_range(0, spawn_shape.radius - spawn_shape.MARGIN)
+			var circle_spawn_shape: Rooms.CircleSpawnShape = spawn_shape
+			return Vector2.RIGHT.rotated(randf_range(0, 2 * PI)) * randf_range(0, circle_spawn_shape.radius - circle_spawn_shape.MARGIN)
 		else: # Rectangle
-			return Vector2(randf_range(spawn_shape.MARGIN, spawn_shape.size.x - spawn_shape.MARGIN), randf_range(spawn_shape.MARGIN, spawn_shape.size.y - spawn_shape.MARGIN))
+			var rectangle_spawn_shape: Rooms.RectangleSpawnShape = spawn_shape
+			return Vector2(randf_range(rectangle_spawn_shape.MARGIN, rectangle_spawn_shape.size.x - rectangle_spawn_shape.MARGIN), randf_range(rectangle_spawn_shape.MARGIN, rectangle_spawn_shape.size.y - rectangle_spawn_shape.MARGIN))
 	else:
 		#print(name + " " + str(en tries_dir) + " " + str(directions_with_entry))
 		if spawn_shape is Rooms.CircleSpawnShape:
-			return Vector2.RIGHT.rotated(randf_range(entries_dir.angle() - PI/8, entries_dir.angle() + PI/8)) * spawn_shape.radius
+			var circle_spawn_shape: Rooms.CircleSpawnShape = spawn_shape
+			return Vector2.RIGHT.rotated(randf_range(entries_dir.angle() - PI/8, entries_dir.angle() + PI/8)) * circle_spawn_shape.radius
 		else: # Rectangle
+			var rectangle_spawn_shape: Rooms.RectangleSpawnShape = spawn_shape
 			entries_dir = ((entries_dir + Vector2.ONE) / 2.0).normalized()
 #			entries_dir.x = clamp(entries_dir.x, 0, 1)
 #			entries_dir.y = clamp(entries_dir.y, 0, 1)
-			return spawn_shape.size * entries_dir
+			return rectangle_spawn_shape.size * entries_dir
 
 
 func get_rect() -> Rect2i:
@@ -432,3 +465,75 @@ func get_items() -> Array[ItemOnFloor]:
 	var array: Array[ItemOnFloor] = []
 	array.assign(items_container.get_children())
 	return array
+
+
+func _generate_flying_units_navigation() -> void:
+	# Create a navigation mesh resource.
+	var navigation_mesh_flying_units: NavigationPolygon = NavigationPolygon.new()
+	navigation_mesh_flying_units.source_geometry_group_name = "flying_units_navigation_polygon_source_group"
+	navigation_mesh_flying_units.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_EXPLICIT
+	# Set appropriated parameters for the size of your agents.
+	navigation_mesh_flying_units.agent_radius = navigation_polygon.agent_radius
+
+	#for cell: Vector2i in tilemap.get_used_cells(0):
+		#var tile_data: TileData = tilemap.get_cell_tile_data(0, cell)
+		#if not tile_data:
+			#continue
+#
+		#if tile_data.get_navigation_polygon(0) or tile_data.get_navigation_polygon(1): # Flying units can move on short world objects and the same tiles as the ground units
+			#flying_units_navigation_tilemap.set_cell(0, cell, 0)
+
+	# Create the source geometry resource that will hold the parsed geometry data.
+	var source_geometry_data: NavigationMeshSourceGeometryData2D = NavigationMeshSourceGeometryData2D.new()
+	# Add outline(s) for what is traversable navigation mesh surface for your flying units.
+	# This can also be the outlines of an existing NavigationPolygon that you did draw in the Editor for your flying units.
+	# You can get those drawn outlines with the NavigationPolygon.get_outline_count() and NavigationPolygon.get_outline(idx: int) functions.
+	#for cell: Vector2i in tilemap.get_used_cells(0):
+		#var tile_data: TileData = tilemap.get_cell_tile_data(0, cell)
+		#if not tile_data:
+			#continue
+#
+		#var tile_navigation_polygon_flying_units: NavigationPolygon = tile_data.get_navigation_polygon(1)
+		#if tile_navigation_polygon_flying_units:
+			#for outline_index: int in tile_navigation_polygon_flying_units.get_outline_count():
+				#var outline: PackedVector2Array = tile_navigation_polygon_flying_units.get_outline(outline_index)
+				#var outline_array: Array[Vector2] = []
+				#for outline_point: Vector2 in outline:
+					#var pos_to_add: Vector2 = cell * Rooms.TILE_SIZE
+					#outline_point += pos_to_add
+					#outline_array.push_back(outline_point)
+				#var packed_ouline_array: PackedVector2Array = PackedVector2Array(outline_array)
+				#source_geometry_data.add_traversable_outline(packed_ouline_array)
+
+	# Parse the source geometry from the scene tree on the main thread.
+	# The navigation mesh in this is only required for the parse settings.
+	#print_debug(source_geometry_data.traversable_outlines)
+	NavigationServer2D.parse_source_geometry_data(navigation_mesh_flying_units, source_geometry_data, self)
+
+	# Bake the navigation geometry for the agent size from the source geometry.
+	# If required for performance this baking step could also be done on background threads with bake_from_source_geometry_data_async()
+	NavigationServer2D.bake_from_source_geometry_data(navigation_mesh_flying_units, source_geometry_data)
+
+	# Create different navigation maps on the NavigationServer.
+	navigation_map_flying_units = NavigationServer2D.map_create()
+
+	NavigationServer2D.map_set_cell_size(navigation_map_flying_units, 1.0)
+
+	# Set the new navigation map as active.
+	NavigationServer2D.map_set_active(navigation_map_flying_units, true)
+
+	# Create a region for the map.
+	navigation_region_flying_units = NavigationServer2D.region_create()
+
+	# Add the region to the map.
+	NavigationServer2D.region_set_map(navigation_region_flying_units, navigation_map_flying_units)
+
+	# Set navigation mesh for the region.
+	NavigationServer2D.region_set_navigation_polygon(navigation_region_flying_units, navigation_mesh_flying_units)
+
+
+func _free_navigation() -> void:
+	if navigation_map_flying_units.is_valid():
+		NavigationServer2D.free_rid(navigation_map_flying_units)
+	if navigation_region_flying_units.is_valid():
+		NavigationServer2D.free_rid(navigation_region_flying_units)

@@ -20,8 +20,8 @@ func get_quality() -> Item.Quality:
 func equip(player: Player) -> void:
 	magic_shield_node = MagicShieldNode.new()
 	magic_shield_node.life_component.hp = hp
-	magic_shield_node.hp_changed.connect(func(new_hp: int): hp = new_hp)
-	magic_shield_node.destroyed.connect(func(): player.unequip_passive_item(self))
+	magic_shield_node.hp_changed.connect(func(new_hp: int) -> void: hp = new_hp)
+	magic_shield_node.destroyed.connect(func() -> void: player.unequip_passive_item(self))
 	player.add_rotating_item(magic_shield_node)
 
 

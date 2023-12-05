@@ -9,8 +9,9 @@ func _ready() -> void:
 
 	jail_interact_area.player_interacted.connect(_on_jail_interacted)
 
-	room.last_enemy_died.connect(func(enemy: Enemy):
-		var key: Area2D = load("res://items/ShopManagerJailKey.tscn").instantiate()
+	room.last_enemy_died.connect(func(enemy: Enemy) -> void:
+		var key_scene: PackedScene = load("res://items/ShopManagerJailKey.tscn")
+		var key: JailKey = key_scene.instantiate()
 		key.position = enemy.global_position
 		get_tree().current_scene.call_deferred("add_child", key)
 		await get_tree().process_frame

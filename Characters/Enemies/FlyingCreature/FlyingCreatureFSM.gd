@@ -6,6 +6,8 @@ enum {
 	DEAD,
 }
 
+@onready var enemy: Enemy = get_parent()
+
 @onready var hitbox: Hitbox = $"../Hitbox"
 
 
@@ -16,14 +18,14 @@ func start() -> void:
 func _state_logic(_delta: float) -> void:
 	match state:
 		CHASE:
-			parent.move_to_target()
+			enemy.move_to_target()
 			parent.move()
 			if parent.mov_direction.y >= 0 and animation_player.current_animation != "fly":
 				animation_player.play("fly")
 			elif parent.mov_direction.y < 0 and animation_player.current_animation != "fly_up":
 				animation_player.play("fly_up")
 		ATTACK:
-			hitbox.rotation = (parent.player.position - parent.global_position).angle()
+			hitbox.rotation = (enemy.target.position - parent.global_position).angle()
 			hitbox.knockback_direction = Vector2.RIGHT.rotated(hitbox.rotation)
 			if parent.mov_direction.y >= 0 and animation_player.current_animation != "attack":
 				animation_player.play("attack")
@@ -32,7 +34,7 @@ func _state_logic(_delta: float) -> void:
 
 
 func _get_transition() -> int:
-	var dis: float = (parent.player.position - parent.global_position).length()
+	var dis: float = (enemy.target.position - parent.global_position).length()
 	match state:
 		CHASE:
 			if dis <= 10:
