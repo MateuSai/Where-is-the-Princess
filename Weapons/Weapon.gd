@@ -80,7 +80,7 @@ func _ready() -> void:
 
 
 func load_modifiers() -> void:
-	for modifier in stats.modifiers:
+	for modifier: WeaponModifier in stats.modifiers:
 		# modifier.equip(get_parent().get_parent())
 		modifier.equip(self)
 
@@ -206,7 +206,7 @@ func destroy() -> void:
 	# Shader culiada, tengo que quitar el offset del sprite para que funcione bien
 	weapon_sprite.position += weapon_sprite.offset
 	weapon_sprite.offset = Vector2.ZERO
-	var particles: GPUParticles2D = load("res://shaders_and_particles/DestroyParticles.tscn").instantiate()
+	var particles: GPUParticles2D = (load("res://shaders_and_particles/DestroyParticles.tscn") as PackedScene).instantiate()
 	particles.position = weapon_sprite.global_position
 	get_tree().current_scene.add_child(particles)
 	weapon_sprite.material = ResourceLoader.load("res://shaders_and_particles/PixelExplosionMaterial.tres", "ShaderMaterial", ResourceLoader.CACHE_MODE_IGNORE)
@@ -232,7 +232,7 @@ func add_weapon_modifier(item: WeaponModifier) -> void:
 					return
 	elif item is ArrowModifier:
 		# We remove the previous modifier
-		for modifier in stats.modifiers:
+		for modifier: WeaponModifier in stats.modifiers:
 			if modifier is ArrowModifier:
 #				modifier.unequip(self) # there is no action to be done when the modifier is unequipped, for the moment
 				stats.modifiers.erase(modifier)

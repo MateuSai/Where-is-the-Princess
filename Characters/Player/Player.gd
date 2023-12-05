@@ -214,11 +214,11 @@ func unequip_passive_item(item: PassiveItem) -> void:
 	SavedData.run_stats.temporal_passive_items.erase(temporal_passive_item)
 
 
-func switch_camera() -> void:
-	var main_scene_camera: Camera2D = get_parent().get_node("Camera2D")
-	main_scene_camera.position = position
-	main_scene_camera.current = true
-	get_node("Camera2D").current = false
+#func switch_camera() -> void:
+	#var main_scene_camera: Camera2D = get_parent().get_node("Camera2D")
+	#main_scene_camera.position = position
+	#main_scene_camera.current = true
+	#camera.current = false
 
 
 func set_armor(new_armor: Armor) -> void:

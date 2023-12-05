@@ -21,12 +21,12 @@ func _ready() -> void:
 
 	l_hint = Node2D.new()
 	r_hint = Node2D.new()
-	for hint in [l_hint, r_hint]:
+	for hint: Node2D in [l_hint, r_hint]:
 		#hint = Node2D.new()
 		hint.z_index = 10
 		var texture_rect: TextureRect = TextureRect.new()
 		texture_rect.name = "TextureRect"
-		texture_rect.expand = true
+		texture_rect.expand_mode = TextureRect.EXPAND_KEEP_SIZE
 		var atlas_texture: AtlasTexture = AtlasTexture.new()
 		atlas_texture.atlas = preload("res://Art/kenney_input-prompts-pixel-16/Tilemap/tilemap_packed.png")
 		texture_rect.texture = atlas_texture
@@ -55,10 +55,10 @@ func _on_hide() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventJoypadButton:
-		if event.pressed:
-			if event.button_index == JOY_BUTTON_LEFT_SHOULDER:
+		if (event as InputEventJoypadButton).pressed:
+			if (event as InputEventJoypadButton).button_index == JOY_BUTTON_LEFT_SHOULDER:
 				_change_tab(-1)
-			elif event.button_index == JOY_BUTTON_RIGHT_SHOULDER:
+			elif (event as InputEventJoypadButton).button_index == JOY_BUTTON_RIGHT_SHOULDER:
 				_change_tab(1)
 
 
@@ -104,10 +104,12 @@ func _update_controller_hints(new_mode: int) -> void:
 #		var control: Control = tab_container.get_child(tab_container.current_tab)
 		# warning-ignore:return_value_discarded
 #		_search_for_focus_control(control) # para que agarre focus
+		var l_hint_atlas_texture: AtlasTexture = ((l_hint.get_node("TextureRect") as TextureRect).texture as AtlasTexture)
+		var r_hint_atlas_texture: AtlasTexture = ((r_hint.get_node("TextureRect") as TextureRect).texture as AtlasTexture)
 		match Globals.controller_type:
 			Globals.CONTROLLER_TYPES.PS:
-				l_hint.get_node("TextureRect").texture.region = Globals.INPUT_IMAGE_RECTS.ps_joypad_button_4 # L1
-				r_hint.get_node("TextureRect").texture.region = Globals.INPUT_IMAGE_RECTS.ps_joypad_button_5 # R1
+				l_hint_atlas_texture.region = Globals.INPUT_IMAGE_RECTS.ps_joypad_button_4 # L1
+				r_hint_atlas_texture.region = Globals.INPUT_IMAGE_RECTS.ps_joypad_button_5 # R1
 			_:
-				l_hint.get_node("TextureRect").texture.region = Globals.INPUT_IMAGE_RECTS.xbox_joypad_button_4 # LB
-				r_hint.get_node("TextureRect").texture.region = Globals.INPUT_IMAGE_RECTS.xbox_joypad_button_5 # RB
+				l_hint_atlas_texture.region = Globals.INPUT_IMAGE_RECTS.xbox_joypad_button_4 # LB
+				r_hint_atlas_texture.region = Globals.INPUT_IMAGE_RECTS.xbox_joypad_button_5 # RB

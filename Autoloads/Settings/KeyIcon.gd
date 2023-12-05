@@ -8,7 +8,7 @@ func _init() -> void:
 	size_flags_horizontal = SIZE_EXPAND | SIZE_SHRINK_END
 	size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	texture = AtlasTexture.new()
-	texture.atlas = preload("res://Art/kenney_input-prompts-pixel-16/Tilemap/tilemap_packed.png")
+	(texture as AtlasTexture).atlas = preload("res://Art/kenney_input-prompts-pixel-16/Tilemap/tilemap_packed.png")
 
 	# warning-ignore:return_value_discarded
 	draw.connect(_on_draw)
@@ -51,5 +51,5 @@ func change_key_texture(text: String) -> void:
 		text = "mouse_right"
 
 	var image_rect: Rect2 = Globals.INPUT_IMAGE_RECTS[text.to_lower().replace(" ", "_")]
-	texture.region = image_rect
+	(texture as AtlasTexture).region = image_rect
 	#custom_minimum_size = image_rect.size * 1.5

@@ -9,7 +9,7 @@ func _ready() -> void:
 
 	button_pressed = Settings.auto_aim
 	aim_help_container.visible = !button_pressed
-	toggled.connect(func(button_toggled: bool):
+	toggled.connect(func(button_toggled: bool) -> void:
 		Settings.set_auto_aim(button_toggled)
 		aim_help_container.visible = !button_toggled
 	)

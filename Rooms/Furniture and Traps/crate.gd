@@ -6,6 +6,7 @@ const EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/SpawnExpl
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var life_component: LifeComponent = $LifeComponent
+@onready var shake_component: ShakeComponent = $ShakeComponent
 
 
 func _ready() -> void:
@@ -19,3 +20,20 @@ func _ready() -> void:
 		remove_from_group(DungeonRoom.FLYING_UNITS_NAVIGATION_GROUP)
 		room.update_navigation()
 	)
+
+	life_component.damage_taken.connect(func(_dam: int, dir: Vector2, _force: int) -> void:
+		shake_component.shake(sprite)
+		if life_component.hp == 0:
+			_spawn_wood_fragments(dir)
+	)
+
+
+func _spawn_wood_fragments(dir: Vector2) -> void:
+	var wood_fragment_scene: PackedScene = load("res://Rooms/Furniture and Traps/wood_fragment.tscn")
+
+	var amount: int = randi_range(4, 10)
+	for i: int in amount:
+		var wood_fragment: WoodFragment = wood_fragment_scene.instantiate()
+		wood_fragment.position = position
+		room.add_child(wood_fragment)
+		wood_fragment.throw(dir.rotated(randf_range(-1.0, 1.0)))

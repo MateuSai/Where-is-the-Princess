@@ -20,16 +20,18 @@ var disabled: bool = false:
 			show()
 			set_process_unhandled_input(true)
 
+@onready var player: Player = get_parent()
 
 @onready var equip_weapon_sound: AudioStreamPlayer = $"../EquipWeaponSound"
 
 
 func load_previous_weapons() -> void:
-	get_child(0).hide()
-	get_child(0).set_process_unhandled_input(false)
+	var dagger: MeleeWeapon = get_child(0)
+	dagger.hide()
+	dagger.set_process_unhandled_input(false)
 
-	for weapon_stat in SavedData.run_stats.weapon_stats:
-		var weapon: Weapon = load(weapon_stat.weapon_path).instantiate()
+	for weapon_stat: WeaponStats in SavedData.run_stats.weapon_stats:
+		var weapon: Weapon = (load(weapon_stat.weapon_path) as PackedScene).instantiate()
 		weapon.stats = weapon_stat
 		weapon.position = Vector2.ZERO
 
@@ -44,7 +46,8 @@ func load_previous_weapons() -> void:
 
 		weapon.load_modifiers()
 
-	set_current_weapon(get_child(SavedData.run_stats.equipped_weapon_index))
+	assert(get_child(SavedData.run_stats.equipped_weapon_index) is Weapon)
+	set_current_weapon(get_child(SavedData.run_stats.equipped_weapon_index) as Weapon)
 	current_weapon.show()
 
 	weapon_switched.emit(get_child_count() - 1, SavedData.run_stats.equipped_weapon_index)
@@ -80,7 +83,8 @@ func _switch_weapon(direction: int) -> void:
 			index = 0
 
 	current_weapon.hide()
-	set_current_weapon(get_child(index))
+	assert(get_child(index) is Weapon)
+	set_current_weapon(get_child(index) as Weapon)
 	current_weapon.show()
 	SavedData.run_stats.equipped_weapon_index = index
 
@@ -111,7 +115,7 @@ func pick_up_weapon(weapon: Weapon) -> void:
 
 
 func _drop_weapon() -> void:
-	var character_position: Vector2 = get_parent().position
+	var character_position: Vector2 = player.global_position
 
 	SavedData.run_stats.weapon_stats.remove_at(current_weapon.get_index() - 1)
 	var weapon_to_drop: Weapon = current_weapon
@@ -135,7 +139,7 @@ func throw_weapon() -> void:
 	assert(current_weapon is MeleeWeapon)
 
 	SavedData.run_stats.weapon_stats.remove_at(current_weapon.get_index() - 1)
-	var weapon_to_drop: Node2D = current_weapon
+	var weapon_to_drop: Weapon = current_weapon
 	weapon_to_drop.condition_changed.disconnect(_on_weapon_condition_changed)
 	weapon_to_drop.status_inflicter_added.disconnect(_on_weapon_status_inflicter_added)
 	_switch_weapon(UP)

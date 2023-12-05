@@ -24,12 +24,12 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		# si el jugador presiona la flecha de arriba, cargamos la ultima comanda que ejecutamos, solo si esta no es nula
-		if event.is_pressed() and event.keycode == KEY_UP:
+		if event.is_pressed() and (event as InputEventKey).keycode == KEY_UP:
 			if last_command.length() > 0:
 				get_viewport().set_input_as_handled() # para que el caret no vuelva a la posición inicial
 				text = last_command
 				caret_column = last_command.length()
-		elif event.is_pressed() and event.keycode in [KEY_ENTER, KEY_KP_ENTER]:
+		elif event.is_pressed() and (event as InputEventKey).keycode in [KEY_ENTER, KEY_KP_ENTER]:
 			# solo procesamos la comanda si no esta vacia
 			if text.strip_edges().length() > 0:
 				_process_command(text)
@@ -44,7 +44,7 @@ func _process_command(command: String) -> void:
 		printerr("Number of \" is not pair")
 		return
 
-	var splitted_command_by_quotation_marks: Array = command.split("\"")
+	var splitted_command_by_quotation_marks: PackedStringArray = command.split("\"")
 	for i: int in range(splitted_command_by_quotation_marks.size() - 1, -1, -1):
 		if splitted_command_by_quotation_marks[i] in ["", " "]:
 			splitted_command_by_quotation_marks.remove_at(i)
@@ -290,7 +290,7 @@ func _spawn_weapon(weapon_string: String) -> void:
 			return
 
 	hide()
-	var weapon: Weapon = load(weapon_path).instantiate()
+	var weapon: Weapon = (load(weapon_path) as PackedScene).instantiate()
 	weapon.position = Globals.player.position + Vector2.RIGHT * 16
 	weapon.on_floor = true
 	get_tree().current_scene.add_child(weapon)
@@ -303,7 +303,7 @@ func _spawn_item(item_string: String) -> void:
 		return
 
 	var item: Item = item_script.new()
-	var item_on_floor: ItemOnFloor = load("res://items/item_on_floor.tscn").instantiate()
+	var item_on_floor: ItemOnFloor = (load("res://items/item_on_floor.tscn") as PackedScene).instantiate()
 	item_on_floor.position = Globals.player.position + Vector2.RIGHT * 16
 	item_on_floor.initialize(item)
 	get_tree().current_scene.add_child(item_on_floor)
@@ -331,13 +331,13 @@ func _spawn_enemy(enemy_string: String) -> void:
 
 	hide()
 
-	get_tree().current_scene.get_node("Rooms").rooms[0].add_child(enemy)
+	(get_tree().current_scene.get_node("Rooms") as Rooms).rooms[0].add_child(enemy)
 	enemy.global_position = Globals.player.position + Vector2.RIGHT * 16
 
 
 func _spawn_chest() -> void:
 	var chest: Chest = preload("res://Rooms/Chest.tscn").instantiate()
-	get_tree().current_scene.get_node("Rooms").rooms[0].add_child(chest)
+	(get_tree().current_scene.get_node("Rooms") as Rooms).rooms[0].add_child(chest)
 	chest.global_position = Globals.player.position + Vector2.RIGHT * 16
 
 	hide()

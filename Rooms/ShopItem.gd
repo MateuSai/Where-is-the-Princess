@@ -18,7 +18,7 @@ func initialize(item: Item) -> void:
 	price_always_visible = Settings.shop_prices_always_visible
 	if not price_always_visible:
 		price_container.hide()
-	Settings.shop_prices_always_visible_changed.connect(func(new_value: bool):
+	Settings.shop_prices_always_visible_changed.connect(func(new_value: bool) -> void:
 		price_always_visible = new_value
 		if price_always_visible:
 			price_container.show()
@@ -27,9 +27,9 @@ func initialize(item: Item) -> void:
 	)
 
 	if get_tree().current_scene.name == "Game":
-		await get_tree().current_scene.player_added
+		await (get_tree().current_scene as Game).player_added
 		_update_coin_price(Globals.player.shop_discount)
-		Globals.player.shop_discount_changed.connect(func(new_value: float):
+		Globals.player.shop_discount_changed.connect(func(new_value: float) -> void:
 			_update_coin_price(new_value)
 		)
 #		price = round(item.get_coin_cost() * (1 - Globals.player.shop_discount))
@@ -44,8 +44,8 @@ func initialize(item: Item) -> void:
 		var hologram_sprite: Sprite2D = Sprite2D.new()
 		hologram_sprite.texture = texture
 		hologram_sprite.material = ShaderMaterial.new()
-		hologram_sprite.material.shader = HOLOGRAM_SHADER
-		hologram_sprite.material.set_shader_parameter("hologramTexture", HOLOGRAM_TEXTURE)
+		(hologram_sprite.material as ShaderMaterial).shader = HOLOGRAM_SHADER
+		(hologram_sprite.material as ShaderMaterial).set_shader_parameter("hologramTexture", HOLOGRAM_TEXTURE)
 		add_child(hologram_sprite)
 
 		price_label.text = str(price)
@@ -54,11 +54,11 @@ func initialize(item: Item) -> void:
 func _ready() -> void:
 	super()
 
-	interact_area.player_entered.connect(func():
+	interact_area.player_entered.connect(func() -> void:
 		if not price_always_visible:
 			price_container.show()
 	)
-	interact_area.player_exited.connect(func():
+	interact_area.player_exited.connect(func() -> void:
 		if not price_always_visible:
 			price_container.hide()
 	)
@@ -86,7 +86,7 @@ func _pick_item_and_free() -> void:
 	sound.stream = load("res://Audio/Sounds/Change-www.fesliyanstudios.com.mp3")
 	sound.position = global_position
 	sound.bus = "Sounds"
-	sound.finished.connect(func():
+	sound.finished.connect(func() -> void:
 		sound.queue_free()
 	)
 	get_tree().current_scene.add_child(sound)
@@ -96,7 +96,8 @@ func _pick_item_and_free() -> void:
 		super()
 	else: # BaseCamp
 		if item is WeaponItem:
-			SavedData.discover_weapon(item.weapon.scene_file_path)
+			var weapon_item: WeaponItem = item
+			SavedData.discover_weapon(weapon_item.scene_file_path)
 		elif item is TemporalPassiveItem:
-			SavedData.discover_temporal_item(item.get_script().get_path())
+			SavedData.discover_temporal_item((item.get_script() as Script).get_path())
 		queue_free()
