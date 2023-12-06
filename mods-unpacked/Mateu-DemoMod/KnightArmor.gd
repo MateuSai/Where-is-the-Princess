@@ -2,7 +2,7 @@ class_name KnightArmor extends Armor
 
 
 func _init() -> void:
-	initialize(2, load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_naked_icon.png"), 0.5, 2)
+	initialize(2, load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_naked_icon.png") as Texture, 0.5, 2)
 
 
 func enable_ability_effect(player: Player) -> void:
@@ -18,4 +18,4 @@ func get_sprite_sheet() -> Texture:
 
 
 func get_icon() -> Texture:
-	return Globals.get_atlas_frame(load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armors_icons.png"), Rect2(16, 48, 16, 16))
+	return Globals.get_atlas_frame(load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armors_icons.png") as Texture, Rect2(16, 48, 16, 16))

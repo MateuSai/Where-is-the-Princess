@@ -12,8 +12,8 @@ func _ready() -> void:
 		possible_items.shuffle()
 		var item_on_floor_1: ItemOnFloor = _spawn_item(possible_items.pop_back(), position + Vector2(-8, 10))
 		var item_on_floor_2: ItemOnFloor = _spawn_item(possible_items.pop_back(), position + Vector2(8, 10))
-		item_on_floor_1.interact_area.player_interacted.connect(func(): _remove_item(item_on_floor_2))
-		item_on_floor_2.interact_area.player_interacted.connect(func(): _remove_item(item_on_floor_1))
+		item_on_floor_1.interact_area.player_interacted.connect(func() -> void: _remove_item(item_on_floor_2))
+		item_on_floor_2.interact_area.player_interacted.connect(func() -> void: _remove_item(item_on_floor_1))
 	)
 
 

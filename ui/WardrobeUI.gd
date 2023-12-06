@@ -23,21 +23,21 @@ func _ready() -> void:
 #		return false
 #	)
 
-	for armor_path in SavedData.get_armor_paths():
+	for armor_path: String in SavedData.get_armor_paths():
 		armors.push_back(load(armor_path).new())
 
-	for armor in armors:
+	for armor: Armor in armors:
 		var armor_grid_button: ArmorGridButton = ArmorGridButton.new(armor)
-		armor_grid_button.focus_entered.connect(func(): _on_armor_selected(armor_grid_button.armor))
+		armor_grid_button.focus_entered.connect(func() -> void: _on_armor_selected(armor_grid_button.armor))
 		armors_grid.add_child(armor_grid_button)
 #		if player.armor.name == armor.name:
 #			armor_grid_button.grab_focus()
 
-	draw.connect(func():
+	draw.connect(func() -> void:
 		name_label.text = player.armor.name
 		description_label.text = player.armor.description
 		#print(player.armor.name)
-		for button in armors_grid.get_children():
+		for button: ArmorGridButton in armors_grid.get_children():
 			#print(button.armor.name + "  " + player.armor.name)
 			if player.armor.name == button.armor.name:
 				button.grab_focus()
@@ -48,7 +48,7 @@ func _on_armor_selected(armor: Armor) -> void:
 	name_label.text = armor.name
 	description_label.text = armor.description
 	player.set_armor(armor)
-	SavedData.data.equipped_armor = armor.get_script().get_path()
+	SavedData.data.equipped_armor = (armor.get_script() as Script).get_path()
 
 
 #func _get_armors() -> PackedStringArray:

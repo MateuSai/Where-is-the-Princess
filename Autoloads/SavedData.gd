@@ -146,22 +146,16 @@ func get_biome_conf() -> BiomeConf:
 	return biome_conf
 
 
-func get_overwrite_spawn_shape() -> Rooms.SpawnShape:
-	if biome_conf.levels.has(str(SavedData.run_stats.level)) and biome_conf.levels[str(SavedData.run_stats.level)].has("spawn_shape_type"):
-		match biome_conf.levels[str(SavedData.run_stats.level)]["spawn_shape_type"].to_lower():
+func get_current_level_spawn_shape() -> Rooms.SpawnShape:
+	if biome_conf.levels.size() >= SavedData.run_stats.level:
+		match biome_conf.levels[SavedData.run_stats.level - 1].spawn_shape_type.to_lower():
 			"circle":
-				if biome_conf.levels[str(SavedData.run_stats.level)].has("spawn_shape_radius"):
-					var radius: float = biome_conf["levels"][str(SavedData.run_stats.level)]["spawn_shape_radius"]
-					return Rooms.CircleSpawnShape.new(radius)
-				else:
-					printerr("Error overwritting spawn shape, you must specify a radius using the key spawn_shape_radius")
+				var radius: float = biome_conf.levels[SavedData.run_stats.level - 1].spawn_shape_radius
+				return Rooms.CircleSpawnShape.new(radius)
 			"rectangle":
-				if biome_conf.levels[str(SavedData.run_stats.level)].has("spawn_shape_width") and biome_conf["levels"][str(SavedData.run_stats.level)].has("spawn_shape_height"):
-					return Rooms.RectangleSpawnShape.new(Vector2(biome_conf.levels[str(SavedData.run_stats.level)]["spawn_shape_width"], biome_conf.levels[str(SavedData.run_stats.level)]["spawn_shape_height"]))
-				else:
-					printerr("Error overwritting spawn shape, you must specify a width and height using the keys spawn_shape_width and spawn_shape_height")
+					return Rooms.RectangleSpawnShape.new(Vector2(biome_conf.levels[SavedData.run_stats.level - 1].spawn_shape_width, biome_conf.levels[SavedData.run_stats.level - 1].spawn_shape_height))
 
-	return null
+	return Rooms.CircleSpawnShape.new(100)
 
 
 func get_vertical_corridor_symmetric_lights() -> bool:
@@ -172,22 +166,22 @@ func get_vertical_corridor_symmetric_lights() -> bool:
 
 
 func get_disable_horizontal_separation_steering() -> bool:
-	if biome_conf.levels.has(str(SavedData.run_stats.level)) and biome_conf.levels[str(SavedData.run_stats.level)].has("disable_horizontal_separation_steering"):
-		return biome_conf.levels[str(SavedData.run_stats.level)]["disable_horizontal_separation_steering"]
+	if biome_conf.levels.size() >= SavedData.run_stats.level and biome_conf.levels[SavedData.run_stats.level - 1].disable_horizontal_separation_steering:
+		return biome_conf.levels[SavedData.run_stats.level - 1].disable_horizontal_separation_steering
 	return false
 
 
 func get_num_rooms(type: String) -> int:
-	if biome_conf.levels.has(str(SavedData.run_stats.level)) and biome_conf["levels"][str(SavedData.run_stats.level)].has("num_" + type + "_rooms"):
-		return biome_conf.levels[str(SavedData.run_stats.level)]["num_" + type + "_rooms"]
+	if biome_conf.levels.size() >= SavedData.run_stats.level and biome_conf.levels[SavedData.run_stats.level - 1].get("num_" + type + "_rooms") != null:
+		return biome_conf.levels[SavedData.run_stats.level - 1].get("num_" + type + "_rooms")
 	else:
 		return biome_conf.get("default_num_" + type + "_rooms")
 
 
 ## This function assumes all the paths you put on the overwrite conf array are correct. If you you put some room names that don't exist, the game will crash. Returns [""] if the paths are not being overwritten
 func get_overwrite_room_paths(type: String) -> PackedStringArray:
-	if biome_conf.levels.has(str(run_stats.level)) and biome_conf.levels[str(run_stats.level)].has("overwrite_" + type + "_rooms"):
-		return biome_conf.levels[str(run_stats.level)]["overwrite_" + type + "_rooms"]
+	if biome_conf.levels.size() >= run_stats.level and biome_conf.levels[run_stats.level - 1].get("overwrite_" + type + "_rooms") != null:
+		return biome_conf.levels[run_stats.level - 1].get("overwrite_" + type + "_rooms")
 		#print(room_paths)
 #		room_paths = room_paths.map(func(room_name: String) -> String:
 #			return room_name + ".tscn"
@@ -200,8 +194,8 @@ func get_overwrite_room_paths(type: String) -> PackedStringArray:
 func get_overwrite_connections() -> Array[Array]:
 	var connections: Array = []
 
-	if biome_conf.levels.has(str(run_stats.level)) and biome_conf.levels[str(run_stats.level)].has("overwrite_connections"):
-		connections = biome_conf.levels[str(run_stats.level)]["overwrite_connections"]
+	if biome_conf.levels.size() >= run_stats.level and not biome_conf.levels[run_stats.level - 1].overwrite_connections.is_empty():
+		connections = biome_conf.levels[run_stats.level - 1].overwrite_connections
 
 	var ret: Array[Array] = []
 	ret.assign(connections)
@@ -236,7 +230,7 @@ func _change_biome_conf(biome: String) -> void:
 			biome_conf = BiomeConf.new()
 
 
-## room_type must be "combat", "end", "special" and "start"
+## room_type must be "combat", "end", "special" or "start"
 ## [br][br]
 ## You only have to specify end_to if the room_type is "end". This parameter indicates the biome you will go to when you enter the exit on the end room
 func add_volatile_room(room_path: String, biome: String, room_type: String, end_to: String = "") -> void:
@@ -475,7 +469,7 @@ class BiomeConf:
 
 	var default_num_combat_rooms: int = 5
 	var default_num_special_rooms: int = 1
-	var levels: Dictionary = {}
+	var levels: Array[Level] = []
 
 	var music: String = ""
 
@@ -484,20 +478,75 @@ class BiomeConf:
 
 		for key: String in dic.keys():
 			if data.get(key) != null:
-				data.set(key, dic[key])
+				if key == "levels":
+					assert(dic[key] is Dictionary)
+					var levels_dic: Dictionary = dic[key]
+					data.set(key, _load_levels(levels_dic))
+				else:
+					data.set(key, dic[key])
 			else:
 				printerr("BiomeConf: Invalid property: " + key)
 
 		return data
 
-	func to_dic() -> Dictionary:
-		var dic: Dictionary = {}
+	#func to_dic() -> Dictionary:
+		#var dic: Dictionary = {}
+#
+		#for property_dic: Dictionary in get_property_list():
+			#assert(property_dic.name is StringName)
+			#var property_name: StringName = property_dic.name
+			#if property_name in ["RefCounted", "script", "Built-in script"]:
+				#continue
+			#dic[property_name] = get(property_name)
+#
+		#return dic
 
-		for property_dic: Dictionary in get_property_list():
-			assert(property_dic.name is StringName)
-			var property_name: StringName = property_dic.name
-			if property_name in ["RefCounted", "script", "Built-in script"]:
-				continue
-			dic[property_name] = get(property_name)
 
-		return dic
+	static func _load_levels(dic: Dictionary) -> Array[Level]:
+		var arr: Array[Level] = []
+
+		for key: String in dic.keys():
+			var level: int = int(key)
+
+			while arr.size() + 1 < level:
+				arr.push_back(Level.new())
+
+			assert(dic[key] is Dictionary)
+			var level_dic: Dictionary = dic[key]
+			arr.push_back(Level.from_dic(level_dic))
+
+		return arr
+
+
+	class Level:
+		## Area in which the rooms will be spawned. It can be "circle" or "rectangle"
+		var spawn_shape_type: String = "circle"
+		## Width of the rectangle spawn shape. Set this only if you are using a "rectangle" shape
+		var spawn_shape_width: int = 200
+		## Height of the rectangle spawn shape. Set this only if you are using a "rectangle" shape
+		var spawn_shape_height: int = 300
+		## Radius of the circle spawn shape. Set this only if you are using a "circle" shape
+		var spawn_shape_radius: int = 100
+		## If this is enabled, the rooms will only move vertically when they get apart from each other
+		var disable_horizontal_separation_steering: bool = false
+
+		var num_combat_rooms: int = 5
+		var num_special_rooms: int = 2
+
+		var overwrite_start_rooms: Array = [""]
+		var overwrite_combat_rooms: Array = [""]
+		var overwrite_end_forest_rooms: Array = [""]
+		var overwrite_end_sewer_rooms: Array = [""]
+
+		var overwrite_connections: Array = []
+
+		static func from_dic(dic: Dictionary) -> Level:
+			var level: Level = Level.new()
+
+			for key: String in dic.keys():
+				if level.get(key) != null:
+					level.set(key, dic[key])
+				else:
+					printerr("Level: Invalid property: " + key)
+
+			return level
