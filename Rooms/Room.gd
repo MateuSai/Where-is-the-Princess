@@ -211,14 +211,14 @@ func _has_entry(dir: EntryDirection) -> bool:
 #	return entries[dir].get_children()[0].global_position
 
 
-func get_entries(dir: EntryDirection) -> Array[Node2D]:
-	var arr: Array[Node2D] = []
+func get_entries(dir: EntryDirection) -> Array[EntryPositions]:
+	var arr: Array[EntryPositions] = []
 	arr.assign(entries[dir].get_children())
 	return arr
 
 
 func get_random_entry(dir: EntryDirection, to_connect_to: Node2D = null) -> Node:
-	var direction_entries: Array[Node2D] = get_entries(dir)
+	var direction_entries: Array[EntryPositions] = get_entries(dir)
 #	for entry in used_entries:
 #		if direction_entries.has(entry):
 #			direction_entries.erase(entry)
@@ -226,10 +226,10 @@ func get_random_entry(dir: EntryDirection, to_connect_to: Node2D = null) -> Node
 #	if direction_entries.is_empty():
 #		return null
 #	else:
-	var usable_entries: Array[Node2D] = direction_entries.duplicate()
+	var usable_entries: Array[EntryPositions] = direction_entries.duplicate()
 
 	if to_connect_to != null:
-		usable_entries = usable_entries.filter(func(entry: Node2D) -> void:
+		usable_entries = usable_entries.filter(func(entry: EntryPositions) -> void:
 			return is_connection_between_entries_possible(entry, dir, to_connect_to)
 #			match dir:
 #				EntryDirection.LEFT:

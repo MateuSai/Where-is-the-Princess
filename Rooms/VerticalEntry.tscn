@@ -1,6 +1,9 @@
-[gd_scene format=3 uid="uid://b38wk64vy80ng"]
+[gd_scene load_steps=2 format=3 uid="uid://b38wk64vy80ng"]
+
+[ext_resource type="Script" path="res://Rooms/entry_positions.gd" id="1_ifddo"]
 
 [node name="VerticalEntry" type="Node2D"]
+script = ExtResource("1_ifddo")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 

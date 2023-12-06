@@ -172,7 +172,7 @@ func get_disable_horizontal_separation_steering() -> bool:
 
 
 func get_num_rooms(type: String) -> int:
-	if biome_conf.levels.size() >= SavedData.run_stats.level and biome_conf.levels[SavedData.run_stats.level - 1].get("num_" + type + "_rooms") != null:
+	if biome_conf.levels.size() >= SavedData.run_stats.level:
 		return biome_conf.levels[SavedData.run_stats.level - 1].get("num_" + type + "_rooms")
 	else:
 		return biome_conf.get("default_num_" + type + "_rooms")
