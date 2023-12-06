@@ -34,7 +34,8 @@ enum RoomConnection {
 	L_135,
 }
 
-var spawn_shape: SpawnShape = CircleSpawnShape.new(100)
+## This is a variable is initialized on the [method spawn_rooms] function
+var spawn_shape: SpawnShape
 
 var rooms: Array[DungeonRoom] = []
 var start_room: DungeonRoom
@@ -194,9 +195,7 @@ func _get_end_rooms() -> Array[PackedStringArray]:
 
 
 func spawn_rooms() -> void:
-	var overwrite_spawn_shape: SpawnShape = SavedData.get_overwrite_spawn_shape()
-	if overwrite_spawn_shape:
-		spawn_shape = overwrite_spawn_shape
+	spawn_shape = SavedData.get_current_level_spawn_shape()
 
 	var start_room_paths: PackedStringArray = _get_rooms("Start")
 	var combat_room_paths: PackedStringArray = _get_rooms("Combat")
@@ -474,18 +473,18 @@ func _create_corridors() -> bool:
 	var entry_cells: Array[Vector2i] = []
 	for room: DungeonRoom in rooms:
 		for dir: DungeonRoom.EntryDirection in [DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.DOWN]:
-			var entries: Array[Node2D] = room.get_entries(dir)
-			for entry: Node2D in entries:
+			var entries: Array[EntryPositions] = room.get_entries(dir)
+			for entry: EntryPositions in entries:
 				var entry_pos: Vector2i = corridor_tile_map.local_to_map(entry.global_position)
 				if corridor_tile_map.get_cell_atlas_coords(0, entry_pos + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir]) in FLOOR_TILE_COORDS:
 					room.mark_entry_as_used(entry)
-					for pos_node in entry.get_children():
+					for pos_node: Marker2D in entry.get_children():
 						var cell: Vector2i = corridor_tile_map.local_to_map(pos_node.global_position)
 						corridor_tile_map.erase_cell(0, cell)
 						corridor_tile_map.erase_cell(1, cell)
 						entry_cells.push_back(cell)
 
-	for cell_pos in corridor_tile_map.get_used_cells(0):
+	for cell_pos: Vector2i in corridor_tile_map.get_used_cells(0):
 		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FULL_WALL_COORDS:
 			if corridor_tile_map.get_cell_atlas_coords(1, cell_pos + Vector2i.UP) == RIGHT_WALL_COOR:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_LEFT_COOR)
@@ -525,7 +524,7 @@ func _create_corridors() -> bool:
 		await get_tree().process_frame
 		await get_tree().create_timer(pause_between_steps).timeout
 
-	for room in rooms:
+	for room: DungeonRoom in rooms:
 		room.add_doors_and_walls(corridor_tile_map)
 		room.generate_room_white_image()
 		room.setup_navigation()
@@ -589,7 +588,7 @@ func _create_corridors() -> bool:
 func _add_lights() -> void:
 	var TIKI_TORCH_SCENE: PackedScene = load("res://Rooms/Biomes/forest/TikiTorch.tscn")
 
-	for cell in corridor_tile_map.get_used_cells(0):
+	for cell: Vector2i in corridor_tile_map.get_used_cells(0):
 		if corridor_tile_map.get_cell_atlas_coords(0, cell) == UPPER_WALL_COOR:
 			if cell.x % 8 == 0 :
 				var light: Node2D = TIKI_TORCH_SCENE.instantiate()
@@ -616,7 +615,7 @@ func _add_lights() -> void:
 
 
 func _create_fog() -> void:
-	for room in rooms:
+	for room: DungeonRoom in rooms:
 		map_rect = map_rect.merge(room.get_rect())
 	map_rect.position -= Vector2.ONE * FOG_PADDING
 	map_rect.size += Vector2.ONE * FOG_PADDING * 2
@@ -628,7 +627,7 @@ func _create_fog() -> void:
 	#fog_sprite.texture = ImageTexture.create_from_image(fog_image)
 
 	while is_instance_valid(Globals.player):
-		var light: Image = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png").get_image()
+		var light: Image = (load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png") as Texture2D).get_image()
 		light.convert(Image.FORMAT_RGBAH)
 		fog_image.blend_rect(light, Rect2(Vector2.ZERO, light.get_size()), Globals.player.position - map_rect.position - light.get_size()/2.0)
 		fog_sprite.texture = ImageTexture.create_from_image(fog_image)
@@ -652,16 +651,16 @@ func _create_corridor_between_rooms(id: int, connection_with: int, room_connecti
 	var dif: Vector2 = room_centers[connection_with] - room_centers[id]
 	match room_connection:
 		RoomConnection.VERTICAL:
-			var entries: Array[Node] = await _check_entry_positions_vertical_corridor(id if dif.y > 0 else connection_with, connection_with if dif.y > 0 else id, DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.UP)
+			var entries: Array[EntryPositions] = await _check_entry_positions_vertical_corridor(id if dif.y > 0 else connection_with, connection_with if dif.y > 0 else id, DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.UP)
 #			var above: Node = rooms[id if dif.y > 0 else connection_with].get_random_entry(DungeonRoom.EntryDirection.DOWN)
 #			var below: Node = rooms[connection_with if dif.y > 0 else id].get_random_entry(DungeonRoom.EntryDirection.UP, above)
 			await _create_vertical_corridor(entries[0], entries[1])
 #			rooms[id if dif.y > 0 else connection_with].mark_entry_as_used(entries[0])
 #			rooms[connection_with if dif.y > 0 else id].mark_entry_as_used(entries[1])
 		RoomConnection.HORIZONTAL:
-			var entries: Array[Node] = await _check_entry_positions_horizontal_corridor(id if dif.x > 0 else connection_with, connection_with if dif.x > 0 else id, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.LEFT)
-			var left: Node = entries[0] if entries[0].global_position.x < entries[1].global_position.x else entries[1]
-			var right: Node = entries[1] if entries[0].global_position.x < entries[1].global_position.x else entries[0]
+			var entries: Array[EntryPositions] = await _check_entry_positions_horizontal_corridor(id if dif.x > 0 else connection_with, connection_with if dif.x > 0 else id, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.LEFT)
+			var left: EntryPositions = entries[0] if entries[0].global_position.x < entries[1].global_position.x else entries[1]
+			var right: EntryPositions = entries[1] if entries[0].global_position.x < entries[1].global_position.x else entries[0]
 			await _create_horizontal_corridor(left, right)
 #			rooms[id if dif.x > 0 else connection_with].mark_entry_as_used(left)
 #			rooms[connection_with if dif.x > 0 else id].mark_entry_as_used(right)
@@ -679,9 +678,9 @@ func _create_corridor_between_rooms(id: int, connection_with: int, room_connecti
 			await _decide_direction_and_create_l_corridor(id, connection_with, directions)
 
 
-func _decide_direction_and_create_l_corridor(id: int, connection_with: int, directions: Array) -> void:
+func _decide_direction_and_create_l_corridor(id: int, connection_with: int, directions: Array[Array]) -> void:
 	var rand: int = randi() % 2
-	var entries: Array[Node] = await _check_entry_positions_l_corridor(id, connection_with, directions[rand][0], directions[rand][1])
+	var entries: Array[EntryPositions] = await _check_entry_positions_l_corridor(id, connection_with, directions[rand][0], directions[rand][1])
 	if not entries.is_empty():
 		await _create_l_corridor(entries[0], entries[1], directions[rand][0], directions[rand][1])
 #		rooms[id].mark_entry_as_used(entries[0])
@@ -804,22 +803,22 @@ func _is_connection_possible(id: int, connection_with: int) -> RoomConnection:
 #				printerr("\tI have not been able to create a path between " + str(id) + " and " + str(connection_with))
 
 
-func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_dir: DungeonRoom.EntryDirection, connection_with_dir: DungeonRoom.EntryDirection) -> Array[Node]:
-	for i in 2:
+func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_dir: DungeonRoom.EntryDirection, connection_with_dir: DungeonRoom.EntryDirection) -> Array[EntryPositions]:
+	for i: int in 2:
 		var ids: Array = [[id, connection_with], [connection_with, id]][i]
 		var directions: Array = [[id_dir, connection_with_dir], [connection_with_dir, id_dir]][i]
-		var entries1: Array[Node2D] = rooms[ids[0]].get_entries(directions[0]).duplicate()
+		var entries1: Array[EntryPositions] = rooms[ids[0]].get_entries(directions[0]).duplicate()
 		entries1.shuffle()
-		var entries2: Array[Node2D] = rooms[ids[1]].get_entries(directions[1]).duplicate()
+		var entries2: Array[EntryPositions] = rooms[ids[1]].get_entries(directions[1]).duplicate()
 		entries2.shuffle()
-		for entry in entries1:
-			for other_entry in entries2:
+		for entry: EntryPositions in entries1:
+			for other_entry: EntryPositions in entries2:
 				var connection_possible: bool = true
 				if entry == null or other_entry == null:
 					continue
 
-				var id_entry_position: Vector2 = entry.get_children()[0].global_position
-				var connection_with_entry_position: Vector2 = other_entry.get_children()[0].global_position
+				var id_entry_position: Vector2 = entry.marker1.global_position
+				var connection_with_entry_position: Vector2 = other_entry.marker1.global_position
 
 #				const MIN_TILES_TO_MAKE_DESVIATION: int = 2
 				var dis: float = id_entry_position.y - connection_with_entry_position.y
@@ -834,7 +833,7 @@ func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_
 				#vertical_corridor_2_rect = Rect2(id_entry_position, Vector2(TILE_SIZE * 4, dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1)).abs()
 				horizontal_corridor_rect = Rect2(connection_with_entry_position + Vector2.DOWN * center + Vector2.UP * TILE_SIZE * 2, Vector2(id_entry_position.x - connection_with_entry_position.x, TILE_SIZE * 4)).abs()
 
-				for room in rooms:
+				for room: DungeonRoom in rooms:
 #					if room == rooms[ids[0]] or room == rooms[ids[1]]:
 #						continue # Para que no detecta las habitaciones que se conectan, solo las otras
 
@@ -853,23 +852,23 @@ func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_
 	return []
 
 
-func _check_entry_positions_horizontal_corridor(id: int, connection_with: int, id_dir: DungeonRoom.EntryDirection, connection_with_dir: DungeonRoom.EntryDirection) -> Array[Node]:
-	for i in 2:
+func _check_entry_positions_horizontal_corridor(id: int, connection_with: int, id_dir: DungeonRoom.EntryDirection, connection_with_dir: DungeonRoom.EntryDirection) -> Array[EntryPositions]:
+	for i: int in 2:
 		var ids: Array = [[id, connection_with], [connection_with, id]][i]
 		var directions: Array = [[id_dir, connection_with_dir], [connection_with_dir, id_dir]][i]
-		var entries1: Array[Node2D] = rooms[ids[0]].get_entries(directions[0]).duplicate()
+		var entries1: Array[EntryPositions] = rooms[ids[0]].get_entries(directions[0]).duplicate()
 		entries1.shuffle()
-		var entries2: Array[Node2D] = rooms[ids[1]].get_entries(directions[1]).duplicate()
+		var entries2: Array[EntryPositions] = rooms[ids[1]].get_entries(directions[1]).duplicate()
 		entries2.shuffle()
-		for entry in entries1:
-			for other_entry in entries2:
+		for entry: EntryPositions in entries1:
+			for other_entry: EntryPositions in entries2:
 				var connection_possible: bool = true
 
 				if entry == null or other_entry == null:
 					continue
 
-				var id_entry_position: Vector2 = entry.get_children()[0].global_position
-				var connection_with_entry_position: Vector2 = other_entry.get_children()[0].global_position
+				var id_entry_position: Vector2 = entry.marker1.global_position
+				var connection_with_entry_position: Vector2 = other_entry.marker1.global_position
 
 				const MIN_TILES_TO_MAKE_DESVIATION: int = 2
 				var dis: float = id_entry_position.x - connection_with_entry_position.x
@@ -882,7 +881,7 @@ func _check_entry_positions_horizontal_corridor(id: int, connection_with: int, i
 				horizontal_corridor_2_rect = Rect2(connection_with_entry_position if connection_with_entry_position.x > id_entry_position.x else id_entry_position, Vector2((dis - center if connection_with_entry_position.x > id_entry_position.x else -dis + center) - (MIN_TILES_TO_MAKE_DESVIATION + 1) * TILE_SIZE, TILE_SIZE * 4))
 				vertical_corridor_rect = Rect2((connection_with_entry_position if connection_with_entry_position.x > id_entry_position.x else id_entry_position) + Vector2.LEFT * center, Vector2(TILE_SIZE * 4, (id_entry_position.y - connection_with_entry_position.y) if connection_with_entry_position.x > id_entry_position.x else (connection_with_entry_position.y - id_entry_position.y)))
 
-				for room in rooms:
+				for room: DungeonRoom in rooms:
 #					if room == rooms[ids[0]] or room == rooms[ids[1]]:
 #						continue # Para que no detecta las habitaciones que se conectan, solo las otras
 
@@ -906,23 +905,23 @@ func _check_entry_positions_horizontal_corridor(id: int, connection_with: int, i
 	return []
 
 
-func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: DungeonRoom.EntryDirection, connection_with_dir: DungeonRoom.EntryDirection) -> Array[Node]:
-	for i in 2:
+func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: DungeonRoom.EntryDirection, connection_with_dir: DungeonRoom.EntryDirection) -> Array[EntryPositions]:
+	for i: int in 2:
 		var ids: Array = [[id, connection_with], [connection_with, id]][i]
 		var directions: Array = [[id_dir, connection_with_dir], [connection_with_dir, id_dir]][i]
-		var entries1: Array[Node2D] = rooms[ids[0]].get_entries(directions[0]).duplicate()
+		var entries1: Array[EntryPositions] = rooms[ids[0]].get_entries(directions[0]).duplicate()
 		entries1.shuffle()
-		var entries2: Array[Node2D] = rooms[ids[1]].get_entries(directions[1]).duplicate()
+		var entries2: Array[EntryPositions] = rooms[ids[1]].get_entries(directions[1]).duplicate()
 		entries2.shuffle()
-		for entry in entries1:
-			for other_entry in entries2:
+		for entry: EntryPositions in entries1:
+			for other_entry: EntryPositions in entries2:
 				var connection_possible: bool = true
 
 				if entry == null or other_entry == null:
 					continue
 
-				var id_entry_position: Vector2 = entry.get_children()[0].global_position
-				var connection_with_entry_position: Vector2 = other_entry.get_children()[0].global_position
+				var id_entry_position: Vector2 = entry.marker1.global_position
+				var connection_with_entry_position: Vector2 = other_entry.marker1.global_position
 
 			#	var vertical_corridor_rect: Rect2
 			#	var horizontal_corridor_rect: Rect2
@@ -933,7 +932,7 @@ func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: Du
 					vertical_corridor_rect = Rect2(connection_with_entry_position.x - 32, connection_with_entry_position.y, TILE_SIZE * 4, id_entry_position.y - connection_with_entry_position.y)
 					horizontal_corridor_rect = Rect2(id_entry_position.x, id_entry_position.y - 32, connection_with_entry_position.x - id_entry_position.x + TILE_SIZE, TILE_SIZE * 4)
 
-				for room in rooms:
+				for room: DungeonRoom in rooms:
 #					if room == rooms[id] or room == rooms[connection_with]:
 #						continue # Para que no detecta las habitaciones que se conectan, solo las otras
 
@@ -971,7 +970,7 @@ func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: Du
 
 #region Create corridors
 # above and below are entries, with 2 children
-func _create_vertical_corridor(above: Node, below: Node) -> void:
+func _create_vertical_corridor(above: EntryPositions, below: EntryPositions) -> void:
 	assert(above.get_child_count() == 2 and below.get_child_count() == 2)
 
 	if debug:
@@ -979,14 +978,14 @@ func _create_vertical_corridor(above: Node, below: Node) -> void:
 
 	const MIN_TILES_TO_MAKE_DESVIATION: int = 2
 
-	var above_tiles: Array[Vector2i] = [corridor_tile_map.local_to_map(above.get_child(0).global_position), corridor_tile_map.local_to_map(above.get_child(1).global_position)]
-	var below_tiles: Array[Vector2i] = [corridor_tile_map.local_to_map(below.get_child(0).global_position), corridor_tile_map.local_to_map(below.get_child(1).global_position)]
+	var above_tiles: Array[Vector2i] = [corridor_tile_map.local_to_map(above.marker1.global_position), corridor_tile_map.local_to_map(above.marker2.global_position)]
+	var below_tiles: Array[Vector2i] = [corridor_tile_map.local_to_map(below.marker1.global_position), corridor_tile_map.local_to_map(below.marker2.global_position)]
 
 	# var y_start: int = above_tiles[0].y
 	var dis: int = below_tiles[0].y - above_tiles[0].y
 	var center: int = floor((dis) / 2.0)
 
-	for i in range(1, center):
+	for i: int in range(1, center):
 		#corridor_tile_map.set_cell(0, above_tiles[0] + Vector2i.DOWN * i + Vector2i.LEFT, 40, FLOOR_TILE_COOR)
 		corridor_tile_map.set_cell(0, above_tiles[0] + Vector2i.DOWN * i, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 		corridor_tile_map.set_cell(0, above_tiles[1] + Vector2i.DOWN * i, ATLAS_ID, _get_random_corridor_floor_tile_coor())
@@ -994,7 +993,7 @@ func _create_vertical_corridor(above: Node, below: Node) -> void:
 		if debug:
 			await get_tree().create_timer(add_tile_group_time).timeout
 
-	for i in range(1, dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1):
+	for i: int in range(1, dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1):
 		#corridor_tile_map.set_cell(0, below_tiles[0] + Vector2i.UP * i + Vector2i.LEFT, 40, FLOOR_TILE_COOR)
 		corridor_tile_map.set_cell(0, below_tiles[0] + Vector2i.UP * i, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 		corridor_tile_map.set_cell(0, below_tiles[1] + Vector2i.UP * i, ATLAS_ID, _get_random_corridor_floor_tile_coor())
@@ -1003,19 +1002,19 @@ func _create_vertical_corridor(above: Node, below: Node) -> void:
 			await get_tree().create_timer(add_tile_group_time).timeout
 
 	if above_tiles[0].x > below_tiles[0].x:
-		for i in above_tiles[1].x - below_tiles[0].x + 1:
+		for i: int in above_tiles[1].x - below_tiles[0].x + 1:
 			corridor_tile_map.set_cell(0, above_tiles[1] + Vector2i.DOWN * center + (i) * Vector2i.LEFT, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 			corridor_tile_map.set_cell(0, above_tiles[1] + Vector2i.DOWN + Vector2i.DOWN * center + (i) * Vector2i.LEFT, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 			if debug:
 				await get_tree().create_timer(add_tile_group_time).timeout
 	elif above_tiles[0].x < below_tiles[0].x:
-		for i in below_tiles[0].x - above_tiles[1].x + 3:
+		for i: int in below_tiles[0].x - above_tiles[1].x + 3:
 			corridor_tile_map.set_cell(0, above_tiles[0] + Vector2i.DOWN * center + (i) * Vector2i.RIGHT, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 			corridor_tile_map.set_cell(0, above_tiles[0] + Vector2i.DOWN + Vector2i.DOWN * center + (i) * Vector2i.RIGHT, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 			if debug:
 				await get_tree().create_timer(add_tile_group_time).timeout
 	else:
-		for i in MIN_TILES_TO_MAKE_DESVIATION:
+		for i: int in MIN_TILES_TO_MAKE_DESVIATION:
 			corridor_tile_map.set_cell(0, above_tiles[0] + Vector2i.DOWN * center + (i) * Vector2i.RIGHT, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 			corridor_tile_map.set_cell(0, above_tiles[0] + Vector2i.DOWN + Vector2i.DOWN * center + (i) * Vector2i.RIGHT, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 			if debug:
@@ -1023,7 +1022,7 @@ func _create_vertical_corridor(above: Node, below: Node) -> void:
 
 
 ## [code]left[/code] is the entry of the room on the left and [code]right[/code] is the entry of the room on the right
-func _create_horizontal_corridor(left: Node, right: Node) -> void:
+func _create_horizontal_corridor(left: EntryPositions, right: EntryPositions) -> void:
 	assert(left.get_child_count() == 2 and right.get_child_count() == 2)
 
 	if debug:
@@ -1031,53 +1030,53 @@ func _create_horizontal_corridor(left: Node, right: Node) -> void:
 
 	const MIN_TILES_TO_MAKE_DESVIATION: int = 2
 
-	var left_tiles: Array[Vector2i] = [corridor_tile_map.local_to_map(left.get_child(0).global_position), corridor_tile_map.local_to_map(left.get_child(1).global_position)]
-	var right_tiles: Array[Vector2i] = [corridor_tile_map.local_to_map(right.get_child(0).global_position), corridor_tile_map.local_to_map(right.get_child(1).global_position)]
+	var left_tiles: Array[Vector2i] = [corridor_tile_map.local_to_map(left.marker1.global_position), corridor_tile_map.local_to_map(left.marker2.global_position)]
+	var right_tiles: Array[Vector2i] = [corridor_tile_map.local_to_map(right.marker1.global_position), corridor_tile_map.local_to_map(right.marker2.global_position)]
 
 	# var x_start: int = left_tiles[0].x
 	var dis: int = right_tiles[0].x - left_tiles[0].x
 	var center: int = floor((dis) / 2.0)
 
-	for i in range(1, center):
+	for i: int in range(1, center):
 		corridor_tile_map.set_cell(0, left_tiles[0] + Vector2i.RIGHT * i, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 		corridor_tile_map.set_cell(0, left_tiles[1] + Vector2i.RIGHT * i, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 		if debug:
 			await get_tree().create_timer(add_tile_group_time).timeout
 
-	for i in range(1, dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1):
+	for i: int in range(1, dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1):
 		corridor_tile_map.set_cell(0, right_tiles[0] + Vector2i.LEFT * i, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 		corridor_tile_map.set_cell(0, right_tiles[1] + Vector2i.LEFT * i, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 		if debug:
 			await get_tree().create_timer(add_tile_group_time).timeout
 
 	if left_tiles[0].y > right_tiles[0].y:
-		for i in left_tiles[1].y - right_tiles[0].y + 1:
+		for i: int in left_tiles[1].y - right_tiles[0].y + 1:
 			corridor_tile_map.set_cell(0, left_tiles[1] + Vector2i.RIGHT * center + (i) * Vector2i.UP, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 			corridor_tile_map.set_cell(0, left_tiles[1] + Vector2i.RIGHT + Vector2i.RIGHT * center + (i) * Vector2i.UP, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 			if debug:
 				await get_tree().create_timer(add_tile_group_time).timeout
 	elif left_tiles[0].y < right_tiles[0].y:
-		for i in right_tiles[0].y - left_tiles[1].y + 3:
+		for i: int in right_tiles[0].y - left_tiles[1].y + 3:
 			corridor_tile_map.set_cell(0, left_tiles[0] + Vector2i.RIGHT * center + (i) * Vector2i.DOWN, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 			corridor_tile_map.set_cell(0, left_tiles[0] + Vector2i.RIGHT + Vector2i.RIGHT * center + (i) * Vector2i.DOWN, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 			if debug:
 				await get_tree().create_timer(add_tile_group_time).timeout
 	else:
-		for i in MIN_TILES_TO_MAKE_DESVIATION:
+		for i: int in MIN_TILES_TO_MAKE_DESVIATION:
 			corridor_tile_map.set_cell(0, left_tiles[0] + Vector2i.RIGHT * center + (i) * Vector2i.DOWN, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 			corridor_tile_map.set_cell(0, left_tiles[0] + Vector2i.RIGHT + Vector2i.RIGHT * center + (i) * Vector2i.DOWN, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 			if debug:
 				await get_tree().create_timer(add_tile_group_time).timeout
 
 
-func _create_l_corridor(from: Node, to: Node, from_dir: DungeonRoom.EntryDirection, to_dir: DungeonRoom.EntryDirection) -> void:
+func _create_l_corridor(from: EntryPositions, to: EntryPositions, from_dir: DungeonRoom.EntryDirection, to_dir: DungeonRoom.EntryDirection) -> void:
 	assert(from.get_child_count() == 2 and to.get_child_count() == 2)
 
 	if debug:
 		print("\tCreating l corridor...")
 
-	var vertical_entry: Node
-	var horizontal_entry: Node
+	var vertical_entry: EntryPositions
+	var horizontal_entry: EntryPositions
 	var vertical_dir: DungeonRoom.EntryDirection
 	var horizontal_dir: DungeonRoom.EntryDirection
 	if from_dir == DungeonRoom.EntryDirection.UP or from_dir == DungeonRoom.EntryDirection.DOWN:
@@ -1091,8 +1090,8 @@ func _create_l_corridor(from: Node, to: Node, from_dir: DungeonRoom.EntryDirecti
 		vertical_dir = to_dir
 		horizontal_dir = from_dir
 
-	var vertical_entry_tiles: Array[Vector2i] = [corridor_tile_map.local_to_map(vertical_entry.get_child(0).global_position), corridor_tile_map.local_to_map(vertical_entry.get_child(1).global_position)]
-	var horizontal_entry_tiles: Array[Vector2i] = [corridor_tile_map.local_to_map(horizontal_entry.get_child(0).global_position), corridor_tile_map.local_to_map(horizontal_entry.get_child(1).global_position)]
+	var vertical_entry_tiles: Array[Vector2i] = [corridor_tile_map.local_to_map(vertical_entry.marker1.global_position), corridor_tile_map.local_to_map(vertical_entry.marker2.global_position)]
+	var horizontal_entry_tiles: Array[Vector2i] = [corridor_tile_map.local_to_map(horizontal_entry.marker1.global_position), corridor_tile_map.local_to_map(horizontal_entry.marker2.global_position)]
 	# print("fdsfsd" + str(from_tiles[0]) + " " + str(to_tiles[0]))
 
 	if vertical_dir == DungeonRoom.EntryDirection.UP or vertical_dir == DungeonRoom.EntryDirection.DOWN:
@@ -1121,17 +1120,17 @@ func _divide_corridor_tile_map() -> void:
 	var x_blocks: int = ceil(rect.size.x / BLOCK_SIZE)
 	var y_blocks: int = ceil(rect.size.y / BLOCK_SIZE)
 
-	for i in x_blocks:
-		for ii in y_blocks:
+	for i: int in x_blocks:
+		for ii: int in y_blocks:
 			var block_tilemap: TileMap = TileMap.new()
 			block_tilemap.add_layer(-1)
 			block_tilemap.set_layer_z_index(0, corridor_tile_map.get_layer_z_index(0))
 			block_tilemap.set_layer_z_index(1, corridor_tile_map.get_layer_z_index(1))
 			block_tilemap.tile_set = corridor_tile_map.tile_set
 
-			for x in range(rect.position.x + i * BLOCK_SIZE, rect.position.x + (i * BLOCK_SIZE) + BLOCK_SIZE):
-				for y in range(rect.position.y + ii * BLOCK_SIZE, rect.position.y + (ii * BLOCK_SIZE) + BLOCK_SIZE):
-					for layer in corridor_tile_map.get_layers_count():
+			for x: int in range(rect.position.x + i * BLOCK_SIZE, rect.position.x + (i * BLOCK_SIZE) + BLOCK_SIZE):
+				for y: int in range(rect.position.y + ii * BLOCK_SIZE, rect.position.y + (ii * BLOCK_SIZE) + BLOCK_SIZE):
+					for layer: int in corridor_tile_map.get_layers_count():
 						block_tilemap.set_cell(layer, Vector2i(x, y), ATLAS_ID, corridor_tile_map.get_cell_atlas_coords(layer, Vector2i(x, y)))
 
 			add_child(block_tilemap)
@@ -1148,7 +1147,7 @@ func int_arr_to_vec_array(array: Array) -> Array[Vector2i]:
 	var vec_arr: Array[Vector2i] = []
 	var tmp_arr: Array = []
 
-	for arr in array:
+	for arr: Array[int] in array:
 		tmp_arr.push_back(Vector2i(arr[0], arr[1]))
 
 	vec_arr.assign(tmp_arr)

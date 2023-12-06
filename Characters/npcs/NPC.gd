@@ -32,7 +32,7 @@ func start_dialogue() -> void:
 	add_child(dialogue_box)
 
 	var available_dialogue_texts: PackedStringArray = dialogue_texts.duplicate()
-	for i in range(available_dialogue_texts.size()-1, -1, -1):
+	for i: int in range(available_dialogue_texts.size()-1, -1, -1):
 		if used_dialogue_texts.has(available_dialogue_texts[i]):
 			available_dialogue_texts.remove_at(i)
 	if available_dialogue_texts.is_empty():
@@ -42,7 +42,7 @@ func start_dialogue() -> void:
 	dialogue_box.start_displaying_text(random_dialogue_text)
 	used_dialogue_texts.push_back(random_dialogue_text)
 
-	dialogue_box.finished_displaying_text.connect(func():
+	dialogue_box.finished_displaying_text.connect(func() -> void:
 		dialogue_tween = create_tween()
 		dialogue_tween.tween_property(dialogue_box, "modulate:a", 0.0, 1).set_delay(3)
 		await dialogue_tween.finished

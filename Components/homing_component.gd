@@ -18,7 +18,8 @@ func _physics_process(_delta: float) -> void:
 	var dir: Vector2 = get_direction()
 	if dir != Vector2.ZERO:
 		#print((1.1 - abs(projectile.direction.angle_to(dir)) / PI))
-		projectile.direction = Vector2.RIGHT.rotated(lerp_angle(projectile.direction.angle(), dir.angle(), homing_degree * (1.1 - abs(projectile.direction.angle_to(dir)) / PI)))
+		var weight: float = homing_degree * (1.1 - abs(projectile.direction.angle_to(dir)) / PI)
+		projectile.direction = Vector2.RIGHT.rotated(lerp_angle(projectile.direction.angle(), dir.angle(), weight))
 
 
 func get_direction() -> Vector2:

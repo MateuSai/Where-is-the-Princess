@@ -9,7 +9,7 @@ func _spawn_quake_projectiles() -> void:
 	var num_projectiles: int = 10
 	var rotation_separation: float = 2 * PI / num_projectiles
 	var first_rotation: float = randf_range(0, rotation_separation)
-	for i in num_projectiles:
+	for i: int in num_projectiles:
 		var quake_projectile: Projectile = QUAKE_PROJECTILE_SCENE.instantiate()
 		get_tree().current_scene.add_child(quake_projectile)
 		var dir: Vector2 = Vector2.RIGHT.rotated(first_rotation + i * rotation_separation)

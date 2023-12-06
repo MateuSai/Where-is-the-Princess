@@ -26,7 +26,7 @@ func equip(player: Player) -> void:
 
 
 func unequip(player: Player) -> void:
-	var particles: GPUParticles2D = load("res://shaders_and_particles/DestroyParticles.tscn").instantiate()
+	var particles: GPUParticles2D = (load("res://shaders_and_particles/DestroyParticles.tscn") as PackedScene).instantiate()
 	particles.position = magic_shield_node.sprite.global_position
 	magic_shield_node.get_tree().current_scene.add_child(particles)
 	player.remove_rotating_item(magic_shield_node)
@@ -65,8 +65,8 @@ class MagicShieldNode extends StaticBody2D:
 		life_component.max_hp = 3
 		#life_component.hp = 2
 
-		life_component.hp_changed.connect(func(new_hp: int): hp_changed.emit(new_hp))
-		life_component.died.connect(func(): destroyed.emit())
+		life_component.hp_changed.connect(func(new_hp: int) -> void: hp_changed.emit(new_hp))
+		life_component.died.connect(func() -> void: destroyed.emit())
 		add_child(life_component)
 
 

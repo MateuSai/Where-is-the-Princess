@@ -8,11 +8,11 @@ var in_combat: bool = false
 
 
 func _ready() -> void:
-	Globals.room_closed.connect(func():
+	Globals.room_closed.connect(func() -> void:
 		in_combat = true
 		minimap.hide()
 	)
-	Globals.room_cleared.connect(func():
+	Globals.room_cleared.connect(func() -> void:
 		in_combat = false
 	)
 
