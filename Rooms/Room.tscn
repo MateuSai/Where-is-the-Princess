@@ -77,6 +77,8 @@ layer_3/tile_data = PackedInt32Array()
 layer_4/name = "Water"
 layer_4/z_index = -2
 layer_4/tile_data = PackedInt32Array()
+layer_5/name = "Low wall"
+layer_5/tile_data = PackedInt32Array()
 
 [node name="FlyingUnitsNavigationTileMap" type="TileMap" parent="." groups=["flying_units_navigation_polygon_source_group"]]
 tile_set = SubResource("TileSet_x0g25")
