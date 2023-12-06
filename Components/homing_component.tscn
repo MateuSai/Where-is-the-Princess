@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c1olrxr482ng0"]
 
-[ext_resource type="PackedScene" uid="uid://bd7vx6mtgudv" path="res://Components/enemy_detector.tscn" id="1_xxdpq"]
+[ext_resource type="PackedScene" uid="uid://bd7vx6mtgudv" path="res://Components/character_detector.tscn" id="1_xxdpq"]
 [ext_resource type="Script" path="res://Components/homing_component.gd" id="2_4yoiy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ip5jb"]

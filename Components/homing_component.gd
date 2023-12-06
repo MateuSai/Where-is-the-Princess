@@ -1,4 +1,4 @@
-class_name HomingComponent extends EnemyDetector
+class_name HomingComponent extends CharacterDetector
 
 var homing_degree: float
 
@@ -24,14 +24,3 @@ func _physics_process(_delta: float) -> void:
 
 func get_direction() -> Vector2:
 	return (closer_enemy.global_position - projectile.position).normalized() if is_instance_valid(closer_enemy) else Vector2.ZERO
-
-
-func _update_closer_enemy() -> void:
-	var distance_to_closer_enemy: float = (closer_enemy.global_position - projectile.position).length() if is_instance_valid(closer_enemy) else INF
-	for enemy: Character in enemies_inside:
-		if enemy == closer_enemy:
-			continue
-		var distance_to_other_enemy: float = (enemy.global_position - projectile.position).length()
-		if distance_to_other_enemy < distance_to_closer_enemy:
-			distance_to_closer_enemy = distance_to_other_enemy
-			closer_enemy = enemy

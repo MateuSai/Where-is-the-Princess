@@ -1,4 +1,4 @@
-class_name AutoAimArea extends EnemyDetector
+class_name AutoAimArea extends CharacterDetector
 
 @onready var player: Player = owner
 
@@ -28,17 +28,6 @@ func get_direction_using_dir(dir: Vector2, max_angle: float) -> Vector2:
 			angle = angle_to_enemy
 
 	return (closer_to_dir.global_position - player.position).normalized() if closer_to_dir else Vector2.ZERO
-
-
-func _update_closer_enemy() -> void:
-	var distance_to_closer_enemy: float = (closer_enemy.global_position - player.position).length() if is_instance_valid(closer_enemy) else INF
-	for enemy: Character in enemies_inside:
-		if enemy == closer_enemy:
-			continue
-		var distance_to_other_enemy: float = (enemy.global_position - player.position).length()
-		if distance_to_other_enemy < distance_to_closer_enemy:
-			distance_to_closer_enemy = distance_to_other_enemy
-			closer_enemy = enemy
 
 
 func _on_auto_aim_changed(new_value: bool) -> void:

@@ -253,19 +253,8 @@ func spawn_rooms() -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 
-	#start_room._on_player_entered_room()
-#	var start_room_pos: Vector2 = start_room.get_random_circle_spawn_point(SPAWN_CIRCLE_RADIUS)
-#	rooms[0].float_position = start_room_pos # rooms[0] es la habitación de spawn
-#	rooms[1].float_position = start_room_pos * -1 # rooms[1] es la habitación de salida
 	for room: DungeonRoom in rooms:
-		# Ya que ya hemos posicionado start y end antes
-		#if not room in [start_room, end_room]:
 		room.float_position = room.get_random_spawn_point(spawn_shape) - room.vector_to_center
-		#print(room.float_position)
-#		if room.name.begins_with("Boss"):
-#			print(room.vector_to_center)
-#			print(room.float_position)
-		# add_child(room)
 		if debug:
 			(room.get_node("DebugRoomId") as Label).text = str(rooms.find(room))
 
@@ -425,10 +414,12 @@ func _create_corridors() -> bool:
 		var i: int = number_of_extra_connections
 		while i > 0 and not points_that_could_be_connected.is_empty():
 			var rand: int = randi() % points_that_could_be_connected.size()
-			var room_connection: RoomConnection = await _is_connection_possible(points_that_could_be_connected[rand][0], points_that_could_be_connected[rand][1])
+			var connections: Array[int] = []
+			connections.assign(points_that_could_be_connected[rand])
+			var room_connection: RoomConnection = await _is_connection_possible(connections[0], connections[1])
 			if room_connection:
-				await _create_corridor_between_rooms(points_that_could_be_connected[rand][0], points_that_could_be_connected[rand][1], room_connection)
-				mst_astar.connect_points(points_that_could_be_connected[rand][0], points_that_could_be_connected[rand][1])
+				await _create_corridor_between_rooms(connections[0], connections[1], room_connection)
+				mst_astar.connect_points(connections[0], connections[1])
 				i -= 1
 			points_that_could_be_connected.remove_at(rand)
 		if debug:
@@ -546,39 +537,41 @@ func _create_corridors() -> bool:
 		await get_tree().process_frame
 		await get_tree().create_timer(pause_between_steps * 2).timeout
 
-	#bake_navigation_polygon(false)
+	# FIXME This spaghetti makes the occluders appear on the right position. Without this, it seems like they don't move alongside the rooms, that's why I have to recreate the tilemap after it is on the final position
+	for room in rooms:
+		var tilemap_clone: TileMap = TileMap.new()
 
-	#for room in rooms:
-		#var tilemap_clone: TileMap = TileMap.new()
+		for group: String in room.tilemap.get_groups():
+			tilemap_clone.add_to_group(group)
 
-		#var tileset: TileSet = TileSet.new()
-		#tileset.tile_size = Vector2i(TILE_SIZE, TILE_SIZE)
-		#var atlas: TileSetAtlasSource = TileSetAtlasSource.new()
-		#atlas.texture = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest.png")
-		#atlas.texture_region_size = Vector2i(TILE_SIZE, TILE_SIZE)
-		#@warning_ignore("integer_division")
-		#var width_tiles: int = atlas.texture.get_width()/TILE_SIZE
-		#@warning_ignore("integer_division")
-		#var height_tiles: int = atlas.texture.get_height()/TILE_SIZE
-		#for i in width_tiles:
-			#for j in height_tiles:
-				#atlas.create_tile(Vector2i(i, j))
-		#tileset.add_source(atlas)
-#
-		#for layer_i in room.tilemap.get_layers_count():
-			#tilemap_clone.add_layer(layer_i)
-			#tilemap_clone.set_layer_z_index(layer_i, room.tilemap.get_layer_z_index(layer_i))
-#
-		#tileset.add_navigation_layer()
-		#tileset.add_navigation_layer()
-		#tilemap_clone.tile_set = room.tilemap.tile_set
-#
-		#for layer in room.tilemap.get_layers_count():
-			#for cell in room.tilemap.get_used_cells(layer):
-				#tilemap_clone.set_cell(layer, cell, 0, room.tilemap.get_cell_atlas_coords(layer, cell))
-		#room.tilemap.queue_free()
-		#room.add_child(tilemap_clone)
-		#room.tilemap = tilemap_clone
+		var tileset: TileSet = TileSet.new()
+		tileset.tile_size = Vector2i(TILE_SIZE, TILE_SIZE)
+		var atlas: TileSetAtlasSource = TileSetAtlasSource.new()
+		atlas.texture = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest.png")
+		atlas.texture_region_size = Vector2i(TILE_SIZE, TILE_SIZE)
+		@warning_ignore("integer_division")
+		var width_tiles: int = atlas.texture.get_width()/TILE_SIZE
+		@warning_ignore("integer_division")
+		var height_tiles: int = atlas.texture.get_height()/TILE_SIZE
+		for i in width_tiles:
+			for j in height_tiles:
+				atlas.create_tile(Vector2i(i, j))
+		tileset.add_source(atlas)
+
+		for layer_i in room.tilemap.get_layers_count():
+			tilemap_clone.add_layer(layer_i)
+			tilemap_clone.set_layer_z_index(layer_i, room.tilemap.get_layer_z_index(layer_i))
+
+		tileset.add_navigation_layer()
+		tileset.add_navigation_layer()
+		tilemap_clone.tile_set = room.tilemap.tile_set
+
+		for layer in room.tilemap.get_layers_count():
+			for cell in room.tilemap.get_used_cells(layer):
+				tilemap_clone.set_cell(layer, cell, 0, room.tilemap.get_cell_atlas_coords(layer, cell))
+		room.tilemap.queue_free()
+		room.add_child(tilemap_clone)
+		room.tilemap = tilemap_clone
 
 	generation_completed.emit()
 

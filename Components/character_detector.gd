@@ -1,16 +1,17 @@
-class_name EnemyDetector extends Area2D
+class_name CharacterDetector extends Area2D
 
 
 var closer_enemy: Character = null
 
 var enemies_inside: Array[Character] = []
 
+@onready var parent: Node2D = get_parent()
 @onready var collision_shape: CollisionShape2D = get_node_or_null("CollisionShape2D")
 @onready var set_closer_enemy_timer: Timer = $SetCloserEnemyTimer
 
 
 func _ready() -> void:
-	assert(collision_shape)
+	assert(collision_shape, "CharacterDetector must have a CollisionShape2D")
 
 	body_entered.connect(_on_enemy_entered)
 	body_exited.connect(_on_enemy_exited)
@@ -23,7 +24,14 @@ func get_direction() -> Vector2:
 
 
 func _update_closer_enemy() -> void:
-	push_error("You should override this function")
+	var distance_to_closer_enemy: float = (closer_enemy.global_position - parent.global_position).length() if is_instance_valid(closer_enemy) else INF
+	for enemy: Character in enemies_inside:
+		if enemy == closer_enemy:
+			continue
+		var distance_to_other_enemy: float = (enemy.global_position - parent.global_position).length()
+		if distance_to_other_enemy < distance_to_closer_enemy:
+			distance_to_closer_enemy = distance_to_other_enemy
+			closer_enemy = enemy
 
 
 func _enable() -> void:
@@ -45,5 +53,7 @@ func _on_enemy_entered(enemy: Node2D) -> void:
 
 func _on_enemy_exited(enemy: Node2D) -> void:
 	enemies_inside.erase(enemy)
-	if enemy == closer_enemy:
+	if enemies_inside.is_empty():
+		closer_enemy = null
+	elif enemy == closer_enemy:
 		_update_closer_enemy()

@@ -49,7 +49,7 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
 		CHASE:
 			pass
-			animation_player.play("fly")
+			#animation_player.play("fly")
 		DEAD:
 			pass
 			# parent.spawn_loot()
