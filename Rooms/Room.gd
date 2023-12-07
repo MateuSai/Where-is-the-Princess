@@ -186,7 +186,7 @@ func setup_navigation() -> void:
 
 
 func update_navigation() -> void:
-	bake_navigation_polygon(true)
+	bake_navigation_polygon(false)
 	NavigationServer2D.region_set_transform(get_region_rid(), get_global_transform())
 
 	_free_navigation()

@@ -538,7 +538,7 @@ func _create_corridors() -> bool:
 		await get_tree().create_timer(pause_between_steps * 2).timeout
 
 	# FIXME This spaghetti makes the occluders appear on the right position. Without this, it seems like they don't move alongside the rooms, that's why I have to recreate the tilemap after it is on the final position
-	for room in rooms:
+	for room: DungeonRoom in rooms:
 		var tilemap_clone: TileMap = TileMap.new()
 
 		for group: String in room.tilemap.get_groups():
@@ -553,21 +553,22 @@ func _create_corridors() -> bool:
 		var width_tiles: int = atlas.texture.get_width()/TILE_SIZE
 		@warning_ignore("integer_division")
 		var height_tiles: int = atlas.texture.get_height()/TILE_SIZE
-		for i in width_tiles:
-			for j in height_tiles:
+		for i: int in width_tiles:
+			for j: int in height_tiles:
 				atlas.create_tile(Vector2i(i, j))
 		tileset.add_source(atlas)
 
-		for layer_i in room.tilemap.get_layers_count():
+		for layer_i: int in room.tilemap.get_layers_count():
 			tilemap_clone.add_layer(layer_i)
 			tilemap_clone.set_layer_z_index(layer_i, room.tilemap.get_layer_z_index(layer_i))
+			tilemap_clone.set_layer_navigation_enabled(layer_i, room.tilemap.is_layer_navigation_enabled(layer_i))
 
 		tileset.add_navigation_layer()
 		tileset.add_navigation_layer()
 		tilemap_clone.tile_set = room.tilemap.tile_set
 
-		for layer in room.tilemap.get_layers_count():
-			for cell in room.tilemap.get_used_cells(layer):
+		for layer: int in room.tilemap.get_layers_count():
+			for cell: Vector2i in room.tilemap.get_used_cells(layer):
 				tilemap_clone.set_cell(layer, cell, 0, room.tilemap.get_cell_atlas_coords(layer, cell))
 		room.tilemap.queue_free()
 		room.add_child(tilemap_clone)
