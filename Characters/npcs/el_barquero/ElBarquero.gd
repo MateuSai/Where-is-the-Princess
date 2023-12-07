@@ -8,6 +8,6 @@ func _ready() -> void:
 		super() # Talk when player interacts
 	else:
 		# Change level
-		interact_area.player_interacted.connect(func():
+		interact_area.player_interacted.connect(func() -> void:
 			Globals.exit_level()
 		)

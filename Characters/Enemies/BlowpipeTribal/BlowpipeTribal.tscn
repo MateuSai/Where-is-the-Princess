@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="3_k2c77"]
 [ext_resource type="Script" path="res://Characters/Enemies/BlowpipeTribal/BlowpipeTribalFSM.gd" id="3_p78pm"]
 [ext_resource type="Script" path="res://Components/DropMaskOnDeadComponent.gd" id="5_vltav"]
-[ext_resource type="Script" path="res://Components/aim_component.gd" id="6_nnf1x"]
+[ext_resource type="Script" path="res://Components/character_detector/aim_component.gd" id="6_nnf1x"]
 [ext_resource type="Texture2D" uid="uid://cnu7btarwtkdr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_01_blowpipe.png" id="6_ocmak"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_23s0p"]

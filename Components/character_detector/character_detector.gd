@@ -3,7 +3,7 @@ class_name CharacterDetector extends Area2D
 
 var closer_enemy: Character = null
 
-var enemies_inside: Array[Character] = []
+var characters_inside: Array[Character] = []
 
 @onready var parent: Node2D = get_parent()
 @onready var collision_shape: CollisionShape2D = get_node_or_null("CollisionShape2D")
@@ -25,7 +25,7 @@ func get_direction() -> Vector2:
 
 func _update_closer_enemy() -> void:
 	var distance_to_closer_enemy: float = (closer_enemy.global_position - parent.global_position).length() if is_instance_valid(closer_enemy) else INF
-	for enemy: Character in enemies_inside:
+	for enemy: Character in characters_inside:
 		if enemy == closer_enemy:
 			continue
 		var distance_to_other_enemy: float = (enemy.global_position - parent.global_position).length()
@@ -46,14 +46,14 @@ func _disable() -> void:
 
 
 func _on_enemy_entered(enemy: Node2D) -> void:
-	enemies_inside.push_back(enemy)
+	characters_inside.push_back(enemy)
 	if closer_enemy == null:
 		closer_enemy = enemy
 
 
 func _on_enemy_exited(enemy: Node2D) -> void:
-	enemies_inside.erase(enemy)
-	if enemies_inside.is_empty():
+	characters_inside.erase(enemy)
+	if characters_inside.is_empty():
 		closer_enemy = null
 	elif enemy == closer_enemy:
 		_update_closer_enemy()

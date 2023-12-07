@@ -29,7 +29,7 @@ func _ready() -> void:
 	print("--- SavedData ---")
 	# save_data()
 	_load_data()
-	print(data)
+	#print(data)
 
 	_change_biome_conf(run_stats.biome)
 	# print(biome_conf)

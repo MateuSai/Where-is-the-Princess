@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bd7vx6mtgudv"]
 
-[ext_resource type="Script" path="res://Components/character_detector.gd" id="1_wtaq1"]
+[ext_resource type="Script" path="res://Components/character_detector/character_detector.gd" id="1_wtaq1"]
 
 [node name="CharacterDetector" type="Area2D"]
 collision_layer = 0

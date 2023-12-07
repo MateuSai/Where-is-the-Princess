@@ -130,7 +130,9 @@ func _process_command(command: String) -> void:
 						else:
 							printerr("You must specify a item path")
 					"enemy":
-						if splitted_command.size() > 2:
+						if splitted_command.size() > 3:
+							_spawn_enemy(splitted_command[2], splitted_command[3])
+						elif splitted_command.size() > 2:
 							_spawn_enemy(splitted_command[2])
 						else:
 							printerr("You must specify a enemy path")
@@ -312,8 +314,19 @@ func _spawn_item(item_string: String) -> void:
 	hide()
 
 
-func _spawn_enemy(enemy_string: String) -> void:
+func _spawn_enemy(enemy_string: String, amount_strign: String = "1") -> void:
 	var enemy: Enemy
+	var amount: int
+
+	if not amount_strign.is_valid_int():
+		push_error("Error: Invalid value for enemy amount")
+		return
+
+	amount = int(amount_strign)
+	if amount < 1:
+		printerr("Error: amount must be 1 or greater")
+		return
+
 	if enemy_string.is_absolute_path():
 		var enemy_scene: PackedScene = load(enemy_string)
 		if not enemy_scene:
@@ -321,18 +334,20 @@ func _spawn_enemy(enemy_string: String) -> void:
 			return
 		enemy = enemy_scene.instantiate()
 	else:
-		if Globals.ENEMIES.has(enemy_string.to_pascal_case()):
-			enemy = load(Globals.ENEMIES[enemy_string.to_pascal_case()].path).instantiate()
-		elif Globals.ENEMIES.has(enemy_string.to_snake_case()):
-			enemy = load(Globals.ENEMIES[enemy_string.to_snake_case()].path).instantiate()
-		else:
-			printerr("Error: no registered enmy with this name")
-			return
+		for i: int in amount:
+			if Globals.ENEMIES.has(enemy_string.to_pascal_case()):
+				enemy = load(Globals.ENEMIES[enemy_string.to_pascal_case()].path).instantiate()
+				(get_tree().current_scene.get_node("Rooms") as Rooms).rooms[0].add_child(enemy)
+				enemy.global_position = Globals.player.position + Vector2.RIGHT * 16 + Vector2(randf_range(-8, 8), randf_range(-8, 8))
+			elif Globals.ENEMIES.has(enemy_string.to_snake_case()):
+				enemy = load(Globals.ENEMIES[enemy_string.to_snake_case()].path).instantiate()
+				(get_tree().current_scene.get_node("Rooms") as Rooms).rooms[0].add_child(enemy)
+				enemy.global_position = Globals.player.position + Vector2.RIGHT * 16 + Vector2(randf_range(-8, 8), randf_range(-8, 8))
+			else:
+				printerr("Error: no registered enmy with this name")
+				return
 
 	hide()
-
-	(get_tree().current_scene.get_node("Rooms") as Rooms).rooms[0].add_child(enemy)
-	enemy.global_position = Globals.player.position + Vector2.RIGHT * 16
 
 
 func _spawn_chest() -> void:

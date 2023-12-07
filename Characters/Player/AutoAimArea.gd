@@ -21,7 +21,7 @@ func get_direction_using_dir(dir: Vector2, max_angle: float) -> Vector2:
 	var closer_to_dir: Character = null
 	var angle: float
 
-	for enemy: Character in enemies_inside:
+	for enemy: Character in characters_inside:
 		var angle_to_enemy: float = abs(dir.angle_to((enemy.global_position - player.position)))
 		if (closer_to_dir == null or angle_to_enemy < angle) and angle_to_enemy < max_angle:
 			closer_to_dir = enemy

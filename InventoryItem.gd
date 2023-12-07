@@ -1,4 +1,4 @@
-extends MarginContainer
+class_name InventoryItem extends MarginContainer
 
 var weapon: Weapon
 

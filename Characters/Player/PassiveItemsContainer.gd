@@ -18,20 +18,20 @@ func _on_player_permanent_passive_item_picked_up(item: PermanentPassiveItem) -> 
 
 
 func _on_player_temporal_passive_item_picked_up(item: TemporalPassiveItem) -> void:
-	var item_class_name: String = item.get_script().get_path().get_file().trim_suffix(".gd")
+	var item_class_name: String = (item.get_script() as Script).get_path().get_file().trim_suffix(".gd")
 	var temporal_passive_item_icon: TemporalPassiveItemIcon = get_node_or_null(item_class_name)
 	if temporal_passive_item_icon:
 		temporal_passive_item_icon.add()
 	else:
 		temporal_passive_item_icon = TemporalPassiveItemIcon.new()
 		# print(item.get_script().get_path().get_file().trim_suffix(".gd"))
-		temporal_passive_item_icon.name = item.get_script().get_path().get_file().trim_suffix(".gd")
+		temporal_passive_item_icon.name = (item.get_script() as Script).get_path().get_file().trim_suffix(".gd")
 		temporal_passive_item_icon.texture = item.get_icon()
 		add_child(temporal_passive_item_icon)
 
 
 func _on_player_temporal_passive_item_unequiped(item: TemporalPassiveItem) -> void:
-	get_node(item.get_script().get_path().get_file().trim_suffix(".gd")).remove()
+	(get_node((item.get_script() as Script).get_path().get_file().trim_suffix(".gd")) as TemporalPassiveItemIcon).remove()
 
 
 class TemporalPassiveItemIcon extends TextureRect:

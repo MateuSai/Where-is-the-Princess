@@ -16,11 +16,11 @@ func _ready() -> void:
 	super()
 	var tilemap: TileMap = room.get_node("TileMap")
 
-	for cell in tilemap.get_used_cells(0):
+	for cell: Vector2i in tilemap.get_used_cells(0):
 		if tilemap.get_cell_atlas_coords(0, cell) == HOLE_TILE_COOR:
 			holes.push_back(room.position + tilemap.map_to_local(cell))
 
-	attack_timer.timeout.connect(func():
+	attack_timer.timeout.connect(func() -> void:
 		var rock: Projectile = ROCK_SCENE.instantiate()
 		rock.exclude = [self]
 		room.add_child(rock)
