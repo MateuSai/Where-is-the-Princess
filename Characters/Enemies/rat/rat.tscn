@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bwmv7vm2fghr6"]
+[gd_scene load_steps=18 format=3 uid="uid://bwmv7vm2fghr6"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_llcor"]
 [ext_resource type="Script" path="res://Characters/Enemies/rat/rat.gd" id="2_nvfog"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Characters/Enemies/rat/rat_fsm.gd" id="3_crcvn"]
 [ext_resource type="Script" path="res://Characters/Hitbox.gd" id="5_husu7"]
 [ext_resource type="PackedScene" uid="uid://bd7vx6mtgudv" path="res://Components/character_detector/character_detector.tscn" id="6_3xswd"]
+[ext_resource type="Script" path="res://Components/character_detector/flock_steering.gd" id="7_l5tsk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6c0pm"]
 radius = 3.0
@@ -169,7 +170,7 @@ radius = 9.0
 radius = 95.021
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ieya"]
-radius = 39.0128
+radius = 60.075
 
 [node name="Rat" instance=ExtResource("1_llcor")]
 script = ExtResource("2_nvfog")
@@ -213,6 +214,7 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_xwl1s")
 
 [node name="FlockSteering" parent="." index="15" instance=ExtResource("6_3xswd")]
+script = ExtResource("7_l5tsk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FlockSteering" index="1"]
 shape = SubResource("CircleShape2D_4ieya")

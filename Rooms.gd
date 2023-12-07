@@ -540,6 +540,7 @@ func _create_corridors() -> bool:
 	# FIXME This spaghetti makes the occluders appear on the right position. Without this, it seems like they don't move alongside the rooms, that's why I have to recreate the tilemap after it is on the final position
 	for room: DungeonRoom in rooms:
 		var tilemap_clone: TileMap = TileMap.new()
+		tilemap_clone.y_sort_enabled = true
 
 		for group: String in room.tilemap.get_groups():
 			tilemap_clone.add_to_group(group)
@@ -562,6 +563,7 @@ func _create_corridors() -> bool:
 			tilemap_clone.add_layer(layer_i)
 			tilemap_clone.set_layer_z_index(layer_i, room.tilemap.get_layer_z_index(layer_i))
 			tilemap_clone.set_layer_navigation_enabled(layer_i, room.tilemap.is_layer_navigation_enabled(layer_i))
+			tilemap_clone.set_layer_y_sort_enabled(layer_i, room.tilemap.is_layer_y_sort_enabled(layer_i))
 
 		tileset.add_navigation_layer()
 		tileset.add_navigation_layer()

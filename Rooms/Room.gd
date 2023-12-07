@@ -29,7 +29,7 @@ enum EntryDirection {
 }
 var used_entries: Array[Node] = []
 
-var agent_radius: int = 1
+var agent_radius: int = 3
 var navigation_map_flying_units: RID
 var navigation_region_flying_units: RID
 signal navigation_updated()

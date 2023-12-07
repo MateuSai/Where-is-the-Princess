@@ -45,15 +45,21 @@ func _disable() -> void:
 	collision_shape.set_deferred("disabled", true)
 
 
-func _on_enemy_entered(enemy: Node2D) -> void:
-	characters_inside.push_back(enemy)
+func _on_enemy_entered(character: Node2D) -> void:
+	if character == get_parent():
+		return
+
+	characters_inside.push_back(character)
 	if closer_enemy == null:
-		closer_enemy = enemy
+		closer_enemy = character
 
 
-func _on_enemy_exited(enemy: Node2D) -> void:
-	characters_inside.erase(enemy)
+func _on_enemy_exited(character: Node2D) -> void:
+	if character == get_parent():
+		return
+
+	characters_inside.erase(character)
 	if characters_inside.is_empty():
 		closer_enemy = null
-	elif enemy == closer_enemy:
+	elif character == closer_enemy:
 		_update_closer_enemy()
