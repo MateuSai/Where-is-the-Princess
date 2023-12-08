@@ -46,7 +46,7 @@
 [ext_resource type="AudioStream" uid="uid://ddvfc4vghai55" path="res://Audio/Sounds/540275__zepurple__pick-up-tool.wav" id="39_184bl"]
 [ext_resource type="AudioStream" uid="uid://bmektc0a3ocp4" path="res://Audio/Sounds/429924__julalvr__2-macho-comewav.wav" id="40_ndcss"]
 [ext_resource type="AudioStream" uid="uid://70di52o5u7oq" path="res://Audio/Sounds/324514__deleted_user_2104797__burp.wav" id="41_cbyot"]
-[ext_resource type="PackedScene" uid="uid://bd7vx6mtgudv" path="res://Components/enemy_detector.tscn" id="42_ctcpp"]
+[ext_resource type="PackedScene" uid="uid://bd7vx6mtgudv" path="res://Components/character_detector/character_detector.tscn" id="42_ctcpp"]
 [ext_resource type="PackedScene" uid="uid://bikd00kecbdlq" path="res://Components/interact_area_selector.tscn" id="43_8bx65"]
 [ext_resource type="Texture2D" uid="uid://damj8rl1ks0wt" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/under_hazard_bar.png" id="48_cmvmn"]
 [ext_resource type="Texture2D" uid="uid://dbkp2b2ecyu83" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/progress_hazard_bar.png" id="49_cukxb"]
@@ -317,7 +317,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_ht8xy"]
 resource_name = "jump"
-length = 0.8
+length = 0.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true

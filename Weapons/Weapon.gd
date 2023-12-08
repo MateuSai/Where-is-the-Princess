@@ -65,6 +65,7 @@ func _ready() -> void:
 		stats = WeaponStats.new(scene_file_path, souls_to_activate_ability)
 
 	set_process_unhandled_input(false)
+	@warning_ignore("unsafe_call_argument")
 	add_to_group(Type.keys()[type])
 
 	stats.condition_changed.connect(_on_condition_changed)
@@ -87,15 +88,17 @@ func load_modifiers() -> void:
 
 func _load_csv_data(data: Dictionary) -> void:
 	weapon_name = data["name"]
-	icon = load(data["icon"])
+	var icon_path: String = data["icon"]
+	icon = load(icon_path)
 	type = Type.values()[Type.keys().find(data["type"])]
 	damage = data.damage
 	knockback = data.knockback
 	ability_damage = data.ability_damage
 	ability_knockback = data.ability_knockback
 	condition_cost_per_normal_attack = data.condition_cost_per_normal_attack
-	if FileAccess.file_exists(data["ability_icon"]):
-		active_ability_icon = load(data["ability_icon"])
+	var ability_icon_path: String = data["ability_icon"]
+	if FileAccess.file_exists(ability_icon_path):
+		active_ability_icon = load(ability_icon_path)
 	else:
 		active_ability_icon = null
 	souls_to_activate_ability = data["ability_cost"]
@@ -228,7 +231,7 @@ func add_weapon_modifier(item: WeaponModifier) -> void:
 			if modifier is StatusWeaponModifier:
 				if (item.get_script() as Script).get_path() == (modifier.get_script() as Script).get_path():
 					#assert(modifier is StatusWeaponModifier)
-					modifier.amount += 1
+					(modifier as StatusWeaponModifier).amount += 1
 					return
 	elif item is ArrowModifier:
 		# We remove the previous modifier
@@ -273,6 +276,7 @@ func _on_animation_finished(anim_name: String) -> void:
 
 
 func get_info() -> String:
+	@warning_ignore("unsafe_call_argument")
 	return tr(weapon_name) + "\n\n" + tr(Type.keys()[type])
 
 

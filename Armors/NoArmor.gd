@@ -2,7 +2,7 @@ class_name NoArmor extends Armor
 
 
 func _init() -> void:
-	initialize(0, load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_naked_icon.png"), 1.5)
+	initialize(0, load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_naked_icon.png") as Texture2D, 1.5)
 
 
 func equip(player: Player) -> void:
@@ -17,5 +17,5 @@ func enable_ability_effect(player: Player) -> void:
 	player.jump()
 
 
-func get_sprite_sheet() -> Texture:
+func get_sprite_sheet() -> Texture2D:
 	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/no_armor.png")

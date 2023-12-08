@@ -12,7 +12,7 @@ func _ready() -> void:
 	if Settings.damage_numbers:
 		life_component.damage_taken.connect(_spawn_label)
 
-	Settings.damage_numbers_changed.connect(func(new_value: bool):
+	Settings.damage_numbers_changed.connect(func(new_value: bool) -> void:
 		if new_value and not life_component.damage_taken.is_connected(_spawn_label):
 			life_component.damage_taken.connect(_spawn_label)
 		elif not new_value and life_component.damage_taken.is_connected(_spawn_label):
@@ -23,7 +23,7 @@ func _ready() -> void:
 func _spawn_label(dam: int, dir: Vector2, _force: int) -> void:
 	var label: DamageLabel = DamageLabel.new()
 	get_tree().current_scene.add_child(label)
-	label.spawn(dam, dir, character.global_position + character.get_node("Sprite2D").position)
+	label.spawn(dam, dir, character.global_position + (character.get_node("Sprite2D") as Sprite2D).position)
 #	label.theme = load("res://SmallFontTheme.tres")
 #	label.z_index = 2
 #	label.text = str(dam)

@@ -11,7 +11,7 @@ func _ready() -> void:
 	hitbox.collided_with_something.connect(func(body: Node2D) -> void:
 		if body is Character:
 			if randi() % 100 < change_to_inflict_status_effect:
-				body.add_status_condition(status)
+				(body as Character).add_status_condition(status)
 	)
 
 #	match status:

@@ -7,12 +7,12 @@ var transparency_tween: Tween
 
 
 func _ready() -> void:
-	SavedData.run_stats.coins_changed.connect(func(new_coins: int):
+	SavedData.run_stats.coins_changed.connect(func(new_coins: int) -> void:
 		coins_label.text = str(new_coins)
 	)
 	coins_label.text = str(SavedData.run_stats.coins)
 
-	SavedData.dark_souls_changed.connect(func(new_value: int):
+	SavedData.dark_souls_changed.connect(func(new_value: int) -> void:
 		dark_souls_label.text = str(new_value)
 	)
 	dark_souls_label.text = str(SavedData.data.dark_souls)

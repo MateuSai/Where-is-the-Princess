@@ -1,8 +1,42 @@
-[gd_scene load_steps=10 format=3 uid="uid://bwmv7vm2fghr6"]
+[gd_scene load_steps=21 format=3 uid="uid://bwmv7vm2fghr6"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_llcor"]
 [ext_resource type="Script" path="res://Characters/Enemies/rat/rat.gd" id="2_nvfog"]
 [ext_resource type="Texture2D" uid="uid://dlkfenitu7hnh" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Rat/Rat.png" id="3_3b3rq"]
+[ext_resource type="Script" path="res://Characters/Enemies/rat/rat_fsm.gd" id="3_crcvn"]
+[ext_resource type="Script" path="res://Characters/Hitbox.gd" id="5_husu7"]
+[ext_resource type="PackedScene" uid="uid://bd7vx6mtgudv" path="res://Components/character_detector/character_detector.tscn" id="6_3xswd"]
+[ext_resource type="Script" path="res://Components/character_detector/flock_steering.gd" id="7_l5tsk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6c0pm"]
+radius = 3.0
+
+[sub_resource type="Animation" id="Animation_botsw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_aqayj"]
 resource_name = "idle"
@@ -20,20 +54,17 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4]
 }
-
-[sub_resource type="Animation" id="Animation_botsw"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_q1sfv"]
@@ -52,6 +83,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [5, 6, 7, 8, 9]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_wr1ys"]
 resource_name = "move"
@@ -68,6 +111,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [10, 11, 12, 13, 14]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -3)]
 }
 
 [sub_resource type="Animation" id="Animation_xgqnf"]
@@ -86,6 +141,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [15, 16, 17, 18, 19]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -3)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0o6e2"]
 _data = {
@@ -96,16 +163,115 @@ _data = {
 "move_up": SubResource("Animation_xgqnf")
 }
 
+[sub_resource type="Animation" id="Animation_c1sa3"]
+resource_name = "attack"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_spawn_bite_effect"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_8y88m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_epomg"]
+_data = {
+"RESET": SubResource("Animation_8y88m"),
+"attack": SubResource("Animation_c1sa3")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2tfiq"]
+radius = 9.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xwl1s"]
+radius = 95.021
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4ieya"]
+radius = 60.075
+
 [node name="Rat" instance=ExtResource("1_llcor")]
 script = ExtResource("2_nvfog")
 
+[node name="FiniteStateMachine" parent="." index="0"]
+script = ExtResource("3_crcvn")
+
 [node name="Sprite2D" parent="." index="2"]
-position = Vector2(0, -5)
+position = Vector2(0, -4)
 texture = ExtResource("3_3b3rq")
 hframes = 5
 vframes = 4
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("CircleShape2D_6c0pm")
 
 [node name="AnimationPlayer" parent="." index="4"]
 libraries = {
 "": SubResource("AnimationLibrary_0o6e2")
 }
+
+[node name="AttackAnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+libraries = {
+"": SubResource("AnimationLibrary_epomg")
+}
+
+[node name="IdleTimer" type="Timer" parent="." index="12"]
+one_shot = true
+
+[node name="WanderTimer" type="Timer" parent="." index="13"]
+one_shot = true
+
+[node name="Hitbox" type="Area2D" parent="." index="14"]
+collision_layer = 0
+collision_mask = 130
+script = ExtResource("5_husu7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(10, 0)
+shape = SubResource("CircleShape2D_2tfiq")
+disabled = true
+
+[node name="EnemyDetector" parent="." index="15" instance=ExtResource("6_3xswd")]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector" index="1"]
+shape = SubResource("CircleShape2D_xwl1s")
+
+[node name="FlockSteering" parent="." index="16" instance=ExtResource("6_3xswd")]
+script = ExtResource("7_l5tsk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FlockSteering" index="1"]
+shape = SubResource("CircleShape2D_4ieya")

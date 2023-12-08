@@ -29,11 +29,12 @@ enum EntryDirection {
 }
 var used_entries: Array[Node] = []
 
-var agent_radius: int = 1
+var agent_radius: int = 3
 var navigation_map_flying_units: RID
 var navigation_region_flying_units: RID
 signal navigation_updated()
 
+var player_entered_previously: bool = false
 signal player_entered()
 signal closed()
 signal cleared()
@@ -186,7 +187,7 @@ func setup_navigation() -> void:
 
 
 func update_navigation() -> void:
-	bake_navigation_polygon(true)
+	bake_navigation_polygon(false)
 	NavigationServer2D.region_set_transform(get_region_rid(), get_global_transform())
 
 	_free_navigation()
@@ -389,26 +390,30 @@ func _spawn_enemies() -> void:
 
 func _on_player_entered_room() -> void:
 	player_entered.emit()
+	Globals.player.current_room = self
 
-	rooms.clear_room_fog(position + Vector2(room_white_image_offset), room_white_image)
+	if not player_entered_previously:
+		rooms.clear_room_fog(position + Vector2(room_white_image_offset), room_white_image)
 
-	for door: Door in door_container.get_children():
-		door.player_entered_room.disconnect(_on_player_entered_room)
+		#for door: Door in door_container.get_children():
+			#door.player_entered_room.disconnect(_on_player_entered_room)
 
-	if num_enemies > 0:
-		_close_entrance()
-		_spawn_enemies()
-		closed.emit()
-		Globals.room_closed.emit()
+		if num_enemies > 0:
+			_close_entrance()
+			_spawn_enemies()
+			closed.emit()
+			Globals.room_closed.emit()
 
-		var tween: Tween = create_tween()
-		tween.tween_property(black_tilemap, "modulate:a", 0.0, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-		await tween.finished
-		black_tilemap.queue_free()
-	else:
-		black_tilemap.queue_free()
-		#_close_entrance()
-		#_open_doors()
+			var tween: Tween = create_tween()
+			tween.tween_property(black_tilemap, "modulate:a", 0.0, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			await tween.finished
+			black_tilemap.queue_free()
+		else:
+			black_tilemap.queue_free()
+			#_close_entrance()
+			#_open_doors()
+
+		player_entered_previously = true
 
 
 func get_random_spawn_point(spawn_shape: Rooms.SpawnShape) -> Vector2:

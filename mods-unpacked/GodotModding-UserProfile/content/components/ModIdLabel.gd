@@ -2,8 +2,8 @@ class_name ModIdLabel
 extends Label
 
 
-@export var color_error = Color.INDIAN_RED
-@export var color_mandatory = Color.DARK_GRAY
+@export var color_error: Color = Color.INDIAN_RED
+@export var color_mandatory: Color = Color.DARK_GRAY
 
 var mod_id: String
 

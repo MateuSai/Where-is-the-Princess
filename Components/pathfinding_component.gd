@@ -70,7 +70,8 @@ class Approach extends Mode:
 		#if (character as Enemy).room:
 			#print_debug(NavigationServer2D.map_get_path((character as Enemy).room.navigation_map_flying_units, character.global_position, character.global_position + vector_to_target, false))
 		if flags & ZIG_ZAG_FLAG and vector_to_target.length() > 24:
-			navigation_agent.target_position = character.global_position + vector_to_target.rotated([1, -1][randi() % 2] * PI/4)
+			var rot_dirs: Array[int] = [1, -1]
+			navigation_agent.target_position = character.global_position + vector_to_target.rotated(rot_dirs[randi() % 2] * PI/4)
 		else:
 			#print(target.global_position)
 			navigation_agent.target_position = target.global_position

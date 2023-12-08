@@ -6,7 +6,7 @@ extends Control
 
 
 func _ready() -> void:
-	resume_button.pressed.connect(func():
+	resume_button.pressed.connect(func() -> void:
 		hide()
 		color_rect.hide()
 		get_tree().paused = false

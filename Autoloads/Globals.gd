@@ -244,7 +244,7 @@ func _on_scene_changed(_new_scene: String) -> void:
 	AcidPuddle.characters_inside = []
 
 
-func get_atlas_frame(texture: Texture, region: Rect2) -> AtlasTexture:
+func get_atlas_frame(texture: Texture2D, region: Rect2) -> AtlasTexture:
 	var atlas: AtlasTexture = AtlasTexture.new()
 	atlas.atlas = texture
 	atlas.region = region

@@ -2,7 +2,7 @@ class_name ButtonWithSound extends Button
 
 
 func _ready() -> void:
-	pressed.connect(func():
+	pressed.connect(func() -> void:
 		var sound: AudioStreamPlayer = AudioStreamPlayer.new()
 		sound.stream = load("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Click-Button-Switch/Click8.wav")
 		sound.bus = "Sounds"

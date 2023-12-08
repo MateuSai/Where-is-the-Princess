@@ -9,6 +9,9 @@ const FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE: int = 2
 
 var target: Character
 
+var get_dir: Callable = func() -> Vector2:
+	return navigation_agent.get_next_path_position() - global_position
+
 @export var min_coins: int = 2
 @export var max_coins: int = 3
 @export var min_souls: int = 1
@@ -96,11 +99,11 @@ func spawn_loot() -> void:
 func move_to_target() -> void:
 	if not navigation_agent.is_target_reached():
 		if can_move:
-			var vector_to_next_point: Vector2 = navigation_agent.get_next_path_position() - global_position
-			mov_direction = vector_to_next_point
-			if vector_to_next_point.x > 0 and sprite.flip_h:
+			#var vector_to_next_point: Vector2 = navigation_agent.get_next_path_position() - global_position
+			mov_direction = get_dir.call()
+			if mov_direction.x > 0 and sprite.flip_h:
 				_on_change_dir()
-			elif vector_to_next_point.x < 0 and not sprite.flip_h:
+			elif mov_direction.x < 0 and not sprite.flip_h:
 				_on_change_dir()
 		else:
 			mov_direction = Vector2.ZERO

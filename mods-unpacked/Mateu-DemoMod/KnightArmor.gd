@@ -13,9 +13,9 @@ func disable_ability_effect(player: Player) -> void:
 	player.life_component.invincible = false
 
 
-func get_sprite_sheet() -> Texture:
+func get_sprite_sheet() -> Texture2D:
 	return load("res://Art/player/armor_01.png")
 
 
-func get_icon() -> Texture:
-	return Globals.get_atlas_frame(load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armors_icons.png") as Texture, Rect2(16, 48, 16, 16))
+func get_icon() -> Texture2D:
+	return Globals.get_atlas_frame(load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armors_icons.png") as Texture2D, Rect2(16, 48, 16, 16))

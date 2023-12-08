@@ -1,7 +1,7 @@
 @icon("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/boss_druid/rock.png")
 class_name Projectile extends Hitbox
 
-const HOMING_COMPONENT_SCENE: PackedScene = preload("res://Components/homing_component.tscn")
+const HOMING_COMPONENT_SCENE: PackedScene = preload("res://Components/character_detector/homing_component.tscn")
 
 var direction: Vector2 = Vector2.ZERO:
 	set(new_dir):
