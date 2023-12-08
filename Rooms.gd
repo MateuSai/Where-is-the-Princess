@@ -82,7 +82,7 @@ const FOG_PADDING: int = 128
 func _ready() -> void:
 	set_physics_process(false)
 
-	var biome_conf: SavedData.BiomeConf = SavedData.get_biome_conf()
+	var biome_conf: BiomeConf = SavedData.get_biome_conf()
 	ATLAS_ID = biome_conf.corridor_atlas_id
 	if not biome_conf.corridor_floor_tiles_coor.is_empty():
 		CORRIDOR_FLOOR_TILE_COORDS = int_arr_to_vec_array(biome_conf.corridor_floor_tiles_coor)
@@ -545,19 +545,19 @@ func _create_corridors() -> bool:
 		for group: String in room.tilemap.get_groups():
 			tilemap_clone.add_to_group(group)
 
-		var tileset: TileSet = TileSet.new()
-		tileset.tile_size = Vector2i(TILE_SIZE, TILE_SIZE)
-		var atlas: TileSetAtlasSource = TileSetAtlasSource.new()
-		atlas.texture = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest.png")
-		atlas.texture_region_size = Vector2i(TILE_SIZE, TILE_SIZE)
-		@warning_ignore("integer_division")
-		var width_tiles: int = atlas.texture.get_width()/TILE_SIZE
-		@warning_ignore("integer_division")
-		var height_tiles: int = atlas.texture.get_height()/TILE_SIZE
-		for i: int in width_tiles:
-			for j: int in height_tiles:
-				atlas.create_tile(Vector2i(i, j))
-		tileset.add_source(atlas)
+		#var tileset: TileSet = TileSet.new()
+		#tileset.tile_size = Vector2i(TILE_SIZE, TILE_SIZE)
+		#var atlas: TileSetAtlasSource = TileSetAtlasSource.new()
+		#atlas.texture = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest.png")
+		#atlas.texture_region_size = Vector2i(TILE_SIZE, TILE_SIZE)
+		#@warning_ignore("integer_division")
+		#var width_tiles: int = atlas.texture.get_width()/TILE_SIZE
+		#@warning_ignore("integer_division")
+		#var height_tiles: int = atlas.texture.get_height()/TILE_SIZE
+		#for i: int in width_tiles:
+			#for j: int in height_tiles:
+				#atlas.create_tile(Vector2i(i, j))
+		#tileset.add_source(atlas)
 
 		for layer_i: int in room.tilemap.get_layers_count():
 			tilemap_clone.add_layer(layer_i)
@@ -565,13 +565,13 @@ func _create_corridors() -> bool:
 			tilemap_clone.set_layer_navigation_enabled(layer_i, room.tilemap.is_layer_navigation_enabled(layer_i))
 			tilemap_clone.set_layer_y_sort_enabled(layer_i, room.tilemap.is_layer_y_sort_enabled(layer_i))
 
-		tileset.add_navigation_layer()
-		tileset.add_navigation_layer()
+		#tileset.add_navigation_layer()
+		#tileset.add_navigation_layer()
 		tilemap_clone.tile_set = room.tilemap.tile_set
 
 		for layer: int in room.tilemap.get_layers_count():
 			for cell: Vector2i in room.tilemap.get_used_cells(layer):
-				tilemap_clone.set_cell(layer, cell, 0, room.tilemap.get_cell_atlas_coords(layer, cell))
+				tilemap_clone.set_cell(layer, cell, ATLAS_ID, room.tilemap.get_cell_atlas_coords(layer, cell))
 		room.tilemap.queue_free()
 		room.add_child(tilemap_clone)
 		room.tilemap = tilemap_clone

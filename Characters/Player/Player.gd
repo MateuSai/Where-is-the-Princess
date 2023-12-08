@@ -38,6 +38,11 @@ var weapon_degradation_reduction: float = 0.0:
 
 var rotating_items: Array[Node2D] = []
 
+## Room where the player is currenty
+var current_room: DungeonRoom = null
+
+var position_before_jumping: Vector2
+
 #var sm
 
 # @onready var armor_sprite: Sprite2D = get_node("ArmorSprite")
@@ -103,6 +108,16 @@ func _ready() -> void:
 	Globals.player = self
 
 	eat_sound.finished.connect(burp_sound.play)
+
+	jump_animation_player.animation_finished.connect(func(anim_name: String) -> void:
+		if anim_name == "jump":
+			if is_on_water():
+				var sound: AutoFreeSound = AutoFreeSound.new()
+				get_tree().current_scene.add_child(sound)
+				sound.start(load("res://Audio/Sounds/280219__yurkobb__jump-into-water.wav"), global_position)
+				life_component.take_damage(1, Vector2.ZERO, 0, null)
+				position = position_before_jumping
+	)
 
 
 func _restore_previous_state() -> void:
@@ -246,6 +261,7 @@ func set_armor(new_armor: Armor) -> void:
 
 
 func jump() -> void:
+	position_before_jumping = position
 	jump_animation_player.play("jump")
 
 
@@ -320,3 +336,10 @@ func start_progressing_acid() -> void:
 	super()
 
 	acid_bar.show()
+
+
+func is_on_water() -> bool:
+	if current_room:
+		return current_room.tilemap.get_cell_atlas_coords(DungeonRoom.WATER_LAYER_ID, current_room.tilemap.local_to_map(position - current_room.position)) != Vector2i(-1, -1)
+	else:
+		return false

@@ -392,7 +392,7 @@ func get_random_discovered_item_path(quality: Item.Quality = Item.Quality.COMMON
 class RunStats extends Resource:
 	signal coins_changed(new_coins: int)
 
-	@export var biome: String = "forest"
+	@export var biome: String = "sewer"
 	@export var level: int = 1
 
 	@export var hp: int = Character.DB["player"].max_hp
@@ -452,101 +452,3 @@ class Data:
 			dic[property_name] = get(property_name)
 
 		return dic
-
-
-class BiomeConf:
-	var corridor_atlas_id: int = 0
-	var room_atlas_id: int = 0
-	var extra_connections: float = 0.5
-	var minimap_texture: String = "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/triple tilemap forest_minimap_sepia.png"
-	var vertical_door_texture: String = "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/doors/forest_vertical_door_canvas_texture.tres"
-	var horizontal_down_door_texture: String = "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/doors/forest_horizontal_door_canvas_texture.tres"
-	var horizontal_up_door_texture: String = "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/doors/forest_horizontal_door_canvas_texture.tres"
-
-	var vertical_corridor_symmetric_lights: bool = false
-
-	var corridor_floor_tiles_coor: Array[Array] = []
-
-	var default_num_combat_rooms: int = 5
-	var default_num_special_rooms: int = 1
-	var levels: Array[Level] = []
-
-	var music: String = ""
-
-	static func from_dic(dic: Dictionary) -> BiomeConf:
-		var data: BiomeConf = BiomeConf.new()
-
-		for key: String in dic.keys():
-			if data.get(key) != null:
-				if key == "levels":
-					assert(dic[key] is Dictionary)
-					var levels_dic: Dictionary = dic[key]
-					data.set(key, _load_levels(levels_dic))
-				else:
-					data.set(key, dic[key])
-			else:
-				printerr("BiomeConf: Invalid property: " + key)
-
-		return data
-
-	#func to_dic() -> Dictionary:
-		#var dic: Dictionary = {}
-#
-		#for property_dic: Dictionary in get_property_list():
-			#assert(property_dic.name is StringName)
-			#var property_name: StringName = property_dic.name
-			#if property_name in ["RefCounted", "script", "Built-in script"]:
-				#continue
-			#dic[property_name] = get(property_name)
-#
-		#return dic
-
-
-	static func _load_levels(dic: Dictionary) -> Array[Level]:
-		var arr: Array[Level] = []
-
-		for key: String in dic.keys():
-			var level: int = int(key)
-
-			while arr.size() + 1 < level:
-				arr.push_back(Level.new())
-
-			assert(dic[key] is Dictionary)
-			var level_dic: Dictionary = dic[key]
-			arr.push_back(Level.from_dic(level_dic))
-
-		return arr
-
-
-	class Level:
-		## Area in which the rooms will be spawned. It can be "circle" or "rectangle"
-		var spawn_shape_type: String = "circle"
-		## Width of the rectangle spawn shape. Set this only if you are using a "rectangle" shape
-		var spawn_shape_width: int = 200
-		## Height of the rectangle spawn shape. Set this only if you are using a "rectangle" shape
-		var spawn_shape_height: int = 300
-		## Radius of the circle spawn shape. Set this only if you are using a "circle" shape
-		var spawn_shape_radius: int = 100
-		## If this is enabled, the rooms will only move vertically when they get apart from each other
-		var disable_horizontal_separation_steering: bool = false
-
-		var num_combat_rooms: int = 5
-		var num_special_rooms: int = 2
-
-		var overwrite_start_rooms: Array = [""]
-		var overwrite_combat_rooms: Array = [""]
-		var overwrite_end_forest_rooms: Array = [""]
-		var overwrite_end_sewer_rooms: Array = [""]
-
-		var overwrite_connections: Array = []
-
-		static func from_dic(dic: Dictionary) -> Level:
-			var level: Level = Level.new()
-
-			for key: String in dic.keys():
-				if level.get(key) != null:
-					level.set(key, dic[key])
-				else:
-					printerr("Level: Invalid property: " + key)
-
-			return level
