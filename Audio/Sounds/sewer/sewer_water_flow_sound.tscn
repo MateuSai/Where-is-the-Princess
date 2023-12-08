@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://5xm1lw65nptl"]
+
+[ext_resource type="AudioStream" uid="uid://c6p0b8lpfnvju" path="res://Audio/Sounds/sewer/433589__jackthemurray__stream-river-water-up-close.ogg" id="1_q0lco"]
+
+[node name="SewerWaterFlowSound" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_q0lco")
+volume_db = 7.0
+autoplay = true
+max_distance = 200.0
+bus = &"Sounds"
