@@ -10,7 +10,7 @@ func _ready() -> void:
 	if not Globals.debug:
 		queue_free()
 
-	terminal.hidden.connect(func():
+	terminal.hidden.connect(func() -> void:
 		pause_menu.set_process_input(true)
 	)
 

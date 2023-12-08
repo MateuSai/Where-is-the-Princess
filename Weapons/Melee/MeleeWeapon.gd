@@ -45,7 +45,8 @@ func _load_csv_data(data: Dictionary) -> void:
 	super(data)
 
 	num_normal_attacks = data["num_normal_attacks"]
-	increase_num_normal_attacks_on_ability = bool(data["increase_num_normal_attacks_on_ability"])
+	var increase_num_normal_attacks_on_ability_int: int = data["increase_num_normal_attacks_on_ability"]
+	increase_num_normal_attacks_on_ability = bool(increase_num_normal_attacks_on_ability_int)
 
 
 func _physics_process(delta: float) -> void:
@@ -55,7 +56,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_collided_with_something(col_mat: Hitbox.CollisionMaterial = Hitbox.CollisionMaterial.FLESH) -> void:
 	# Double degrade amount if we collide with stone
-	_decrease_weapon_condition(round(condition_cost_per_normal_attack * (col_mat+1)))
+	_decrease_weapon_condition(round(condition_cost_per_normal_attack * (col_mat+1)) as float)
 	#stats.set_condition(stats.condition - round(condition_cost_per_normal_attack * (col_mat+1)))
 #	match col_mat:
 #		Hitbox.CollisionMaterial.FLESH:
@@ -101,12 +102,12 @@ func _active_ability(_animation_name: String = "active_ability") -> void:
 
 
 func throw() -> void:
-	throw_dir = get_parent().get_parent().mouse_direction
+	throw_dir = (get_parent().get_parent() as Player).mouse_direction
 	bodies_pierced = 0
-	piercing = get_parent().get_parent().throw_piercing
+	piercing = (get_parent().get_parent() as Player).throw_piercing
 	if type == Type.SWORD:
 		throw_rot_speed = 25 if attack_num == 0 else -25
-	get_parent().throw_weapon()
+	(get_parent() as PlayerWeapons).throw_weapon()
 	(hitbox.get_node("CollisionShape2D") as CollisionShape2D).disabled = false
 	hitbox.set_collision_mask_value(1, true) # Para que pueda colisionar con paredes
 	hitbox.body_entered.disconnect(hitbox._on_body_entered)

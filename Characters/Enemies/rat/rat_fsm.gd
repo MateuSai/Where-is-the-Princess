@@ -10,6 +10,7 @@ enum {
 
 @onready var enemy: Enemy = get_parent()
 @onready var pathfinding_component: PathfindingComponent = $"../PathfindingComponent"
+@onready var attack_animation_player: AnimationPlayer = $"../AttackAnimationPlayer"
 @onready var idle_timer: Timer = $"../IdleTimer"
 @onready var wander_timer: Timer = $"../WanderTimer"
 @onready var hitbox: Hitbox = $"../Hitbox"
@@ -29,13 +30,6 @@ func _state_logic(_delta: float) -> void:
 				animation_player.play("move")
 			elif parent.mov_direction.y < 0 and animation_player.current_animation != "move_up":
 				animation_player.play("move_up")
-		ATTACK:
-			hitbox.rotation = (enemy.target.position - parent.global_position).angle()
-			hitbox.knockback_direction = Vector2.RIGHT.rotated(hitbox.rotation)
-			if parent.mov_direction.y >= 0 and animation_player.current_animation != "attack":
-				animation_player.play("attack")
-			elif parent.mov_direction.y < 0 and animation_player.current_animation != "attack_up":
-				animation_player.play("attack_up")
 
 
 func _get_transition() -> int:
@@ -57,7 +51,7 @@ func _get_transition() -> int:
 			elif true:
 				pass
 		ATTACK:
-			if dis > 14:
+			if not attack_animation_player.is_playing():
 				return CHASE
 	return -1
 
@@ -78,6 +72,10 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			enemy.max_speed = 75
 			pathfinding_component.set_mode(PathfindingComponent.Approach.new())
 			#animation_player.play("fly")
+		ATTACK:
+			hitbox.rotation = (enemy.target.position - parent.global_position).angle()
+			hitbox.knockback_direction = Vector2.RIGHT.rotated(hitbox.rotation)
+			attack_animation_player.play("attack")
 		DEAD:
 			pass
 			# parent.spawn_loot()

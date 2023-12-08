@@ -12,7 +12,7 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
-		if event.is_pressed() and event.keycode == KEY_F2:
+		if event.is_pressed() and (event as InputEventKey).keycode == KEY_F2:
 			if visible:
 				hide()
 				set_process(false)

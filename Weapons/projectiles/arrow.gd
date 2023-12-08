@@ -27,7 +27,7 @@ func _collide(node: Node2D, _dam: int = damage) -> void:
 	collided_with_something.emit(node)
 
 	if type == Type.EXPLOSIVE:
-		var explosion: Explosion = load("res://Weapons/projectiles/explosion.tscn").instantiate()
+		var explosion: Explosion = (load("res://Weapons/projectiles/explosion.tscn") as PackedScene).instantiate()
 		explosion.position = position
 		await get_tree().process_frame
 		get_tree().current_scene.add_child(explosion)
@@ -35,6 +35,7 @@ func _collide(node: Node2D, _dam: int = damage) -> void:
 		return
 
 	if node.get("life_component") != null:
+		@warning_ignore("unsafe_property_access", "unsafe_method_access")
 		node.life_component.take_damage(damage, knockback_direction, knockback_force, weapon)
 		if bodies_pierced >= piercing:
 			_attach_projectile(node)

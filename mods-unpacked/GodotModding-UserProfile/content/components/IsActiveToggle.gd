@@ -1,7 +1,7 @@
 class_name IsActiveToggle extends ButtonWithSound
 
 
-signal is_active_toggled(mod_id, is_active)
+signal is_active_toggled(mod_id: String, is_active: bool)
 
 var mod_id: String
 var is_active: bool: set = _set_is_active
