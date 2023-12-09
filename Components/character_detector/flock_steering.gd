@@ -42,7 +42,7 @@ func _get_separation_steering() -> Vector2:
 
 func _get_cohesion_steering() -> Vector2:
 	var steering: Vector2 = Vector2.ZERO
-	var center_pos: Vector2
+	var center_pos: Vector2 = global_position
 
 	for character_in_range: Character in characters_inside:
 		center_pos += character_in_range.global_position

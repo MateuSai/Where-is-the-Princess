@@ -33,7 +33,7 @@ func add_translations() -> void:
 
 func _ready() -> void:
 	SceneTransistor.scene_changed.connect(func(new_scene_path: String) -> void:
-		if new_scene_path.get_file().trim_suffix(".tscn") == "Menu":
+		if new_scene_path.get_file().trim_suffix(".tscn").to_lower() == "menu":
 			_add_popup()
 		else:
 			_remove_popup()
