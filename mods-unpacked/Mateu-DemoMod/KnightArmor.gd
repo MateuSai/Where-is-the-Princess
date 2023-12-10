@@ -2,7 +2,7 @@ class_name KnightArmor extends Armor
 
 
 func _init() -> void:
-	initialize(2, load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_naked_icon.png") as Texture, 0.5, 2)
+	initialize(2, load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_naked_icon.png") as Texture2D, 0.5, 2)
 
 
 func enable_ability_effect(player: Player) -> void:

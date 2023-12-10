@@ -23,6 +23,10 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
+		# We want to ignore the inputs used to close the terminal. The closing of the terminal is handled on DebugUI
+		if (event.is_action_pressed("ui_toggle_terminal") or event.is_action_pressed("ui_cancel")):
+			return
+
 		# si el jugador presiona la flecha de arriba, cargamos la ultima comanda que ejecutamos, solo si esta no es nula
 		if event.is_pressed() and (event as InputEventKey).keycode == KEY_UP:
 			if last_command.length() > 0:
@@ -359,5 +363,9 @@ func _spawn_chest() -> void:
 
 
 func _reload() -> void:
+	print_debug("Reloading scene...")
+
 	get_tree().paused = false
 	get_tree().reload_current_scene()
+
+	print_debug("Scene reloaded")

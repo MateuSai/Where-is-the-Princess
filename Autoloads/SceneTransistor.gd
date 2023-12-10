@@ -13,7 +13,9 @@ func start_transition_to(path_to_scene: String) -> void:
 
 
 func change_scene_to_file() -> void:
+	#print_debug("Changing scene...")
 	var ok: int = get_tree().change_scene_to_file(new_scene) == OK
 	assert(ok)
 	scene_changed.emit(new_scene)
+	#print_debug("Scene changed!")
 

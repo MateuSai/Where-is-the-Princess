@@ -80,7 +80,7 @@ const FOG_PADDING: int = 128
 
 
 func _ready() -> void:
-	set_physics_process(false)
+	set_process(false)
 
 	var biome_conf: BiomeConf = SavedData.get_biome_conf()
 	ATLAS_ID = biome_conf.corridor_atlas_id
@@ -106,7 +106,7 @@ func _input(event: InputEvent) -> void:
 			queue_redraw()
 
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	var no_more_rooms_moving: bool = true
 
 	#var dirs: Array[Vector2] = []
@@ -125,7 +125,10 @@ func _physics_process(delta: float) -> void:
 #			print(str(i) + ": " + str(dirs[i]))
 
 	if no_more_rooms_moving:
-		set_physics_process(false)
+		set_process(false)
+		#var thread: Thread = Thread.new()
+		#thread.start(_create_corridors)
+		#var ok: bool = thread.wait_to_finish()
 		var ok: bool = await _create_corridors()
 		if not ok:
 			return
@@ -195,6 +198,8 @@ func _get_end_rooms() -> Array[PackedStringArray]:
 
 
 func spawn_rooms() -> void:
+	print_debug("spawn_rooms started")
+
 	spawn_shape = SavedData.get_current_level_spawn_shape()
 
 	var start_room_paths: PackedStringArray = _get_rooms("Start")
@@ -243,23 +248,29 @@ func spawn_rooms() -> void:
 		var combat_room_scene: PackedScene = load(combat_room_paths[randi() % combat_room_paths.size()])
 		rooms.push_back(combat_room_scene.instantiate())
 
+	print_debug("Adding rooms to scene tree and other things")
 	for room: DungeonRoom in rooms:
 		room.name += "_" + str(rooms.find(room))
 		room.player_entered.connect(func() -> void:
 			visited_rooms.push_back(room)
 			room_visited.emit(room)
 		)
-		call_deferred("add_child", room)
+		add_child(room)
 	await get_tree().process_frame
 	await get_tree().process_frame
+	print_debug("Finished adding rooms to scene tree and other things")
 
+	print_debug("Changing rooms start position")
 	for room: DungeonRoom in rooms:
 		room.float_position = room.get_random_spawn_point(spawn_shape) - room.vector_to_center
 		if debug:
 			(room.get_node("DebugRoomId") as Label).text = str(rooms.find(room))
+	print_debug("Finished changing rooms start position")
 
 	# return
-	set_physics_process(true)
+	set_process(true)
+
+	print_debug("spawn_rooms finished")
 
 
 func _create_corridors() -> bool:

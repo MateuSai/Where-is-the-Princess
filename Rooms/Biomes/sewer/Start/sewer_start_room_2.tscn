@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://db75cici3alhe"]
+[gd_scene load_steps=7 format=3 uid="uid://db75cici3alhe"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_7jitr"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_oukln"]
@@ -12,9 +12,6 @@ source_geometry_mode = 2
 source_geometry_group_name = &"navigation_polygon_source_group"
 agent_radius = 2.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x5d2o"]
-size = Vector2(3, 59)
-
 [node name="SewerStartRoom2" instance=ExtResource("1_7jitr")]
 navigation_polygon = SubResource("NavigationPolygon_rg34q")
 
@@ -24,6 +21,7 @@ layer_1/tile_data = PackedInt32Array(131072, 262149, 5, 65536, 262149, 5, 458752
 layer_2/tile_data = PackedInt32Array(327684, 262149, 9, 327688, 524293, 9)
 layer_3/tile_data = PackedInt32Array(393216, 327685, 6, 393228, 65541, 6)
 layer_4/tile_data = PackedInt32Array(131077, 262149, 8, 196613, 262149, 8, 262149, 262149, 8, 393221, 262149, 8, 458757, 262149, 8, 524293, 262149, 8, 589829, 262149, 8, 131078, 65541, 8, 196614, 65541, 8, 262150, 65541, 8, 393222, 65541, 8, 458758, 65541, 8, 524294, 65541, 8, 589830, 65541, 8, 131079, 131077, 8, 196615, 131077, 8, 262151, 131077, 8, 393223, 131077, 8, 458759, 131077, 8, 524295, 131077, 8, 589831, 131077, 8)
+layer_5/z_index = -1
 layer_5/tile_data = PackedInt32Array(131076, 524293, 7, 196612, 524293, 7, 262148, 1835013, 8, 393220, 1179653, 7, 458756, 524293, 8, 524292, 524293, 7, 589828, 524293, 7, 131080, 5, 7, 196616, 5, 7, 262152, 1310725, 7, 393224, 655365, 7, 458760, 5, 7, 524296, 5, 7, 589832, 5, 7)
 
 [node name="VerticalEntry" parent="Entries/Left" index="0" instance=ExtResource("2_oukln")]
@@ -61,35 +59,3 @@ position = Vector2(71, 152)
 
 [node name="Torch4" parent="." index="14" instance=ExtResource("5_2vme4")]
 position = Vector2(137, 152)
-
-[node name="SewerWallLeft" type="StaticBody2D" parent="." index="15" groups=["navigation_polygon_source_group"]]
-collision_layer = 0
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SewerWallLeft" index="0"]
-position = Vector2(77, 56)
-shape = SubResource("RectangleShape2D_x5d2o")
-
-[node name="SewerWallLeft2" type="StaticBody2D" parent="." index="16" groups=["navigation_polygon_source_group"]]
-collision_layer = 0
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SewerWallLeft2" index="0"]
-position = Vector2(77, 125)
-shape = SubResource("RectangleShape2D_x5d2o")
-
-[node name="SewerWallRight" type="StaticBody2D" parent="." index="17" groups=["navigation_polygon_source_group"]]
-collision_layer = 0
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SewerWallRight" index="0"]
-position = Vector2(131, 56)
-shape = SubResource("RectangleShape2D_x5d2o")
-
-[node name="SewerWallRight2" type="StaticBody2D" parent="." index="18" groups=["navigation_polygon_source_group"]]
-collision_layer = 0
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SewerWallRight2" index="0"]
-position = Vector2(131, 125)
-shape = SubResource("RectangleShape2D_x5d2o")

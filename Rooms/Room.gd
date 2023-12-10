@@ -279,7 +279,7 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position))
 				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.DOWN)
 
-				var vertical_door: Door = VERTICAL_DOOR.instantiate()
+				var vertical_door: StaticBody2D = VERTICAL_DOOR.instantiate()
 				vertical_door.position = floor(entry.position / 16) * 16
 				if dir == EntryDirection.LEFT:
 					vertical_door.position += Vector2(18, 6)
@@ -318,7 +318,7 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position))
 				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.RIGHT)
 
-				var horizontal_door: Door = HORIZONTAL_UP_DOOR.instantiate() if dir == EntryDirection.UP else HORIZONTAL_DOWN_DOOR.instantiate()
+				var horizontal_door: StaticBody2D = HORIZONTAL_UP_DOOR.instantiate() if dir == EntryDirection.UP else HORIZONTAL_DOWN_DOOR.instantiate()
 				horizontal_door.position = floor(entry.position / 16) * 16 + Vector2(Rooms.TILE_SIZE, Rooms.TILE_SIZE + 12)
 				door_container.add_child(horizontal_door)
 				if dir == EntryDirection.UP:

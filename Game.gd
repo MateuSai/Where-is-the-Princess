@@ -23,6 +23,8 @@ var scroll_vertical_at_start_of_drag: float = 0
 
 
 func _ready() -> void:
+	print_debug("Game _ready")
+
 	set_process(false)
 
 	if Globals.debug:
@@ -40,6 +42,7 @@ func _ready() -> void:
 	else:
 		generating_dungeon_canvas_layer.show()
 
+	print_debug("Starting generation")
 	if execute_procedural_generation_on_thread:
 		rooms.generation_completed.connect(func() -> void:
 			generation_thread.wait_to_finish()
@@ -54,6 +57,8 @@ func _ready() -> void:
 
 
 func _on_rooms_generation_completed() -> void:
+	print_debug("Generation completed")
+
 	generating_dungeon_canvas_layer.hide()
 
 	if not SavedData.get_biome_conf().music.is_empty():
@@ -68,6 +73,8 @@ func _on_rooms_generation_completed() -> void:
 
 	add_child(player)
 	player_added.emit()
+
+	print_debug("_on_rooms_generation_completed finished executing")
 
 
 func _input(event: InputEvent) -> void:
@@ -105,8 +112,11 @@ func _exit_tree() -> void:
 
 
 func reload_generation(msg: String) -> void:
+	#print_debug("Reloading scene...")
 	if execute_procedural_generation_on_thread:
 		generation_thread.wait_to_finish()
 		generation_thread = null
 	print_rich("[color=purple]%s. Reloading level generation...[/color]" % msg)
 	get_tree().reload_current_scene()
+
+	#print_debug("Scene reloaded")
