@@ -23,12 +23,16 @@ static func from_dic(dic: Dictionary) -> BiomeConf:
 
 	for key: String in dic.keys():
 		if data.get(key) != null:
-			if key == "levels":
-				assert(dic[key] is Dictionary)
-				var levels_dic: Dictionary = dic[key]
-				data.set(key, _load_levels(levels_dic))
-			else:
-				data.set(key, dic[key])
+			match key:
+				"levels":
+					assert(dic[key] is Dictionary)
+					var levels_dic: Dictionary = dic[key]
+					data.set(key, _load_levels(levels_dic))
+				"corridor_floor_tiles_coor":
+					data.corridor_floor_tiles_coor = []
+					data.corridor_floor_tiles_coor.assign(dic[key])
+				_:
+					data.set(key, dic[key])
 		else:
 			printerr("BiomeConf: Invalid property: " + key)
 

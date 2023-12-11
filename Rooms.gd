@@ -6,7 +6,7 @@ const TILE_SIZE: int = 16
 const MIN_SEPARATION_BETWEEN_ENTRIES: int = TILE_SIZE * 2
 static var ATLAS_ID: int
 
-const FLOOR_TILE_COORDS: Array[Vector2i] = [Vector2i(3, 1), Vector2i(5, 2), Vector2i(5, 3), Vector2i(0, 2), Vector2i(0, 3)]
+const FLOOR_TILE_COORDS: Array[Vector2i] = [Vector2i(3, 1), Vector2i(5, 2), Vector2i(5, 3), Vector2i(0, 2), Vector2i(0, 3), Vector2i(7, 2), Vector2i(7, 3)]
 var CORRIDOR_FLOOR_TILE_COORDS: Array[Vector2i]
 const FULL_WALL_COORDS: Array[Vector2i] = [Vector2i(6, 4), Vector2i(7, 4), Vector2i(8, 4), Vector2i(6, 5), Vector2i(7, 5), Vector2i(8, 5)]
 const UPPER_WALL_COOR: Vector2i = Vector2i(2, 7)
@@ -1150,14 +1150,17 @@ func _get_random_corridor_floor_tile_coor() -> Vector2i:
 	return CORRIDOR_FLOOR_TILE_COORDS[randi() % CORRIDOR_FLOOR_TILE_COORDS.size()]
 
 
-func int_arr_to_vec_array(array: Array) -> Array[Vector2i]:
+func int_arr_to_vec_array(array: Array[Array]) -> Array[Vector2i]:
 	var vec_arr: Array[Vector2i] = []
-	var tmp_arr: Array = []
+	#var tmp_arr: Array = []
 
 	for arr: Array[int] in array:
-		tmp_arr.push_back(Vector2i(arr[0], arr[1]))
+		var a = arr[0]
+		var b = arr[1]
+		var coor: Vector2i = Vector2i(a, b)
+		vec_arr.push_back(coor)
 
-	vec_arr.assign(tmp_arr)
+	#vec_arr.assign(tmp_arr)
 	return vec_arr
 
 
