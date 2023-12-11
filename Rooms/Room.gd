@@ -369,16 +369,19 @@ func _close_entrance() -> void:
 
 
 func _spawn_enemies() -> void:
-	var enemy_paths: Array[String] = Globals.get_enemy_paths(SavedData.run_stats.biome)
+	#var enemy_paths: Array[String] = Globals.get_enemy_paths(SavedData.run_stats.biome)
 
 	for enemy_marker: EnemyMarker in enemy_positions_container.get_children():
 		var enemy: CharacterBody2D
-		if enemy_marker.enemy_name.is_empty():
-			var enemy_scene: PackedScene = load(enemy_paths[randi() % enemy_paths.size()])
-			enemy = enemy_scene.instantiate()
-		else:
-			var enemy_scene: PackedScene = load(Globals.ENEMIES[enemy_marker.enemy_name].path as String)
-			enemy = enemy_scene.instantiate()
+		#if enemy_marker.enemy_name.is_empty():
+			#var enemy_scene: PackedScene = load(enemy_paths[randi() % enemy_paths.size()])
+			#enemy = enemy_scene.instantiate()
+		#else:
+		var enemy_scene: PackedScene = Globals.get_enemy_scene(enemy_marker.enemy_name)
+		if not enemy_scene:
+			push_error("Invalid enemy " + enemy_marker.enemy_name + " on room " + name)
+			return
+		enemy = enemy_scene.instantiate()
 		enemy.position = enemy_marker.position
 		call_deferred("add_child", enemy)
 

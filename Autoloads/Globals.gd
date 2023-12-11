@@ -145,7 +145,7 @@ func _ready() -> void:
 			json.parse(info_file.get_as_text())
 			info_file.close()
 			info = json.data
-		ENEMIES[enemy_folder] = {
+		ENEMIES[enemy_folder.to_pascal_case()] = {
 			"path": ENEMIES_FOLDER_PATH + enemy_folder + "/" + enemy_folder + ".tscn",
 			"info": info,
 		}
@@ -168,6 +168,7 @@ func _input(event: InputEvent) -> void:
 		_change_to_controller_mode(event.device)
 
 
+## @deprecated
 func get_enemy_paths(biome: String) -> Array[String]:
 	var enemy_paths: Array[String] = []
 
@@ -179,6 +180,15 @@ func get_enemy_paths(biome: String) -> Array[String]:
 				enemy_paths.push_back(enemy.path)
 
 	return enemy_paths
+
+
+## Returns the [PackedScene] of the enemy if it finds it, otherwise returns [code]null[/code]
+func get_enemy_scene(id: String) -> PackedScene:
+	if ENEMIES.has(id.to_pascal_case()):
+		var enemy_path: String = ENEMIES[id.to_pascal_case()]
+		return load(enemy_path)
+
+	return null
 
 
 func _change_to_mouse_mode() -> void:
@@ -226,14 +236,16 @@ func exit_level(biome: String = "") -> void:
 
 func add_weapon_damage_modifier_by_type(type: Weapon.Type, dam: int) -> void:
 	Weapon._add_damage_modifier_by_type(type, dam)
-	var weapons_of_this_type: Array[Node] = get_tree().get_nodes_in_group(Weapon.Type.keys()[type])
+	var weapon_type_string: String = Weapon.Type.keys()[type]
+	var weapons_of_this_type: Array[Node] = get_tree().get_nodes_in_group(weapon_type_string)
 	for weapon: Weapon in weapons_of_this_type:
 		weapon.damage += dam
 
 
 func remove_weapon_damage_modifier_by_type(type: Weapon.Type, dam: int) -> void:
 	Weapon._remove_damage_modifier_by_type(type, dam)
-	var weapons_of_this_type: Array[Node] = get_tree().get_nodes_in_group(Weapon.Type.keys()[type])
+	var weapon_type_string: String = Weapon.Type.keys()[type]
+	var weapons_of_this_type: Array[Node] = get_tree().get_nodes_in_group(weapon_type_string)
 	for weapon: Weapon in weapons_of_this_type:
 		weapon.damage -= dam
 

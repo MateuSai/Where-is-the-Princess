@@ -339,16 +339,13 @@ func _spawn_enemy(enemy_string: String, amount_strign: String = "1") -> void:
 		enemy = enemy_scene.instantiate()
 	else:
 		for i: int in amount:
-			if Globals.ENEMIES.has(enemy_string.to_pascal_case()):
-				enemy = load(Globals.ENEMIES[enemy_string.to_pascal_case()].path).instantiate()
-				(get_tree().current_scene.get_node("Rooms") as Rooms).rooms[0].add_child(enemy)
-				enemy.global_position = Globals.player.position + Vector2.RIGHT * 16 + Vector2(randf_range(-8, 8), randf_range(-8, 8))
-			elif Globals.ENEMIES.has(enemy_string.to_snake_case()):
-				enemy = load(Globals.ENEMIES[enemy_string.to_snake_case()].path).instantiate()
+			var enemy_scene: PackedScene = Globals.get_enemy_scene(enemy_string)
+			if enemy_scene:
+				enemy = enemy_scene.instantiate()
 				(get_tree().current_scene.get_node("Rooms") as Rooms).rooms[0].add_child(enemy)
 				enemy.global_position = Globals.player.position + Vector2.RIGHT * 16 + Vector2(randf_range(-8, 8), randf_range(-8, 8))
 			else:
-				printerr("Error: no registered enmy with this name")
+				printerr("Error: no registered enemy with this name")
 				return
 
 	hide()
