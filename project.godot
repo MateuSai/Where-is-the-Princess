@@ -47,6 +47,10 @@ window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_height"
 mouse_cursor/custom_image="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/cursor.png"
 
+[dotnet]
+
+project/assembly_name="Godot4RoguelikeProject"
+
 [editor]
 
 run/main_run_args="-- --debug"
