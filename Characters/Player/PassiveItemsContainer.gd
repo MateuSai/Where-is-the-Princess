@@ -66,3 +66,7 @@ class TemporalPassiveItemIcon extends TextureRect:
 			queue_free()
 		else:
 			label.text = str(amount)
+
+
+	func _get_tooltip(at_position: Vector2) -> String:
+		return "hi"

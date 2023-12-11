@@ -190,3 +190,7 @@ func has_resistance(resistance: Resistance, initially: bool = false) -> bool:
 
 func set_flying(new_value: bool) -> void:
 	flying = new_value
+
+
+func get_exclude_bodies() -> Array[PhysicsBody2D]:
+	return [self]

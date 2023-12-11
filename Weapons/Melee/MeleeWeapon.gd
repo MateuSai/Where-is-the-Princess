@@ -142,6 +142,7 @@ func _go_back_to_before_throw_state() -> void:
 
 
 func add_status_inflicter(status: StatusComponent.Status, amount: int = 1) -> void:
+	@warning_ignore("unsafe_call_argument")
 	var status_inflicter_component: StatusInflicterComponent = get_node_or_null(StatusComponent.Status.keys()[status] + "Inflicter")
 	if status_inflicter_component:
 		status_inflicter_component.change_to_inflict_status_effect += StatusWeaponModifier.INFLICT_CHANCE

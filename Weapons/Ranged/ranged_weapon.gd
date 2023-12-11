@@ -40,7 +40,8 @@ func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> Array[Projectile]
 			projectile.damage = damage
 			projectile.knockback_force = knockback
 
-		projectile.exclude.push_back(Globals.player)
+		for body: PhysicsBody2D in (get_parent().get_parent() as Character).get_exclude_bodies():
+			projectile.exclude.push_back(body)
 		# So the projectiles don't collide between them
 		for other_projectile: Projectile in spawned_projectiles:
 			other_projectile.exclude.push_back(projectile)

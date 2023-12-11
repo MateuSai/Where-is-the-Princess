@@ -114,7 +114,7 @@ func _ready() -> void:
 			if is_on_water():
 				var sound: AutoFreeSound = AutoFreeSound.new()
 				get_tree().current_scene.add_child(sound)
-				sound.start(load("res://Audio/Sounds/280219__yurkobb__jump-into-water.wav"), global_position)
+				sound.start(load("res://Audio/Sounds/280219__yurkobb__jump-into-water.wav") as AudioStream, global_position)
 				life_component.take_damage(1, Vector2.ZERO, 0, null)
 				position = position_before_jumping
 	)
@@ -343,3 +343,14 @@ func is_on_water() -> bool:
 		return current_room.tilemap.get_cell_atlas_coords(DungeonRoom.WATER_LAYER_ID, current_room.tilemap.local_to_map(position - current_room.position)) != Vector2i(-1, -1)
 	else:
 		return false
+
+
+func get_exclude_bodies() -> Array[PhysicsBody2D]:
+	var arr: Array[PhysicsBody2D] = [self]
+
+	for item: Node2D in rotating_items:
+		if item is PhysicsBody2D:
+			var body: PhysicsBody2D = item
+			arr.push_back(body)
+
+	return arr
