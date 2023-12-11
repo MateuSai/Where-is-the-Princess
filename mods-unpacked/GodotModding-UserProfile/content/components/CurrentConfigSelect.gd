@@ -19,5 +19,5 @@ func select_item(item_text: String) -> void:
 	select(config_names[item_text])
 
 
-func _on_CurrentConfigSelect_item_selected(index) -> void:
+func _on_CurrentConfigSelect_item_selected(index: int) -> void:
 	current_config_selected.emit(mod_id, get_item_text(index))
