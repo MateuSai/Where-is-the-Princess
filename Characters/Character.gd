@@ -122,7 +122,7 @@ func _on_damage_taken(_dam: int, dir: Vector2, force: int) -> void:
 	if can_be_knocked_back:
 		velocity += dir * force / (mass / 3)
 	if life_component.hp == 0:
-		assert(state_machine.get("DEAD"))
+		assert(state_machine.get("DEAD") != null)
 		@warning_ignore("unsafe_property_access", "unsafe_call_argument")
 		state_machine.set_state(state_machine.DEAD)
 		if can_be_knocked_back:

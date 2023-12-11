@@ -185,7 +185,7 @@ func get_enemy_paths(biome: String) -> Array[String]:
 ## Returns the [PackedScene] of the enemy if it finds it, otherwise returns [code]null[/code]
 func get_enemy_scene(id: String) -> PackedScene:
 	if ENEMIES.has(id.to_pascal_case()):
-		var enemy_path: String = ENEMIES[id.to_pascal_case()]
+		var enemy_path: String = ENEMIES[id.to_pascal_case()].path
 		return load(enemy_path)
 
 	return null
