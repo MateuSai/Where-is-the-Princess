@@ -273,6 +273,9 @@ func add_rotating_item(node: Node2D) -> void:
 	for i: int in rotating_items.size():
 		rotating_items[i].rotation = rot * i
 
+	if node is PhysicsBody2D and weapons.current_weapon is MeleeWeapon:
+		(weapons.current_weapon as MeleeWeapon).hitbox.exclude.push_back(node)
+
 
 func remove_rotating_item(node: Node2D) -> void:
 	rotating_items.erase(node)

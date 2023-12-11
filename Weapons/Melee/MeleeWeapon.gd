@@ -201,6 +201,10 @@ func set_ability_knockback(new_ability_knockback: int) -> void:
 func _on_animation_started(anim_name: StringName) -> void:
 	super(anim_name)
 
+	#if anim_name != "RESET":
+		#var a: Array[PhysicsBody2D] = (get_parent().get_parent() as Character).get_exclude_bodies()
+		#hitbox.exclude = a
+
 	if anim_name.begins_with("active_ability"):
 		hitbox.damage = ability_damage
 		hitbox.knockback_force = ability_knockback
