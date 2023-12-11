@@ -1155,6 +1155,7 @@ func int_arr_to_vec_array(array: Array[Array]) -> Array[Vector2i]:
 	#var tmp_arr: Array = []
 
 	for arr: Array[int] in array:
+		# For some reason, if I define a type for the variables, coor is always (0, 0). DO NOT PUT A TYPE
 		var a = arr[0]
 		var b = arr[1]
 		var coor: Vector2i = Vector2i(a, b)
