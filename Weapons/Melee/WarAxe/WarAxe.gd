@@ -1,7 +1,7 @@
 extends MeleeWeapon
 
 var throwed_using_active_ability: bool
-var active_ability_dir_weight = 0.005
+var active_ability_dir_weight: float = 0.005
 
 @onready var initial_throw_speed: int = throw_speed
 

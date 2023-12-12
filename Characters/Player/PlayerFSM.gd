@@ -7,6 +7,14 @@ enum {
 	DEAD,
 }
 
+enum MoveAnimationState {
+	MOVE,
+	MOVE_BACKWARDS,
+	MOVE_UP,
+	MOVE_UP_BACKWARDS,
+}
+var move_animation_state: MoveAnimationState = MoveAnimationState.MOVE
+
 @onready var player: Player = get_parent()
 
 
@@ -29,14 +37,24 @@ func _state_logic(_delta: float) -> void:
 			player.move()
 			#var mouse_direction: Vector2 = (player.get_global_mouse_position() - player.global_position).normalized()
 			if player.mouse_direction.y >= 0:
-				if (player.mouse_direction.x > 0 and player.mov_direction.x < 0) or (player.mouse_direction.x < 0 and player.mov_direction.x > 0):
+				#print(player.mouse_direction)
+				#print(player.mov_direction)
+				if ((player.mouse_direction.x > 0 and player.mov_direction.x < 0) or (player.mouse_direction.x < 0 and player.mov_direction.x > 0)) and (animation_player.current_animation != "move" or move_animation_state != MoveAnimationState.MOVE_BACKWARDS):
+					#print("a")
+					move_animation_state = MoveAnimationState.MOVE_BACKWARDS
 					animation_player.play_backwards("move")
-				else:
+				elif ((player.mouse_direction.x >= 0 and player.mov_direction.x >= 0) or (player.mouse_direction.x <= 0 and player.mov_direction.x <= 0)) and (animation_player.current_animation != "move" or move_animation_state != MoveAnimationState.MOVE):
+					#print("b")
+					move_animation_state = MoveAnimationState.MOVE
 					animation_player.play("move")
 			else:
-				if (player.mouse_direction.x > 0 and player.mov_direction.x < 0) or (player.mouse_direction.x < 0 and player.mov_direction.x > 0):
+				if ((player.mouse_direction.x > 0 and player.mov_direction.x < 0) or (player.mouse_direction.x < 0 and player.mov_direction.x > 0)) and (animation_player.current_animation != "move_up" or move_animation_state != MoveAnimationState.MOVE_UP_BACKWARDS):
+					#print("c")
+					move_animation_state = MoveAnimationState.MOVE_UP_BACKWARDS
 					animation_player.play_backwards("move_up")
-				else:
+				elif ((player.mouse_direction.x >= 0 and player.mov_direction.x >= 0) or (player.mouse_direction.x <= 0 and player.mov_direction.x <= 0)) and (animation_player.current_animation != "move_up" or move_animation_state != MoveAnimationState.MOVE_UP):
+					#print("d")
+					move_animation_state = MoveAnimationState.MOVE_UP
 					animation_player.play("move_up")
 		#animation_tree.set("parameters/" + states.keys()[state] + "/blend_position", (player.get_global_mouse_position() - player.global_position).normalized().y)
 
