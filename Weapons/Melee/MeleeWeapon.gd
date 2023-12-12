@@ -26,12 +26,14 @@ var bodies_pierced: int = 0
 
 func _ready() -> void:
 	super()
+
 	hitbox.collided_with_something.connect(func(_body: Node2D) -> void:
 		_on_collided_with_something()
 	)
 	set_physics_process(false)
 
 	hitbox.weapon = self
+	hitbox.damage = damage
 #	hitbox.exclude.push_back(Globals.player)
 
 	match type:
