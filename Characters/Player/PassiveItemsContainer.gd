@@ -60,9 +60,16 @@ class PassiveItemIcon extends TextureRect:
 
 	func _get_tooltip(_at_position: Vector2) -> String:
 		if pause_menu_open:
-			return tr(item.get_item_name()) + "\n\n" + (item.get_item_description())
+			return tr(item.get_item_name()) + "\n" + tr(item.get_item_description())
 		else:
 			return ""
+
+	#func _make_custom_tooltip(for_text: String) -> Object:
+		#var panel: MarginContainer = InfoPanel.get_child(0).duplicate(11)
+#
+		#panel.get_node("VBoxContainer/NameLabel").text = for_text
+#
+		#return panel
 
 
 class TemporalPassiveItemIcon extends PassiveItemIcon:
