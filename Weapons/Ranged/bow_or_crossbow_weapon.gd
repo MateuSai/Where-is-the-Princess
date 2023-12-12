@@ -13,7 +13,7 @@ var arrow_type: Arrow.Type = Arrow.Type.NORMAL:
 func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> Array[Projectile]:
 	var spawned_projectiles: Array[Projectile] = super(angle, amount)
 
-	for projectile in spawned_projectiles:
+	for projectile: Projectile in spawned_projectiles:
 		assert(projectile is Arrow)
 		projectile.type = arrow_type
 

@@ -30,7 +30,8 @@ static func from_dic(dic: Dictionary) -> BiomeConf:
 					data.set(key, _load_levels(levels_dic))
 				"corridor_floor_tiles_coor":
 					data.corridor_floor_tiles_coor = []
-					data.corridor_floor_tiles_coor.assign(dic[key])
+					var a: Array = dic[key]
+					data.corridor_floor_tiles_coor.assign(a)
 				_:
 					data.set(key, dic[key])
 		else:

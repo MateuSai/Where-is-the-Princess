@@ -145,7 +145,8 @@ func _load_settings() -> void:
 			InputMap.add_action(action)
 			if saved_keys["keyboard_and_mouse"].type == "key":
 				var event: InputEventKey = InputEventKey.new()
-				event.keycode = OS.find_keycode_from_string(saved_keys["keyboard_and_mouse"].keycode)
+				var key_string: String = saved_keys["keyboard_and_mouse"].keycode
+				event.keycode = OS.find_keycode_from_string(key_string)
 				InputMap.action_add_event(action, event)
 			elif saved_keys["keyboard_and_mouse"].type == "mouse_button":
 				var event: InputEventMouseButton = InputEventMouseButton.new()

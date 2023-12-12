@@ -5,6 +5,9 @@ var run_seed: int
 signal room_closed()
 signal room_cleared()
 
+signal pause_menu_opened()
+signal pause_menu_closed()
+
 var player: Player = null
 
 var debug: bool = false
