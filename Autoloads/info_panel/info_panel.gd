@@ -23,11 +23,15 @@ func show_at(pos: Vector2, item: Item) -> void:
 		Item.Quality.CHINGON:
 			name_label.modulate = Color.BLUE
 	description_label.text = item.get_item_description()
-	size.y = 0
+	#size.y = 0
 
 	position = pos
 	modulate.a = 1.0
 	show()
+
+	# For some reason, I have to write a frame
+	await get_tree().process_frame
+	size.y = 0
 
 
 func stop_showing() -> void:

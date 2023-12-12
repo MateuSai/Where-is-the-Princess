@@ -60,7 +60,7 @@ class PassiveItemIcon extends TextureRect:
 
 	func _get_tooltip(_at_position: Vector2) -> String:
 		if pause_menu_open:
-			return item.get_item_name() + "\n\n" + item.get_item_description()
+			return tr(item.get_item_name()) + "\n\n" + (item.get_item_description())
 		else:
 			return ""
 
