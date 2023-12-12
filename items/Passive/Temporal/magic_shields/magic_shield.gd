@@ -1,16 +1,16 @@
-class_name ReinforcedMagicShield extends TemporalPassiveItem
+class_name MagicShield extends TemporalPassiveItem
 
 var magic_shield_node: MagicShieldNode
 
-@export var hp: int = 8
+@export var first_time_pickup: bool = true
+var max_hp: int
+@export var hp: int = 2
+
+var spritesheet: Texture2D
 
 
-func get_icon() -> Texture:
-	return load("res://Art/items/shield_icon_metal.png")
-
-
-func get_quality() -> Item.Quality:
-	return Item.Quality.CHINGON
+func _init() -> void:
+	first_time_pickup = false
 
 
 #func _init() -> void:
@@ -18,8 +18,14 @@ func get_quality() -> Item.Quality:
 
 
 func equip(player: Player) -> void:
+	assert(max_hp)
+	assert(hp)
+	assert(spritesheet)
+
 	magic_shield_node = MagicShieldNode.new()
+	magic_shield_node.life_component.max_hp = max_hp
 	magic_shield_node.life_component.hp = hp
+	magic_shield_node.sprite.texture = spritesheet
 	magic_shield_node.hp_changed.connect(func(new_hp: int) -> void: hp = new_hp)
 	magic_shield_node.destroyed.connect(func() -> void: player.unequip_passive_item(self))
 	player.add_rotating_item(magic_shield_node)
@@ -48,7 +54,7 @@ class MagicShieldNode extends StaticBody2D:
 		set_collision_layer_value(2, true)
 
 		sprite = Sprite2D.new()
-		sprite.texture = load("res://Art/items/shield_rotating_player_metal.png")
+		#sprite.texture = load("res://Art/items/shield_rotating_player.png")
 		sprite.hframes = 8
 		add_child(sprite)
 		sprite.position.y += 10
@@ -62,7 +68,7 @@ class MagicShieldNode extends StaticBody2D:
 
 		life_component = LifeComponent.new()
 		life_component.name = "LifeComponent"
-		life_component.max_hp = 3
+		#life_component.max_hp =
 		#life_component.hp = 2
 
 		life_component.hp_changed.connect(func(new_hp: int) -> void: hp_changed.emit(new_hp))
