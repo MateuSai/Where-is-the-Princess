@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cxf5tshcuwitr" path="res://Characters/Enemies/BombTribal/Bomb.tscn" id="2_ud46o"]
 
 [sub_resource type="Curve2D" id="Curve2D_w327c"]
+resource_local_to_scene = true
 _data = {
 "points": PackedVector2Array(-2.70154, 1.71938, 2.70154, -1.71938, 0, 0, -4.10462, -0.596922, 4.10462, 0.596922, 39, -9, -4.94646, -2.14031, 4.94646, 2.14031, 85, 0)
 }
