@@ -14,7 +14,7 @@ var grid_placeholder := Control
 
 
 func generate_grid(user_profile: ModUserProfile) -> void:
-	for mod_id in user_profile.mod_list.keys():
+	for mod_id: String in user_profile.mod_list.keys():
 		_generate_mod_name(mod_id)
 		_generate_mod_active_state(mod_id, user_profile)
 		if ModLoaderStore.mod_data.has(mod_id) and not ModLoaderStore.mod_data[mod_id].configs.is_empty():
@@ -65,7 +65,7 @@ func _generate_mod_current_config(mod_id: String, user_profile: ModUserProfile) 
 
 
 func clear_grid() -> void:
-	for child in grid.get_children():
+	for child: Node in grid.get_children():
 		if not child is Label or child is ModIdLabel:
 			grid.remove_child(child)
 			child.queue_free()

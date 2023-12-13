@@ -1,5 +1,7 @@
 class_name Armor extends Resource
 
+const ARMOR_FOLDER_PATH: String = "res://Armors/"
+
 var name: String: get = get_armor_name ## Name of the armor
 var description: String: get = get_description ## Armor's description
 var sprite_sheet: Texture2D: get = get_sprite_sheet ## Armor's spritesheet
@@ -68,3 +70,16 @@ func get_sprite_sheet() -> Texture2D:
 
 func get_icon() -> Texture2D:
 	return null
+
+
+static func id_to_path(id: String) -> String:
+	id = id.to_lower()
+	var path: String = ""
+
+	var dir: DirAccess = DirAccess.open(ARMOR_FOLDER_PATH)
+	for file_name: String in dir.get_files():
+		if file_name.trim_suffix(".gd").to_lower() == id:
+			path = ARMOR_FOLDER_PATH.path_join(file_name)
+			break
+
+	return path

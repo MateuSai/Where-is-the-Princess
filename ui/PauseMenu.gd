@@ -12,6 +12,13 @@ func _ready() -> void:
 		get_tree().paused = false
 	)
 
+	visibility_changed.connect(func() -> void:
+		if visible:
+			Globals.pause_menu_opened.emit()
+		else:
+			Globals.pause_menu_closed.emit()
+	)
+
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_pause"):

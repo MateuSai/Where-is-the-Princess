@@ -11,7 +11,7 @@ func _ready() -> void:
 
 	var pathfinding_component: PathfindingComponent = $PathfindingComponent
 	assert(pathfinding_component.mode is PathfindingComponent.Approach)
-	pathfinding_component.mode.flags |= PathfindingComponent.Approach.ZIG_ZAG_FLAG
+	(pathfinding_component.mode as PathfindingComponent.Approach).flags |= PathfindingComponent.Approach.ZIG_ZAG_FLAG
 
 
 func _spawn_bite_effect() -> void:

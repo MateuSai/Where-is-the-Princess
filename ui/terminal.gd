@@ -81,6 +81,11 @@ func _process_command(command: String) -> void:
 							_set_player_hp(splitted_command[2])
 						else:
 							printerr("You must specify the new hp")
+					"armor":
+						if splitted_command.size() > 2:
+							_set_armor(splitted_command[2])
+						else:
+							printerr("You must specify the armor path")
 					"armor condition", "ac", "armor cond":
 						if splitted_command.size() > 2:
 							_set_armor_condition(splitted_command[2])
@@ -142,6 +147,8 @@ func _process_command(command: String) -> void:
 							printerr("You must specify a enemy path")
 					"chest":
 						_spawn_chest()
+					_:
+						printerr("Command " + splitted_command[0] + " " + splitted_command[1] + " does not exist")
 			else:
 				printerr("Invalid number of arguments, you must specify what to spawn")
 		"i'm fucking invincible":
@@ -204,6 +211,35 @@ func _set_player_hp(hp_string: String) -> void:
 	Globals.player.life_component.hp = int(hp_string)
 #	var new_hp: int = int(clamp(int(hp_string), 0.0, 100.0))
 #	Globals.player.hp = new_hp
+
+
+func _set_armor(armor_string: String) -> void:
+	var armor_path: String
+
+	if armor_string.is_absolute_path():
+		if not FileAccess.file_exists(armor_string):
+			printerr("Error: There is no file at " + armor_string)
+			return
+		armor_path = armor_string
+	else:
+		armor_path = Armor.id_to_path(armor_string)
+		if armor_path.is_empty():
+			printerr("Error: could not find armor with id " + armor_string)
+			return
+
+	var armor_script: GDScript = load(armor_path)
+	if not armor_script:
+		printerr("Error: There is no script at the specified path")
+		return
+
+	var script_instance: Object = armor_script.new()
+	if not script_instance is Armor:
+		printerr("Error: " + armor_path + " does not extend Armor")
+		return
+
+	Globals.player.set_armor(script_instance as Armor)
+
+	hide()
 
 
 func _set_armor_condition(condition_string: String) -> void:

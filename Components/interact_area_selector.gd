@@ -11,7 +11,7 @@ var closer_area: InteractArea = null:
 			if closer_area:
 				closer_area._on_player_entered(player)
 				if closer_area.get_parent() is ItemOnFloor:
-					InfoPanel.show_at(closer_area.global_position, closer_area.get_parent().item)
+					InfoPanel.show_at(closer_area.global_position, (closer_area.get_parent() as ItemOnFloor).item)
 var interact_areas: Array[InteractArea] = []
 
 @onready var player: Player = get_parent()
@@ -50,7 +50,7 @@ func _on_update_closer_area_timer_timeout() -> void:
 	var new_closer_area: InteractArea = null
 	var distance_to_new_closer_area: float = INF
 
-	for area in interact_areas:
+	for area: InteractArea in interact_areas:
 		var dis: float = (player.position - area.global_position).length()
 		if dis < distance_to_new_closer_area:
 			new_closer_area = area

@@ -13,13 +13,14 @@ class_name BaseCamp extends Node2D
 
 
 func _ready() -> void:
-	player.set_armor(load(SavedData.data.equipped_armor).new())
+	var armor_script: GDScript = load(SavedData.data.equipped_armor)
+	player.set_armor(armor_script.new() as Armor)
 
-	settings_interact_area.player_interacted.connect(func():
+	settings_interact_area.player_interacted.connect(func() -> void:
 		Settings.popup_centered()
 		player.can_move = false
 	)
-	Settings.popup_hide.connect(func():
+	Settings.popup_hide.connect(func() -> void:
 		player.can_move = true
 	)
 
@@ -32,23 +33,24 @@ func _ready() -> void:
 #		)
 #	)
 
-	exit_interact_area.player_interacted.connect(func():
+	exit_interact_area.player_interacted.connect(func() -> void:
 		get_tree().quit()
 	)
 
-	seed_interact_area.player_interacted.connect(func():
+	seed_interact_area.player_interacted.connect(func() -> void:
 		seed_popup.popup_centered()
 		player.can_move = false
 	)
-	seed_popup.popup_hide.connect(func():
+	seed_popup.popup_hide.connect(func() -> void:
 		player.can_move = true
 	)
 
-	wardrobe_interact_area.player_interacted.connect(func():
+	wardrobe_interact_area.player_interacted.connect(func() -> void:
 		wardrobe_popup.popup_centered()
+		($WardrobeOpenSound as AudioStreamPlayer).play()
 		player.can_move = false
 	)
-	wardrobe_popup.popup_hide.connect(func():
+	wardrobe_popup.popup_hide.connect(func() -> void:
 		player.can_move = true
 	)
 

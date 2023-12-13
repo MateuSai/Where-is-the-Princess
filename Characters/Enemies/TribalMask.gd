@@ -12,7 +12,7 @@ func _init() -> void:
 
 
 @warning_ignore("shadowed_variable", "shadowed_variable_base_class")
-func initialize(type: Type, flip_h) -> void:
+func initialize(type: Type, flip_h: bool) -> void:
 	self.type = type
 	texture = load(["res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_01_mask.png", "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_02_mask.png", "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_03_mask.png", "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_04_mask.png"][type])
 	self.flip_h = flip_h

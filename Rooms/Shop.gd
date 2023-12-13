@@ -10,7 +10,7 @@ func _ready() -> void:
 	var item_paths: PackedStringArray = SavedData.get_discovered_temporal_item_paths().duplicate()
 	var weapon_paths: PackedStringArray = SavedData.get_discovered_weapon_paths().duplicate()
 
-	for marker in positions.get_children():
+	for marker: ShopItemMarker in positions.get_children():
 		match marker.item_type:
 			ShopItemMarker.Type.TEMPORAL_ITEM:
 				if item_paths.is_empty():

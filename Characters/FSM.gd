@@ -29,6 +29,7 @@ func _get_transition() -> int:
 
 
 func set_state(new_state: int) -> void:
+	#print(new_state)
 	_exit_state(state)
 	previous_state = state
 	state = new_state

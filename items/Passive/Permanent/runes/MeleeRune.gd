@@ -17,9 +17,13 @@ func unequip(_player: Player) -> void:
 	Globals.remove_weapon_damage_modifier_by_typed(Weapon.Type.AXE, 1)
 
 
-func get_icon() -> Texture:
-	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/rune_omeg_icon.png")
+func get_quality() -> Quality:
+	return Quality.CHINGON
 
 
-func get_symbol() -> Texture:
-	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/rune_omega.png")
+func get_icon() -> Texture2D:
+	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/rune_omega_icon.png") as Texture2D
+
+
+func get_symbol() -> Texture2D:
+	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/rune_omega.png") as Texture2D

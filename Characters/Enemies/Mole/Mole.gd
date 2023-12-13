@@ -14,7 +14,7 @@ var holes: Array[Vector2] = []
 
 func _ready() -> void:
 	super()
-	var tilemap: TileMap = room.get_node("TileMap")
+	var tilemap: TileMap = room.tilemap
 
 	for cell: Vector2i in tilemap.get_used_cells(0):
 		if tilemap.get_cell_atlas_coords(0, cell) == HOLE_TILE_COOR:

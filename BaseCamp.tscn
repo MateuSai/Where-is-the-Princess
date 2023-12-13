@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=49 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="1_0pcgl"]
 [ext_resource type="Script" path="res://BaseCamp.gd" id="1_tpf7m"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://bqcn0vo0ait26" path="res://Rooms/RichardTheGigachadWizard.tscn" id="11_vh5i5"]
 [ext_resource type="PackedScene" uid="uid://cjc0h245lbmpd" path="res://Weapons/Melee/Katana/Katana.tscn" id="12_trlvh"]
 [ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="13_2uruh"]
+[ext_resource type="AudioStream" uid="uid://dq7f7p17hn6bl" path="res://Audio/Sounds/280235__toefur__open-wardrobe-1.wav" id="15_iuhqb"]
 [ext_resource type="PackedScene" uid="uid://bu6m7pa3yuk4r" path="res://Weapons/Melee/DragonKiller/DragonKiller.tscn" id="16_885t0"]
 [ext_resource type="AudioStream" uid="uid://dsphctheyll2w" path="res://Audio/Music/Gymnopédie no. 1 (for Harp).mp3" id="18_0hiag"]
 [ext_resource type="PackedScene" uid="uid://b78s3rdcjmo8a" path="res://Weapons/Melee/OrcSword/OrcSword.tscn" id="20_vg655"]
@@ -272,8 +273,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 192.0
-offset_bottom = 142.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_nybk1")
@@ -293,10 +294,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="NameLabel" type="Label" parent="WardrobePopup/WardrobeUI/HBoxContainer/ArmorDetails"]
+custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+autowrap_mode = 3
 
 [node name="DescriptionLabel" type="Label" parent="WardrobePopup/WardrobeUI/HBoxContainer/ArmorDetails"]
+custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("13_2uruh")
@@ -334,6 +338,11 @@ stream = ExtResource("18_0hiag")
 volume_db = -8.0
 autoplay = true
 bus = &"Music"
+
+[node name="WardrobeOpenSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_iuhqb")
+volume_db = -2.0
+bus = &"Sounds"
 
 [node name="OrcSword" parent="." instance=ExtResource("20_vg655")]
 position = Vector2(181, 121)

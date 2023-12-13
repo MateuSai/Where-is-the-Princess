@@ -1,7 +1,7 @@
 extends MeleeWeapon
 
 var throwed_using_active_ability: bool
-var active_ability_dir_weight = 0.005
+var active_ability_dir_weight: float = 0.005
 
 @onready var initial_throw_speed: int = throw_speed
 
@@ -33,8 +33,8 @@ func _on_trail_animation_ended(anim_name: String) -> void:
 	hitbox.set_collision_mask_value(2, true) # So it can detect collisions with player
 
 
-func _on_animation_finished(_anim_name: String) -> void:
-	pass
+#func _on_animation_finished(_anim_name: String) -> void:
+	#pass
 
 
 func _throw_body_entered_hitbox(body: Node2D) -> void:
