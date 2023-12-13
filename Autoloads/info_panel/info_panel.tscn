@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://baubgd4w1xi1g"]
+[gd_scene load_steps=7 format=3 uid="uid://baubgd4w1xi1g"]
 
 [ext_resource type="Material" uid="uid://cmyqibox7jjbf" path="res://unshaded.tres" id="1_c8a0y"]
 [ext_resource type="Script" path="res://Autoloads/info_panel/info_panel.gd" id="1_c8fk8"]
 [ext_resource type="Texture2D" uid="uid://c8nuwmhxuntfu" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/dialog_panel_9-patch.png" id="2_5rw7d"]
 [ext_resource type="Theme" uid="uid://d0qfeecooxxpf" path="res://SmallFontTheme.tres" id="2_8664i"]
+[ext_resource type="PackedScene" uid="uid://cpnwcscm4namd" path="res://ui/item_info_vbox.tscn" id="5_agphf"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vrruj"]
 texture = ExtResource("2_5rw7d")
@@ -31,25 +32,5 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_top = -6
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-use_parent_material = true
+[node name="VBoxContainer" parent="MarginContainer" instance=ExtResource("5_agphf")]
 layout_mode = 2
-size_flags_vertical = 0
-mouse_filter = 2
-theme_override_constants/separation = -4
-
-[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-use_parent_material = true
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-autowrap_mode = 3
-uppercase = true
-
-[node name="DescriptionLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-use_parent_material = true
-layout_mode = 2
-mouse_filter = 2
-bbcode_enabled = true
-fit_content = true

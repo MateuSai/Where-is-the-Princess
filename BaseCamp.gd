@@ -47,6 +47,7 @@ func _ready() -> void:
 
 	wardrobe_interact_area.player_interacted.connect(func() -> void:
 		wardrobe_popup.popup_centered()
+		($WardrobeOpenSound as AudioStreamPlayer).play()
 		player.can_move = false
 	)
 	wardrobe_popup.popup_hide.connect(func() -> void:

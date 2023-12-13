@@ -64,12 +64,24 @@ class PassiveItemIcon extends TextureRect:
 		else:
 			return ""
 
-	#func _make_custom_tooltip(for_text: String) -> Object:
-		#var panel: MarginContainer = InfoPanel.get_child(0).duplicate(11)
-#
-		#panel.get_node("VBoxContainer/NameLabel").text = for_text
-#
-		#return panel
+	func _make_custom_tooltip(for_text: String) -> Object:
+		var item_info_vbox: ItemInfoVBox = (load("res://ui/item_info_vbox.tscn") as PackedScene).instantiate()
+		item_info_vbox.custom_minimum_size.x = 80
+
+		var splitted_text: PackedStringArray = for_text.split("\n")
+		assert(splitted_text.size() == 2)
+		item_info_vbox.get_node("NameLabel").text = splitted_text[0]
+		match item.get_quality():
+			Item.Quality.COMMON:
+				item_info_vbox.get_node("NameLabel").modulate = Color.WHITE
+			Item.Quality.CHINGON:
+				item_info_vbox.get_node("NameLabel").modulate = Color.BLUE
+		item_info_vbox.get_node("DescriptionLabel").text = splitted_text[1]
+
+		await get_tree().process_frame
+		item_info_vbox.size.y = 0
+
+		return item_info_vbox
 
 
 class TemporalPassiveItemIcon extends PassiveItemIcon:
@@ -79,12 +91,14 @@ class TemporalPassiveItemIcon extends PassiveItemIcon:
 
 	func _init() -> void:
 		label = Label.new()
+		label.theme = load("res://SmallFontTheme.tres")
 		label.set_anchors_preset(Control.PRESET_TOP_LEFT)
+		label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		label.offset_left = 0
 		label.offset_right = 0
 		label.offset_bottom = 0
 		label.offset_top = 0
-#		label.add_theme_font_size_override("font_size", 10)
+		label.add_theme_font_size_override("font_size", 10)
 		label.text = "1"
 		add_child(label)
 
