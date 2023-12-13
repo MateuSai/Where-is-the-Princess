@@ -9,9 +9,9 @@ func unequip(_player: Player) -> void:
 	Globals.remove_weapon_damage_modifier_by_type(Weapon.Type.AXE, 1)
 
 
-func get_icon() -> Texture:
+func get_icon() -> Texture2D:
 	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/rune_kapp_icon.png")
 
 
-func get_symbol() -> Texture:
+func get_symbol() -> Texture2D:
 	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/rune_kapp.png")

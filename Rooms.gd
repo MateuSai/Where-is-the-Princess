@@ -354,7 +354,11 @@ func _create_corridors() -> bool:
 					if point.distance_to(point2) < min_dist:
 						if not overwrite_connections.is_empty():
 							var block_connection: bool = true
-							for connection: Array[int] in overwrite_connections:
+							for connection: Array in overwrite_connections:
+								#var afjsfknasf: int = room_centers.find(point2)
+								#var n: int = connection[0]
+								#var m: int = connection[1]
+								#var p: bool = (n == id and m == afjsfknasf)
 								if (connection[0] == id and connection[1] == room_centers.find(point2)) or (connection[0] == room_centers.find(point2) and connection[1] == id):
 									block_connection = false
 									break
