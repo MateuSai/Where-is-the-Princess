@@ -7,6 +7,8 @@ const USER_FOLDER: String = "user://"
 #const MODS_CONF_FILE_NAME: String = "mods_conf.json"
 const DATA_SAVE_NAME: String = "data.json"
 
+const RUN_STATS_SAVE_NAME: String = "run_stats.res"
+
 var data: Data
 
 var volatile_room_paths: Dictionary = {}
@@ -30,6 +32,8 @@ func _ready() -> void:
 	# save_data()
 	_load_data()
 	#print(data)
+
+	_load_run_stats()
 
 	_change_biome_conf(run_stats.biome)
 	# print(biome_conf)
@@ -88,6 +92,23 @@ func _load_data() -> void:
 	else:
 		print("No save data found, using default value...")
 		data = Data.new()
+
+
+func save_run_stats() -> void:
+	ResourceSaver.save(run_stats, USER_FOLDER.path_join(RUN_STATS_SAVE_NAME))
+
+
+func _load_run_stats() -> void:
+	if FileAccess.file_exists(USER_FOLDER.path_join(RUN_STATS_SAVE_NAME)):
+		#run_stats = load(USER_FOLDER.path_join(RUN_STATS_SAVE_NAME))
+		run_stats = ResourceLoader.load(USER_FOLDER.path_join(RUN_STATS_SAVE_NAME), "", ResourceLoader.CACHE_MODE_IGNORE) as RunStats
+	else:
+		run_stats = RunStats.new()
+
+
+func _remove_and_reset_run_stats() -> void:
+	DirAccess.remove_absolute(USER_FOLDER.path_join(RUN_STATS_SAVE_NAME))
+	run_stats = RunStats.new()
 
 
 #func save_mods_conf() -> void:
@@ -386,28 +407,6 @@ func get_random_discovered_item_path(quality: Item.Quality = Item.Quality.COMMON
 	assert(not possible_results.is_empty())
 	possible_results.shuffle()
 	return possible_results[0]
-
-
-## This is what we use to load the stats when we changes floor or when we saves the game
-class RunStats extends Resource:
-	signal coins_changed(new_coins: int)
-
-	@export var biome: String = "sewer"
-	@export var level: int = 1
-
-	@export var hp: int = Character.DB["player"].max_hp
-	@export var weapon_stats: Array[WeaponStats] = []
-	@export var equipped_weapon_index: int = 0
-
-	@export var coins: int = 30:
-		set(new_coins):
-			coins = new_coins
-			coins_changed.emit(coins)
-
-	@export var armor: Armor = null
-
-	@export var permanent_passive_items: Array[PermanentPassiveItem] = []
-	@export var temporal_passive_items: Array[TemporalPassiveItem] = []
 
 
 class Data:
