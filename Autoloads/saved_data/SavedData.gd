@@ -18,7 +18,7 @@ var volatile_armor_paths: Array[String] = []
 var volatile_permanent_item_paths: Array[String] = []
 var volatile_temporal_item_paths: Array[String] = []
 
-var run_stats: RunStats = RunStats.new()
+var run_stats: RunStats
 
 #var mods: Array[Mod] = []
 

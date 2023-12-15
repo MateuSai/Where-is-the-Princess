@@ -16,7 +16,7 @@ var souls_to_activate_ability: int
 
 
 @warning_ignore("shadowed_variable")
-func _init(weapon_path: String, souls_to_activate_ability: int) -> void:
+func _init(weapon_path: String = "", souls_to_activate_ability: int = 1) -> void:
 	self.weapon_path = weapon_path
 	self.souls_to_activate_ability = souls_to_activate_ability
 
