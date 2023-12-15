@@ -69,13 +69,15 @@ func _pick_item_and_free() -> void:
 			current_arrow_type_item_on_floor.initialize([load("res://items/Passive/WeaponModifiers/arrows/normal_arrow_modifier.gd"), load("res://items/Passive/WeaponModifiers/arrows/homing_arrow_modifier.gd"), load("res://items/Passive/WeaponModifiers/arrows/piercing_arrow_modifier.gd"), load("res://items/Passive/WeaponModifiers/arrows/bouncing_arrow_modifier.gd"), load("res://items/Passive/WeaponModifiers/arrows/explosive_arrow_modifier.gd")][Globals.player.weapons.current_weapon.arrow_type].new())
 			current_arrow_type_item_on_floor.enable_pick_up()
 		elif item is ArmorItem:
-			var item_on_floor: ItemOnFloor = load("res://items/item_on_floor.tscn").instantiate()
-			item_on_floor.position = position
-			var armor_item: ArmorItem = ArmorItem.new()
-			armor_item.initialize(Globals.player.armor)
-			item_on_floor.initialize(armor_item)
-			get_parent().add_child(item_on_floor)
-			item_on_floor.enable_pick_up()
+			# TODO make NoArmor item icon
+			if not Globals.player.armor is NoArmor:
+				var item_on_floor: ItemOnFloor = load("res://items/item_on_floor.tscn").instantiate()
+				item_on_floor.position = position
+				var armor_item: ArmorItem = ArmorItem.new()
+				armor_item.initialize(Globals.player.armor)
+				item_on_floor.initialize(armor_item)
+				get_parent().add_child(item_on_floor)
+				item_on_floor.enable_pick_up()
 
 		item.pick_up(interact_area.player)
 		queue_free()

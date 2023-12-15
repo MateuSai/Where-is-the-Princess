@@ -22,7 +22,8 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	assert(body is Character)
+	if not body is Character:
+		return
 
 	var character: Character = body
 
@@ -41,7 +42,8 @@ func _on_body_entered(body: Node2D) -> void:
 
 
 func _on_body_exited(body: Node2D) -> void:
-	assert(body is Character)
+	if not body is Character:
+		return
 
 	var character: Character = body
 

@@ -8,6 +8,8 @@ func _ready() -> void:
 
 
 func spawn_skelebro() -> void:
-	var skelebro: Enemy = load(Globals.ENEMIES["dagger_skelebro"].path).instantiate()
+	var dagger_skelebro_scene: PackedScene = Globals.get_enemy_scene("dagger_skelebro")
+	assert(dagger_skelebro_scene)
+	var skelebro: Enemy = dagger_skelebro_scene.instantiate()
 	skelebro.position = position + Vector2(16, 0).rotated(randf_range(0, 2*PI))
 	room.add_enemy(skelebro)

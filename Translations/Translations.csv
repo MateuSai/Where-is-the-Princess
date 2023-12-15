@@ -1,8 +1,9 @@
 keys,en,ca,es,ja
 UNDERPANTS,Underpants,Roba interior,Ropa interior,パンツ
-UNDERPANTS_DESC,Why wear an armor? You are faster with only your underpants.,,¿Para qué usar armadura? Eres más rápido sólo con tu ropa interior.,
+UNDERPANTS_DESC,Why wear an armor? You are faster with only your underpants.,Per què equipar-te una armadura? Ets més ràpid anant només amb calçotets.,¿Por qué equiparte una armadura? Eres más rápido solo con tus gayumbos.,
 KNIGHT,Knight,Cavaller,Caballero,騎士
-MERCENARY,Mercenary,Mercenari,Mercenario,傭兵
+MERCENARY_ARMOR,Mercenary Armor,Armadura de Mercenari,Armadura de Mercenario,傭兵
+MERCENARY_ARMOR_DESCRIPTION,An armor a reckless mercenary wore a long time ago.,Una armadura que portava un mercenari agosarat fa molt de temps.,Una armadura que llevaba un mercenario temerario hace mucho tiempo.,
 FARMER_CLOTHES,Farmer Clothes,Roba de Pagès,Ropa de Granjero,
 IMPROVISED_ARMOR,Improvised Armor,Armadura Improvisada,Armadura Improvisada,
 NECROMANCER_ARMOR,Necromancer Armor,Armadura de Nigromant,Armadura de Nigromante,

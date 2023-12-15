@@ -155,6 +155,8 @@ func _process_command(command: String) -> void:
 			_set_player_invincible("t")
 		"reload", "rel", "r":
 			_reload()
+		"save":
+			_save()
 #			if splitted_command.size() > 1: # tiene otro argumento
 #				match splitted_command[1]:
 #					"weapon", "weap":
@@ -402,3 +404,9 @@ func _reload() -> void:
 	get_tree().reload_current_scene()
 
 	print_debug("Scene reloaded")
+
+
+func _save() -> void:
+	SavedData.save_run_stats()
+
+	hide()

@@ -3,10 +3,16 @@ class_name Explosion extends Hitbox
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
+func _collide(node: Node2D, dam: int = damage) -> void:
+	knockback_direction = (node.global_position - global_position).normalized()
+
+	super(node, dam)
+
+
 func _spawn_shrapnel() -> void:
 	set_physics_process(false)
 
-	animation_player.pause()
+	#animation_player.pause()
 
 	var num: int = randi() % 3 + 3
 	var initial_rot: float = randf_range(0, 2*PI / (num - 1))
@@ -19,6 +25,6 @@ func _spawn_shrapnel() -> void:
 		shrapnels.push_back(shrapnel)
 
 	await get_tree().process_frame
-	animation_player.play()
+	#animation_player.play()
 	for shrapnel: Sprite2D in shrapnels:
 		(shrapnel.get_node("AnimationPlayer") as AnimationPlayer).play("explode")

@@ -5,20 +5,13 @@ class_name WeaponStats extends Resource
 signal condition_changed(new_condition: int)
 
 signal souls_changed(new_souls: int, souls_to_activate_ability: int)
-var souls_to_activate_ability: int
+@export var souls_to_activate_ability: int
 @export var souls: int = 0:
 	set(new_souls):
 		souls = clamp(new_souls, 0, souls_to_activate_ability)
 		souls_changed.emit(souls, souls_to_activate_ability)
 
 @export var modifiers: Array[WeaponModifier] = []
-
-
-
-@warning_ignore("shadowed_variable")
-func _init(weapon_path: String, souls_to_activate_ability: int) -> void:
-	self.weapon_path = weapon_path
-	self.souls_to_activate_ability = souls_to_activate_ability
 
 
 func set_condition(new_condition: float) -> void:

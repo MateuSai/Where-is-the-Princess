@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://Characters/Enemies/archeleton/archeleton_fsm.gd" id="2_cjwj3"]
 [ext_resource type="Texture2D" uid="uid://dg43ou5i38wjl" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_archer.png" id="4_m6m8d"]
 [ext_resource type="Texture2D" uid="uid://b31xodv746lr1" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/short_wooden_bow.png" id="5_3fu7u"]
-[ext_resource type="Script" path="res://Components/aim_component.gd" id="6_nkjaj"]
+[ext_resource type="Script" path="res://Components/character_detector/aim_component.gd" id="6_nkjaj"]
 
 [sub_resource type="Animation" id="Animation_80pa1"]
 length = 0.001
