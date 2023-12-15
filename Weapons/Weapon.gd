@@ -62,7 +62,9 @@ func _ready() -> void:
 		player_detector.set_collision_mask_value(2, false)
 
 	if stats == null:
-		stats = WeaponStats.new(scene_file_path, souls_to_activate_ability)
+		stats = WeaponStats.new()
+		stats.weapon_path = scene_file_path
+		stats.souls_to_activate_ability = souls_to_activate_ability
 
 	set_process_unhandled_input(false)
 	@warning_ignore("unsafe_call_argument")
@@ -89,7 +91,7 @@ func load_modifiers() -> void:
 func _load_csv_data(data: Dictionary) -> void:
 	weapon_name = data["name"]
 	var icon_path: String = data["icon"]
-	icon = load(icon_path)
+	icon = load(icon_path) as Texture2D
 	type = Type.values()[Type.keys().find(data["type"])]
 	damage = data.damage
 	knockback = data.knockback

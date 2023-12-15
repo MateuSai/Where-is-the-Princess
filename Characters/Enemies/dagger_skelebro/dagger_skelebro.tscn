@@ -1,14 +1,19 @@
-[gd_scene load_steps=14 format=3 uid="uid://dwopgoiqmmh3y"]
+[gd_scene load_steps=16 format=3 uid="uid://dwopgoiqmmh3y"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_3y4q3"]
 [ext_resource type="Script" path="res://Characters/Enemies/skelebro/skelebro.gd" id="2_jd8wq"]
 [ext_resource type="Script" path="res://Characters/Enemies/skelebro/skelebro_fsm.gd" id="3_lijei"]
 [ext_resource type="Texture2D" uid="uid://drcyrvghhqwug" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skeleton_base.png" id="4_hs0yf"]
+[ext_resource type="Script" path="res://Characters/HurtBox.gd" id="5_03nb0"]
 [ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="5_v60vm"]
 [ext_resource type="PackedScene" uid="uid://bw0adahejc8e2" path="res://Weapons/Dagger.tscn" id="6_e8pus"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1ojqa"]
 radius = 3.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pvp71"]
+radius = 4.0
+height = 10.0
 
 [sub_resource type="Animation" id="Animation_kcdck"]
 length = 0.001
@@ -104,11 +109,6 @@ _data = {
 
 [node name="DaggerSkelebro" instance=ExtResource("1_3y4q3")]
 script = ExtResource("2_jd8wq")
-mass = 1.0
-acceleration = 40
-max_speed = 100
-flying = false
-can_be_knocked_back = true
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("3_lijei")
@@ -122,12 +122,21 @@ vframes = 4
 [node name="CollisionShape2D" parent="." index="3"]
 shape = SubResource("CircleShape2D_1ojqa")
 
-[node name="AnimationPlayer" parent="." index="4"]
+[node name="HurtBox" type="Area2D" parent="." index="4"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("5_03nb0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0, -3)
+shape = SubResource("CapsuleShape2D_pvp71")
+
+[node name="AnimationPlayer" parent="." index="5"]
 libraries = {
 "": SubResource("AnimationLibrary_wst10")
 }
 
-[node name="EnemyWeapons" type="Node2D" parent="." index="11"]
+[node name="EnemyWeapons" type="Node2D" parent="." index="12"]
 position = Vector2(0, -3)
 script = ExtResource("5_v60vm")
 

@@ -38,5 +38,5 @@ func get_dir() -> Dictionary:
 func _is_trajectory_clear(to: Vector2) -> bool:
 	var space_state: PhysicsDirectSpaceState2D = character.get_world_2d().direct_space_state
 	# use global coordinates, not local to node
-	var query = PhysicsRayQueryParameters2D.create(character.global_position, to, 1)
+	var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(character.global_position, to, 1)
 	return not space_state.intersect_ray(query).is_empty()
