@@ -1,12 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://886ogqps7117"]
+[gd_scene load_steps=16 format=3 uid="uid://886ogqps7117"]
 
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="1_5c4p0"]
 [ext_resource type="Script" path="res://ui/menu.gd" id="2_il0mi"]
 [ext_resource type="Texture2D" uid="uid://b1nbyyumv3x5u" path="res://Art/warrior.png" id="3_e8d4m"]
+[ext_resource type="Script" path="res://ui/continue_button.gd" id="4_f1j7i"]
 [ext_resource type="Texture2D" uid="uid://bp6rbf2gw15f5" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_normal_x2_size.png" id="4_vkpjm"]
 [ext_resource type="Texture2D" uid="uid://bs075q8gb23ih" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_hover_x2_size.png" id="5_pp2xs"]
 [ext_resource type="Texture2D" uid="uid://c7w1c828j4ok0" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_pressed_x2_size.png" id="6_c014h"]
-[ext_resource type="Script" path="res://ui/PlayButton.gd" id="7_u7gmb"]
+[ext_resource type="Script" path="res://ui/base_camp_button.gd" id="7_8j46j"]
 [ext_resource type="Script" path="res://ui/ModsButton.gd" id="8_n6t26"]
 [ext_resource type="Script" path="res://ui/SettingsButton.gd" id="9_sf5s7"]
 [ext_resource type="Script" path="res://ui/QuitButton.gd" id="10_7y8oq"]
@@ -70,14 +71,23 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
 
-[node name="PlayButton" type="Button" parent="VBoxContainer"]
+[node name="ContinueButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
-text = "PLAY"
-script = ExtResource("7_u7gmb")
+text = "CONTINUE"
+script = ExtResource("4_f1j7i")
+
+[node name="BaseCampButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
+text = "BASE_CAMP"
+script = ExtResource("7_8j46j")
 
 [node name="ModsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2

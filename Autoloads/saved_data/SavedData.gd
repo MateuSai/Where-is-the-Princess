@@ -111,6 +111,10 @@ func _remove_and_reset_run_stats() -> void:
 	run_stats = RunStats.new()
 
 
+func are_there_run_stats() -> bool:
+	return FileAccess.file_exists(USER_FOLDER.path_join(RUN_STATS_SAVE_NAME))
+
+
 #func save_mods_conf() -> void:
 #	var mods_dic: Dictionary = {}
 #	for mod in mods:
