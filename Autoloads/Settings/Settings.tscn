@@ -17,30 +17,34 @@
 [ext_resource type="Script" path="res://Components/tab_container_controller_support.gd" id="12_kwxg6"]
 [ext_resource type="Script" path="res://Autoloads/Settings/AimHelpHSlider.gd" id="13_mrue3"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k5rc5"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tgouq"]
 
 [node name="Settings" type="PopupPanel"]
 process_mode = 3
 disable_3d = true
 transparent_bg = true
 canvas_item_default_texture_filter = 0
+position = Vector2i(0, 36)
 size = Vector2i(300, 180)
 visible = true
 transparent = true
 theme = ExtResource("2_fjhtw")
-theme_override_styles/panel = SubResource("StyleBoxEmpty_k5rc5")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tgouq")
 script = ExtResource("1_4y760")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 300.0
+offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_fjhtw")
 
 [node name="GENERAL" type="ScrollContainer" parent="TabContainer"]
 layout_mode = 2
+follow_focus = true
 horizontal_scroll_mode = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/GENERAL"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://886ogqps7117"]
+[gd_scene load_steps=25 format=3 uid="uid://886ogqps7117"]
 
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="1_5c4p0"]
 [ext_resource type="Script" path="res://ui/menu.gd" id="2_il0mi"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://ui/SettingsButton.gd" id="9_sf5s7"]
 [ext_resource type="Script" path="res://ui/QuitButton.gd" id="10_7y8oq"]
 [ext_resource type="Script" path="res://Components/auto_focus_on_controller.gd" id="11_vl3sd"]
+[ext_resource type="Script" path="res://ui/version_label.gd" id="18_rv7ro"]
 
 [sub_resource type="Animation" id="Animation_p6v7h"]
 length = 0.001
@@ -279,3 +280,20 @@ size = Vector2i(300, 100)
 popup_window = true
 dialog_text = "WAIT_YOU_WILL_LOST_YOUR_SAVED_RUN"
 cancel_button_text = "CANCEL"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="VersionLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "0.0.0"
+script = ExtResource("18_rv7ro")

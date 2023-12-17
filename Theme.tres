@@ -176,6 +176,7 @@ PopupMenu/icons/radio_checked = ExtResource("1_pp2h6")
 PopupMenu/icons/radio_unchecked = ExtResource("2_cm5ob")
 PopupMenu/styles/panel = SubResource("StyleBoxTexture_73vy8")
 PopupPanel/styles/panel = SubResource("StyleBoxTexture_b2mtb")
+TabContainer/constants/side_margin = 17
 TabContainer/styles/panel = SubResource("StyleBoxTexture_p0q2m")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxTexture_5sg6s")
 TabContainer/styles/tab_selected = SubResource("StyleBoxTexture_nvuer")

@@ -76,6 +76,10 @@ folder_colors={
 
 import/blender/enabled=false
 
+[global]
+
+version="0.1.0"
+
 [gui]
 
 fonts/dynamic_fonts/use_oversampling=false
