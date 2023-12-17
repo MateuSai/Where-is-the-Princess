@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=45 format=3 uid="uid://b0askjdx1bs38"]
+[gd_resource type="Theme" load_steps=46 format=3 uid="uid://b0askjdx1bs38"]
 
 [ext_resource type="FontFile" uid="uid://drbvct1q4mkwc" path="res://Fonts/Alkhemikal.ttf" id="1_gud3r"]
 [ext_resource type="Texture2D" uid="uid://tmi2660xc1ma" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_hover.png" id="1_kevbw"]
@@ -24,6 +24,13 @@
 [ext_resource type="Texture2D" uid="uid://b5hg1i2p4771d" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/tab-unselected.png" id="14_cegmw"]
 [ext_resource type="Texture2D" uid="uid://dbbbvokfj8ogi" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/panel-tittle.png" id="14_i3h1y"]
 [ext_resource type="Texture2D" uid="uid://c8nuwmhxuntfu" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/dialog_panel_9-patch.png" id="19_l343m"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_psxgl"]
+texture = ExtResource("14_i3h1y")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_65uj7"]
 texture = ExtResource("1_kevbw")
@@ -146,6 +153,7 @@ texture_margin_bottom = 3.0
 [resource]
 default_font = ExtResource("1_gud3r")
 default_font_size = 16
+AcceptDialog/styles/panel = SubResource("StyleBoxTexture_psxgl")
 Button/colors/font_color = Color(0.321569, 0.188235, 0.0980392, 1)
 Button/colors/font_hover_color = Color(0.372549, 0.219608, 0.117647, 1)
 Button/styles/hover = SubResource("StyleBoxTexture_65uj7")

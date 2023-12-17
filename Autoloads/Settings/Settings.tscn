@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bnr0w37wgidyn"]
+[gd_scene load_steps=18 format=3 uid="uid://bnr0w37wgidyn"]
 
 [ext_resource type="Script" path="res://Autoloads/Settings/Settings.gd" id="1_4y760"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="2_fjhtw"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://Components/auto_focus_on_controller.gd" id="8_tailv"]
 [ext_resource type="Script" path="res://Autoloads/Settings/AutoAimCheckBox.gd" id="8_vwxws"]
 [ext_resource type="Script" path="res://Autoloads/Settings/shop_prices_always_visible_check_box.gd" id="8_vxxq1"]
+[ext_resource type="Script" path="res://Autoloads/Settings/save_path_button.gd" id="9_v3em4"]
 [ext_resource type="Script" path="res://Components/tab_container_controller_support.gd" id="12_kwxg6"]
 [ext_resource type="Script" path="res://Autoloads/Settings/AimHelpHSlider.gd" id="13_mrue3"]
 
@@ -34,8 +35,6 @@ script = ExtResource("1_4y760")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 300.0
-offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_fjhtw")
@@ -141,6 +140,19 @@ size_flags_horizontal = 10
 button_pressed = true
 flat = true
 script = ExtResource("8_vxxq1")
+
+[node name="SavePathHBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer/SavePathHBoxContainer"]
+layout_mode = 2
+text = "SAVE_PATH"
+
+[node name="SavePathButton" type="Button" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer/SavePathHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "SELECT"
+script = ExtResource("9_v3em4")
 
 [node name="AutoFocusOnController" type="Node" parent="TabContainer/GENERAL"]
 script = ExtResource("8_tailv")
@@ -310,3 +322,11 @@ script = ExtResource("8_tailv")
 
 [node name="TabContainerControllerSupport" type="Node" parent="TabContainer"]
 script = ExtResource("12_kwxg6")
+
+[node name="FileDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+title = "Open a Directory"
+size = Vector2i(705, 150)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
