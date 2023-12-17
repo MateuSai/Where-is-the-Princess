@@ -414,29 +414,35 @@ func _create_corridors() -> bool:
 			print_rich("[b]--- Rooms: Adding extra connections to mst ---[/b]")
 		for id: int in initial_astar.get_point_count():
 			initial_astar.set_point_disabled(id, false)
-		var points_that_could_be_connected: Array[Array] = []
+		var points_that_could_be_connected: Array[Connection] = []
 		for id: int in initial_astar.get_point_count():
 			for id2: int in range(id + 1, initial_astar.get_point_count()):
 				# print(str(id) + ": " + str(initial_astar.get_point_connections(id)))
 				if initial_astar.get_point_connections(id).has(id2) and not mst_astar.get_point_connections(id).has(id2) and not points_that_could_be_connected.has([id, id2]) and not points_that_could_be_connected.has([id2, id]):
-					points_that_could_be_connected.push_back([id, id2])
+					points_that_could_be_connected.push_back(Connection.new(id, id2, (room_centers[id] - room_centers[id2]).length()))
+
+		points_that_could_be_connected.sort_custom(func(c: Connection, c2: Connection) -> bool:
+			return c.cost < c2.cost
+		)
+
 		if debug:
-			print("Connections not used after mst: " + str(points_that_could_be_connected))
+			print("Connections not used after mst:")
+			for con: Connection in points_that_could_be_connected:
+				print(con.as_string())
+			print("")
 
 		var number_of_extra_connections: int = (round(rooms.size() - 1) * SavedData.get_biome_conf().extra_connections)
 		if debug:
 			print("Desired number of extra connections: " + str(number_of_extra_connections))
 		var i: int = number_of_extra_connections
 		while i > 0 and not points_that_could_be_connected.is_empty():
-			var rand: int = randi() % points_that_could_be_connected.size()
-			var connections: Array[int] = []
-			connections.assign(points_that_could_be_connected[rand])
-			var room_connection: RoomConnection = await _is_connection_possible(connections[0], connections[1])
+			var connection: Connection = points_that_could_be_connected.pop_front()
+			var room_connection: RoomConnection = await _is_connection_possible(connection.room_id_1, connection.room_id_2)
 			if room_connection:
-				await _create_corridor_between_rooms(connections[0], connections[1], room_connection)
-				mst_astar.connect_points(connections[0], connections[1])
+				await _create_corridor_between_rooms(connection.room_id_1, connection.room_id_2, room_connection)
+				mst_astar.connect_points(connection.room_id_1, connection.room_id_2)
 				i -= 1
-			points_that_could_be_connected.remove_at(rand)
+			#points_that_could_be_connected.remove_at(rand)
 		if debug:
 			print("")
 
@@ -1218,3 +1224,18 @@ class RectangleSpawnShape extends SpawnShape:
 	@warning_ignore("shadowed_variable")
 	func _init(size: Vector2) -> void:
 		self.size = size
+
+
+class Connection:
+	var room_id_1: int
+	var room_id_2: int
+	var cost: float
+
+	@warning_ignore("shadowed_variable")
+	func _init(room_id_1: int, room_id_2: int, cost: float) -> void:
+		self.room_id_1 = room_id_1
+		self.room_id_2 = room_id_2
+		self.cost = cost
+
+	func as_string() -> String:
+		return "room_id_1: " + str(room_id_1) + ", room_id_2: " + str(room_id_2) + ", cost: " + str(cost)
