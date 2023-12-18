@@ -40,11 +40,11 @@ signal used_active_ability()
 var tween: Tween = null
 
 ## The name of the scene file (after removing .tscn)
-@onready var weapon_id: String = scene_file_path.get_file().trim_suffix(".tscn").to_pascal_case()
+@onready var weapon_id: String = scene_file_path.get_file().trim_suffix(".tscn").to_snake_case()
 
 @onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
-@onready var charge_particles: GPUParticles2D = get_node("Node2D/Sprite2D/ChargeParticles")
-@onready var weapon_sprite: Sprite2D = get_node("Node2D/Sprite2D")
+@onready var weapon_sprite: Sprite2D = %WeaponSprite
+@onready var charge_particles: GPUParticles2D = weapon_sprite.get_node("ChargeParticles")
 @onready var player_detector: Area2D = weapon_sprite.get_node("PlayerDetector")
 @onready var cool_down_timer: Timer = get_node("CoolDownTimer")
 

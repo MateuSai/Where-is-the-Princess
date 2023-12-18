@@ -21,7 +21,7 @@ var throw_rot_speed: float = 0
 var piercing: int = 1
 var bodies_pierced: int = 0
 
-@onready var hitbox: WeaponHitbox = get_node("Node2D/Sprite2D/Hitbox")
+@onready var hitbox: WeaponHitbox = %Hitbox
 
 
 func _ready() -> void:
