@@ -164,8 +164,8 @@ func add_kill(enemy_id: StringName) -> void:
 
 	data.kills[enemy_id] += 1
 
-	var enemy_unlock_weapon_on_kills: UnlockWeaponOnKills = Globals.get_enemy_unlock_weapon_on_kills()
-	if enemy_unlock_weapon_on_kills and data.kills[enemy_id] == enemy_unlock_weapon_on_kills.kills:
+	var enemy_unlock_weapon_on_kills: UnlockWeaponOnKills = Globals.get_enemy_unlock_weapon_on_kills(enemy_id)
+	if enemy_unlock_weapon_on_kills and data.kills[enemy_id] == enemy_unlock_weapon_on_kills.kills_necessary:
 		discover_weapon(enemy_unlock_weapon_on_kills.weapon_path)
 
 	save_data()

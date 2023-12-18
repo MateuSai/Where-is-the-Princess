@@ -57,7 +57,7 @@ version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/csv-data-importer/plugin.cfg", "res://addons/script-ide/plugin.cfg")
+enabled=PackedStringArray("res://addons/csv-data-importer/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/script-ide/plugin.cfg")
 
 [file_customization]
 
@@ -75,6 +75,18 @@ folder_colors={
 [filesystem]
 
 import/blender/enabled=false
+
+[gdunit4]
+
+templates/testsuite/GDScript="# GdUnit generated TestSuite
+class_name ${suite_class_name}
+extends GdUnitTestSuite
+@warning_ignore('unused_parameter')
+@warning_ignore('return_value_discarded')
+
+# TestSuite generated from
+const __source: String = '${source_resource_path}'
+"
 
 [global]
 
