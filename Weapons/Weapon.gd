@@ -1,6 +1,8 @@
 @icon("res://Art/v1.1 dungeon crawler 16x16 pixel pack/heroes/knight/weapon_sword_1.png")
 class_name Weapon extends Node2D
 
+#const ANIMATION_LIBRARIES_FOLDER: String = "res://Weapons/animation_libraries/"
+
 @export var on_floor: bool = false
 
 enum Type {
@@ -18,6 +20,8 @@ enum Type {
 @export var icon: Texture = null ## 16x16 weapon icon, the one that appears on the bottom of the screen
 
 @export var condition_cost_per_normal_attack: float = 5
+
+@export var animation_library: String = ""
 
 @export_group("Active Ability")
 @export var active_ability_icon: Texture ## Icon of the weapon's active ability
@@ -93,6 +97,8 @@ func _load_csv_data(data: Dictionary) -> void:
 	var icon_path: String = data["icon"]
 	icon = load(icon_path) as Texture2D
 	type = Type.values()[Type.keys().find(data["type"])]
+	#animation_library = load(ANIMATION_LIBRARIES_FOLDER.path_join(data["animation_library"]))
+	animation_library = data["animation_library"] + "_animation_library"
 	damage = data.damage
 	knockback = data.knockback
 	ability_damage = data.ability_damage
@@ -134,22 +140,22 @@ func move(mouse_direction: Vector2) -> void:
 
 
 func _attack() -> void:
-	animation_player.play("attack")
+	animation_player.play(animation_library.path_join("attack"))
 
 
 func _active_ability(animation_name: String = "active_ability") -> void:
 	stats.souls = 0
 	used_active_ability.emit()
 	cool_down_timer.start()
-	animation_player.play(animation_name)
+	animation_player.play(animation_library.path_join(animation_name))
 
 
 func _strong_attack() -> void:
-	animation_player.play("strong_attack")
+	animation_player.play(animation_library.path_join("strong_attack"))
 
 
 func _charge() -> void:
-	animation_player.play("charge")
+	animation_player.play(animation_library.path_join("charge"))
 
 
 func cancel_attack() -> void:
@@ -280,6 +286,23 @@ func _on_animation_finished(anim_name: String) -> void:
 func get_info() -> String:
 	@warning_ignore("unsafe_call_argument")
 	return tr(weapon_name) + "\n\n" + tr(Type.keys()[type])
+
+
+## Get currently playing animation without library name in front
+func get_current_animation() -> String:
+	var complete_current_animation: PackedStringArray = animation_player.current_animation.split("/")
+	return complete_current_animation[complete_current_animation.size() - 1]
+
+
+## Returns the full animation name, appending the library name at the start if necessary
+func get_animation_full_name(anim: String) -> String:
+	if animation_player.has_animation(anim):
+		return anim
+	elif animation_player.has_animation(animation_library.path_join(anim)):
+		return animation_library.path_join(anim)
+	else:
+		#printerr(str(weapon_id) + " animation player does not have animation " + anim)
+		return ""
 
 
 @warning_ignore("shadowed_variable")

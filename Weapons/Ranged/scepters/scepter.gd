@@ -2,30 +2,38 @@
 class_name Scepter extends RangedWeapon
 
 
-@onready var pivot_2: Node2D = $Pivot/Pivot2
+#@onready var pivot_2: Node2D = $Pivot/Pivot2
+
+
+func _ready() -> void:
+	super()
+
+	animation_library = "scepter_animation_library"
 
 
 func move(mouse_direction: Vector2) -> void:
 	super(mouse_direction)
 
 	if mouse_direction.x >= 0:
-		pivot_2.scale.x = 1
-		weapon_sprite.scale.x = 1
-		pivot_2.rotation = 0
+		#pivot_2.scale.x = 1
+		weapon_sprite.scale.y = 1
+		#pivot_2.rotation = 0
 	else:
-		pivot_2.scale.x = -1
-		weapon_sprite.scale.x = -1
-		pivot_2.rotation = PI/2
+		#pivot_2.scale.x = -1
+		weapon_sprite.scale.y = -1
+		#pivot_2.rotation = PI/2
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_attack") and not animation_player.is_playing():
 		_charge()
 	elif event.is_action_released("ui_attack"):
-		if animation_player.is_playing() and animation_player.current_animation.begins_with("charge") and weapon_sprite.frame > 0:
+		#var complete_current_animation: PackedStringArray = animation_player.current_animation.split("/")
+		#var current_animation: String = complete_current_animation[complete_current_animation.size() - 1]
+		if animation_player.is_playing() and get_current_animation().begins_with("charge") and weapon_sprite.material.get("shader_parameter/active"):
 			_bow_attack(animation_player.current_animation_position / animation_player.current_animation_length)
-		elif weapon_sprite.frame > 0:
-			_bow_attack(1.0)
+		#elif weapon_sprite.frame > 0:
+			#_bow_attack(1.0)
 		else:
 			animation_player.play("RESET")
 
@@ -44,7 +52,7 @@ func _bow_attack(charge: float) -> void:
 
 	_attack()
 
-	assert(animation_player.current_animation.begins_with("attack"))
+	assert(get_current_animation().begins_with("attack"))
 	await animation_player.animation_finished # We wait until attack animation is finished
 
 	if is_equal_approx(charge, 1.0):

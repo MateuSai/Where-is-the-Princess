@@ -82,19 +82,19 @@ func _pick_up() -> void:
 
 
 func _attack() -> void:
-	if attack_num == 1 and not animation_player.has_animation("attack_2"):
-		animation_player.play_backwards("attack_1")
+	if attack_num == 1 and get_animation_full_name("attack_2").is_empty():
+		animation_player.play_backwards(get_animation_full_name("attack_1"))
 	else:
-		animation_player.play("attack_" + str(attack_num + 1))
+		animation_player.play(get_animation_full_name("attack_" + str(attack_num + 1)))
 	attack_num += 1
 
 
 func _charge() -> void:
-	animation_player.play("charge_" + str(attack_num + 1))
+	animation_player.play(get_animation_full_name("charge_" + str(attack_num + 1)))
 
 
 func _strong_attack() -> void:
-	animation_player.play("strong_attack_" + str(attack_num + 1))
+	animation_player.play(get_animation_full_name("strong_attack_" + str(attack_num + 1)))
 
 
 func _active_ability(_animation_name: String = "active_ability") -> void:
