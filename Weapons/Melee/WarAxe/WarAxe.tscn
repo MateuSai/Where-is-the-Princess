@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://4g8k6f3qb1w2"]
+[gd_scene load_steps=22 format=3 uid="uid://4g8k6f3qb1w2"]
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_fuq8a"]
 [ext_resource type="Script" path="res://Weapons/Melee/WarAxe/WarAxe.gd" id="2_nbej2"]
@@ -6,30 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://bxa3cd6v382vn" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/War axe.png" id="4_hfprm"]
 [ext_resource type="Texture2D" uid="uid://dadot6nohx433" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/War axe circular attack.png" id="5_4007o"]
 
-[sub_resource type="ShaderMaterial" id="6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mpfh3"]
 resource_local_to_scene = true
 shader = ExtResource("3_a2pwk")
 shader_parameter/active = false
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2ee33"]
-radius = 5.30036
-height = 23.5439
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ccslb"]
-spread = 180.0
-initial_velocity_min = 20.0
-initial_velocity_max = 40.0
-angular_velocity_min = 10.0
-angular_velocity_max = 40.0
-gravity = Vector3(0, 0, 0)
-turbulence_enabled = true
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eohjf"]
-radius = 1.99998
-height = 22.0
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bn7ru"]
-light_mode = 1
 
 [sub_resource type="Animation" id="Animation_6kkue"]
 length = 0.001
@@ -111,6 +91,9 @@ _data = {
 "appear": SubResource("Animation_dob7w"),
 "on_air": SubResource("Animation_n2bsa")
 }
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_bn7ru"]
+light_mode = 1
 
 [sub_resource type="Animation" id="Animation_8hb7s"]
 length = 0.001
@@ -823,51 +806,33 @@ _data = {
 }
 
 [node name="WarAxe" instance=ExtResource("1_fuq8a")]
+visible = false
 script = ExtResource("2_nbej2")
 num_normal_attacks = 1
 increase_num_normal_attacks_on_ability = true
 invert_scale_when_looking_left = false
 throw_speed = 200
 
-[node name="Sprite2D" parent="Node2D" index="0"]
-material = SubResource("6")
-position = Vector2(7, 0)
-rotation = 0.0
+[node name="WeaponSprite" parent="Node2D" index="0"]
+material = SubResource("ShaderMaterial_mpfh3")
 texture = ExtResource("4_hfprm")
-offset = Vector2(0, -8)
 
-[node name="Hitbox" parent="Node2D/Sprite2D" index="0"]
-damage = 2
-knockback_force = 500
+[node name="TrailSpriteAnimationPlayer" type="AnimationPlayer" parent="Node2D/WeaponSprite" index="3"]
+root_node = NodePath("../../..")
+libraries = {
+"": SubResource("AnimationLibrary_pji3j")
+}
 
-[node name="CollisionShape2D" parent="Node2D/Sprite2D/Hitbox" index="0"]
-position = Vector2(-0.244978, -8.41927)
-rotation = 0.0
-shape = SubResource("CapsuleShape2D_2ee33")
-
-[node name="ChargeParticles" parent="Node2D/Sprite2D" index="1"]
-position = Vector2(-0.570437, -6.14376)
-process_material = SubResource("ParticleProcessMaterial_ccslb")
-
-[node name="CollisionShape2D" parent="Node2D/Sprite2D/PlayerDetector" index="0"]
-position = Vector2(-4.99996, 6.00001)
-rotation = 0.785398
-shape = SubResource("CapsuleShape2D_eohjf")
-
-[node name="TrailSprite" type="Sprite2D" parent="Node2D/Sprite2D" index="3"]
+[node name="TrailSprite" type="Sprite2D" parent="Node2D/WeaponSprite" index="4"]
 visible = false
 material = SubResource("CanvasItemMaterial_bn7ru")
-position = Vector2(-18, -2.00004)
+position = Vector2(14.1422, -11.3136)
+rotation = 2.3562
 texture = ExtResource("5_4007o")
 flip_h = true
 hframes = 7
 vframes = 2
 frame = 13
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D/Sprite2D/TrailSprite" index="0"]
-libraries = {
-"": SubResource("AnimationLibrary_pji3j")
-}
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {

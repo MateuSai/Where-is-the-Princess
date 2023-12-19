@@ -142,13 +142,9 @@ func _ready() -> void:
 			push_error(enemy_folder + "/" + enemy_folder + ".tscn" + " not found on " + ENEMIES_FOLDER_PATH)
 			continue
 		var info: Dictionary = {}
-		var info_file: FileAccess = FileAccess.open(ENEMIES_FOLDER_PATH + enemy_folder + "/" + "info.json", FileAccess.READ)
-		if info_file != null:
-			var json: JSON = JSON.new()
-			json.parse(info_file.get_as_text())
-			info_file.close()
-			info = json.data
-		ENEMIES[enemy_folder.to_pascal_case()] = {
+		if FileAccess.file_exists(ENEMIES_FOLDER_PATH + enemy_folder + "/" + "unlock_weapon_on_kills.tres"):
+			info["unlock_weapon_on_kills"] = load(ENEMIES_FOLDER_PATH + enemy_folder + "/" + "unlock_weapon_on_kills.tres")
+		ENEMIES[enemy_folder.to_snake_case()] = {
 			"path": ENEMIES_FOLDER_PATH + enemy_folder + "/" + enemy_folder + ".tscn",
 			"info": info,
 		}
@@ -187,9 +183,18 @@ func get_enemy_paths(biome: String) -> Array[String]:
 
 ## Returns the [PackedScene] of the enemy if it finds it, otherwise returns [code]null[/code]
 func get_enemy_scene(id: String) -> PackedScene:
-	if ENEMIES.has(id.to_pascal_case()):
-		var enemy_path: String = ENEMIES[id.to_pascal_case()].path
+	if ENEMIES.has(id.to_snake_case()):
+		var enemy_path: String = ENEMIES[id.to_snake_case()].path
 		return load(enemy_path)
+
+	return null
+
+
+func get_enemy_unlock_weapon_on_kills(id: String) -> UnlockWeaponOnKills:
+	id = id.to_snake_case()
+
+	if ENEMIES.has(id) and ENEMIES[id].info.has("unlock_weapon_on_kills"):
+		return ENEMIES[id].info.unlock_weapon_on_kills
 
 	return null
 

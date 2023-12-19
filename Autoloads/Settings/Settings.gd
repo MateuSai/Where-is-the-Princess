@@ -1,4 +1,4 @@
-extends Popup
+extends PopupPanel
 
 const SETTINGS_PATH: String = "user://settings.cfg"
 

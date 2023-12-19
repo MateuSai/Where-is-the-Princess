@@ -111,6 +111,10 @@ func _remove_and_reset_run_stats() -> void:
 	run_stats = RunStats.new()
 
 
+func are_there_run_stats() -> bool:
+	return FileAccess.file_exists(USER_FOLDER.path_join(RUN_STATS_SAVE_NAME))
+
+
 #func save_mods_conf() -> void:
 #	var mods_dic: Dictionary = {}
 #	for mod in mods:
@@ -159,6 +163,10 @@ func add_kill(enemy_id: StringName) -> void:
 		data.kills[enemy_id] = 0
 
 	data.kills[enemy_id] += 1
+
+	var enemy_unlock_weapon_on_kills: UnlockWeaponOnKills = Globals.get_enemy_unlock_weapon_on_kills(enemy_id)
+	if enemy_unlock_weapon_on_kills and data.kills[enemy_id] == enemy_unlock_weapon_on_kills.kills_necessary:
+		discover_weapon(enemy_unlock_weapon_on_kills.weapon_path)
 
 	save_data()
 

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="UnlockWeaponOnKills" load_steps=2 format=3 uid="uid://bt8ueanyji751"]
+
+[ext_resource type="Script" path="res://Characters/Enemies/unlock_weapon_on_kills.gd" id="1_1qaey"]
+
+[resource]
+script = ExtResource("1_1qaey")
+kills_necessary = 10
+weapon_path = "res://Weapons/Melee/rustic_sword/rustic_sword.tscn"

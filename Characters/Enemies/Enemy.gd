@@ -12,6 +12,8 @@ var target: Character
 var get_dir: Callable = func() -> Vector2:
 	return navigation_agent.get_next_path_position() - global_position
 
+#@export var unlock_weapon_on_kills: UnlockWeaponOnKills = null
+
 @export var min_coins: int = 2
 @export var max_coins: int = 3
 @export var min_souls: int = 1

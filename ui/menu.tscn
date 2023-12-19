@@ -1,16 +1,115 @@
-[gd_scene load_steps=15 format=3 uid="uid://886ogqps7117"]
+[gd_scene load_steps=25 format=3 uid="uid://886ogqps7117"]
 
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="1_5c4p0"]
 [ext_resource type="Script" path="res://ui/menu.gd" id="2_il0mi"]
 [ext_resource type="Texture2D" uid="uid://b1nbyyumv3x5u" path="res://Art/warrior.png" id="3_e8d4m"]
+[ext_resource type="Texture2D" uid="uid://chrvv8ypyxecc" path="res://Art/where_is_the_princess_title_top.png" id="4_3b37w"]
+[ext_resource type="Script" path="res://ui/continue_button.gd" id="4_f1j7i"]
 [ext_resource type="Texture2D" uid="uid://bp6rbf2gw15f5" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_normal_x2_size.png" id="4_vkpjm"]
+[ext_resource type="Texture2D" uid="uid://bl37hfoeyqlgq" path="res://Art/where_is_the_princess_title_bottom.png" id="5_7i6yc"]
 [ext_resource type="Texture2D" uid="uid://bs075q8gb23ih" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_hover_x2_size.png" id="5_pp2xs"]
+[ext_resource type="Texture2D" uid="uid://ctvpsc6vf2amp" path="res://Art/where_is_the_princess_title_sword.png" id="6_072jn"]
 [ext_resource type="Texture2D" uid="uid://c7w1c828j4ok0" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_pressed_x2_size.png" id="6_c014h"]
-[ext_resource type="Script" path="res://ui/PlayButton.gd" id="7_u7gmb"]
+[ext_resource type="Script" path="res://ui/base_camp_button.gd" id="7_8j46j"]
+[ext_resource type="AudioStream" uid="uid://bxy6jg7he6rnv" path="res://Audio/Sounds/423935__fielastro__draw-sword1.wav" id="7_knpug"]
 [ext_resource type="Script" path="res://ui/ModsButton.gd" id="8_n6t26"]
+[ext_resource type="AudioStream" uid="uid://exo6i33h1t7x" path="res://Audio/Sounds/446014__slavicmagic__wpn_3-generic.wav" id="8_p6454"]
 [ext_resource type="Script" path="res://ui/SettingsButton.gd" id="9_sf5s7"]
 [ext_resource type="Script" path="res://ui/QuitButton.gd" id="10_7y8oq"]
 [ext_resource type="Script" path="res://Components/auto_focus_on_controller.gd" id="11_vl3sd"]
+[ext_resource type="Script" path="res://ui/version_label.gd" id="18_rv7ro"]
+
+[sub_resource type="Animation" id="Animation_p6v7h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sword:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(132, 82)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lq1vj"]
+resource_name = "start"
+length = 1.3
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sword:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.75, 0.8, 1.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(132, -250), Vector2(132, -250), Vector2(132, 82), Vector2(132, 112), Vector2(132, 82)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.75, 0.8, 1.05),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, 30), Vector2(0, 0)]
+}
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SlideAudioStreamPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("7_knpug")
+}],
+"times": PackedFloat32Array(0.5)
+}
+tracks/2/use_blend = true
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ImpactAudioStreamPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("8_p6454")
+}],
+"times": PackedFloat32Array(0.65)
+}
+tracks/3/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wsrv5"]
+_data = {
+"RESET": SubResource("Animation_p6v7h"),
+"start": SubResource("Animation_lq1vj")
+}
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_013d5"]
 texture = ExtResource("4_vkpjm")
@@ -55,6 +154,54 @@ grow_vertical = 2
 texture = ExtResource("3_e8d4m")
 expand_mode = 5
 
+[node name="Title" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Title"]
+layout_mode = 0
+offset_right = 475.0
+offset_bottom = 308.0
+theme_override_constants/separation = -156
+
+[node name="TextureRect" type="TextureRect" parent="Title/VBoxContainer"]
+z_index = 1
+layout_mode = 2
+texture = ExtResource("4_3b37w")
+stretch_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Title/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 50
+
+[node name="TextureRect2" type="TextureRect" parent="Title/VBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("5_7i6yc")
+stretch_mode = 5
+
+[node name="Sword" type="TextureRect" parent="Title"]
+layout_mode = 0
+offset_left = 132.0
+offset_top = 82.0
+offset_right = 204.0
+offset_bottom = 333.0
+texture = ExtResource("6_072jn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Title"]
+libraries = {
+"": SubResource("AnimationLibrary_wsrv5")
+}
+autoplay = "start"
+
+[node name="SlideAudioStreamPlayer" type="AudioStreamPlayer" parent="Title"]
+volume_db = -4.0
+bus = &"Sounds"
+
+[node name="ImpactAudioStreamPlayer" type="AudioStreamPlayer" parent="Title"]
+bus = &"Sounds"
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -62,22 +209,32 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -61.0
-offset_top = 11.5
-offset_right = 71.0
-offset_bottom = 183.5
+offset_left = -26.0
+offset_top = -3.5
+offset_right = 138.0
+offset_bottom = 232.5
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
+alignment = 2
 
-[node name="PlayButton" type="Button" parent="VBoxContainer"]
+[node name="ContinueButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
-text = "PLAY"
-script = ExtResource("7_u7gmb")
+text = "CONTINUE"
+script = ExtResource("4_f1j7i")
+
+[node name="BaseCampButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
+text = "BASE_CAMP"
+script = ExtResource("7_8j46j")
 
 [node name="ModsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -114,3 +271,29 @@ offset_bottom = 15.0
 
 [node name="AutoFocusFirstControl" type="Node" parent="."]
 script = ExtResource("11_vl3sd")
+
+[node name="BaseCampConfirmationDialog" type="ConfirmationDialog" parent="."]
+disable_3d = true
+title = "DO_YOU_REALLY_WANT_TO_CONTINUE?"
+position = Vector2i(0, 36)
+size = Vector2i(300, 100)
+popup_window = true
+dialog_text = "WAIT_YOU_WILL_LOST_YOUR_SAVED_RUN"
+cancel_button_text = "CANCEL"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="VersionLabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "0.0.0"
+script = ExtResource("18_rv7ro")

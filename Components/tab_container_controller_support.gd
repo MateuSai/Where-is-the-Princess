@@ -26,11 +26,12 @@ func _ready() -> void:
 		hint.z_index = 10
 		var texture_rect: TextureRect = TextureRect.new()
 		texture_rect.name = "TextureRect"
-		texture_rect.expand_mode = TextureRect.EXPAND_KEEP_SIZE
+		texture_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH
+		texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		var atlas_texture: AtlasTexture = AtlasTexture.new()
 		atlas_texture.atlas = preload("res://Art/kenney_input-prompts-pixel-16/Tilemap/tilemap_packed.png")
 		texture_rect.texture = atlas_texture
-		texture_rect.size = Vector2(28, 28)
+		texture_rect.size = Vector2(16, 16)
 
 		hint.add_child(texture_rect)
 		tab_container.call_deferred("add_child", hint)
@@ -71,8 +72,8 @@ func _change_tab(dir: int) -> void:
 
 
 func _put_hints_on_correct_position() -> void:
-	l_hint.position = Vector2(2, -30)
-	r_hint.position = Vector2(tab_container.size.x - 30, -30)
+	l_hint.position = Vector2(0, 8)
+	r_hint.position = Vector2(tab_container.size.x - 16, 8)
 
 
 #func _search_for_focus_control(control: Control) -> Control:

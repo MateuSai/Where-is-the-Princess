@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bnr0w37wgidyn"]
+[gd_scene load_steps=18 format=3 uid="uid://bnr0w37wgidyn"]
 
 [ext_resource type="Script" path="res://Autoloads/Settings/Settings.gd" id="1_4y760"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="2_fjhtw"]
@@ -13,21 +13,23 @@
 [ext_resource type="Script" path="res://Components/auto_focus_on_controller.gd" id="8_tailv"]
 [ext_resource type="Script" path="res://Autoloads/Settings/AutoAimCheckBox.gd" id="8_vwxws"]
 [ext_resource type="Script" path="res://Autoloads/Settings/shop_prices_always_visible_check_box.gd" id="8_vxxq1"]
+[ext_resource type="Script" path="res://Autoloads/Settings/save_path_button.gd" id="9_v3em4"]
 [ext_resource type="Script" path="res://Components/tab_container_controller_support.gd" id="12_kwxg6"]
 [ext_resource type="Script" path="res://Autoloads/Settings/AimHelpHSlider.gd" id="13_mrue3"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k5rc5"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tgouq"]
 
 [node name="Settings" type="PopupPanel"]
 process_mode = 3
 disable_3d = true
 transparent_bg = true
 canvas_item_default_texture_filter = 0
+position = Vector2i(0, 36)
 size = Vector2i(300, 180)
 visible = true
 transparent = true
 theme = ExtResource("2_fjhtw")
-theme_override_styles/panel = SubResource("StyleBoxEmpty_k5rc5")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_tgouq")
 script = ExtResource("1_4y760")
 
 [node name="TabContainer" type="TabContainer" parent="."]
@@ -42,6 +44,7 @@ theme = ExtResource("2_fjhtw")
 
 [node name="GENERAL" type="ScrollContainer" parent="TabContainer"]
 layout_mode = 2
+follow_focus = true
 horizontal_scroll_mode = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/GENERAL"]
@@ -141,6 +144,19 @@ size_flags_horizontal = 10
 button_pressed = true
 flat = true
 script = ExtResource("8_vxxq1")
+
+[node name="SavePathHBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer/SavePathHBoxContainer"]
+layout_mode = 2
+text = "SAVE_PATH"
+
+[node name="SavePathButton" type="Button" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer/SavePathHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "SELECT"
+script = ExtResource("9_v3em4")
 
 [node name="AutoFocusOnController" type="Node" parent="TabContainer/GENERAL"]
 script = ExtResource("8_tailv")
@@ -310,3 +326,11 @@ script = ExtResource("8_tailv")
 
 [node name="TabContainerControllerSupport" type="Node" parent="TabContainer"]
 script = ExtResource("12_kwxg6")
+
+[node name="FileDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+title = "Open a Directory"
+size = Vector2i(705, 150)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2

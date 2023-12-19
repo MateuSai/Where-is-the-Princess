@@ -1,0 +1,91 @@
+[gd_scene load_steps=10 format=3 uid="uid://cpyqtlqtdkuiq"]
+
+[ext_resource type="Script" path="res://Weapons/Ranged/scepters/scepter.gd" id="2_gxsag"]
+[ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="2_r38ru"]
+[ext_resource type="Texture2D" uid="uid://bctb0rjt8x8pv" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/boss_druid/druid_scepter_petit.png" id="3_0hc4i"]
+[ext_resource type="Texture2D" uid="uid://6y54vubug5vv" path="res://Art/effects/electricity_rays.png" id="5_6lebt"]
+[ext_resource type="AnimationLibrary" uid="uid://coxxnos2iywvn" path="res://Weapons/Ranged/scepters/scepter_animation_library.tres" id="5_nc2an"]
+[ext_resource type="AudioStream" uid="uid://cpi8xdb0i2rbv" path="res://Audio/Sounds/446013__slavicmagic__metal_bash1.wav" id="6_q63rw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eec5l"]
+resource_local_to_scene = true
+shader = ExtResource("2_r38ru")
+shader_parameter/active = false
+
+[sub_resource type="ParticleProcessMaterial" id="2"]
+spread = 180.0
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
+angular_velocity_min = 10.0
+angular_velocity_max = 40.0
+gravity = Vector3(0, 0, 0)
+turbulence_enabled = true
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tubvl"]
+radius = 5.98018
+height = 16.4032
+
+[node name="LightningStick" type="Node2D"]
+texture_filter = 1
+position = Vector2(4, 0)
+rotation = 0.436332
+script = ExtResource("2_gxsag")
+
+[node name="Pivot" type="Node2D" parent="."]
+
+[node name="Pivot2" type="Node2D" parent="Pivot"]
+position = Vector2(4.69846, 1.7101)
+
+[node name="WeaponSprite" type="Sprite2D" parent="Pivot/Pivot2"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_eec5l")
+rotation = -0.785398
+texture = ExtResource("3_0hc4i")
+offset = Vector2(5, -4)
+
+[node name="ChargeParticles" type="GPUParticles2D" parent="Pivot/Pivot2/WeaponSprite"]
+emitting = false
+amount = 15
+process_material = SubResource("2")
+lifetime = 0.6
+
+[node name="PlayerDetector" type="Area2D" parent="Pivot/Pivot2/WeaponSprite"]
+visible = false
+rotation = 2.3562
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/Pivot2/WeaponSprite/PlayerDetector"]
+position = Vector2(-5.04049, -0.77038)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_tubvl")
+
+[node name="SpawnProjectilePos" type="Marker2D" parent="Pivot/Pivot2/WeaponSprite"]
+unique_name_in_owner = true
+position = Vector2(9.60784, -7.79035)
+
+[node name="Spark" type="Sprite2D" parent="Pivot/Pivot2/WeaponSprite"]
+visible = false
+rotation = -0.453786
+texture = ExtResource("5_6lebt")
+hframes = 4
+frame = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"scepter_animation_library": ExtResource("5_nc2an")
+}
+
+[node name="CoolDownTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="DestroyWeaponSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_q63rw")
+bus = &"Sounds"
+
+[node name="ShootSound" type="AudioStreamPlayer" parent="."]
+volume_db = -10.0
+bus = &"Sounds"
+
+[connection signal="body_entered" from="Pivot/Pivot2/WeaponSprite/PlayerDetector" to="." method="_on_PlayerDetector_body_entered"]
