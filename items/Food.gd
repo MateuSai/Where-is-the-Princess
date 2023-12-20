@@ -9,7 +9,7 @@ func _init() -> void:
 	icon = POSSIBLE_ICONS[randi() % POSSIBLE_ICONS.size()]
 
 
-func get_icon() -> Texture:
+func get_icon() -> Texture2D:
 	return icon
 
 

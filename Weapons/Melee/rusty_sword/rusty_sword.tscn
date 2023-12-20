@@ -1,14 +1,14 @@
 [gd_scene load_steps=13 format=3 uid="uid://mh1705nhovp2"]
 
-[ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_4ctb1"]
-[ext_resource type="Script" path="res://Weapons/Melee/MeleeWeapon.gd" id="2_5hrso"]
-[ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="4_e2uxn"]
-[ext_resource type="Texture2D" uid="uid://yxp4kghgtx87" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/rustic_sword.png" id="5_eprxd"]
-[ext_resource type="AnimationLibrary" uid="uid://d177jeworynq6" path="res://Weapons/animation_libraries/quick_swing_animation_library.tres" id="5_huv5x"]
+[ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_p4n3m"]
+[ext_resource type="Script" path="res://Weapons/Melee/MeleeWeapon.gd" id="2_p82m0"]
+[ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="3_u4qkn"]
+[ext_resource type="Texture2D" uid="uid://yxp4kghgtx87" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/rustic_sword.png" id="4_fvlr8"]
+[ext_resource type="AnimationLibrary" uid="uid://d177jeworynq6" path="res://Weapons/animation_libraries/quick_swing_animation_library.tres" id="5_warf0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dky3c"]
 resource_local_to_scene = true
-shader = ExtResource("4_e2uxn")
+shader = ExtResource("3_u4qkn")
 shader_parameter/active = false
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v14xo"]
@@ -259,8 +259,8 @@ _data = {
 "active_ability_2": SubResource("Animation_ee87g")
 }
 
-[node name="RusticSword" instance=ExtResource("1_4ctb1")]
-script = ExtResource("2_5hrso")
+[node name="RustySword" instance=ExtResource("1_p4n3m")]
+script = ExtResource("2_p82m0")
 num_normal_attacks = 1
 increase_num_normal_attacks_on_ability = true
 invert_scale_when_looking_left = false
@@ -270,7 +270,7 @@ throw_speed = 200
 material = SubResource("ShaderMaterial_dky3c")
 position = Vector2(7, 0)
 rotation = 0.0
-texture = ExtResource("5_eprxd")
+texture = ExtResource("4_fvlr8")
 offset = Vector2(0, -8)
 
 [node name="CollisionShape2D" parent="Node2D/WeaponSprite/Hitbox" index="0"]
@@ -286,5 +286,5 @@ shape = SubResource("CapsuleShape2D_qfst6")
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {
 "": SubResource("AnimationLibrary_ypj85"),
-"quick_swing_animation_library": ExtResource("5_huv5x")
+"quick_swing_animation_library": ExtResource("5_warf0")
 }

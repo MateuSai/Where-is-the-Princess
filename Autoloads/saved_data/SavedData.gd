@@ -435,6 +435,8 @@ class Data:
 	var discovered_temporal_items: PackedStringArray = PackedStringArray(["res://items/Passive/Temporal/magic_shields/wooden_magic_shield.gd", "res://items/Passive/Temporal/magic_shields/reinforced_magic_shield.gd", "res://items/Passive/Temporal/MagicSword.gd"])
 #	"undiscovered_temporal_items": PackedStringArray(["res://items/Passive/Temporal/MagicSword.gd"]),
 
+	var player_upgrades: PackedStringArray = []
+
 	var shop_unlocked: bool = false
 
 	static func from_dic(dic: Dictionary) -> Data:

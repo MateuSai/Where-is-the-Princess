@@ -84,20 +84,6 @@ _data = {
 [node name="LightningStick" type="Node2D"]
 texture_filter = 1
 script = ExtResource("2_gxsag")
-projectile_scene_path = null
-shoot_sound_path = null
-on_floor = null
-type = null
-weapon_name = null
-description = null
-condition_cost_per_normal_attack = null
-animation_library = null
-souls_to_activate_ability = null
-active_ability_condition_cost = null
-ability_damage = null
-ability_knockback = null
-damage = null
-knockback = null
 
 [node name="Pivot" type="Node2D" parent="."]
 

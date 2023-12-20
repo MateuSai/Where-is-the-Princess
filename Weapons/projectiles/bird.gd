@@ -9,7 +9,7 @@ func _ready() -> void:
 	super()
 	screen_notifier.screen_exited.connect(queue_free)
 
-	$LifeComponent.damage_taken.connect(func(_dam: int, dir: Vector2, force: int):
+	$LifeComponent.damage_taken.connect(func(_dam: int, dir: Vector2, force: int) -> void:
 		animation_player.stop()
 		direction = dir
 		knockback_direction = direction

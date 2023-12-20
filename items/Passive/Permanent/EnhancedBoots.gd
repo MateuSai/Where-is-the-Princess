@@ -16,5 +16,5 @@ func unequip(player: Player) -> void:
 	player.max_speed -= 70
 
 
-func get_icon() -> Texture:
+func get_icon() -> Texture2D:
 	return load("res://Art/items/boots_icon.png")

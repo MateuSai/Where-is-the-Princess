@@ -140,22 +140,22 @@ func move(mouse_direction: Vector2) -> void:
 
 
 func _attack() -> void:
-	animation_player.play(animation_library.path_join("attack"))
+	animation_player.play(get_animation_full_name("attack"))
 
 
 func _active_ability(animation_name: String = "active_ability") -> void:
 	stats.souls = 0
 	used_active_ability.emit()
 	cool_down_timer.start()
-	animation_player.play(animation_library.path_join(animation_name))
+	animation_player.play(get_animation_full_name(animation_name))
 
 
 func _strong_attack() -> void:
-	animation_player.play(animation_library.path_join("strong_attack"))
+	animation_player.play(get_animation_full_name("strong_attack"))
 
 
 func _charge() -> void:
-	animation_player.play(animation_library.path_join("charge"))
+	animation_player.play(get_animation_full_name("charge"))
 
 
 func cancel_attack() -> void:

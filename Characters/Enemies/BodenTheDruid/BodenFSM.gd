@@ -25,7 +25,7 @@ var rock_dir: Vector2
 func start() -> void:
 	set_state(MOVE)
 
-	rock_attack_timer.timeout.connect(func():
+	rock_attack_timer.timeout.connect(func() -> void:
 		set_state(BEAR_THROW_ROCK)
 	)
 

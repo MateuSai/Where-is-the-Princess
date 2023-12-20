@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource("1_1qaey")
 kills_necessary = 10
-weapon_path = "res://Weapons/Melee/rustic_sword/rustic_sword.tscn"
+weapon_path = "res://Weapons/Melee/rusty_sword/rusty_sword.tscn"

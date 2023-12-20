@@ -17,7 +17,7 @@ func can_pick_up(player: Player) -> bool:
 	return player.weapons.current_weapon is BowOrCrossbowWeapon
 
 
-func get_icon() -> Texture:
+func get_icon() -> Texture2D:
 	return Arrow.TEXTURES[type]
 
 #

@@ -14,7 +14,7 @@ func pick_up(player: Player) -> void:
 	weapon = null
 
 
-func get_icon() -> Texture:
+func get_icon() -> Texture2D:
 	return weapon.get_texture()
 
 

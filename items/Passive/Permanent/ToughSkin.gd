@@ -13,5 +13,5 @@ func unequip(player: Player) -> void:
 	player.life_component.block_probability -= 30
 
 
-func get_icon() -> Texture:
+func get_icon() -> Texture2D:
 	return load("res://Art/items/stone_skin.png")

@@ -1,6 +1,6 @@
 class_name BodenTheDruid extends Enemy
 
-const BIRD_SCENE: PackedScene = preload("res://Weapons/projectiles/Bird.tscn")
+const BIRD_SCENE: PackedScene = preload("res://Weapons/projectiles/bird.tscn")
 
 const BEAR_HP: int = 25
 
@@ -19,12 +19,12 @@ var is_bear: bool = false
 
 func _ready() -> void:
 	super()
-	bird_attack_timer.timeout.connect(func():
+	bird_attack_timer.timeout.connect(func() -> void:
 		_bird_attack()
 		bird_attack_timer.start(randf_range(2, 3))
 	)
 
-	lightning_attack_timer.timeout.connect(func():
+	lightning_attack_timer.timeout.connect(func() -> void:
 		_lightning_attack()
 		lightning_attack_timer.start(randf_range(2.5, 3.5))
 	)
@@ -95,7 +95,7 @@ func _lightning_attack() -> void:
 
 
 func _bird_attack() -> void:
-	for i in randi_range(5, 8):
+	for i: int in randi_range(5, 8):
 		var bird: Bird = BIRD_SCENE.instantiate()
 		var bird_pos: Vector2 = player.position + Vector2(randf_range(110, 150), 0).rotated(randf_range(0, 2*PI))
 		get_tree().current_scene.add_child(bird)
@@ -120,6 +120,6 @@ func throw_rock() -> void:
 	rock.exclude = [self]
 	get_tree().current_scene.add_child(rock)
 	rock.launch(rock_sprite.global_position + Vector2.DOWN * 33, state_machine.rock_dir.rotated(randf_range(-0.4, 0.4)), 250)
-	for child in rock.get_children():
+	for child: Node in rock.get_children():
 		if child is Node2D:
 			child.position += Vector2.UP * 33

@@ -8,7 +8,7 @@ class_name Scepter extends RangedWeapon
 func _ready() -> void:
 	super()
 
-	animation_library = "scepter_animation_library"
+	projectile_speed = 300
 
 
 func move(mouse_direction: Vector2) -> void:
@@ -25,43 +25,22 @@ func move(mouse_direction: Vector2) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_attack") and not animation_player.is_playing():
+	if event.is_action_pressed("ui_weapon_ability") and has_active_ability() and not is_busy() and can_active_ability():
 		_charge()
-	elif event.is_action_released("ui_attack"):
+	elif event.is_action_released("ui_weapon_ability") and has_active_ability() and not is_busy() and can_active_ability():
 		#var complete_current_animation: PackedStringArray = animation_player.current_animation.split("/")
 		#var current_animation: String = complete_current_animation[complete_current_animation.size() - 1]
 		if animation_player.is_playing() and get_current_animation().begins_with("charge") and weapon_sprite.material.get("shader_parameter/active"):
-			_bow_attack(animation_player.current_animation_position / animation_player.current_animation_length)
+			_active_ability()
 		#elif weapon_sprite.frame > 0:
 			#_bow_attack(1.0)
 		else:
 			animation_player.play("RESET")
-
-	if event.is_action_pressed("ui_weapon_ability") and has_active_ability() and not is_busy() and can_active_ability():
-		_active_ability()
-
-
-## Charge has a value between 0 and 1 where 1 is max charged
-func _bow_attack(charge: float) -> void:
-	projectile_speed = int(80 + 230 * charge) # The speed is truncated, a difference of 1 is very small anyway
-
-	if is_equal_approx(charge, 1.0):
-		damage += 2
-	elif charge > 0.6:
-		damage += 1
-
-	_attack()
-
-	assert(get_current_animation().begins_with("attack"))
-	await animation_player.animation_finished # We wait until attack animation is finished
-
-	if is_equal_approx(charge, 1.0):
-		damage -= 2
-	elif charge > 0.6:
-		damage -= 1
+	elif event.is_action_pressed("ui_attack") and not is_busy():
+		_attack()
 
 
-func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> Array[Projectile]:
+func _spawn_lightning() -> void:
 	#staff_animation_player.play("lighting_attack")
 	#await staff_animation_player.animation_finished
 	#if staff_animation_player.assigned_animation == "RESET": # this means we cancelled the attack
@@ -83,5 +62,5 @@ func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> Array[Projectile]
 		#staff_animation_player.play("after_lightning_attack")
 		#await staff_animation_player.animation_finished
 	#can_move = true
-
-	return []
+#
+	#return []

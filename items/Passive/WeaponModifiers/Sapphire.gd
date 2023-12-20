@@ -1,7 +1,7 @@
 class_name Sapphire extends StatusWeaponModifier
 
 
-func get_icon() -> Texture:
+func get_icon() -> Texture2D:
 	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Sapphire_item.png")
 
 

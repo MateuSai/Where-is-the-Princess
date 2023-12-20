@@ -1,7 +1,7 @@
 class_name Whetstone extends Item
 
 
-func get_icon() -> Texture:
+func get_icon() -> Texture2D:
 	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/whetstone.png")
 
 

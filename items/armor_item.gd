@@ -14,7 +14,7 @@ func pick_up(player: Player) -> void:
 	player.set_armor(armor)
 
 
-func get_icon() -> Texture:
+func get_icon() -> Texture2D:
 	return armor.icon
 
 

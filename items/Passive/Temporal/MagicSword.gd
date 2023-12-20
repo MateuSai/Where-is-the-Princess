@@ -6,7 +6,7 @@ var magic_sword_node: MagicSwordNode
 @export var hp: int = 5
 
 
-func get_icon() -> Texture:
+func get_icon() -> Texture2D:
 	return load("res://Art/items/orbital_sword_icon.png")
 
 

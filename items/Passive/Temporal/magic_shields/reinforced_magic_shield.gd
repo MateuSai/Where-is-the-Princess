@@ -10,7 +10,7 @@ func _init() -> void:
 	super()
 
 
-func get_icon() -> Texture:
+func get_icon() -> Texture2D:
 	return load("res://Art/items/shield_icon_metal.png")
 
 

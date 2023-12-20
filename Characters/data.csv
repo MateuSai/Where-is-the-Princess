@@ -1,5 +1,5 @@
 id,max_hp,mass,acceleration,max_speed,flying,can_be_knocked_back,resistances,body_type,,coins,souls,dark_souls
-player,6,60,40,100,0,1,0,FLESH,,,,
+player,4,60,40,100,0,1,0,FLESH,,,,
 ,,,,,,,,,,,,
 mark_the_reptilian,6,60,30,100,0,1,0,FLESH,,1-2,1,0
 naked_mark,5,55,30,100,0,1,0,FLESH,,1-2,1,0

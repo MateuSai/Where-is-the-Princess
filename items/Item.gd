@@ -24,7 +24,7 @@ func pick_up(_player: Player) -> void:
 	pass
 
 
-func get_icon() -> Texture:
+func get_icon() -> Texture2D:
 	push_error("You must override get_icon on " + (get_script() as Script).get_path())
 	return null
 

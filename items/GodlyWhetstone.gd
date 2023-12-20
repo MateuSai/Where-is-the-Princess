@@ -1,7 +1,7 @@
 class_name GodlyWhetstone extends Item
 
 
-func get_icon() -> Texture:
+func get_icon() -> Texture2D:
 	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/whetstone_max.png")
 
 

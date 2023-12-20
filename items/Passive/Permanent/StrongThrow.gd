@@ -13,5 +13,5 @@ func unequip(player: Player) -> void:
 	player.throw_piercing -= 1
 
 
-func get_icon() -> Texture:
+func get_icon() -> Texture2D:
 	return load("res://Art/items/Bolt_icon.png")
