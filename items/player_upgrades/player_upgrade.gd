@@ -3,13 +3,20 @@ class_name PlayerUpgrade extends Item
 var amount: int = 1
 
 
+func can_pick_up(_player: Player) -> bool:
+	var can_pick: bool = SavedData.data.can_pick_up_player_upgrade(get_item_name())
+
+	if not can_pick:
+		push_error("Something is wrong here: You should not see this player upgrade item anymore if it already has the max amount")
+
+	return can_pick
+
+
 func pick_up(player: Player) -> void:
 	var found: bool = false
 
 	for player_upgrade: PlayerUpgrade in SavedData.data.player_upgrades:
-		var player_upgrade_class: String = (player_upgrade.get_script() as Script).resource_path.get_file()
-		var self_class: String = (self.get_script() as Script).resource_path.get_file()
-		if player_upgrade_class == self_class:
+		if player_upgrade.get_item_name() == get_item_name():
 			player_upgrade.amount += 1
 			found = true
 			break
@@ -24,6 +31,11 @@ func pick_up(player: Player) -> void:
 
 func equip(_player: Player) -> void:
 	pass
+
+
+func get_max_amount() -> int:
+	push_warning("Default max amount is 3, overwrite this function to change it")
+	return 3
 
 
 func to_dic() -> Dictionary:
