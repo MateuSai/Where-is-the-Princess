@@ -121,6 +121,10 @@ func _ready() -> void:
 
 
 func _restore_previous_state() -> void:
+	for player_upgrade: PlayerUpgrade in SavedData.data.player_upgrades:
+		for i: int in player_upgrade.amount:
+			player_upgrade.equip(self)
+
 	life_component.hp = SavedData.run_stats.hp
 	for permanent_passive_item: PermanentPassiveItem in SavedData.run_stats.permanent_passive_items:
 		pick_up_passive_item(permanent_passive_item)

@@ -1,6 +1,6 @@
 #!bin/sh
 
-SETTINGS_PATH=~/.local/share/godot/app_userdata/Godot4RoguelikeProject/settings.cfg
+SETTINGS_PATH=~/.local/share/godot/app_userdata/"Where is the Princess-"/settings.cfg
 echo "Trying to delete $SETTINGS_PATH"
 if [ -f "$SETTINGS_PATH" ]; then
     rm $SETTINGS_PATH

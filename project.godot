@@ -12,6 +12,7 @@ config_version=5
 
 config/name="Where is the Princess?"
 run/main_scene="res://splash_screen/splash_screen_manager.tscn"
+config/custom_user_dir_name="Where is the Princess"
 config/features=PackedStringArray("4.2")
 boot_splash/image="res://wekufu logo screen.png"
 config/icon="res://icon.png"

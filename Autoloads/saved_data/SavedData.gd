@@ -435,16 +435,31 @@ class Data:
 	var discovered_temporal_items: PackedStringArray = PackedStringArray(["res://items/Passive/Temporal/magic_shields/wooden_magic_shield.gd", "res://items/Passive/Temporal/magic_shields/reinforced_magic_shield.gd", "res://items/Passive/Temporal/MagicSword.gd"])
 #	"undiscovered_temporal_items": PackedStringArray(["res://items/Passive/Temporal/MagicSword.gd"]),
 
-	var player_upgrades: PackedStringArray = []
+	var player_upgrades: Array[PlayerUpgrade] = []
 
 	var shop_unlocked: bool = false
+
+	func get_extra_max_hp() -> int:
+		var extra_hp: int = 0
+
+		for player_upgrade: PlayerUpgrade in player_upgrades:
+			if player_upgrade is AdditionalHeart:
+				extra_hp += 4 * player_upgrade.amount
+				break
+
+		return extra_hp
 
 	static func from_dic(dic: Dictionary) -> Data:
 		var data: Data = Data.new()
 
 		for key: String in dic.keys():
 			if data.get(key) != null:
-				data.set(key, dic[key])
+				match key:
+					"player_upgrades":
+						for player_upgrade_dic: Dictionary in dic.player_upgrades:
+							data.player_upgrades.push_back(PlayerUpgrade.from_dic(player_upgrade_dic))
+					_:
+						data.set(key, dic[key])
 			else:
 				printerr("Data: Invalid property: " + key)
 
@@ -458,6 +473,15 @@ class Data:
 			var property_name: StringName = property_dic.name
 			if property_name in ["RefCounted", "script", "Built-in script"]:
 				continue
-			dic[property_name] = get(property_name)
+			match property_name:
+				"player_upgrades":
+					var a: Array[Dictionary] = []
+
+					for player_upgrade: PlayerUpgrade in player_upgrades:
+						a.push_back(player_upgrade.to_dic())
+
+					dic[property_name] = a
+				_:
+					dic[property_name] = get(property_name)
 
 		return dic

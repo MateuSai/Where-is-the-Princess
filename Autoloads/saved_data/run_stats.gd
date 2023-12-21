@@ -6,7 +6,7 @@ signal coins_changed(new_coins: int)
 @export var biome: String = "forest"
 @export var level: int = 1
 
-@export var hp: int = Character.DB["player"].max_hp
+@export var hp: int = Character.DB["player"].max_hp + SavedData.data.get_extra_max_hp()
 @export var weapon_stats: Array[WeaponStats] = []
 @export var equipped_weapon_index: int = 0
 
