@@ -7,7 +7,9 @@ func pick_up(player: Player) -> void:
 	var found: bool = false
 
 	for player_upgrade: PlayerUpgrade in SavedData.data.player_upgrades:
-		if (player_upgrade.get_script() as Script).get_class() == (self.get_script() as Script).get_class():
+		var player_upgrade_class: String = (player_upgrade.get_script() as Script).resource_path.get_file()
+		var self_class: String = (self.get_script() as Script).resource_path.get_file()
+		if player_upgrade_class == self_class:
 			player_upgrade.amount += 1
 			found = true
 			break

@@ -6,7 +6,7 @@ signal weapon_droped(index: int)
 signal weapon_condition_changed(weapon: Weapon, new_value: float)
 signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
 
-var max_weapons: int = 6
+var max_weapons: int = 3
 
 enum {UP, DOWN}
 
