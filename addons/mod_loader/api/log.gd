@@ -345,11 +345,11 @@ static func _log(message: String, mod_name: String, log_type: String = "info", o
 	if only_once and _is_logged_before(log_entry):
 		return
 
-	_store_log(log_entry)
+	if ModLoaderStore:
+		_store_log(log_entry)
 
 	# Check if the scene_tree is available
-	#if Engine.get_main_loop():
-	if ModLoader != null:
+	if ModLoader:
 		ModLoader.emit_signal("logged", log_entry)
 
 	_code_note(str(
@@ -365,7 +365,7 @@ static func _log(message: String, mod_name: String, log_type: String = "info", o
 			push_error(message)
 			_write_to_log_file(log_entry.get_entry())
 			_write_to_log_file(JSON.stringify(get_stack(), "  "))
-#			assert(false) #,message)
+			assert(false, message)
 		"error":
 			printerr(message)
 			push_error(message)
@@ -386,6 +386,9 @@ static func _log(message: String, mod_name: String, log_type: String = "info", o
 
 
 static func _is_mod_name_ignored(mod_name: String) -> bool:
+	if not ModLoaderStore:
+		return false
+
 	var ignored_mod_names := ModLoaderStore.ml_options.ignored_mod_names_in_log as Array
 
 	if not ignored_mod_names.size() == 0:
@@ -395,7 +398,10 @@ static func _is_mod_name_ignored(mod_name: String) -> bool:
 
 
 static func _get_verbosity() -> int:
-		return ModLoaderStore.ml_options.log_level
+	if not ModLoaderStore:
+		return VERBOSITY_LEVEL.DEBUG
+
+	return ModLoaderStore.ml_options.log_level
 
 
 static func _store_log(log_entry: ModLoaderLogEntry) -> void:
@@ -469,7 +475,7 @@ static func _write_to_log_file(string_to_write: String) -> void:
 	var log_file := FileAccess.open(MOD_LOG_PATH, FileAccess.READ_WRITE)
 
 	if log_file == null:
-		assert(false) #,"Could not open log file, error code: %s" % error)
+		assert(false, "Could not open log file, error code: %s" % error)
 		return
 
 	log_file.seek_end()
@@ -497,7 +503,7 @@ static func _rotate_log_file() -> void:
 	# only File.WRITE creates a new file, File.READ_WRITE throws an error
 	var log_file := FileAccess.open(MOD_LOG_PATH, FileAccess.WRITE)
 	if log_file == null:
-		assert(false) #,"Could not open log file, error code: %s" % error)
+		assert(false, "Could not open log file, error code: %s" % error)
 	log_file.store_string('%s Created log' % _get_date_string())
 	log_file.close()
 
