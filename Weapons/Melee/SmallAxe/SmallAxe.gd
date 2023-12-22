@@ -1,4 +1,4 @@
-extends MeleeWeapon
+class_name SmallAxe extends MeleeWeapon
 
 const EFFECT_SCENE: PackedScene = preload("res://Weapons/Melee/SmallAxe/SmallAxeEffect.tscn")
 

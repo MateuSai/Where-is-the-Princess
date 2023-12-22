@@ -118,7 +118,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.is_action_pressed("ui_attack") and not animation_player.is_playing():
 			_charge()
 		elif event.is_action_released("ui_attack"):
-			if animation_player.is_playing() and animation_player.current_animation.begins_with("charge"):
+			if animation_player.is_playing() and get_current_animation().begins_with("charge"):
 				_attack()
 			elif charge_particles.emitting:
 				_strong_attack()
@@ -266,7 +266,7 @@ func has_active_ability() -> bool:
 
 
 func has_strong_attack() -> bool:
-	return animation_player.has_animation("charge") or animation_player.has_animation("charge_1")
+	return animation_player.has_animation(animation_library.path_join("charge")) or animation_player.has_animation(animation_library.path_join("charge_1"))
 
 
 func can_pick_up_soul() -> bool:

@@ -11,3 +11,7 @@ func get_max_amount() -> int:
 
 func get_icon() -> Texture2D:
 	return load("res://Art/Dust.png")
+
+
+func get_dark_soul_cost() -> int:
+	return 1

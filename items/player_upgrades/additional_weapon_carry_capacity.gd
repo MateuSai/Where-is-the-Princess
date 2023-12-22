@@ -7,3 +7,7 @@ func equip(player: Player) -> void:
 
 func get_icon() -> Texture2D:
 	return load("res://Art/Dust.png")
+
+
+func get_dark_soul_cost() -> int:
+	return 2
