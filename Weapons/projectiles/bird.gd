@@ -5,6 +5,39 @@ class_name Bird extends Projectile
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
+@warning_ignore("shadowed_variable")
+func _init() -> void:
+	var sprite: Sprite2D = Sprite2D.new()
+	sprite.name = "Sprite2D"
+	sprite.texture = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/bird/bird_anim_spritesheet.png")
+	sprite.hframes = 4
+	sprite.vframes = 2
+	add_child(sprite)
+
+	var col: CollisionShape2D = CollisionShape2D.new()
+	col.name = "CollisionShape2D"
+	var shape: CircleShape2D = CircleShape2D.new()
+	shape.radius = 7
+	col.shape = shape
+	add_child(col)
+
+	var animation_player: AnimationPlayer = AnimationPlayer.new()
+	animation_player.name = "AnimationPlayer"
+	animation_player.add_animation_library("bird_animation_library", load("res://Weapons/projectiles/bird_animation_library.tres") as AnimationLibrary)
+	add_child(animation_player)
+
+	var screen_notifier: VisibleOnScreenNotifier2D = VisibleOnScreenNotifier2D.new()
+	screen_notifier.name = "VisibleOnScreenNotifier2D"
+	screen_notifier.rect = Rect2(-16, -16, 32, 32)
+	add_child(screen_notifier)
+
+	var life_component: LifeComponent = LifeComponent.new()
+	life_component.name = "LifeComponent"
+	life_component.max_hp = 1
+	life_component.hp = 1
+	add_child(life_component)
+
+
 func _ready() -> void:
 	super()
 	screen_notifier.screen_exited.connect(queue_free)
