@@ -17,11 +17,11 @@ func move(direction: Vector2) -> void:
 
 func set_current_weapon(new_weapon: Weapon) -> void:
 		if current_weapon != null and current_weapon is MeleeWeapon:
-			var a: Array[PhysicsBody2D] = []
+			var a: Array[Node2D] = []
 			(current_weapon as MeleeWeapon).hitbox.exclude = a
 
 		current_weapon = new_weapon
 
 		if current_weapon is MeleeWeapon:
-			var a: Array[PhysicsBody2D] = character.get_exclude_bodies()
+			var a: Array[Node2D] = character.get_exclude_bodies()
 			(current_weapon as MeleeWeapon).hitbox.exclude = a

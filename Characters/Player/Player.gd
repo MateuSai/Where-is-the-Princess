@@ -352,8 +352,8 @@ func is_on_water() -> bool:
 		return false
 
 
-func get_exclude_bodies() -> Array[PhysicsBody2D]:
-	var arr: Array[PhysicsBody2D] = [self]
+func get_exclude_bodies() -> Array[Node2D]:
+	var arr: Array[Node2D] = [self]
 
 	for item: Node2D in rotating_items:
 		if item is PhysicsBody2D:

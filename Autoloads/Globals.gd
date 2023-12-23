@@ -205,6 +205,7 @@ func _change_to_mouse_mode() -> void:
 #	# Si estamos en un menu hacemos el mouse visible, ya que en modo mando el mouse esta invisible en los menus
 #	if in_menu:
 #		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 	mode_changed.emit(mode)
 
@@ -223,6 +224,8 @@ func _change_to_controller_mode(device: int) -> void:
 #	# En modo mando, escondemos el mouse en los menus
 #	if in_menu:
 #		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	if get_tree().current_scene.name != "Game":
+		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
 	mode_changed.emit(mode)
 
@@ -259,9 +262,15 @@ func remove_weapon_damage_modifier_by_type(type: Weapon.Type, dam: int) -> void:
 
 
 ## This function will be called every time we change scene
-func _on_scene_changed(_new_scene: String) -> void:
+func _on_scene_changed(new_scene: String) -> void:
 	Weapon.damage_modifiers_by_type = {} # Reset damage modifiers so they don't acummulate
 	AcidPuddle.characters_inside = []
+
+	if new_scene.get_basename().get_file().to_lower() == "game" or new_scene.get_basename().get_file().to_lower() == "basecamp":
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else:
+		if mode == Mode.CONTROLLER:
+			Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
 
 func get_atlas_frame(texture: Texture2D, region: Rect2) -> AtlasTexture:

@@ -4,7 +4,7 @@ class_name Hitbox extends Area2D
 var knockback_direction: Vector2 = Vector2.ZERO
 @export var knockback_force: int = 300
 
-var exclude: Array[PhysicsBody2D] = []
+var exclude: Array[Node2D] = []
 
 var weapon: Weapon = null
 

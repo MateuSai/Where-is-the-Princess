@@ -58,9 +58,9 @@ func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: 
 	super(initial_position, dir, speed, rotate_to_dir)
 
 	if dir.y < 0:
-		animation_player.play("fly_up")
+		animation_player.play("bird_animation_library/fly_up")
 	else:
-		animation_player.play("fly")
+		animation_player.play("bird_animation_library/fly")
 
 	if dir.x < 0:
 		sprite.flip_h = true

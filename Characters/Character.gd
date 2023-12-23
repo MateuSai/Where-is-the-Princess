@@ -192,5 +192,5 @@ func set_flying(new_value: bool) -> void:
 	flying = new_value
 
 
-func get_exclude_bodies() -> Array[PhysicsBody2D]:
+func get_exclude_bodies() -> Array[Node2D]:
 	return [self]
