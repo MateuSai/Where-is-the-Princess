@@ -14,8 +14,6 @@ enum Type {
 }
 var type: Type = Type.NORMAL: set = _set_type
 
-@onready var sprite: Sprite2D = $Sprite2D
-
 
 func _ready() -> void:
 	super()

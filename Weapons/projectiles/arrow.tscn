@@ -13,6 +13,10 @@ height = 6.0
 [node name="Arrow" instance=ExtResource("1_tf6vx")]
 collision_mask = 135
 script = ExtResource("2_kkqy7")
+random_rotate = null
+can_be_destroyed = null
+damage = null
+knockback_force = null
 
 [node name="Sprite2D" parent="." index="0"]
 material = ExtResource("3_ft0t1")

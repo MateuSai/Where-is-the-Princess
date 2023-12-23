@@ -113,7 +113,7 @@ shape = SubResource("CapsuleShape2D_tubvl")
 
 [node name="SpawnProjectilePos" type="Marker2D" parent="Pivot/WeaponSprite"]
 unique_name_in_owner = true
-position = Vector2(9.60784, -7.79035)
+position = Vector2(9.608, 8)
 
 [node name="Spark" type="Sprite2D" parent="Pivot/WeaponSprite"]
 visible = false

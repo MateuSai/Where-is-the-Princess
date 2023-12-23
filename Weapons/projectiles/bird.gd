@@ -1,14 +1,19 @@
 class_name Bird extends Projectile
 
-@onready var sprite: Sprite2D = $Sprite2D
+const HEIGHT: int = 16
+
 @onready var screen_notifier: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 @warning_ignore("shadowed_variable")
 func _init() -> void:
+	collision_layer = 8
+	collision_mask = 2 + 4 + 128
+
 	var sprite: Sprite2D = Sprite2D.new()
 	sprite.name = "Sprite2D"
+	sprite.position.y = -HEIGHT
 	sprite.texture = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/bird/bird_anim_spritesheet.png")
 	sprite.hframes = 4
 	sprite.vframes = 2
@@ -16,8 +21,9 @@ func _init() -> void:
 
 	var col: CollisionShape2D = CollisionShape2D.new()
 	col.name = "CollisionShape2D"
+	col.position.y = -HEIGHT
 	var shape: CircleShape2D = CircleShape2D.new()
-	shape.radius = 7
+	shape.radius = 6
 	col.shape = shape
 	add_child(col)
 
@@ -28,6 +34,7 @@ func _init() -> void:
 
 	var screen_notifier: VisibleOnScreenNotifier2D = VisibleOnScreenNotifier2D.new()
 	screen_notifier.name = "VisibleOnScreenNotifier2D"
+	screen_notifier.position.y = -HEIGHT
 	screen_notifier.rect = Rect2(-16, -16, 32, 32)
 	add_child(screen_notifier)
 

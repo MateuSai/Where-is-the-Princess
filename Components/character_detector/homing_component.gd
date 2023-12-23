@@ -23,4 +23,4 @@ func _physics_process(_delta: float) -> void:
 
 
 func get_direction() -> Vector2:
-	return (closer_enemy.global_position - projectile.position).normalized() if is_instance_valid(closer_enemy) else Vector2.ZERO
+	return projectile.get_direction_to(closer_enemy) if is_instance_valid(closer_enemy) else Vector2.ZERO

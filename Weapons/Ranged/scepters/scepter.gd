@@ -8,7 +8,7 @@ class_name Scepter extends RangedWeapon
 func _ready() -> void:
 	super()
 
-	projectile_speed = 300
+	projectile_speed = 100
 
 
 func move(mouse_direction: Vector2) -> void:
@@ -38,6 +38,17 @@ func _unhandled_input(event: InputEvent) -> void:
 			animation_player.play("RESET")
 	elif event.is_action_pressed("ui_attack") and not is_busy():
 		_attack()
+
+
+func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> Array[Projectile]:
+	var projectiles: Array[Projectile] = super(angle, amount)
+
+	for projectile: Projectile in projectiles:
+		var homing_component: HomingComponent = load("res://Components/character_detector/homing_component.tscn").instantiate()
+		homing_component.homing_degree = 0.08
+		projectile.add_child(homing_component)
+
+	return projectiles
 
 
 func _spawn_lightning() -> void:

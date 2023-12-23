@@ -21,6 +21,10 @@ var bounces_remaining: int = 0
 
 @export var can_be_destroyed: bool = true
 
+var height: float: get = _get_height
+
+@onready var sprite: Sprite2D = $Sprite2D
+
 
 @warning_ignore("shadowed_variable")
 func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: bool = false) -> void:
@@ -76,3 +80,11 @@ func _bounce() -> void:
 	else: # For some reason the projectile has not found the body which it collided with. We don't count it as a bounce
 		push_error("For some reason the projectile has not found the body which it collided with")
 		bounces_remaining += 1
+
+
+func get_direction_to(node: Node2D) -> Vector2:
+	return (node.global_position - global_position + Vector2.DOWN * height).normalized()
+
+
+func _get_height() -> float:
+	return -sprite.position.y
