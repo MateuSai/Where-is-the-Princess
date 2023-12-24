@@ -2,7 +2,7 @@ extends MeleeWeapon
 
 const QUAKE_PROJECTILE_SCENE: PackedScene = preload("res://Weapons/Melee/WarHammer/WarHammerQuake.tscn")
 
-@onready var impact_point: Marker2D = $Node2D/Sprite2D/ImpactPoint
+@onready var impact_point: Marker2D = $Node2D/WeaponSprite/ImpactPoint
 
 
 func _spawn_quake_projectiles() -> void:

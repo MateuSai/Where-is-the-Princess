@@ -1,28 +1,30 @@
-[gd_scene load_steps=18 format=3 uid="uid://cs8527eyei1sa"]
+[gd_scene load_steps=13 format=3 uid="uid://cs8527eyei1sa"]
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_lbdjx"]
 [ext_resource type="Script" path="res://Weapons/Melee/WarHammer/WarHammer.gd" id="2_bo016"]
 [ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="3_sv533"]
 [ext_resource type="Texture2D" uid="uid://wvokxkt7ia1t" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/war hammer.png" id="4_lgcqw"]
+[ext_resource type="AnimationLibrary" uid="uid://byptxr6sfhkfy" path="res://Weapons/animation_libraries/heavy_melee_weapon_animation_library.tres" id="5_3rrn8"]
 
-[sub_resource type="ShaderMaterial" id="6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0pui8"]
 resource_local_to_scene = true
 shader = ExtResource("3_sv533")
 shader_parameter/active = false
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g22gm"]
-size = Vector2(10.4066, 5.25)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i0iot"]
+radius = 5.65687
+height = 25.4558
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kbkvc"]
-radius = 4.94972
-height = 22.9289
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5nkw2"]
+radius = 5.65686
+height = 25.4558
 
 [sub_resource type="Animation" id="Animation_8hb7s"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Node2D/Sprite2D/Hitbox/CollisionShape2D:disabled")
+tracks/0/path = NodePath("Node2D/WeaponSprite/Hitbox/CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -46,7 +48,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Node2D/Sprite2D:rotation")
+tracks/2/path = NodePath("Node2D/WeaponSprite:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -58,7 +60,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Node2D/Sprite2D/ChargeParticles:emitting")
+tracks/3/path = NodePath("Node2D/WeaponSprite/ChargeParticles:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -70,7 +72,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Node2D/Sprite2D:material:shader_parameter/active")
+tracks/4/path = NodePath("Node2D/WeaponSprite:material:shader_parameter/active")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -82,34 +84,10 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Node2D/Sprite2D/Hitbox:damage")
+tracks/5/path = NodePath("Node2D/WeaponSprite:scale")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Node2D/Sprite2D/Hitbox:knockback_force")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [200]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Node2D/Sprite2D:scale")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -123,7 +101,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Node2D/Sprite2D/Hitbox/CollisionShape2D:disabled")
+tracks/0/path = NodePath("Node2D/WeaponSprite/Hitbox/CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -147,7 +125,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Node2D/Sprite2D:rotation")
+tracks/2/path = NodePath("Node2D/WeaponSprite:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -159,7 +137,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Node2D/Sprite2D/ChargeParticles:emitting")
+tracks/3/path = NodePath("Node2D/WeaponSprite/ChargeParticles:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -171,7 +149,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Node2D/Sprite2D:material:shader_parameter/active")
+tracks/4/path = NodePath("Node2D/WeaponSprite:material:shader_parameter/active")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -180,37 +158,13 @@ tracks/4/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/5/type = "value"
+tracks/5/type = "method"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Node2D/Sprite2D/Hitbox:damage")
+tracks/5/path = NodePath(".")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Node2D/Sprite2D/Hitbox:knockback_force")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [500]
-}
-tracks/7/type = "method"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath(".")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
 "times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -218,13 +172,13 @@ tracks/7/keys = {
 "method": &"_spawn_quake_projectiles"
 }]
 }
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("Node2D/Sprite2D:scale")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Node2D/WeaponSprite:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -237,7 +191,7 @@ length = 0.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Node2D/Sprite2D/Hitbox/CollisionShape2D:disabled")
+tracks/0/path = NodePath("Node2D/WeaponSprite/Hitbox/CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -261,7 +215,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Node2D/Sprite2D:rotation")
+tracks/2/path = NodePath("Node2D/WeaponSprite:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -273,7 +227,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Node2D/Sprite2D/ChargeParticles:emitting")
+tracks/3/path = NodePath("Node2D/WeaponSprite/ChargeParticles:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -285,7 +239,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Node2D/Sprite2D:material:shader_parameter/active")
+tracks/4/path = NodePath("Node2D/WeaponSprite:material:shader_parameter/active")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -294,37 +248,13 @@ tracks/4/keys = {
 "update": 1,
 "values": [false]
 }
-tracks/5/type = "value"
+tracks/5/type = "method"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Node2D/Sprite2D/Hitbox:damage")
+tracks/5/path = NodePath(".")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Node2D/Sprite2D/Hitbox:knockback_force")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [500]
-}
-tracks/7/type = "method"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath(".")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
 "times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -332,466 +262,24 @@ tracks/7/keys = {
 "method": &"_spawn_quake_projectiles"
 }]
 }
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("Node2D/Sprite2D:scale")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Node2D/WeaponSprite:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [Vector2(-1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_ict7v"]
-resource_name = "attack_1"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node2D/Sprite2D/Hitbox/CollisionShape2D:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.4, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [true, false, false, true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Node2D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.6, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [-1.5708, 2.0944, 2.0944, 1.5708]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Node2D/Sprite2D:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.7, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 1.48353, 1.48353, 3.14159]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Node2D/Sprite2D/ChargeParticles:emitting")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Node2D/Sprite2D:material:shader_parameter/active")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, false]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Node2D/Sprite2D/Hitbox:damage")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [3, 3]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Node2D/Sprite2D/Hitbox:knockback_force")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [600, 600]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Node2D/Sprite2D:scale")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.9, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [Vector2(1, 1), Vector2(1, 1), Vector2(-1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_gm6wr"]
-resource_name = "attack_2"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node2D/Sprite2D/Hitbox/CollisionShape2D:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.4, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [true, false, false, true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Node2D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.6, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [1.5708, -2.0944, -2.0944, -1.5708]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Node2D/Sprite2D:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.7, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [3.14159, 1.65806, 1.65806, 0.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Node2D/Sprite2D/ChargeParticles:emitting")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Node2D/Sprite2D:material:shader_parameter/active")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, false]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Node2D/Sprite2D/Hitbox:damage")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [3, 3]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Node2D/Sprite2D/Hitbox:knockback_force")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [600, 600]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("Node2D/Sprite2D:scale")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.9, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [Vector2(-1, 1), Vector2(-1, 1), Vector2(1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_0lr4t"]
-resource_name = "charge_1"
-length = 0.9
-step = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node2D/Sprite2D:material:shader_parameter/active")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [false, true, false, true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Node2D/Sprite2D/ChargeParticles:emitting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.9),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Node2D:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.9),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [-1.5708, -1.91986]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Node2D/Sprite2D:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.9),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, -0.174533]
-}
-
-[sub_resource type="Animation" id="Animation_wpkhp"]
-resource_name = "charge_2"
-length = 0.9
-step = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node2D/Sprite2D:material:shader_parameter/active")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [false, true, false, true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Node2D/Sprite2D/ChargeParticles:emitting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.9),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Node2D:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.9),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [1.5708, 1.91986]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Node2D/Sprite2D:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.9),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [3.14159, 3.31613]
-}
-
-[sub_resource type="Animation" id="Animation_f01e5"]
-resource_name = "strong_attack_1"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node2D/Sprite2D:material:shader_parameter/active")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Node2D/Sprite2D/ChargeParticles:emitting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Node2D:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [-1.91986, -0.872665]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Node2D/Sprite2D:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [-0.959931, 0.0]
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0.2),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"throw"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_uwcxm"]
-resource_name = "strong_attack_2"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node2D/Sprite2D:material:shader_parameter/active")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Node2D/Sprite2D/ChargeParticles:emitting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Node2D:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [1.91986, 0.872665]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Node2D/Sprite2D:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [2.53073, 1.5708]
-}
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath(".")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0.2),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"throw"
-}]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ypj85"]
 _data = {
 "RESET": SubResource("Animation_8hb7s"),
 "active_ability_1": SubResource("Animation_y7sh3"),
-"active_ability_2": SubResource("Animation_622pu"),
-"attack_1": SubResource("Animation_ict7v"),
-"attack_2": SubResource("Animation_gm6wr"),
-"charge_1": SubResource("Animation_0lr4t"),
-"charge_2": SubResource("Animation_wpkhp"),
-"strong_attack_1": SubResource("Animation_f01e5"),
-"strong_attack_2": SubResource("Animation_uwcxm")
+"active_ability_2": SubResource("Animation_622pu")
 }
 
 [node name="WarHammer" instance=ExtResource("1_lbdjx")]
@@ -801,38 +289,29 @@ increase_num_normal_attacks_on_ability = true
 invert_scale_when_looking_left = false
 throw_speed = 200
 
-[node name="Sprite2D" parent="Node2D" index="0"]
-material = SubResource("6")
-position = Vector2(8, 0)
+[node name="WeaponSprite" parent="Node2D" index="0"]
+material = SubResource("ShaderMaterial_0pui8")
+position = Vector2(7, 2.53399e-05)
 rotation = 0.0
 texture = ExtResource("4_lgcqw")
-offset = Vector2(0, -8)
+offset = Vector2(1.5, -5)
 
-[node name="Hitbox" parent="Node2D/Sprite2D" index="0"]
-position = Vector2(-4.94975, -3.94975)
-rotation = -0.785398
-knockback_force = 200
+[node name="CollisionShape2D" parent="Node2D/WeaponSprite/Hitbox" index="0"]
+position = Vector2(2.12134, -6.36395)
+rotation = 0.0
+shape = SubResource("CapsuleShape2D_i0iot")
 
-[node name="CollisionShape2D" parent="Node2D/Sprite2D/Hitbox" index="0"]
-position = Vector2(6.15414, 1.20445)
-scale = Vector2(1, 4)
-shape = SubResource("RectangleShape2D_g22gm")
-
-[node name="ChargeParticles" parent="Node2D/Sprite2D" index="1"]
-position = Vector2(5.65685, -4.24264)
-
-[node name="PlayerDetector" parent="Node2D/Sprite2D" index="2"]
-position = Vector2(-4.94975, -3.94975)
-
-[node name="CollisionShape2D" parent="Node2D/Sprite2D/PlayerDetector" index="0"]
-position = Vector2(-5.99998, -0.999977)
+[node name="CollisionShape2D" parent="Node2D/WeaponSprite/PlayerDetector" index="0"]
+position = Vector2(-5.99999, 3.00001)
 rotation = 0.785398
-shape = SubResource("CapsuleShape2D_kbkvc")
+shape = SubResource("CapsuleShape2D_5nkw2")
 
-[node name="ImpactPoint" type="Marker2D" parent="Node2D/Sprite2D" index="3"]
-position = Vector2(6.00006, -16.9999)
+[node name="ImpactPoint" type="Marker2D" parent="Node2D/WeaponSprite" index="3"]
+position = Vector2(7.77822, -13.435)
+rotation = 2.3562
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {
-"": SubResource("AnimationLibrary_ypj85")
+"": SubResource("AnimationLibrary_ypj85"),
+"heavy_melee_weapon_animation_library": ExtResource("5_3rrn8")
 }
