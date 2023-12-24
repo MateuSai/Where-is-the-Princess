@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://db75cici3alhe"]
+[gd_scene load_steps=8 format=3 uid="uid://db75cici3alhe"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_7jitr"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_oukln"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_8xegf"]
 [ext_resource type="PackedScene" uid="uid://5xm1lw65nptl" path="res://Audio/Sounds/sewer/sewer_water_flow_sound.tscn" id="4_02yer"]
+[ext_resource type="PackedScene" uid="uid://dg8c6o1msojno" path="res://Rooms/Furniture and Traps/crocodile_trap/crocodile_trap.tscn" id="4_7h1mt"]
 [ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="5_2vme4"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_rg34q"]
@@ -41,6 +42,9 @@ position = Vector2(37, 154)
 
 [node name="HorizontalEntry2" parent="Entries/Down" index="1" instance=ExtResource("3_8xegf")]
 position = Vector2(155, 157)
+
+[node name="CrocodileTrap" parent="Traps" index="0" instance=ExtResource("4_7h1mt")]
+position = Vector2(103, 98)
 
 [node name="TeleportPosition" parent="." index="8"]
 position = Vector2(51, 67)
