@@ -22,7 +22,7 @@ func update_hearts(_max_hp: int, new_hp: int) -> void:
 			current_heart = get_child(current_heart.get_index() + 1) if get_child_count()-1 > current_heart.get_index() else null
 	elif dif < 0:
 		var i: int = abs(dif)
-		var current_heart: HeartUI = get_child(int(floor(previous_hp/4.0) as float))
+		var current_heart: HeartUI = get_child(int((ceil(previous_hp/4.0) - 1.0) as float))
 		while i > 0:
 			assert(current_heart)
 			i -= current_heart.hp
