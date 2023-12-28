@@ -1,9 +1,10 @@
-## This is what we use to load the stats when we changes floor or when we saves the game
+## This is what we use to load the stats when we change floor or when we save the game.
+## Permanent stats like hp and unlocked armors are stored on [Data]
 class_name RunStats extends Resource
 
 signal coins_changed(new_coins: int)
 
-@export var biome: String = "sewer"
+@export var biome: String = "forest"
 @export var level: int = 1
 
 @export var hp: int = Character.DB["player"].max_hp + SavedData.data.get_extra_max_hp()

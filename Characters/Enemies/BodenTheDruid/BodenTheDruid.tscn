@@ -715,7 +715,7 @@ position = Vector2(0, -3)
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("9_qd8sd")
-knockback_force = 800
+knockback_force = 20000
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeHitbox" index="0"]
 position = Vector2(8, 0)

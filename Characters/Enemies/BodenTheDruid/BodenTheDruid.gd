@@ -1,7 +1,5 @@
 class_name BodenTheDruid extends Enemy
 
-const BIRD_SCENE: PackedScene = preload("res://Weapons/projectiles/bird.tscn")
-
 const BEAR_HP: int = 25
 
 var is_bear: bool = false
@@ -96,7 +94,7 @@ func _lightning_attack() -> void:
 
 func _bird_attack() -> void:
 	for i: int in randi_range(5, 8):
-		var bird: Bird = BIRD_SCENE.instantiate()
+		var bird: Bird = Bird.new()
 		var bird_pos: Vector2 = player.position + Vector2(randf_range(110, 150), 0).rotated(randf_range(0, 2*PI))
 		get_tree().current_scene.add_child(bird)
 

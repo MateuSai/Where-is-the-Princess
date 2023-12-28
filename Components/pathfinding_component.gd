@@ -54,7 +54,7 @@ class Approach extends Mode:
 	var flags: int = 0
 
 	func _ready() -> void:
-		_spawn_timer(0.4)
+		_spawn_timer(0.2)
 
 		super()
 
