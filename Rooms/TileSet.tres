@@ -1,10 +1,9 @@
-[gd_resource type="TileSet" load_steps=49 format=3 uid="uid://b6ahcd27jnf2v"]
+[gd_resource type="TileSet" load_steps=47 format=3 uid="uid://b6ahcd27jnf2v"]
 
 [ext_resource type="Texture2D" uid="uid://d2e6iidvt8eo3" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full tilemap.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://dbhadmkl0mfsc" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest.png" id="1_8t4wc"]
 [ext_resource type="Texture2D" uid="uid://gkfi47yhgcnv" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest normal.png" id="2_76mpx"]
 [ext_resource type="Texture2D" uid="uid://bbir3nubd0hb" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full_tilemap_albedo.png" id="2_fun5j"]
-[ext_resource type="Shader" path="res://shaders_and_particles/water_reflection.gdshader" id="5_bryuk"]
 [ext_resource type="Texture2D" uid="uid://bboaq8rmne41i" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/tileset/sewer_tileset_canvas_texture.tres" id="5_d6jrl"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_bk6hg"]
@@ -1156,9 +1155,6 @@ polygon = PackedVector2Array(-8, 2.125, 8, 1.875, 8, 8, -8, 8)
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_lscdw"]
 polygon = PackedVector2Array(-8, -0.25, 8, -0.5, 8, 2.875, -8, 3)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_lbcxh"]
-shader = ExtResource("5_bryuk")
-
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_2fxxm"]
 polygon = PackedVector2Array(-8, 0.625, -5.125, 2.125, -4.25, 8, -8, 8)
 
@@ -1598,7 +1594,6 @@ texture = ExtResource("5_d6jrl")
 2:8/animation_frame_0/duration = 1.0
 2:8/animation_frame_1/duration = 1.0
 2:8/0 = 0
-2:8/0/material = SubResource("ShaderMaterial_lbcxh")
 2:8/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:8/0/physics_layer_0/angular_velocity = 0.0
 2:8/0/physics_layer_1/linear_velocity = Vector2(0, 0)
