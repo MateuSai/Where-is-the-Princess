@@ -229,8 +229,6 @@ func spawn_rooms() -> void:
 	if end_rooms.is_empty():
 		push_error("No end rooms for this level. Make sure you put the rooms on the correct folder, a subfolder of the 'End' folder")
 
-	#var inter_rooms: Array[PackedScene] = INTERMEDIATE_ROOMS.duplicate(true)
-	#inter_rooms.append_array(SavedData.custom_rooms)
 	var num_special_rooms: int = SavedData.get_num_rooms("special")
 	for i: int in num_special_rooms:
 		var random_speacial_room_path: String = special_room_paths[randi() % special_room_paths.size()]
