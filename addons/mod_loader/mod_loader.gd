@@ -39,6 +39,27 @@ var mod_data := {}: get = deprecated_direct_access_mod_data
 # =============================================================================
 
 func _init() -> void:
+	if not FileAccess.file_exists(SavedData.USER_FOLDER.path_join("mod_user_profiles.json")):
+		var file_content: Dictionary = {
+			"current_profile": "default",
+			"profiles": {
+				"default": {
+					"mod_list": {
+						"GodotModding-UserProfile": {
+							"current_config": "default",
+							"is_active": true
+						},
+						"Mateu-DemoMod": {
+							"is_active": true
+						}
+					}
+				}
+			}
+		}
+		var mod_user_profiles_file: FileAccess = FileAccess.open(SavedData.USER_FOLDER.path_join("mod_user_profiles.json"), FileAccess.WRITE)
+		mod_user_profiles_file.store_string(JSON.stringify(file_content, "\t"))
+		mod_user_profiles_file.close()
+
 	# Ensure the ModLoaderStore and ModLoader autoloads are in the correct position.
 	_check_autoload_positions()
 
