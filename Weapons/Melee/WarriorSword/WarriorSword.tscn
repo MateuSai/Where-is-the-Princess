@@ -383,12 +383,10 @@ offset = Vector2(0, -9)
 
 [node name="CollisionShape2D" parent="Node2D/WeaponSprite/Hitbox" index="0"]
 position = Vector2(2.89679e-05, -8.48528)
-rotation = 0.0
 shape = SubResource("CapsuleShape2D_lyngv")
 
 [node name="CollisionShape2D" parent="Node2D/WeaponSprite/PlayerDetector" index="0"]
-position = Vector2(-5.99999, 6.00001)
-rotation = 0.785398
+position = Vector2(2.88049e-05, -8)
 shape = SubResource("CapsuleShape2D_bi6ti")
 
 [node name="TrailSprite" type="Sprite2D" parent="Node2D/WeaponSprite" index="3"]

@@ -55,8 +55,8 @@ var room_white_image: Image
 
 @onready var vector_to_center: Vector2 = ((tilemap.get_used_rect().size/2) + tilemap.get_used_rect().position) * Rooms.TILE_SIZE
 @onready var radius: float = (tilemap.get_used_rect().size.length() * Rooms.TILE_SIZE) / 2.0
-const RECT_MARGIN: int = 64
-@onready var room_rect: Rect2 = Rect2(tilemap.get_used_rect().position * Rooms.TILE_SIZE, tilemap.get_used_rect().size * Rooms.TILE_SIZE).grow(RECT_MARGIN)
+@onready var room_rect_margin: int = SavedData.get_biome_conf().room_rect_margin
+@onready var room_rect: Rect2 = Rect2(tilemap.get_used_rect().position * Rooms.TILE_SIZE, tilemap.get_used_rect().size * Rooms.TILE_SIZE).grow(room_rect_margin)
 @onready var entries: Array[Node2D] = [get_node("Entries/Left"), get_node("Entries/Up"), get_node("Entries/Right"), get_node("Entries/Down")]
 @onready var door_container: Node2D = get_node("Doors")
 @onready var enemy_positions_container: Node2D = get_node("EnemyPositions")

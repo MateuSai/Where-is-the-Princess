@@ -2,6 +2,10 @@ class_name BiomeConf
 
 var corridor_atlas_id: int = 0
 var room_atlas_id: int = 0
+## Extra margin of the room region used to separate the rooms. It can also be negative, but in that case be careful not to put one room on top of another
+var room_rect_margin: int = 48
+## Max length of the corridors in tiles. Generation will restart if there is a corridor that surpasses this length
+var max_corridor_length: int = 32
 var extra_connections: float = 0.5
 var minimap_texture: String = "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/triple tilemap forest_minimap_sepia.png"
 var vertical_door_texture: String = "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/doors/forest_vertical_door_canvas_texture.tres"
