@@ -62,7 +62,7 @@ func to_dic() -> Dictionary:
 	for property_dic: Dictionary in get_property_list():
 		assert(property_dic.name is String)
 		var property_name: StringName = property_dic.name
-		if property_name in ["RefCounted", "script", "Built-in script"]:
+		if property_name in ["RefCounted", "script", "Built-in script", "data.gd"]:
 			continue
 		match property_name:
 			"player_upgrades":

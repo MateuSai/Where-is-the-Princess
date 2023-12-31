@@ -347,7 +347,6 @@ bus = &"Sounds"
 
 [node name="OrcSword" parent="." instance=ExtResource("20_vg655")]
 position = Vector2(181, 121)
-increase_num_normal_attacks_on_ability = true
 on_floor = true
 
 [node name="WarriorSword" parent="." instance=ExtResource("21_lb8k2")]
