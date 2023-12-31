@@ -380,7 +380,7 @@ func _create_corridors() -> bool:
 
 		if min_connection == null:
 			#assert(false)
-			push_error("first_room_id is null. There are no more possibles connections but there is some room/rooms that are not connected yet")
+			push_error("min_connection is null. There are no more possibles connections but there is some room/rooms that are not connected yet")
 			if reload_on_eror:
 				game.reload_generation("Could not connect all rooms")
 				return false
@@ -456,10 +456,10 @@ func _create_corridors() -> bool:
 				else:
 					push_error("Skkiping extra connections because their path is too long. Added " + str(i - number_of_extra_connections) + "/" + str(number_of_extra_connections) + " connections")
 					break
-			if connection:
-				await _create_corridor_between_rooms(connection)
-				mst_astar.connect_points(connection.room_1_id, connection.room_2_id)
-				i -= 1
+			#if connection:
+			await _create_corridor_between_rooms(connection)
+			mst_astar.connect_points(connection.room_1_id, connection.room_2_id)
+			i -= 1
 			#points_that_could_be_connected.remove_at(rand)
 		if debug:
 			print("")
@@ -699,22 +699,26 @@ func _create_corridor_between_rooms(connection: Connection) -> void:
 			await _create_horizontal_corridor(left, right)
 #			rooms[id if dif.x > 0 else connection_with].mark_entry_as_used(left)
 #			rooms[connection_with if dif.x > 0 else id].mark_entry_as_used(right)
-		Connection.Type.L_315:
-			#var directions: Array[Array] = [[DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.UP], [DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.LEFT]]
-			#await _decide_direction_and_create_l_corridor(id, connection_with, directions)
-			await _create_l_corridor(connection.room_1_entry_positions, connection.room_2_entry_positions, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.UP)
-		Connection.Type.L_45:
-			#var directions: Array[Array] = [[DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.DOWN], [DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.LEFT]]
-			#await _decide_direction_and_create_l_corridor(id, connection_with, directions)
-			await _create_l_corridor(connection.room_1_entry_positions, connection.room_2_entry_positions, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.DOWN)
-		Connection.Type.L_225:
-			#var directions: Array[Array] = [[DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.UP], [DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.RIGHT]]
-			#await _decide_direction_and_create_l_corridor(id, connection_with, directions)
-			await _create_l_corridor(connection.room_1_entry_positions, connection.room_2_entry_positions, DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.UP)
-		Connection.Type.L_135:
-			#var directions: Array[Array] = [[DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.DOWN], [DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.RIGHT]]
-			#await _decide_direction_and_create_l_corridor(id, connection_with, directions)
-			await _create_l_corridor(connection.room_1_entry_positions, connection.room_2_entry_positions, DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.DOWN)
+		Connection.Type.L_315, Connection.Type.L_45, Connection.Type.L_225, Connection.Type.L_135:
+			await _create_l_corridor(connection.room_1_entry_positions, connection.room_2_entry_positions, connection.dir_1, connection.dir_2)
+		_:
+			assert(false, "Invalid room connection type")
+		#Connection.Type.L_315:
+			##var directions: Array[Array] = [[DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.UP], [DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.LEFT]]
+			##await _decide_direction_and_create_l_corridor(id, connection_with, directions)
+			#await _create_l_corridor(connection.room_1_entry_positions, connection.room_2_entry_positions, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.UP)
+		#Connection.Type.L_45:
+			##var directions: Array[Array] = [[DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.DOWN], [DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.LEFT]]
+			##await _decide_direction_and_create_l_corridor(id, connection_with, directions)
+			#await _create_l_corridor(connection.room_1_entry_positions, connection.room_2_entry_positions, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.DOWN)
+		#Connection.Type.L_225:
+			##var directions: Array[Array] = [[DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.UP], [DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.RIGHT]]
+			##await _decide_direction_and_create_l_corridor(id, connection_with, directions)
+			#await _create_l_corridor(connection.room_1_entry_positions, connection.room_2_entry_positions, DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.UP)
+		#Connection.Type.L_135:
+			##var directions: Array[Array] = [[DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.DOWN], [DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.RIGHT]]
+			##await _decide_direction_and_create_l_corridor(id, connection_with, directions)
+			#await _create_l_corridor(connection.room_1_entry_positions, connection.room_2_entry_positions, DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.DOWN)
 
 
 ## @deprecated
@@ -1009,16 +1013,48 @@ func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: Du
 						connection_possible = false
 
 				if connection_possible:
-					var type: Connection.Type
-					if id_dir == DungeonRoom.EntryDirection.RIGHT and connection_with_dir == DungeonRoom.EntryDirection.DOWN:
+					var type: Connection.Type = -1
+					var dir_1: DungeonRoom.EntryDirection
+					var dir_2: DungeonRoom.EntryDirection
+					if (id_dir == DungeonRoom.EntryDirection.RIGHT and connection_with_dir == DungeonRoom.EntryDirection.DOWN):
 						type = Connection.Type.L_45
-					elif id_dir == DungeonRoom.EntryDirection.LEFT and connection_with_dir == DungeonRoom.EntryDirection.DOWN:
+						dir_1 = DungeonRoom.EntryDirection.RIGHT
+						dir_2 = DungeonRoom.EntryDirection.DOWN
+					elif (id_dir == DungeonRoom.EntryDirection.UP and connection_with_dir == DungeonRoom.EntryDirection.LEFT):
+						type = Connection.Type.L_45
+						dir_1 = DungeonRoom.EntryDirection.UP
+						dir_2 = DungeonRoom.EntryDirection.LEFT
+					elif (id_dir == DungeonRoom.EntryDirection.LEFT and connection_with_dir == DungeonRoom.EntryDirection.DOWN):
 						type = Connection.Type.L_135
+						dir_1 = DungeonRoom.EntryDirection.LEFT
+						dir_2 = DungeonRoom.EntryDirection.DOWN
+					elif (id_dir == DungeonRoom.EntryDirection.UP and connection_with_dir == DungeonRoom.EntryDirection.RIGHT):
+						type = Connection.Type.L_135
+						dir_1 = DungeonRoom.EntryDirection.UP
+						dir_2 = DungeonRoom.EntryDirection.RIGHT
 					elif id_dir == DungeonRoom.EntryDirection.LEFT and connection_with_dir == DungeonRoom.EntryDirection.UP:
 						type = Connection.Type.L_225
-					elif id_dir == DungeonRoom.EntryDirection.RIGHT and connection_with_dir == DungeonRoom.EntryDirection.UP:
+						dir_1 = DungeonRoom.EntryDirection.LEFT
+						dir_2 = DungeonRoom.EntryDirection.UP
+					elif id_dir == DungeonRoom.EntryDirection.DOWN and connection_with_dir == DungeonRoom.EntryDirection.RIGHT:
+						type = Connection.Type.L_225
+						dir_1 = DungeonRoom.EntryDirection.DOWN
+						dir_2 = DungeonRoom.EntryDirection.RIGHT
+					elif (id_dir == DungeonRoom.EntryDirection.RIGHT and connection_with_dir == DungeonRoom.EntryDirection.UP):
 						type = Connection.Type.L_315
-					return Connection.new(entry, other_entry, type, (abs(entry.global_position.x - other_entry.global_position.x) + abs(entry.global_position.y - other_entry.global_position.y)) / TILE_SIZE)
+						dir_1 = DungeonRoom.EntryDirection.RIGHT
+						dir_2 = DungeonRoom.EntryDirection.UP
+					elif (id_dir == DungeonRoom.EntryDirection.DOWN and connection_with_dir == DungeonRoom.EntryDirection.LEFT):
+						type = Connection.Type.L_315
+						dir_1 = DungeonRoom.EntryDirection.DOWN
+						dir_2 = DungeonRoom.EntryDirection.LEFT
+					assert(type > -1)
+					assert(dir_1 > -1)
+					assert(dir_2 > -1)
+					var connection: Connection = Connection.new(entry, other_entry, type, (abs(entry.global_position.x - other_entry.global_position.x) + abs(entry.global_position.y - other_entry.global_position.y)) / TILE_SIZE)
+					connection.dir_1 = dir_1
+					connection.dir_2 = dir_2
+					return connection
 
 	return null
 
@@ -1086,6 +1122,7 @@ func _create_vertical_corridor(above: EntryPositions, below: EntryPositions) -> 
 ## [code]left[/code] is the entry of the room on the left and [code]right[/code] is the entry of the room on the right
 func _create_horizontal_corridor(left: EntryPositions, right: EntryPositions) -> void:
 	assert(left.get_child_count() == 2 and right.get_child_count() == 2)
+	assert(left.global_position.x < right.global_position.x)
 
 	if debug:
 		print("\tCreating horizontal corridor...")
@@ -1274,10 +1311,13 @@ class RectangleSpawnShape extends SpawnShape:
 class Connection:
 	var room_1_id: int = -1
 	var room_2_id: int = -1
+
+	var dir_1: DungeonRoom.EntryDirection = -1
+	var dir_2: DungeonRoom.EntryDirection = -1
+
 	var room_1_entry_positions: EntryPositions
 	var room_2_entry_positions: EntryPositions
 	enum Type {
-		NONE,
 		VERTICAL,
 		HORIZONTAL,
 		L_315,
