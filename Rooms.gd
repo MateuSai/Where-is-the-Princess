@@ -62,6 +62,8 @@ const FOG_PADDING: int = 128
 
 @onready var reload_on_eror: bool = game.reload_on_generation_eror
 
+@onready var biome_conf: BiomeConf = SavedData.get_biome_conf()
+
 @onready var fog_sprite: Sprite2D = $"../FogSprite"
 
 # @onready var player: CharacterBody2D = get_parent().get_node("Player")
@@ -72,7 +74,6 @@ const FOG_PADDING: int = 128
 func _ready() -> void:
 	set_process(false)
 
-	var biome_conf: BiomeConf = SavedData.get_biome_conf()
 	ATLAS_ID = biome_conf.corridor_atlas_id
 	if not biome_conf.corridor_floor_tiles_coor.is_empty():
 		CORRIDOR_FLOOR_TILE_COORDS = int_arr_to_vec_array(biome_conf.corridor_floor_tiles_coor)
@@ -380,13 +381,20 @@ func _create_corridors() -> bool:
 				game.reload_generation("Could not connect all rooms")
 				return false
 			continue
+		elif min_connection.cost > biome_conf.max_corridor_length:
+			if reload_on_eror:
+				game.reload_generation("Corridor excedded max_corridor_length defined on the biome configuration")
+				return false
+			continue
+
 		var n: int = room_centers.find(min_p)
 		mst_astar.add_point(n, min_p)
 		mst_astar.connect_points(first_room_id, n)
 
 		initial_astar.set_point_disabled(room_centers.find(min_p))
-		if min_connection:
-			await _create_corridor_between_rooms(min_connection)
+		#if min_connection:
+		assert(min_connection)
+		await _create_corridor_between_rooms(min_connection)
 		#rooms_not_used.remove_at(rooms_not_used.find(min_p))
 		if debug:
 			print("")
