@@ -318,7 +318,7 @@ func _create_corridors() -> bool:
 	# We start with 1 because we already have added the room 0
 	for i: int in range(1, initial_astar.get_point_count()):
 		var min_connection: Connection = null
-		var min_dist: float = INF  # Minimum distance found so far
+		#var min_dist: float = INF  # Minimum distance found so far
 		var min_p: Vector2  # Position of that node
 		#var p = null  # Current position
 		var first_room_id: int = -1
@@ -340,41 +340,45 @@ func _create_corridors() -> bool:
 					print_rich("\tChecking room " + str(room_centers.find(point2)) + "")
 
 				if initial_astar.get_point_connections(room_centers.find(point)).has(j):
-					if point.distance_to(point2) < min_dist:
+					var connection: Connection = await _is_connection_possible(id, room_centers.find(point2))
+					if connection != null:
 						if not overwrite_connections.is_empty():
 							var block_connection: bool = true
-							for connection: Array in overwrite_connections:
+							for connection_arr: Array in overwrite_connections:
 								#var afjsfknasf: int = room_centers.find(point2)
 								#var n: int = connection[0]
 								#var m: int = connection[1]
 								#var p: bool = (n == id and m == afjsfknasf)
-								if (connection[0] == id and connection[1] == room_centers.find(point2)) or (connection[0] == room_centers.find(point2) and connection[1] == id):
+								if (connection_arr[0] == id and connection_arr[1] == room_centers.find(point2)) or (connection_arr[0] == room_centers.find(point2) and connection_arr[1] == id):
 									block_connection = false
 									break
 							if block_connection:
 								if debug:
 									print_rich("\t[color=yellow]Connection between " + str(id) + " and " + str(room_centers.find(point2)) +  " is not possible because the connections are overwritten[/color]")
 								continue
-						var connection: Connection = await _is_connection_possible(id, room_centers.find(point2))
-						if not connection:
-							if debug:
-								print_rich("\t\t[color=yellow]No available connection to " + str(j) + "[/color]")
+
+						if not (min_connection == null or connection.cost < min_connection.cost):
 							continue
+						#elif connection == null:
+							#if debug:
+								#print_rich("\t\t[color=yellow]No available connection to " + str(j) + "[/color]")
+							#continue
+
 						min_connection = connection
 						first_room_id = id
-						min_dist = point.distance_to(point2)
+						#min_dist = point.distance_to(point2)
 						min_p = point2
 						if debug:
 							print_rich("\t[color=green]Available connection to " + str(j) + ": " + Connection.Type.keys()[connection.type] + "[/color]")
 						#p = point
 					else:
 						if debug:
-							print_rich("\t\t[color=yellow]Rooms " + str(room_centers.find(point)) + " and " + str(room_centers.find(point2)) + " are to close[/color]")
+							print_rich("\t\t[color=yellow]Rooms " + str(room_centers.find(point)) + " and " + str(room_centers.find(point2)) + " are too close[/color]")
 				else:
 					if debug:
 						print_rich("\t\t[color=yellow]initial_astar does not have any connections between room " + str(room_centers.find(point)) + " and " + str(room_centers.find(point2)) + "[/color]")
 
-		if first_room_id == -1:
+		if min_connection == null:
 			#assert(false)
 			push_error("first_room_id is null. There are no more possibles connections but there is some room/rooms that are not connected yet")
 			if reload_on_eror:
@@ -393,7 +397,6 @@ func _create_corridors() -> bool:
 
 		initial_astar.set_point_disabled(room_centers.find(min_p))
 		#if min_connection:
-		assert(min_connection)
 		await _create_corridor_between_rooms(min_connection)
 		#rooms_not_used.remove_at(rooms_not_used.find(min_p))
 		if debug:
@@ -410,20 +413,32 @@ func _create_corridors() -> bool:
 			print_rich("[b]--- Rooms: Adding extra connections to mst ---[/b]")
 		for id: int in initial_astar.get_point_count():
 			initial_astar.set_point_disabled(id, false)
-		var points_that_could_be_connected: Array[ExtraConnection] = []
+		var connections_that_could_be_connected: Array[Connection] = []
 		for id: int in initial_astar.get_point_count():
 			for id2: int in range(id + 1, initial_astar.get_point_count()):
 				# print(str(id) + ": " + str(initial_astar.get_point_connections(id)))
-				if initial_astar.get_point_connections(id).has(id2) and not mst_astar.get_point_connections(id).has(id2) and not points_that_could_be_connected.has([id, id2]) and not points_that_could_be_connected.has([id2, id]):
-					points_that_could_be_connected.push_back(ExtraConnection.new(id, id2, (room_centers[id] - room_centers[id2]).length()))
+				if initial_astar.get_point_connections(id).has(id2) and not mst_astar.get_point_connections(id).has(id2):
+					var found: bool = false
+					for connection: Connection in connections_that_could_be_connected:
+						if (connection.room_1_id == id and connection.room_2_id == id2) or (connection.room_1_id == id2 and connection.room_2_id == id):
+							found = true
+							break
+					if found:
+						continue
+					var connection: Connection = await _is_connection_possible(id, id2)
+					if connection == null:
+						continue
+					connection.room_1_id = id
+					connection.room_2_id = id2
+					connections_that_could_be_connected.push_back(connection)
 
-		points_that_could_be_connected.sort_custom(func(c: ExtraConnection, c2: ExtraConnection) -> bool:
+		connections_that_could_be_connected.sort_custom(func(c: Connection, c2: Connection) -> bool:
 			return c.cost < c2.cost
 		)
 
 		if debug:
 			print("Connections not used after mst:")
-			for con: ExtraConnection in points_that_could_be_connected:
+			for con: Connection in connections_that_could_be_connected:
 				print(con.as_string())
 			print("")
 
@@ -431,12 +446,19 @@ func _create_corridors() -> bool:
 		if debug:
 			print("Desired number of extra connections: " + str(number_of_extra_connections))
 		var i: int = number_of_extra_connections
-		while i > 0 and not points_that_could_be_connected.is_empty():
-			var connection: ExtraConnection = points_that_could_be_connected.pop_front()
-			var room_connection: Connection = await _is_connection_possible(connection.room_id_1, connection.room_id_2)
-			if room_connection:
-				await _create_corridor_between_rooms(room_connection)
-				mst_astar.connect_points(connection.room_id_1, connection.room_id_2)
+		while i > 0 and not connections_that_could_be_connected.is_empty():
+			var connection: Connection = connections_that_could_be_connected.pop_front()
+			if connection.cost > biome_conf.max_corridor_length:
+				if biome_conf.restart_generation_if_extra_connections_exceed_max_corridor_length:
+					push_error("Generation restarted because extra connection corridor length is too big")
+					game.reload_generation("Corridor length exceeded!")
+					return false
+				else:
+					push_error("Skkiping extra connections because their path is too long. Added " + str(i - number_of_extra_connections) + "/" + str(number_of_extra_connections) + " connections")
+					break
+			if connection:
+				await _create_corridor_between_rooms(connection)
+				mst_astar.connect_points(connection.room_1_id, connection.room_2_id)
 				i -= 1
 			#points_that_could_be_connected.remove_at(rand)
 		if debug:
@@ -1250,8 +1272,8 @@ class RectangleSpawnShape extends SpawnShape:
 
 
 class Connection:
-	#var room_1_id: int
-	#var room_2_id: int
+	var room_1_id: int = -1
+	var room_2_id: int = -1
 	var room_1_entry_positions: EntryPositions
 	var room_2_entry_positions: EntryPositions
 	enum Type {
@@ -1274,16 +1296,5 @@ class Connection:
 		self.cost = cost
 
 
-class ExtraConnection:
-	var room_id_1: int
-	var room_id_2: int
-	var cost: float
-
-	@warning_ignore("shadowed_variable")
-	func _init(room_id_1: int, room_id_2: int, cost: float) -> void:
-		self.room_id_1 = room_id_1
-		self.room_id_2 = room_id_2
-		self.cost = cost
-
 	func as_string() -> String:
-		return "room_id_1: " + str(room_id_1) + ", room_id_2: " + str(room_id_2) + ", cost: " + str(cost)
+		return "room_1_id: " + str(room_1_id) + ", room_2_id: " + str(room_2_id) + ", cost: " + str(cost)

@@ -5,7 +5,9 @@ var room_atlas_id: int = 0
 ## Extra margin of the room region used to separate the rooms. It can also be negative, but in that case be careful not to put one room on top of another
 var room_rect_margin: int = 48
 ## Max length of the corridors in tiles. Generation will restart if there is a corridor that surpasses this length
-var max_corridor_length: int = 32
+var max_corridor_length: int = 45
+## By default, it will just stop adding extra connections when the corridor length exceeds [member max_corridor_length]. If changed to true, the generation will restart if we find a corridor that exceeds [member max_corridor_length] before the desired number of extra connections has been reached
+var restart_generation_if_extra_connections_exceed_max_corridor_length: bool = false
 var extra_connections: float = 0.5
 var minimap_texture: String = "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/triple tilemap forest_minimap_sepia.png"
 var vertical_door_texture: String = "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/doors/forest_vertical_door_canvas_texture.tres"
