@@ -5,7 +5,7 @@ var active_ability_dir_weight: float = 0.005
 
 @onready var initial_throw_speed: int = throw_speed
 
-@onready var trail_animation_player: AnimationPlayer = $Node2D/Sprite2D/TrailSprite/AnimationPlayer
+@onready var trail_animation_player: AnimationPlayer = $Node2D/WeaponSprite/TrailSpriteAnimationPlayer
 
 
 func _physics_process(delta: float) -> void:
@@ -55,7 +55,7 @@ func _go_back_to_before_throw_state() -> void:
 		trail_animation_player.play_backwards("appear")
 		throwed_using_active_ability = false
 		await trail_animation_player.animation_finished
-		$Node2D/Sprite2D/TrailSprite.hide()
+		$Node2D/WeaponSprite/TrailSprite.hide()
 
 		_decrease_weapon_condition(active_ability_condition_cost)
 #		stats.set_condition(stats.condition - active_ability_condition_cost)
