@@ -1,0 +1,84 @@
+[gd_scene load_steps=9 format=3 uid="uid://k0b7jt7bd1nh"]
+
+[ext_resource type="Script" path="res://Rooms/Furniture and Traps/crocodile_trap/crocodile_trap.gd" id="1_5gcla"]
+[ext_resource type="Texture2D" uid="uid://bkv2btktea7yo" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Crocodile/TRAP_Crocodile_side.png" id="2_1yumd"]
+[ext_resource type="Script" path="res://Characters/Hitbox.gd" id="3_dq5qg"]
+[ext_resource type="AnimationLibrary" uid="uid://bw5n1xlcesymf" path="res://Rooms/Furniture and Traps/crocodile_trap/crocodile_trap_animation_library.tres" id="3_ft46y"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wj6k0"]
+radius = 8.0
+height = 24.0
+
+[sub_resource type="Animation" id="Animation_y3qlg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pt6bh"]
+_data = {
+"RESET": SubResource("Animation_y3qlg")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cuerp"]
+radius = 8.0
+height = 24.0
+
+[node name="CrocodileTrapUp" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_5gcla")
+knockback_dir = Vector2(-1, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_1yumd")
+flip_h = true
+hframes = 4
+vframes = 5
+frame = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-5, 1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_wj6k0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pt6bh"),
+"crocodile_trap_animation_library": ExtResource("3_ft46y")
+}
+autoplay = "crocodile_trap_animation_library/idle"
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 150
+script = ExtResource("3_dq5qg")
+damage = 2
+knockback_force = 1200
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-5, 1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_cuerp")
+disabled = true
