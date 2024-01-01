@@ -3,6 +3,8 @@ class_name CrocodileTrap extends Area2D
 const ATTACK_RANGE: int = 16
 const BITE_EFFECT_SCENE: PackedScene = preload("res://Characters/Enemies/BiteEffect.tscn")
 
+var player_inside: bool = false
+
 @export var knockback_dir: Vector2
 
 @onready var sprite: Sprite2D = $Sprite2D
@@ -17,17 +19,25 @@ func _ready() -> void:
 	#set_process(false)
 	sprite.frame = 0
 
+	animation_player.animation_finished.connect(func(anim_name: String) -> void:
+		if anim_name == "crocodile_trap_animation_library/bite" and player_inside:
+			animation_player.play("crocodile_trap_animation_library/bite")
+	)
+
 	body_entered.connect(func(body: Node2D) -> void:
 		if body is Player:
+			player_inside = true
 			#set_process(true)
 			animation_player.clear_queue()
-			animation_player.play("bite")
+			#animation_player.stop()
+			animation_player.play("crocodile_trap_animation_library/bite")
 	)
 	body_exited.connect(func(body: Node2D) -> void:
 		if body is Player:
+			player_inside = false
 			#set_process(false)
 			animation_player.clear_queue()
-			animation_player.play("idle")
+			animation_player.queue("crocodile_trap_animation_library/idle")
 	)
 
 	hitbox.knockback_direction = knockback_dir
@@ -46,5 +56,5 @@ func _ready() -> void:
 
 func _spawn_bite_effect() -> void:
 	var bite_effect: Sprite2D = BITE_EFFECT_SCENE.instantiate()
-	bite_effect.position = hitbox_col.global_position + Vector2.UP * 8
+	bite_effect.position = hitbox_col.global_position + knockback_dir * 8
 	get_tree().current_scene.add_child(bite_effect)
