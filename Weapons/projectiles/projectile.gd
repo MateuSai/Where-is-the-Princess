@@ -7,7 +7,9 @@ var direction: Vector2 = Vector2.ZERO:
 	set(new_dir):
 		direction = new_dir
 		if rotate_to_dir and not random_rotate:
-			rotation = direction.angle()
+			for child: Node in get_children():
+				if child is Node2D:
+					child.rotation = direction.angle()
 var speed: int = 0
 var rotate_to_dir: bool = false
 
