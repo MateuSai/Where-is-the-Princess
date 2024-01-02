@@ -2,13 +2,13 @@
 class_name Scepter extends RangedWeapon
 
 
-#@onready var pivot_2: Node2D = $Pivot/Pivot2
+@onready var pivot: Node2D = $Pivot
 
 
 func _ready() -> void:
 	super()
 
-	projectile_speed = 100
+	normal_attack_projectile_speed = 100
 
 
 func move(mouse_direction: Vector2) -> void:
@@ -16,18 +16,18 @@ func move(mouse_direction: Vector2) -> void:
 
 	if mouse_direction.x >= 0:
 		#pivot_2.scale.x = 1
-		weapon_sprite.scale.y = 1
+		pivot.scale.y = 1
 		#pivot_2.rotation = 0
 	else:
 		#pivot_2.scale.x = -1
-		weapon_sprite.scale.y = -1
+		pivot.scale.y = -1
 		#pivot_2.rotation = PI/2
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_weapon_ability") and has_active_ability() and not is_busy() and can_active_ability():
 		_charge()
-	elif event.is_action_released("ui_weapon_ability") and has_active_ability() and not is_busy() and can_active_ability():
+	elif event.is_action_released("ui_weapon_ability") and has_active_ability() and can_active_ability():
 		#var complete_current_animation: PackedStringArray = animation_player.current_animation.split("/")
 		#var current_animation: String = complete_current_animation[complete_current_animation.size() - 1]
 		if animation_player.is_playing() and get_current_animation().begins_with("charge") and weapon_sprite.material.get("shader_parameter/active"):
@@ -60,6 +60,8 @@ func _spawn_lightning() -> void:
 
 	var lightning: LightningAreaAttack = load("res://Characters/Enemies/BodenTheDruid/LightningAreaAttack.tscn").instantiate()
 	lightning.position = global_position
+	for body: PhysicsBody2D in (get_parent().get_parent() as Character).get_exclude_bodies():
+		lightning.exclude.push_back(body)
 	get_tree().current_scene.add_child(lightning)
 	lightning.attack(Vector2.RIGHT.rotated(rotation))
 	Globals.player.camera.flash()

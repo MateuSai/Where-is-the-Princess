@@ -181,6 +181,7 @@ active_ability_icon = ExtResource("3_bc7ab")
 material = SubResource("ShaderMaterial_eav6s")
 position = Vector2(6, -2.09808e-05)
 rotation = 0.0
+scale = Vector2(-1, 1)
 texture = ExtResource("4_e2opm")
 offset = Vector2(0, -9)
 

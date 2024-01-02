@@ -21,11 +21,18 @@ var throw_rot_speed: float = 0
 var piercing: int = 1
 var bodies_pierced: int = 0
 
+var spawn_weapon_shadow_timer: Timer
+
 @onready var hitbox: WeaponHitbox = %Hitbox
 
 
 func _ready() -> void:
 	super()
+
+	spawn_weapon_shadow_timer = Timer.new()
+	spawn_weapon_shadow_timer.wait_time = 0.05
+	spawn_weapon_shadow_timer.timeout.connect(_spawn_shadow_effect)
+	add_child(spawn_weapon_shadow_timer)
 
 	hitbox.collided_with_something.connect(func(_body: Node2D) -> void:
 		_on_collided_with_something()
@@ -218,3 +225,26 @@ func _on_animation_finished(anim_name: String) -> void:
 	if anim_name.begins_with("active_ability"):
 		hitbox.damage = damage
 		hitbox.knockback_force = knockback
+
+
+func _start_shadow_effect() -> void:
+	_spawn_shadow_effect()
+	spawn_weapon_shadow_timer.start()
+
+
+func _stop_shadow_effect() -> void:
+	spawn_weapon_shadow_timer.stop()
+
+
+func _spawn_shadow_effect() -> void:
+	var shadow_sprite: ShadowSprite = ShadowSprite.new()
+	shadow_sprite.modulate.a = 0.7
+	shadow_sprite.scale = weapon_sprite.scale
+	shadow_sprite.flip_h = weapon_sprite.flip_h
+	shadow_sprite.flip_v = weapon_sprite.flip_v
+	shadow_sprite.transform = weapon_sprite.global_transform
+	#shadow_sprite.position = weapon_sprite.global_position
+	#shadow_sprite.rotation = weapon_sprite.global_rotation
+	shadow_sprite.offset = weapon_sprite.offset
+	get_tree().current_scene.add_child(shadow_sprite)
+	shadow_sprite.start(weapon_sprite.texture)

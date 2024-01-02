@@ -1,6 +1,7 @@
 class_name RangedWeapon extends Weapon
 
 var projectile_speed: int
+var normal_attack_projectile_speed: int = 100
 var ability_projectile_speed: int = 300
 
 # Path to projectile scene
@@ -62,3 +63,5 @@ func _on_animation_started(anim_name: StringName) -> void:
 
 	if anim_name.begins_with("active_ability"):
 		projectile_speed = ability_projectile_speed
+	else:
+		projectile_speed = normal_attack_projectile_speed

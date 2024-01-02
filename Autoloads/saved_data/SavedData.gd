@@ -287,9 +287,11 @@ func get_volatile_room_paths(biome: String, room_type: String, end_to: String = 
 	end_to = end_to.to_lower()
 
 	if volatile_room_paths.has(biome) and volatile_room_paths[biome].has(room_type) and room_type != "end":
-		return PackedStringArray(volatile_room_paths[biome][room_type])
+		var a: Array = volatile_room_paths[biome][room_type]
+		return PackedStringArray(a)
 	elif volatile_room_paths.has(biome) and volatile_room_paths[biome].has(room_type) and volatile_room_paths[biome][room_type].has(end_to):
-		return PackedStringArray(volatile_room_paths[biome][room_type][end_to])
+		var a: Array = volatile_room_paths[biome][room_type][end_to]
+		return PackedStringArray(a)
 	else:
 		return PackedStringArray([])
 
