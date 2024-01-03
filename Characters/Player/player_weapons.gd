@@ -185,7 +185,10 @@ func add_soul_to_current_weapon() -> void:
 
 
 func _on_weapon_condition_changed(weapon: Weapon, new_condition: float) -> void:
-	assert(weapon == current_weapon)
+	#assert(weapon == current_weapon)
+	if weapon != current_weapon:
+		return
+
 	if new_condition <= 0:
 		_destroy_weapon()
 	else:
@@ -197,10 +200,10 @@ func _on_weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.S
 
 
 func set_current_weapon(new_weapon: Weapon) -> void:
-		if current_weapon != null:
-			current_weapon.set_process_unhandled_input(false)
-		super(new_weapon)
-		current_weapon.set_process_unhandled_input(true)
+	if current_weapon != null:
+		current_weapon.set_process_unhandled_input(false)
+	super(new_weapon)
+	current_weapon.set_process_unhandled_input(true)
 
 
 func can_pick_up_weapons() -> bool:
