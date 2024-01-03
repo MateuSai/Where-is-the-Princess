@@ -21,7 +21,7 @@ func _ready() -> void:
 	vbox.custom_minimum_size.x = max_hp * 5
 
 	_update_bar(life_component.max_hp, life_component.max_hp)
-	life_component.hp_changed.connect(func(new_hp: int):
+	life_component.hp_changed.connect(func(new_hp: int) -> void:
 		_update_bar(new_hp, life_component.max_hp)
 	)
 

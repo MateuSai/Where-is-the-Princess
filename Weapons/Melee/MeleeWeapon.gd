@@ -30,7 +30,7 @@ func _ready() -> void:
 	super()
 
 	spawn_weapon_shadow_timer = Timer.new()
-	spawn_weapon_shadow_timer.wait_time = 0.05
+	spawn_weapon_shadow_timer.wait_time = 0.03
 	spawn_weapon_shadow_timer.timeout.connect(_spawn_shadow_effect)
 	add_child(spawn_weapon_shadow_timer)
 
@@ -89,6 +89,8 @@ func _pick_up() -> void:
 
 
 func _attack() -> void:
+	#var dfdsf = get_animation_full_name("attack_2")
+	#print(dfdsf.is_empty())
 	if attack_num == 1 and get_animation_full_name("attack_2").is_empty():
 		animation_player.play_backwards(get_animation_full_name("attack_1"))
 	else:

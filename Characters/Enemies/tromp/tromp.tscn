@@ -1,0 +1,135 @@
+[gd_scene load_steps=15 format=3 uid="uid://vygi5f1moo61"]
+
+[ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_wturi"]
+[ext_resource type="Texture2D" uid="uid://lvnlupbop6xj" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Tromp the necromancer/Tromp_01.png" id="2_htkds"]
+[ext_resource type="Script" path="res://Characters/Enemies/tromp/tromp.gd" id="2_jvfdc"]
+[ext_resource type="Script" path="res://Characters/Enemies/tromp/tromp_fsm.gd" id="3_qry1i"]
+[ext_resource type="PackedScene" uid="uid://dihstm6j1hf3l" path="res://Components/BossHpBar.tscn" id="4_cmcov"]
+[ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="5_4v446"]
+[ext_resource type="PackedScene" uid="uid://is6fm5j04ae1" path="res://Weapons/Ranged/scepters/necromancer_scepter/necromancer_scepter.tscn" id="6_dv0vm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gcctr"]
+radius = 2.0
+
+[sub_resource type="Animation" id="Animation_v7hb1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_rs0ca"]
+resource_name = "idle"
+length = 0.9
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_wp7k7"]
+resource_name = "idle_up"
+length = 0.9
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16, 17]
+}
+
+[sub_resource type="Animation" id="Animation_ueepp"]
+resource_name = "run"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_3ap0t"]
+resource_name = "run_up"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [18, 19, 20, 21, 22, 23]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ph2pc"]
+_data = {
+"RESET": SubResource("Animation_v7hb1"),
+"idle": SubResource("Animation_rs0ca"),
+"idle_up": SubResource("Animation_wp7k7"),
+"run": SubResource("Animation_ueepp"),
+"run_up": SubResource("Animation_3ap0t")
+}
+
+[node name="Tromp" instance=ExtResource("1_wturi")]
+script = ExtResource("2_jvfdc")
+
+[node name="FiniteStateMachine" parent="." index="0"]
+script = ExtResource("3_qry1i")
+
+[node name="Sprite2D" parent="." index="2"]
+position = Vector2(0, -5)
+texture = ExtResource("2_htkds")
+hframes = 6
+vframes = 4
+
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("CircleShape2D_gcctr")
+
+[node name="EnemyWeapons" type="Node2D" parent="." index="4"]
+script = ExtResource("5_4v446")
+
+[node name="NecromancerScepter" parent="EnemyWeapons" index="0" instance=ExtResource("6_dv0vm")]
+
+[node name="AnimationPlayer" parent="." index="5"]
+libraries = {
+"": SubResource("AnimationLibrary_ph2pc")
+}
+
+[node name="Marker2D" type="Marker2D" parent="DustPositions" index="0"]
+
+[node name="BossHpBar" parent="." index="12" instance=ExtResource("4_cmcov")]

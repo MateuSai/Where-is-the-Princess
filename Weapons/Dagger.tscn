@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bw0adahejc8e2"]
+[gd_scene load_steps=12 format=3 uid="uid://bw0adahejc8e2"]
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_bl8c5"]
 [ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="2_lmpvs"]
@@ -10,6 +10,14 @@
 resource_local_to_scene = true
 shader = ExtResource("2_lmpvs")
 shader_parameter/active = false
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jeila"]
+radius = 2.46772
+height = 9.97224
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7aumr"]
+radius = 2.76245
+height = 9.97224
 
 [sub_resource type="Animation" id="Animation_8hb7s"]
 length = 0.001
@@ -205,6 +213,17 @@ material = SubResource("ShaderMaterial_8mvig")
 position = Vector2(-4.99999, -4.00002)
 rotation = 1.78722
 texture = ExtResource("3_vxd16")
+offset = Vector2(4.5, -7.5)
+
+[node name="CollisionShape2D" parent="Node2D/WeaponSprite/Hitbox" index="0"]
+position = Vector2(4.57163, -7.14845)
+rotation = 0.785398
+shape = SubResource("CapsuleShape2D_jeila")
+
+[node name="CollisionShape2D" parent="Node2D/WeaponSprite/PlayerDetector" index="0"]
+position = Vector2(4.57163, -7.14845)
+rotation = 0.785398
+shape = SubResource("CapsuleShape2D_7aumr")
 
 [node name="SlashSprite" type="Sprite2D" parent="." index="1"]
 visible = false
