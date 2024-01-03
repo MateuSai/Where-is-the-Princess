@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://b0qg1ufhu6ry6"]
+[gd_scene load_steps=14 format=3 uid="uid://b0qg1ufhu6ry6"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_yk06j"]
 [ext_resource type="Script" path="res://Characters/Enemies/skelebro/skelebro_fsm.gd" id="2_13wq3"]
 [ext_resource type="Script" path="res://Characters/Enemies/skelebro/skelebro.gd" id="2_kro2b"]
 [ext_resource type="Texture2D" uid="uid://jfehaj24kmy2" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_warrior.png" id="3_jqv5y"]
-[ext_resource type="Resource" uid="uid://bt8ueanyji751" path="res://Characters/Enemies/skelebro/unlock_weapon_on_kills.tres" id="3_vc8sn"]
 [ext_resource type="PackedScene" uid="uid://mh1705nhovp2" path="res://Weapons/Melee/rusty_sword/rusty_sword.tscn" id="4_mxb4u"]
 [ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="6_geb4h"]
 
@@ -105,7 +104,6 @@ _data = {
 
 [node name="Skelebro" instance=ExtResource("1_yk06j")]
 script = ExtResource("2_kro2b")
-unlock_weapon_on_kills = ExtResource("3_vc8sn")
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("2_13wq3")
