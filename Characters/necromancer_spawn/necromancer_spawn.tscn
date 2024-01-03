@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://c2x4stsqcqs7m"]
+
+[ext_resource type="Material" uid="uid://cmyqibox7jjbf" path="res://unshaded.tres" id="1_wlr2i"]
+[ext_resource type="Texture2D" uid="uid://1d43oxtp7a0t" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Tromp the necromancer/Skelebro_spawn_floor_anim.png" id="2_yh7nk"]
+[ext_resource type="Script" path="res://Characters/necromancer_spawn/necromancer_spawn.gd" id="3_85273"]
+
+[sub_resource type="Animation" id="Animation_xhv4v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_87sv2"]
+resource_name = "spawn"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 1.5, 1.6, 1.7, 1.8, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 4, 3, 2, 1, 0]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 2),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"_spawn_skeleton"
+}, {
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_taums"]
+_data = {
+"RESET": SubResource("Animation_xhv4v"),
+"spawn": SubResource("Animation_87sv2")
+}
+
+[node name="NecromancerSpawn" type="Sprite2D"]
+z_index = -1
+material = ExtResource("1_wlr2i")
+texture = ExtResource("2_yh7nk")
+hframes = 5
+script = ExtResource("3_85273")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_taums")
+}
+autoplay = "spawn"

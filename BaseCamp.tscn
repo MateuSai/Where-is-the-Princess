@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=51 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="1_0pcgl"]
 [ext_resource type="Script" path="res://BaseCamp.gd" id="1_tpf7m"]
@@ -34,6 +34,7 @@
 [ext_resource type="PackedScene" uid="uid://dt58rwqk2borq" path="res://Rooms/game_shops/GameShopLevel1.tscn" id="31_rm7le"]
 [ext_resource type="Texture2D" uid="uid://cxwois4ml3d4s" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/sign_boss.png" id="32_76hog"]
 [ext_resource type="PackedScene" uid="uid://cpyqtlqtdkuiq" path="res://Weapons/Ranged/scepters/lightning_stick/lightning_stick.tscn" id="34_nl6xg"]
+[ext_resource type="PackedScene" uid="uid://bp2oo4273j0dc" path="res://Weapons/Melee/Spear.tscn" id="35_gq7sc"]
 
 [sub_resource type="Gradient" id="Gradient_nhg8o"]
 offsets = PackedFloat32Array(0, 0.784849)
@@ -446,4 +447,8 @@ position = Vector2(2430, 131)
 
 [node name="LightningStick" parent="." instance=ExtResource("34_nl6xg")]
 position = Vector2(33, 277)
+on_floor = true
+
+[node name="Spear" parent="." instance=ExtResource("35_gq7sc")]
+position = Vector2(136, 175)
 on_floor = true

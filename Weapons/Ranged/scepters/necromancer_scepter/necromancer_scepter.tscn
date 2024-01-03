@@ -1,15 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://cpyqtlqtdkuiq"]
+[gd_scene load_steps=13 format=3 uid="uid://is6fm5j04ae1"]
 
-[ext_resource type="Script" path="res://Weapons/Ranged/scepters/lightning_stick/lightning_stick.gd" id="1_smfnl"]
-[ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="2_r38ru"]
-[ext_resource type="Texture2D" uid="uid://dt6l7ypyccyhe" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/druid_scepter.png" id="3_wuglc"]
-[ext_resource type="Texture2D" uid="uid://6y54vubug5vv" path="res://Art/effects/electricity_rays.png" id="5_6lebt"]
-[ext_resource type="AnimationLibrary" uid="uid://coxxnos2iywvn" path="res://Weapons/animation_libraries/scepter_animation_library.tres" id="5_nc2an"]
-[ext_resource type="AudioStream" uid="uid://cpi8xdb0i2rbv" path="res://Audio/Sounds/446013__slavicmagic__metal_bash1.wav" id="6_q63rw"]
+[ext_resource type="Script" path="res://Weapons/Ranged/scepters/necromancer_scepter/necromancer_scepter.gd" id="1_wn86i"]
+[ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="2_686ue"]
+[ext_resource type="Texture2D" uid="uid://bo18bt5678yrm" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Tromp the necromancer/tromp scepter.png" id="3_lpuul"]
+[ext_resource type="Texture2D" uid="uid://6y54vubug5vv" path="res://Art/effects/electricity_rays.png" id="4_gd2r5"]
+[ext_resource type="AnimationLibrary" uid="uid://coxxnos2iywvn" path="res://Weapons/animation_libraries/scepter_animation_library.tres" id="5_5an3e"]
+[ext_resource type="AudioStream" uid="uid://cpi8xdb0i2rbv" path="res://Audio/Sounds/446013__slavicmagic__metal_bash1.wav" id="6_8810y"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eec5l"]
 resource_local_to_scene = true
-shader = ExtResource("2_r38ru")
+shader = ExtResource("2_686ue")
 shader_parameter/active = false
 
 [sub_resource type="ParticleProcessMaterial" id="2"]
@@ -21,7 +21,7 @@ angular_velocity_max = 40.0
 gravity = Vector3(0, 0, 0)
 turbulence_enabled = true
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tubvl"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_43436"]
 radius = 5.98018
 height = 16.4032
 
@@ -61,7 +61,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(4, 0)]
+"values": [Vector2(8, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -101,7 +101,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.3, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(4, 0), Vector2(8, 0), Vector2(8, 0), Vector2(4, 0)]
+"values": [Vector2(8, 0), Vector2(12, 0), Vector2(12, 0), Vector2(8, 0)]
 }
 tracks/2/type = "method"
 tracks/2/imported = false
@@ -148,18 +148,18 @@ _data = {
 "active_ability": SubResource("Animation_tjqhj")
 }
 
-[node name="LightningStick" type="Node2D"]
+[node name="NecromancerScepter" type="Node2D"]
 texture_filter = 1
-script = ExtResource("1_smfnl")
+script = ExtResource("1_wn86i")
 
 [node name="Pivot" type="Node2D" parent="."]
 
 [node name="WeaponSprite" type="Sprite2D" parent="Pivot"]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_eec5l")
-position = Vector2(4, 0)
-texture = ExtResource("3_wuglc")
-offset = Vector2(1, -3)
+position = Vector2(8, 0)
+texture = ExtResource("3_lpuul")
+offset = Vector2(-0.5, -3)
 
 [node name="ChargeParticles" type="GPUParticles2D" parent="Pivot/WeaponSprite"]
 emitting = false
@@ -176,7 +176,7 @@ collision_mask = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/WeaponSprite/PlayerDetector"]
 position = Vector2(-5.04049, -0.77038)
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_tubvl")
+shape = SubResource("CapsuleShape2D_43436")
 
 [node name="SpawnProjectilePos" type="Marker2D" parent="Pivot/WeaponSprite"]
 unique_name_in_owner = true
@@ -184,15 +184,15 @@ position = Vector2(9.608, 8)
 
 [node name="Spark" type="Sprite2D" parent="Pivot/WeaponSprite"]
 visible = false
-position = Vector2(0, 6)
-rotation = -0.453786
-texture = ExtResource("5_6lebt")
+position = Vector2(0, -10)
+rotation = 0.757473
+texture = ExtResource("4_gd2r5")
 hframes = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_w6ini"),
-"scepter_animation_library": ExtResource("5_nc2an")
+"scepter_animation_library": ExtResource("5_5an3e")
 }
 
 [node name="CoolDownTimer" type="Timer" parent="."]
@@ -200,7 +200,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="DestroyWeaponSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_q63rw")
+stream = ExtResource("6_8810y")
 bus = &"Sounds"
 
 [node name="ShootSound" type="AudioStreamPlayer" parent="."]

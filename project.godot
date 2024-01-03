@@ -69,6 +69,7 @@ folder_colors={
 "res://Characters/": "gray",
 "res://Rooms/": "red",
 "res://Translations/": "purple",
+"res://Weapons/": "teal",
 "res://addons/": "blue",
 "res://scripts/": "orange"
 }

@@ -203,7 +203,7 @@ func _on_Tween_tween_completed() -> void:
 
 func _on_condition_changed(new_condition: float) -> void:
 	if get_parent() is Weapons:
-		emit_signal("condition_changed", self, new_condition)
+		condition_changed.emit(new_condition)
 	else:
 		if new_condition <= 0:
 			destroy()
