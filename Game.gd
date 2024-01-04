@@ -23,7 +23,7 @@ var scroll_vertical_at_start_of_drag: float = 0
 
 
 func _ready() -> void:
-	print_debug("Game _ready")
+	#print_debug("Game _ready")
 
 	set_process(false)
 
@@ -42,7 +42,7 @@ func _ready() -> void:
 	else:
 		generating_dungeon_canvas_layer.show()
 
-	print_debug("Starting generation")
+	#print_debug("Starting generation")
 	if execute_procedural_generation_on_thread:
 		rooms.generation_completed.connect(func() -> void:
 			generation_thread.wait_to_finish()
@@ -57,7 +57,7 @@ func _ready() -> void:
 
 
 func _on_rooms_generation_completed() -> void:
-	print_debug("Generation completed")
+	#print_debug("Generation completed")
 
 	generating_dungeon_canvas_layer.hide()
 
@@ -74,7 +74,7 @@ func _on_rooms_generation_completed() -> void:
 	add_child(player)
 	player_added.emit()
 
-	print_debug("_on_rooms_generation_completed finished executing")
+	#print_debug("_on_rooms_generation_completed finished executing")
 
 
 func _input(event: InputEvent) -> void:

@@ -189,7 +189,7 @@ func _get_end_rooms() -> Array[PackedStringArray]:
 
 
 func spawn_rooms() -> void:
-	print_debug("spawn_rooms started")
+	#print_debug("spawn_rooms started")
 
 	spawn_shape = SavedData.get_current_level_spawn_shape()
 
@@ -237,7 +237,7 @@ func spawn_rooms() -> void:
 		var combat_room_scene: PackedScene = load(combat_room_paths[randi() % combat_room_paths.size()])
 		rooms.push_back(combat_room_scene.instantiate())
 
-	print_debug("Adding rooms to scene tree and other things")
+	#print_debug("Adding rooms to scene tree and other things")
 	for room: DungeonRoom in rooms:
 		room.name += "_" + str(rooms.find(room))
 		room.player_entered.connect(func() -> void:
@@ -247,19 +247,19 @@ func spawn_rooms() -> void:
 		add_child(room)
 	await get_tree().process_frame
 	await get_tree().process_frame
-	print_debug("Finished adding rooms to scene tree and other things")
+	#print_debug("Finished adding rooms to scene tree and other things")
 
-	print_debug("Changing rooms start position")
+	#print_debug("Changing rooms start position")
 	for room: DungeonRoom in rooms:
 		room.float_position = room.get_random_spawn_point(spawn_shape) - room.vector_to_center
 		if debug:
 			(room.get_node("DebugRoomId") as Label).text = str(rooms.find(room))
-	print_debug("Finished changing rooms start position")
+	#print_debug("Finished changing rooms start position")
 
 	# return
 	set_process(true)
 
-	print_debug("spawn_rooms finished")
+	#print_debug("spawn_rooms finished")
 
 
 func _create_corridors() -> bool:
