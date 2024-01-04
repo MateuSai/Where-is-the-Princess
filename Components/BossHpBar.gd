@@ -4,6 +4,8 @@ var bar_tween: Tween
 
 var max_hp: int
 
+@export var top_margin: int = 13
+
 @onready var enemy: Enemy = get_parent()
 @onready var life_component: LifeComponent = enemy.get_node("LifeComponent")
 
@@ -14,6 +16,8 @@ var max_hp: int
 
 func _ready() -> void:
 	await enemy.ready
+
+	($HBoxContainer/VBoxContainer/MarginContainer as MarginContainer).add_theme_constant_override("margin_top", top_margin)
 
 	name_label.text = enemy.name
 
@@ -26,6 +30,7 @@ func _ready() -> void:
 	)
 
 
+@warning_ignore("shadowed_variable")
 func _update_bar(hp: int, max_hp: int) -> void:
 	if self.max_hp != max_hp:
 		_set_max_hp(max_hp)

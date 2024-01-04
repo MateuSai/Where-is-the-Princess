@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://bt8vc10uqx5cf"]
+[gd_scene load_steps=12 format=3 uid="uid://bt8vc10uqx5cf"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_bvb45"]
+[ext_resource type="Script" path="res://Characters/Enemies/crocodile_joe/crocodile_joe_fsm.gd" id="2_7ucr5"]
 [ext_resource type="Texture2D" uid="uid://ctxd0uyhjolhc" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Crocodile/Crocodile_JOE.png" id="2_whsrv"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="3_l6qpg"]
+[ext_resource type="PackedScene" uid="uid://dihstm6j1hf3l" path="res://Components/BossHpBar.tscn" id="5_26mvr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dlh12"]
 radius = 5.0
@@ -70,6 +72,9 @@ _data = {
 
 [node name="CrocodileJoe" instance=ExtResource("1_bvb45")]
 
+[node name="FiniteStateMachine" parent="." index="0"]
+script = ExtResource("2_7ucr5")
+
 [node name="Sprite2D" parent="." index="2"]
 position = Vector2(0, -10)
 texture = ExtResource("2_whsrv")
@@ -92,3 +97,6 @@ shape = SubResource("CapsuleShape2D_hf3kl")
 libraries = {
 "": SubResource("AnimationLibrary_iyw7o")
 }
+
+[node name="BossHpBar" parent="." index="12" instance=ExtResource("5_26mvr")]
+top_margin = 26

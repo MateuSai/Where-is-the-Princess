@@ -1,5 +1,8 @@
 class_name BiomeConf
 
+const DEFAULT_NUM_COMBAT_ROOMS: int = 5
+const DEFAULT_NUM_SPECIAL_ROOMS: int = 1
+
 var corridor_atlas_id: int = 0
 var room_atlas_id: int = 0
 ## Extra margin of the room region used to separate the rooms. It can also be negative, but in that case be careful not to put one room on top of another
@@ -18,8 +21,8 @@ var vertical_corridor_symmetric_lights: bool = false
 
 var corridor_floor_tiles_coor: Array[Array] = []
 
-var default_num_combat_rooms: int = 5
-var default_num_special_rooms: int = 1
+var default_num_combat_rooms: int = DEFAULT_NUM_COMBAT_ROOMS
+var default_num_special_rooms: int = DEFAULT_NUM_SPECIAL_ROOMS
 var levels: Array[Level] = []
 
 var music: String = ""
@@ -33,7 +36,7 @@ static func from_dic(dic: Dictionary) -> BiomeConf:
 				"levels":
 					assert(dic[key] is Dictionary)
 					var levels_dic: Dictionary = dic[key]
-					data.set(key, _load_levels(levels_dic))
+					data.set(key, _load_levels(dic, levels_dic))
 				"corridor_floor_tiles_coor":
 					data.corridor_floor_tiles_coor = []
 					var a: Array = dic[key]
@@ -58,18 +61,18 @@ static func from_dic(dic: Dictionary) -> BiomeConf:
 	#return dic
 
 
-static func _load_levels(dic: Dictionary) -> Array[Level]:
+static func _load_levels(biome_dic: Dictionary, levels_dic: Dictionary) -> Array[Level]:
 	var arr: Array[Level] = []
 
-	for key: String in dic.keys():
+	for key: String in levels_dic.keys():
 		var level: int = int(key)
 
 		while arr.size() + 1 < level:
 			arr.push_back(Level.new())
 
-		assert(dic[key] is Dictionary)
-		var level_dic: Dictionary = dic[key]
-		arr.push_back(Level.from_dic(level_dic))
+		assert(levels_dic[key] is Dictionary)
+		var level_dic: Dictionary = levels_dic[key]
+		arr.push_back(Level.from_dic(biome_dic, level_dic))
 
 	return arr
 
@@ -86,8 +89,10 @@ class Level:
 	## If this is enabled, the rooms will only move vertically when they get apart from each other
 	var disable_horizontal_separation_steering: bool = false
 
-	var num_combat_rooms: int = 5
-	var num_special_rooms: int = 2
+	## If not specified, it will take [member BiomeConf.default_num_combat_rooms]
+	var num_combat_rooms: int = -1
+	## If not specified, it will take [member BiomeConf.default_num_special_rooms]
+	var num_special_rooms: int = -1
 
 	var overwrite_start_rooms: Array = [""]
 	var overwrite_combat_rooms: Array = [""]
@@ -96,13 +101,24 @@ class Level:
 
 	var overwrite_connections: Array = []
 
-	static func from_dic(dic: Dictionary) -> Level:
+	static func from_dic(biome_dic: Dictionary, level_dic: Dictionary) -> Level:
 		var level: Level = Level.new()
 
-		for key: String in dic.keys():
+		for key: String in level_dic.keys():
 			if level.get(key) != null:
-				level.set(key, dic[key])
+				level.set(key, level_dic[key])
 			else:
 				printerr("Level: Invalid property: " + key)
+
+		if level.num_combat_rooms == -1:
+			if biome_dic.has("default_num_combat_rooms"):
+				level.num_combat_rooms = biome_dic.default_num_combat_rooms
+			else:
+				level.num_combat_rooms = BiomeConf.DEFAULT_NUM_COMBAT_ROOMS
+		if level.num_special_rooms == -1:
+			if biome_dic.has("default_num_special_rooms"):
+				level.num_special_rooms = biome_dic.default_num_combat_rooms
+			else:
+				level.num_special_rooms = BiomeConf.DEFAULT_NUM_SPECIAL_ROOMS
 
 		return level

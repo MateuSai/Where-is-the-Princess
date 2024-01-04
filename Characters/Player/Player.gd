@@ -316,14 +316,13 @@ func _use_armor_ability() -> void:
 	if armor.effect_duration > 0:
 		armor_effect_timer.start(armor.effect_duration)
 		await armor_effect_timer.timeout
+		armor.disable_ability_effect(self)
 	armor.ability_effect_ended.emit()
 
 	armor_recharge_timer.start(get_armor_recharge_time())
 	await armor_recharge_timer.timeout
 
 	armor.is_able_to_use_ability = true
-
-	armor.disable_ability_effect(self)
 
 
 func get_armor_recharge_time() -> float:

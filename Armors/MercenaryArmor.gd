@@ -6,13 +6,13 @@ func _init() -> void:
 
 
 func enable_ability_effect(player: Player) -> void:
-	player.damage_multiplier += 1
-	player.life_component.damage_taken_multiplier += 1
+	player.damage_multiplier *= 2
+	player.life_component.damage_taken_multiplier *= 2
 
 
 func disable_ability_effect(player: Player) -> void:
-	player.damage_multiplier -= 1
-	player.life_component.damage_taken_multiplier -= 1
+	player.damage_multiplier /= 2
+	player.life_component.damage_taken_multiplier /= 2
 
 
 func get_sprite_sheet() -> Texture2D:

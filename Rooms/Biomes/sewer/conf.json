@@ -15,4 +15,18 @@
 	"default_num_special_rooms": 0,
 
 	"music": "res://Audio/Music/Incompetech/Shamanistic.mp3",
+
+	"levels": {
+		"2": {
+			"spawn_shape_type": "rectangle",
+			"spawn_shape_width": 200,
+			"spawn_shape_height": 300,
+			"disable_horizontal_separation_steering": true,
+
+			"num_combat_rooms": 1,
+			"num_special_rooms": 0,
+
+			"overwrite_combat_rooms": ["res://Rooms/Biomes/sewer/boss_room.tscn"],
+		}
+	}
 }
