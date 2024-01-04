@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://d07d6i7m5xd8r"]
+
+[ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_efl7d"]
+[ext_resource type="PackedScene" uid="uid://cwb0heh4qdkh8" path="res://Rooms/Chest.tscn" id="2_jg1p0"]
+[ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_lj7e0"]
+[ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_bscno"]
+[ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="5_hfqyr"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_eur6v"]
+resource_local_to_scene = true
+source_geometry_mode = 2
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 2.0
+
+[node name="SewerChestRoom1" instance=ExtResource("1_efl7d")]
+navigation_polygon = SubResource("NavigationPolygon_eur6v")
+
+[node name="TileMap" parent="." index="0"]
+layer_0/tile_data = PackedInt32Array(131074, 5, 2, 196610, 5, 2, 262146, 262149, 2, 327682, 65541, 3, 393218, 5, 2, 458754, 5, 3, 131075, 5, 3, 196611, 5, 2, 262147, 65541, 3, 327683, 65541, 3, 393219, 5, 2, 458755, 5, 2, 196612, 65541, 5, 262148, 262149, 2, 327684, 262149, 2, 393220, 65541, 4, 458756, 5, 3, 131077, 65541, 5, 196613, 65541, 3, 262149, 262149, 2, 327685, 65541, 3, 393221, 262149, 2, 458757, 65541, 4, 131078, 65541, 3, 196614, 262149, 2, 262150, 65541, 3, 327686, 65541, 3, 393222, 262149, 2, 458758, 262149, 2, 131079, 262149, 2, 196615, 65541, 3, 262151, 65541, 3, 327687, 65541, 3, 393223, 262149, 2, 458759, 262149, 2, 131080, 5, 5, 196616, 65541, 3, 262152, 65541, 3, 327688, 65541, 3, 393224, 65541, 3, 458760, 5, 4, 131081, 5, 2, 196617, 5, 5, 262153, 262149, 2, 327689, 262149, 2, 393225, 5, 4, 458761, 5, 3, 131082, 5, 3, 196618, 5, 2, 262154, 65541, 3, 327690, 262149, 2, 393226, 5, 2, 458762, 5, 3, 131083, 5, 3, 196619, 5, 2, 262155, 65541, 3, 327691, 262149, 2, 393227, 5, 2, 458763, 5, 2, 131076, 5, 2, 65538, 524293, 4, 65539, 458757, 4, 65540, 524293, 5, 65541, 458757, 4, 65544, 458757, 5, 65545, 458757, 4, 65546, 393221, 5, 65547, 458757, 4, 262145, 65541, 3, 327681, 65541, 3, 327692, 65541, 3, 262156, 65541, 3, 8, 65541, 7, 131084, 65541, 7, 131073, 327685, 7, 5, 327685, 7, 196620, 393221, 4, 196609, 458757, 4, 4, 131077, 7, 3, 131077, 7, 2, 131077, 7, 9, 131077, 7, 10, 131077, 7, 11, 131077, 7, 12, 196613, 4, 1, 262149, 4, 6, 262149, 2, 7, 262149, 2, 65543, 262149, 2, 65542, 65541, 3)
+layer_1/tile_data = PackedInt32Array(65548, 196613, 5, 65537, 262149, 5, 393217, 262149, 5, 458753, 262149, 5, 393228, 196613, 5, 458764, 196613, 5, 458754, 131077, 6, 458755, 131077, 6, 458756, 131077, 6, 458761, 131077, 6, 458762, 131077, 6, 458763, 131077, 6)
+layer_3/tile_data = PackedInt32Array(327692, 65541, 6, 327681, 327685, 6, 458757, 327685, 6, 458760, 65541, 6)
+
+[node name="VerticalEntry" parent="Entries/Left" index="0" instance=ExtResource("2_lj7e0")]
+position = Vector2(23, 71)
+
+[node name="HorizontalEntry" parent="Entries/Up" index="0" instance=ExtResource("3_bscno")]
+position = Vector2(104, 7)
+
+[node name="VerticalEntry" parent="Entries/Right" index="0" instance=ExtResource("2_lj7e0")]
+position = Vector2(201, 69)
+
+[node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("3_bscno")]
+position = Vector2(103, 124)
+
+[node name="Chest" parent="." index="10" instance=ExtResource("2_jg1p0")]
+position = Vector2(80, 62)
+
+[node name="Chest2" parent="." index="11" instance=ExtResource("2_jg1p0")]
+position = Vector2(146, 62)
+
+[node name="Torch" parent="." index="12" instance=ExtResource("5_hfqyr")]
+position = Vector2(88, 22)
+
+[node name="Torch2" parent="." index="13" instance=ExtResource("5_hfqyr")]
+position = Vector2(138, 22)
+
+[node name="Torch3" parent="." index="14" instance=ExtResource("5_hfqyr")]
+position = Vector2(138, 120)
+
+[node name="Torch4" parent="." index="15" instance=ExtResource("5_hfqyr")]
+position = Vector2(88, 120)

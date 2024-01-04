@@ -68,7 +68,7 @@ static func _load_levels(biome_dic: Dictionary, levels_dic: Dictionary) -> Array
 		var level: int = int(key)
 
 		while arr.size() + 1 < level:
-			arr.push_back(Level.new())
+			arr.push_back(Level.from_dic(biome_dic, {}))
 
 		assert(levels_dic[key] is Dictionary)
 		var level_dic: Dictionary = levels_dic[key]

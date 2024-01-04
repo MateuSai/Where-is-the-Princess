@@ -12,7 +12,7 @@
 	"corridor_floor_tiles_coor": [[0, 2], [0, 3]],
 
 	"default_num_combat_rooms": 5,
-	"default_num_special_rooms": 0,
+	"default_num_special_rooms": 2,
 
 	"music": "res://Audio/Music/Incompetech/Shamanistic.mp3",
 
