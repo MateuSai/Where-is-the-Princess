@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4kxn7os1tf3r"
-path="res://.godot/imported/TRAP_Crocodile_down.png-4f4cdc17ee6195bfc4bd654a75426dde.ctex"
+uid="uid://m50dfyvaq1v1"
+path="res://.godot/imported/TRAP_Crocodile_up.png-b01e3258804ad6d32418ad988ee2bf7e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Crocodile/TRAP_Crocodile_down.png"
-dest_files=["res://.godot/imported/TRAP_Crocodile_down.png-4f4cdc17ee6195bfc4bd654a75426dde.ctex"]
+source_file="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Crocodile/TRAP_Crocodile_up.png"
+dest_files=["res://.godot/imported/TRAP_Crocodile_up.png-b01e3258804ad6d32418ad988ee2bf7e.ctex"]
 
 [params]
 

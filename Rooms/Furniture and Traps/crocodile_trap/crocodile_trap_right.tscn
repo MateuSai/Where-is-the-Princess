@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://daocnji5c2t4i"]
 
 [ext_resource type="Script" path="res://Rooms/Furniture and Traps/crocodile_trap/crocodile_trap.gd" id="1_iil03"]
-[ext_resource type="Texture2D" uid="uid://bkv2btktea7yo" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Crocodile/TRAP_Crocodile_side.png" id="2_iuio1"]
+[ext_resource type="Texture2D" uid="uid://bhct2a8x6hllw" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Crocodile/TRAP_Crocodile_side.png" id="2_iuio1"]
 [ext_resource type="Script" path="res://Characters/Hitbox.gd" id="3_038wm"]
 [ext_resource type="AnimationLibrary" uid="uid://bw5n1xlcesymf" path="res://Rooms/Furniture and Traps/crocodile_trap/crocodile_trap_animation_library.tres" id="3_ws3hc"]
 

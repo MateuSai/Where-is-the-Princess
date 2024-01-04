@@ -56,6 +56,7 @@ func _load_csv_data(data: Dictionary) -> void:
 	num_normal_attacks = data["num_normal_attacks"]
 	var increase_num_normal_attacks_on_ability_int: int = data["increase_num_normal_attacks_on_ability"]
 	increase_num_normal_attacks_on_ability = bool(increase_num_normal_attacks_on_ability_int)
+	invert_scale_when_looking_left = data.invert_scale_when_looking_left
 
 
 func _physics_process(delta: float) -> void:
