@@ -25,11 +25,10 @@ func get_dir() -> Dictionary:
 
 		var space_state: PhysicsDirectSpaceState2D = character.get_world_2d().direct_space_state
 		# use global coordinates, not local to node
-		var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(target.global_position, target_predicted_future_position, 1)
+		var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(target.global_position, target_predicted_future_position, 1 + 16)
 		var raycast_res: Dictionary = space_state.intersect_ray(query)
 		if not raycast_res.is_empty():
-			target_predicted_future_position = raycast_res.position
-
+			target_predicted_future_position = raycast_res.position + (target.global_position - raycast_res.position).normalized() * 4
 		res["dir"] = (target_predicted_future_position - character.global_position).normalized()
 		res["clear"] = _is_trajectory_clear(target_predicted_future_position)
 	else:

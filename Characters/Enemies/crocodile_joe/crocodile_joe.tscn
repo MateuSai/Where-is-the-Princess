@@ -1,7 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://bt8vc10uqx5cf"]
+[gd_scene load_steps=10 format=3 uid="uid://bt8vc10uqx5cf"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_bvb45"]
 [ext_resource type="Texture2D" uid="uid://ctxd0uyhjolhc" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Crocodile/Crocodile_JOE.png" id="2_whsrv"]
+[ext_resource type="Script" path="res://Characters/HurtBox.gd" id="3_l6qpg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dlh12"]
+radius = 5.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hf3kl"]
+height = 26.0
 
 [sub_resource type="Animation" id="Animation_ypfij"]
 resource_name = "idle"
@@ -69,7 +76,19 @@ texture = ExtResource("2_whsrv")
 hframes = 5
 vframes = 6
 
-[node name="AnimationPlayer" parent="." index="4"]
+[node name="CollisionShape2D" parent="." index="3"]
+shape = SubResource("CircleShape2D_dlh12")
+
+[node name="HurtBox" type="Area2D" parent="." index="4"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("3_l6qpg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0, -8)
+shape = SubResource("CapsuleShape2D_hf3kl")
+
+[node name="AnimationPlayer" parent="." index="5"]
 libraries = {
 "": SubResource("AnimationLibrary_iyw7o")
 }
