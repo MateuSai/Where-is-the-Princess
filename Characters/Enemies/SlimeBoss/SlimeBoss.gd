@@ -22,6 +22,6 @@ func _spawn_slime(direction: Vector2) -> void:
 	slime.scale = scale/2
 	slime.life_component.hp = life_component.max_hp/2.0
 	slime.life_compoennt.max_hp = life_component.max_hp/2.0
-	get_parent().add_child(slime)
+	room.add_enemy(slime)
 	slime.velocity += direction * 150
 

@@ -51,7 +51,7 @@ func _spawn_slime(direction: Vector2) -> void:
 	var slime: Enemy = child_slime_scene.instantiate()
 	slime.mode = (mode - 1) * -1
 	slime.position = position + direction * collision_shape.shape.radius
-	get_parent().add_child(slime)
+	room.add_enemy(slime)
 	slime.velocity += direction * 40
 
 

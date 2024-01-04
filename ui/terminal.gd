@@ -157,6 +157,8 @@ func _process_command(command: String) -> void:
 			_reload()
 		"save":
 			_save()
+		"clear":
+			_clear_room()
 #			if splitted_command.size() > 1: # tiene otro argumento
 #				match splitted_command[1]:
 #					"weapon", "weap":
@@ -408,5 +410,17 @@ func _reload() -> void:
 
 func _save() -> void:
 	SavedData.save_run_stats()
+
+	hide()
+
+
+func _clear_room() -> void:
+	if Globals.player.current_room == null:
+		printerr("You are on a corridor")
+		return
+
+	for child: Node in Globals.player.current_room.get_children():
+		if child is Enemy:
+			child.life_component.take_damage(2000, Vector2.ZERO, 0, null)
 
 	hide()
