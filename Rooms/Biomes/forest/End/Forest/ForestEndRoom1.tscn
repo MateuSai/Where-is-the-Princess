@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ds30uenhmyqj4"]
+[gd_scene load_steps=10 format=3 uid="uid://ds30uenhmyqj4"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_1cqdd"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_e01ab"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://b2gbblx0gk0fu" path="res://Characters/npcs/el_barquero/ElBarquero.tscn" id="4_wvenh"]
 [ext_resource type="PackedScene" uid="uid://ctxt5ksnwkaw1" path="res://shaders_and_particles/RiverParticles.tscn" id="5_qdah3"]
 [ext_resource type="PackedScene" uid="uid://dpmpcvnbhfml6" path="res://Audio/Sounds/RiverAudioStreamPlayer2D.tscn" id="6_klrcr"]
+[ext_resource type="PackedScene" uid="uid://c7jjeymooar8e" path="res://Rooms/Furniture and Traps/shop_sign.tscn" id="7_6rp4o"]
+[ext_resource type="PackedScene" uid="uid://dni71yi8jy772" path="res://Rooms/Furniture and Traps/boss_sign.tscn" id="8_edy43"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_sq0mc"]
 resource_local_to_scene = true
@@ -46,3 +48,9 @@ position = Vector2(154, -104)
 
 [node name="TeleportPosition" parent="." index="14"]
 position = Vector2(109, 70)
+
+[node name="BossSign" parent="." index="16" instance=ExtResource("7_6rp4o")]
+position = Vector2(156, -3)
+
+[node name="BossSign2" parent="." index="17" instance=ExtResource("8_edy43")]
+position = Vector2(171, -3)

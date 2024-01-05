@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7jjeymooar8e"]
+
+[ext_resource type="Texture2D" uid="uid://cepwe5wy3jqhp" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/sign_shop.png" id="1_iklha"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7vsrq"]
+radius = 1.41421
+
+[node name="BossSign" type="StaticBody2D"]
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -7)
+texture = ExtResource("1_iklha")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7vsrq")
