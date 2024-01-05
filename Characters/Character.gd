@@ -95,7 +95,7 @@ func _physics_process(delta: float) -> void:
 
 
 func move() -> void:
-	mov_direction = mov_direction.normalized()
+	mov_direction = mov_direction.limit_length(1.0)
 	velocity += mov_direction * acceleration
 	velocity = velocity.limit_length(max_speed)
 

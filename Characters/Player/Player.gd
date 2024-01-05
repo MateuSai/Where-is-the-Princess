@@ -189,14 +189,25 @@ func _controller_aim() -> void:
 func get_input() -> void:
 	mov_direction = Vector2.ZERO
 #	if can_move:
-	if Input.is_action_pressed("ui_down"):
-		mov_direction += Vector2.DOWN
-	if Input.is_action_pressed("ui_left"):
-		mov_direction += Vector2.LEFT
-	if Input.is_action_pressed("ui_right"):
-		mov_direction += Vector2.RIGHT
-	if Input.is_action_pressed("ui_up"):
-		mov_direction += Vector2.UP
+	#mov_direction = Input.get_vector("ui_move_left", "ui_move_right", "ui_move_up", "ui_move_down")
+	#if Input.is_action_pressed("ui_move_down"):
+		##Input.get_action_strength()
+		#mov_direction.y += Vector2.DOWN
+	#if Input.is_action_pressed("ui_move_left"):
+		#mov_direction += Vector2.LEFT
+	#if Input.is_action_pressed("ui_move_right"):
+		#mov_direction += Vector2.RIGHT
+	#if Input.is_action_pressed("ui_move_up"):
+		#mov_direction += Vector2.UP
+	if Input.is_action_pressed("ui_move_down"):
+		#Input.get_action_strength()
+		mov_direction.y += Input.get_action_strength("ui_move_down")
+	if Input.is_action_pressed("ui_move_left"):
+		mov_direction.x -= Input.get_action_strength("ui_move_left")
+	if Input.is_action_pressed("ui_move_right"):
+		mov_direction.x += Input.get_action_strength("ui_move_right")
+	if Input.is_action_pressed("ui_move_up"):
+		mov_direction.y -= Input.get_action_strength("ui_move_up")
 
 	if Input.is_action_just_pressed("ui_armor_ability") and armor.is_able_to_use_ability:
 		_use_armor_ability()
