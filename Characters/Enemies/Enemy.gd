@@ -20,6 +20,8 @@ var get_dir: Callable = func() -> Vector2:
 @export var max_souls: int = 1
 @export var min_dark_souls: int = 0
 @export var max_dark_souls: int = 0
+@export_range(0.0, 1.0) var food_prob: float = 0.1
+@export_range(0.0, 1.0) var armor_shard_prob: float = 0.1
 
 @onready var room: DungeonRoom = get_parent()
 @onready var player: Player = get_tree().current_scene.get_node("Player")
@@ -61,6 +63,9 @@ func _load_csv_data(data: Dictionary) -> void:
 	min_dark_souls = int(splitted_dark_souls[0])
 	max_dark_souls = int(splitted_dark_souls[0 if splitted_dark_souls.size() == 1 else 1])
 
+	food_prob = data.food_prob
+	armor_shard_prob = data.armor_shard_prob
+
 
 func spawn_loot() -> void:
 	for i: int in randi_range(min_coins, max_coins):
@@ -82,7 +87,7 @@ func spawn_loot() -> void:
 		get_tree().current_scene.call_deferred("add_child", soul)
 
 	# Armor shard
-	if randi() % 10 == 0:
+	if randf() <= armor_shard_prob:
 		var item_on_floor: ItemOnFloor = preload("res://items/item_on_floor.tscn").instantiate()
 		var armor_shard: ArmorShard = ArmorShard.new()
 		room.add_item_on_floor(item_on_floor, position + Vector2(randf_range(-8, 8), randf_range(-8, 8)))
@@ -90,7 +95,7 @@ func spawn_loot() -> void:
 		item_on_floor.enable_pick_up()
 
 	# Food
-	if randi() % 7 == 0:
+	if randf() <= food_prob:
 		var item_on_floor: ItemOnFloor = preload("res://items/item_on_floor.tscn").instantiate()
 		var food: Food = Food.new()
 		room.add_item_on_floor(item_on_floor, position + Vector2(randf_range(-8, 8), randf_range(-8, 8)))
