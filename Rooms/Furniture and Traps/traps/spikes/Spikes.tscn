@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dmay3kb4dokgj"]
 
-[ext_resource type="Script" path="res://Rooms/Furniture and Traps/Spikes.gd" id="1"]
+[ext_resource type="Script" path="res://Rooms/Furniture and Traps/traps/spikes/Spikes.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://b2wn55ntys4n8" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/tiles/floor/spikes_spritesheet.png" id="2"]
 
 [sub_resource type="RectangleShape2D" id="1"]

@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://k0b7jt7bd1nh"]
 
-[ext_resource type="Script" path="res://Rooms/Furniture and Traps/crocodile_trap/crocodile_trap.gd" id="1_5gcla"]
-[ext_resource type="Texture2D" uid="uid://bkv2btktea7yo" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Crocodile/TRAP_Crocodile_side.png" id="2_1yumd"]
+[ext_resource type="Script" path="res://Rooms/Furniture and Traps/traps/crocodile_trap/crocodile_trap.gd" id="1_5gcla"]
+[ext_resource type="Texture2D" uid="uid://bhct2a8x6hllw" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Crocodile/TRAP_Crocodile_side.png" id="2_1yumd"]
 [ext_resource type="Script" path="res://Characters/Hitbox.gd" id="3_dq5qg"]
-[ext_resource type="AnimationLibrary" uid="uid://bw5n1xlcesymf" path="res://Rooms/Furniture and Traps/crocodile_trap/crocodile_trap_animation_library.tres" id="3_ft46y"]
+[ext_resource type="AnimationLibrary" uid="uid://bw5n1xlcesymf" path="res://Rooms/Furniture and Traps/traps/crocodile_trap/crocodile_trap_animation_library.tres" id="3_ft46y"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wj6k0"]
 radius = 8.0
