@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_oukln"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_8xegf"]
 [ext_resource type="PackedScene" uid="uid://5xm1lw65nptl" path="res://Audio/Sounds/sewer/sewer_water_flow_sound.tscn" id="4_02yer"]
-[ext_resource type="PackedScene" uid="uid://dg8c6o1msojno" path="res://Rooms/Furniture and Traps/crocodile_trap/crocodile_trap_up.tscn" id="4_7h1mt"]
+[ext_resource type="PackedScene" uid="uid://dg8c6o1msojno" path="res://Rooms/Furniture and Traps/traps/crocodile_trap/crocodile_trap_up.tscn" id="4_7h1mt"]
 [ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="5_2vme4"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_rg34q"]

@@ -1,4 +1,4 @@
-extends PermanentPassiveItem
+class_name OrbOfTheBerserker extends PermanentPassiveItem
 
 
 var damage_increased: bool = false
