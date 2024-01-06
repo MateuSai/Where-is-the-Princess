@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dkpyvq2xuuytm"]
+[gd_scene load_steps=12 format=3 uid="uid://dkpyvq2xuuytm"]
 
 [ext_resource type="PackedScene" uid="uid://dfwr6ghpa5ecq" path="res://Weapons/Ranged/ranged_weapon.tscn" id="1_6f2ja"]
 [ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="2_fb6f7"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c30iw644fywpi" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Weapons/Wooden Crossbow/Wooden_Crossbow.png" id="3_rsa0a"]
 [ext_resource type="AnimationLibrary" uid="uid://cdhuhw7ayaf5d" path="res://Weapons/animation_libraries/crossbow_animation_library.tres" id="5_bfn3w"]
 [ext_resource type="Texture2D" uid="uid://d1fmucpoi76ef" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Weapons/Wooden Crossbow/Bolt.png" id="5_w3sxa"]
+[ext_resource type="Script" path="res://Weapons/Ranged/crossbows/bolt_sprite.gd" id="6_sen8b"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5sj0c"]
 resource_local_to_scene = true
@@ -69,6 +70,7 @@ position = Vector2(0, -11)
 [node name="BoltSprite" type="Sprite2D" parent="Node2D/WeaponSprite" index="3"]
 position = Vector2(-3.0598e-07, -7)
 texture = ExtResource("5_w3sxa")
+script = ExtResource("6_sen8b")
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {
