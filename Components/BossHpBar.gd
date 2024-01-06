@@ -1,5 +1,7 @@
 class_name BossHpBar extends CanvasLayer
 
+const MAX_HP_MULTIPLIER: int = 3
+
 var bar_tween: Tween
 
 var max_hp: int
@@ -22,7 +24,7 @@ func _ready() -> void:
 	name_label.text = enemy.name
 
 	max_hp = life_component.max_hp
-	vbox.custom_minimum_size.x = max_hp * 5
+	vbox.custom_minimum_size.x = max_hp * MAX_HP_MULTIPLIER
 
 	_update_bar(life_component.max_hp, life_component.max_hp)
 	life_component.hp_changed.connect(func(new_hp: int) -> void:
@@ -41,4 +43,4 @@ func _update_bar(hp: int, max_hp: int) -> void:
 
 func _set_max_hp(new_value: int) -> void:
 	max_hp = new_value
-	create_tween().tween_property(vbox, "custom_minimum_size:x", max_hp * 5, 0.8)
+	create_tween().tween_property(vbox, "custom_minimum_size:x", max_hp * MAX_HP_MULTIPLIER, 0.8)
