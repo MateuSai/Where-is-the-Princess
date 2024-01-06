@@ -19,12 +19,12 @@ func initialize(weapon: Weapon) -> void:
 	else:
 		update_condition(weapon.stats.condition)
 
-	if weapon is Bow:
+	if weapon is BowOrCrossbowWeapon:
 		arrow_icon.show()
-		(weapon as Bow).arrow_type_changed.connect(func(new_type: Arrow.Type) -> void:
-			arrow_icon.texture = Arrow.MODIFIER_TEXTURES[new_type]
+		(weapon as BowOrCrossbowWeapon).arrow_type_changed.connect(func(new_type: ArrowOrBolt.Type) -> void:
+			arrow_icon.texture = ArrowOrBolt.MODIFIER_TEXTURES[new_type]
 		)
-		arrow_icon.texture = Arrow.MODIFIER_TEXTURES[(weapon as Bow).arrow_type]
+		arrow_icon.texture = ArrowOrBolt.MODIFIER_TEXTURES[(weapon as BowOrCrossbowWeapon).arrow_type]
 	else:
 		arrow_icon.hide()
 

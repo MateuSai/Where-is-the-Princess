@@ -107,15 +107,16 @@ script = ExtResource("2_r4y4g")
 
 [node name="WeaponSprite" parent="Node2D" index="0"]
 material = SubResource("ShaderMaterial_c4kgo")
-rotation = 0.0
 texture = ExtResource("4_f3ix4")
 offset = Vector2(5, 0)
 hframes = 5
 
 [node name="CollisionShape2D" parent="Node2D/WeaponSprite/PlayerDetector" index="0"]
-position = Vector2(-4.94977, -4.94972)
-rotation = 0.785398
+position = Vector2(7, 0)
 shape = SubResource("CapsuleShape2D_2rafl")
+
+[node name="SpawnProjectilePos" parent="Node2D/WeaponSprite" index="2"]
+position = Vector2(9, 0)
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {
