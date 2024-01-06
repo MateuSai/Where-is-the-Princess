@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bdh7v0gjqelqq"]
+[gd_scene load_steps=12 format=3 uid="uid://bdh7v0gjqelqq"]
 
 [ext_resource type="Texture2D" uid="uid://b4xnkqlcv668f" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/traps/pillar.png" id="1_2uaqu"]
 [ext_resource type="Script" path="res://Rooms/Furniture and Traps/traps/remote_trap.gd" id="1_h3hl0"]
 [ext_resource type="Script" path="res://Rooms/Furniture and Traps/traps/arrow_pillar/arrow_pillar.gd" id="1_onl2w"]
 [ext_resource type="Script" path="res://Components/LifeComponent.gd" id="3_pm8ey"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="5_hdds5"]
+[ext_resource type="Script" path="res://Components/SpawnDamageLabel.gd" id="6_vgvpd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l8h2e"]
 radius = 4.47214
@@ -12,6 +13,21 @@ radius = 4.47214
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_itynd"]
 radius = 5.0
 height = 14.0
+
+[sub_resource type="Animation" id="Animation_4qrl0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_as6oa"]
 resource_name = "destroy"
@@ -29,28 +45,13 @@ tracks/0/keys = {
 "values": [1, 2, 3, 4, 5]
 }
 
-[sub_resource type="Animation" id="Animation_4qrl0"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1jokj"]
 _data = {
 "RESET": SubResource("Animation_4qrl0"),
 "destroy": SubResource("Animation_as6oa")
 }
 
-[node name="ArrowPillar" type="StaticBody2D"]
+[node name="ArrowPillar" type="StaticBody2D" groups=["flying_units_navigation_polygon_source_group", "navigation_polygon_source_group"]]
 collision_mask = 0
 script = ExtResource("1_onl2w")
 
@@ -83,3 +84,6 @@ shape = SubResource("CapsuleShape2D_itynd")
 libraries = {
 "": SubResource("AnimationLibrary_1jokj")
 }
+
+[node name="SpawnDamageLabel" type="Node" parent="."]
+script = ExtResource("6_vgvpd")

@@ -53,4 +53,4 @@ position = Vector2(109, 70)
 position = Vector2(156, -3)
 
 [node name="BossSign2" parent="." index="17" instance=ExtResource("8_edy43")]
-position = Vector2(171, -3)
+position = Vector2(173, -1)
