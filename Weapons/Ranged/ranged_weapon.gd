@@ -1,7 +1,7 @@
 class_name RangedWeapon extends Weapon
 
 var projectile_speed: int
-var normal_attack_projectile_speed: int = 100
+var normal_attack_projectile_speed: int = 200
 var ability_projectile_speed: int = 300
 
 # Path to projectile scene

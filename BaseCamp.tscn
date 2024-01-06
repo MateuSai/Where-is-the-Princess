@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=53 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="1_0pcgl"]
 [ext_resource type="Script" path="res://BaseCamp.gd" id="1_tpf7m"]
@@ -36,6 +36,7 @@
 [ext_resource type="PackedScene" uid="uid://cpyqtlqtdkuiq" path="res://Weapons/Ranged/scepters/lightning_stick/lightning_stick.tscn" id="34_nl6xg"]
 [ext_resource type="PackedScene" uid="uid://bp2oo4273j0dc" path="res://Weapons/Melee/Spear.tscn" id="35_gq7sc"]
 [ext_resource type="PackedScene" uid="uid://bdh7v0gjqelqq" path="res://Rooms/Furniture and Traps/traps/arrow_pillar/arrow_pillar.tscn" id="36_3rvru"]
+[ext_resource type="PackedScene" uid="uid://dkpyvq2xuuytm" path="res://Weapons/Ranged/crossbows/wooden_crossbow/wooden_crossbow.tscn" id="37_gon7g"]
 
 [sub_resource type="Gradient" id="Gradient_nhg8o"]
 offsets = PackedFloat32Array(0, 0.784849)
@@ -456,3 +457,7 @@ on_floor = true
 
 [node name="ArrowPillar" parent="." instance=ExtResource("36_3rvru")]
 position = Vector2(149, 151)
+
+[node name="WoodenCrossbow" parent="." instance=ExtResource("37_gon7g")]
+position = Vector2(196, 261)
+on_floor = true

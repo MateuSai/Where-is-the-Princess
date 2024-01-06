@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3 uid="uid://dkpyvq2xuuytm"]
+
+[ext_resource type="PackedScene" uid="uid://dfwr6ghpa5ecq" path="res://Weapons/Ranged/ranged_weapon.tscn" id="1_6f2ja"]
+[ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="2_fb6f7"]
+[ext_resource type="Script" path="res://Weapons/Ranged/crossbows/crossbow.gd" id="2_v27sb"]
+[ext_resource type="Texture2D" uid="uid://c30iw644fywpi" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Weapons/Wooden Crossbow/Wooden_Crossbow.png" id="3_rsa0a"]
+[ext_resource type="AnimationLibrary" uid="uid://cdhuhw7ayaf5d" path="res://Weapons/animation_libraries/crossbow_animation_library.tres" id="5_bfn3w"]
+[ext_resource type="Texture2D" uid="uid://d1fmucpoi76ef" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Weapons/Wooden Crossbow/Bolt.png" id="5_w3sxa"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5sj0c"]
+resource_local_to_scene = true
+shader = ExtResource("2_fb6f7")
+shader_parameter/active = false
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_83t7k"]
+radius = 6.99996
+height = 17.9999
+
+[sub_resource type="Animation" id="Animation_tv03w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/WeaponSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/WeaponSprite/BoltSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tc3f0"]
+_data = {
+"RESET": SubResource("Animation_tv03w")
+}
+
+[node name="WoodenCrossbow" instance=ExtResource("1_6f2ja")]
+script = ExtResource("2_v27sb")
+
+[node name="WeaponSprite" parent="Node2D" index="0"]
+material = SubResource("ShaderMaterial_5sj0c")
+position = Vector2(5, 0)
+rotation = 1.5708
+texture = ExtResource("3_rsa0a")
+offset = Vector2(0, -4)
+hframes = 2
+
+[node name="CollisionShape2D" parent="Node2D/WeaponSprite/PlayerDetector" index="0"]
+position = Vector2(0, -5)
+shape = SubResource("CapsuleShape2D_83t7k")
+
+[node name="SpawnProjectilePos" parent="Node2D/WeaponSprite" index="2"]
+position = Vector2(0, -11)
+
+[node name="BoltSprite" type="Sprite2D" parent="Node2D/WeaponSprite" index="3"]
+position = Vector2(-3.0598e-07, -7)
+texture = ExtResource("5_w3sxa")
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_tc3f0"),
+"crossbow_animation_library": ExtResource("5_bfn3w")
+}

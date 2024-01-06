@@ -27,7 +27,6 @@ script = ExtResource("1_klfxe")
 [node name="WeaponSprite" type="Sprite2D" parent="Node2D"]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_0v82b")
-rotation = -0.785398
 offset = Vector2(5, -4)
 
 [node name="ChargeParticles" type="GPUParticles2D" parent="Node2D/WeaponSprite"]
@@ -37,7 +36,6 @@ process_material = SubResource("2")
 lifetime = 0.6
 
 [node name="PlayerDetector" type="Area2D" parent="Node2D/WeaponSprite"]
-rotation = 2.3562
 collision_layer = 0
 collision_mask = 3
 
