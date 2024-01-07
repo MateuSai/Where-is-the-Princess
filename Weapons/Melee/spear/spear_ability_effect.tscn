@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://krgoiefiuo40"]
+
+[node name="SpearAbilityEffect" type="Sprite2D"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dkpyvq2xuuytm"]
+[gd_scene load_steps=13 format=3 uid="uid://dkpyvq2xuuytm"]
 
 [ext_resource type="PackedScene" uid="uid://dfwr6ghpa5ecq" path="res://Weapons/Ranged/ranged_weapon.tscn" id="1_6f2ja"]
 [ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="2_fb6f7"]
@@ -44,9 +44,66 @@ tracks/1/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_4hqpj"]
+resource_name = "active_ability"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [0.0, 1],
+"method": &"_spawn_projectile"
+}, {
+"args": [0.0, 1],
+"method": &"_spawn_projectile"
+}, {
+"args": [0.0, 1],
+"method": &"_spawn_projectile"
+}, {
+"args": [0.0, 1],
+"method": &"_spawn_projectile"
+}, {
+"args": [0.0, 1],
+"method": &"_spawn_projectile"
+}, {
+"args": [0.0, 1],
+"method": &"_spawn_projectile"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/WeaponSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node2D/WeaponSprite/BoltSprite:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tc3f0"]
 _data = {
-"RESET": SubResource("Animation_tv03w")
+"RESET": SubResource("Animation_tv03w"),
+"active_ability": SubResource("Animation_4hqpj")
 }
 
 [node name="WoodenCrossbow" instance=ExtResource("1_6f2ja")]
