@@ -107,6 +107,8 @@ _data = {
 
 [node name="Tromp" instance=ExtResource("1_wturi")]
 script = ExtResource("2_jvfdc")
+food_prob = 0.1
+armor_shard_prob = 0.1
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("3_qry1i")

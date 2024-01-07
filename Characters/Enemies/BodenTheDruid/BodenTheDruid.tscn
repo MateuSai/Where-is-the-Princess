@@ -632,6 +632,8 @@ radius = 8.0
 
 [node name="BodenTheDruid" instance=ExtResource("1_vhffd")]
 script = ExtResource("2_uu817")
+food_prob = 0.1
+armor_shard_prob = 0.1
 mass = 60.0
 max_speed = 50
 
