@@ -3,6 +3,7 @@ class_name CrocodileJoeFSM extends FiniteStateMachine
 enum {
 	LONG_RANGE,
 	CLOSE_RANGE,
+	BITE,
 	DEAD,
 }
 
@@ -14,11 +15,12 @@ enum MoveAnimationState {
 }
 var move_animation_state: MoveAnimationState = MoveAnimationState.MOVE
 
-const DISTANCE_TO_CHANGE_RANGE: int = 10
+const DISTANCE_TO_CHANGE_RANGE: int = 16
 
 @onready var joe: CrocodileJoe = get_parent()
 @onready var pathfinding_component: PathfindingComponent = $"../PathfindingComponent"
 @onready var weapons: EnemyWeapons = $"../EnemyWeapons"
+@onready var aim_component: AimComponent = $"../AimComponent"
 
 
 func start() -> void:
@@ -28,7 +30,7 @@ func start() -> void:
 func _state_logic(_delta: float) -> void:
 	match state:
 		LONG_RANGE:
-			var aim_dir: Vector2 = (joe.target.global_position - joe.global_position).normalized()
+			var aim_dir: Vector2 = aim_component.get_dir().dir
 			weapons.move(aim_dir)
 			if not weapons.is_busy():
 				if weapons.current_weapon.weapon_sprite.frame == Crossbow.RELEASED_FRAME:
@@ -44,6 +46,18 @@ func _state_logic(_delta: float) -> void:
 			joe.move()
 
 			_update_animation(aim_dir)
+		CLOSE_RANGE:
+			if not animation_player.is_playing():
+				var dir: Vector2 = (joe.target.global_position - joe.global_position).normalized()
+				if dir.x > 0 and joe.sprite.flip_h:
+					joe._on_change_dir()
+				elif dir.x < 0 and not joe.sprite.flip_h:
+					joe._on_change_dir()
+
+				if dir.y >= 0:
+					animation_player.play("bite")
+				else:
+					animation_player.play("bite_up")
 
 
 func _get_transition() -> int:
@@ -62,7 +76,12 @@ func _get_transition() -> int:
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
 		LONG_RANGE:
+			weapons.show()
 			pathfinding_component.set_mode(PathfindingComponent.Wander.new())
+		CLOSE_RANGE:
+			animation_player.stop()
+			weapons.hide()
+			#pathfinding_component.set_mode(PathfindingComponent.Approach.new())
 
 
 func _update_animation(dir: Vector2) -> void:
