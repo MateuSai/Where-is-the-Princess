@@ -14,6 +14,7 @@ func test_discovered_weapons() -> void:
 	for weapon_path: String in data.discovered_weapons:
 		assert_bool(FileAccess.file_exists(weapon_path))
 		assert_bool(weapon_path.get_extension() == "tscn")
+		assert_object(auto_free(load(weapon_path).instantiate())).is_instanceof(Weapon)
 
 
 func test_discovered_armors() -> void:
@@ -22,3 +23,18 @@ func test_discovered_armors() -> void:
 	for armor_path: String in data.discovered_armors:
 		assert_bool(FileAccess.file_exists(armor_path))
 		assert_bool(armor_path.get_extension() == "gd")
+		assert_object(load(armor_path).new()).is_instanceof(Armor)
+
+
+func test_discovered_permanent_items() -> void:
+	for item_path: String in data.discovered_permanent_items:
+		assert_bool(FileAccess.file_exists(item_path))
+		assert_bool(item_path.get_extension() == "gd")
+		assert_object(load(item_path).new()).is_instanceof(PermanentPassiveItem)
+
+
+func test_discovered_temporal_items() -> void:
+	for item_path: String in data.discovered_temporal_items:
+		assert_bool(FileAccess.file_exists(item_path))
+		assert_bool(item_path.get_extension() == "gd")
+		assert_object(load(item_path).new()).is_instanceof(TemporalPassiveItem)
