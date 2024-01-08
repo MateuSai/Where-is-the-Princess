@@ -5,9 +5,11 @@ extends GdUnitTestSuite
 
 const __source: String = 'res://Autoloads/saved_data/data.gd'
 
+var data: Data = Data.new()
+
 
 func test_discovered_weapons() -> void:
-	var data: Data = Data.new()
+	#var data: Data = Data.new()
 
 	for weapon_path: String in data.discovered_weapons:
 		assert_bool(FileAccess.file_exists(weapon_path))
@@ -15,7 +17,7 @@ func test_discovered_weapons() -> void:
 
 
 func test_discovered_armors() -> void:
-	var data: Data = Data.new()
+	#var data: Data = Data.new()
 
 	for armor_path: String in data.discovered_armors:
 		assert_bool(FileAccess.file_exists(armor_path))
