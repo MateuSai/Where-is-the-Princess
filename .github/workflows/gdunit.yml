@@ -2,7 +2,7 @@ name: gdunit
 run-name: ${{ github.head_ref || github.ref_name }}-gdunit
 
 on:
-  [push, pull_request]:
+  push:
     paths-ignore:
       - '**.yml'
       - '**.md'
