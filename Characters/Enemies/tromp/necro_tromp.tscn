@@ -1,12 +1,12 @@
 [gd_scene load_steps=15 format=3 uid="uid://vygi5f1moo61"]
 
-[ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_wturi"]
-[ext_resource type="Texture2D" uid="uid://lvnlupbop6xj" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Tromp the necromancer/Tromp_01.png" id="2_htkds"]
-[ext_resource type="Script" path="res://Characters/Enemies/tromp/tromp.gd" id="2_jvfdc"]
-[ext_resource type="Script" path="res://Characters/Enemies/tromp/tromp_fsm.gd" id="3_qry1i"]
-[ext_resource type="PackedScene" uid="uid://dihstm6j1hf3l" path="res://Components/BossHpBar.tscn" id="4_cmcov"]
-[ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="5_4v446"]
-[ext_resource type="PackedScene" uid="uid://is6fm5j04ae1" path="res://Weapons/Ranged/scepters/necromancer_scepter/necromancer_scepter.tscn" id="6_dv0vm"]
+[ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_loyuw"]
+[ext_resource type="Script" path="res://Characters/Enemies/tromp/necro_tromp.gd" id="2_yu1ew"]
+[ext_resource type="Script" path="res://Characters/Enemies/tromp/necro_tromp_fsm.gd" id="3_ih0io"]
+[ext_resource type="Texture2D" uid="uid://lvnlupbop6xj" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Tromp the necromancer/Tromp_01.png" id="4_5tpch"]
+[ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="5_cefru"]
+[ext_resource type="PackedScene" uid="uid://is6fm5j04ae1" path="res://Weapons/Ranged/scepters/necromancer_scepter/necromancer_scepter.tscn" id="6_iq41a"]
+[ext_resource type="PackedScene" uid="uid://dihstm6j1hf3l" path="res://Components/BossHpBar.tscn" id="7_vofkt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gcctr"]
 radius = 2.0
@@ -105,17 +105,17 @@ _data = {
 "run_up": SubResource("Animation_3ap0t")
 }
 
-[node name="Tromp" instance=ExtResource("1_wturi")]
-script = ExtResource("2_jvfdc")
+[node name="NecroTromp" instance=ExtResource("1_loyuw")]
+script = ExtResource("2_yu1ew")
 food_prob = 0.1
 armor_shard_prob = 0.1
 
 [node name="FiniteStateMachine" parent="." index="0"]
-script = ExtResource("3_qry1i")
+script = ExtResource("3_ih0io")
 
 [node name="Sprite2D" parent="." index="2"]
 position = Vector2(0, -5)
-texture = ExtResource("2_htkds")
+texture = ExtResource("4_5tpch")
 hframes = 6
 vframes = 4
 
@@ -123,9 +123,9 @@ vframes = 4
 shape = SubResource("CircleShape2D_gcctr")
 
 [node name="EnemyWeapons" type="Node2D" parent="." index="4"]
-script = ExtResource("5_4v446")
+script = ExtResource("5_cefru")
 
-[node name="NecromancerScepter" parent="EnemyWeapons" index="0" instance=ExtResource("6_dv0vm")]
+[node name="NecromancerScepter" parent="EnemyWeapons" index="0" instance=ExtResource("6_iq41a")]
 
 [node name="AnimationPlayer" parent="." index="5"]
 libraries = {
@@ -134,4 +134,4 @@ libraries = {
 
 [node name="Marker2D" type="Marker2D" parent="DustPositions" index="0"]
 
-[node name="BossHpBar" parent="." index="12" instance=ExtResource("4_cmcov")]
+[node name="BossHpBar" parent="." index="12" instance=ExtResource("7_vofkt")]

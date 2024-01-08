@@ -9,5 +9,5 @@ func _add_ability_effect() -> void:
 	effect.knockback_force = ability_knockback
 	effect.knockback_direction = Vector2.RIGHT.rotated(rotation)
 	effect.rotation_degrees = -45
-	effect.position = Vector2(15, -15)
+	effect.position = Vector2(20, -20)
 	weapon_sprite.add_child(effect)
