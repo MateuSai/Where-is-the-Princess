@@ -1,3 +1,5 @@
+[![gdunit](https://github.com/WekufuStudios/Godot4RoguelikeProject/actions/workflows/gdunit.yml/badge.svg)](https://github.com/WekufuStudios/Godot4RoguelikeProject/actions/workflows/gdunit.yml)
+
 # Godot-Roguelike-Tutorial
 A series of videos on how to make a roguelike using the Godot game engine: https://www.youtube.com/playlist?list=PL2-ArCpIQtjELkyLKec8BaVVCeunuHSK9
 
