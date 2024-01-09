@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_lbdjx"]
 [ext_resource type="Script" path="res://Weapons/Melee/WarHammer/WarHammer.gd" id="2_bo016"]
-[ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="3_sv533"]
+[ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="3_sv533"]
 [ext_resource type="Texture2D" uid="uid://wvokxkt7ia1t" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/war hammer.png" id="4_lgcqw"]
 [ext_resource type="AnimationLibrary" uid="uid://byptxr6sfhkfy" path="res://Weapons/animation_libraries/heavy_melee_weapon_animation_library.tres" id="5_3rrn8"]
 

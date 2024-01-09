@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_fuq8a"]
 [ext_resource type="Script" path="res://Weapons/Melee/WarAxe/WarAxe.gd" id="2_nbej2"]
-[ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="3_a2pwk"]
+[ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="3_a2pwk"]
 [ext_resource type="Texture2D" uid="uid://bxa3cd6v382vn" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/War axe.png" id="4_hfprm"]
 [ext_resource type="Texture2D" uid="uid://dadot6nohx433" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/War axe circular attack.png" id="5_4007o"]
 [ext_resource type="AnimationLibrary" uid="uid://byptxr6sfhkfy" path="res://Weapons/animation_libraries/heavy_melee_weapon_animation_library.tres" id="6_w8wwc"]

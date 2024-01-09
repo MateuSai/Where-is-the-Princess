@@ -71,7 +71,8 @@ folder_colors={
 "res://Translations/": "purple",
 "res://Weapons/": "teal",
 "res://addons/": "blue",
-"res://scripts/": "orange"
+"res://scripts/": "orange",
+"res://test/": "blue"
 }
 
 [filesystem]

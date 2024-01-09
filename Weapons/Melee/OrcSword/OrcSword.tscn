@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_00n3o"]
 [ext_resource type="Script" path="res://Weapons/Melee/OrcSword/OrcSword.gd" id="2_0h51k"]
-[ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="3_8elbh"]
+[ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="3_8elbh"]
 [ext_resource type="Texture2D" uid="uid://k3xx2mp6clnt" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Orc sword.png" id="4_qjvwx"]
 [ext_resource type="AnimationLibrary" uid="uid://d177jeworynq6" path="res://Weapons/animation_libraries/quick_swing_animation_library.tres" id="5_6li2c"]
 

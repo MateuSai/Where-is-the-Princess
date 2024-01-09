@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_kdv4y"]
 [ext_resource type="Script" path="res://Weapons/Melee/KombatHammer/KombatHammer.gd" id="2_7m2tt"]
-[ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="3_frb1o"]
+[ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="3_frb1o"]
 [ext_resource type="Texture2D" uid="uid://bqcbif8jca3t2" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Kombat hammer.png" id="4_plinb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ojcpn"]

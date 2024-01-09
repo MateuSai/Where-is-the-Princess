@@ -1,8 +1,8 @@
 [gd_scene load_steps=16 format=3 uid="uid://vygi5f1moo61"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_loyuw"]
-[ext_resource type="Script" path="res://Characters/Enemies/tromp/necro_tromp.gd" id="2_yu1ew"]
-[ext_resource type="Script" path="res://Characters/Enemies/tromp/necro_tromp_fsm.gd" id="3_ih0io"]
+[ext_resource type="Script" path="res://Characters/Enemies/necro_tromp/necro_tromp.gd" id="2_yu1ew"]
+[ext_resource type="Script" path="res://Characters/Enemies/necro_tromp/necro_tromp_fsm.gd" id="3_ih0io"]
 [ext_resource type="Texture2D" uid="uid://lvnlupbop6xj" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Tromp the necromancer/Tromp_01.png" id="4_5tpch"]
 [ext_resource type="Texture2D" uid="uid://d04uxwluqy5gw" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/player_shadow.png" id="4_asb60"]
 [ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="5_cefru"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dfwr6ghpa5ecq"]
 
 [ext_resource type="Script" path="res://Weapons/Ranged/ranged_weapon.gd" id="1_klfxe"]
-[ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="2_jy1hm"]
+[ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="2_jy1hm"]
 [ext_resource type="AudioStream" uid="uid://cpi8xdb0i2rbv" path="res://Audio/Sounds/446013__slavicmagic__metal_bash1.wav" id="3_0waa1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0v82b"]
