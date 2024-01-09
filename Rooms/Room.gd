@@ -40,6 +40,9 @@ signal closed()
 signal cleared()
 signal last_enemy_died(enemy: Enemy)
 
+## [member room_white_image] is used to clear the fog when you enter the room
+@export var include_water_in_room_white_image: bool = true
+
 @onready var rooms: Rooms = get_parent()
 
 @onready var disable_horizontal_separation_steering: bool = SavedData.get_disable_horizontal_separation_steering()
@@ -101,7 +104,8 @@ func generate_room_white_image() -> void:
 	var size: Vector2 = tilemap.get_used_rect().size * Rooms.TILE_SIZE
 
 	var tile_cells: Array = tilemap.get_used_cells(0)
-#	tile_cells.append_array(tilemap.get_used_cells(WATER_LAYER_ID))
+	if include_water_in_room_white_image:
+		tile_cells.append_array(tilemap.get_used_cells(WATER_LAYER_ID))
 	#tile_cells.append_array(tilemap.get_used_cells(1))
 
 	# We add one more tile in the direction of the entries so the entries of the room are more visible

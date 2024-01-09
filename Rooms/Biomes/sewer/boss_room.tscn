@@ -1,15 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://qkm1ycpacytd"]
+[gd_scene load_steps=8 format=3 uid="uid://qkm1ycpacytd"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_3hu8i"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="2_w66xr"]
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="3_2v6j3"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="4_s6f4k"]
+[ext_resource type="Texture2D" uid="uid://bwurlq6flkqhn" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Furniture props/Sacrifice_Shrine.png" id="5_2vn22"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_0tabj"]
 resource_local_to_scene = true
 source_geometry_mode = 2
 source_geometry_group_name = &"navigation_polygon_source_group"
 agent_radius = 2.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iy51f"]
+size = Vector2(32, 12)
 
 [node name="BossRoom" instance=ExtResource("1_3hu8i")]
 navigation_polygon = SubResource("NavigationPolygon_0tabj")
@@ -52,4 +56,18 @@ position = Vector2(319, 266)
 position = Vector2(113, 278)
 
 [node name="TikiTorch5" parent="." index="14" instance=ExtResource("4_s6f4k")]
-position = Vector2(219, 187)
+position = Vector2(250, 187)
+
+[node name="TikiTorch6" parent="." index="15" instance=ExtResource("4_s6f4k")]
+position = Vector2(199, 187)
+
+[node name="SacrificeShrine" type="StaticBody2D" parent="." index="16" groups=["navigation_polygon_source_group"]]
+position = Vector2(225, 187)
+
+[node name="SacrificeShrine" type="Sprite2D" parent="SacrificeShrine" index="0"]
+position = Vector2(0, -2)
+texture = ExtResource("5_2vn22")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SacrificeShrine" index="1"]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_iy51f")

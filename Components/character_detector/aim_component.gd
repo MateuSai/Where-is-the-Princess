@@ -15,8 +15,8 @@ const FLAG_REDUCE_PRECISION_WHEN_MOVING: int = 2
 
 
 ## Returns a dictionary containing the aim direction to the target as `dir`. It also contains `clear` that contains a bool indicating if the trajectory is clear of obstacles
-func get_dir() -> Dictionary:
-	var res: Dictionary = {}
+func get_dir() -> AimResult:
+	var res: AimResult
 
 	if flags & FLAG_PREDICT_TRAJECTORY:
 		var vector_to_target: Vector2 = (target.global_position - character.global_position)
@@ -29,21 +29,30 @@ func get_dir() -> Dictionary:
 		var raycast_res: Dictionary = space_state.intersect_ray(query)
 		if not raycast_res.is_empty():
 			target_predicted_future_position = raycast_res.position + (target.global_position - raycast_res.position).normalized() * 4
-		res["dir"] = (target_predicted_future_position - character.global_position).normalized()
-		res["clear"] = _is_trajectory_clear(target_predicted_future_position)
+		res = AimResult.new((target_predicted_future_position - character.global_position).normalized(), _is_trajectory_clear(target_predicted_future_position))
 	else:
-		res["dir"] = (target.global_position - character.global_position).normalized()
-		res["clear"] = _is_trajectory_clear(target.global_position)
+		res = AimResult.new((target.global_position - character.global_position).normalized(), _is_trajectory_clear(target.global_position))
 
 	if flags & FLAG_REDUCE_PRECISION_WHEN_MOVING and character.velocity.length() > 10:
-		res["dir"] = res["dir"].rotated(randf_range(-0.2, 0.2))
+		res.dir = res.dir.rotated(randf_range(-0.2, 0.2))
 
-	res.make_read_only()
+	#res.make_read_only()
 	return res
 
 
 func _is_trajectory_clear(to: Vector2) -> bool:
 	var space_state: PhysicsDirectSpaceState2D = character.get_world_2d().direct_space_state
 	# use global coordinates, not local to node
-	var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(character.global_position, to, 1)
-	return not space_state.intersect_ray(query).is_empty()
+	var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(character.global_position, to, 1 | character.collision_layer)
+	return space_state.intersect_ray(query).is_empty()
+
+
+
+class AimResult:
+	var dir: Vector2
+	var clear: bool
+
+	@warning_ignore("shadowed_variable")
+	func _init(dir: Vector2, clear: bool) -> void:
+		self.dir = dir
+		self.clear = clear

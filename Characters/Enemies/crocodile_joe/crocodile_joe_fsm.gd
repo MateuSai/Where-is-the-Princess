@@ -30,13 +30,15 @@ func start() -> void:
 func _state_logic(_delta: float) -> void:
 	match state:
 		LONG_RANGE:
-			var aim_dir: Vector2 = aim_component.get_dir().dir
+			var aim_result: AimComponent.AimResult = aim_component.get_dir()
+			var aim_dir: Vector2 = aim_result.dir
 			weapons.move(aim_dir)
 			if not weapons.is_busy():
 				if weapons.current_weapon.weapon_sprite.frame == Crossbow.RELEASED_FRAME:
 					weapons.reload()
 				else:
-					weapons.attack()
+					if aim_result.clear:
+						weapons.attack()
 
 			joe.move_to_target()
 			if aim_dir.x > 0 and joe.sprite.flip_h:

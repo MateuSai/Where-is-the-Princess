@@ -237,15 +237,6 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
 text = "NEW_GAME"
 script = ExtResource("7_8j46j")
 
-[node name="ModsButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
-theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
-text = "MODS"
-script = ExtResource("8_n6t26")
-
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
@@ -254,6 +245,15 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
 text = "SETTINGS"
 script = ExtResource("9_sf5s7")
+
+[node name="ModsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
+text = "MODS"
+script = ExtResource("8_n6t26")
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2

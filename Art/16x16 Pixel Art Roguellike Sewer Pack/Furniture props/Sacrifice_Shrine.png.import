@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhc8jfafthgoi"
-path="res://.godot/imported/minimap tilemap sewers.png-4b3d5a1cd38222220c8906aabba4640c.ctex"
+uid="uid://bwurlq6flkqhn"
+path="res://.godot/imported/Sacrifice_Shrine.png-b642fa8213618fdabe4296e47219ee60.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/16x16 Pixel Art Roguellike Sewer Pack/tileset/minimap tilemap sewers.png"
-dest_files=["res://.godot/imported/minimap tilemap sewers.png-4b3d5a1cd38222220c8906aabba4640c.ctex"]
+source_file="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Furniture props/Sacrifice_Shrine.png"
+dest_files=["res://.godot/imported/Sacrifice_Shrine.png-b642fa8213618fdabe4296e47219ee60.ctex"]
 
 [params]
 
