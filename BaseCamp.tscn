@@ -34,7 +34,7 @@
 [ext_resource type="PackedScene" uid="uid://dt58rwqk2borq" path="res://Rooms/game_shops/GameShopLevel1.tscn" id="31_rm7le"]
 [ext_resource type="Texture2D" uid="uid://cxwois4ml3d4s" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/sign_boss.png" id="32_76hog"]
 [ext_resource type="PackedScene" uid="uid://cpyqtlqtdkuiq" path="res://Weapons/Ranged/scepters/lightning_stick/lightning_stick.tscn" id="34_nl6xg"]
-[ext_resource type="PackedScene" uid="uid://bp2oo4273j0dc" path="res://Weapons/Melee/Spear.tscn" id="35_gq7sc"]
+[ext_resource type="PackedScene" uid="uid://bp2oo4273j0dc" path="res://Weapons/Melee/spear/Spear.tscn" id="35_gq7sc"]
 [ext_resource type="PackedScene" uid="uid://bdh7v0gjqelqq" path="res://Rooms/Furniture and Traps/traps/arrow_pillar/arrow_pillar.tscn" id="36_3rvru"]
 [ext_resource type="PackedScene" uid="uid://dkpyvq2xuuytm" path="res://Weapons/Ranged/crossbows/wooden_crossbow/wooden_crossbow.tscn" id="37_gon7g"]
 

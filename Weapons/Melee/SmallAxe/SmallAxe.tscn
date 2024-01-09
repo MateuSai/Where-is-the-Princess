@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_b0hsp"]
 [ext_resource type="Script" path="res://Weapons/Melee/SmallAxe/SmallAxe.gd" id="2_hyhn0"]
-[ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="4_ctnng"]
+[ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="4_ctnng"]
 [ext_resource type="Texture2D" uid="uid://bfm6bu5ciwrub" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Smol axe.png" id="5_c3c0h"]
 [ext_resource type="AnimationLibrary" uid="uid://d177jeworynq6" path="res://Weapons/animation_libraries/quick_swing_animation_library.tres" id="5_onpk0"]
 

@@ -1,5 +1,7 @@
 class_name NecromancerSpawn extends Sprite2D
 
+signal enemy_spawned(enemy: Enemy)
+
 @onready var room: DungeonRoom = get_parent()
 
 
@@ -15,3 +17,4 @@ func _spawn_skeleton() -> void:
 
 	enemy.position = position
 	room.add_enemy(enemy)
+	enemy_spawned.emit(enemy)

@@ -58,6 +58,7 @@ func _attach_projectile(body: Node2D) -> void:
 		sound.start(WORLD_IMPACT_SOUNDS[randi() % WORLD_IMPACT_SOUNDS.size()], position, -5)
 		get_tree().current_scene.add_child(sprite_clone)
 
+	sprite_clone.z_index = -1
 	sprite_clone.rotation += rotation
 	sprite_clone.global_position = position
 

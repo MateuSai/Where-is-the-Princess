@@ -4,7 +4,8 @@
 		"openxr": false
 	},
 	"disabled_classes": [
-		"Node3D"
+		"Node3D",
+		"VisualShaderNode"
 	],
 	"type": "build_profile"
 }

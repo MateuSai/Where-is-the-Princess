@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_wabic"]
 [ext_resource type="Script" path="res://Weapons/Melee/SharpAxe/SharpAxe.gd" id="2_sww3e"]
-[ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="3_vvf1i"]
+[ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="3_vvf1i"]
 [ext_resource type="Texture2D" uid="uid://cfvrf4gdnrhej" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Sharp axe.png" id="4_k33n3"]
 [ext_resource type="AnimationLibrary" uid="uid://byptxr6sfhkfy" path="res://Weapons/animation_libraries/heavy_melee_weapon_animation_library.tres" id="5_3pwkn"]
 

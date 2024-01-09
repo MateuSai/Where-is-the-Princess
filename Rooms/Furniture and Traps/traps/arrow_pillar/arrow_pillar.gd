@@ -20,5 +20,5 @@ func activate() -> void:
 	for dir: Vector2 in [Vector2.LEFT, Vector2.UP, Vector2.RIGHT, Vector2.DOWN]:
 		var arrow: Arrow = ARROW_SCENE.instantiate()
 		arrow.exclude = [$HurtBox, self]
-		get_tree().current_scene.add_child(arrow)
+		get_tree().current_scene.call_deferred("add_child", arrow)
 		arrow.launch(global_position + Vector2.UP * 6, dir, 200, true)

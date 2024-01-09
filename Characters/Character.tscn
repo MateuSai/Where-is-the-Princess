@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bheousdjxqa14"]
+[gd_scene load_steps=6 format=3 uid="uid://bheousdjxqa14"]
 
 [ext_resource type="Script" path="res://Characters/Character.gd" id="1"]
 [ext_resource type="Script" path="res://Characters/FSM.gd" id="2"]
 [ext_resource type="Script" path="res://Components/LifeComponent.gd" id="3_q1yud"]
 [ext_resource type="Script" path="res://Components/SpawnDamageLabel.gd" id="4_l103p"]
+[ext_resource type="Script" path="res://Components/flash_on_damage.gd" id="5_erjg1"]
 
 [node name="Character" type="CharacterBody2D"]
 texture_filter = 1
@@ -29,3 +30,6 @@ hp = 4
 script = ExtResource("4_l103p")
 
 [node name="AcidDamageTimer" type="Timer" parent="."]
+
+[node name="FlashOnDamage" type="Node" parent="."]
+script = ExtResource("5_erjg1")

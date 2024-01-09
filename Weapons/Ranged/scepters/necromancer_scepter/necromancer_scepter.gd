@@ -1,6 +1,10 @@
 @icon("res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Tromp the necromancer/tromp scepter.png")
 class_name NecromancerScepter extends Scepter
 
+const MAX_NUM_SKELETONS_ALIVE: int = 4
+
+var num_skeletons_alive: int = 0
+
 
 func _spawn_projectile(_angle: float = 0.0, _amount: int = 1) -> Array[Projectile]:
 	var position_to_spawn_skeleton: Vector2 = get_parent().get_parent().global_position + Vector2.RIGHT.rotated(rotation) * 64
@@ -16,5 +20,12 @@ func _spawn_projectile(_angle: float = 0.0, _amount: int = 1) -> Array[Projectil
 	var necromancer_spawn: NecromancerSpawn = (load(projectile_scene_path) as PackedScene).instantiate()
 	(get_parent().get_parent() as Enemy).room.add_child(necromancer_spawn)
 	necromancer_spawn.global_position = position_to_spawn_skeleton
+
+	num_skeletons_alive += 1
+	necromancer_spawn.enemy_spawned.connect(func(enemy: Enemy) -> void:
+		enemy.life_component.died.connect(func() -> void:
+			num_skeletons_alive -= 1
+		)
+	)
 
 	return []

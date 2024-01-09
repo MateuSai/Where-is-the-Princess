@@ -1,7 +1,8 @@
 class_name ShadowSprite extends Sprite2D
 
 
-func start(texture: Texture, time: float = 0.3) -> void:
+@warning_ignore("shadowed_variable_base_class")
+func start(texture: Texture, time: float = 0.25) -> void:
 	self.texture = texture
 
 	var tween: Tween = create_tween()

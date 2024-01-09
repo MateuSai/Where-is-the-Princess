@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://jvc34qam0obx"]
 
-[ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="1"]
+[ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="1"]
 [ext_resource type="Script" path="res://Weapons/Weapon.gd" id="2"]
 [ext_resource type="Script" path="res://Weapons/WeaponHitbox.gd" id="3"]
 [ext_resource type="AudioStream" uid="uid://cpi8xdb0i2rbv" path="res://Audio/Sounds/446013__slavicmagic__metal_bash1.wav" id="4_lganj"]

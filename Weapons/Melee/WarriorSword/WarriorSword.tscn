@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_g8um6"]
 [ext_resource type="Script" path="res://Weapons/Melee/MeleeWeapon.gd" id="2_qgjqi"]
-[ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="4_ccapj"]
+[ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="4_ccapj"]
 [ext_resource type="Texture2D" uid="uid://3ajfpk2ru4by" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Warrior sword.png" id="5_dfq7c"]
 [ext_resource type="Texture2D" uid="uid://ch3rp8k3xqpk3" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/Warrior sword  circular attack.png" id="5_gb1kg"]
 [ext_resource type="AnimationLibrary" uid="uid://byptxr6sfhkfy" path="res://Weapons/animation_libraries/heavy_melee_weapon_animation_library.tres" id="6_osnva"]

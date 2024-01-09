@@ -14,6 +14,8 @@ min_souls = 1
 max_souls = 1
 min_dark_souls = 0
 max_dark_souls = 0
+food_prob = 0.1
+armor_shard_prob = 0.1
 
 [node name="PathfindingComponent" type="Node" parent="." index="1"]
 script = ExtResource("3_cumr6")

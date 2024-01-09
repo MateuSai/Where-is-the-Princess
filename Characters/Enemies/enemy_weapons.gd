@@ -31,6 +31,13 @@ func attack() -> void:
 	pre_attack_cooldown_timer.start()
 
 
+func reload() -> void:
+	assert(current_weapon is Crossbow)
+	assert(not is_busy())
+
+	current_weapon._reload()
+
+
 func _actually_attack() -> void:
 	current_weapon._attack()
 

@@ -16,7 +16,7 @@ func start() -> void:
 
 func _state_logic(_delta: float) -> void:
 	if state == ATTACK:
-		if not weapons.is_busy():
+		if not weapons.is_busy() and (weapons.current_weapon as NecromancerScepter).num_skeletons_alive < NecromancerScepter.MAX_NUM_SKELETONS_ALIVE:
 			weapons.attack()
 			#tromp._spawn_skeletons()
 			#attack_timer.start(1.0)

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_yhxb5"]
 [ext_resource type="Script" path="res://Weapons/Melee/Scimitar/Scimitar.gd" id="2_tefv4"]
-[ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="3_n6bv8"]
+[ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="3_n6bv8"]
 [ext_resource type="Texture2D" uid="uid://djxx23liw36lf" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Scimitar.png" id="4_pmwr2"]
 [ext_resource type="AnimationLibrary" uid="uid://d177jeworynq6" path="res://Weapons/animation_libraries/quick_swing_animation_library.tres" id="5_16qth"]
 
