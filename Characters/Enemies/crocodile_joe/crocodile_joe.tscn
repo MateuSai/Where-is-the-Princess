@@ -181,8 +181,6 @@ _data = {
 
 [node name="CrocodileJoe" instance=ExtResource("1_bvb45")]
 script = ExtResource("2_dlph0")
-food_prob = 0.1
-armor_shard_prob = 0.1
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("2_7ucr5")

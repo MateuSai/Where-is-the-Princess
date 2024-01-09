@@ -29,7 +29,7 @@ position = Vector2(216, 364)
 [node name="EnemyMarker" type="Marker2D" parent="EnemyPositions" index="0"]
 position = Vector2(154, 184)
 script = ExtResource("3_2v6j3")
-enemy_name = "tromp"
+enemy_name = "necro_tromp"
 
 [node name="EnemyMarker2" type="Marker2D" parent="EnemyPositions" index="1"]
 position = Vector2(264, 192)

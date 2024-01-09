@@ -78,6 +78,7 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 		LONG_RANGE:
 			weapons.show()
 			pathfinding_component.set_mode(PathfindingComponent.Wander.new())
+			pathfinding_component.mode.timer.wait_time = 2
 		CLOSE_RANGE:
 			animation_player.stop()
 			weapons.hide()
