@@ -1,10 +1,11 @@
-[gd_scene load_steps=22 format=3 uid="uid://bt8vc10uqx5cf"]
+[gd_scene load_steps=23 format=3 uid="uid://bt8vc10uqx5cf"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_bvb45"]
 [ext_resource type="Script" path="res://Characters/Enemies/crocodile_joe/crocodile_joe_fsm.gd" id="2_7ucr5"]
 [ext_resource type="Script" path="res://Characters/Enemies/crocodile_joe/crocodile_joe.gd" id="2_dlph0"]
 [ext_resource type="Texture2D" uid="uid://ctxd0uyhjolhc" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Crocodile/Crocodile_JOE.png" id="2_whsrv"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="3_l6qpg"]
+[ext_resource type="Texture2D" uid="uid://d04uxwluqy5gw" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/player_shadow.png" id="4_vxvwq"]
 [ext_resource type="PackedScene" uid="uid://dihstm6j1hf3l" path="res://Components/BossHpBar.tscn" id="5_26mvr"]
 [ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="5_pypru"]
 [ext_resource type="Script" path="res://Characters/Hitbox.gd" id="5_t0mq7"]
@@ -186,16 +187,20 @@ armor_shard_prob = 0.1
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("2_7ucr5")
 
-[node name="Sprite2D" parent="." index="2"]
+[node name="PlayerShadow" type="Sprite2D" parent="." index="2"]
+position = Vector2(0, 3)
+texture = ExtResource("4_vxvwq")
+
+[node name="Sprite2D" parent="." index="3"]
 position = Vector2(0, -10)
 texture = ExtResource("2_whsrv")
 hframes = 5
 vframes = 6
 
-[node name="CollisionShape2D" parent="." index="3"]
+[node name="CollisionShape2D" parent="." index="4"]
 shape = SubResource("CircleShape2D_dlh12")
 
-[node name="HurtBox" type="Area2D" parent="." index="4"]
+[node name="HurtBox" type="Area2D" parent="." index="5"]
 collision_layer = 4
 collision_mask = 0
 script = ExtResource("3_l6qpg")
@@ -204,7 +209,7 @@ script = ExtResource("3_l6qpg")
 position = Vector2(0, -8)
 shape = SubResource("CapsuleShape2D_hf3kl")
 
-[node name="Hitbox" type="Area2D" parent="." index="5"]
+[node name="Hitbox" type="Area2D" parent="." index="6"]
 collision_layer = 0
 collision_mask = 134
 script = ExtResource("5_t0mq7")
@@ -214,19 +219,19 @@ knockback_force = 1500
 position = Vector2(11, 0)
 shape = SubResource("CircleShape2D_pv50d")
 
-[node name="EnemyWeapons" type="Node2D" parent="." index="6"]
+[node name="EnemyWeapons" type="Node2D" parent="." index="7"]
 position = Vector2(-1, -8)
 script = ExtResource("5_pypru")
 
 [node name="WoodenCrossbow" parent="EnemyWeapons" index="0" instance=ExtResource("6_dbhg2")]
 
-[node name="AnimationPlayer" parent="." index="7"]
+[node name="AnimationPlayer" parent="." index="8"]
 libraries = {
 "": SubResource("AnimationLibrary_iyw7o")
 }
 
-[node name="BossHpBar" parent="." index="14" instance=ExtResource("5_26mvr")]
+[node name="BossHpBar" parent="." index="15" instance=ExtResource("5_26mvr")]
 top_margin = 26
 
-[node name="AimComponent" type="Node" parent="." index="15"]
+[node name="AimComponent" type="Node" parent="." index="16"]
 script = ExtResource("10_hkbws")

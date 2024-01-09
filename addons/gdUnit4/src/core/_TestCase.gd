@@ -65,7 +65,7 @@ func execute(p_test_parameter := Array(), p_iteration := 0):
 	monitor.start()
 	if not p_test_parameter.is_empty():
 		update_fuzzers(p_test_parameter, p_iteration)
-		_execute_test_case(name, p_test_parameter) 
+		_execute_test_case(name, p_test_parameter)
 	else:
 		_execute_test_case(name, [])
 	await completed
@@ -145,7 +145,7 @@ func _set_failure_handler() -> void:
 func _remove_failure_handler() -> void:
 	if GdUnitSignals.instance().gdunit_set_test_failed.is_connected(_failure_received):
 		GdUnitSignals.instance().gdunit_set_test_failed.disconnect(_failure_received)
-	
+
 
 func _failure_received(is_failed :bool) -> void:
 	# is already failed?
