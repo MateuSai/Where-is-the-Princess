@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bdh7v0gjqelqq"]
+[gd_scene load_steps=13 format=3 uid="uid://bdh7v0gjqelqq"]
 
 [ext_resource type="Texture2D" uid="uid://b4xnkqlcv668f" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/traps/pillar.png" id="1_2uaqu"]
 [ext_resource type="Script" path="res://Rooms/Furniture and Traps/traps/remote_trap.gd" id="1_h3hl0"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Components/LifeComponent.gd" id="3_pm8ey"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="5_hdds5"]
 [ext_resource type="Script" path="res://Components/SpawnDamageLabel.gd" id="6_vgvpd"]
+[ext_resource type="Script" path="res://Components/enable_flying_units_navigation_on_died.gd" id="7_bjwrv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_l8h2e"]
 radius = 4.47214
@@ -87,3 +88,6 @@ libraries = {
 
 [node name="SpawnDamageLabel" type="Node" parent="."]
 script = ExtResource("6_vgvpd")
+
+[node name="EnableFlyingUnitsNavigationOnDead" type="Node" parent="."]
+script = ExtResource("7_bjwrv")

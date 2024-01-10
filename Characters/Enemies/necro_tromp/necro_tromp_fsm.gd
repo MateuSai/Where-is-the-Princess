@@ -5,7 +5,7 @@ enum {
 	DEAD,
 }
 
-@onready var tromp: Tromp = get_parent()
+@onready var tromp: NecroTromp = get_parent()
 @onready var weapons: EnemyWeapons = $"../EnemyWeapons"
 #@onready var attack_timer: Timer = $"../AttackTimer"
 

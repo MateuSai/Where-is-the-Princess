@@ -6,6 +6,7 @@ var dir: Vector2
 var speed: float
 
 @onready var bomb_parabola: BombParabola = owner
+@onready var sprite: Sprite2D = $Sprite2D
 @onready var hitbox: Hitbox = $Hitbox
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
@@ -67,6 +68,7 @@ func _spawn_shrapnel() -> void:
 	var shrapnel_scene: PackedScene = load("res://Characters/Enemies/BombTribal/Shrapnel.tscn")
 	for i: int in num:
 		var shrapnel: Sprite2D = shrapnel_scene.instantiate()
+		shrapnel.texture = sprite.texture
 		shrapnel.rotation = initial_rot + (2*PI / (num - 1)) * i + randf_range(-0.2, 0.2)
 		add_child(shrapnel)
 		move_child(shrapnel, 0)

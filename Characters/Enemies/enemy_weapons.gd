@@ -44,6 +44,10 @@ func _actually_attack() -> void:
 	attack_cooldown_timer.start()
 
 
+func active_ability() -> void:
+	current_weapon._active_ability()
+
+
 func set_current_weapon(new_weapon: Weapon) -> void:
 	super(new_weapon)
 	# Enemies weapons don't break

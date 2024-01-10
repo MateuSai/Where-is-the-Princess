@@ -38,6 +38,7 @@ var player_entered_previously: bool = false
 signal player_entered()
 signal closed()
 signal cleared()
+signal enemy_died(enemy: Enemy)
 signal last_enemy_died(enemy: Enemy)
 
 ## [member room_white_image] is used to clear the fog when you enter the room
@@ -351,6 +352,7 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 
 func _on_enemy_killed(enemy: Enemy) -> void:
 	num_enemies -= 1
+	enemy_died.emit(enemy)
 	if num_enemies == 0:
 		last_enemy_died.emit(enemy)
 		await get_tree().process_frame

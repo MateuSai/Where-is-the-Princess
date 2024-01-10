@@ -1,4 +1,4 @@
-class_name Tromp extends Enemy
+class_name NecroTromp extends Enemy
 
 #const NECROMANCER_SPAWN: PackedScene = preload("res://Characters/necromancer_spawn/necromancer_spawn.tscn")
 

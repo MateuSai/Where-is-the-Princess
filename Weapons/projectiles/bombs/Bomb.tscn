@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://cxf5tshcuwitr"]
 
-[ext_resource type="Script" path="res://Characters/Enemies/BombTribal/Bomb.gd" id="1_8pllq"]
+[ext_resource type="Script" path="res://Weapons/projectiles/bombs/Bomb.gd" id="1_8pllq"]
 [ext_resource type="Texture2D" uid="uid://2scdolfss07" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/bomb_explosion.png" id="2_dl2v8"]
-[ext_resource type="Script" path="res://Characters/Enemies/BombTribal/BombHitbox.gd" id="3_uhn1o"]
+[ext_resource type="Script" path="res://Weapons/projectiles/bombs/BombHitbox.gd" id="3_uhn1o"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_224ii"]
 light_mode = 1
