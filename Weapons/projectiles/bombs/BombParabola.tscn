@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://0yls3xv6tbvi"]
 
-[ext_resource type="Script" path="res://Characters/Enemies/BombTribal/BombParabola.gd" id="1_gk0g7"]
-[ext_resource type="PackedScene" uid="uid://cxf5tshcuwitr" path="res://Characters/Enemies/BombTribal/Bomb.tscn" id="2_ud46o"]
+[ext_resource type="Script" path="res://Weapons/projectiles/bombs/BombParabola.gd" id="1_41jkv"]
+[ext_resource type="PackedScene" uid="uid://cxf5tshcuwitr" path="res://Weapons/projectiles/bombs/Bomb.tscn" id="2_gvl3v"]
 
 [sub_resource type="Curve2D" id="Curve2D_w327c"]
 resource_local_to_scene = true
@@ -12,10 +12,10 @@ point_count = 3
 
 [node name="BombParabola" type="Path2D"]
 curve = SubResource("Curve2D_w327c")
-script = ExtResource("1_gk0g7")
+script = ExtResource("1_41jkv")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="."]
 rotation = -0.566787
 loop = false
 
-[node name="Bomb" parent="PathFollow2D" instance=ExtResource("2_ud46o")]
+[node name="Bomb" parent="PathFollow2D" instance=ExtResource("2_gvl3v")]

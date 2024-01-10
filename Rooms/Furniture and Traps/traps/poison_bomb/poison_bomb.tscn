@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://drdn08idfuulc"]
+
+[ext_resource type="PackedScene" uid="uid://cxf5tshcuwitr" path="res://Weapons/projectiles/bombs/Bomb.tscn" id="1_7661i"]
+[ext_resource type="Texture2D" uid="uid://bw7g0ldpiy3ax" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/traps/bomb_explosion_poison-acid.png" id="2_vrbd3"]
+
+[node name="PoisonBomb" instance=ExtResource("1_7661i")]
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_vrbd3")

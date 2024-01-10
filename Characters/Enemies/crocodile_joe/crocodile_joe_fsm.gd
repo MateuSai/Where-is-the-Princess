@@ -15,6 +15,8 @@ enum MoveAnimationState {
 }
 var move_animation_state: MoveAnimationState = MoveAnimationState.MOVE
 
+var tromp_died: bool = false
+
 const DISTANCE_TO_CHANGE_RANGE: int = 16
 
 @onready var joe: CrocodileJoe = get_parent()
@@ -24,6 +26,11 @@ const DISTANCE_TO_CHANGE_RANGE: int = 16
 
 
 func start() -> void:
+	joe.room.enemy_died.connect(func(enemy: Enemy) -> void:
+		if enemy is NecroTromp:
+			tromp_died = true
+	)
+
 	set_state(LONG_RANGE)
 
 
@@ -38,7 +45,10 @@ func _state_logic(_delta: float) -> void:
 					weapons.reload()
 				else:
 					if aim_result.clear:
-						weapons.attack()
+						if tromp_died and randi() % 5 == 0:
+							weapons.active_ability()
+						else:
+							weapons.attack()
 
 			joe.move_to_target()
 			if aim_dir.x > 0 and joe.sprite.flip_h:

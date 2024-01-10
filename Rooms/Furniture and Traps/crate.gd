@@ -15,10 +15,6 @@ func _ready() -> void:
 		var explosion: AnimatedSprite2D = EXPLOSION_SCENE.instantiate()
 		explosion.position = global_position
 		get_tree().current_scene.add_child(explosion)
-		# Now the flying units will be able to pass over the box
-		collision_layer = 16 # Low object
-		remove_from_group(DungeonRoom.FLYING_UNITS_NAVIGATION_GROUP)
-		room.update_navigation()
 	)
 
 	life_component.damage_taken.connect(func(_dam: int, dir: Vector2, _force: int) -> void:

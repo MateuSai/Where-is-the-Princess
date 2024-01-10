@@ -63,6 +63,8 @@ position = Vector2(199, 187)
 
 [node name="SacrificeShrine" type="StaticBody2D" parent="." index="16" groups=["navigation_polygon_source_group"]]
 position = Vector2(225, 187)
+collision_layer = 16
+collision_mask = 0
 
 [node name="SacrificeShrine" type="Sprite2D" parent="SacrificeShrine" index="0"]
 position = Vector2(0, -2)
