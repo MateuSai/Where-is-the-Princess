@@ -49,3 +49,6 @@ func set_current_weapon(new_weapon: Weapon) -> void:
 	# Enemies weapons don't break
 	current_weapon.condition_cost_per_normal_attack = 0
 	current_weapon.active_ability_condition_cost = 0
+
+	if new_weapon is MeleeWeapon:
+		(new_weapon as MeleeWeapon).hitbox.collision_mask &= ~character.collision_layer
