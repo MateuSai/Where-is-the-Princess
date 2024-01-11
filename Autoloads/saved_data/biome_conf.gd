@@ -96,8 +96,7 @@ class Level:
 
 	var overwrite_start_rooms: Array = [""]
 	var overwrite_combat_rooms: Array = [""]
-	var overwrite_end_forest_rooms: Array = [""]
-	var overwrite_end_sewer_rooms: Array = [""]
+	var overwrite_end_rooms: Dictionary = {}
 
 	var overwrite_connections: Array = []
 
@@ -105,7 +104,10 @@ class Level:
 		var level: Level = Level.new()
 
 		for key: String in level_dic.keys():
-			if level.get(key) != null:
+			if key.begins_with("overwrite_end"):
+				var splitted_key: PackedStringArray = key.split("_")
+				level.overwrite_end_rooms[splitted_key[splitted_key.size() - 2]] = level_dic[key]
+			elif level.get(key) != null:
 				level.set(key, level_dic[key])
 			else:
 				printerr("Level: Invalid property: " + key)
@@ -122,3 +124,10 @@ class Level:
 				level.num_special_rooms = BiomeConf.DEFAULT_NUM_SPECIAL_ROOMS
 
 		return level
+
+	func get_overwrite_end_rooms(to: String) -> PackedStringArray:
+		to = to.to_lower()
+		if overwrite_end_rooms.has(to):
+			return PackedStringArray(overwrite_end_rooms[to])
+		else:
+			return PackedStringArray([""])

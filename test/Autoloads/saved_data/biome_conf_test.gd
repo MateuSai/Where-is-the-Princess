@@ -46,3 +46,24 @@ func test_rooms() -> void:
 					assert_bool(FileAccess.file_exists(path))
 					assert_bool(path.get_extension() == "tscn")
 					assert_object(auto_free(load(path).instantiate())).is_instanceof(DungeonRoom)
+			for overwrite_end_rooms: Array in level.overwrite_end_rooms.values():
+				if overwrite_end_rooms.size() > 0 and not overwrite_end_rooms[0].is_empty():
+					for path: String in overwrite_end_rooms:
+						assert_bool(FileAccess.file_exists(path))
+						assert_bool(path.get_extension() == "tscn")
+						assert_object(auto_free(load(path).instantiate())).is_instanceof(DungeonRoom)
+
+
+func test_get_overwrite_end_rooms() -> void:
+	var conf: BiomeConf = BiomeConf.from_dic({
+		levels = {
+			"2" = {
+				overwrite_end_forest_rooms = ["path/to/room1", "path/to/room2"],
+				overwrite_end_sewer_rooms = ["path/to/room3", "path/to/room4"],
+			}
+		}
+	})
+
+	assert_array(conf.levels).has_size(2)
+	assert_array(conf.levels[1].get_overwrite_end_rooms("forest")).contains_exactly(["path/to/room1", "path/to/room2"])
+	assert_array(conf.levels[1].get_overwrite_end_rooms("sewer")).contains_exactly(["path/to/room3", "path/to/room4"])
