@@ -3,6 +3,8 @@ class_name NecromancerScepter extends Scepter
 
 const MAX_NUM_SKELETONS_ALIVE: int = 4
 
+const STEAL_LIFE_ATTACK_SCENE: PackedScene = preload("res://Characters/Enemies/necro_tromp/tromp_steal_life_attack.tscn")
+
 var num_skeletons_alive: int = 0
 
 
@@ -29,3 +31,13 @@ func _spawn_projectile(_angle: float = 0.0, _amount: int = 1) -> Array[Projectil
 	)
 
 	return []
+
+
+func _spawn_steal_life_attack() -> void:
+	if get_tree() == null:
+		return
+
+	var steal_life_attack: TrompStealLifeAttack = STEAL_LIFE_ATTACK_SCENE.instantiate()
+	steal_life_attack.tromp = get_parent().get_parent()
+	steal_life_attack.global_position = (get_parent().get_parent() as Enemy).target.global_position
+	get_tree().current_scene.add_child(steal_life_attack)
