@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://7t4iunvy806l"]
+[gd_scene load_steps=11 format=3 uid="uid://7t4iunvy806l"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_isqo7"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_j33lq"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="4_58pbf"]
 [ext_resource type="PackedScene" uid="uid://k0b7jt7bd1nh" path="res://Rooms/Furniture and Traps/traps/crocodile_trap/crocodile_trap_left.tscn" id="5_huqid"]
 [ext_resource type="PackedScene" uid="uid://daocnji5c2t4i" path="res://Rooms/Furniture and Traps/traps/crocodile_trap/crocodile_trap_right.tscn" id="6_bfoyf"]
+[ext_resource type="PackedScene" uid="uid://cvoo5kbnataor" path="res://Rooms/Furniture and Traps/traps/bomb_dropper/bomb_dropper.tscn" id="7_mb0je"]
+[ext_resource type="PackedScene" uid="uid://byeyhke0jfjrb" path="res://Rooms/Furniture and Traps/traps/floor_button.tscn" id="8_wqwoa"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_cbu43"]
 resource_local_to_scene = true
@@ -77,6 +79,13 @@ position = Vector2(91, 134)
 
 [node name="CrocodileTrapUp2" parent="Traps" index="1" instance=ExtResource("6_bfoyf")]
 position = Vector2(213, 134)
+
+[node name="BombDropper" parent="Traps" index="2" groups=["enabler_1"] instance=ExtResource("7_mb0je")]
+position = Vector2(197, 59)
+
+[node name="FloorButton" parent="Traps" index="3" instance=ExtResource("8_wqwoa")]
+position = Vector2(221, 53)
+id = 1
 
 [node name="Torch" parent="." index="10" instance=ExtResource("4_58pbf")]
 position = Vector2(89, 22)

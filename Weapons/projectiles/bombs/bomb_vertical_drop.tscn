@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://n6qo87cg2osp"]
+
+[ext_resource type="Script" path="res://Weapons/projectiles/bombs/bomb_vertical_drop.gd" id="1_lq08c"]
+[ext_resource type="PackedScene" uid="uid://drdn08idfuulc" path="res://Rooms/Furniture and Traps/traps/poison_bomb/poison_bomb.tscn" id="2_nmygl"]
+
+[sub_resource type="Curve2D" id="Curve2D_paibf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 23)
+}
+point_count = 2
+
+[node name="BombVerticalDrop" type="Path2D"]
+curve = SubResource("Curve2D_paibf")
+script = ExtResource("1_lq08c")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(0, 1)
+rotation = 1.5708
+loop = false
+
+[node name="PoisonBomb" parent="PathFollow2D" instance=ExtResource("2_nmygl")]
