@@ -3,6 +3,8 @@ class_name InsectorMusk extends Enemy
 const BITE_EFFECT_SCENE: PackedScene = preload("res://Characters/Enemies/BiteEffect.tscn")
 const ACID_SPIT_SCENE: PackedScene = preload("res://Weapons/projectiles/acid_spit/acid_spit.tscn")
 
+var num_consecutive_spits: int = 0
+
 @onready var wings: Sprite2D = $Wings
 @onready var hitbox_col: CollisionShape2D = $Hitbox/CollisionShape2D
 @onready var throw_acid_spit_timer: Timer = $ThrowAcidSpitTimer
@@ -27,6 +29,8 @@ func _spawn_bite_effect() -> void:
 
 
 func spit() -> void:
+	num_consecutive_spits += 1
+
 	@warning_ignore("shadowed_variable")
 	var spit: AcidSpit = ACID_SPIT_SCENE.instantiate()
 	spit.exclude = [self]

@@ -70,7 +70,7 @@ script = ExtResource("4_4q52s")
 enemy_name = "skelebrommer"
 
 [node name="EnemyMarker4" type="Marker2D" parent="EnemyPositions" index="3"]
-position = Vector2(153, 137)
+position = Vector2(148, 85)
 script = ExtResource("4_4q52s")
 enemy_name = "insector_musk"
 
