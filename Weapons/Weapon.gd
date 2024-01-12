@@ -168,7 +168,7 @@ func is_busy() -> bool:
 
 
 func _on_PlayerDetector_body_entered(body: Node2D) -> void:
-	if body is Player and (body as Player).can_pick_up_weapons():
+	if body is Player and (body as Player).can_pick_up_weapon(self):
 		(body as Player).weapons.pick_up_weapon(self)
 		_pick_up()
 	else:

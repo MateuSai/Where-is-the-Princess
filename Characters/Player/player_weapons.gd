@@ -22,6 +22,7 @@ var disabled: bool = false:
 
 @onready var player: Player = get_parent()
 
+@onready var pick_up_weapon_cooldown_timer: Timer = $"../Timers/PickUpWeaponCooldownTimer"
 @onready var equip_weapon_sound: AudioStreamPlayer = $"../EquipWeaponSound"
 
 
@@ -92,8 +93,11 @@ func _switch_weapon(direction: int) -> void:
 
 
 func pick_up_weapon(weapon: Weapon) -> void:
-	if weapon == null or not is_instance_valid(weapon) or weapon.is_queued_for_deletion():
-		return
+	assert(can_pick_up_weapon(weapon))
+	#if weapon == null or not is_instance_valid(weapon) or weapon.is_queued_for_deletion() or not pick_up_weapon_cooldown_timer.is_stopped():
+		#return
+
+	pick_up_weapon_cooldown_timer.start()
 
 	SavedData.run_stats.weapon_stats.append(weapon.stats)
 	var prev_index: int = SavedData.run_stats.equipped_weapon_index
@@ -209,5 +213,5 @@ func set_current_weapon(new_weapon: Weapon) -> void:
 	current_weapon.set_process_unhandled_input(true)
 
 
-func can_pick_up_weapons() -> bool:
-	return get_child_count() < max_weapons
+func can_pick_up_weapon(weapon_to_pick: Weapon) -> bool:
+	return get_child_count() < max_weapons and weapon_to_pick != null and is_instance_valid(weapon_to_pick) and not weapon_to_pick.is_queued_for_deletion() and pick_up_weapon_cooldown_timer.is_stopped()

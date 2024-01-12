@@ -10,4 +10,4 @@ func can_pick_up(player: Player) -> bool:
 
 
 func pick_up(player: Player) -> void:
-	player.armor.condition += 6
+	player.armor.condition += 2

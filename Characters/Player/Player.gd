@@ -301,8 +301,8 @@ func remove_rotating_item(node: Node2D) -> void:
 		rotating_items[i].rotation = rot * i
 
 
-func can_pick_up_weapons() -> bool:
-	return weapons.can_pick_up_weapons()
+func can_pick_up_weapon(weapon: Weapon) -> bool:
+	return weapons.can_pick_up_weapon(weapon)
 
 
 func enable_mirage() -> void:

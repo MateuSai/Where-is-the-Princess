@@ -779,6 +779,10 @@ one_shot = true
 wait_time = 5.0
 one_shot = true
 
+[node name="PickUpWeaponCooldownTimer" type="Timer" parent="Timers" index="3"]
+wait_time = 0.5
+one_shot = true
+
 [node name="EquipArmorSound" type="AudioStreamPlayer" parent="." index="15"]
 stream = ExtResource("33_3bfpk")
 volume_db = -5.0
