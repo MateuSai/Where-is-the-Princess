@@ -29,3 +29,20 @@ func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon) -> void:
 
 	invincible_after_being_hitted = true
 	invincible_after_being_hitted_timer.start(invincible_after_being_hitted_time)
+
+
+
+func take_damage_ignoring_armor(dam: int, dir: Vector2, force: int, weapon: Weapon) -> void:
+	if _must_ignore_damage():
+		return
+
+	dam *= damage_taken_multiplier
+
+	hit_border_effect.effect(hit_border_effect.Type.HP, invincible_after_being_hitted_time)
+	self.hp -= dam
+	_play_hit_sound(weapon)
+
+	damage_taken.emit(dam, dir, force)
+
+	invincible_after_being_hitted = true
+	invincible_after_being_hitted_timer.start(invincible_after_being_hitted_time)

@@ -1,10 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://cbynu0soxc1tc"]
+[gd_scene load_steps=6 format=3 uid="uid://cbynu0soxc1tc"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_21p28"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="2_rhjec"]
 [ext_resource type="PackedScene" uid="uid://cpgi3p64qtndv" path="res://Rooms/Furniture and Traps/sewer_entrance.tscn" id="3_142rc"]
+[ext_resource type="PackedScene" uid="uid://cwb0heh4qdkh8" path="res://Rooms/Chest.tscn" id="4_jyk1e"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_dmu6y"]
+resource_local_to_scene = true
+source_geometry_mode = 2
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 2.0
 
 [node name="ForestToSewerEndRoom" instance=ExtResource("1_21p28")]
+navigation_polygon = SubResource("NavigationPolygon_dmu6y")
 
 [node name="TileMap" parent="." index="0"]
 layer_0/tile_data = PackedInt32Array(131075, 524288, 2, 196611, 393216, 1, 262146, 131072, 1, 327682, 458752, 1, 262147, 393216, 3, 327683, 131072, 1, 131076, 393216, 2, 196612, 131072, 1, 262148, 393216, 1, 327684, 393216, 3, 131077, 524288, 3, 196613, 524288, 1, 262149, 393216, 2, 327685, 131072, 1, 131078, 458752, 1, 196614, 524288, 3, 262150, 0, 3, 327686, 131072, 3, 262151, 131072, 2, 327687, 196608, 3, 393221, 524288, 3, 393222, 131072, 3, 393223, 196608, 3, 393224, 131072, 1, 327688, 393216, 1, 262152, 524288, 2, 196615, 524288, 2, 196616, 524288, 2, 131080, 393216, 1, 131081, 131072, 1, 131079, 393216, 3, 196617, 393216, 1, 262153, 458752, 1, 196610, 524288, 4, 65539, 393216, 5, 65540, 393216, 5, 65541, 393216, 4, 65542, 524288, 5, 65543, 458752, 5, 65544, 458752, 5, 65545, 524288, 5, 131074, 327680, 7, 3, 131072, 7, 4, 131072, 7, 5, 131072, 7, 6, 131072, 7, 7, 131072, 7, 8, 131072, 7, 9, 131072, 7, 10, 196608, 4, 2, 262144, 4, 131073, 262144, 4)
@@ -16,3 +24,6 @@ position = Vector2(105, 106)
 
 [node name="SewerEntrance" parent="." index="9" instance=ExtResource("3_142rc")]
 position = Vector2(111, 74)
+
+[node name="Chest" parent="." index="11" instance=ExtResource("4_jyk1e")]
+position = Vector2(71, 69)

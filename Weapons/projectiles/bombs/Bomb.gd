@@ -5,7 +5,7 @@ var reflected: bool = false
 var dir: Vector2
 var speed: float
 
-@onready var bomb_parabola: BombParabola = owner
+@onready var bomb_path: BombPath = owner
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var hitbox: Hitbox = $Hitbox
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -39,7 +39,7 @@ func hit(dir: Vector2, force: float) -> void:
 
 	path_follow.call_deferred("remove_child", self)
 	await get_tree().process_frame
-	bomb_parabola.queue_free()
+	bomb_path.queue_free()
 	tree.current_scene.add_child(self)
 	position = g_pos
 
@@ -47,8 +47,8 @@ func hit(dir: Vector2, force: float) -> void:
 
 
 func destroy() -> void:
-	if is_instance_valid(bomb_parabola):
-		bomb_parabola.queue_free()
+	if is_instance_valid(bomb_path):
+		bomb_path.queue_free()
 	else:
 		queue_free()
 
@@ -65,7 +65,7 @@ func _spawn_shrapnel() -> void:
 	var num: int = randi() % 3 + 3
 	var initial_rot: float = randf_range(0, 2*PI / (num - 1))
 	var shrapnels: Array = []
-	var shrapnel_scene: PackedScene = load("res://Characters/Enemies/BombTribal/Shrapnel.tscn")
+	var shrapnel_scene: PackedScene = load("res://Weapons/projectiles/bombs/Shrapnel.tscn")
 	for i: int in num:
 		var shrapnel: Sprite2D = shrapnel_scene.instantiate()
 		shrapnel.texture = sprite.texture

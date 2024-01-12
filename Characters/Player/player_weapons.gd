@@ -92,6 +92,9 @@ func _switch_weapon(direction: int) -> void:
 
 
 func pick_up_weapon(weapon: Weapon) -> void:
+	if weapon == null or not is_instance_valid(weapon) or weapon.is_queued_for_deletion():
+		return
+
 	SavedData.run_stats.weapon_stats.append(weapon.stats)
 	var prev_index: int = SavedData.run_stats.equipped_weapon_index
 	var new_index: int = get_child_count()

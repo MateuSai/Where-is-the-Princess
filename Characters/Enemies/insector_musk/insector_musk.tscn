@@ -49,7 +49,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ujcx0"]
-radius = 5.0
+radius = 6.08276
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6d2pt"]
 radius = 7.0
@@ -201,11 +201,6 @@ _data = {
 
 [node name="InsectorMusk" instance=ExtResource("1_eqhtg")]
 script = ExtResource("2_jufq1")
-mass = 1.0
-acceleration = 40
-max_speed = 100
-flying = false
-can_be_knocked_back = true
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("2_yjm48")
@@ -222,10 +217,10 @@ texture = ExtResource("3_v50kv")
 hframes = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Wings" index="0"]
-autoplay = "fly"
 libraries = {
 "": SubResource("AnimationLibrary_diul2")
 }
+autoplay = "fly"
 
 [node name="PlayerShadow" type="Sprite2D" parent="." index="4"]
 texture = ExtResource("3_jjhp4")
@@ -233,9 +228,9 @@ texture = ExtResource("3_jjhp4")
 [node name="Hitbox" type="Area2D" parent="." index="5"]
 position = Vector2(0, -9)
 collision_layer = 0
-collision_mask = 2
+collision_mask = 130
 script = ExtResource("7_qxftq")
-knockback_force = 50
+knockback_force = 200
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2(8, 0)
@@ -252,9 +247,9 @@ position = Vector2(0, -13)
 shape = SubResource("CapsuleShape2D_6d2pt")
 
 [node name="AnimationPlayer" parent="." index="8"]
-autoplay = "fly"
 libraries = {
 "": SubResource("AnimationLibrary_fwc3y")
 }
+autoplay = "fly"
 
 [node name="ThrowAcidSpitTimer" type="Timer" parent="." index="15"]

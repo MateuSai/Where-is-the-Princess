@@ -504,7 +504,6 @@ libraries = {
 
 [node name="LifeComponent" parent="." index="9"]
 script = ExtResource("11_up6en")
-body_type = null
 max_hp = 2
 hp = 2
 

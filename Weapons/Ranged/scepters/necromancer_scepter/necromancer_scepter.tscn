@@ -114,7 +114,7 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
-"method": &"_spawn_lightning"
+"method": &"_spawn_steal_life_attack"
 }]
 }
 tracks/3/type = "value"
