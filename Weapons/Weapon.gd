@@ -199,7 +199,13 @@ func interpolate_pos(initial_pos: Vector2, final_pos: Vector2, collision_with_wo
 
 
 func _on_Tween_tween_completed() -> void:
-	player_detector.set_collision_mask_value(2, true)
+	if _is_on_water():
+		var sound: AutoFreeSound = AutoFreeSound.new()
+		get_tree().current_scene.add_child(sound)
+		sound.start(load("res://Audio/Sounds/280219__yurkobb__jump-into-water.wav") as AudioStream, global_position, -3.0)
+		queue_free()
+	else:
+		player_detector.set_collision_mask_value(2, true)
 
 
 func _on_condition_changed(new_condition: float) -> void:
@@ -337,6 +343,13 @@ func set_ability_knockback(new_ability_knockback: int) -> void:
 
 func _decrease_weapon_condition(by: float) -> void:
 	stats.condition -= (by + 0.5 * stats.modifiers.size()) * (1 - Globals.player.weapon_degradation_reduction)
+
+
+func _is_on_water() -> bool:
+	if Globals.player.current_room:
+		return Globals.player.current_room.tilemap.get_cell_atlas_coords(DungeonRoom.WATER_LAYER_ID, Globals.player.current_room.tilemap.local_to_map(position - Globals.player.current_room.position)) != Vector2i(-1, -1)
+	else:
+		return false
 
 
 static func get_weapon_path(weap_name: String) -> String:

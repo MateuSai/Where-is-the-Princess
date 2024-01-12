@@ -35,7 +35,7 @@ func _ready() -> void:
 
 	_load_run_stats()
 
-	_change_biome_conf(run_stats.biome)
+	change_biome(run_stats.biome)
 	# print(biome_conf)
 
 	var user_dir: DirAccess = DirAccess.open(USER_FOLDER)
@@ -182,7 +182,7 @@ func get_current_level_spawn_shape() -> Rooms.SpawnShape:
 				var radius: float = biome_conf.levels[SavedData.run_stats.level - 1].spawn_shape_radius
 				return Rooms.CircleSpawnShape.new(radius)
 			"rectangle":
-					return Rooms.RectangleSpawnShape.new(Vector2(biome_conf.levels[SavedData.run_stats.level - 1].spawn_shape_width, biome_conf.levels[SavedData.run_stats.level - 1].spawn_shape_height))
+				return Rooms.RectangleSpawnShape.new(Vector2(biome_conf.levels[SavedData.run_stats.level - 1].spawn_shape_width, biome_conf.levels[SavedData.run_stats.level - 1].spawn_shape_height))
 
 	return Rooms.CircleSpawnShape.new(100)
 
@@ -244,16 +244,20 @@ func add_ignored_room(room_path: String) -> void:
 	save_data()
 
 
+## You can specify a vanilla biome like [code]"forest"[/code] or [code]"sewer"[/code] or you can use an absolute path to the config.json for your own biome
 func change_biome(new_biome: String) -> void:
-	_change_biome_conf(new_biome)
+	if new_biome.is_absolute_path():
+		_change_biome_conf(new_biome)
+	else:
+		_change_biome_conf(BIOMES_FOLDER_PATH + new_biome + "/conf.json")
 	run_stats.biome = new_biome
 	run_stats.level = 1
 
 
-func _change_biome_conf(biome: String) -> void:
+func _change_biome_conf(biome_conf_path: String) -> void:
 	var json: JSON = JSON.new()
-	if json.parse(FileAccess.open(BIOMES_FOLDER_PATH + biome + "/conf.json", FileAccess.READ).get_as_text()):
-		printerr("Error reading " + BIOMES_FOLDER_PATH + biome + "/conf.json" + "! Loading default biome conf...")
+	if json.parse(FileAccess.open(biome_conf_path, FileAccess.READ).get_as_text()):
+		printerr("Error reading " + biome_conf_path + "! Loading default biome conf...")
 		biome_conf = BiomeConf.new()
 	else:
 		if json.data is Dictionary:
