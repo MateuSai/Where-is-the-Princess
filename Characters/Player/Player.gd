@@ -112,9 +112,9 @@ func _ready() -> void:
 	jump_animation_player.animation_finished.connect(func(anim_name: String) -> void:
 		if anim_name == "jump":
 			if is_on_water():
-				var sound: AutoFreeSound = AutoFreeSound.new()
-				get_tree().current_scene.add_child(sound)
-				sound.start(load("res://Audio/Sounds/280219__yurkobb__jump-into-water.wav") as AudioStream, global_position)
+				var splash: Sprite2D = load("res://effects/water_splash/water_splash.tscn").instantiate()
+				splash.position = global_position
+				get_tree().current_scene.add_child(splash)
 				life_component.take_damage(1, Vector2.ZERO, 0, null)
 				position = position_before_jumping
 	)

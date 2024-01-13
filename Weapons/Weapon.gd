@@ -200,9 +200,9 @@ func interpolate_pos(initial_pos: Vector2, final_pos: Vector2, collision_with_wo
 
 func _on_Tween_tween_completed() -> void:
 	if _is_on_water():
-		var sound: AutoFreeSound = AutoFreeSound.new()
-		get_tree().current_scene.add_child(sound)
-		sound.start(load("res://Audio/Sounds/280219__yurkobb__jump-into-water.wav") as AudioStream, global_position, -3.0)
+		var splash: Sprite2D = load("res://effects/water_splash/water_splash.tscn").instantiate()
+		splash.position = weapon_sprite.global_position
+		get_tree().current_scene.add_child(splash)
 		queue_free()
 	else:
 		player_detector.set_collision_mask_value(2, true)
