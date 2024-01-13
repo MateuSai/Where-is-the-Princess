@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://kb5a80st23kf"]
+
+[ext_resource type="Texture2D" uid="uid://cqtsu3nhmg2g1" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Tromp the necromancer/Tromp_hair_anim.png" id="1_e686u"]
+[ext_resource type="Script" path="res://Characters/Enemies/necro_tromp/tromp_hair.gd" id="2_y5hy5"]
+
+[sub_resource type="Animation" id="Animation_kqs37"]
+resource_name = "move"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_0gfwx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_010wx"]
+_data = {
+"RESET": SubResource("Animation_0gfwx"),
+"move": SubResource("Animation_kqs37")
+}
+
+[node name="TrompHair" type="Sprite2D"]
+texture = ExtResource("1_e686u")
+hframes = 6
+vframes = 2
+script = ExtResource("2_y5hy5")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_010wx")
+}
+autoplay = "move"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
