@@ -632,8 +632,6 @@ radius = 8.0
 
 [node name="BodenTheDruid" instance=ExtResource("1_vhffd")]
 script = ExtResource("2_uu817")
-food_prob = 0.1
-armor_shard_prob = 0.1
 mass = 60.0
 max_speed = 50
 
@@ -735,3 +733,6 @@ texture = ExtResource("10_hb7ex")
 one_shot = true
 
 [node name="BossHpBar" parent="." index="17" instance=ExtResource("11_4bxbk")]
+
+[node name="TopRayCast" type="RayCast2D" parent="." index="21"]
+target_position = Vector2(0, -42)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=79 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -29,6 +29,9 @@
 [ext_resource type="Texture2D" uid="uid://6cx2yobwuw5b" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_naked_icon.png" id="19_bc3n7"]
 [ext_resource type="Texture2D" uid="uid://dk5fa4ot7i4y" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/big_coin.tres" id="19_bh1ic"]
 [ext_resource type="Texture2D" uid="uid://bhpt1388lfjwl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/Dragon Killer UI icon.png" id="21_ohq06"]
+[ext_resource type="Texture2D" uid="uid://c16ltio6detb6" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/StaminaBar_UI_empty.png" id="23_l30wv"]
+[ext_resource type="Texture2D" uid="uid://dw08gv6o23kjh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/StaminaBar_UI_full_2.png" id="24_yneg1"]
+[ext_resource type="Script" path="res://Characters/Player/stamina_bar.gd" id="25_22fjy"]
 [ext_resource type="Texture2D" uid="uid://cac17vxsy4c22" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/boss_soul_animation.tres" id="26_3xjxs"]
 [ext_resource type="Script" path="res://Characters/Player/AutoAimArea.gd" id="28_r7ct4"]
 [ext_resource type="Script" path="res://ui/PauseMenu.gd" id="31_wgvip"]
@@ -448,6 +451,11 @@ radius = 114.28
 collision_layer = 2
 collision_mask = 21
 script = ExtResource("4")
+mass = null
+acceleration = null
+max_speed = null
+flying = null
+can_be_knocked_back = null
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("5")
@@ -544,14 +552,20 @@ theme_override_constants/margin_top = 4
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer" index="0"]
 layout_mode = 2
 
-[node name="ArmorConditionBar" type="TextureProgressBar" parent="UI/MarginContainer" index="1"]
+[node name="ArmorAndStaminaVBox" type="VBoxContainer" parent="UI/MarginContainer" index="1"]
+layout_mode = 2
+theme_override_constants/separation = -6
+
+[node name="ArmorConditionBar" type="TextureProgressBar" parent="UI/MarginContainer/ArmorAndStaminaVBox" index="0"]
+unique_name_in_owner = true
 layout_mode = 2
 value = 50.0
 texture_under = ExtResource("13_3w18a")
 texture_progress = ExtResource("14_wyeiy")
 script = ExtResource("15_rb2hy")
 
-[node name="Hearts" type="HBoxContainer" parent="UI/MarginContainer/ArmorConditionBar" index="0"]
+[node name="Hearts" type="HBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar" index="0"]
+unique_name_in_owner = true
 layout_mode = 2
 offset_left = 24.0
 offset_top = 7.0
@@ -560,7 +574,7 @@ offset_bottom = 16.0
 theme_override_constants/separation = -1
 script = ExtResource("12_ft4r3")
 
-[node name="PassiveItemsContainer" type="HFlowContainer" parent="UI/MarginContainer/ArmorConditionBar" index="1"]
+[node name="PassiveItemsContainer" type="HFlowContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar" index="1"]
 layout_mode = 2
 offset_left = 17.0
 offset_top = 19.0
@@ -568,7 +582,7 @@ offset_right = 88.0
 offset_bottom = 19.0
 script = ExtResource("8_aavgb")
 
-[node name="ArmorAbilityBar" type="TextureProgressBar" parent="UI/MarginContainer/ArmorConditionBar" index="2"]
+[node name="ArmorAbilityBar" type="TextureProgressBar" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar" index="2"]
 layout_mode = 0
 offset_left = 3.0
 offset_top = 3.0
@@ -580,6 +594,29 @@ fill_mode = 3
 texture_under = ExtResource("19_bc3n7")
 texture_progress = ExtResource("19_bc3n7")
 tint_under = Color(0.411765, 0.411765, 0.411765, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox" index="1"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+
+[node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/ArmorAndStaminaVBox/MarginContainer" index="0"]
+layout_mode = 2
+texture = ExtResource("23_l30wv")
+
+[node name="StaminaBar" type="TextureProgressBar" parent="UI/MarginContainer/ArmorAndStaminaVBox/MarginContainer/TextureRect" index="0"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 12.0
+offset_top = 3.0
+offset_right = 55.0
+offset_bottom = 5.0
+value = 100.0
+texture_progress = ExtResource("24_yneg1")
+script = ExtResource("25_22fjy")
+
+[node name="UpdateTimer" type="Timer" parent="UI/MarginContainer/ArmorAndStaminaVBox/MarginContainer/TextureRect/StaminaBar" index="0"]
+wait_time = 0.15
+autostart = true
 
 [node name="Inventory" type="HBoxContainer" parent="UI" index="3"]
 anchors_preset = 12

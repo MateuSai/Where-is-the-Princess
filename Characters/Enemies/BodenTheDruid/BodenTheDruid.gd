@@ -117,7 +117,8 @@ func throw_rock() -> void:
 	var rock: Projectile = load("res://Weapons/projectiles/BigRock.tscn").instantiate()
 	rock.exclude = [self]
 	get_tree().current_scene.add_child(rock)
-	rock.launch(rock_sprite.global_position + Vector2.DOWN * 33, state_machine.rock_dir.rotated(randf_range(-0.4, 0.4)), 250)
+	var dir: Vector2 = (target.global_position - rock_sprite.global_position).normalized().rotated(randf_range(-0.1, 0.1))
+	rock.launch(rock_sprite.global_position + Vector2.DOWN * 33, dir, 250)
 	for child: Node in rock.get_children():
 		if child is Node2D:
 			child.position += Vector2.UP * 33

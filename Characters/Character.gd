@@ -6,7 +6,7 @@ const DB: Dictionary = preload("res://Characters/data.csv").records
 const DUST_SCENE: PackedScene = preload("res://Characters/Player/Dust.tscn")
 const HIT_EFFECT_SCENE: PackedScene = preload("res://Characters/HitEffect.tscn")
 
-const FRICTION: float = 0.15
+var friction: float = 0.15
 
 #var invincible: bool = false
 #@export var max_hp: int = 2
@@ -89,15 +89,15 @@ func _physics_process(delta: float) -> void:
 		acid_progress -= 0.7 * delta
 
 	state_machine.physics_process(delta)
-	if can_move:
-		move_and_slide()
-	velocity = lerp(velocity, Vector2.ZERO, FRICTION)
+	#if can_move:
+	move_and_slide()
+	velocity = lerp(velocity, Vector2.ZERO, friction)
 
 
 func move() -> void:
 	mov_direction = mov_direction.limit_length(1.0)
 	#velocity += mov_direction * acceleration
-	if not mov_direction.is_equal_approx(Vector2.ZERO):
+	if not mov_direction.is_equal_approx(Vector2.ZERO) and can_move:
 		velocity = lerp(velocity, mov_direction * max_speed, acceleration)
 	#print_debug(velocity)
 	velocity = velocity.limit_length(max_speed)
