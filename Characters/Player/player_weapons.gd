@@ -122,6 +122,8 @@ func pick_up_weapon(weapon: Weapon) -> void:
 
 
 func _drop_weapon() -> void:
+	pick_up_weapon_cooldown_timer.start()
+
 	var character_position: Vector2 = player.global_position
 
 	SavedData.run_stats.weapon_stats.remove_at(current_weapon.get_index() - 1)
