@@ -884,8 +884,8 @@ func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_
 				horizontal_corridor_rect = Rect2(connection_with_entry_position + Vector2.DOWN * center + Vector2.UP * TILE_SIZE * 2, Vector2(id_entry_position.x - connection_with_entry_position.x, TILE_SIZE * 4)).abs()
 
 				for room: DungeonRoom in rooms:
-#					if room == rooms[ids[0]] or room == rooms[ids[1]]:
-#						continue # Para que no detecta las habitaciones que se conectan, solo las otras
+					if room == rooms[ids[0]] or room == rooms[ids[1]]:
+						continue # Para que no detecta las habitaciones que se conectan, solo las otras
 
 					room_rect = room.get_rect()
 					# print("Room " + str(rooms.find(room)) + "  " + str(room_rect))
@@ -893,7 +893,8 @@ func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_
 					if debug_check_entry_positions:
 						queue_redraw()
 						await get_tree().create_timer(0.6).timeout
-					if (room != rooms[ids[1]] and room_rect.intersects(vertical_corridor_1_rect)) or (room != rooms[ids[0]] and room_rect.intersects(vertical_corridor_2_rect)) or room_rect.intersects(horizontal_corridor_rect):
+					#if (room != rooms[ids[1]] and room_rect.intersects(vertical_corridor_1_rect)) or (room != rooms[ids[0]] and room_rect.intersects(vertical_corridor_2_rect)) or room_rect.intersects(horizontal_corridor_rect):
+					if (room_rect.intersects(vertical_corridor_1_rect)) or (room_rect.intersects(vertical_corridor_2_rect)) or room_rect.intersects(horizontal_corridor_rect):
 						connection_possible = false
 
 				if connection_possible:
