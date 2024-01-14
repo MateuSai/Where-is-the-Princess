@@ -7,6 +7,14 @@ class_name Player extends Character
 #signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
 
 const DASH_IMPULSE: int = 1000
+const DASH_STAMINA_COST: int = 30
+
+var max_stamina: float = 100
+var stamina: float = max_stamina:
+	set(new_value):
+		if new_value < stamina:
+			stamina_regen_cooldown_timer.start()
+		stamina = clamp(new_value, 0.0, 100.0)
 
 signal temporal_passive_item_picked_up(item: TemporalPassiveItem)
 signal temporal_passive_item_unequiped(item: TemporalPassiveItem)
@@ -59,6 +67,7 @@ var position_before_jumping: Vector2
 @onready var armor_effect_timer: Timer = $Timers/ArmorEffectTimer
 @onready var armor_recharge_timer: Timer = $Timers/ArmorRechargeTimer
 @onready var mirage_timer: Timer = $Timers/MirageTimer
+@onready var stamina_regen_cooldown_timer: Timer = $Timers/StaminaRegenCooldownTimer
 
 @onready var mirage: TextureRect = $UI/Mirage
 
@@ -164,6 +173,13 @@ func _process(_delta: float) -> void:
 	weapons.move(mouse_direction)
 
 
+func _physics_process(delta: float) -> void:
+	super(delta)
+
+	if stamina_regen_cooldown_timer.is_stopped() and stamina < max_stamina:
+		stamina += 8 * delta
+
+
 func _controller_aim() -> void:
 	var window_size: Vector2 = get_viewport().size
 	var weapons_pos_in_screen: Vector2 = weapons.get_global_transform_with_canvas().origin
@@ -211,7 +227,7 @@ func get_input() -> void:
 	if Input.is_action_pressed("ui_move_up"):
 		mov_direction.y -= Input.get_action_strength("ui_move_up")
 
-	if Input.is_action_just_pressed("ui_dash"):
+	if Input.is_action_just_pressed("ui_dash") and stamina >= DASH_STAMINA_COST:
 		_dash()
 
 	if Input.is_action_just_pressed("ui_armor_ability") and armor.is_able_to_use_ability:
@@ -286,6 +302,8 @@ func jump() -> void:
 
 
 func _dash() -> void:
+	stamina -= DASH_STAMINA_COST
+
 	if armor is NoArmor:
 		jump()
 	else:

@@ -783,6 +783,10 @@ one_shot = true
 wait_time = 0.25
 one_shot = true
 
+[node name="StaminaRegenCooldownTimer" type="Timer" parent="Timers" index="4"]
+wait_time = 0.5
+one_shot = true
+
 [node name="EquipArmorSound" type="AudioStreamPlayer" parent="." index="15"]
 stream = ExtResource("33_3bfpk")
 volume_db = -5.0
