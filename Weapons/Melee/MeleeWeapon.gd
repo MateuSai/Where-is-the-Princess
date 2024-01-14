@@ -97,6 +97,7 @@ func _attack() -> void:
 	else:
 		animation_player.play(get_animation_full_name("attack_" + str(attack_num + 1)))
 	attack_num += 1
+	used_normal_attack.emit()
 
 
 func _charge() -> void:
@@ -111,6 +112,7 @@ func _active_ability(_animation_name: String = "active_ability") -> void:
 	super("active_ability_" + str(attack_num + 1))
 	if increase_num_normal_attacks_on_ability:
 		attack_num += 1
+	used_active_ability.emit()
 
 
 func throw() -> void:

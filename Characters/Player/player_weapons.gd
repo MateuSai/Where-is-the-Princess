@@ -211,9 +211,21 @@ func _on_weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.S
 func set_current_weapon(new_weapon: Weapon) -> void:
 	if current_weapon != null:
 		current_weapon.set_process_unhandled_input(false)
+		current_weapon.used_normal_attack.disconnect(_on_normal_attack)
+		current_weapon.used_active_ability.disconnect(_on_active_ability)
 	super(new_weapon)
 	current_weapon.set_process_unhandled_input(true)
+	current_weapon.used_normal_attack.connect(_on_normal_attack)
+	current_weapon.used_active_ability.connect(_on_active_ability)
 
 
 func can_pick_up_weapon(weapon_to_pick: Weapon) -> bool:
 	return get_child_count() < max_weapons and weapon_to_pick != null and is_instance_valid(weapon_to_pick) and not weapon_to_pick.is_queued_for_deletion() and pick_up_weapon_cooldown_timer.is_stopped()
+
+
+func _on_normal_attack() -> void:
+	player.stamina -= current_weapon.stamina_cost_per_normal_attack
+
+
+func _on_active_ability() -> void:
+	player.stamina -= current_weapon.stamina_to_activate_active_ability

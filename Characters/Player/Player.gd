@@ -9,6 +9,7 @@ class_name Player extends Character
 const DASH_IMPULSE: int = 1000
 const DASH_STAMINA_COST: int = 30
 
+var stamina_regeneration_per_second: float = 10
 var max_stamina: float = 100
 var stamina: float = max_stamina:
 	set(new_value):
@@ -177,7 +178,7 @@ func _physics_process(delta: float) -> void:
 	super(delta)
 
 	if stamina_regen_cooldown_timer.is_stopped() and stamina < max_stamina:
-		stamina += 8 * delta
+		stamina += stamina_regeneration_per_second * delta
 
 
 func _controller_aim() -> void:

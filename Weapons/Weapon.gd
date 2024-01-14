@@ -20,12 +20,14 @@ enum Type {
 @export var description: String = ""
 @export var icon: Texture = null ## 16x16 weapon icon, the one that appears on the bottom of the screen
 
+@export var stamina_cost_per_normal_attack: float = 10
 @export var condition_cost_per_normal_attack: float = 5
 
 @export var animation_library: String = ""
 
 @export_group("Active Ability")
 @export var active_ability_icon: Texture ## Icon of the weapon's active ability
+@export var stamina_to_activate_active_ability: float = 20
 @export var souls_to_activate_ability: int = 3 ## The souls you need to collect in order to activate the ability
 @export_range(0.0, 100.0) var active_ability_condition_cost: float = 10 ## The weapon condition will decrease this amount after using the ability. Remember all the weapons have 100 condition initially
 @export var ability_damage: int = 2: set = set_ability_damage
@@ -40,6 +42,7 @@ var stats: WeaponStats = null
 
 signal condition_changed(weapon: Weapon, new_condition: float)
 signal status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
+signal used_normal_attack()
 signal used_active_ability()
 
 var tween: Tween = null
@@ -104,19 +107,20 @@ func _load_csv_data(data: Dictionary) -> void:
 	knockback = data.knockback
 	ability_damage = data.ability_damage
 	ability_knockback = data.ability_knockback
+	stamina_cost_per_normal_attack = data.stamina_cost_per_normal_attack
 	condition_cost_per_normal_attack = data.condition_cost_per_normal_attack
 	var ability_icon_path: String = data["ability_icon"]
 	if FileAccess.file_exists(ability_icon_path):
 		active_ability_icon = load(ability_icon_path)
 	else:
 		active_ability_icon = null
-	souls_to_activate_ability = data["ability_cost"]
+	souls_to_activate_ability = data["souls_to_activate_ability"]
 	active_ability_condition_cost = data["ability_condition_cost"]
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if has_strong_attack():
-		if event.is_action_pressed("ui_attack") and not animation_player.is_playing():
+		if event.is_action_pressed("ui_attack") and can_attack():
 			_charge()
 		elif event.is_action_released("ui_attack"):
 			if animation_player.is_playing() and get_current_animation().begins_with("charge"):
@@ -124,7 +128,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			elif charge_particles.emitting:
 				_strong_attack()
 	else:
-		if event.is_action_pressed("ui_attack"):
+		if event.is_action_pressed("ui_attack") and can_attack():
 			_attack()
 
 	if event.is_action_pressed("ui_weapon_ability") and has_active_ability() and not is_busy() and can_active_ability():
@@ -142,6 +146,7 @@ func move(mouse_direction: Vector2) -> void:
 
 func _attack() -> void:
 	animation_player.play(get_animation_full_name("attack"))
+	used_normal_attack.emit()
 
 
 func _active_ability(animation_name: String = "active_ability") -> void:
@@ -260,8 +265,12 @@ func add_weapon_modifier(item: WeaponModifier) -> void:
 	stats.modifiers.push_back(item)
 
 
+func can_attack() -> bool:
+	return not animation_player.is_playing() and (not get_parent().get_parent() is Player or (get_parent().get_parent() as Player).stamina >= stamina_to_activate_active_ability)
+
+
 func can_active_ability() -> bool:
-	return cool_down_timer.is_stopped() and stats.souls == souls_to_activate_ability
+	return cool_down_timer.is_stopped() and stats.souls == souls_to_activate_ability and (not get_parent().get_parent() is Player or (get_parent().get_parent() as Player).stamina >= stamina_to_activate_active_ability)
 
 
 func get_texture() -> Texture2D:
