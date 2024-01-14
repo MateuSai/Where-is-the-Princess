@@ -28,6 +28,12 @@ var height: float: get = _get_height
 @onready var sprite: Sprite2D = $Sprite2D
 
 
+func _ready() -> void:
+	super()
+
+	collision_shape.disabled = true
+
+
 @warning_ignore("shadowed_variable")
 func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: bool = false) -> void:
 	position = initial_position
@@ -35,6 +41,8 @@ func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: 
 	self.speed = speed
 	self.rotate_to_dir = rotate_to_dir
 	self.direction = dir
+
+	collision_shape.disabled = false
 
 #	if rotate_to_dir:
 #		rotation = dir.angle()

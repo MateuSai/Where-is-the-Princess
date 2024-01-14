@@ -1,7 +1,7 @@
 class_name LifeComponent extends Node
 
 var invincible: bool = false
-var invincible_after_being_hitted_time: float = 0.4
+var invincible_after_being_hitted_time: float = 0.3
 var invincible_after_being_hitted: bool = false
 var invincible_after_being_hitted_timer: Timer
 

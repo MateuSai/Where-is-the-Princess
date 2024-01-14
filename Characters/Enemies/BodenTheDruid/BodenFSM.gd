@@ -13,13 +13,12 @@ enum {
 const MAX_DISTANCE_TO_PLAYER: int = 70
 const MIN_DISTANCE_TO_PLAYER: int = 45
 
-var rock_dir: Vector2
-
 @onready var MAX_DISTANCE_FOR_MELEE_ATTACK: float = $"../MeleeHitbox/CollisionShape2D".shape.radius * 2
 @onready var sprite: Sprite2D = $"../Sprite2D"
 @onready var rock_container: Node2D = $"../RockContainer"
 @onready var rock_attack_timer: Timer = $"../RockAttackTimer"
 @onready var pathfinding_component: PathfindingComponent = $"../PathfindingComponent"
+@onready var top_raycast: RayCast2D = $"../TopRayCast"
 
 
 func start() -> void:
@@ -95,7 +94,7 @@ func _get_transition() -> int:
 				return BEAR_MELEE_ATTACK
 		BEAR_MELEE_ATTACK, BEAR_THROW_ROCK:
 			if not animation_player.is_playing():
-				if randi() % 2 == 0:
+				if randi() % 2 == 0 and not top_raycast.is_colliding():
 					return BEAR_THROW_ROCK
 				else:
 					return BEAR_RUN
@@ -119,8 +118,8 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			$"../LightningAttackTimer".queue_free()
 			$"../StaffPivot".queue_free()
 #			pathfinding_component.mode.timer.wait_time = 0.15
-			parent.max_speed = 160
-			parent.acceleration = 70
+			parent.max_speed = 250
+			parent.acceleration = 0.1
 			parent.mass = 150
 			parent.can_move = true
 		BEAR_RUN:
@@ -136,7 +135,6 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			$"../MeleeHitbox".knockback_direction = dir_to_player
 		BEAR_THROW_ROCK:
 			var dir_to_player: Vector2 = (parent.player.position - parent.global_position).normalized()
-			rock_dir = dir_to_player
 			if dir_to_player.y < 0:
 				parent.move_child(rock_container, 0)
 				animation_player.play("throw_rock_up")

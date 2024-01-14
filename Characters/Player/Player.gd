@@ -6,10 +6,10 @@ class_name Player extends Character
 #signal weapon_condition_changed(weapon: Weapon, new_value: float)
 #signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
 
-const DASH_IMPULSE: int = 1000
+const DASH_IMPULSE: int = 2200
 const DASH_STAMINA_COST: int = 30
 
-var stamina_regeneration_per_second: float = 10
+var stamina_regeneration_per_second: float = 15
 var max_stamina: float = 100
 var stamina: float = max_stamina:
 	set(new_value):
@@ -228,7 +228,7 @@ func get_input() -> void:
 	if Input.is_action_pressed("ui_move_up"):
 		mov_direction.y -= Input.get_action_strength("ui_move_up")
 
-	if Input.is_action_just_pressed("ui_dash") and stamina >= DASH_STAMINA_COST:
+	if Input.is_action_just_pressed("ui_dash") and stamina >= DASH_STAMINA_COST and not mov_direction.is_equal_approx(Vector2.ZERO):
 		_dash()
 
 	if Input.is_action_just_pressed("ui_armor_ability") and armor.is_able_to_use_ability:
@@ -308,7 +308,11 @@ func _dash() -> void:
 	if armor is NoArmor:
 		jump()
 	else:
-		velocity += mov_direction * DASH_IMPULSE
+		velocity += mov_direction.limit_length(1) * DASH_IMPULSE
+		mov_direction = Vector2.ZERO
+		friction /= 10
+		await get_tree().create_timer(0.06, false).timeout
+		friction *= 10
 
 
 func add_rotating_item(node: Node2D) -> void:
