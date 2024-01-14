@@ -14,7 +14,8 @@ func unequip(player: Player) -> void:
 
 
 func enable_ability_effect(player: Player) -> void:
-	player.jump()
+	pass
+	#player.jump()
 
 
 func get_sprite_sheet() -> Texture2D:

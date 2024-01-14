@@ -20,6 +20,10 @@ func test_discovered_weapons() -> void:
 func test_discovered_armors() -> void:
 	#var data: Data = Data.new()
 
+	assert_bool(FileAccess.file_exists(data.equipped_armor))
+	assert_bool(data.equipped_armor.get_extension() == "gd")
+	assert_object(load(data.equipped_armor).new()).is_instanceof(Armor)
+
 	for armor_path: String in data.discovered_armors:
 		assert_bool(FileAccess.file_exists(armor_path))
 		assert_bool(armor_path.get_extension() == "gd")

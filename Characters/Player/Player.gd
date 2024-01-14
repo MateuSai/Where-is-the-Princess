@@ -6,6 +6,8 @@ class_name Player extends Character
 #signal weapon_condition_changed(weapon: Weapon, new_value: float)
 #signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
 
+const DASH_IMPULSE: int = 1000
+
 signal temporal_passive_item_picked_up(item: TemporalPassiveItem)
 signal temporal_passive_item_unequiped(item: TemporalPassiveItem)
 signal permanent_passive_item_picked_up(item: PermanentPassiveItem)
@@ -209,6 +211,9 @@ func get_input() -> void:
 	if Input.is_action_pressed("ui_move_up"):
 		mov_direction.y -= Input.get_action_strength("ui_move_up")
 
+	if Input.is_action_just_pressed("ui_dash"):
+		_dash()
+
 	if Input.is_action_just_pressed("ui_armor_ability") and armor.is_able_to_use_ability:
 		_use_armor_ability()
 
@@ -278,6 +283,13 @@ func set_armor(new_armor: Armor) -> void:
 func jump() -> void:
 	position_before_jumping = position
 	jump_animation_player.play("jump")
+
+
+func _dash() -> void:
+	if armor is NoArmor:
+		jump()
+	else:
+		velocity += mov_direction * DASH_IMPULSE
 
 
 func add_rotating_item(node: Node2D) -> void:

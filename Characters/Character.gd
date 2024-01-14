@@ -18,7 +18,7 @@ var damage_multiplier: int = 1
 var can_move: bool = true
 
 @export var mass: float = 1
-@export var acceleration: int = 40
+@export var acceleration: float = 0.4
 @export var max_speed: int = 100
 
 @export var flying: bool = false: set = set_flying
@@ -96,7 +96,10 @@ func _physics_process(delta: float) -> void:
 
 func move() -> void:
 	mov_direction = mov_direction.limit_length(1.0)
-	velocity += mov_direction * acceleration
+	#velocity += mov_direction * acceleration
+	if not mov_direction.is_equal_approx(Vector2.ZERO):
+		velocity = lerp(velocity, mov_direction * max_speed, acceleration)
+	#print_debug(velocity)
 	velocity = velocity.limit_length(max_speed)
 
 
