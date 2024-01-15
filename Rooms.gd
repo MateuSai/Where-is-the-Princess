@@ -226,6 +226,7 @@ func spawn_rooms() -> void:
 		var random_special_room_scene: PackedScene = load(random_speacial_room_path)
 		rooms.push_back(random_special_room_scene.instantiate())
 		special_room_paths.remove_at(special_room_paths.find(random_speacial_room_path)) # So the same special room is not spawned 2 times
+
 		if special_room_paths.is_empty() and (i+1) < num_special_rooms:
 			if debug:
 				print_rich("[color=yellow]" + str(num_special_rooms) + " special rooms should have spawned, but only " + str(i+1) + " did, since there are not enough special rooms[/color]")
@@ -234,8 +235,15 @@ func spawn_rooms() -> void:
 	var num_combat_rooms: int = SavedData.get_num_rooms("combat")
 	for i: int in num_combat_rooms:
 		#rooms.push_back(INTERMEDIATE_ROOMS[0].instantiate())
-		var combat_room_scene: PackedScene = load(combat_room_paths[randi() % combat_room_paths.size()])
+		var random_combat_room_path: String = combat_room_paths[randi() % combat_room_paths.size()]
+		var combat_room_scene: PackedScene = load(random_combat_room_path)
 		rooms.push_back(combat_room_scene.instantiate())
+
+		combat_room_paths.remove_at(combat_room_paths.find(random_combat_room_path))
+		if combat_room_paths.is_empty() and (i+1) < num_combat_rooms:
+			if debug:
+				print_rich("[color=yellow]" + str(num_combat_rooms) + " combat rooms should have spawned, but only " + str(i+1) + " did, since there are not enough combat rooms[/color]")
+				break
 
 	#print_debug("Adding rooms to scene tree and other things")
 	for room: DungeonRoom in rooms:

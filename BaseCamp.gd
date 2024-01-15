@@ -13,7 +13,8 @@ class_name BaseCamp extends Node2D
 
 
 func _ready() -> void:
-	RenderingServer.set_default_clear_color(Color("1a1c00"))
+	#RenderingServer.set_default_clear_color(Color("1a1c00"))
+	RenderingServer.set_default_clear_color(Color("d271ff"))
 
 	var armor_script: GDScript = load(SavedData.data.equipped_armor)
 	player.set_armor(armor_script.new() as Armor)
