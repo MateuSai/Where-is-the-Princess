@@ -36,12 +36,12 @@ shader_parameter/color = Color(0, 0, 0, 1)
 y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("3")
-debug = false
 execute_procedural_generation_on_thread = false
 
 [node name="Rooms" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("4")
+debug_check_entry_positions = true
 num_levels = 3
 
 [node name="CorridorTileMap" type="TileMap" parent="Rooms"]
