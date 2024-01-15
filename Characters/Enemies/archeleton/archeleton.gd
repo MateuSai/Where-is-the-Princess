@@ -14,5 +14,5 @@ func aim_bow() -> void:
 func _spawn_arrow() -> void:
 	var arrow: Arrow = load("res://Weapons/projectiles/arrow.tscn").instantiate()
 #	arrow.position = bow_sprite.global_position
-	arrow.launch(bow_sprite.global_position, Vector2.RIGHT.rotated(bow_container.rotation), projectile_speed, true)
 	get_tree().current_scene.add_child(arrow)
+	arrow.launch(bow_sprite.global_position, Vector2.RIGHT.rotated(bow_container.rotation), projectile_speed, true)
