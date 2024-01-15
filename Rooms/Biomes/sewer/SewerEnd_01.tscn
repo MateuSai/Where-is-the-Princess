@@ -1,15 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://cj83jkb2ynjiq"]
+[gd_scene load_steps=10 format=3 uid="uid://cj83jkb2ynjiq"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_xn8jn"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_5cqls"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_jmxxw"]
 [ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="3_m2tfn"]
+[ext_resource type="PackedScene" uid="uid://dni71yi8jy772" path="res://Rooms/Furniture and Traps/boss_sign.tscn" id="5_2gus8"]
+[ext_resource type="Texture2D" uid="uid://cjxtr1epmm5wh" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/hole_floor.png" id="6_v7xab"]
+[ext_resource type="Texture2D" uid="uid://c13l0lk3c3e0y" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/hole_floor_normal.png" id="7_d6al6"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_0tabj"]
 resource_local_to_scene = true
 source_geometry_mode = 2
 source_geometry_group_name = &"navigation_polygon_source_group"
 agent_radius = 2.0
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_drj88"]
+diffuse_texture = ExtResource("6_v7xab")
+normal_texture = ExtResource("7_d6al6")
 
 [node name="BossRoom" instance=ExtResource("1_xn8jn")]
 navigation_polygon = SubResource("NavigationPolygon_0tabj")
@@ -43,7 +50,7 @@ position = Vector2(111, 214)
 position = Vector2(231, 215)
 
 [node name="Torch5" parent="." index="14" instance=ExtResource("3_m2tfn")]
-position = Vector2(127, 341)
+position = Vector2(121, 341)
 
 [node name="Torch6" parent="." index="15" instance=ExtResource("3_m2tfn")]
 position = Vector2(195, 340)
@@ -53,3 +60,10 @@ position = Vector2(91, 487)
 
 [node name="Torch8" parent="." index="17" instance=ExtResource("3_m2tfn")]
 position = Vector2(229, 488)
+
+[node name="BossSign" parent="." index="18" instance=ExtResource("5_2gus8")]
+position = Vector2(136, 359)
+
+[node name="Hole_in_floor" type="Sprite2D" parent="." index="19"]
+position = Vector2(110, 386)
+texture = SubResource("CanvasTexture_drj88")
