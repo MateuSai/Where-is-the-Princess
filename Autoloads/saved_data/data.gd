@@ -1,20 +1,27 @@
 class_name Data
 
+#region Data available from start
+const DISCOVERED_WEAPONS_FROM_START: PackedStringArray = ["res://Weapons/Melee/Katana/Katana.tscn", "res://Weapons/Melee/spear/Spear.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/KombatHammer/KombatHammer.tscn", "res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/Scimitar/Scimitar.tscn", "res://Weapons/Melee/SharpAxe/SharpAxe.tscn", "res://Weapons/Melee/SmallAxe/SmallAxe.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn", "res://Weapons/Melee/WarHammer/WarHammer.tscn", "res://Weapons/Melee/WarriorSword/WarriorSword.tscn", "res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn"]
+const DISCOVERED_ARMORS_FROM_START: PackedStringArray = ["res://Armors/CommonerClothes.gd", "res://Armors/LeatherArmor.gd", "res://Armors/MercenaryArmor.gd", "res://Armors/WarriorArmor.gd", "res://Armors/NecromancerArmor.gd", "res://Armors/improvised_armor.gd", "res://Armors/farmer_clothes.gd"]
+const DISCOVERED_PERMANENT_ITEMS_FROM_START: PackedStringArray = ["res://items/Passive/Permanent/StrongThrow.gd", "res://items/Passive/Permanent/ToughSkin.gd", "res://items/Passive/Permanent/EnhancedBoots.gd", "res://items/Passive/Permanent/meteor_stone.gd", "res://items/Passive/Permanent/SoulAmulet.gd", "res://items/Passive/Permanent/runes/AxeRune.gd", "res://items/Passive/Permanent/runes/HammerRune.gd", "res://items/Passive/Permanent/runes/MeleeRune.gd", "res://items/Passive/Permanent/runes/SpearRune.gd", "res://items/Passive/Permanent/runes/SwordRune.gd"]
+const DISCOVERED_TEMPORAL_ITEMS_FROM_START: PackedStringArray = ["res://items/Passive/Temporal/magic_shields/wooden_magic_shield.gd", "res://items/Passive/Temporal/magic_shields/reinforced_magic_shield.gd", "res://items/Passive/Temporal/MagicSword.gd"]
+#endregion
+
 var dark_souls: int = 0
 
 var kills: Dictionary = {}
 
-var ignored_rooms: PackedStringArray = PackedStringArray([])
+var ignored_rooms: Array[String] = []
 
-var discovered_weapons: PackedStringArray = PackedStringArray(["res://Weapons/Melee/Katana/Katana.tscn", "res://Weapons/Melee/spear/Spear.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/KombatHammer/KombatHammer.tscn", "res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/Scimitar/Scimitar.tscn", "res://Weapons/Melee/SharpAxe/SharpAxe.tscn", "res://Weapons/Melee/SmallAxe/SmallAxe.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn", "res://Weapons/Melee/WarHammer/WarHammer.tscn", "res://Weapons/Melee/WarriorSword/WarriorSword.tscn", "res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn"])
+var discovered_weapons: Array[String] = []
 #"undiscovered_weapons": PackedStringArray(["res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn"]),
 
 var equipped_armor: String = "res://Armors/NoArmor.gd"
-var discovered_armors: PackedStringArray = PackedStringArray(["res://Armors/CommonerClothes.gd", "res://Armors/LeatherArmor.gd", "res://Armors/MercenaryArmor.gd", "res://Armors/WarriorArmor.gd", "res://Armors/NecromancerArmor.gd", "res://Armors/improvised_armor.gd", "res://Armors/farmer_clothes.gd"])
+var discovered_armors: Array[String] = []
 
-var discovered_permanent_items: PackedStringArray = PackedStringArray(["res://items/Passive/Permanent/StrongThrow.gd", "res://items/Passive/Permanent/ToughSkin.gd", "res://items/Passive/Permanent/EnhancedBoots.gd", "res://items/Passive/Permanent/meteor_stone.gd", "res://items/Passive/Permanent/SoulAmulet.gd", "res://items/Passive/Permanent/runes/AxeRune.gd", "res://items/Passive/Permanent/runes/HammerRune.gd", "res://items/Passive/Permanent/runes/MeleeRune.gd", "res://items/Passive/Permanent/runes/SpearRune.gd", "res://items/Passive/Permanent/runes/SwordRune.gd"])
+var discovered_permanent_items: Array[String] = []
 #	"undiscovered_permanent_items": PackedStringArray(["res://items/Passive/Permanent/EnhancedBoots.gd"]),
-var discovered_temporal_items: PackedStringArray = PackedStringArray(["res://items/Passive/Temporal/magic_shields/wooden_magic_shield.gd", "res://items/Passive/Temporal/magic_shields/reinforced_magic_shield.gd", "res://items/Passive/Temporal/MagicSword.gd"])
+var discovered_temporal_items: Array[String] = []
 #	"undiscovered_temporal_items": PackedStringArray(["res://items/Passive/Temporal/MagicSword.gd"]),
 
 var player_upgrades: Array[PlayerUpgrade] = []
@@ -38,6 +45,50 @@ func can_pick_up_player_upgrade(item_name: String) -> int:
 			return player_upgrade.amount < player_upgrade.get_max_amount()
 
 	return true
+
+
+func get_discovered_weapons() -> PackedStringArray:
+	var arr: Array = discovered_weapons
+	arr.append_array(DISCOVERED_WEAPONS_FROM_START)
+	return PackedStringArray(arr)
+
+
+func get_discovered_armors() -> PackedStringArray:
+	var arr: Array = discovered_armors
+	arr.append_array(DISCOVERED_ARMORS_FROM_START)
+	return PackedStringArray(arr)
+
+
+func get_discovered_permanent_items() -> PackedStringArray:
+	var arr: Array = discovered_permanent_items
+	arr.append_array(DISCOVERED_PERMANENT_ITEMS_FROM_START)
+	return PackedStringArray(arr)
+
+
+func get_discovered_temporal_items() -> PackedStringArray:
+	var arr: Array = discovered_temporal_items
+	arr.append_array(DISCOVERED_TEMPORAL_ITEMS_FROM_START)
+	return PackedStringArray(arr)
+
+
+func discover_weapon(weapon_path: String) -> void:
+	if not discovered_weapons.has(weapon_path):
+		discovered_weapons.push_back(weapon_path)
+
+
+func discover_armor(armor_path: String) -> void:
+	if not discovered_armors.has(armor_path):
+		discovered_armors.push_back(armor_path)
+
+
+func discover_permanent_item(item_path: String) -> void:
+	if not discovered_permanent_items.has(item_path):
+		discovered_permanent_items.push_back(item_path)
+
+
+func discover_temporal_item(item_path: String) -> void:
+	if not discovered_temporal_items.has(item_path):
+		discovered_temporal_items.push_back(item_path)
 
 
 static func from_dic(dic: Dictionary) -> Data:

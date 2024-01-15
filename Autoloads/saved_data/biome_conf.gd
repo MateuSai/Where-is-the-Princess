@@ -89,6 +89,9 @@ class Level:
 	## If this is enabled, the rooms will only move vertically when they get apart from each other
 	var disable_horizontal_separation_steering: bool = false
 
+	## By default, each room entrance can connect with many rooms, change this to true to limit it to 1
+	var limit_entrance_connections_to_one: bool = false
+
 	## If not specified, it will take [member BiomeConf.default_num_combat_rooms]
 	var num_combat_rooms: int = -1
 	## If not specified, it will take [member BiomeConf.default_num_special_rooms]
@@ -131,3 +134,7 @@ class Level:
 			return PackedStringArray(overwrite_end_rooms[to])
 		else:
 			return PackedStringArray([""])
+
+
+	func get_exit_names() -> Array:
+		return overwrite_end_rooms.keys()

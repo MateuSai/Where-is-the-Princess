@@ -3,3 +3,5 @@ class_name EntryPositions extends Node2D
 
 @onready var marker1: Marker2D = $Marker2D
 @onready var marker2: Marker2D = $Marker2D2
+
+var connections: int = 0

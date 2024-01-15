@@ -166,14 +166,14 @@ func _get_rooms(type: String) -> PackedStringArray:
 
 
 func _get_end_rooms() -> Array[PackedStringArray]:
-	var end_rooms_dir: DirAccess = DirAccess.open(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/End")
-	if end_rooms_dir == null:
-		printerr("Error opening " + BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/End!")
-		return []
+	#var end_rooms_dir: DirAccess = DirAccess.open(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/End")
+	#if end_rooms_dir == null:
+		#print("Error opening " + BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/End!")
+		##return []
 
 	var end_rooms: Array[PackedStringArray] = []
-	for dir: String in end_rooms_dir.get_directories():
-		end_rooms.push_back(_get_rooms("End/" + dir))
+	for biome: String in SavedData.get_level_exit_names():
+		end_rooms.push_back(_get_rooms("End/" + biome))
 
 	# Discard rooms of other levels
 #	for i in range(end_rooms.size()-1, -1, -1):
@@ -720,6 +720,9 @@ func _create_corridor_between_rooms(connection: Connection) -> void:
 			##await _decide_direction_and_create_l_corridor(id, connection_with, directions)
 			#await _create_l_corridor(connection.room_1_entry_positions, connection.room_2_entry_positions, DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.DOWN)
 
+	connection.room_1_entry_positions.connections += 1
+	connection.room_2_entry_positions.connections += 1
+
 
 ## @deprecated
 #func _decide_direction_and_create_l_corridor(id: int, connection_with: int, directions: Array[Array]) -> void:
@@ -739,97 +742,108 @@ func _create_corridor_between_rooms(connection: Connection) -> void:
 
 
 func _is_connection_possible(id: int, connection_with: int) -> Connection:
+	var connection_return: Connection = null
+
 	if debug:
 		print("\tChecking connection between " + str(id) + " " + str(connection_with) + "...")
 	var dif: Vector2 = room_centers[connection_with] - room_centers[id]
 	if abs(dif.x) < TILE_SIZE * 8:
-		var connection: Connection = await _check_entry_positions_vertical_corridor(id if dif.y > 0 else connection_with, connection_with if dif.y > 0 else id, DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.UP)
-		if connection:
+		connection_return = await _check_entry_positions_vertical_corridor(id if dif.y > 0 else connection_with, connection_with if dif.y > 0 else id, DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.UP)
+		if connection_return:
 			if debug:
 				print_rich("\t\t[color=green]Vertical connection is possible[/color]")
-			return connection
+			#return connection
 	elif abs(dif.y) < TILE_SIZE * 8:
-		var connection: Connection = await _check_entry_positions_horizontal_corridor(id if dif.x > 0 else connection_with, connection_with if dif.x > 0 else id, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.LEFT)
-		if connection:
+		connection_return = await _check_entry_positions_horizontal_corridor(id if dif.x > 0 else connection_with, connection_with if dif.x > 0 else id, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.LEFT)
+		if connection_return:
 			if debug:
 				print_rich("\t\t[color=green]Horizontal connection is possible[/color]")
-			return connection
+			#return connection
 	else:
 		if dif.x > 0 and dif.y > 0:
-			var connection: Connection = await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.UP)
-			if connection:
+			connection_return = await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.UP)
+			if connection_return:
 				if debug:
 					print_rich("\t\t[color=green]L connection is possible through if 0[/color]")
-				return connection
+				#return connection
 			else:
-				connection = await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.LEFT)
+				connection_return = await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.LEFT)
 				if debug:
 					print_rich("\t\t[color=green]L connection is possible through if 0[/color]")
-				return connection
+				#return connection
 		elif dif.x > 0 and dif.y < 0:
-			var connection: Connection = await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.DOWN)
-			if connection:
+			connection_return = await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.DOWN)
+			if connection_return:
 				if debug:
 					print_rich("\t\t[color=green]L connection is possible through if 1[/color]")
-				return connection
+				#return connection
 			else:
-				connection = await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.LEFT)
-				if connection:
+				connection_return = await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.LEFT)
+				if connection_return:
 					if debug:
 						print_rich("\t\t[color=green]L connection is possible through if 1[/color]")
-					return connection
+					#return connection
 		elif dif.x < 0 and dif.y > 0:
-			var connection: Connection = await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.UP)
-			if connection:
+			connection_return = await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.UP)
+			if connection_return:
 				if debug:
 					print_rich("\t\t[color=green]L connection is possible through if 2[/color]")
-				return connection
+				#return connection
 			else:
-				connection = await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.RIGHT)
-				if connection:
+				connection_return = await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.RIGHT)
+				if connection_return:
 					if debug:
 						print_rich("\t\t[color=green]L connection is possible through if 2[/color]")
-					return connection
+					#return connection
 		else: # dif.x < 0 and dif.y < 0
-			var connection: Connection = await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.DOWN)
-			if connection:
+			connection_return = await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.DOWN)
+			if connection_return:
 				if debug:
 					print_rich("\t\t[color=green]L connection is possible through if 3[/color]")
-				return connection
+				#return connection
 			else:
-				connection = await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.RIGHT)
-				if connection:
+				connection_return = await _check_entry_positions_l_corridor(id, connection_with, DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.RIGHT)
+				if connection_return:
 					if debug:
 						print_rich("\t\t[color=green]L connection is possible through if 3[/color]")
-					return connection
+					#return connection
 
-	var room_connection: Connection = await _check_entry_positions_vertical_corridor(id, connection_with, DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.UP)
-	if room_connection:
-		if debug:
-			print_rich("\t\t[color=green]Vertical connection is possible[/color]")
-		return room_connection
-	else:
-		room_connection = await _check_entry_positions_vertical_corridor(id, connection_with, DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.DOWN)
-		if room_connection:
+	if not connection_return:
+		connection_return = await _check_entry_positions_vertical_corridor(id, connection_with, DungeonRoom.EntryDirection.DOWN, DungeonRoom.EntryDirection.UP)
+		if connection_return:
 			if debug:
 				print_rich("\t\t[color=green]Vertical connection is possible[/color]")
-			return room_connection
+			#return room_connection
 		else:
-			room_connection = await _check_entry_positions_horizontal_corridor(id, connection_with, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.LEFT)
-			if room_connection:
+			connection_return = await _check_entry_positions_vertical_corridor(id, connection_with, DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.DOWN)
+			if connection_return:
 				if debug:
-					print_rich("\t\t[color=green]Horizontal connection is possible[/color]")
-				return room_connection
+					print_rich("\t\t[color=green]Vertical connection is possible[/color]")
+				#return room_connection
 			else:
-				room_connection = await _check_entry_positions_horizontal_corridor(id, connection_with, DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.RIGHT)
-				if room_connection:
+				connection_return = await _check_entry_positions_horizontal_corridor(id, connection_with, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.LEFT)
+				if connection_return:
 					if debug:
 						print_rich("\t\t[color=green]Horizontal connection is possible[/color]")
-					return room_connection
+					#return room_connection
+				else:
+					connection_return = await _check_entry_positions_horizontal_corridor(id, connection_with, DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.RIGHT)
+					if connection_return:
+						if debug:
+							print_rich("\t\t[color=green]Horizontal connection is possible[/color]")
+						#return room_connection
 
-	if debug:
-		print_rich("\t[color=yellow]It's not possible to connect the rooms[/color]")
-	return null
+	if connection_return:
+		if SavedData.get_limit_entrance_connections_to_one():
+			if connection_return.room_1_entry_positions.connections > 0 or connection_return.room_2_entry_positions.connections > 0:
+				if debug:
+					print_rich("\t[color=yellow]It's not possible to connect the rooms because one of the entrances is already connected and limit_entrance_connections_to_one for the level is true[/color]")
+				connection_return = null
+	else:
+		if debug:
+			print_rich("\t[color=yellow]It's not possible to connect the rooms[/color]")
+
+	return connection_return
 
 
 #func _analyze_and_create_l_corridor(id: int, connection_with: int, directions: Array[Array]) -> void:

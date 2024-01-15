@@ -18,16 +18,18 @@
 
 	"levels": {
 		"2": {
-			"spawn_shape_type": "rectangle",
-			"spawn_shape_width": 200,
-			"spawn_shape_height": 300,
-			"disable_horizontal_separation_steering": true,
+			"spawn_shape_radius": 300,
 
 			"num_combat_rooms": 1,
 			"num_special_rooms": 0,
 
+			"limit_entrance_connections_to_one": true,
+
 			"overwrite_start_rooms": ["res://Rooms/Biomes/sewer/Merchant_room.tscn"],
 			"overwrite_combat_rooms": ["res://Rooms/Biomes/sewer/boss_room.tscn"],
+			"overwrite_end_sewer_rooms": ["res://Rooms/Biomes/sewer/Boss_upstairs_room.tscn"],
+
+			"overwrite_connections": [[0, 2], [2, 1]],
 		}
 	}
 }

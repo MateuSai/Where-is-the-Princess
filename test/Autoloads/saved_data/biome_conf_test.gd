@@ -8,6 +8,14 @@ extends GdUnitTestSuite
 const __source: String = 'res://Autoloads/saved_data/biome_conf.gd'
 
 var biomes: Array[BiomeConf] = []
+var other_biome_conf: BiomeConf = BiomeConf.from_dic({
+	levels = {
+		"2" = {
+			overwrite_end_forest_rooms = ["path/to/room1", "path/to/room2"],
+			overwrite_end_sewer_rooms = ["path/to/room3", "path/to/room4"],
+		}
+	}
+})
 
 
 func before() -> void:
@@ -55,15 +63,10 @@ func test_rooms() -> void:
 
 
 func test_get_overwrite_end_rooms() -> void:
-	var conf: BiomeConf = BiomeConf.from_dic({
-		levels = {
-			"2" = {
-				overwrite_end_forest_rooms = ["path/to/room1", "path/to/room2"],
-				overwrite_end_sewer_rooms = ["path/to/room3", "path/to/room4"],
-			}
-		}
-	})
+	assert_array(other_biome_conf.levels).has_size(2)
+	assert_array(other_biome_conf.levels[1].get_overwrite_end_rooms("forest")).contains_exactly(["path/to/room1", "path/to/room2"])
+	assert_array(other_biome_conf.levels[1].get_overwrite_end_rooms("sewer")).contains_exactly(["path/to/room3", "path/to/room4"])
 
-	assert_array(conf.levels).has_size(2)
-	assert_array(conf.levels[1].get_overwrite_end_rooms("forest")).contains_exactly(["path/to/room1", "path/to/room2"])
-	assert_array(conf.levels[1].get_overwrite_end_rooms("sewer")).contains_exactly(["path/to/room3", "path/to/room4"])
+
+func test_get_exit_names() -> void:
+	assert_array(other_biome_conf.levels[1].get_exit_names()).has_size(2).contains_exactly(["forest", "sewer"])
