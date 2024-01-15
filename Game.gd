@@ -23,6 +23,7 @@ var scroll_vertical_at_start_of_drag: float = 0
 
 
 func _ready() -> void:
+	RenderingServer.set_default_clear_color(SavedData.get_biome_conf().background_color)
 	#print_debug("Game _ready")
 
 	set_process(false)
