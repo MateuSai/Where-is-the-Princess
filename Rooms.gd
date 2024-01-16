@@ -243,7 +243,7 @@ func spawn_rooms() -> void:
 		if combat_room_paths.is_empty() and (i+1) < num_combat_rooms:
 			if debug:
 				print_rich("[color=yellow]" + str(num_combat_rooms) + " combat rooms should have spawned, but only " + str(i+1) + " did, since there are not enough combat rooms[/color]")
-				break
+			break
 
 	#print_debug("Adding rooms to scene tree and other things")
 	for room: DungeonRoom in rooms:
