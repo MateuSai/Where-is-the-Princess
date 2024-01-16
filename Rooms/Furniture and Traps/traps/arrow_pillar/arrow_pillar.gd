@@ -21,4 +21,4 @@ func activate() -> void:
 		var arrow: Arrow = ARROW_SCENE.instantiate()
 		arrow.exclude = [$HurtBox, self]
 		get_tree().current_scene.call_deferred("add_child", arrow)
-		arrow.launch(global_position + Vector2.UP * 6, dir, 200, true)
+		arrow.call_deferred("launch", global_position + Vector2.UP * 6, dir, 200, true)

@@ -6,6 +6,10 @@ class_name Player extends Character
 #signal weapon_condition_changed(weapon: Weapon, new_value: float)
 #signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
 
+const DIALOGUE_BOX_SCENE: PackedScene = preload("res://ui/dialogue_system/dialogue_box.tscn")
+var dialogue_box: DialogueBox
+var dialogue_tween: Tween = null
+
 const DASH_IMPULSE: int = 2200
 const DASH_STAMINA_COST: int = 30
 
@@ -406,3 +410,30 @@ func get_exclude_bodies() -> Array[Node2D]:
 			arr.push_back(body)
 
 	return arr
+
+
+func start_dialogue(text: String) -> void:
+	dialogue_box = DIALOGUE_BOX_SCENE.instantiate()
+	dialogue_box.position = Vector2(5, -26)
+	add_child(dialogue_box)
+
+	#var available_dialogue_texts: PackedStringArray = dialogue_texts.duplicate()
+	#for i: int in range(available_dialogue_texts.size()-1, -1, -1):
+		#if used_dialogue_texts.has(available_dialogue_texts[i]):
+			#available_dialogue_texts.remove_at(i)
+	#if available_dialogue_texts.is_empty():
+		#available_dialogue_texts = dialogue_texts.duplicate()
+		#used_dialogue_texts = []
+	var random_dialogue_text: String = text
+	dialogue_box.start_displaying_text(random_dialogue_text)
+	#used_dialogue_texts.push_back(random_dialogue_text)
+
+	dialogue_box.finished_displaying_text.connect(func() -> void:
+		dialogue_tween = create_tween()
+		dialogue_tween.tween_property(dialogue_box, "modulate:a", 0.0, 1).set_delay(3)
+		await dialogue_tween.finished
+		dialogue_tween = null
+		dialogue_box.queue_free()
+		dialogue_box = null
+		#dialogue_finished.emit()
+	)

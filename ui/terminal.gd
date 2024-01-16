@@ -151,6 +151,18 @@ func _process_command(command: String) -> void:
 						printerr("Command " + splitted_command[0] + " " + splitted_command[1] + " does not exist")
 			else:
 				printerr("Invalid number of arguments, you must specify what to spawn")
+		"start":
+			if splitted_command.size() > 1: # tiene otro argumento
+				match splitted_command[1].to_lower():
+					"dialogue", "dia":
+						if splitted_command.size() > 2:
+							_start_player_dialogue(splitted_command[2])
+						else:
+							printerr("You must specify the dialogue text")
+					_:
+						printerr("Command " + splitted_command[0] + " " + splitted_command[1] + " does not exist")
+			else:
+				printerr("Invalid number of arguments, you must specify what to spawn")
 		"i'm fucking invincible":
 			_set_player_invincible("t")
 		"reload", "rel", "r":
@@ -271,6 +283,12 @@ func _set_player_worldcol(worldcol: String) -> void:
 	else:
 		hide()
 		Globals.player.set_collision_mask_value(1, false)
+
+
+func _start_player_dialogue(text: String) -> void:
+	Globals.player.start_dialogue(text)
+
+	hide()
 
 
 func _set_player_invincible(value: String) -> void:

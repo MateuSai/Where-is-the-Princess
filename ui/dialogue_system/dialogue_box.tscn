@@ -8,7 +8,7 @@
 light_mode = 1
 
 [node name="DialogueBox" type="MarginContainer"]
-z_index = 1
+z_index = 10
 material = SubResource("CanvasItemMaterial_8q7tn")
 custom_minimum_size = Vector2(110, 0)
 offset_right = 110.0

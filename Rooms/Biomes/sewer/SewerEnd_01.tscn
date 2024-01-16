@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://26gamp73h168"]
+[gd_scene load_steps=14 format=3 uid="uid://26gamp73h168"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_xn8jn"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_5cqls"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cjxtr1epmm5wh" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/hole_floor.png" id="6_v7xab"]
 [ext_resource type="Texture2D" uid="uid://c13l0lk3c3e0y" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/hole_floor_normal.png" id="7_d6al6"]
 [ext_resource type="Script" path="res://Rooms/exit_level_on_interact.gd" id="8_1wa3h"]
+[ext_resource type="Script" path="res://start_player_dialogue_area.gd" id="9_ws84t"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_0tabj"]
 resource_local_to_scene = true
@@ -21,6 +22,9 @@ normal_texture = ExtResource("7_d6al6")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o84ar"]
 radius = 28.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwdoq"]
+size = Vector2(46, 67)
 
 [node name="BossRoom" instance=ExtResource("1_xn8jn")]
 navigation_polygon = SubResource("NavigationPolygon_0tabj")
@@ -85,3 +89,11 @@ shape = SubResource("CircleShape2D_o84ar")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hole_in_floor" index="2"]
 polygon = PackedVector2Array(-19, 16, -5, 16, 2, 10, 11, 10, 16, 4, 18, -5, 19, -14, 5, -20, -2, -19, -20, -9, -20, 13)
+
+[node name="StartPlayerDialogueArea" type="Area2D" parent="." index="20"]
+script = ExtResource("9_ws84t")
+dialogue = "Yare yare, I guess it's time to jump"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StartPlayerDialogueArea" index="0"]
+position = Vector2(161, 378)
+shape = SubResource("RectangleShape2D_gwdoq")
