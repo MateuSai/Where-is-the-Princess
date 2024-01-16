@@ -427,3 +427,9 @@ func get_limit_entrance_connections_to_one() -> bool:
 		return biome_conf.levels[run_stats.level - 1].limit_entrance_connections_to_one
 	else:
 		return false
+
+
+func add_completed_dialogue(dialogue: String) -> void:
+	data.add_completed_dialogue(dialogue)
+
+	save_data()
