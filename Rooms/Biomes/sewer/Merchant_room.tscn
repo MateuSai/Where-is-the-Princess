@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bbyujmvr88xnd"]
+[gd_scene load_steps=10 format=3 uid="uid://bbyujmvr88xnd"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_i5n1b"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_m0i3g"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bphrmf6n5s7be" path="res://Rooms/Furniture and Traps/crate.tscn" id="5_kfghx"]
 [ext_resource type="PackedScene" uid="uid://dt58rwqk2borq" path="res://Rooms/game_shops/GameShopLevel1.tscn" id="6_m5g0q"]
 [ext_resource type="PackedScene" uid="uid://blxwnjqoky134" path="res://Characters/npcs/mercenary/mercenary_spawner.tscn" id="7_udgto"]
+[ext_resource type="PackedScene" uid="uid://b60ykxatluw6k" path="res://Characters/npcs/save_wizard/save_wizard.tscn" id="8_m42ih"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_0tabj"]
 resource_local_to_scene = true
@@ -71,5 +72,8 @@ position = Vector2(1, -22)
 
 [node name="MercenarySpawner" parent="." index="23" instance=ExtResource("7_udgto")]
 position = Vector2(106, 130)
+
+[node name="SaveWizard" parent="." index="24" instance=ExtResource("8_m42ih")]
+position = Vector2(178, 204)
 
 [editable path="GameShopLevel1"]
