@@ -11,7 +11,7 @@ signal coins_changed(new_coins: int)
 @export var weapon_stats: Array[WeaponStats] = []
 @export var equipped_weapon_index: int = 0
 
-@export var coins: int = 30:
+@export var coins: int = 10:
 	set(new_coins):
 		coins = new_coins
 		coins_changed.emit(coins)

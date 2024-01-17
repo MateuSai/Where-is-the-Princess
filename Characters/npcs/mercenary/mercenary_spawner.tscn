@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://blxwnjqoky134"]
+
+[ext_resource type="Texture2D" uid="uid://ckm5f14just72" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armor_02.png" id="1_cpfrh"]
+[ext_resource type="Script" path="res://Characters/npcs/mercenary/mercenary_spawner.gd" id="1_gu6x7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nshvf"]
+atlas = ExtResource("1_cpfrh")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lc73c"]
+atlas = ExtResource("1_cpfrh")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dr5l8"]
+atlas = ExtResource("1_cpfrh")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6m87i"]
+atlas = ExtResource("1_cpfrh")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wkich"]
+atlas = ExtResource("1_cpfrh")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_82i77"]
+atlas = ExtResource("1_cpfrh")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j60jf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nshvf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lc73c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dr5l8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6m87i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wkich")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_82i77")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="MercenarySpawner" type="Marker2D"]
+script = ExtResource("1_gu6x7")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_j60jf")
+autoplay = "default"
+offset = Vector2(0, -5)

@@ -13,7 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://b1tftw38lyigm" path="res://Audio/Sounds/624425__foleyhaven__fire_burning_03.wav" id="6_i287g"]
 [ext_resource type="Texture2D" uid="uid://cpda4qwx1x4j6" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/sign.png" id="9_dti1o"]
 [ext_resource type="Script" path="res://start_area.gd" id="9_r816v"]
-[ext_resource type="PackedScene" uid="uid://bqcn0vo0ait26" path="res://Rooms/RichardTheGigachadWizard.tscn" id="11_vh5i5"]
+[ext_resource type="PackedScene" uid="uid://bqcn0vo0ait26" path="res://Characters/npcs/mercenary/RichardTheGigachadWizard.tscn" id="11_vh5i5"]
 [ext_resource type="PackedScene" uid="uid://cjc0h245lbmpd" path="res://Weapons/Melee/Katana/Katana.tscn" id="12_trlvh"]
 [ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="13_2uruh"]
 [ext_resource type="AudioStream" uid="uid://dq7f7p17hn6bl" path="res://Audio/Sounds/280235__toefur__open-wardrobe-1.wav" id="15_iuhqb"]

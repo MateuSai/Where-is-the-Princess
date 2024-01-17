@@ -42,3 +42,8 @@ func test_discovered_temporal_items() -> void:
 		assert_bool(FileAccess.file_exists(item_path))
 		assert_bool(item_path.get_extension() == "gd")
 		assert_object(load(item_path).new()).is_instanceof(TemporalPassiveItem)
+
+
+func test_completed_dialogue() -> void:
+	data.add_completed_dialogue("Test dialogue")
+	assert_bool(data.has_completed_dialogue("Test dialogue"))

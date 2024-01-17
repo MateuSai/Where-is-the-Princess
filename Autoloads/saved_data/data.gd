@@ -13,20 +13,20 @@ var kills: Dictionary = {}
 
 var ignored_rooms: Array[String] = []
 
-var discovered_weapons: Array[String] = []: get = get_discovered_weapons
+var _discovered_weapons: Array[String] = []
 #"undiscovered_weapons": PackedStringArray(["res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn"]),
 
 var equipped_armor: String = "res://Armors/NoArmor.gd"
-var discovered_armors: Array[String] = []: get = get_discovered_armors
+var _discovered_armors: Array[String] = []
 
-var discovered_permanent_items: Array[String] = []: get = get_discovered_permanent_items
+var _discovered_permanent_items: Array[String] = []
 #	"undiscovered_permanent_items": PackedStringArray(["res://items/Passive/Permanent/EnhancedBoots.gd"]),
-var discovered_temporal_items: Array[String] = []: get = get_discovered_temporal_items
+var _discovered_temporal_items: Array[String] = []
 #	"undiscovered_temporal_items": PackedStringArray(["res://items/Passive/Temporal/MagicSword.gd"]),
 
 var player_upgrades: Array[PlayerUpgrade] = []
 
-var completed_dialogues: Array = []
+var _completed_dialogues: Array = []
 
 var shop_unlocked: bool = false
 
@@ -50,55 +50,55 @@ func can_pick_up_player_upgrade(item_name: String) -> int:
 
 
 func get_discovered_weapons() -> PackedStringArray:
-	var arr: Array = discovered_weapons.duplicate()
+	var arr: Array = _discovered_weapons.duplicate()
 	arr.append_array(DISCOVERED_WEAPONS_FROM_START)
 	return PackedStringArray(arr)
 
 
 func get_discovered_armors() -> PackedStringArray:
-	var arr: Array = discovered_armors.duplicate()
+	var arr: Array = _discovered_armors.duplicate()
 	arr.append_array(DISCOVERED_ARMORS_FROM_START)
 	return PackedStringArray(arr)
 
 
 func get_discovered_permanent_items() -> PackedStringArray:
-	var arr: Array = discovered_permanent_items.duplicate()
+	var arr: Array = _discovered_permanent_items.duplicate()
 	arr.append_array(DISCOVERED_PERMANENT_ITEMS_FROM_START)
 	return PackedStringArray(arr)
 
 
 func get_discovered_temporal_items() -> PackedStringArray:
-	var arr: Array = discovered_temporal_items.duplicate()
+	var arr: Array = _discovered_temporal_items.duplicate()
 	arr.append_array(DISCOVERED_TEMPORAL_ITEMS_FROM_START)
 	return PackedStringArray(arr)
 
 
 func discover_weapon(weapon_path: String) -> void:
-	if not discovered_weapons.has(weapon_path):
-		discovered_weapons.push_back(weapon_path)
+	if not _discovered_weapons.has(weapon_path):
+		_discovered_weapons.push_back(weapon_path)
 
 
 func discover_armor(armor_path: String) -> void:
-	if not discovered_armors.has(armor_path):
-		discovered_armors.push_back(armor_path)
+	if not _discovered_armors.has(armor_path):
+		_discovered_armors.push_back(armor_path)
 
 
 func discover_permanent_item(item_path: String) -> void:
-	if not discovered_permanent_items.has(item_path):
-		discovered_permanent_items.push_back(item_path)
+	if not _discovered_permanent_items.has(item_path):
+		_discovered_permanent_items.push_back(item_path)
 
 
 func discover_temporal_item(item_path: String) -> void:
-	if not discovered_temporal_items.has(item_path):
-		discovered_temporal_items.push_back(item_path)
+	if not _discovered_temporal_items.has(item_path):
+		_discovered_temporal_items.push_back(item_path)
 
 
 func add_completed_dialogue(dialogue: String) -> void:
-	completed_dialogues.push_back(dialogue)
+	_completed_dialogues.push_back(dialogue)
 
 
 func has_completed_dialogue(dialogue: String) -> bool:
-	for dia: String in completed_dialogues:
+	for dia: String in _completed_dialogues:
 		if dia == dialogue:
 			return true
 

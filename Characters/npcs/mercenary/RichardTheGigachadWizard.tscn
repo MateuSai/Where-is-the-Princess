@@ -1,8 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://bqcn0vo0ait26"]
+[gd_scene load_steps=15 format=3 uid="uid://bqcn0vo0ait26"]
 
 [ext_resource type="Texture2D" uid="uid://ckm5f14just72" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armor_02.png" id="1_3fotm"]
-[ext_resource type="Script" path="res://Rooms/RichardTheGigachadWizard.gd" id="2_aqu0x"]
+[ext_resource type="Script" path="res://Characters/npcs/mercenary/RichardTheGigachadWizard.gd" id="2_aqu0x"]
 [ext_resource type="Script" path="res://interact_area.gd" id="3_orqtc"]
+[ext_resource type="Theme" uid="uid://d0qfeecooxxpf" path="res://SmallFontTheme.tres" id="4_y3cxq"]
+[ext_resource type="Texture2D" uid="uid://bda8a38gqhymr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small_coin.tres" id="5_ac16s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nshvf"]
 atlas = ExtResource("1_3fotm")
@@ -55,7 +57,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s6m50"]
-radius = 7.0
+radius = 9.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jeo08"]
 radius = 3.16228
@@ -79,3 +81,20 @@ shape = SubResource("CircleShape2D_s6m50")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_jeo08")
+
+[node name="CostHBox" type="HBoxContainer" parent="."]
+offset_left = -8.0
+offset_top = -25.0
+offset_right = 7.0
+offset_bottom = -9.0
+theme = ExtResource("4_y3cxq")
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="CostHBox"]
+layout_mode = 2
+texture = ExtResource("5_ac16s")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="CostHBox"]
+layout_mode = 2
+text = "10"

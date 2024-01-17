@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bbyujmvr88xnd"]
+[gd_scene load_steps=9 format=3 uid="uid://bbyujmvr88xnd"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_i5n1b"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_m0i3g"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="5_7ngjk"]
 [ext_resource type="PackedScene" uid="uid://bphrmf6n5s7be" path="res://Rooms/Furniture and Traps/crate.tscn" id="5_kfghx"]
 [ext_resource type="PackedScene" uid="uid://dt58rwqk2borq" path="res://Rooms/game_shops/GameShopLevel1.tscn" id="6_m5g0q"]
+[ext_resource type="PackedScene" uid="uid://blxwnjqoky134" path="res://Characters/npcs/mercenary/mercenary_spawner.tscn" id="7_udgto"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_0tabj"]
 resource_local_to_scene = true
@@ -13,7 +14,7 @@ source_geometry_mode = 2
 source_geometry_group_name = &"navigation_polygon_source_group"
 agent_radius = 2.0
 
-[node name="BossRoom" instance=ExtResource("1_i5n1b")]
+[node name="MerchantRoom" instance=ExtResource("1_i5n1b")]
 navigation_polygon = SubResource("NavigationPolygon_0tabj")
 
 [node name="TileMap" parent="." index="0"]
@@ -68,11 +69,7 @@ position = Vector2(272, 149)
 [node name="Merchant" parent="GameShopLevel1" index="2"]
 position = Vector2(1, -22)
 
-[node name="GameShopLevel2" parent="." index="23" instance=ExtResource("6_m5g0q")]
-position = Vector2(272, 149)
-
-[node name="Merchant" parent="GameShopLevel2" index="2"]
-position = Vector2(1, -22)
+[node name="MercenarySpawner" parent="." index="23" instance=ExtResource("7_udgto")]
+position = Vector2(106, 130)
 
 [editable path="GameShopLevel1"]
-[editable path="GameShopLevel2"]

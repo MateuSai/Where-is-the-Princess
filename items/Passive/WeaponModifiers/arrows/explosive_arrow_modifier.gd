@@ -1,4 +1,4 @@
-extends ArrowModifier
+class_name ExplosiveArrowModifier extends ArrowModifier
 
 
 func _init() -> void:
