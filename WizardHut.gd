@@ -1,7 +1,7 @@
 extends StaticBody2D
 
 const RUINED_TEXTURE: CanvasTexture = preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/hut_ruined.tres")
-	
+
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var shop: Node2D = $BaseCampShop
 

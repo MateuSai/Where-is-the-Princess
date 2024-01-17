@@ -403,6 +403,10 @@ func get_discovered_permanent_item_paths() -> PackedStringArray:
 	return PackedStringArray(permanent_item_paths)
 
 
+func get_discovered_player_upgrades_paths() -> PackedStringArray:
+	return data.get_discovered_player_upgrades()
+
+
 #func get_undiscovered_permanent_item_paths() -> PackedStringArray:
 #	var permanent_item_paths: Array = data.undiscovered_permanent_items.duplicate()
 #	#permanent_item_paths.append_array(volatile_permanent_item_paths)
