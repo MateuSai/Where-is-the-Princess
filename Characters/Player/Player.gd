@@ -14,12 +14,16 @@ const DASH_IMPULSE: int = 2200
 const DASH_STAMINA_COST: int = 30
 
 var stamina_regeneration_per_second: float = 15
-var max_stamina: float = 100
+signal max_stamina_changed(new_value: float)
+var max_stamina: float = 100:
+	set(new_value):
+		max_stamina = new_value
+		max_stamina_changed.emit(max_stamina)
 var stamina: float = max_stamina:
 	set(new_value):
 		if new_value < stamina:
 			stamina_regen_cooldown_timer.start()
-		stamina = clamp(new_value, 0.0, 100.0)
+		stamina = clamp(new_value, 0.0, max_stamina)
 
 signal temporal_passive_item_picked_up(item: TemporalPassiveItem)
 signal temporal_passive_item_unequiped(item: TemporalPassiveItem)
