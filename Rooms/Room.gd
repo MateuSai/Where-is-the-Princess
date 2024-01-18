@@ -50,7 +50,7 @@ signal last_enemy_died(enemy: Enemy)
 
 @onready var tilemap: TileMap = get_node("TileMap")
 @onready var flying_units_navigation_tilemap: TileMap = $FlyingUnitsNavigationTileMap
-@onready var black_tilemap: TileMap = get_node("BlackTileMap")
+#@onready var black_tilemap: TileMap = get_node("BlackTileMap")
 @onready var teleport_position: Marker2D = $TeleportPosition
 
 @onready var tilemap_offset: Vector2i = tilemap.get_used_rect().position * Rooms.TILE_SIZE
@@ -69,7 +69,8 @@ var room_white_image: Image
 
 func _ready() -> void:
 	assert(tilemap.position == Vector2.ZERO, "The tilemap must be at the position (0, 0)")
-	assert(entries[0].get_child_count() or entries[1].get_child_count() or entries[2].get_child_count() or entries[3].get_child_count(), "What are you doing!? How I'm supposed to access the room? Put at least one entry.")
+	if name != "BaseCamp_0":
+		assert(entries[0].get_child_count() or entries[1].get_child_count() or entries[2].get_child_count() or entries[3].get_child_count(), "What are you doing!? How I'm supposed to access the room? Put at least one entry.")
 
 #	print(name + ": " + str(tilemap.get_used_rect()))
 
@@ -77,14 +78,14 @@ func _ready() -> void:
 
 	ATLAS_ID = SavedData.get_biome_conf().room_atlas_id
 
-	black_tilemap.modulate = ProjectSettings.get("rendering/environment/defaults/default_clear_color")
-	for cell_pos: Vector2i in tilemap.get_used_cells(0):
-		black_tilemap.set_cell(0, cell_pos, 0, Vector2i(0, 0))
-	for cell_pos: Vector2i in tilemap.get_used_cells(1):
-		black_tilemap.set_cell(0, cell_pos, 0, Vector2i(0, 0))
-
-	if rooms.game.debug:
-		black_tilemap.hide()
+	#black_tilemap.modulate = ProjectSettings.get("rendering/environment/defaults/default_clear_color")
+	#for cell_pos: Vector2i in tilemap.get_used_cells(0):
+		#black_tilemap.set_cell(0, cell_pos, 0, Vector2i(0, 0))
+	#for cell_pos: Vector2i in tilemap.get_used_cells(1):
+		#black_tilemap.set_cell(0, cell_pos, 0, Vector2i(0, 0))
+#
+	#if rooms.game.debug:
+		#black_tilemap.hide()
 
 	flying_units_navigation_tilemap.hide()
 
@@ -279,10 +280,10 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 	for dir: EntryDirection in [EntryDirection.LEFT, EntryDirection.RIGHT]:
 		for entry: Node2D in entries[dir].get_children():
 			if entry in used_entries:
-				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.UP * 2)
-				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.UP)
-				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position))
-				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.DOWN)
+				#black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.UP * 2)
+				#black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.UP)
+				#black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position))
+				#black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.DOWN)
 
 				var vertical_door: StaticBody2D = VERTICAL_DOOR.instantiate()
 				vertical_door.position = floor(entry.position / 16) * 16
@@ -320,8 +321,8 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 	for dir: EntryDirection in [EntryDirection.UP, EntryDirection.DOWN]:
 		for entry: Node2D in entries[dir].get_children():
 			if entry in used_entries:
-				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position))
-				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.RIGHT)
+				#black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position))
+				#black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.RIGHT)
 
 				var horizontal_door: StaticBody2D = HORIZONTAL_UP_DOOR.instantiate() if dir == EntryDirection.UP else HORIZONTAL_DOWN_DOOR.instantiate()
 				horizontal_door.position = floor(entry.position / 16) * 16 + Vector2(Rooms.TILE_SIZE, Rooms.TILE_SIZE + 12)
@@ -413,12 +414,12 @@ func _on_player_entered_room() -> void:
 			closed.emit()
 			Globals.room_closed.emit()
 
-			var tween: Tween = create_tween()
-			tween.tween_property(black_tilemap, "modulate:a", 0.0, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-			await tween.finished
-			black_tilemap.queue_free()
-		else:
-			black_tilemap.queue_free()
+			#var tween: Tween = create_tween()
+			#tween.tween_property(black_tilemap, "modulate:a", 0.0, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			#await tween.finished
+			#black_tilemap.queue_free()
+		#else:
+			#black_tilemap.queue_free()
 			#_close_entrance()
 			#_open_doors()
 

@@ -1,0 +1,29 @@
+{
+	"background_color": "d271ff",
+
+	"corridor_atlas_id": 0,
+	"room_atlas_id": 0,
+	"extra_connections": 0.5,
+	"minimap_texture": "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/triple tilemap forest_minimap_sepia.png",
+	"vertical_door_texture": "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/doors/forest_vertical_door_canvas_texture.tres",
+	"horizontal_down_door_texture": "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/doors/forest_horizontal_door_canvas_texture.tres",
+	"horizontal_up_door_texture": "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/doors/forest_horizontal_door_canvas_texture.tres",
+
+	"vertical_corridor_symmetric_lights": false,
+
+	"corridor_floor_tiles_coor": [[5, 2], [5, 3], [7, 2], [7, 3]],
+
+	"default_num_combat_rooms": 0,
+	"default_num_special_rooms": 0,
+	"levels": {
+		"1": {
+			"num_combat_rooms": 0,
+			"num_special_rooms": 0,
+
+
+			"overwrite_start_rooms": ["res://Rooms/Biomes/basecamp/BaseCamp.tscn"],
+		},
+	},
+
+	"music": "res://Audio/Music/Incompetech/Shamanistic.mp3",
+}

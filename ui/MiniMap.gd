@@ -104,7 +104,7 @@ func set_up() -> void:
 	container.add_child(fog_sprite)
 	#fog_sprite.hide()
 
-	map_name_label.text = SavedData.run_stats.biome
+	map_name_label.text = SavedData.get_biome_conf().name
 	#map_name_label.position = Vector2.ZERO
 
 	#await owner.player_added

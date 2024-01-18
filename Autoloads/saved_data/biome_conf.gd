@@ -3,6 +3,8 @@ class_name BiomeConf
 const DEFAULT_NUM_COMBAT_ROOMS: int = 5
 const DEFAULT_NUM_SPECIAL_ROOMS: int = 1
 
+var name: String = "BIOME_NAME_GOES_HERE"
+
 var background_color: String = "1a1c00"
 
 var corridor_atlas_id: int = 0

@@ -12,5 +12,5 @@ func _ready() -> void:
 		else:
 			color_rect.color.a = clamp(color_rect.color.a + 0.25, 0.0, 1.0)
 			if color_rect.color.a == 1.0:
-				base_camp.start_game()
+				Globals.exit_level("forest")
 	)

@@ -1,7 +1,6 @@
-[gd_scene load_steps=53 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=57 format=3 uid="uid://cah3hunwa34v8"]
 
-[ext_resource type="PackedScene" uid="uid://dftvfv1jceskv" path="res://Characters/Player/Player.tscn" id="1_0pcgl"]
-[ext_resource type="Script" path="res://basecamp/BaseCamp.gd" id="1_tpf7m"]
+[ext_resource type="Script" path="res://Rooms/Biomes/basecamp/BaseCamp.gd" id="1_tpf7m"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="2_ipa5f"]
 [ext_resource type="Script" path="res://interact_area.gd" id="2_n3t3v"]
 [ext_resource type="Shader" path="res://shaders_and_particles/Fire.gdshader" id="3_exi7b"]
@@ -11,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://daudq4kfwccvu" path="res://Art/Status Conditions/condition_status_top_fire_full_16x16.png" id="4_ypw36"]
 [ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png" id="5_jugum"]
 [ext_resource type="AudioStream" uid="uid://b1tftw38lyigm" path="res://Audio/Sounds/624425__foleyhaven__fire_burning_03.wav" id="6_i287g"]
+[ext_resource type="Texture2D" uid="uid://4diatv3rr660" path="res://brow_square.png" id="7_bvea0"]
 [ext_resource type="Texture2D" uid="uid://cpda4qwx1x4j6" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/sign.png" id="9_dti1o"]
 [ext_resource type="Script" path="res://start_area.gd" id="9_r816v"]
 [ext_resource type="PackedScene" uid="uid://bqcn0vo0ait26" path="res://Characters/npcs/mercenary/RichardTheGigachadWizard.tscn" id="11_vh5i5"]
@@ -23,7 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://cw7q01ncaqimn" path="res://Weapons/Melee/WarriorSword/WarriorSword.tscn" id="21_lb8k2"]
 [ext_resource type="PackedScene" uid="uid://cs3cwiuyg1834" path="res://Weapons/Melee/Scimitar/Scimitar.tscn" id="22_ovxvs"]
 [ext_resource type="PackedScene" uid="uid://4g8k6f3qb1w2" path="res://Weapons/Melee/WarAxe/WarAxe.tscn" id="23_7aqvg"]
-[ext_resource type="PackedScene" uid="uid://bjdf1fgpfe4v0" path="res://basecamp/WizardHut.tscn" id="25_mnnam"]
+[ext_resource type="PackedScene" uid="uid://bjdf1fgpfe4v0" path="res://Rooms/Biomes/basecamp/WizardHut.tscn" id="25_mnnam"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="26_61yb5"]
 [ext_resource type="PackedScene" uid="uid://ctt3utwk3p586" path="res://Weapons/Melee/KombatHammer/KombatHammer.tscn" id="26_b0hvw"]
 [ext_resource type="PackedScene" uid="uid://cs8527eyei1sa" path="res://Weapons/Melee/WarHammer/WarHammer.tscn" id="28_loeac"]
@@ -36,7 +36,10 @@
 [ext_resource type="PackedScene" uid="uid://cpyqtlqtdkuiq" path="res://Weapons/Ranged/scepters/lightning_stick/lightning_stick.tscn" id="34_nl6xg"]
 [ext_resource type="PackedScene" uid="uid://bp2oo4273j0dc" path="res://Weapons/Melee/spear/Spear.tscn" id="35_gq7sc"]
 [ext_resource type="PackedScene" uid="uid://dkpyvq2xuuytm" path="res://Weapons/Ranged/crossbows/wooden_crossbow/wooden_crossbow.tscn" id="37_gon7g"]
-[ext_resource type="PackedScene" uid="uid://cpcdmduiwspc4" path="res://basecamp/base_camp_items_shop.tscn" id="37_qhx6q"]
+[ext_resource type="PackedScene" uid="uid://cpcdmduiwspc4" path="res://Rooms/Biomes/basecamp/base_camp_items_shop.tscn" id="37_qhx6q"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_s6u7b"]
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="Gradient" id="Gradient_nhg8o"]
 offsets = PackedFloat32Array(0, 0.784849)
@@ -61,6 +64,22 @@ shader_parameter/gradient_tex = SubResource("GradientTexture1D_bep2e")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hi07k"]
 radius = 6.08276
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_7h6or"]
+vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b4afx"]
+texture = ExtResource("7_bvea0")
+0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_7h6or")
+
+[sub_resource type="TileSet" id="TileSet_wt50x"]
+navigation_layer_0/layers = 2
+sources/0 = SubResource("TileSetAtlasSource_b4afx")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qm2jb"]
 size = Vector2(52, 5)
@@ -99,9 +118,10 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 "
 
-[node name="BaseCamp" type="Node2D"]
+[node name="BaseCamp" type="NavigationRegion2D"]
 y_sort_enabled = true
 texture_filter = 1
+navigation_polygon = SubResource("NavigationPolygon_s6u7b")
 script = ExtResource("1_tpf7m")
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -145,8 +165,10 @@ autoplay = true
 max_distance = 150.0
 bus = &"Sounds"
 
-[node name="Player" parent="." instance=ExtResource("1_0pcgl")]
-position = Vector2(165, 181)
+[node name="FlyingUnitsNavigationTileMap" type="TileMap" parent="." groups=["flying_units_navigation_polygon_source_group"]]
+tile_set = SubResource("TileSet_wt50x")
+format = 2
+layer_0/navigation_enabled = false
 
 [node name="StartArea1" type="Area2D" parent="."]
 position = Vector2(128, 8)
@@ -250,7 +272,7 @@ shape = SubResource("CircleShape2D_as5yy")
 color = Color(0.294118, 0.294118, 0.294118, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 0
+layer = 50
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 unique_name_in_owner = true
@@ -461,3 +483,23 @@ on_floor = true
 
 [node name="BaseCampItemsShop" parent="." instance=ExtResource("37_qhx6q")]
 position = Vector2(91, 57)
+
+[node name="Entries" type="Node2D" parent="."]
+
+[node name="Left" type="Node2D" parent="Entries"]
+
+[node name="Up" type="Node2D" parent="Entries"]
+
+[node name="Right" type="Node2D" parent="Entries"]
+
+[node name="Down" type="Node2D" parent="Entries"]
+
+[node name="Doors" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="EnemyPositions" type="Node2D" parent="."]
+
+[node name="TeleportPosition" type="Marker2D" parent="."]
+position = Vector2(154, 159)
+
+[node name="Items" type="Node2D" parent="."]

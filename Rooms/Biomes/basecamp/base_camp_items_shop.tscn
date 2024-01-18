@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://5orvhxdckhxm" path="res://Rooms/Shop.tscn" id="1_nbena"]
 [ext_resource type="Script" path="res://Rooms/ShopItemMarker.gd" id="2_7bj3y"]
-[ext_resource type="Script" path="res://basecamp/base_camp_items_shop.gd" id="2_ug6cr"]
+[ext_resource type="Script" path="res://Rooms/Biomes/basecamp/base_camp_items_shop.gd" id="2_ug6cr"]
 [ext_resource type="Texture2D" uid="uid://d2boldtqkpcn1" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/merchant_stuff_01.png" id="3_bbneh"]
 [ext_resource type="PackedScene" uid="uid://bbl110ocl24oo" path="res://Characters/npcs/basecamp_shop_manager/basecamp_shop_manager.tscn" id="5_ub8f7"]
 
