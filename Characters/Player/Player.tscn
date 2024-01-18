@@ -610,7 +610,7 @@ texture_progress = ExtResource("24_yneg1")
 script = ExtResource("25_22fjy")
 
 [node name="UpdateTimer" type="Timer" parent="UI/MarginContainer/ArmorAndStaminaVBox/MarginContainer/TextureRect/StaminaBar" index="0"]
-wait_time = 0.15
+wait_time = 0.1
 autostart = true
 
 [node name="Inventory" type="HBoxContainer" parent="UI" index="3"]

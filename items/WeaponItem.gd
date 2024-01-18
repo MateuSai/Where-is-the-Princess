@@ -15,7 +15,7 @@ func pick_up(player: Player) -> void:
 
 
 func get_icon() -> Texture2D:
-	return weapon.get_texture()
+	return weapon.get_node("%WeaponSprite").texture
 
 
 func _notification(what: int) -> void:

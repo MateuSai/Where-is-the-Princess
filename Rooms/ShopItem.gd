@@ -41,12 +41,12 @@ func initialize(item: Item) -> void:
 		currency_icon.texture = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/8x8_boss_soul_animation.tres")
 		#currency_icon.texture = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small_coin.tres")
 
-		var hologram_sprite: Sprite2D = Sprite2D.new()
-		hologram_sprite.texture = texture
-		hologram_sprite.material = ShaderMaterial.new()
-		(hologram_sprite.material as ShaderMaterial).shader = HOLOGRAM_SHADER
-		(hologram_sprite.material as ShaderMaterial).set_shader_parameter("hologramTexture", HOLOGRAM_TEXTURE)
-		add_child(hologram_sprite)
+		#var hologram_sprite: Sprite2D = Sprite2D.new()
+		#hologram_sprite.texture = texture
+		#hologram_sprite.material = ShaderMaterial.new()
+		#(hologram_sprite.material as ShaderMaterial).shader = HOLOGRAM_SHADER
+		#(hologram_sprite.material as ShaderMaterial).set_shader_parameter("hologramTexture", HOLOGRAM_TEXTURE)
+		#add_child(hologram_sprite)
 
 		price_label.text = str(price)
 

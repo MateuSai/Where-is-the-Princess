@@ -25,6 +25,6 @@ extends CharacterInDanger
 
 func _on_jail_interacted() -> void:
 	if room_cleared:
-		SavedData.data.player_upgrades_shop_unlocked = true
+		SavedData.data.items_shop_unlocked = true
 
 	super()

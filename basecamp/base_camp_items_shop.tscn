@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://cpcdmduiwspc4"]
+
+[ext_resource type="PackedScene" uid="uid://5orvhxdckhxm" path="res://Rooms/Shop.tscn" id="1_nbena"]
+[ext_resource type="Script" path="res://Rooms/ShopItemMarker.gd" id="2_7bj3y"]
+[ext_resource type="Script" path="res://basecamp/base_camp_items_shop.gd" id="2_ug6cr"]
+[ext_resource type="Texture2D" uid="uid://d2boldtqkpcn1" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/merchant_stuff_01.png" id="3_bbneh"]
+[ext_resource type="PackedScene" uid="uid://bbl110ocl24oo" path="res://Characters/npcs/basecamp_shop_manager/basecamp_shop_manager.tscn" id="5_ub8f7"]
+
+[node name="BaseCampItemsShop" instance=ExtResource("1_nbena")]
+y_sort_enabled = true
+script = ExtResource("2_ug6cr")
+
+[node name="Positions" type="Node2D" parent="." index="0"]
+
+[node name="ShopItemMarker" type="Marker2D" parent="Positions" index="0"]
+position = Vector2(9, -9)
+script = ExtResource("2_7bj3y")
+
+[node name="ShopItemMarker2" type="Marker2D" parent="Positions" index="1"]
+position = Vector2(-4, -9)
+script = ExtResource("2_7bj3y")
+item_type = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="." index="1"]
+position = Vector2(0, -16)
+texture = ExtResource("3_bbneh")
+offset = Vector2(0, 8)
+
+[node name="BasecampShopManager" parent="." index="2" instance=ExtResource("5_ub8f7")]
+position = Vector2(0, -22)

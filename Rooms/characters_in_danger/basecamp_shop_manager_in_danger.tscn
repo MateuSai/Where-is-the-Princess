@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmnh0jqgjooo1"]
+
+[ext_resource type="PackedScene" uid="uid://b14mh3jk8cuns" path="res://Rooms/characters_in_danger/CharacterInDanger.tscn" id="1_oegwk"]
+[ext_resource type="Script" path="res://Rooms/characters_in_danger/basecamp_shop_manager_in_danger.gd" id="2_5g2s6"]
+[ext_resource type="PackedScene" uid="uid://bbl110ocl24oo" path="res://Characters/npcs/basecamp_shop_manager/basecamp_shop_manager.tscn" id="3_nm4ts"]
+
+[node name="BasecampShopManagerInDanger" instance=ExtResource("1_oegwk")]
+script = ExtResource("2_5g2s6")
+
+[node name="Character" parent="." index="1" instance=ExtResource("3_nm4ts")]

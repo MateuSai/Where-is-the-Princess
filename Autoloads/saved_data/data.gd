@@ -29,7 +29,8 @@ var player_upgrades: Array[PlayerUpgrade] = []
 
 var _completed_dialogues: Array = []
 
-var shop_unlocked: bool = false
+var items_shop_unlocked: bool = false
+var player_upgrades_shop_unlocked: bool = false
 
 func get_extra_max_hp() -> int:
 	var extra_hp: int = 0
