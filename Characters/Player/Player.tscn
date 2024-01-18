@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=59 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -35,7 +35,6 @@
 [ext_resource type="Texture2D" uid="uid://cac17vxsy4c22" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/boss_soul_animation.tres" id="26_3xjxs"]
 [ext_resource type="Script" path="res://Characters/Player/AutoAimArea.gd" id="28_r7ct4"]
 [ext_resource type="AudioStream" uid="uid://dhift2qs6kcl5" path="res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Equipement (menu)/ArmorLeatherMetal1.wav" id="33_3bfpk"]
-[ext_resource type="PackedScene" uid="uid://bekcqxfxkfcf5" path="res://ui/DebugUI.tscn" id="36_mdex8"]
 [ext_resource type="AudioStream" uid="uid://ddvfc4vghai55" path="res://Audio/Sounds/540275__zepurple__pick-up-tool.wav" id="39_184bl"]
 [ext_resource type="AudioStream" uid="uid://bmektc0a3ocp4" path="res://Audio/Sounds/429924__julalvr__2-macho-comewav.wav" id="40_ndcss"]
 [ext_resource type="AudioStream" uid="uid://70di52o5u7oq" path="res://Audio/Sounds/324514__deleted_user_2104797__burp.wav" id="41_cbyot"]
@@ -620,10 +619,6 @@ stretch_mode = 5
 layout_mode = 2
 text = "0"
 vertical_alignment = 2
-
-[node name="DebugUI" parent="UI" index="6" instance=ExtResource("36_mdex8")]
-process_mode = 3
-metadata/_edit_use_anchors_ = true
 
 [node name="Marker2D" type="Marker2D" parent="DustPositions" index="0"]
 

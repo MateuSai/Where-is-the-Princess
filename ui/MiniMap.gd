@@ -1,4 +1,4 @@
-class_name MiniMap extends Popup
+class_name MiniMap extends Control
 
 const TILE_SIZE: int = 4
 
@@ -18,8 +18,9 @@ var map_rect: Rect2 = Rect2(0, 0, 0, 0)
 var fog_sprite: Sprite2D
 #var fog_image: Image
 
-@onready var rooms: Rooms = $"../../Rooms"
-@onready var real_fog_sprite: Sprite2D = $"../../FogSprite"
+@onready var ui: GameUI = %UI
+@onready var rooms: Rooms = $"../../../Rooms"
+@onready var real_fog_sprite: Sprite2D = %FogSprite
 @onready var scroll_container: ScrollContainer = $MinimapScrollContainer
 @onready var container: MarginContainer = $MinimapScrollContainer/PanelContainer/MarginContainer
 @onready var map_name_label: Label = $MinimapScrollContainer/PanelContainer/MapNameLabel
@@ -31,7 +32,15 @@ var fog_sprite: Sprite2D
 
 func _ready() -> void:
 	set_process(false)
-	popup_hide.connect(func() -> void: set_process(false))
+
+	draw.connect(func() -> void:
+		set_process(true)
+		_on_draw()
+	)
+	hidden.connect(func() -> void:
+		set_process(false)
+		_on_hide()
+	)
 
 	update_fog_timer.timeout.connect(_update_fog)
 
@@ -56,7 +65,7 @@ func set_up() -> void:
 	rooms_items_ui.resize(rooms.rooms.size())
 
 	var minimap_corridors_tilemap: TileMap = TileMap.new()
-	var world_corridor_tilemap: TileMap = $"../../Rooms/CorridorTileMap"
+	var world_corridor_tilemap: TileMap = $"../../../Rooms/CorridorTileMap"
 
 	for layer_i: int in world_corridor_tilemap.get_layers_count():
 		minimap_corridors_tilemap.add_layer(layer_i)
@@ -109,12 +118,12 @@ func set_up() -> void:
 
 	#await owner.player_added
 
-	visibility_changed.connect(func() -> void:
-		if visible:
-			_on_draw()
-		else:
-			_on_hide()
-	)
+	#visibility_changed.connect(func() -> void:
+		#if visible:
+			#_on_draw()
+		#else:
+			#_on_hide()
+	#)
 
 
 func _on_draw() -> void:
@@ -152,13 +161,13 @@ func _update_fog() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_minimap"):
-		hide()
+		ui.hide_tab_container()
 
 	if room_selected != null:
 		if event is InputEventMouseButton:
 			if event.is_pressed() and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
 				Globals.player.position = room_selected.position + (room_selected.get_node("TeleportPosition") as Marker2D).position
-				hide()
+				ui.hide_tab_container()
 
 
 

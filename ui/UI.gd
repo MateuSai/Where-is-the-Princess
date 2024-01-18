@@ -1,12 +1,16 @@
-extends CanvasLayer
+class_name GameUI extends CanvasLayer
 
 # var minimap_visible: bool = false
 
+const MINIMAP_INDEX: int = 0
+
 var in_combat: bool = false
 
+@onready var tab_container: TabContainer = $TabContainer
 @onready var minimap: MiniMap = %MiniMap
 @onready var pause_menu: Control = %PauseMenu
-@onready var color_rect: ColorRect = $ColorRect
+@onready var seed_label: Label = %SeedLabel
+@onready var color_rect: ColorRect = %UIColorRect
 
 
 func _ready() -> void:
@@ -19,24 +23,42 @@ func _ready() -> void:
 	)
 
 	color_rect.hide()
-	pause_menu.hide()
-	pause_menu.get_node("MarginContainer/SeedLabel").text = str(Globals.run_seed)
+	tab_container.hide()
+	#pause_menu.hide()
+	seed_label.hide()
+	seed_label.text = str(Globals.run_seed)
 
 	#minimap.popup_hide.connect(func(): minimap_visible = false)
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_minimap") and not in_combat:
-		minimap.popup_centered()
-		minimap.set_process(true)
+		show_tab_container()
+		tab_container.current_tab = MINIMAP_INDEX
 		minimap.scroll_to_player()
 
 	if event.is_action_pressed("ui_pause"):
-		if pause_menu.visible:
-			pause_menu.hide()
-			color_rect.hide()
-			get_tree().paused = false
+		if tab_container.visible:
+			hide_tab_container()
+			#pause_menu.hide()
+			#color_rect.hide()
+			#get_tree().paused = false
 		else:
-			pause_menu.show()
-			color_rect.show()
-			get_tree().paused = true
+			show_tab_container()
+			#pause_menu.show()
+			#color_rect.show()
+			#get_tree().paused = true
+
+
+func show_tab_container() -> void:
+	color_rect.show()
+	tab_container.show()
+	seed_label.show()
+	get_tree().paused = true
+
+
+func hide_tab_container() -> void:
+	color_rect.hide()
+	tab_container.hide()
+	seed_label.hide()
+	get_tree().paused = false

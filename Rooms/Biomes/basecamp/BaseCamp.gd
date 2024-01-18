@@ -62,6 +62,8 @@ func _ready() -> void:
 
 
 func _exit_tree() -> void:
+	super()
+
 	SavedData.save_data()
 
 

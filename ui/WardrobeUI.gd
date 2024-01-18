@@ -1,8 +1,6 @@
 extends MarginContainer
 
-#const ARMORS_FOLDER_PATH: String = "res://Armors/LoadedWithouthNeedToDiscoverThem/"
-
-@onready var player: Player = owner.get_node("Player")
+#@onready var player: Player = owner.get_node("Player")
 
 @onready var armors_grid: GridContainer = get_node("HBoxContainer/Armors")
 
@@ -12,16 +10,6 @@ extends MarginContainer
 
 func _ready() -> void:
 	var armors: Array[Armor] = [NoArmor.new()]
-
-	# var armor_names: PackedStringArray = _get_armors()
-#	for armor_name in armor_names:
-#		armors.push_back(load(ARMORS_FOLDER_PATH + armor_name).new())
-	# Ponemos NoArmor al inicio
-#	armors.sort_custom(func(armor1: Armor, _armor2: Armor) -> bool:
-#		if armor1 is NoArmor:
-#			return true
-#		return false
-#	)
 
 	for armor_path: String in SavedData.get_armor_paths():
 		armors.push_back(load(armor_path).new())
@@ -34,12 +22,12 @@ func _ready() -> void:
 #			armor_grid_button.grab_focus()
 
 	draw.connect(func() -> void:
-		name_label.text = player.armor.name
-		description_label.text = player.armor.description
+		name_label.text = Globals.player.armor.name
+		description_label.text = Globals.player.armor.description
 		#print(player.armor.name)
 		for button: ArmorGridButton in armors_grid.get_children():
 			#print(button.armor.name + "  " + player.armor.name)
-			if player.armor.name == button.armor.name:
+			if Globals.player.armor.name == button.armor.name:
 				button.grab_focus()
 	)
 
@@ -47,7 +35,7 @@ func _ready() -> void:
 func _on_armor_selected(armor: Armor) -> void:
 	name_label.text = armor.name
 	description_label.text = armor.description
-	player.set_armor(armor)
+	Globals.player.set_armor(armor)
 	SavedData.data.equipped_armor = (armor.get_script() as Script).get_path()
 
 
