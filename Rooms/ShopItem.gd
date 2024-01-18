@@ -92,12 +92,12 @@ func _pick_item_and_free() -> void:
 	get_tree().current_scene.add_child(sound)
 	sound.play()
 
-	if get_tree().current_scene.name == "Game":
-		super()
-	else: # BaseCamp
-		if item is WeaponItem:
-			var weapon_item: WeaponItem = item
-			SavedData.discover_weapon(weapon_item.scene_file_path)
-		elif item is TemporalPassiveItem:
-			SavedData.discover_temporal_item((item.get_script() as Script).get_path())
-		queue_free()
+	#if get_tree().current_scene.name == "Game":
+	super()
+	#else: # BaseCamp
+		#if item is WeaponItem:
+			#var weapon_item: WeaponItem = item
+			#SavedData.discover_weapon(weapon_item.scene_file_path)
+		#elif item is TemporalPassiveItem:
+			#SavedData.discover_temporal_item((item.get_script() as Script).get_path())
+		#queue_free()
