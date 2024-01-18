@@ -199,7 +199,7 @@ func _discover_room(room: DungeonRoom) -> void:
 
 	for layer_i: int in world_room_tilemap.get_layers_count():
 		minimap_room_tilemap.add_layer(layer_i)
-		minimap_room_tilemap.set_layer_z_index(layer_i, world_room_tilemap.get_layer_z_index(layer_i) + 3)
+		minimap_room_tilemap.set_layer_z_index(layer_i, world_room_tilemap.get_layer_z_index(layer_i) + 4)
 
 	minimap_room_tilemap.tile_set = tileset
 	_copy_tiles(world_room_tilemap, minimap_room_tilemap)

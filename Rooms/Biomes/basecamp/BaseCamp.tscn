@@ -41,6 +41,22 @@
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_s6u7b"]
 source_geometry_group_name = &"navigation_polygon_source_group"
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_7h6or"]
+vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b4afx"]
+texture = ExtResource("7_bvea0")
+0:0/0 = 0
+0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_7h6or")
+
+[sub_resource type="TileSet" id="TileSet_wt50x"]
+navigation_layer_0/layers = 2
+sources/0 = SubResource("TileSetAtlasSource_b4afx")
+
 [sub_resource type="Gradient" id="Gradient_nhg8o"]
 offsets = PackedFloat32Array(0, 0.784849)
 
@@ -64,22 +80,6 @@ shader_parameter/gradient_tex = SubResource("GradientTexture1D_bep2e")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hi07k"]
 radius = 6.08276
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_7h6or"]
-vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
-source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b4afx"]
-texture = ExtResource("7_bvea0")
-0:0/0 = 0
-0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_7h6or")
-
-[sub_resource type="TileSet" id="TileSet_wt50x"]
-navigation_layer_0/layers = 2
-sources/0 = SubResource("TileSetAtlasSource_b4afx")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qm2jb"]
 size = Vector2(52, 5)
@@ -137,38 +137,38 @@ layer_2/name = "Decorations"
 layer_2/y_sort_enabled = true
 layer_2/tile_data = PackedInt32Array(524295, 0, 1, 524300, 589824, 3, 262156, 393216, 0, 327695, 327680, 0, 524302, 327680, 0, 524292, 327680, 0, 655368, 262144, 0, 327684, 262144, 0, 327694, 458752, 0, 196624, 458752, 0, 131083, 458752, 0, 589829, 458752, 0, 655366, 524288, 0, 262154, 524288, 0, 131084, 524288, 0, 196625, 524288, 0, 458770, 524288, 0, 655378, 524288, 0, 720908, 524288, 0, 393227, 524288, 0, 393219, 458752, 0, 196622, 589824, 6, 131082, 655360, 6, 524298, 327680, 1, 851963, 589824, 6, 393211, 655360, 6, 851962, 393216, 0, 458745, 458752, 0, 458746, 524288, 0, 720892, 524288, 0, 851957, 524288, 0, 851956, 589824, 3, 655346, 524288, 0, 917496, 458752, 0, 720890, 327680, 0, 524276, 262144, 0, 524275, 589824, 3, 458741, 589824, 3, 983029, 589824, 0, 262147, 589824, 0, 196623, 589824, 0, 655377, 589824, 0, 393234, 589824, 0)
 
-[node name="Campfire" type="StaticBody2D" parent="TileMap"]
+[node name="FlyingUnitsNavigationTileMap" type="TileMap" parent="." groups=["flying_units_navigation_polygon_source_group"]]
+tile_set = SubResource("TileSet_wt50x")
+format = 2
+layer_0/navigation_enabled = false
+
+[node name="Campfire" type="StaticBody2D" parent="."]
 y_sort_enabled = true
 position = Vector2(168, 136)
 
-[node name="Sprite2D" type="Sprite2D" parent="TileMap/Campfire"]
+[node name="Sprite2D" type="Sprite2D" parent="Campfire"]
 material = SubResource("ShaderMaterial_awk7d")
 position = Vector2(0, 4)
 texture = ExtResource("4_ypw36")
 offset = Vector2(0, -8)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/Campfire"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Campfire"]
 visible = false
 shape = SubResource("CircleShape2D_hi07k")
 
-[node name="PointLight2D" type="PointLight2D" parent="TileMap/Campfire"]
+[node name="PointLight2D" type="PointLight2D" parent="Campfire"]
 color = Color(0.768627, 0.364706, 0.133333, 1)
 energy = 2.0
 texture = ExtResource("5_jugum")
 texture_scale = 1.2
 height = 50.0
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="TileMap/Campfire"]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Campfire"]
 stream = ExtResource("6_i287g")
 volume_db = -5.0
 autoplay = true
 max_distance = 150.0
 bus = &"Sounds"
-
-[node name="FlyingUnitsNavigationTileMap" type="TileMap" parent="." groups=["flying_units_navigation_polygon_source_group"]]
-tile_set = SubResource("TileSet_wt50x")
-format = 2
-layer_0/navigation_enabled = false
 
 [node name="StartArea1" type="Area2D" parent="."]
 position = Vector2(128, 8)

@@ -1,4 +1,6 @@
 {
+	"name": "BASE_CAMP",
+
 	"background_color": "d271ff",
 
 	"corridor_atlas_id": 0,
@@ -25,5 +27,5 @@
 		},
 	},
 
-	"music": "res://Audio/Music/Incompetech/Shamanistic.mp3",
+	"music": "",
 }

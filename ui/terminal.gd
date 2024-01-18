@@ -121,6 +121,11 @@ func _process_command(command: String) -> void:
 							_set_dark_souls(splitted_command[2])
 						else:
 							printerr("You must specify the new value of the dark souls")
+					"biome":
+						if splitted_command.size() > 2:
+							_set_biome(splitted_command[2])
+						else:
+							printerr("You must specify the new biome")
 					_:
 						printerr("Invalid argument for set")
 			else:
@@ -326,6 +331,12 @@ func _set_dark_souls(souls_string: String) -> void:
 
 	hide()
 	SavedData.set_dark_souls(int(souls_string))
+
+
+func _set_biome(biome: String) -> void:
+	hide()
+
+	Globals.exit_level(biome)
 
 
 func _get_bool_from_string(s: String) -> bool:
