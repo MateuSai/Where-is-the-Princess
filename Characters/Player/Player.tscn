@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=62 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -7,7 +7,9 @@
 [ext_resource type="Script" path="res://Characters/Player/PlayerFSM.gd" id="5"]
 [ext_resource type="PackedScene" uid="uid://bw0adahejc8e2" path="res://Weapons/Dagger.tscn" id="5_nk70o"]
 [ext_resource type="Script" path="res://Characters/Player/player_weapons.gd" id="5_uyohi"]
+[ext_resource type="Script" path="res://Components/character_reflection.gd" id="6_dvisx"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="6_hd6on"]
+[ext_resource type="Shader" path="res://shaders_and_particles/flag.gdshader" id="6_ixope"]
 [ext_resource type="Script" path="res://Characters/Player/UI.gd" id="7_24kdb"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCamera.gd" id="9_es44d"]
 [ext_resource type="Texture2D" uid="uid://ckd65h4x4udtg" path="res://Art/6x2.png" id="10_w3xli"]
@@ -42,6 +44,14 @@
 [ext_resource type="PackedScene" uid="uid://bikd00kecbdlq" path="res://Components/interact_area_selector.tscn" id="43_8bx65"]
 [ext_resource type="Texture2D" uid="uid://damj8rl1ks0wt" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/under_hazard_bar.png" id="48_cmvmn"]
 [ext_resource type="Texture2D" uid="uid://dbkp2b2ecyu83" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/progress_hazard_bar.png" id="49_cukxb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q2qlt"]
+shader = ExtResource("6_ixope")
+shader_parameter/speed = 0.15
+shader_parameter/frequency_y = 5.0
+shader_parameter/frequency_x = 10.0
+shader_parameter/amplitude_y = 0.3
+shader_parameter/amplitude_x = 0.8
 
 [sub_resource type="CircleShape2D" id="18"]
 radius = 3.0
@@ -393,12 +403,14 @@ frame = 6
 
 [node name="Sprite2D2" type="Sprite2D" parent="." index="3"]
 z_index = -3
-position = Vector2(0, 12)
+material = SubResource("ShaderMaterial_q2qlt")
+position = Vector2(0, 6)
 scale = Vector2(1, -1)
 texture = ExtResource("4_kfgmg")
 hframes = 6
 vframes = 4
 frame = 6
+script = ExtResource("6_dvisx")
 
 [node name="CollisionShape2D" parent="." index="4"]
 shape = SubResource("18")
@@ -628,6 +640,7 @@ texture_scale = 0.5
 height = 16.0
 
 [node name="AutoAimArea" parent="." index="14" instance=ExtResource("42_ctcpp")]
+visible = false
 script = ExtResource("28_r7ct4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AutoAimArea" index="1"]

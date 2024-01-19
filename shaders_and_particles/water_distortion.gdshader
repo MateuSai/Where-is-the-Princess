@@ -8,7 +8,7 @@ uniform float refraction_strength : hint_range(0.0, 0.1) = 0.02;
 uniform vec4 water_tint : source_color = vec4(0.2, 0.6, 1.0, 0.1);
 uniform float speed : hint_range(0.0, 1.0) = 0.1;
 
-uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
+//uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 
 varying vec2 globalposition;
 void vertex(){
@@ -29,10 +29,11 @@ void fragment()
 	refraction_offset -= 0.5;
 
 	// Get the screen texture and distort it
-	vec4 refraction = texture(SCREEN_TEXTURE, SCREEN_UV - refraction_offset * refraction_strength);
+	vec4 refraction = texture(TEXTURE, UV - refraction_offset * refraction_strength);
 
 	vec4 color = vec4(1.0);
 
-	color.rgb = mix(refraction.rgb, water_tint.rgb, water_tint.a);
+	//color.rgb = mix(refraction.rgb, water_tint.rgb, water_tint.a);
+	color.rgb = refraction.rgb;
 	COLOR = color;
 }
