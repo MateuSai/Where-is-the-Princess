@@ -577,7 +577,7 @@ func _create_corridors() -> bool:
 		await get_tree().process_frame
 		await get_tree().create_timer(pause_between_steps).timeout
 
-	(%MiniMap as MiniMap).set_up()
+	(%MINIMAP as MiniMap).set_up()
 	_divide_corridor_tile_map()
 
 	if debug:

@@ -7,7 +7,7 @@ const MINIMAP_INDEX: int = 0
 var in_combat: bool = false
 
 @onready var tab_container: TabContainer = $TabContainer
-@onready var minimap: MiniMap = %MiniMap
+@onready var minimap: MiniMap = %MINIMAP
 @onready var pause_menu: Control = %PauseMenu
 @onready var seed_label: Label = %SeedLabel
 @onready var color_rect: ColorRect = %UIColorRect

@@ -28,6 +28,8 @@ func pick_up(player: Player) -> void:
 
 	equip(player)
 
+	player.player_upgrade_item_picked_up.emit(self)
+
 
 func equip(_player: Player) -> void:
 	pass

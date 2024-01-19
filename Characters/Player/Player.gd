@@ -28,6 +28,7 @@ var stamina: float = max_stamina:
 signal temporal_passive_item_picked_up(item: TemporalPassiveItem)
 signal temporal_passive_item_unequiped(item: TemporalPassiveItem)
 signal permanent_passive_item_picked_up(item: PermanentPassiveItem)
+signal player_upgrade_item_picked_up(item: PlayerUpgrade)
 
 var armor: Armor = NoArmor.new() : set = set_armor
 signal armor_changed(new_armor: Armor)

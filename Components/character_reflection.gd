@@ -17,9 +17,10 @@ func _ready() -> void:
 		texture = original_sprite.texture
 	)
 	scale.y = -1
-	position.y = original_sprite.position.y * -1
 
 
 func _process(_delta: float) -> void:
 	frame = original_sprite.frame
 	flip_h = original_sprite.flip_h
+	rotation = original_sprite.rotation
+	position.y = original_sprite.position.y * -1
