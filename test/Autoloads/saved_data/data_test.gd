@@ -9,6 +9,8 @@ var data: Data = Data.new()
 
 
 func test_available_weapons() -> void:
+	assert_array(data.ALL_VANILLA_WEAPONS).contains(data.AVAILABLE_WEAPONS_FROM_START)
+
 	for weapon_path: String in data.get_available_weapons():
 		assert_bool(FileAccess.file_exists(weapon_path))
 		assert_bool(weapon_path.get_extension() == "tscn")
@@ -16,6 +18,8 @@ func test_available_weapons() -> void:
 
 
 func test_available_armors() -> void:
+	assert_array(data.ALL_VANILLA_ARMORS).contains(data.AVAILABLE_ARMORS_FROM_START)
+
 	assert_bool(FileAccess.file_exists(data.equipped_armor))
 	assert_bool(data.equipped_armor.get_extension() == "gd")
 	assert_object(load(data.equipped_armor).new()).is_instanceof(Armor)
@@ -30,6 +34,8 @@ func test_available_armors() -> void:
 
 
 func test_available_permanent_items() -> void:
+	assert_array(data.ALL_VANILLA_PERMANENT_ITEMS).contains(data.AVAILABLE_PERMANENT_ITEMS_FROM_START)
+
 	for item_path: String in data.get_available_permanent_items():
 		assert_bool(FileAccess.file_exists(item_path))
 		assert_bool(item_path.get_extension() == "gd")
@@ -39,6 +45,8 @@ func test_available_permanent_items() -> void:
 
 
 func test_available_temporal_items() -> void:
+	assert_array(data.ALL_VANILLA_TEMPORAL_ITEMS).contains(data.AVAILABLE_TEMPORAL_ITEMS_FROM_START)
+
 	for item_path: String in data.get_available_temporal_items():
 		assert_bool(FileAccess.file_exists(item_path))
 		assert_bool(item_path.get_extension() == "gd")
