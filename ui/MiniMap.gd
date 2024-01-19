@@ -135,9 +135,13 @@ func _on_draw() -> void:
 		if items_ui != null:
 			items_ui.update_items(rooms.rooms[i].get_items())
 
+	set_process_input(true)
+
 
 func _on_hide() -> void:
 	update_fog_timer.stop()
+
+	set_process_input(false)
 
 
 
@@ -162,6 +166,7 @@ func _update_fog() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_minimap"):
 		ui.hide_tab_container()
+		get_viewport().set_input_as_handled()
 
 	if room_selected != null:
 		if event is InputEventMouseButton:

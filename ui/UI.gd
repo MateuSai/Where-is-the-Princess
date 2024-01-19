@@ -32,7 +32,7 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_minimap") and not in_combat:
+	if event.is_action_pressed("ui_minimap") and not in_combat and not tab_container.visible:
 		show_tab_container()
 		tab_container.current_tab = MINIMAP_INDEX
 		minimap.scroll_to_player()
