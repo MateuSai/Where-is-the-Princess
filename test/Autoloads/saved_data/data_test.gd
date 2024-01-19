@@ -27,21 +27,28 @@ func test_discovered_armors() -> void:
 	for armor_path: String in data.get_discovered_armors():
 		assert_bool(FileAccess.file_exists(armor_path))
 		assert_bool(armor_path.get_extension() == "gd")
-		assert_object(load(armor_path).new()).is_instanceof(Armor)
+		var armor: Armor = load(armor_path).new()
+		assert_object(armor).is_instanceof(Armor)
+		assert_bool(armor.get_icon() != null)
+		assert_bool(armor.get_sprite_sheet() != null)
 
 
 func test_discovered_permanent_items() -> void:
 	for item_path: String in data.get_discovered_permanent_items():
 		assert_bool(FileAccess.file_exists(item_path))
 		assert_bool(item_path.get_extension() == "gd")
-		assert_object(load(item_path).new()).is_instanceof(PermanentPassiveItem)
+		var item: PermanentPassiveItem = load(item_path).new()
+		assert_object(item).is_instanceof(PermanentPassiveItem)
+		assert_bool(item.get_icon() != null)
 
 
 func test_discovered_temporal_items() -> void:
 	for item_path: String in data.get_discovered_temporal_items():
 		assert_bool(FileAccess.file_exists(item_path))
 		assert_bool(item_path.get_extension() == "gd")
-		assert_object(load(item_path).new()).is_instanceof(TemporalPassiveItem)
+		var item: TemporalPassiveItem = load(item_path).new()
+		assert_object(item).is_instanceof(TemporalPassiveItem)
+		assert_bool(item.get_icon() != null)
 
 
 func test_completed_dialogue() -> void:

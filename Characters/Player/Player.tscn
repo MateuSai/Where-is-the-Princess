@@ -9,7 +9,6 @@
 [ext_resource type="Script" path="res://Characters/Player/player_weapons.gd" id="5_uyohi"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="6_hd6on"]
 [ext_resource type="Script" path="res://Characters/Player/UI.gd" id="7_24kdb"]
-[ext_resource type="Script" path="res://Characters/Player/PassiveItemsContainer.gd" id="8_aavgb"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCamera.gd" id="9_es44d"]
 [ext_resource type="Texture2D" uid="uid://ckd65h4x4udtg" path="res://Art/6x2.png" id="10_w3xli"]
 [ext_resource type="Script" path="res://Components/PlayerLifeComponent.gd" id="11_up6en"]
@@ -28,6 +27,7 @@
 [ext_resource type="Script" path="res://ui/RightBottomGameVBoxContainer.gd" id="18_j8x6c"]
 [ext_resource type="Texture2D" uid="uid://6cx2yobwuw5b" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_naked_icon.png" id="19_bc3n7"]
 [ext_resource type="Texture2D" uid="uid://dk5fa4ot7i4y" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/big_coin.tres" id="19_bh1ic"]
+[ext_resource type="Script" path="res://Characters/Player/items_container.gd" id="21_guiy0"]
 [ext_resource type="Texture2D" uid="uid://bhpt1388lfjwl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/Dragon Killer UI icon.png" id="21_ohq06"]
 [ext_resource type="Texture2D" uid="uid://c16ltio6detb6" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/StaminaBar_UI_empty.png" id="23_l30wv"]
 [ext_resource type="Texture2D" uid="uid://dw08gv6o23kjh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/StaminaBar_UI_full_2.png" id="24_yneg1"]
@@ -507,10 +507,10 @@ script = ExtResource("12_ft4r3")
 [node name="PassiveItemsContainer" type="HFlowContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar" index="1"]
 layout_mode = 2
 offset_left = 17.0
-offset_top = 19.0
+offset_top = 34.0
 offset_right = 88.0
-offset_bottom = 19.0
-script = ExtResource("8_aavgb")
+offset_bottom = 34.0
+script = ExtResource("21_guiy0")
 
 [node name="ArmorAbilityBar" type="TextureProgressBar" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar" index="2"]
 layout_mode = 0

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=41 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://bxk8oa3os0ddl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armor_04.png" id="19_l7ulb"]
 [ext_resource type="Script" path="res://Components/auto_focus_on_controller.gd" id="20_o0kce"]
 [ext_resource type="PackedScene" uid="uid://bekcqxfxkfcf5" path="res://ui/DebugUI.tscn" id="22_luxu7"]
+[ext_resource type="Script" path="res://Characters/Player/items_container.gd" id="23_pwm40"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
 light_mode = 1
@@ -328,6 +329,14 @@ layout_mode = 2
 theme_override_constants/separation = -1
 alignment = 1
 script = ExtResource("19_0wxa2")
+
+[node name="Label2" type="Label" parent="UI/TabContainer/Equipment/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "ITEMS"
+
+[node name="ItemsContainer" type="HFlowContainer" parent="UI/TabContainer/Equipment/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("23_pwm40")
 
 [node name="TabContainerControllerSupport" type="Node" parent="UI/TabContainer"]
 script = ExtResource("6_25qhk")
