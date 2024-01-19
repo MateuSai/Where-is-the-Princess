@@ -36,18 +36,18 @@ func _ready() -> void:
 	if item_path.is_empty():
 		type = Type.values()[randi() % Type.values().size()]
 		item_quality = Item.Quality.CHINGON if randi() % 6 == 0 else Item.Quality.COMMON
-#		var permanent_item_paths: PackedStringArray = SavedData.get_discovered_permanent_item_paths()
+#		var permanent_item_paths: PackedStringArray = SavedData.get_available_permanent_item_paths()
 		match type:
 			Type.ITEM:
-				item_path = SavedData.get_random_discovered_item_path(item_quality)
+				item_path = SavedData.get_random_available_item_path(item_quality)
 			Type.GEAR:
 				gear_type = GearType.values()[randi() % GearType.values().size()]
 				if gear_type == GearType.WEAPON: # Weapon
 					item_quality = Item.Quality.COMMON
-					item_path = SavedData.get_random_discovered_weapon_path()
+					item_path = SavedData.get_random_available_weapon_path()
 				else: # Armor
 					item_quality = Item.Quality.COMMON
-					item_path = SavedData.get_random_discovered_armor_path()
+					item_path = SavedData.get_random_available_armor_path()
 			_:
 				push_error("Invalid chest type")
 	else:

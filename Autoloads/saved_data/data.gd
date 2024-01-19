@@ -1,11 +1,11 @@
 class_name Data
 
 #region Data available from start
-const DISCOVERED_WEAPONS_FROM_START: PackedStringArray = ["res://Weapons/Melee/Katana/Katana.tscn", "res://Weapons/Melee/spear/Spear.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/KombatHammer/KombatHammer.tscn", "res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/Scimitar/Scimitar.tscn", "res://Weapons/Melee/SharpAxe/SharpAxe.tscn", "res://Weapons/Melee/SmallAxe/SmallAxe.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn", "res://Weapons/Melee/WarHammer/WarHammer.tscn", "res://Weapons/Melee/WarriorSword/WarriorSword.tscn", "res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn"]
-const DISCOVERED_ARMORS_FROM_START: PackedStringArray = ["res://Armors/CommonerClothes.gd", "res://Armors/LeatherArmor.gd", "res://Armors/MercenaryArmor.gd", "res://Armors/WarriorArmor.gd", "res://Armors/NecromancerArmor.gd", "res://Armors/improvised_armor.gd", "res://Armors/farmer_clothes.gd"]
-const DISCOVERED_PERMANENT_ITEMS_FROM_START: PackedStringArray = ["res://items/Passive/Permanent/StrongThrow.gd", "res://items/Passive/Permanent/ToughSkin.gd", "res://items/Passive/Permanent/EnhancedBoots.gd", "res://items/Passive/Permanent/meteor_stone.gd", "res://items/Passive/Permanent/SoulAmulet.gd", "res://items/Passive/Permanent/runes/AxeRune.gd", "res://items/Passive/Permanent/runes/HammerRune.gd", "res://items/Passive/Permanent/runes/MeleeRune.gd", "res://items/Passive/Permanent/runes/SpearRune.gd", "res://items/Passive/Permanent/runes/SwordRune.gd"]
-const DISCOVERED_TEMPORAL_ITEMS_FROM_START: PackedStringArray = ["res://items/Passive/Temporal/magic_shields/wooden_magic_shield.gd", "res://items/Passive/Temporal/magic_shields/reinforced_magic_shield.gd", "res://items/Passive/Temporal/MagicSword.gd"]
-const DISCOVERED_PLAYER_UPGRADES_FROM_START: PackedStringArray = ["res://items/player_upgrades/additional_heart.gd", "res://items/player_upgrades/additional_movement_speed.gd", "res://items/player_upgrades/additional_weapon_carry_capacity.gd", "res://items/player_upgrades/additional_max_stamina.gd"]
+const AVAILABLE_WEAPONS_FROM_START: PackedStringArray = ["res://Weapons/Melee/Katana/Katana.tscn", "res://Weapons/Melee/spear/Spear.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/KombatHammer/KombatHammer.tscn", "res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/Scimitar/Scimitar.tscn", "res://Weapons/Melee/SharpAxe/SharpAxe.tscn", "res://Weapons/Melee/SmallAxe/SmallAxe.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn", "res://Weapons/Melee/WarHammer/WarHammer.tscn", "res://Weapons/Melee/WarriorSword/WarriorSword.tscn", "res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn"]
+const AVAILABLE_ARMORS_FROM_START: PackedStringArray = ["res://Armors/CommonerClothes.gd", "res://Armors/LeatherArmor.gd", "res://Armors/MercenaryArmor.gd", "res://Armors/WarriorArmor.gd", "res://Armors/NecromancerArmor.gd", "res://Armors/improvised_armor.gd", "res://Armors/farmer_clothes.gd"]
+const AVAILABLE_PERMANENT_ITEMS_FROM_START: PackedStringArray = ["res://items/Passive/Permanent/StrongThrow.gd", "res://items/Passive/Permanent/ToughSkin.gd", "res://items/Passive/Permanent/EnhancedBoots.gd", "res://items/Passive/Permanent/meteor_stone.gd", "res://items/Passive/Permanent/SoulAmulet.gd", "res://items/Passive/Permanent/runes/AxeRune.gd", "res://items/Passive/Permanent/runes/HammerRune.gd", "res://items/Passive/Permanent/runes/MeleeRune.gd", "res://items/Passive/Permanent/runes/SpearRune.gd", "res://items/Passive/Permanent/runes/SwordRune.gd"]
+const AVAILABLE_TEMPORAL_ITEMS_FROM_START: PackedStringArray = ["res://items/Passive/Temporal/magic_shields/wooden_magic_shield.gd", "res://items/Passive/Temporal/magic_shields/reinforced_magic_shield.gd", "res://items/Passive/Temporal/MagicSword.gd"]
+const AVAILABLE_PLAYER_UPGRADES_FROM_START: PackedStringArray = ["res://items/player_upgrades/additional_heart.gd", "res://items/player_upgrades/additional_movement_speed.gd", "res://items/player_upgrades/additional_weapon_carry_capacity.gd", "res://items/player_upgrades/additional_max_stamina.gd"]
 #endregion
 
 var dark_souls: int = 0
@@ -14,15 +14,15 @@ var kills: Dictionary = {}
 
 var ignored_rooms: Array[String] = []
 
-var _discovered_weapons: Array[String] = []
+var _extra_available_weapons: Array[String] = []
 #"undiscovered_weapons": PackedStringArray(["res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn"]),
 
 var equipped_armor: String = "res://Armors/NoArmor.gd"
-var _discovered_armors: Array[String] = []
+var _extra_available_armors: Array[String] = []
 
-var _discovered_permanent_items: Array[String] = []
+var _extra_available_permanent_items: Array[String] = []
 #	"undiscovered_permanent_items": PackedStringArray(["res://items/Passive/Permanent/EnhancedBoots.gd"]),
-var _discovered_temporal_items: Array[String] = []
+var _extra_available_temporal_items: Array[String] = []
 #	"undiscovered_temporal_items": PackedStringArray(["res://items/Passive/Temporal/MagicSword.gd"]),
 
 var player_upgrades: Array[PlayerUpgrade] = []
@@ -51,54 +51,54 @@ func can_pick_up_player_upgrade(item_name: String) -> int:
 	return true
 
 
-func get_discovered_weapons() -> PackedStringArray:
-	var arr: Array = _discovered_weapons.duplicate()
-	arr.append_array(DISCOVERED_WEAPONS_FROM_START)
+func get_available_weapons() -> PackedStringArray:
+	var arr: Array = _extra_available_weapons.duplicate()
+	arr.append_array(AVAILABLE_WEAPONS_FROM_START)
 	return PackedStringArray(arr)
 
 
-func get_discovered_armors() -> PackedStringArray:
-	var arr: Array = _discovered_armors.duplicate()
-	arr.append_array(DISCOVERED_ARMORS_FROM_START)
+func get_available_armors() -> PackedStringArray:
+	var arr: Array = _extra_available_armors.duplicate()
+	arr.append_array(AVAILABLE_ARMORS_FROM_START)
 	return PackedStringArray(arr)
 
 
-func get_discovered_permanent_items() -> PackedStringArray:
-	var arr: Array = _discovered_permanent_items.duplicate()
-	arr.append_array(DISCOVERED_PERMANENT_ITEMS_FROM_START)
+func get_available_permanent_items() -> PackedStringArray:
+	var arr: Array = _extra_available_permanent_items.duplicate()
+	arr.append_array(AVAILABLE_PERMANENT_ITEMS_FROM_START)
 	return PackedStringArray(arr)
 
 
-func get_discovered_temporal_items() -> PackedStringArray:
-	var arr: Array = _discovered_temporal_items.duplicate()
-	arr.append_array(DISCOVERED_TEMPORAL_ITEMS_FROM_START)
+func get_available_temporal_items() -> PackedStringArray:
+	var arr: Array = _extra_available_temporal_items.duplicate()
+	arr.append_array(AVAILABLE_TEMPORAL_ITEMS_FROM_START)
 	return PackedStringArray(arr)
 
 
-func get_discovered_player_upgrades() -> PackedStringArray:
+func get_available_player_upgrades() -> PackedStringArray:
 	#var arr: Array = _discovered_temporal_items.duplicate()
 	#arr.append_array(DISCOVERED_TEMPORAL_ITEMS_FROM_START)
-	return DISCOVERED_PLAYER_UPGRADES_FROM_START
+	return AVAILABLE_PLAYER_UPGRADES_FROM_START
 
 
-func discover_weapon(weapon_path: String) -> void:
-	if not _discovered_weapons.has(weapon_path):
-		_discovered_weapons.push_back(weapon_path)
+func add_extra_available_weapon(weapon_path: String) -> void:
+	if not _extra_available_weapons.has(weapon_path):
+		_extra_available_weapons.push_back(weapon_path)
 
 
-func discover_armor(armor_path: String) -> void:
-	if not _discovered_armors.has(armor_path):
-		_discovered_armors.push_back(armor_path)
+func add_extra_available_armor(armor_path: String) -> void:
+	if not _extra_available_armors.has(armor_path):
+		_extra_available_armors.push_back(armor_path)
 
 
-func discover_permanent_item(item_path: String) -> void:
-	if not _discovered_permanent_items.has(item_path):
-		_discovered_permanent_items.push_back(item_path)
+func add_extra_available_permanent_item(item_path: String) -> void:
+	if not _extra_available_permanent_items.has(item_path):
+		_extra_available_permanent_items.push_back(item_path)
 
 
-func discover_temporal_item(item_path: String) -> void:
-	if not _discovered_temporal_items.has(item_path):
-		_discovered_temporal_items.push_back(item_path)
+func add_extra_available_temporal_item(item_path: String) -> void:
+	if not _extra_available_temporal_items.has(item_path):
+		_extra_available_temporal_items.push_back(item_path)
 
 
 func add_completed_dialogue(dialogue: String) -> void:

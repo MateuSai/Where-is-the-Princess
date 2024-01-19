@@ -166,7 +166,7 @@ func add_kill(enemy_id: StringName) -> void:
 
 	var enemy_unlock_weapon_on_kills: UnlockWeaponOnKills = Globals.get_enemy_unlock_weapon_on_kills(enemy_id)
 	if enemy_unlock_weapon_on_kills and data.kills[enemy_id] == enemy_unlock_weapon_on_kills.kills_necessary:
-		discover_weapon(enemy_unlock_weapon_on_kills.weapon_path)
+		add_extra_available_weapon(enemy_unlock_weapon_on_kills.weapon_path)
 
 	save_data()
 
@@ -308,37 +308,31 @@ func get_volatile_room_paths(biome: String, room_type: String, end_to: String = 
 		return PackedStringArray([])
 
 
-func discover_weapon(weapon_path: String) -> void:
-	data.discover_weapon(weapon_path)
+func add_extra_available_weapon(weapon_path: String) -> void:
+	data.add_extra_available_weapon(weapon_path)
 
 	save_data()
 
 
-func get_discovered_weapon_paths() -> PackedStringArray:
-	var weapon_paths: Array = data.get_discovered_weapons().duplicate()
+func get_available_weapon_paths() -> PackedStringArray:
+	var weapon_paths: Array = data.get_available_weapons().duplicate()
 	#armor_paths.append_array(volatile_armor_paths)
 	return PackedStringArray(weapon_paths)
 
 
-#func get_undiscovered_weapon_paths() -> PackedStringArray:
-#	var weapon_paths: Array = data.undiscovered_weapons.duplicate()
-#	#armor_paths.append_array(volatile_armor_paths)
-#	return PackedStringArray(weapon_paths)
+func get_random_available_weapon_path() -> String:
+	var available_weapons: PackedStringArray = get_available_weapon_paths()
+
+	return available_weapons[randi() % available_weapons.size()]
 
 
-func get_random_discovered_weapon_path() -> String:
-	var discovered_weapons: PackedStringArray = get_discovered_weapon_paths()
-
-	return discovered_weapons[randi() % discovered_weapons.size()]
-
-
-func discover_armor(armor_path: String) -> void:
-	data.discover_armor(armor_path)
+func add_extra_available_armor(armor_path: String) -> void:
+	data.add_extra_available_armor(armor_path)
 
 	save_data()
 
 
-func get_random_discovered_armor_path() -> String:
+func get_random_available_armor_path() -> String:
 	var armor_paths: PackedStringArray = get_armor_paths()
 	return armor_paths[randi() % armor_paths.size()]
 
@@ -352,13 +346,13 @@ func add_volatile_armor(armor_path: String) -> void:
 
 
 func get_armor_paths() -> PackedStringArray:
-	var armor_paths: Array = data.get_discovered_armors().duplicate()
+	var armor_paths: Array = data.get_available_armors().duplicate()
 	armor_paths.append_array(volatile_armor_paths)
 	return PackedStringArray(armor_paths)
 
 
-func discover_temporal_item(item_path: String) -> void:
-	data.discover_temporal_item(item_path)
+func add_extra_available_temporal_item(item_path: String) -> void:
+	data.add_extra_available_temporal_item(item_path)
 
 	save_data()
 
@@ -371,20 +365,14 @@ func add_volatile_temporal_item(item_path: String) -> void:
 	volatile_temporal_item_paths.push_back(item_path)
 
 
-func get_discovered_temporal_item_paths() -> PackedStringArray:
-	var temporal_item_paths: Array = data.get_discovered_temporal_items().duplicate()
+func get_available_temporal_item_paths() -> PackedStringArray:
+	var temporal_item_paths: Array = data.get_available_temporal_items().duplicate()
 	temporal_item_paths.append_array(volatile_temporal_item_paths)
 	return PackedStringArray(temporal_item_paths)
 
 
-#func get_undiscovered_temporal_item_paths() -> PackedStringArray:
-#	var temporal_item_paths: Array = data.undiscovered_temporal_items.duplicate()
-#	#temporal_item_paths.append_array(volatile_temporal_item_paths)
-#	return PackedStringArray(temporal_item_paths)
-
-
-func discover_permanent_item(item_path: String) -> void:
-	data.discover_permanent_item(item_path)
+func add_extra_available_permanent_item(item_path: String) -> void:
+	data.add_extra_available_permanent_item(item_path)
 
 	save_data()
 
@@ -397,26 +385,20 @@ func add_volatile_permanent_item(item_path: String) -> void:
 	volatile_permanent_item_paths.push_back(item_path)
 
 
-func get_discovered_permanent_item_paths() -> PackedStringArray:
-	var permanent_item_paths: Array = data.get_discovered_permanent_items().duplicate()
+func get_available_permanent_item_paths() -> PackedStringArray:
+	var permanent_item_paths: Array = data.get_available_permanent_items().duplicate()
 	permanent_item_paths.append_array(volatile_permanent_item_paths)
 	return PackedStringArray(permanent_item_paths)
 
 
-func get_discovered_player_upgrades_paths() -> PackedStringArray:
-	return data.get_discovered_player_upgrades()
+func get_available_player_upgrades_paths() -> PackedStringArray:
+	return data.get_available_player_upgrades()
 
 
-#func get_undiscovered_permanent_item_paths() -> PackedStringArray:
-#	var permanent_item_paths: Array = data.undiscovered_permanent_items.duplicate()
-#	#permanent_item_paths.append_array(volatile_permanent_item_paths)
-#	return PackedStringArray(permanent_item_paths)
-
-
-func get_random_discovered_item_path(quality: Item.Quality = Item.Quality.COMMON) -> String:
+func get_random_available_item_path(quality: Item.Quality = Item.Quality.COMMON) -> String:
 	var possible_results: Array[String] = []
 
-	for item_path_array: PackedStringArray in [get_discovered_temporal_item_paths(), get_discovered_permanent_item_paths()]:
+	for item_path_array: PackedStringArray in [get_available_temporal_item_paths(), get_available_permanent_item_paths()]:
 		for item_path: String in item_path_array:
 			if load(item_path).new().get_quality() == quality:
 				possible_results.push_back(item_path)

@@ -7,9 +7,9 @@ const SHOP_ITEM_SCENE: PackedScene = preload("res://Rooms/ShopItem.tscn")
 
 
 func _ready() -> void:
-	var item_paths: PackedStringArray = SavedData.get_discovered_temporal_item_paths().duplicate()
-	var weapon_paths: PackedStringArray = SavedData.get_discovered_weapon_paths().duplicate()
-	var player_upgrades_packed: PackedStringArray = SavedData.get_discovered_player_upgrades_paths().duplicate()
+	var item_paths: PackedStringArray = SavedData.get_available_temporal_item_paths().duplicate()
+	var weapon_paths: PackedStringArray = SavedData.get_available_weapon_paths().duplicate()
+	var player_upgrades_packed: PackedStringArray = SavedData.get_available_player_upgrades_paths().duplicate()
 	var player_upgrade_paths: Array[String] = []
 	player_upgrade_paths.assign(player_upgrades_packed)
 	player_upgrade_paths.shuffle()
