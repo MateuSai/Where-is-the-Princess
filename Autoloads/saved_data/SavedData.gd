@@ -225,7 +225,10 @@ func get_overwrite_room_paths(type: String) -> PackedStringArray:
 
 
 func get_level_exit_names() -> Array:
-	return biome_conf.levels[run_stats.level - 1].get_exit_names()
+	if biome_conf.levels.size() >= run_stats.level:
+		return biome_conf.levels[run_stats.level - 1].get_exit_names()
+	else:
+		return []
 
 
 func get_overwrite_connections() -> Array[Array]:

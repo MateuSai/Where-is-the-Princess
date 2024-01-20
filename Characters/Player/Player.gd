@@ -112,8 +112,9 @@ func _ready() -> void:
 	life_component.hp_changed.connect(func(new_hp: int) -> void:
 		SavedData.run_stats.hp = new_hp
 		if new_hp == 0:
-			SceneTransistor.start_transition_to("res://BaseCamp.tscn")
 			SavedData.reset_run_stats()
+			SavedData.change_biome("basecamp")
+			SceneTransistor.start_transition_to("res://Game.tscn")
 	)
 
 #	weapons.weapon_switched.connect(func(prev_index: int, new_index: int): weapon_switched.emit(prev_index, new_index))

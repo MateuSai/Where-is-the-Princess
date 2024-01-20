@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=58 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="Script" path="res://Rooms/Biomes/basecamp/BaseCamp.gd" id="1_tpf7m"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="2_ipa5f"]
@@ -117,6 +117,9 @@ func _physics_process(delta: float) -> void:
 	velocity = ($NavigationAgent2D.get_next_path_position() - position).normalized() * 50
 	move_and_slide()
 "
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xxlah"]
+light_mode = 1
 
 [node name="BaseCamp" type="NavigationRegion2D"]
 y_sort_enabled = true
@@ -503,3 +506,10 @@ y_sort_enabled = true
 position = Vector2(154, 159)
 
 [node name="Items" type="Node2D" parent="."]
+
+[node name="DebugRoomId" type="Label" parent="."]
+z_index = 4
+material = SubResource("CanvasItemMaterial_xxlah")
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 64

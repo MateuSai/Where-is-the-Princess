@@ -1,6 +1,6 @@
 class_name BombTribal extends Enemy
 
-const BOMB_PARABOLA_SCENE: PackedScene = preload("res://Characters/Enemies/BombTribal/BombParabola.tscn")
+const BOMB_PARABOLA_SCENE: PackedScene = preload("res://Weapons/projectiles/bombs/BombParabola.tscn")
 
 @export var projectile_speed: int = 150
 

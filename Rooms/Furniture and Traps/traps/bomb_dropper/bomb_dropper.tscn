@@ -12,3 +12,6 @@ script = ExtResource("2_durd2")
 
 [node name="RemoteTrap" type="Node" parent="."]
 script = ExtResource("1_c668b")
+
+[node name="CooldownTimer" type="Timer" parent="."]
+one_shot = true

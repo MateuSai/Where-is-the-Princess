@@ -1,0 +1,98 @@
+[gd_scene load_steps=10 format=3 uid="uid://btetyijg56i2"]
+
+[ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_mr5wn"]
+[ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="2_c2tmw"]
+[ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="3_cmfgy"]
+[ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_733k2"]
+[ext_resource type="PackedScene" uid="uid://byeyhke0jfjrb" path="res://Rooms/Furniture and Traps/traps/floor_button.tscn" id="4_r320y"]
+[ext_resource type="PackedScene" uid="uid://cvoo5kbnataor" path="res://Rooms/Furniture and Traps/traps/bomb_dropper/bomb_dropper.tscn" id="5_2bwqb"]
+[ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="7_e5ban"]
+[ext_resource type="PackedScene" uid="uid://bphrmf6n5s7be" path="res://Rooms/Furniture and Traps/crate.tscn" id="8_8ql1s"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_ohfmp"]
+resource_local_to_scene = true
+source_geometry_mode = 2
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 2.0
+
+[node name="SewerCombatRoom04" instance=ExtResource("1_mr5wn")]
+navigation_polygon = SubResource("NavigationPolygon_ohfmp")
+
+[node name="TileMap" parent="." index="0"]
+layer_0/tile_data = PackedInt32Array(131073, 65541, 1, 196609, 5, 3, 262145, 5, 3, 327681, 5, 2, 393217, 5, 2, 458753, 65541, 1, 524289, 5, 3, 589825, 131077, 1, 655361, 5, 2, 720897, 5, 3, 786433, 5, 3, 131074, 5, 2, 196610, 5, 3, 262146, 5, 3, 327682, 5, 2, 393218, 5, 2, 458754, 5, 3, 524290, 5, 3, 589826, 5, 2, 655362, 5, 3, 720898, 5, 2, 786434, 5, 2, 131075, 5, 2, 196611, 5, 3, 262147, 131077, 1, 327683, 5, 2, 393219, 5, 2, 458755, 5, 3, 524291, 5, 2, 589827, 5, 2, 655363, 131077, 1, 720899, 5, 2, 786435, 5, 3, 131079, 5, 3, 196615, 5, 2, 262151, 5, 2, 327687, 5, 3, 393223, 5, 2, 458759, 5, 2, 524295, 5, 3, 589831, 5, 2, 655367, 5, 2, 720903, 5, 3, 786439, 5, 2, 131080, 5, 3, 196616, 5, 3, 262152, 5, 2, 327688, 5, 3, 393224, 5, 2, 458760, 5, 2, 524296, 5, 3, 589832, 5, 2, 655368, 5, 3, 720904, 5, 3, 786440, 5, 2, 131081, 196613, 2, 196617, 196613, 2, 262153, 196613, 2, 327689, 196613, 2, 393225, 196613, 2, 458761, 196613, 2, 524297, 196613, 2, 589833, 196613, 2, 655369, 196613, 2, 720905, 196613, 2, 786441, 196613, 2, 131082, 131077, 3, 196618, 262149, 2, 262154, 131077, 3, 327690, 131077, 3, 393226, 131077, 2, 458762, 65541, 3, 524298, 131077, 2, 589834, 131077, 2, 655370, 65541, 3, 720906, 65541, 3, 786442, 65541, 2, 131083, 65541, 2, 196619, 65541, 2, 262155, 65541, 2, 327691, 131077, 2, 393227, 262149, 2, 458763, 131077, 2, 524299, 131077, 2, 589835, 131077, 3, 655371, 262149, 2, 720907, 262149, 2, 786443, 131077, 2, 131084, 327685, 2, 196620, 327685, 2, 262156, 327685, 2, 327692, 327685, 2, 393228, 5, 5, 458764, 262149, 2, 524300, 262149, 2, 589836, 5, 4, 655372, 327685, 2, 720908, 327685, 2, 786444, 327685, 2, 131085, 5, 3, 196621, 5, 2, 262157, 5, 2, 327693, 5, 2, 393229, 262149, 1, 458765, 131077, 3, 524301, 65541, 2, 589837, 262149, 3, 655373, 5, 2, 720909, 5, 2, 786445, 5, 2, 131086, 5, 2, 196622, 5, 2, 262158, 5, 3, 327694, 5, 2, 393230, 262149, 1, 458766, 131077, 2, 524302, 65541, 3, 589838, 262149, 3, 655374, 5, 2, 720910, 5, 3, 786446, 5, 3, 65547, 65541, 3, 65546, 131077, 3, 10, 65541, 2, 11, 262149, 2, 458767, 5, 3, 524303, 5, 3, 65543, 524293, 4, 65544, 524293, 4, 65545, 458757, 5, 65548, 524293, 4, 65549, 524293, 5, 65550, 524293, 5, 65537, 393221, 4, 65538, 393221, 5, 65539, 458757, 4, 65542, 196613, 9, 65540, 65541, 9, 65541, 131077, 9, 1, 131077, 7, 2, 131077, 7, 3, 131077, 7, 4, 131077, 7, 5, 131077, 7, 6, 131077, 7, 7, 131077, 7, 8, 131077, 7, 13, 131077, 7, 14, 131077, 7, 393231, 393221, 5, 327695, 65541, 7, 12, 65541, 7, 9, 327685, 7, 15, 196613, 4, 0, 262149, 4)
+layer_1/tile_data = PackedInt32Array(65536, 262149, 5, 131072, 262149, 5, 196608, 262149, 5, 262144, 262149, 5, 327680, 262149, 5, 393216, 262149, 5, 458752, 262149, 5, 524288, 262149, 5, 589824, 262149, 5, 655360, 262149, 5, 720896, 262149, 5, 786432, 262149, 6, 786433, 131077, 6, 786434, 131077, 6, 786435, 131077, 6, 786436, 131077, 6, 786437, 131077, 6, 786438, 131077, 6, 786439, 131077, 6, 786440, 131077, 6, 786446, 131077, 6, 786444, 65541, 6, 786441, 327685, 6, 786445, 131077, 6, 786447, 196613, 6, 720911, 196613, 5, 655375, 196613, 5, 589839, 196613, 5, 65551, 196613, 5, 131087, 196613, 5, 196623, 196613, 5, 262159, 196613, 5)
+layer_3/tile_data = PackedInt32Array(524303, 65541, 6)
+layer_4/tile_data = PackedInt32Array(131078, 131077, 8, 196614, 131077, 8, 262150, 131077, 8, 327686, 131077, 8, 393222, 131077, 8, 458758, 131077, 8, 524294, 131077, 8, 589830, 131077, 8, 655366, 131077, 8, 720902, 131077, 8, 786438, 131077, 8, 131077, 65541, 8, 196613, 65541, 8, 262149, 65541, 8, 327685, 65541, 8, 393221, 65541, 8, 458757, 65541, 8, 524293, 65541, 8, 589829, 65541, 8, 655365, 65541, 8, 720901, 65541, 8, 786437, 65541, 8, 131076, 262149, 8, 196612, 262149, 8, 262148, 262149, 8, 327684, 262149, 8, 393220, 262149, 8, 458756, 262149, 8, 524292, 262149, 8, 589828, 262149, 8, 655364, 262149, 8, 720900, 262149, 8, 786436, 262149, 8)
+layer_5/tile_data = PackedInt32Array(131075, 524293, 7, 196611, 524293, 8, 262147, 524293, 7, 327683, 524293, 7, 393219, 524293, 7, 458755, 524293, 7, 524291, 524293, 8, 589827, 524293, 8, 655363, 524293, 7, 720899, 524293, 7, 786435, 524293, 7, 131079, 5, 7, 196615, 5, 7, 262151, 5, 8, 327687, 5, 8, 393223, 5, 7, 458759, 5, 7, 524295, 5, 7, 589831, 5, 7, 655367, 5, 8, 720903, 5, 8, 786439, 5, 8)
+
+[node name="HorizontalEntry" parent="Entries/Up" index="0" instance=ExtResource("2_c2tmw")]
+position = Vector2(170, 7)
+
+[node name="VerticalEntry" parent="Entries/Right" index="0" instance=ExtResource("3_cmfgy")]
+position = Vector2(249, 119)
+
+[node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("2_c2tmw")]
+position = Vector2(169, 203)
+
+[node name="EnemyMarker" type="Marker2D" parent="EnemyPositions" index="0"]
+position = Vector2(39, 61)
+script = ExtResource("4_733k2")
+enemy_name = "archeleton"
+
+[node name="EnemyMarker2" type="Marker2D" parent="EnemyPositions" index="1"]
+position = Vector2(40, 121)
+script = ExtResource("4_733k2")
+enemy_name = "archeleton"
+
+[node name="EnemyMarker3" type="Marker2D" parent="EnemyPositions" index="2"]
+position = Vector2(40, 181)
+script = ExtResource("4_733k2")
+enemy_name = "archeleton"
+
+[node name="FloorButton" parent="Traps" index="0" instance=ExtResource("4_r320y")]
+position = Vector2(162, 113)
+id = 1
+
+[node name="BombDropper" parent="Traps" index="1" groups=["enabler_1"] instance=ExtResource("5_2bwqb")]
+position = Vector2(135, 89)
+
+[node name="FloorButton2" parent="Traps" index="2" instance=ExtResource("4_r320y")]
+position = Vector2(162, 63)
+id = 2
+
+[node name="BombDropper2" parent="Traps" index="3" groups=["enabler_2"] instance=ExtResource("5_2bwqb")]
+position = Vector2(135, 39)
+
+[node name="FloorButton3" parent="Traps" index="4" instance=ExtResource("4_r320y")]
+position = Vector2(162, 166)
+id = 3
+
+[node name="BombDropper3" parent="Traps" index="5" groups=["enabler_3"] instance=ExtResource("5_2bwqb")]
+position = Vector2(135, 142)
+
+[node name="TeleportPosition" parent="." index="7"]
+position = Vector2(198, 111)
+
+[node name="Torch" parent="." index="9" instance=ExtResource("7_e5ban")]
+position = Vector2(201, 23)
+
+[node name="Torch2" parent="." index="10" instance=ExtResource("7_e5ban")]
+position = Vector2(204, 200)
+
+[node name="Torch3" parent="." index="11" instance=ExtResource("7_e5ban")]
+position = Vector2(46, 200)
+
+[node name="Torch4" parent="." index="12" instance=ExtResource("7_e5ban")]
+position = Vector2(46, 25)
+
+[node name="Crate" parent="." index="13" instance=ExtResource("8_8ql1s")]
+position = Vector2(226, 46)
+
+[node name="Crate2" parent="." index="14" instance=ExtResource("8_8ql1s")]
+position = Vector2(228, 198)
+
+[node name="Crate3" parent="." index="15" instance=ExtResource("8_8ql1s")]
+position = Vector2(228, 186)
+
+[node name="Crate4" parent="." index="16" instance=ExtResource("8_8ql1s")]
+position = Vector2(211, 194)
