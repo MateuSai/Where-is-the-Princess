@@ -7,11 +7,16 @@ const COST: int = 10
 var item_on_floor_1: ItemOnFloor
 var item_on_floor_2: ItemOnFloor
 
+@export var flip_h: bool = false
+@export var dir: Vector2 = Vector2(0, 1)
+
 @onready var interact_area: InteractArea = $InteractArea
 @onready var cost_hbox: HBoxContainer = $CostHBox
 
 
 func _ready() -> void:
+	($AnimatedSprite as AnimatedSprite2D).flip_h = flip_h
+
 	cost_hbox.hide()
 
 	interact_area.body_entered.connect(func(_player: Player) -> void:
@@ -39,8 +44,8 @@ func _ready() -> void:
 		var possible_arrow_items: Array[ArrowModifier] = [BouncingArrowModifier.new(), ExplosiveArrowModifier.new(), HomingArrowModifier.new(), PiercingArrowModifier.new()]
 		possible_rune_items.shuffle()
 		possible_arrow_items.shuffle()
-		item_on_floor_1 = _spawn_item(possible_rune_items.pop_back() as WeaponModifier, position + Vector2(-8, 10))
-		item_on_floor_2 = _spawn_item(possible_arrow_items.pop_back() as ArrowModifier, position + Vector2(8, 10))
+		item_on_floor_1 = _spawn_item(possible_rune_items.pop_back() as WeaponModifier, position + Vector2(10, -8).rotated(dir.angle()))
+		item_on_floor_2 = _spawn_item(possible_arrow_items.pop_back() as ArrowModifier, position + Vector2(10, 8).rotated(dir.angle()))
 		item_on_floor_1.interact_area.player_interacted.connect(_on_item_1_interacted)
 		item_on_floor_2.interact_area.player_interacted.connect(_on_item_2_interacted)
 	)
