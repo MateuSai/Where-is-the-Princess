@@ -6,6 +6,8 @@ extends Control
 
 
 func _ready() -> void:
+	set_process_input(false)
+
 	resume_button.pressed.connect(func() -> void:
 		ui.hide_tab_container()
 		#hide()
@@ -13,11 +15,13 @@ func _ready() -> void:
 		#get_tree().paused = false
 	)
 
-	visibility_changed.connect(func() -> void:
-		if visible:
-			Globals.pause_menu_opened.emit()
-		else:
-			Globals.pause_menu_closed.emit()
+	draw.connect(func() -> void:
+		Globals.pause_menu_opened.emit()
+		set_process_input(true)
+	)
+	hidden.connect(func() -> void:
+		Globals.pause_menu_closed.emit()
+		set_process_input(false)
 	)
 
 

@@ -33,6 +33,9 @@ position = Vector2(313, 68)
 [node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("2_564ok")]
 position = Vector2(88, 121)
 
+[node name="TeleportPosition" parent="." index="7"]
+position = Vector2(154, 74)
+
 [node name="TikiTorch" parent="." index="8" instance=ExtResource("4_dcx67")]
 position = Vector2(90, 35)
 
@@ -42,8 +45,5 @@ position = Vector2(163, 80)
 [node name="TikiTorch2" parent="." index="10" instance=ExtResource("4_dcx67")]
 position = Vector2(213, 119)
 
-[node name="TeleportPosition" parent="." index="11"]
-position = Vector2(154, 74)
-
-[node name="Crate" parent="." index="13" instance=ExtResource("5_oli5v")]
+[node name="Crate" parent="." index="12" instance=ExtResource("5_oli5v")]
 position = Vector2(143, 100)
