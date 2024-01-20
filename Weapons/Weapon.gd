@@ -3,6 +3,8 @@ class_name Weapon extends Node2D
 
 #const ANIMATION_LIBRARIES_FOLDER: String = "res://Weapons/animation_libraries/"
 
+const DB: Dictionary = preload("res://Weapons/data/data.csv").records
+
 @export var on_floor: bool = false
 
 enum Type {
@@ -48,7 +50,7 @@ signal used_active_ability()
 var tween: Tween = null
 
 ## The name of the scene file (after removing .tscn)
-@onready var weapon_id: String = scene_file_path.get_file().trim_suffix(".tscn").to_snake_case()
+@onready var weapon_id: String = get_id_from_path(scene_file_path)
 
 @onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
 @onready var weapon_sprite: Sprite2D = %WeaponSprite
@@ -60,9 +62,8 @@ var tween: Tween = null
 
 
 func _ready() -> void:
-	var data: Dictionary = preload("res://Weapons/data/data.csv").records
-	if data.has(weapon_id):
-		var weapon_data: Dictionary = data[weapon_id]
+	if DB.has(weapon_id):
+		var weapon_data: Dictionary = DB[weapon_id]
 		_load_csv_data(weapon_data)
 
 	if not on_floor:
@@ -335,11 +336,11 @@ static func _remove_damage_modifier_by_type(type: Type, dam: int) -> void:
 
 
 func set_damage(new_damage: int) -> void:
-		damage = new_damage
+	damage = new_damage
 
 
 func set_ability_damage(new_ability_damage: int) -> void:
-		ability_damage = new_ability_damage
+	ability_damage = new_ability_damage
 
 
 func set_knockback(new_knockback: int) -> void:
@@ -384,3 +385,15 @@ static func get_weapon_path(weap_name: String) -> String:
 		file_name = dir.get_next()
 
 	return ""
+
+
+static func get_id_from_path(path: String) -> String:
+	return path.get_file().trim_suffix(".tscn").to_snake_case()
+
+
+static func get_data(id: String) -> WeaponData:
+	if DB.has(id):
+		return WeaponData.from_dic(DB[id])
+	else:
+		assert(false, "Implement this")
+		return null

@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=46 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -20,10 +20,13 @@
 [ext_resource type="Script" path="res://ui/SettingsButton.gd" id="16_gpdwi"]
 [ext_resource type="Script" path="res://ui/upgrades_container.gd" id="16_tq616"]
 [ext_resource type="Script" path="res://ui/QuitButton.gd" id="17_iw01m"]
+[ext_resource type="Script" path="res://ui/encyclopedia.gd" id="17_k4k0u"]
 [ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="18_beacm"]
+[ext_resource type="Texture2D" uid="uid://tn7bpukhe0kh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Spear.png" id="18_mfhvg"]
 [ext_resource type="Script" path="res://ui/PauseWeaponInventory.gd" id="19_0wxa2"]
 [ext_resource type="Script" path="res://ui/equipment_armorvbox.gd" id="19_8kxgb"]
 [ext_resource type="Texture2D" uid="uid://bxk8oa3os0ddl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armor_04.png" id="19_l7ulb"]
+[ext_resource type="Texture2D" uid="uid://cnu6qs5gu74lh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armors_icons.png" id="19_mm2a6"]
 [ext_resource type="Script" path="res://Components/auto_focus_on_controller.gd" id="20_o0kce"]
 [ext_resource type="PackedScene" uid="uid://bekcqxfxkfcf5" path="res://ui/DebugUI.tscn" id="22_luxu7"]
 [ext_resource type="Script" path="res://Characters/Player/items_container.gd" id="23_pwm40"]
@@ -47,6 +50,10 @@ font_color = Color(0.243137, 0.137255, 0.00784314, 1)
 [sub_resource type="AtlasTexture" id="AtlasTexture_5dygx"]
 atlas = ExtResource("19_l7ulb")
 region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4wak"]
+atlas = ExtResource("19_mm2a6")
+region = Rect2(0, 16, 16, 16)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_th65t"]
 texture = ExtResource("12_sjsnb")
@@ -198,7 +205,7 @@ offset_bottom = 90.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_usvbv")
-current_tab = 1
+current_tab = 2
 
 [node name="MINIMAP" type="MarginContainer" parent="UI/TabContainer"]
 unique_name_in_owner = true
@@ -239,6 +246,7 @@ texture = ExtResource("16_0uph7")
 wait_time = 0.7
 
 [node name="EQUIPMENT" type="MarginContainer" parent="UI/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/TabContainer/EQUIPMENT"]
@@ -303,6 +311,34 @@ text = "UPGRADES"
 [node name="UpgradesContainer" type="HFlowContainer" parent="UI/TabContainer/EQUIPMENT/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 script = ExtResource("16_tq616")
+
+[node name="ENCYCLOPEDIA" type="MarginContainer" parent="UI/TabContainer"]
+layout_mode = 2
+script = ExtResource("17_k4k0u")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/TabContainer/ENCYCLOPEDIA"]
+layout_mode = 2
+
+[node name="CategoryButtons" type="VBoxContainer" parent="UI/TabContainer/ENCYCLOPEDIA/HBoxContainer"]
+layout_mode = 2
+
+[node name="WeaponsButton" type="Button" parent="UI/TabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("18_mfhvg")
+
+[node name="ArmorsButton" type="Button" parent="UI/TabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
+layout_mode = 2
+toggle_mode = true
+icon = SubResource("AtlasTexture_p4wak")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/TabContainer/ENCYCLOPEDIA/HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="HFlowContainer" type="HFlowContainer" parent="UI/TabContainer/ENCYCLOPEDIA/HBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="MENU" type="MarginContainer" parent="UI/TabContainer"]
 unique_name_in_owner = true

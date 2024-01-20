@@ -5,7 +5,7 @@ var attack_cooldown_timer: Timer
 
 
 func _ready() -> void:
-#	super()
+	super()
 
 	current_weapon = get_child(0)
 
