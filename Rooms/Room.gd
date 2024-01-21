@@ -204,8 +204,6 @@ func update_navigation() -> void:
 	_free_navigation()
 	#_generate_flying_units_navigation()
 	#NavigationServer2D.region_set_transform(navigation_region_flying_units, get_global_transform())
-	#set_navigation_map(navigation_map_flying_units)
-	#bake_navigation_polygon(false)
 
 	navigation_updated.emit()
 

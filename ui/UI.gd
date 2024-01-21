@@ -2,13 +2,11 @@ class_name GameUI extends CanvasLayer
 
 # var minimap_visible: bool = false
 
-const MINIMAP_INDEX: int = 0
-
 var in_combat: bool = false
 
 @onready var tab_container: TabContainer = $TabContainer
 @onready var minimap: MiniMap = %MINIMAP
-#@onready var pause_menu: Control = %PauseMenu
+@onready var menu: Control = %MENU
 @onready var seed_label: Label = %SeedLabel
 @onready var color_rect: ColorRect = %UIColorRect
 
@@ -34,7 +32,7 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_minimap") and not in_combat and not tab_container.visible:
 		show_tab_container()
-		tab_container.current_tab = MINIMAP_INDEX
+		tab_container.current_tab = minimap.get_index()
 		minimap.scroll_to_player()
 
 	if event.is_action_pressed("ui_pause"):
@@ -44,6 +42,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			#color_rect.hide()
 			#get_tree().paused = false
 		else:
+			tab_container.current_tab = menu.get_index()
 			show_tab_container()
 			#pause_menu.show()
 			#color_rect.show()
