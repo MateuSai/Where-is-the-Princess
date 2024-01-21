@@ -194,31 +194,33 @@ radius = 4.0
 
 [node name="Spider" instance=ExtResource("1_bow3n")]
 script = ExtResource("2_ftttc")
-is_boss = false
 mass = 0.5
 max_speed = 80
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("3_cr4ur")
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="Sprite2D" parent="." index="2"]
 position = Vector2(0, -3)
 texture = ExtResource("3_oqbny")
 hframes = 4
 vframes = 2
 
-[node name="CollisionShape2D" parent="." index="2"]
+[node name="CollisionShape2D" parent="." index="3"]
 position = Vector2(0, -2)
 shape = SubResource("CircleShape2D_eptuy")
 
-[node name="AnimationPlayer" parent="." index="3"]
+[node name="AnimationPlayer" parent="." index="4"]
 libraries = {
 "": SubResource("AnimationLibrary_np2yq")
 }
 
-[node name="LifeComponent" parent="." index="5"]
-hp = 2
+[node name="NavigationAgent2D" parent="." index="5"]
+debug_enabled = true
+
+[node name="LifeComponent" parent="." index="6"]
 max_hp = 2
+hp = 2
 
 [node name="Hitbox" type="Area2D" parent="." index="7"]
 position = Vector2(0, -2)

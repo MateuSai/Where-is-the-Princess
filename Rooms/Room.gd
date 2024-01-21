@@ -74,6 +74,11 @@ func _ready() -> void:
 
 #	print(name + ": " + str(tilemap.get_used_rect()))
 
+	navigation_polygon = NavigationPolygon.new()
+	navigation_polygon.parsed_collision_mask = 1 + 16 # World + Low object
+	navigation_polygon.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_ROOT_NODE_CHILDREN
+	navigation_polygon.source_geometry_group_name = "navigation_polygon_source_group"
+
 	num_enemies = enemy_positions_container.get_child_count()
 
 	ATLAS_ID = SavedData.get_biome_conf().room_atlas_id
@@ -187,18 +192,18 @@ func get_separation_steering_dir(rooms_array: Array[DungeonRoom], delta: float) 
 
 func setup_navigation() -> void:
 	navigation_polygon.agent_radius = agent_radius
-	navigation_polygon.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_EXPLICIT
 
 	update_navigation()
 
 
 func update_navigation() -> void:
-	bake_navigation_polygon(false)
-	NavigationServer2D.region_set_transform(get_region_rid(), get_global_transform())
+	#print("Updating navigation of room " + name)
+	bake_navigation_polygon(true)
+	#NavigationServer2D.region_set_transform(get_region_rid(), get_global_transform())
 
 	_free_navigation()
-	_generate_flying_units_navigation()
-	NavigationServer2D.region_set_transform(navigation_region_flying_units, get_global_transform())
+	#_generate_flying_units_navigation()
+	#NavigationServer2D.region_set_transform(navigation_region_flying_units, get_global_transform())
 	#set_navigation_map(navigation_map_flying_units)
 	#bake_navigation_polygon(false)
 

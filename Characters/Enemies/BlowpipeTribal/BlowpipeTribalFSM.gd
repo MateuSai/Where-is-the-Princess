@@ -27,7 +27,7 @@ func _state_logic(_delta: float) -> void:
 			elif dir_to_player.y < 0 and animation_player.current_animation != "idle_up":
 				animation_player.play("idle_up")
 
-			var aim_res: Dictionary = aim_component.get_dir()
+			var aim_res: AimComponent.AimResult = aim_component.get_dir()
 			if parent.can_attack and not aim_res.clear:
 				parent.can_attack = false
 				parent._throw_dart(aim_res.dir)
@@ -41,7 +41,7 @@ func _state_logic(_delta: float) -> void:
 			elif dir_to_player.y < 0 and animation_player.current_animation != "move_up":
 				animation_player.play("move_up")
 
-			var aim_res: Dictionary = aim_component.get_dir()
+			var aim_res: AimComponent.AimResult = aim_component.get_dir()
 			if parent.can_attack and not aim_res.clear:
 				parent.can_attack = false
 				parent._throw_dart(aim_res.dir)
