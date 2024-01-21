@@ -1,5 +1,6 @@
 extends VBoxContainer
 
+static var is_visible: bool = false
 
 @onready var fps_label: Label = get_node("FpsLabel")
 @onready var memory_label: Label = get_node("MemoryLabel")
@@ -7,16 +8,21 @@ extends VBoxContainer
 
 
 func _ready() -> void:
-	hide()
+	if is_visible:
+		show()
+	else:
+		hide()
 
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.is_pressed() and (event as InputEventKey).keycode == KEY_F2:
 			if visible:
+				is_visible = false
 				hide()
 				set_process(false)
 			else:
+				is_visible = true
 				show()
 				set_process(true)
 
