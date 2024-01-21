@@ -30,6 +30,9 @@ func _ready() -> void:
 
 
 func enable_pick_up() -> void:
+	if is_queued_for_deletion():
+		return
+
 	interact_area.player_interacted.connect(func() -> void:
 		if not can_pick_up_item(Globals.player):
 			interact_area.sprite_material.set("shader_parameter/color", Color.RED)

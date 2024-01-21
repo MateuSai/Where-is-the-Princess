@@ -472,14 +472,24 @@ func add_enemy(enemy: Enemy) -> void:
 
 
 func add_item_on_floor(item_on_floor: ItemOnFloor, at_pos: Vector2) -> void:
-	item_on_floor.position = at_pos
-	items_container.add_child(item_on_floor)
+	if is_on_water(at_pos):
+		item_on_floor.queue_free()
+		var splash: Sprite2D = load("res://effects/water_splash/water_splash.tscn").instantiate()
+		splash.position = at_pos
+		add_child(splash)
+	else:
+		item_on_floor.position = at_pos
+		items_container.add_child(item_on_floor)
 
 
 func get_items() -> Array[ItemOnFloor]:
 	var array: Array[ItemOnFloor] = []
 	array.assign(items_container.get_children())
 	return array
+
+
+func is_on_water(pos_relative_to_room: Vector2) -> bool:
+	return tilemap.get_cell_atlas_coords(WATER_LAYER_ID, tilemap.local_to_map(pos_relative_to_room)) != Vector2i(-1, -1)
 
 
 func _generate_flying_units_navigation() -> void:

@@ -372,6 +372,10 @@ func _spawn_weapon(weapon_string: String) -> void:
 
 
 func _spawn_item(item_string: String) -> void:
+	if Globals.player.current_room == null:
+		printerr("You must be inside a room to spawn items")
+		return
+
 	var item_script: GDScript = load(item_string)
 	if item_script == null:
 		printerr("There is no item script at: " + item_string)
@@ -379,9 +383,10 @@ func _spawn_item(item_string: String) -> void:
 
 	var item: Item = item_script.new()
 	var item_on_floor: ItemOnFloor = (load("res://items/item_on_floor.tscn") as PackedScene).instantiate()
-	item_on_floor.position = Globals.player.position + Vector2.RIGHT * 16
+	Globals.player.current_room.add_item_on_floor(item_on_floor, (Globals.player.position + Vector2.RIGHT * 16) - Globals.player.current_room.position)
+	#item_on_floor.position = Globals.player.position + Vector2.RIGHT * 16
 	item_on_floor.initialize(item)
-	get_tree().current_scene.add_child(item_on_floor)
+	#get_tree().current_scene.add_child(item_on_floor)
 	item_on_floor.enable_pick_up()
 
 	hide()

@@ -402,7 +402,7 @@ func start_progressing_acid() -> void:
 
 func is_on_water() -> bool:
 	if current_room:
-		return current_room.tilemap.get_cell_atlas_coords(DungeonRoom.WATER_LAYER_ID, current_room.tilemap.local_to_map(position - current_room.position)) != Vector2i(-1, -1)
+		return current_room.is_on_water(position - current_room.position)
 	else:
 		return false
 
