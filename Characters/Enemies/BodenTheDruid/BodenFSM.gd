@@ -118,7 +118,7 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			$"../LightningAttackTimer".queue_free()
 			$"../StaffPivot".queue_free()
 #			pathfinding_component.mode.timer.wait_time = 0.15
-			parent.max_speed = 250
+			parent.max_speed = 450
 			parent.acceleration = 0.1
 			parent.mass = 150
 			parent.can_move = true

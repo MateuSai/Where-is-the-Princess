@@ -36,6 +36,9 @@ position = Vector2(237, 101)
 [node name="PlayerSpawnPos" type="Marker2D" parent="." index="8"]
 position = Vector2(155, 74)
 
+[node name="TeleportPosition" parent="." index="10"]
+position = Vector2(154, 74)
+
 [node name="RiverParticles" parent="." index="11" instance=ExtResource("4_71qyw")]
 position = Vector2(590, 225)
 
@@ -48,8 +51,5 @@ position = Vector2(145, 204)
 [node name="GameShopLevel1" parent="." index="14" instance=ExtResource("7_o76v0")]
 position = Vector2(111, 103)
 
-[node name="TeleportPosition" parent="." index="15"]
-position = Vector2(154, 74)
-
-[node name="BossSign" parent="." index="17" instance=ExtResource("8_nfu08")]
+[node name="BossSign" parent="." index="16" instance=ExtResource("8_nfu08")]
 position = Vector2(177, 23)

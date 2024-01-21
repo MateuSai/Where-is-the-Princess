@@ -25,5 +25,5 @@ position = Vector2(105, 106)
 [node name="SewerEntrance" parent="." index="9" instance=ExtResource("3_142rc")]
 position = Vector2(111, 74)
 
-[node name="Chest" parent="." index="11" instance=ExtResource("4_jyk1e")]
+[node name="Chest" parent="." index="10" instance=ExtResource("4_jyk1e")]
 position = Vector2(71, 69)

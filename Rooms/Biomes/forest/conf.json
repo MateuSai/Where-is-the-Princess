@@ -28,7 +28,7 @@
 		"2": {
 			"spawn_shape_type": "rectangle",
 			"spawn_shape_width": 200,
-			"spawn_shape_height": 300,
+			"spawn_shape_height": 400,
 			"disable_horizontal_separation_steering": true,
 
 			"num_combat_rooms": 1,
@@ -37,6 +37,7 @@
 			"overwrite_start_rooms": ["res://Rooms/Biomes/forest/Start/ForestSpawnRoom2.tscn"],
 			"overwrite_combat_rooms": ["res://Rooms/Biomes/forest/BossFightRoom.tscn"],
 			"overwrite_end_forest_rooms": [],
+			"overwrite_end_sewer_rooms": ["res://Rooms/Biomes/forest/End/Sewer/forest_to_sewer_end_room.tscn"],
 
 			"overwrite_connections": [[0, 2], [2, 1]]
 		}

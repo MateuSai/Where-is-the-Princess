@@ -30,6 +30,9 @@ position = Vector2(3, 20)
 script = ExtResource("3_map7q")
 enemy_name = "BodenTheDruid"
 
+[node name="TeleportPosition" parent="." index="7"]
+position = Vector2(3, -2)
+
 [node name="TikiTorch" parent="." index="8" instance=ExtResource("4_57k6v")]
 position = Vector2(-74, -94)
 
@@ -47,6 +50,3 @@ position = Vector2(-123, 114)
 
 [node name="TikiTorch6" parent="." index="13" instance=ExtResource("4_57k6v")]
 position = Vector2(93, 133)
-
-[node name="TeleportPosition" parent="." index="14"]
-position = Vector2(3, -2)
