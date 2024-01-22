@@ -156,6 +156,13 @@ func spawn_dust() -> void:
 		get_parent().get_child(get_index() - 1).add_sibling(dust)
 
 
+func react(reaction_face: int, at_pos: Vector2 = Vector2(0, -34)) -> void:
+	var reaction: Reaction = load("res://ui/reactions/reaction.tscn").instantiate()
+	reaction.position = at_pos
+	add_child(reaction)
+	reaction.react(reaction_face)
+
+
 func set_acid_progress(new_value: float) -> void:
 	acid_progress = clamp(new_value, 0.0, 1.0)
 

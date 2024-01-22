@@ -176,51 +176,13 @@ func _process_command(command: String) -> void:
 			_save()
 		"clear":
 			_clear_room()
-#			if splitted_command.size() > 1: # tiene otro argumento
-#				match splitted_command[1]:
-#					"weapon", "weap":
-#						if splitted_command.size() == 3: # tiene otro argumento
-#							_spawn_weapon(splitted_command[2])
-#						elif splitted_command.size() > 3: # tiene un cuarto arguemnto (el tier)
-#							_spawn_weapon(splitted_command[2], splitted_command[3])
-#						else:
-#							printerr("Invalid command: you must specify a weapon")
-#					"throw", "throwable":
-#						if splitted_command.size() > 2: # tiene otro argumento
-#							if splitted_command.size() > 3: # tiene dos argumentos más
-#								_spawn_throwable(splitted_command[2], splitted_command[3])
-#							else:
-#								_spawn_throwable(splitted_command[2])
-#						else:
-#							printerr("Invalid command: you must specify a throwable weapon")
-#					"ammo":
-#						if splitted_command.size() > 2: # tiene otro argumento
-#							_spawn_ammo(splitted_command[2])
-#						else:
-#							printerr("Invalid command: you must specify the type of ammo")
-#					"armor":
-#						if splitted_command.size() > 2: # tiene otro argumento
-#							_spawn_armor(splitted_command[2])
-#						else:
-#							printerr("Invalid command: you must specify the armor name")
-#					"enemy":
-#						if splitted_command.size() > 2: # tiene otro argumento
-#							if splitted_command.size() > 3: # tiene dos argumentos más
-#								_spawn_enemy(splitted_command[2], splitted_command[3])
-#							else:
-#								_spawn_enemy(splitted_command[2])
-#						else:
-#							printerr("Invalid command: you must specify the enemy type")
-#					"resource", "res":
-#						if splitted_command.size() > 3: # tiene dos argumentos más
-#							if not splitted_command[3].is_valid_integer() or int(splitted_command[3]) <= 0:
-#								printerr("amount must be an int and greater than 0!")
-#							else:
-#								_spawn_resource(splitted_command[2], int(splitted_command[3]))
-#						elif splitted_command.size() > 2: # tiene otro argumento
-#							_spawn_resource(splitted_command[2])
-#						else:
-#							printerr("Invalid command: you must specify the resource type")
+		"react":
+			if splitted_command.size() > 1: # tiene otro argumento
+				_react(splitted_command[1])
+			else:
+				printerr("Invalid number of arguments, you must specify the reaction face")
+		_:
+			printerr("Invalid command")
 
 
 func _set_player_hp(hp_string: String) -> void:
@@ -456,5 +418,15 @@ func _clear_room() -> void:
 	for child: Node in Globals.player.current_room.get_children():
 		if child is Enemy:
 			child.life_component.take_damage(2000, Vector2.ZERO, 0, null)
+
+	hide()
+
+
+func _react(face_string: String) -> void:
+	if not face_string.is_valid_int():
+		printerr("You must indicate the reaction face using his index")
+		return
+
+	Globals.player.react(int(face_string))
 
 	hide()
