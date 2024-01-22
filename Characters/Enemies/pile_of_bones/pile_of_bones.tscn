@@ -11,7 +11,6 @@ height = 24.0
 
 [node name="PileOfBones" groups=["pile_of_bones"] instance=ExtResource("1_78616")]
 script = ExtResource("2_drmng")
-acceleration = 40
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("3_8trrq")

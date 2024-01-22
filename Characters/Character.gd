@@ -24,6 +24,7 @@ var can_move: bool = true
 @export var flying: bool = false: set = set_flying
 
 @export var can_be_knocked_back: bool = true
+@export var motionless: bool = false
 
 enum Resistance {
 	FIRE = 1,
@@ -76,6 +77,8 @@ func _load_csv_data(data: Dictionary) -> void:
 	flying = bool(flying_int)
 	var can_be_knocked_back_int: int = data.can_be_knocked_back
 	can_be_knocked_back = bool(can_be_knocked_back_int)
+	var motionless_int: int = data.motionless
+	motionless = bool(motionless_int)
 	@warning_ignore("int_as_enum_without_cast")
 	life_component.body_type = life_component.BodyType.keys().find(data.body_type)
 	initial_resistances = data.resistances
@@ -89,8 +92,8 @@ func _physics_process(delta: float) -> void:
 		acid_progress -= 0.7 * delta
 
 	state_machine.physics_process(delta)
-	#if can_move:
-	move_and_slide()
+	if not motionless:
+		move_and_slide()
 	velocity = lerp(velocity, Vector2.ZERO, friction)
 
 
