@@ -10,7 +10,7 @@ signal mod_current_config_changed(mod_id: String, current_config: ModConfig)
 
 var grid_placeholder := Control
 
-@onready var grid := $"%Grid"
+@onready var grid: GridContainer = $"%Grid"
 
 
 func generate_grid(user_profile: ModUserProfile) -> void:

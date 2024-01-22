@@ -94,6 +94,13 @@ func _ready() -> void:
 
 	flying_units_navigation_tilemap.hide()
 
+	var navigation_region_to_debug_flying_units_navigation: NavigationRegion2D = NavigationRegion2D.new()
+	add_child(navigation_region_to_debug_flying_units_navigation)
+	self_modulate.a = 0
+	navigation_region_to_debug_flying_units_navigation.self_modulate = Color.RED
+	navigation_region_to_debug_flying_units_navigation.name = "FlyingUnitsNavigationDebug"
+	navigation_region_to_debug_flying_units_navigation.navigation_polygon = NavigationPolygon.new()
+
 
 func _exit_tree() -> void:
 	_free_navigation()
@@ -202,8 +209,8 @@ func update_navigation() -> void:
 	#NavigationServer2D.region_set_transform(get_region_rid(), get_global_transform())
 
 	_free_navigation()
-	#_generate_flying_units_navigation()
-	#NavigationServer2D.region_set_transform(navigation_region_flying_units, get_global_transform())
+	_generate_flying_units_navigation()
+	NavigationServer2D.region_set_transform(navigation_region_flying_units, get_global_transform())
 
 	navigation_updated.emit()
 
@@ -498,8 +505,9 @@ func is_on_water(pos_relative_to_room: Vector2) -> bool:
 func _generate_flying_units_navigation() -> void:
 	# Create a navigation mesh resource.
 	var navigation_mesh_flying_units: NavigationPolygon = NavigationPolygon.new()
-	navigation_mesh_flying_units.source_geometry_group_name = "flying_units_navigation_polygon_source_group"
-	navigation_mesh_flying_units.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_EXPLICIT
+	#navigation_mesh_flying_units.source_geometry_group_name = "flying_units_navigation_polygon_source_group"
+	navigation_mesh_flying_units.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_ROOT_NODE_CHILDREN
+	navigation_mesh_flying_units.parsed_collision_mask = 1 # Only World, since flying units can fly above Low objects
 	# Set appropriated parameters for the size of your agents.
 	navigation_mesh_flying_units.agent_radius = navigation_polygon.agent_radius
 
@@ -558,6 +566,8 @@ func _generate_flying_units_navigation() -> void:
 
 	# Set navigation mesh for the region.
 	NavigationServer2D.region_set_navigation_polygon(navigation_region_flying_units, navigation_mesh_flying_units)
+
+	(get_node("FlyingUnitsNavigationDebug") as NavigationRegion2D).navigation_polygon = navigation_mesh_flying_units
 
 
 func _free_navigation() -> void:

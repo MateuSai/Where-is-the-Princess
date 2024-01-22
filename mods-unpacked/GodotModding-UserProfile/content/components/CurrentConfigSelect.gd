@@ -1,7 +1,7 @@
 class_name CurrentConfigSelect extends OptionButtonWithSound
 
 
-signal current_config_selected(mod_id, config_name)
+signal current_config_selected(mod_id: String, config_name: String)
 
 var mod_id: String
 var config_names := {}

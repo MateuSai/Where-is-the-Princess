@@ -252,8 +252,8 @@ func _set_player_worldcol(worldcol: String) -> void:
 		Globals.player.set_collision_mask_value(1, false)
 
 
-func _start_player_dialogue(text: String) -> void:
-	Globals.player.start_dialogue(text)
+func _start_player_dialogue(dialogue_text: String) -> void:
+	Globals.player.start_dialogue(dialogue_text)
 
 	hide()
 
