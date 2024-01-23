@@ -28,7 +28,10 @@ func _init() -> void:
 
 
 func _ready() -> void:
+	SavedData.add_volatile_room(MYMODNAME_LOG, "res://mods-unpacked/Mateu-DemoMod/rooms/forest_chest_room.tscn", "forest", "special")
+	SavedData.add_volatile_room(MYMODNAME_LOG, "res://mods-unpacked/Mateu-DemoMod/rooms/mod_forest_combat_room.tscn", "forest", "combat")
+
 	SavedData.add_volatile_armor("res://mods-unpacked/Mateu-DemoMod/KnightArmor.gd")
-	SavedData.add_volatile_room("res://mods-unpacked/Mateu-DemoMod/forest_chest_room.tscn", "forest", "special")
+	SavedData.add_volatile_permanent_item("res://mods-unpacked/Mateu-DemoMod/metal_soles.gd")
 
 	ModLoaderLog.info("Done", MYMODNAME_LOG)

@@ -277,7 +277,7 @@ func _change_biome_conf(biome_conf_path: String) -> void:
 ## room_type must be "combat", "end", "special" or "start"
 ## [br][br]
 ## You only have to specify end_to if the room_type is "end". This parameter indicates the biome you will go to when you enter the exit on the end room
-func add_volatile_room(room_path: String, biome: String, room_type: String, end_to: String = "") -> void:
+func add_volatile_room(mod_id: String, room_path: String, biome: String, room_type: String, end_to: String = "") -> void:
 	biome = biome.to_lower()
 	room_type = room_type.to_lower()
 	end_to = end_to.to_lower()
@@ -294,6 +294,8 @@ func add_volatile_room(room_path: String, biome: String, room_type: String, end_
 		volatile_room_paths[biome][room_type][end_to].push_back(room_path)
 	else:
 		volatile_room_paths[biome][room_type].push_back(room_path)
+
+	ModLoaderLog.success(room_path + " with biome " + biome + " and type " + room_type + " added succesfully", mod_id)
 
 
 func get_volatile_room_paths(biome: String, room_type: String, end_to: String = "") -> PackedStringArray:
