@@ -18,12 +18,14 @@ var scroll_vertical_at_start_of_drag: float = 0
 # @onready var ui: MainUi = get_node("UI")
 @onready var rooms: Rooms = get_node("Rooms")
 @onready var camera: Camera2D = get_node("Camera2D")
+@onready var canvas_modulate: CanvasModulate = $CanvasModulate
 @onready var generating_dungeon_canvas_layer: CanvasLayer = get_node("GeneratingDungeonCanvasLayer")
 @onready var music: AudioStreamPlayer = $Music
 
 
 func _ready() -> void:
 	RenderingServer.set_default_clear_color(SavedData.get_biome_conf().background_color)
+	canvas_modulate.color = SavedData.get_biome_conf().light_color
 	#print_debug("Game _ready")
 
 	set_process(false)

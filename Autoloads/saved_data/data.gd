@@ -26,7 +26,7 @@ var ignored_rooms: Array[String] = []
 var _extra_available_weapons: Array[String] = []
 #"undiscovered_weapons": PackedStringArray(["res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn"]),
 
-var equipped_armor: String = "res://Armors/NoArmor.gd"
+var equipped_armor: String = "res://Armors/underpants.gd"
 var _extra_available_armors: Array[String] = []
 
 var _extra_available_permanent_items: Array[String] = []
