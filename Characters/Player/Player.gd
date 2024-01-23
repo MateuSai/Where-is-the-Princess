@@ -30,7 +30,7 @@ signal temporal_passive_item_unequiped(item: TemporalPassiveItem)
 signal permanent_passive_item_picked_up(item: PermanentPassiveItem)
 signal player_upgrade_item_picked_up(item: PlayerUpgrade)
 
-var armor: Armor = NoArmor.new() : set = set_armor
+var armor: Armor = Underpants.new() : set = set_armor
 signal armor_changed(new_armor: Armor)
 
 var mouse_direction: Vector2
@@ -105,7 +105,7 @@ func _ready() -> void:
 	#set_armor(NoArmor.new())
 	#set_armor(KnightArmor.new())
 	if SavedData.run_stats.armor == null:
-		set_armor(NoArmor.new())
+		set_armor(Underpants.new())
 	else:
 		set_armor(SavedData.run_stats.armor)
 
@@ -238,7 +238,7 @@ func get_input() -> void:
 	if Input.is_action_pressed("ui_move_up"):
 		mov_direction.y -= Input.get_action_strength("ui_move_up")
 
-	if Input.is_action_just_pressed("ui_dash") and stamina >= DASH_STAMINA_COST and not (mov_direction.is_equal_approx(Vector2.ZERO) and not armor is NoArmor):
+	if Input.is_action_just_pressed("ui_dash") and stamina >= DASH_STAMINA_COST and not (mov_direction.is_equal_approx(Vector2.ZERO) and not armor is Underpants):
 		_dash()
 
 	if Input.is_action_just_pressed("ui_armor_ability") and armor.is_able_to_use_ability:
@@ -315,7 +315,7 @@ func jump() -> void:
 func _dash() -> void:
 	stamina -= DASH_STAMINA_COST
 
-	if armor is NoArmor:
+	if armor is Underpants:
 		jump()
 	else:
 		velocity += mov_direction.limit_length(1) * DASH_IMPULSE

@@ -9,7 +9,7 @@ extends MarginContainer
 
 
 func _ready() -> void:
-	var armors: Array[Armor] = [NoArmor.new()]
+	var armors: Array[Armor] = [Underpants.new()]
 
 	for armor_path: String in SavedData.get_armor_paths():
 		armors.push_back(load(armor_path).new())

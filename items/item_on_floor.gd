@@ -74,7 +74,7 @@ func _pick_item_and_free() -> void:
 		current_arrow_type_item_on_floor.enable_pick_up()
 	elif item is ArmorItem:
 		# TODO make NoArmor item icon
-		if not Globals.player.armor is NoArmor:
+		if not Globals.player.armor is Underpants:
 			var item_on_floor: ItemOnFloor = load("res://items/item_on_floor.tscn").instantiate()
 			item_on_floor.position = position
 			var armor_item: ArmorItem = ArmorItem.new()
