@@ -19,7 +19,7 @@ func _init() -> void:
 	var debug_ui: DebugUI = load("res://ui/DebugUI.tscn").instantiate()
 	ModLoaderMod.append_node_in_scene(debug_ui, "Terminal", null, "res://mods-unpacked/Mateu-GameTerminal/terminal/terminal.tscn")
 	ModLoaderMod.save_scene(debug_ui, "res://ui/DebugUI.tscn")
-	debug_ui.free()
+	debug_ui.queue_free()
 
 	# Add extensions
 	#modLoader.install_script_extension(ext_dir + "main.gd")
