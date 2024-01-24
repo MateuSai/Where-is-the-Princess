@@ -1,6 +1,6 @@
 {
 	"name": "DemoMod",
-	"namespace": "Mateu",
+	"namespace": "WekufuStudios",
 	"version_number": "1.0.0",
 	"description": "Demo mod",
 	"website_url": "https://github.com/example/repo",
@@ -8,7 +8,7 @@
 	"extra": {
 		"godot": {
 			"incompatibilities": [],
-			"authors": ["Mateu"],
+			"authors": ["WekufuStudios"],
 			"compatible_mod_loader_version": ["6.0.0"],
 			"compatible_game_version": ["0.1.0"],
 			"config_defaults": {}

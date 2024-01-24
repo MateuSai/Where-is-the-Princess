@@ -1,0 +1,17 @@
+{
+	"name": "GameTerminal",
+	"namespace": "Mateu",
+	"version_number": "1.0.0",
+	"description": "A game terminal to spawn things like enemies, armors, items...",
+	"website_url": "https://github.com/example/repo",
+	"dependencies": [],
+	"extra": {
+		"godot": {
+			"incompatibilities": [],
+			"authors": ["Mateu"],
+			"compatible_mod_loader_version": ["6.0.0"],
+			"compatible_game_version": ["0.1.0"],
+			"config_defaults": {}
+		}
+	}
+}

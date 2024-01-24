@@ -1,45 +1,58 @@
-extends LineEdit
+class_name Terminal extends LineEdit
 
-var last_command: String = ""
+static var last_command: String = ""
+
+@onready var ui: GameUI = get_tree().current_scene.get_node("UI")
+
+@onready var debug_info: VBoxContainer = $"../DebugInfo"
 
 
 func _ready() -> void:
 	draw.connect(func() -> void:
 		get_tree().paused = true
 		#show()
-		set_process_input(true)
+		#set_process_input(true)
 		#get_tree().current_scene.get_node("%UI").is_external_thing_opened = true
 		grab_focus()
 	)
 	hidden.connect(func() -> void:
 		get_tree().paused = false
 		#hide()
-		set_process_input(false)
+		#set_process_input(false)
+		ui.set_process_unhandled_input(true)
 		#get_tree().current_scene.get_node("%UI").is_external_thing_opened = false
 	)
 	hide()
-	set_process_input(false)
+	#set_process_input(false)
 
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		# We want to ignore the inputs used to close the terminal. The closing of the terminal is handled on DebugUI
-		if (event.is_action_pressed("ui_toggle_terminal") or event.is_action_pressed("ui_cancel")):
-			return
+	if event.is_action_pressed("ui_toggle_terminal") and debug_info.visible:
+		show()
+		ui.set_process_unhandled_input(false)
+	elif (event.is_action_pressed("ui_toggle_terminal") or event.is_action_pressed("ui_cancel")) and visible:
+		hide()
+		ui.set_process_unhandled_input(true)
+		get_viewport().set_input_as_handled()
+	elif visible:
+		if event is InputEventKey:
+			# We want to ignore the inputs used to close the terminal. The closing of the terminal is handled on DebugUI
+			#if (event.is_action_pressed("ui_toggle_terminal") or event.is_action_pressed("ui_cancel")):
+				#return
 
-		# si el jugador presiona la flecha de arriba, cargamos la ultima comanda que ejecutamos, solo si esta no es nula
-		if event.is_pressed() and (event as InputEventKey).keycode == KEY_UP:
-			if last_command.length() > 0:
-				get_viewport().set_input_as_handled() # para que el caret no vuelva a la posición inicial
-				text = last_command
-				caret_column = last_command.length()
-		elif event.is_pressed() and (event as InputEventKey).keycode in [KEY_ENTER, KEY_KP_ENTER]:
-			# solo procesamos la comanda si no esta vacia
-			if text.strip_edges().length() > 0:
-				_process_command(text)
-				last_command = text
+			# si el jugador presiona la flecha de arriba, cargamos la ultima comanda que ejecutamos, solo si esta no es nula
+			if event.is_pressed() and (event as InputEventKey).keycode == KEY_UP:
+				if last_command.length() > 0:
+					get_viewport().set_input_as_handled() # para que el caret no vuelva a la posición inicial
+					text = last_command
+					caret_column = last_command.length()
+			elif event.is_pressed() and (event as InputEventKey).keycode in [KEY_ENTER, KEY_KP_ENTER]:
+				# solo procesamos la comanda si no esta vacia
+				if text.strip_edges().length() > 0:
+					_process_command(text)
+					last_command = text
 
-			text = ""
+				text = ""
 
 
 func _process_command(command: String) -> void:
