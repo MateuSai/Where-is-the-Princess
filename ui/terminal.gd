@@ -181,6 +181,18 @@ func _process_command(command: String) -> void:
 				_react(splitted_command[1])
 			else:
 				printerr("Invalid number of arguments, you must specify the reaction face")
+		"test":
+			if splitted_command.size() > 1: # tiene otro argumento
+				match splitted_command[1]:
+					"room":
+						if splitted_command.size() > 2: # tiene otro argumento
+							_test_room(splitted_command[2])
+						else:
+							printerr("Invalid number of arguments, you must specify the room path")
+					_:
+						printerr("test has no " + splitted_command[1] + " option")
+			else:
+				printerr("test cannot be used by itself")
 		_:
 			printerr("Invalid command")
 
@@ -428,5 +440,16 @@ func _react(face_string: String) -> void:
 		return
 
 	Globals.player.react(int(face_string))
+
+	hide()
+
+
+func _test_room(path: String) -> void:
+	if not FileAccess.file_exists(path):
+		printerr("There is no file at " + path)
+		return
+
+	RoomTest.room_path = path
+	SceneTransistor.start_transition_to("res://Rooms/room_test.tscn")
 
 	hide()
