@@ -16,8 +16,6 @@ func _init() -> void:
 	ext_dir = dir.path_join("extensions/")
 	trans_dir = dir.path_join("translations/")
 
-	ModLoaderMod.install_script_extension("res://mods-unpacked/Mateu-DemoMod/menu_override.gd")
-
 	var debug_ui: DebugUI = load("res://ui/DebugUI.tscn").instantiate()
 	ModLoaderMod.append_node_in_scene(debug_ui, "Terminal", null, "res://mods-unpacked/Mateu-GameTerminal/terminal/terminal.tscn")
 	ModLoaderMod.save_scene(debug_ui, "res://ui/DebugUI.tscn")
