@@ -10,6 +10,8 @@ enum {
 const MAX_DISTANCE_TO_PLAYER: int = 130
 const MIN_DISTANCE_TO_PLAYER: int = 70
 
+@onready var blowpipe_tribal: BlowpipeTribal = get_parent()
+
 @onready var aim_component: AimComponent = $"../AimComponent"
 @onready var pathfinding_component: PathfindingComponent = $"../PathfindingComponent"
 
@@ -27,8 +29,8 @@ func _state_logic(_delta: float) -> void:
 			elif dir_to_player.y < 0 and animation_player.current_animation != "idle_up":
 				animation_player.play("idle_up")
 
-			var aim_res: AimComponent.AimResult = aim_component.get_dir()
-			if parent.can_attack and not aim_res.clear:
+			var aim_res: AimComponent.AimResult = aim_component.get_dir(blowpipe_tribal.blowpipe_end.global_position)
+			if parent.can_attack and aim_res.clear:
 				parent.can_attack = false
 				parent._throw_dart(aim_res.dir)
 				parent.attack_timer.start()
@@ -41,8 +43,8 @@ func _state_logic(_delta: float) -> void:
 			elif dir_to_player.y < 0 and animation_player.current_animation != "move_up":
 				animation_player.play("move_up")
 
-			var aim_res: AimComponent.AimResult = aim_component.get_dir()
-			if parent.can_attack and not aim_res.clear:
+			var aim_res: AimComponent.AimResult = aim_component.get_dir(blowpipe_tribal.blowpipe_end.global_position)
+			if parent.can_attack and aim_res.clear:
 				parent.can_attack = false
 				parent._throw_dart(aim_res.dir)
 				parent.attack_timer.start()
