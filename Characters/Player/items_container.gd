@@ -1,10 +1,21 @@
-extends HFlowContainer
+class_name ItemsContainer extends HFlowContainer
 
 
-@onready var player: Player = owner
+var player: Player
+var show_tooltip: bool
 
 
 func _ready() -> void:
+	if owner is Player:
+		# Player ui
+		player = owner
+		show_tooltip = false
+	else:
+		# It means we are on the game menu
+		await (get_tree().current_scene as Game).player_added
+		player = Globals.player
+		show_tooltip = true
+
 	player.permanent_passive_item_picked_up.connect(_on_player_permanent_passive_item_picked_up)
 	player.temporal_passive_item_picked_up.connect(_on_player_temporal_passive_item_picked_up)
 	player.temporal_passive_item_unequiped.connect(_on_player_temporal_passive_item_unequiped)
@@ -12,6 +23,7 @@ func _ready() -> void:
 
 func _on_player_permanent_passive_item_picked_up(item: PermanentPassiveItem) -> void:
 	var texture_rect: PassiveItemIcon = PassiveItemIcon.new()
+	texture_rect.show_tooltip = show_tooltip
 	texture_rect.item = item
 	texture_rect.texture = item.get_icon()
 	add_child(texture_rect)
@@ -24,6 +36,7 @@ func _on_player_temporal_passive_item_picked_up(item: TemporalPassiveItem) -> vo
 		temporal_passive_item_icon.add()
 	else:
 		temporal_passive_item_icon = TemporalPassiveItemIcon.new()
+		temporal_passive_item_icon.show_tooltip = show_tooltip
 		# print(item.get_script().get_path().get_file().trim_suffix(".gd"))
 		temporal_passive_item_icon.name = item_class_name
 		temporal_passive_item_icon.item = item
@@ -38,7 +51,13 @@ func _on_player_temporal_passive_item_unequiped(item: TemporalPassiveItem) -> vo
 class PassiveItemIcon extends TextureRect:
 	var item: Item
 
-	var pause_menu_open: bool = false
+	var show_tooltip: bool = false:
+		set(new_value):
+			show_tooltip = new_value
+			if show_tooltip:
+				modulate.a = 1.0
+			else:
+				modulate.a = 0.6
 
 	func _init() -> void:
 		theme = load("res://SmallFontTheme.tres")
@@ -47,19 +66,19 @@ class PassiveItemIcon extends TextureRect:
 	#func _ready() -> void:
 		process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 
-		Globals.pause_menu_opened.connect(func() -> void:
-			z_index = 100
-			modulate.a = 1.0
-			pause_menu_open = true
-		)
-		Globals.pause_menu_closed.connect(func() -> void:
-			z_index = 0
-			modulate.a = 0.6
-			pause_menu_open = false
-		)
+		#Globals.pause_menu_opened.connect(func() -> void:
+			#z_index = 100
+			#modulate.a = 1.0
+			#pause_menu_open = true
+		#)
+		#Globals.pause_menu_closed.connect(func() -> void:
+			#z_index = 0
+			#modulate.a = 0.6
+			#pause_menu_open = false
+		#)
 
 	func _get_tooltip(_at_position: Vector2) -> String:
-		if pause_menu_open:
+		if show_tooltip:
 			return tr(item.get_item_name()) + "\n" + tr(item.get_item_description())
 		else:
 			return ""

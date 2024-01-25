@@ -1,4 +1,4 @@
-extends ArrowModifier
+class_name HomingArrowModifier extends ArrowModifier
 
 
 func _init() -> void:

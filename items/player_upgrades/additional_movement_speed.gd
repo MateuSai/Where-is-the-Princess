@@ -2,7 +2,7 @@ class_name AdditionalMovementSpeed extends PlayerUpgrade
 
 
 func equip(player: Player) -> void:
-	player.max_speed += 10
+	player.max_speed += 20
 
 
 func get_max_amount() -> int:

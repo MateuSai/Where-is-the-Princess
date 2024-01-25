@@ -1,0 +1,17 @@
+class_name AdditionalMaxStamina extends PlayerUpgrade
+
+
+func equip(player: Player) -> void:
+	player.max_stamina += 10
+
+
+func get_icon() -> Texture2D:
+	return load("res://Art/Dust.png")
+
+
+func get_dark_soul_cost() -> int:
+	return 3
+
+
+func get_max_amount() -> int:
+	return 4

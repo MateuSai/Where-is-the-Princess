@@ -1,30 +1,36 @@
 extends Control
 
-
-@onready var color_rect: ColorRect = $"../ColorRect"
+@onready var ui: GameUI = %UI
+#@onready var color_rect: ColorRect = %UIColorRect
 @onready var resume_button: Button = $VBoxContainer/ResumeButton
 
 
 func _ready() -> void:
+	set_process_input(false)
+
 	resume_button.pressed.connect(func() -> void:
-		hide()
-		color_rect.hide()
-		get_tree().paused = false
+		ui.hide_tab_container()
+		#hide()
+		#color_rect.hide()
+		#get_tree().paused = false
 	)
 
-	visibility_changed.connect(func() -> void:
-		if visible:
-			Globals.pause_menu_opened.emit()
-		else:
-			Globals.pause_menu_closed.emit()
+	draw.connect(func() -> void:
+		Globals.pause_menu_opened.emit()
+		set_process_input(true)
+	)
+	hidden.connect(func() -> void:
+		Globals.pause_menu_closed.emit()
+		set_process_input(false)
 	)
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_pause"):
-		hide()
-		color_rect.hide()
-		get_tree().paused = false
+		ui.hide_tab_container()
+		#hide()
+		#color_rect.hide()
+		#get_tree().paused = false
 		get_viewport().set_input_as_handled()
 
 

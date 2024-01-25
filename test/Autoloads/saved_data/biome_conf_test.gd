@@ -19,7 +19,7 @@ var other_biome_conf: BiomeConf = BiomeConf.from_dic({
 
 
 func before() -> void:
-	for biome: String in ["forest", "sewer"]:
+	for biome: String in ["basecamp", "forest", "sewer"]:
 		SavedData.change_biome(biome)
 		biomes.push_back(SavedData.get_biome_conf())
 
@@ -46,20 +46,24 @@ func test_rooms() -> void:
 		for level: BiomeConf.Level in biome_conf.levels:
 			if level.overwrite_start_rooms.size() > 0 and not level.overwrite_start_rooms[0].is_empty():
 				for path: String in level.overwrite_start_rooms:
-					assert_bool(FileAccess.file_exists(path))
-					assert_bool(path.get_extension() == "tscn")
-					assert_object(auto_free(load(path).instantiate())).is_instanceof(DungeonRoom)
+					_check_room(path)
 			if level.overwrite_combat_rooms.size() > 0 and not level.overwrite_combat_rooms[0].is_empty():
 				for path: String in level.overwrite_combat_rooms:
-					assert_bool(FileAccess.file_exists(path))
-					assert_bool(path.get_extension() == "tscn")
-					assert_object(auto_free(load(path).instantiate())).is_instanceof(DungeonRoom)
+					_check_room(path)
 			for overwrite_end_rooms: Array in level.overwrite_end_rooms.values():
 				if overwrite_end_rooms.size() > 0 and not overwrite_end_rooms[0].is_empty():
 					for path: String in overwrite_end_rooms:
-						assert_bool(FileAccess.file_exists(path))
-						assert_bool(path.get_extension() == "tscn")
-						assert_object(auto_free(load(path).instantiate())).is_instanceof(DungeonRoom)
+						_check_room(path)
+
+
+func _check_room(path: String) -> void:
+	assert_bool(FileAccess.file_exists(path))
+	assert_bool(path.get_extension() == "tscn")
+	var room: DungeonRoom = auto_free(load(path).instantiate())
+	assert_object(room).is_instanceof(DungeonRoom)
+
+	for enemy_marker: EnemyMarker in room.get_node("EnemyPositions").get_children():
+		assert_object(Globals.get_enemy_scene(enemy_marker.enemy_name)).is_not_null()
 
 
 func test_get_overwrite_end_rooms() -> void:

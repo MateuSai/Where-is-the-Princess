@@ -15,40 +15,37 @@ colors = PackedColorArray(0.772549, 0.211765, 0.239216, 1, 0.772549, 0.211765, 0
 gradient = SubResource("Gradient_up5n6")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nnn61"]
-emission_shape = 3
-emission_box_extents = Vector3(2, 1, 1)
 particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 2, 1)
 direction = Vector3(-1, 0, 0)
 spread = 0.0
 gravity = Vector3(0, 0, 0)
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
 color_ramp = SubResource("GradientTexture1D_h20qv")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fx8lv"]
 light_mode = 1
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_22s0m"]
-radius = 1.0
+radius = 2.0
 height = 6.0
 
 [node name="Dart" instance=ExtResource("1_1uoos")]
+rotation = 1.5708
 collision_mask = 7
 script = ExtResource("2_v427h")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="." index="0"]
 material = SubResource("CanvasItemMaterial_g8dc2")
-position = Vector2(-2, 0)
+position = Vector2(2.38419e-07, 3)
 amount = 6
 process_material = SubResource("ParticleProcessMaterial_nnn61")
 lifetime = 0.3
 
 [node name="Sprite2D" parent="." index="1"]
 material = SubResource("CanvasItemMaterial_fx8lv")
-rotation = 1.5708
 texture = ExtResource("2_n6qqi")
 
 [node name="CollisionShape2D" parent="." index="2"]
-visible = false
-rotation = 1.5708
+rotation = 0.0
 shape = SubResource("CapsuleShape2D_22s0m")

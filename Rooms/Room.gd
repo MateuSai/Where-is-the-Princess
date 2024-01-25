@@ -50,7 +50,7 @@ signal last_enemy_died(enemy: Enemy)
 
 @onready var tilemap: TileMap = get_node("TileMap")
 @onready var flying_units_navigation_tilemap: TileMap = $FlyingUnitsNavigationTileMap
-@onready var black_tilemap: TileMap = get_node("BlackTileMap")
+#@onready var black_tilemap: TileMap = get_node("BlackTileMap")
 @onready var teleport_position: Marker2D = $TeleportPosition
 
 @onready var tilemap_offset: Vector2i = tilemap.get_used_rect().position * Rooms.TILE_SIZE
@@ -69,24 +69,37 @@ var room_white_image: Image
 
 func _ready() -> void:
 	assert(tilemap.position == Vector2.ZERO, "The tilemap must be at the position (0, 0)")
-	assert(entries[0].get_child_count() or entries[1].get_child_count() or entries[2].get_child_count() or entries[3].get_child_count(), "What are you doing!? How I'm supposed to access the room? Put at least one entry.")
+	if name != "BaseCamp_0":
+		assert(entries[0].get_child_count() or entries[1].get_child_count() or entries[2].get_child_count() or entries[3].get_child_count(), "What are you doing!? How I'm supposed to access the room? Put at least one entry.")
 
 #	print(name + ": " + str(tilemap.get_used_rect()))
+
+	navigation_polygon = NavigationPolygon.new()
+	navigation_polygon.parsed_collision_mask = 1 + 16 # World + Low object
+	navigation_polygon.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_ROOT_NODE_CHILDREN
+	navigation_polygon.source_geometry_group_name = "navigation_polygon_source_group"
 
 	num_enemies = enemy_positions_container.get_child_count()
 
 	ATLAS_ID = SavedData.get_biome_conf().room_atlas_id
 
-	black_tilemap.modulate = ProjectSettings.get("rendering/environment/defaults/default_clear_color")
-	for cell_pos: Vector2i in tilemap.get_used_cells(0):
-		black_tilemap.set_cell(0, cell_pos, 0, Vector2i(0, 0))
-	for cell_pos: Vector2i in tilemap.get_used_cells(1):
-		black_tilemap.set_cell(0, cell_pos, 0, Vector2i(0, 0))
-
-	if rooms.game.debug:
-		black_tilemap.hide()
+	#black_tilemap.modulate = ProjectSettings.get("rendering/environment/defaults/default_clear_color")
+	#for cell_pos: Vector2i in tilemap.get_used_cells(0):
+		#black_tilemap.set_cell(0, cell_pos, 0, Vector2i(0, 0))
+	#for cell_pos: Vector2i in tilemap.get_used_cells(1):
+		#black_tilemap.set_cell(0, cell_pos, 0, Vector2i(0, 0))
+#
+	#if rooms.game.debug:
+		#black_tilemap.hide()
 
 	flying_units_navigation_tilemap.hide()
+
+	var navigation_region_to_debug_flying_units_navigation: NavigationRegion2D = NavigationRegion2D.new()
+	add_child(navigation_region_to_debug_flying_units_navigation)
+	self_modulate.a = 0
+	navigation_region_to_debug_flying_units_navigation.self_modulate = Color.RED
+	navigation_region_to_debug_flying_units_navigation.name = "FlyingUnitsNavigationDebug"
+	navigation_region_to_debug_flying_units_navigation.navigation_polygon = NavigationPolygon.new()
 
 
 func _exit_tree() -> void:
@@ -186,20 +199,18 @@ func get_separation_steering_dir(rooms_array: Array[DungeonRoom], delta: float) 
 
 func setup_navigation() -> void:
 	navigation_polygon.agent_radius = agent_radius
-	navigation_polygon.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_EXPLICIT
 
 	update_navigation()
 
 
 func update_navigation() -> void:
-	bake_navigation_polygon(false)
-	NavigationServer2D.region_set_transform(get_region_rid(), get_global_transform())
+	#print("Updating navigation of room " + name)
+	bake_navigation_polygon(true)
+	#NavigationServer2D.region_set_transform(get_region_rid(), get_global_transform())
 
 	_free_navigation()
 	_generate_flying_units_navigation()
 	NavigationServer2D.region_set_transform(navigation_region_flying_units, get_global_transform())
-	#set_navigation_map(navigation_map_flying_units)
-	#bake_navigation_polygon(false)
 
 	navigation_updated.emit()
 
@@ -279,10 +290,10 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 	for dir: EntryDirection in [EntryDirection.LEFT, EntryDirection.RIGHT]:
 		for entry: Node2D in entries[dir].get_children():
 			if entry in used_entries:
-				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.UP * 2)
-				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.UP)
-				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position))
-				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.DOWN)
+				#black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.UP * 2)
+				#black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.UP)
+				#black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position))
+				#black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.DOWN)
 
 				var vertical_door: StaticBody2D = VERTICAL_DOOR.instantiate()
 				vertical_door.position = floor(entry.position / 16) * 16
@@ -320,8 +331,8 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 	for dir: EntryDirection in [EntryDirection.UP, EntryDirection.DOWN]:
 		for entry: Node2D in entries[dir].get_children():
 			if entry in used_entries:
-				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position))
-				black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.RIGHT)
+				#black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position))
+				#black_tilemap.erase_cell(0, black_tilemap.local_to_map(entry.position) + Vector2i.RIGHT)
 
 				var horizontal_door: StaticBody2D = HORIZONTAL_UP_DOOR.instantiate() if dir == EntryDirection.UP else HORIZONTAL_DOWN_DOOR.instantiate()
 				horizontal_door.position = floor(entry.position / 16) * 16 + Vector2(Rooms.TILE_SIZE, Rooms.TILE_SIZE + 12)
@@ -413,12 +424,12 @@ func _on_player_entered_room() -> void:
 			closed.emit()
 			Globals.room_closed.emit()
 
-			var tween: Tween = create_tween()
-			tween.tween_property(black_tilemap, "modulate:a", 0.0, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-			await tween.finished
-			black_tilemap.queue_free()
-		else:
-			black_tilemap.queue_free()
+			#var tween: Tween = create_tween()
+			#tween.tween_property(black_tilemap, "modulate:a", 0.0, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			#await tween.finished
+			#black_tilemap.queue_free()
+		#else:
+			#black_tilemap.queue_free()
 			#_close_entrance()
 			#_open_doors()
 
@@ -471,8 +482,14 @@ func add_enemy(enemy: Enemy) -> void:
 
 
 func add_item_on_floor(item_on_floor: ItemOnFloor, at_pos: Vector2) -> void:
-	item_on_floor.position = at_pos
-	items_container.add_child(item_on_floor)
+	if is_on_water(at_pos):
+		item_on_floor.queue_free()
+		var splash: Sprite2D = load("res://effects/water_splash/water_splash.tscn").instantiate()
+		splash.position = at_pos
+		add_child(splash)
+	else:
+		item_on_floor.position = at_pos
+		items_container.add_child(item_on_floor)
 
 
 func get_items() -> Array[ItemOnFloor]:
@@ -481,11 +498,16 @@ func get_items() -> Array[ItemOnFloor]:
 	return array
 
 
+func is_on_water(pos_relative_to_room: Vector2) -> bool:
+	return tilemap.get_cell_atlas_coords(WATER_LAYER_ID, tilemap.local_to_map(pos_relative_to_room)) != Vector2i(-1, -1)
+
+
 func _generate_flying_units_navigation() -> void:
 	# Create a navigation mesh resource.
 	var navigation_mesh_flying_units: NavigationPolygon = NavigationPolygon.new()
-	navigation_mesh_flying_units.source_geometry_group_name = "flying_units_navigation_polygon_source_group"
-	navigation_mesh_flying_units.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_GROUPS_EXPLICIT
+	#navigation_mesh_flying_units.source_geometry_group_name = "flying_units_navigation_polygon_source_group"
+	navigation_mesh_flying_units.source_geometry_mode = NavigationPolygon.SOURCE_GEOMETRY_ROOT_NODE_CHILDREN
+	navigation_mesh_flying_units.parsed_collision_mask = 1 # Only World, since flying units can fly above Low objects
 	# Set appropriated parameters for the size of your agents.
 	navigation_mesh_flying_units.agent_radius = navigation_polygon.agent_radius
 
@@ -544,6 +566,8 @@ func _generate_flying_units_navigation() -> void:
 
 	# Set navigation mesh for the region.
 	NavigationServer2D.region_set_navigation_polygon(navigation_region_flying_units, navigation_mesh_flying_units)
+
+	(get_node("FlyingUnitsNavigationDebug") as NavigationRegion2D).navigation_polygon = navigation_mesh_flying_units
 
 
 func _free_navigation() -> void:

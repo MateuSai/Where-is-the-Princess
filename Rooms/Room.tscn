@@ -1,52 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://7oeqdu22e1q5"]
+[gd_scene load_steps=5 format=3 uid="uid://7oeqdu22e1q5"]
 
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="1"]
 [ext_resource type="Script" path="res://Rooms/Room.gd" id="1_2v2ib"]
-[ext_resource type="Texture2D" uid="uid://4diatv3rr660" path="res://brow_square.png" id="3_6fxjx"]
-[ext_resource type="Shader" path="res://shaders_and_particles/Clouds.gdshader" id="3_pjntw"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_nquda"]
-resource_local_to_scene = true
-source_geometry_mode = 2
-source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 2.0
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_7h6or"]
-vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
-source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 0.0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b4afx"]
-texture = ExtResource("3_6fxjx")
-0:0/0 = 0
-0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_7h6or")
 
 [sub_resource type="TileSet" id="TileSet_x0g25"]
 navigation_layer_0/layers = 2
-sources/0 = SubResource("TileSetAtlasSource_b4afx")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u4la0"]
-shader = ExtResource("3_pjntw")
-shader_parameter/transparency = 1.0
-shader_parameter/color0 = Color(0.01, 0, 1, 1)
-shader_parameter/color1 = Color(0.32, 0.2, 1, 1)
-shader_parameter/color2 = Color(0.34, 0.41, 1, 1)
-shader_parameter/color3 = Color(0.39, 0.52, 1, 1)
-shader_parameter/Direction = Vector2(1, 1)
-shader_parameter/Speed = 1.0
-shader_parameter/thresholds = PackedFloat32Array(0.6, 0.66, 0.75)
-shader_parameter/OCTAVE = 6
-shader_parameter/pixel_size = 1
-shader_parameter/dithering = 2.5
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3ye2p"]
-texture = ExtResource("3_6fxjx")
-0:0/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_up5gx"]
-sources/0 = SubResource("TileSetAtlasSource_3ye2p")
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_4loq4"]
 light_mode = 1
@@ -55,7 +13,6 @@ light_mode = 1
 show_behind_parent = true
 y_sort_enabled = true
 texture_filter = 1
-navigation_polygon = SubResource("NavigationPolygon_nquda")
 script = ExtResource("1_2v2ib")
 
 [node name="TileMap" type="TileMap" parent="." groups=["navigation_polygon_source_group"]]
@@ -76,7 +33,7 @@ layer_3/name = "Walls on top of vertical doors"
 layer_3/z_index = 2
 layer_3/tile_data = PackedInt32Array()
 layer_4/name = "Water"
-layer_4/z_index = -3
+layer_4/z_index = -4
 layer_4/tile_data = PackedInt32Array()
 layer_5/name = "Low wall"
 layer_5/tile_data = PackedInt32Array()
@@ -85,13 +42,6 @@ layer_5/tile_data = PackedInt32Array()
 tile_set = SubResource("TileSet_x0g25")
 format = 2
 layer_0/navigation_enabled = false
-
-[node name="BlackTileMap" type="TileMap" parent="."]
-visible = false
-z_index = 1
-material = SubResource("ShaderMaterial_u4la0")
-tile_set = SubResource("TileSet_up5gx")
-format = 2
 
 [node name="Entries" type="Node2D" parent="."]
 

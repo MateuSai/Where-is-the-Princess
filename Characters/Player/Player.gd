@@ -6,22 +6,31 @@ class_name Player extends Character
 #signal weapon_condition_changed(weapon: Weapon, new_value: float)
 #signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
 
+const DIALOGUE_BOX_SCENE: PackedScene = preload("res://ui/dialogue_system/dialogue_box.tscn")
+var dialogue_box: DialogueBox
+var dialogue_tween: Tween = null
+
 const DASH_IMPULSE: int = 2200
 const DASH_STAMINA_COST: int = 30
 
 var stamina_regeneration_per_second: float = 15
-var max_stamina: float = 100
+signal max_stamina_changed(new_value: float)
+var max_stamina: float = 100:
+	set(new_value):
+		max_stamina = new_value
+		max_stamina_changed.emit(max_stamina)
 var stamina: float = max_stamina:
 	set(new_value):
 		if new_value < stamina:
 			stamina_regen_cooldown_timer.start()
-		stamina = clamp(new_value, 0.0, 100.0)
+		stamina = clamp(new_value, 0.0, max_stamina)
 
 signal temporal_passive_item_picked_up(item: TemporalPassiveItem)
 signal temporal_passive_item_unequiped(item: TemporalPassiveItem)
 signal permanent_passive_item_picked_up(item: PermanentPassiveItem)
+signal player_upgrade_item_picked_up(item: PlayerUpgrade)
 
-var armor: Armor = NoArmor.new() : set = set_armor
+var armor: Armor = Underpants.new() : set = set_armor
 signal armor_changed(new_armor: Armor)
 
 var mouse_direction: Vector2
@@ -96,15 +105,16 @@ func _ready() -> void:
 	#set_armor(NoArmor.new())
 	#set_armor(KnightArmor.new())
 	if SavedData.run_stats.armor == null:
-		set_armor(NoArmor.new())
+		set_armor(Underpants.new())
 	else:
 		set_armor(SavedData.run_stats.armor)
 
 	life_component.hp_changed.connect(func(new_hp: int) -> void:
 		SavedData.run_stats.hp = new_hp
 		if new_hp == 0:
-			SceneTransistor.start_transition_to("res://BaseCamp.tscn")
 			SavedData.reset_run_stats()
+			SavedData.change_biome("basecamp")
+			SceneTransistor.start_transition_to("res://Game.tscn")
 	)
 
 #	weapons.weapon_switched.connect(func(prev_index: int, new_index: int): weapon_switched.emit(prev_index, new_index))
@@ -228,7 +238,7 @@ func get_input() -> void:
 	if Input.is_action_pressed("ui_move_up"):
 		mov_direction.y -= Input.get_action_strength("ui_move_up")
 
-	if Input.is_action_just_pressed("ui_dash") and stamina >= DASH_STAMINA_COST and not mov_direction.is_equal_approx(Vector2.ZERO):
+	if Input.is_action_just_pressed("ui_dash") and stamina >= DASH_STAMINA_COST and not (mov_direction.is_equal_approx(Vector2.ZERO) and not armor is Underpants):
 		_dash()
 
 	if Input.is_action_just_pressed("ui_armor_ability") and armor.is_able_to_use_ability:
@@ -305,7 +315,7 @@ func jump() -> void:
 func _dash() -> void:
 	stamina -= DASH_STAMINA_COST
 
-	if armor is NoArmor:
+	if armor is Underpants:
 		jump()
 	else:
 		velocity += mov_direction.limit_length(1) * DASH_IMPULSE
@@ -392,7 +402,7 @@ func start_progressing_acid() -> void:
 
 func is_on_water() -> bool:
 	if current_room:
-		return current_room.tilemap.get_cell_atlas_coords(DungeonRoom.WATER_LAYER_ID, current_room.tilemap.local_to_map(position - current_room.position)) != Vector2i(-1, -1)
+		return current_room.is_on_water(position - current_room.position)
 	else:
 		return false
 
@@ -406,3 +416,30 @@ func get_exclude_bodies() -> Array[Node2D]:
 			arr.push_back(body)
 
 	return arr
+
+
+func start_dialogue(text: String) -> void:
+	dialogue_box = DIALOGUE_BOX_SCENE.instantiate()
+	dialogue_box.position = Vector2(5, -26)
+	add_child(dialogue_box)
+
+	#var available_dialogue_texts: PackedStringArray = dialogue_texts.duplicate()
+	#for i: int in range(available_dialogue_texts.size()-1, -1, -1):
+		#if used_dialogue_texts.has(available_dialogue_texts[i]):
+			#available_dialogue_texts.remove_at(i)
+	#if available_dialogue_texts.is_empty():
+		#available_dialogue_texts = dialogue_texts.duplicate()
+		#used_dialogue_texts = []
+	var random_dialogue_text: String = text
+	dialogue_box.start_displaying_text(random_dialogue_text)
+	#used_dialogue_texts.push_back(random_dialogue_text)
+
+	dialogue_box.finished_displaying_text.connect(func() -> void:
+		dialogue_tween = create_tween()
+		dialogue_tween.tween_property(dialogue_box, "modulate:a", 0.0, 1).set_delay(3)
+		await dialogue_tween.finished
+		dialogue_tween = null
+		dialogue_box.queue_free()
+		dialogue_box = null
+		#dialogue_finished.emit()
+	)

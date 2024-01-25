@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bbyujmvr88xnd"]
+[gd_scene load_steps=9 format=3 uid="uid://bbyujmvr88xnd"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_i5n1b"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_m0i3g"]
@@ -6,15 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="5_7ngjk"]
 [ext_resource type="PackedScene" uid="uid://bphrmf6n5s7be" path="res://Rooms/Furniture and Traps/crate.tscn" id="5_kfghx"]
 [ext_resource type="PackedScene" uid="uid://dt58rwqk2borq" path="res://Rooms/game_shops/GameShopLevel1.tscn" id="6_m5g0q"]
+[ext_resource type="PackedScene" uid="uid://blxwnjqoky134" path="res://Characters/npcs/mercenary/mercenary_spawner.tscn" id="7_udgto"]
+[ext_resource type="PackedScene" uid="uid://b60ykxatluw6k" path="res://Characters/npcs/save_wizard/save_wizard.tscn" id="8_m42ih"]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_0tabj"]
-resource_local_to_scene = true
-source_geometry_mode = 2
-source_geometry_group_name = &"navigation_polygon_source_group"
-agent_radius = 2.0
-
-[node name="BossRoom" instance=ExtResource("1_i5n1b")]
-navigation_polygon = SubResource("NavigationPolygon_0tabj")
+[node name="MerchantRoom" instance=ExtResource("1_i5n1b")]
 
 [node name="TileMap" parent="." index="0"]
 layer_0/tile_data = PackedInt32Array(589829, 262149, 2, 655365, 262149, 2, 720901, 262149, 2, 786437, 131077, 3, 851973, 262149, 2, 524294, 262149, 2, 589830, 262149, 2, 655366, 262149, 2, 720902, 262149, 2, 786438, 262149, 2, 851974, 262149, 2, 524295, 327685, 2, 589831, 327685, 2, 655367, 327685, 2, 720903, 5, 5, 786439, 262149, 2, 851975, 262149, 2, 524296, 65541, 1, 589832, 5, 3, 655368, 65541, 1, 720904, 327685, 1, 786440, 327685, 2, 851976, 327685, 2, 458761, 262149, 3, 524297, 65541, 1, 589833, 65541, 1, 655369, 131077, 1, 720905, 131077, 1, 786441, 5, 2, 851977, 5, 2, 458762, 327685, 3, 524298, 65541, 1, 589834, 5, 2, 655370, 5, 2, 720906, 5, 3, 786442, 65541, 1, 851978, 5, 2, 458763, 5, 3, 524299, 65541, 1, 589835, 65541, 1, 655371, 5, 3, 720907, 65541, 1, 786443, 5, 3, 851979, 131077, 1, 458764, 65541, 1, 524300, 5, 3, 589836, 131077, 1, 655372, 5, 2, 720908, 65541, 1, 786444, 65541, 1, 851980, 5, 3, 458765, 196613, 3, 524301, 5, 2, 589837, 5, 3, 655373, 5, 2, 720909, 65541, 1, 786445, 5, 2, 851981, 5, 3, 458766, 65541, 4, 524302, 196613, 2, 589838, 196613, 2, 655374, 196613, 3, 720910, 65541, 1, 786446, 5, 2, 851982, 131077, 1, 458767, 131077, 3, 524303, 262149, 2, 589839, 262149, 2, 655375, 262149, 3, 720911, 5, 2, 786447, 65541, 1, 851983, 5, 3, 458768, 262149, 2, 524304, 262149, 2, 589840, 262149, 2, 655376, 65541, 4, 720912, 196613, 3, 786448, 65541, 1, 851984, 131077, 1, 458769, 65541, 2, 524305, 65541, 2, 589841, 262149, 2, 655377, 262149, 2, 720913, 262149, 3, 786449, 131077, 1, 851985, 5, 2, 458770, 65541, 2, 524306, 65541, 2, 589842, 131077, 3, 655378, 262149, 2, 720914, 65541, 4, 786450, 65541, 1, 851986, 5, 3, 458771, 131077, 3, 524307, 262149, 2, 589843, 131077, 3, 655379, 262149, 2, 720915, 262149, 3, 786451, 65541, 1, 851987, 131077, 1, 458772, 262149, 2, 524308, 131077, 3, 589844, 262149, 2, 655380, 262149, 2, 720916, 262149, 3, 786452, 5, 2, 851988, 5, 3, 786453, 65541, 1, 851989, 5, 3, 851990, 65541, 1, 917509, 65541, 2, 983045, 262149, 2, 917510, 65541, 2, 983046, 65541, 2, 1048582, 131077, 3, 917511, 262149, 2, 983047, 131077, 3, 1048583, 65541, 2, 917512, 5, 5, 983048, 262149, 2, 1048584, 262149, 2, 917513, 262149, 1, 983049, 262149, 2, 1048585, 262149, 2, 917514, 327685, 1, 983050, 5, 5, 1048586, 262149, 2, 917515, 131077, 1, 983051, 327685, 1, 1048587, 5, 5, 917516, 65541, 1, 983052, 5, 2, 1048588, 65541, 1, 917517, 65541, 1, 983053, 5, 3, 1048589, 65541, 1, 917518, 5, 3, 983054, 65541, 1, 1048590, 65541, 1, 917519, 65541, 1, 983055, 5, 2, 1048591, 65541, 1, 917520, 5, 3, 983056, 5, 2, 1048592, 131077, 1, 917521, 131077, 1, 983057, 5, 3, 1048593, 65541, 1, 917522, 5, 3, 983058, 131077, 1, 917523, 5, 2, 983059, 131077, 1, 458757, 262149, 2, 458758, 262149, 2, 458759, 5, 4, 458760, 262149, 3, 524293, 262149, 2, 1048581, 131077, 3, 720919, 65541, 1, 720920, 5, 3, 786456, 5, 3, 786455, 131077, 1, 786454, 5, 2, 917524, 65541, 1, 983060, 65541, 1, 1048594, 131077, 1, 1048595, 131077, 1, 851993, 5, 3, 851992, 5, 3, 851991, 5, 3, 786458, 5, 2, 720922, 65541, 1, 917538, 5, 2, 917537, 65541, 1, 917536, 5, 2, 983072, 5, 2, 983071, 5, 2, 917535, 5, 2, 917534, 131077, 1, 917533, 131077, 1, 851996, 5, 2, 851995, 5, 2, 851994, 5, 2, 917531, 5, 2, 917532, 131077, 1, 983068, 65541, 1, 983069, 65541, 1, 983070, 65541, 1, 786468, 5, 2, 720932, 65541, 1, 786467, 65541, 1, 852002, 5, 2, 852001, 131077, 1, 786466, 131077, 1, 852000, 5, 3, 851999, 65541, 1, 786465, 5, 3, 786464, 5, 3, 851998, 5, 3, 851997, 131077, 1, 786460, 5, 3, 786459, 65541, 1, 1048596, 5, 2, 655395, 5, 3, 852003, 65541, 1, 393228, 65541, 1, 393227, 5, 3, 720921, 5, 3, 786457, 65541, 1, 720931, 5, 3, 720930, 131077, 1, 720929, 5, 2, 655394, 5, 2, 589858, 5, 2, 524323, 5, 2, 458787, 65541, 1, 393251, 65541, 1, 393252, 5, 2, 393253, 131077, 1, 393254, 131077, 1, 393255, 65541, 1, 458791, 5, 2, 524328, 131077, 1, 589864, 65541, 1, 655400, 131077, 1, 655399, 65541, 1, 720934, 65541, 1, 720933, 5, 2, 589859, 131077, 1, 524324, 131077, 1, 458788, 65541, 1, 458789, 5, 3, 458790, 5, 3, 458792, 5, 2, 589863, 5, 2, 655398, 65541, 1, 655397, 5, 3, 589860, 131077, 1, 524327, 5, 2, 655396, 131077, 1, 524325, 5, 3, 524326, 5, 3, 524329, 5, 3, 589865, 65541, 1, 655401, 65541, 1, 720936, 65541, 1, 720935, 65541, 1, 589861, 5, 3, 589862, 5, 3, 786470, 5, 3, 786471, 131077, 1, 786472, 5, 2, 786473, 65541, 1, 720937, 131077, 1, 720938, 5, 2, 655402, 65541, 1, 589866, 65541, 1, 393256, 5, 2, 393257, 131077, 1, 458793, 131077, 1, 327717, 131077, 1, 327718, 131077, 1, 327719, 5, 2, 786469, 65541, 1, 917525, 65541, 1, 917526, 131077, 1, 720917, 393221, 4, 720918, 458757, 4, 655383, 393221, 5, 655384, 458757, 4, 655385, 393221, 5, 655386, 458757, 4, 720923, 393221, 4, 720924, 393221, 4, 786461, 458757, 4, 786462, 458757, 4, 786463, 393221, 4, 720928, 393221, 5, 655393, 524293, 5, 524322, 458757, 4, 327715, 393221, 5, 327716, 393221, 5, 262181, 524293, 4, 262182, 393221, 4, 262183, 524293, 5, 327720, 393221, 4, 327721, 524293, 4, 524330, 458757, 4, 393236, 393221, 4, 393235, 458757, 4, 393234, 393221, 4, 393233, 393221, 5, 393232, 458757, 4, 393231, 393221, 4, 393230, 524293, 5, 393229, 458757, 4, 393226, 524293, 4, 393225, 524293, 5, 393224, 393221, 5, 393223, 524293, 5, 393222, 524293, 4, 393221, 524293, 5, 655381, 65541, 7, 655382, 327685, 7, 589846, 262149, 4, 589847, 131077, 7, 589848, 131077, 7, 589849, 131077, 7, 589850, 131077, 7, 655387, 65541, 7, 655388, 131077, 7, 720925, 65541, 7, 720927, 327685, 7, 655392, 327685, 7, 589857, 327685, 7, 458786, 327685, 7, 262180, 327685, 7, 720926, 131077, 7, 655389, 196613, 4, 655391, 262149, 4, 589856, 262149, 4, 458785, 262149, 4, 262178, 262149, 4, 262179, 131077, 7, 196645, 131077, 7, 196646, 131077, 7, 196647, 131077, 7, 262184, 65541, 7, 458794, 65541, 7, 262185, 131077, 7, 327694, 131077, 7, 327695, 131077, 7, 327696, 131077, 7, 327697, 131077, 7, 327698, 131077, 7, 327699, 131077, 7, 327700, 131077, 7, 327690, 327685, 7, 327689, 131077, 7, 327688, 131077, 7, 327687, 131077, 7, 327686, 131077, 7, 327685, 131077, 7, 196644, 262149, 4, 327684, 262149, 4, 327701, 196613, 4, 589851, 196613, 4, 196648, 196613, 4, 262186, 196613, 4, 458795, 196613, 4, 327693, 65541, 7, 327692, 5, 2, 327691, 5, 2)
@@ -23,56 +18,55 @@ layer_1/tile_data = PackedInt32Array(393237, 196613, 5, 458773, 196613, 5, 52430
 [node name="HorizontalEntry" parent="Entries/Up" index="0" instance=ExtResource("3_m0i3g")]
 position = Vector2(181, 90)
 
-[node name="TeleportPosition" parent="." index="8"]
+[node name="TeleportPosition" parent="." index="7"]
 position = Vector2(614, 135)
 
-[node name="TikiTorch" parent="." index="10" instance=ExtResource("5_7ngjk")]
+[node name="TikiTorch" parent="." index="9" instance=ExtResource("5_7ngjk")]
 position = Vector2(231, 147)
 
-[node name="TikiTorch2" parent="." index="11" instance=ExtResource("5_7ngjk")]
+[node name="TikiTorch2" parent="." index="10" instance=ExtResource("5_7ngjk")]
 position = Vector2(311, 164)
 
-[node name="Torch" parent="." index="12" instance=ExtResource("4_g7ic2")]
+[node name="Torch" parent="." index="11" instance=ExtResource("4_g7ic2")]
 position = Vector2(102, 102)
 
-[node name="Torch2" parent="." index="13" instance=ExtResource("4_g7ic2")]
+[node name="Torch2" parent="." index="12" instance=ExtResource("4_g7ic2")]
 position = Vector2(281, 102)
 
-[node name="Torch3" parent="." index="14" instance=ExtResource("4_g7ic2")]
+[node name="Torch3" parent="." index="13" instance=ExtResource("4_g7ic2")]
 position = Vector2(108, 263)
 
-[node name="Torch4" parent="." index="15" instance=ExtResource("4_g7ic2")]
+[node name="Torch4" parent="." index="14" instance=ExtResource("4_g7ic2")]
 position = Vector2(299, 265)
 
-[node name="Torch5" parent="." index="16" instance=ExtResource("4_g7ic2")]
+[node name="Torch5" parent="." index="15" instance=ExtResource("4_g7ic2")]
 position = Vector2(584, 86)
 
-[node name="Crate2" parent="." index="17" instance=ExtResource("5_kfghx")]
+[node name="Crate2" parent="." index="16" instance=ExtResource("5_kfghx")]
 position = Vector2(99, 232)
 
-[node name="Crate3" parent="." index="18" instance=ExtResource("5_kfghx")]
+[node name="Crate3" parent="." index="17" instance=ExtResource("5_kfghx")]
 position = Vector2(117, 224)
 
-[node name="Crate4" parent="." index="19" instance=ExtResource("5_kfghx")]
+[node name="Crate4" parent="." index="18" instance=ExtResource("5_kfghx")]
 position = Vector2(91, 253)
 
-[node name="Crate5" parent="." index="20" instance=ExtResource("5_kfghx")]
+[node name="Crate5" parent="." index="19" instance=ExtResource("5_kfghx")]
 position = Vector2(123, 250)
 
-[node name="Crate" parent="." index="21" instance=ExtResource("5_kfghx")]
+[node name="Crate" parent="." index="20" instance=ExtResource("5_kfghx")]
 position = Vector2(97, 210)
 
-[node name="GameShopLevel1" parent="." index="22" instance=ExtResource("6_m5g0q")]
+[node name="GameShopLevel1" parent="." index="21" instance=ExtResource("6_m5g0q")]
 position = Vector2(272, 149)
 
 [node name="Merchant" parent="GameShopLevel1" index="2"]
 position = Vector2(1, -22)
 
-[node name="GameShopLevel2" parent="." index="23" instance=ExtResource("6_m5g0q")]
-position = Vector2(272, 149)
+[node name="MercenarySpawner" parent="." index="22" instance=ExtResource("7_udgto")]
+position = Vector2(106, 130)
 
-[node name="Merchant" parent="GameShopLevel2" index="2"]
-position = Vector2(1, -22)
+[node name="SaveWizard" parent="." index="23" instance=ExtResource("8_m42ih")]
+position = Vector2(178, 204)
 
 [editable path="GameShopLevel1"]
-[editable path="GameShopLevel2"]

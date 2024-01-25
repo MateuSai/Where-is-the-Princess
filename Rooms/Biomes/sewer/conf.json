@@ -19,6 +19,9 @@
 	"music": "res://Audio/Music/Incompetech/Shamanistic.mp3",
 
 	"levels": {
+		"1": {
+			"overwrite_end_sewer_rooms": ["res://Rooms/Biomes/sewer/SewerEnd_01.tscn"],
+		},
 		"2": {
 			"spawn_shape_radius": 300,
 

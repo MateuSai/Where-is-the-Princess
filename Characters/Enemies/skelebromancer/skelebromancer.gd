@@ -1,6 +1,10 @@
 class_name Skelebromancer extends Enemy
 
+const MAX_NUM_SPAWNED_SKELEBROS_ALIVE: int = 3
+
 var pile_of_bones: Array[PileOfBones]
+
+var num_spawned_skelebros_alive: int = 0
 
 @onready var eyes_sprite: Sprite2D = $EyesSprite
 @onready var spawn_skelebro_timer: Timer = $SpawnSkelebroTimer
@@ -20,7 +24,13 @@ func _ready() -> void:
 		)
 
 	spawn_skelebro_timer.timeout.connect(func() -> void:
-		pile_of_bones[randi() % pile_of_bones.size()].spawn_skelebro()
+		if num_spawned_skelebros_alive >= MAX_NUM_SPAWNED_SKELEBROS_ALIVE:
+			return
+
+		pile_of_bones[randi() % pile_of_bones.size()].spawn_skelebro().life_component.died.connect(func() -> void:
+			num_spawned_skelebros_alive -= 1
+		)
+		num_spawned_skelebros_alive += 1
 	)
 
 

@@ -4,14 +4,14 @@ class_name RunStats extends Resource
 
 signal coins_changed(new_coins: int)
 
-@export var biome: String = "sewer"
+@export var biome: String = "basecamp"
 @export var level: int = 1
 
 @export var hp: int = Character.DB["player"].max_hp + SavedData.data.get_extra_max_hp()
 @export var weapon_stats: Array[WeaponStats] = []
 @export var equipped_weapon_index: int = 0
 
-@export var coins: int = 30:
+@export var coins: int = 10:
 	set(new_coins):
 		coins = new_coins
 		coins_changed.emit(coins)

@@ -1,4 +1,4 @@
-class_name NoArmor extends Armor
+class_name Underpants extends Armor
 
 
 func _init() -> void:

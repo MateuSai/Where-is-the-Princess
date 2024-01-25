@@ -3,7 +3,12 @@ class_name BiomeConf
 const DEFAULT_NUM_COMBAT_ROOMS: int = 5
 const DEFAULT_NUM_SPECIAL_ROOMS: int = 1
 
+var name: String = "BIOME_NAME_GOES_HERE"
+
+## [String] with hexadecimal values. 2 digits for each order in order red, green, blue. For example, [code]"ff0000"[/code] is red, [code]"ffff00"[/code] is yellow, and [code]"000000"[/code] is black.
 var background_color: String = "1a1c00"
+## Same as [member background_color]. A [String] with hexadecimal values. 2 digits for each order in order red, green, blue. For example, [code]"ff0000"[/code] is red, [code]"ffff00"[/code] is yellow, and [code]"000000"[/code] is black.
+var light_color: String = "878787"
 
 var corridor_atlas_id: int = 0
 var room_atlas_id: int = 0

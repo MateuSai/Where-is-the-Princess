@@ -164,11 +164,6 @@ _data = {
 
 [node name="Skelebromancer" instance=ExtResource("1_8w4bg")]
 script = ExtResource("2_lfe2e")
-mass = 1.0
-acceleration = 40
-max_speed = 100
-flying = false
-can_be_knocked_back = true
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("2_5lr51")

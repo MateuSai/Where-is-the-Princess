@@ -1,0 +1,142 @@
+[gd_scene load_steps=8 format=3 uid="uid://ys6du3pthk3t"]
+
+[ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_ptbap"]
+[ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_tsh2x"]
+[ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_yh6yq"]
+[ext_resource type="PackedScene" uid="uid://bmnh0jqgjooo1" path="res://Rooms/characters_in_danger/basecamp_shop_manager_in_danger.tscn" id="4_jsdgg"]
+[ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_kaqni"]
+[ext_resource type="PackedScene" uid="uid://k0b7jt7bd1nh" path="res://Rooms/Furniture and Traps/traps/crocodile_trap/crocodile_trap_left.tscn" id="5_ukmdy"]
+[ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="6_ttcn1"]
+
+[node name="SewerBasecampMerchantRescueRoom" instance=ExtResource("1_ptbap")]
+
+[node name="TileMap" parent="." index="0"]
+layer_0/tile_data = PackedInt32Array(131073, 5, 3, 131074, 5, 2, 131075, 5, 3, 131076, 5, 3, 131077, 5, 3, 131078, 5, 2, 196614, 5, 2, 196613, 5, 2, 196612, 5, 2, 196611, 5, 2, 196610, 5, 2, 196609, 5, 3, 262145, 5, 3, 327681, 5, 2, 393217, 5, 3, 393218, 5, 2, 327682, 5, 2, 262146, 5, 2, 458753, 5, 3, 458754, 5, 3, 262147, 5, 3, 327683, 5, 2, 393219, 5, 2, 458755, 5, 3, 262148, 5, 3, 262149, 5, 3, 262150, 5, 2, 131079, 5, 3, 196615, 5, 3, 262151, 5, 3, 327687, 5, 3, 327686, 5, 2, 327685, 5, 2, 327684, 5, 2, 393220, 5, 3, 458756, 5, 3, 524292, 5, 2, 524291, 5, 2, 524290, 5, 3, 524289, 5, 2, 131083, 5, 2, 196619, 5, 3, 262155, 5, 3, 131084, 5, 2, 196620, 5, 3, 262156, 5, 3, 327692, 5, 2, 327693, 5, 2, 131085, 5, 3, 131086, 5, 3, 131087, 5, 3, 131088, 5, 2, 131089, 5, 3, 196625, 5, 3, 196624, 5, 3, 196623, 5, 2, 196622, 5, 3, 196621, 5, 3, 262157, 5, 2, 262158, 5, 3, 262159, 5, 3, 262160, 5, 2, 262161, 5, 2, 327697, 5, 3, 327696, 5, 3, 327695, 5, 2, 327694, 5, 3, 393233, 5, 2, 393232, 5, 2, 393231, 5, 2, 393230, 5, 3, 458766, 5, 2, 458767, 5, 3, 458768, 5, 3, 458769, 5, 2, 524305, 5, 3, 524304, 5, 3, 524303, 5, 2, 786449, 5, 2, 851985, 5, 2, 917521, 5, 3, 983057, 5, 2, 1048593, 5, 3, 1114129, 5, 3, 1179665, 5, 2, 1179664, 5, 3, 1179663, 5, 3, 1179662, 5, 3, 1179661, 5, 2, 1179660, 5, 2, 1179659, 5, 2, 1114123, 5, 3, 1114124, 5, 2, 1114125, 5, 2, 1114126, 5, 3, 1114127, 5, 3, 1114128, 5, 3, 1048592, 5, 2, 983056, 5, 2, 917520, 5, 2, 851984, 5, 2, 786448, 5, 2, 786447, 5, 3, 851983, 5, 2, 917519, 5, 2, 983055, 5, 2, 1048591, 5, 2, 1048590, 5, 3, 1048589, 5, 3, 1048588, 5, 2, 1048587, 5, 3, 983051, 5, 3, 983052, 5, 2, 983053, 5, 3, 983054, 5, 3, 917518, 5, 2, 851982, 5, 3, 786446, 5, 3, 786433, 5, 2, 851969, 5, 3, 917505, 5, 3, 983041, 5, 3, 1048577, 5, 2, 1114113, 5, 2, 1179649, 5, 2, 1179650, 5, 2, 1179651, 5, 2, 1179652, 5, 3, 1179653, 5, 3, 1179654, 5, 3, 1179655, 5, 3, 1114119, 5, 2, 1114118, 5, 3, 1114117, 5, 2, 1114116, 5, 3, 1114115, 5, 2, 1114114, 5, 2, 1048578, 5, 3, 1048579, 5, 2, 1048580, 5, 2, 1048581, 5, 2, 1048582, 5, 3, 1048583, 5, 2, 983042, 5, 3, 983043, 5, 3, 917507, 5, 3, 917506, 5, 2, 851970, 5, 2, 786434, 5, 2, 786435, 5, 2, 851971, 5, 3, 983045, 5, 2, 983046, 5, 2, 983047, 5, 3, 983044, 5, 3, 917508, 5, 3, 851972, 5, 3, 786436, 5, 2, 786442, 5, 2, 786441, 5, 3, 720905, 5, 2, 720904, 5, 3, 720906, 5, 2, 655370, 5, 2, 589834, 5, 2, 524297, 5, 2, 524296, 5, 2, 589832, 5, 2, 589833, 5, 3, 655369, 5, 3, 655368, 5, 3, 655371, 5, 2, 655367, 5, 3, 720907, 5, 2, 589831, 5, 2, 65537, 393221, 4, 65540, 524293, 5, 65541, 458757, 4, 65542, 524293, 4, 65543, 393221, 5, 65553, 458757, 5, 65550, 393221, 4, 65549, 458757, 4, 65548, 458757, 5, 65547, 524293, 4, 65544, 65541, 9, 65545, 131077, 9, 65546, 196613, 9, 65551, 5, 2, 65552, 5, 3, 16, 5, 3, 15, 5, 3, 2, 5, 3, 3, 5, 3, 65539, 5, 3, 65538, 5, 2, 196626, 5, 3, 262162, 5, 2, 196608, 5, 2, 262144, 5, 3, 1114130, 5, 3, 1048594, 5, 2, 1048576, 5, 3, 1114112, 5, 3, 131090, 524293, 4, 131072, 458757, 5, 983040, 458757, 4, 983058, 458757, 4, 917504, 327685, 7, 65536, 327685, 7, 1, 327685, 7, 14, 327685, 7, 917522, 65541, 7, 65554, 65541, 7, 17, 65541, 7, 4, 65541, 7, 5, 131077, 7, 6, 131077, 7, 7, 131077, 7, 8, 131077, 7, 9, 131077, 7, 10, 131077, 7, 11, 131077, 7, 12, 131077, 7, 13, 131077, 7, 18, 196613, 4, 0, 262149, 4, 589826, 131077, 5, 589827, 131077, 5, 655362, 5, 6, 655363, 5, 6, 720898, 327685, 4, 720899, 327685, 4, 720911, 327685, 4, 720912, 327685, 4, 589839, 131077, 5, 589840, 131077, 5, 655375, 5, 6, 655376, 5, 6, 1048584, 327685, 9, 1048585, 393221, 9, 1048586, 458757, 9, 1114120, 327685, 9, 1114121, 393221, 9, 1114122, 458757, 9, 196616, 327685, 9, 196617, 393221, 9, 196618, 458757, 9, 262152, 327685, 9, 262153, 393221, 9, 262154, 458757, 9, 393221, 5, 2, 393222, 5, 3, 458758, 5, 3, 524295, 5, 3, 458757, 5, 2, 524294, 5, 3, 458759, 5, 2, 524293, 5, 3, 393223, 5, 2, 589830, 5, 3, 458760, 5, 3, 786443, 5, 2, 851979, 5, 3, 851980, 5, 3, 917516, 5, 2, 917517, 5, 3, 786444, 5, 3, 851981, 5, 3, 917515, 5, 3, 786445, 5, 2, 851978, 5, 3, 720908, 5, 2, 393229, 5, 3, 327691, 5, 2, 393228, 5, 3, 458765, 5, 2, 524302, 5, 3, 917509, 5, 2, 851973, 5, 3, 917510, 5, 3)
+layer_1/tile_data = PackedInt32Array(327698, 196613, 5, 393234, 196613, 5, 458770, 196613, 5, 524306, 196613, 5, 589842, 196613, 5, 655378, 196613, 5, 720914, 196613, 5, 786450, 196613, 5, 851986, 196613, 5, 1179666, 196613, 6, 1179665, 65541, 6, 1179662, 327685, 6, 1179649, 327685, 6, 1179652, 65541, 6, 1179653, 131077, 6, 1179654, 131077, 6, 1179655, 131077, 6, 1179656, 131077, 6, 1179657, 131077, 6, 1179658, 131077, 6, 1179659, 131077, 6, 1179660, 131077, 6, 1179661, 131077, 6, 851968, 262149, 5, 786432, 262149, 5, 720896, 262149, 5, 655360, 262149, 5, 589824, 262149, 5, 524288, 262149, 5, 458752, 262149, 5, 393216, 262149, 5, 327680, 262149, 5)
+layer_3/tile_data = PackedInt32Array(1114130, 65541, 6, 262162, 65541, 6, 1114112, 327685, 6, 262144, 327685, 6)
+layer_4/tile_data = PackedInt32Array(720897, 131077, 10, 720900, 131077, 10, 720910, 131077, 10, 720913, 131077, 10, 131080, 262149, 8, 327688, 262149, 8, 1179656, 262149, 8, 983048, 262149, 8, 1179658, 131077, 8, 983050, 131077, 8, 131082, 131077, 8, 393227, 393221, 10, 458764, 393221, 10, 524301, 393221, 10, 917514, 393221, 10, 851977, 393221, 10, 786440, 393221, 10, 720903, 393221, 10, 655366, 393221, 10, 589829, 393221, 10, 917511, 262149, 11, 851974, 262149, 11, 786437, 262149, 11, 393224, 262149, 11, 458761, 262149, 11, 524298, 262149, 11, 589835, 262149, 11, 655372, 262149, 11, 720909, 262149, 11, 655364, 65541, 8, 655361, 65541, 8, 720901, 65541, 8, 786438, 65541, 8, 851975, 65541, 8, 917512, 65541, 8, 983049, 65541, 8, 1179657, 65541, 8, 917513, 65541, 8, 851976, 65541, 8, 786439, 65541, 8, 720902, 65541, 8, 655365, 65541, 8, 131081, 65541, 8, 327689, 65541, 8, 393225, 65541, 8, 458762, 65541, 8, 524299, 65541, 8, 393226, 65541, 8, 458763, 65541, 8, 524300, 65541, 8, 589836, 65541, 8, 589837, 65541, 8, 655373, 65541, 8, 655374, 65541, 8, 655377, 65541, 8, 589825, 196613, 7, 589828, 196613, 7, 589838, 196613, 7, 589841, 196613, 7, 327690, 131077, 8)
+layer_5/tile_data = PackedInt32Array(524290, 131077, 4, 524291, 131077, 4, 524303, 131077, 4, 524304, 131077, 4, 786434, 327685, 5, 786435, 327685, 5, 786447, 327685, 5, 786448, 327685, 5, 1048583, 262149, 9, 1114119, 262149, 9, 196615, 262149, 9, 262151, 262149, 9, 196619, 524293, 9, 262155, 524293, 9, 1048587, 524293, 9, 1114123, 524293, 9, 786449, 1114117, 8, 524292, 1048581, 7, 524305, 1114117, 7, 524289, 1769477, 7, 786433, 1769477, 8, 786446, 1769477, 8, 786436, 65541, 10, 851973, 65541, 10, 917510, 65541, 10, 983047, 65541, 10, 458760, 65541, 10, 524297, 65541, 10, 589834, 65541, 10, 655371, 65541, 10, 720908, 65541, 10, 589830, 5, 11, 655367, 5, 11, 720904, 5, 11, 786441, 5, 11, 851978, 5, 11, 327691, 5, 11, 393228, 5, 11, 458765, 5, 11, 524302, 5, 11, 1179659, 655365, 7, 1179655, 1179653, 7, 327687, 1179653, 8, 131083, 1310725, 8, 983051, 1310725, 7, 131079, 1835013, 8, 786445, 393221, 8, 524293, 393221, 7, 917515, 5, 7, 393223, 524293, 7)
+
+[node name="VerticalEntry" parent="Entries/Left" index="0" instance=ExtResource("2_tsh2x")]
+position = Vector2(6, 52)
+
+[node name="VerticalEntry2" parent="Entries/Left" index="1" instance=ExtResource("2_tsh2x")]
+position = Vector2(6, 262)
+
+[node name="HorizontalEntry" parent="Entries/Up" index="0" instance=ExtResource("3_yh6yq")]
+position = Vector2(41, 5)
+
+[node name="HorizontalEntry2" parent="Entries/Up" index="1" instance=ExtResource("3_yh6yq")]
+position = Vector2(249, 8)
+
+[node name="VerticalEntry" parent="Entries/Right" index="0" instance=ExtResource("2_tsh2x")]
+position = Vector2(296, 54)
+
+[node name="VerticalEntry2" parent="Entries/Right" index="1" instance=ExtResource("2_tsh2x")]
+position = Vector2(295, 262)
+
+[node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("3_yh6yq")]
+position = Vector2(41, 298)
+
+[node name="HorizontalEntry2" parent="Entries/Down" index="1" instance=ExtResource("3_yh6yq")]
+position = Vector2(249, 299)
+
+[node name="EnemyMarker4" type="Marker2D" parent="EnemyPositions" index="0"]
+position = Vector2(124, 144)
+script = ExtResource("4_kaqni")
+enemy_name = "PileOfBones"
+
+[node name="EnemyMarker3" type="Marker2D" parent="EnemyPositions" index="1"]
+position = Vector2(180, 192)
+script = ExtResource("4_kaqni")
+enemy_name = "pileOfBones"
+
+[node name="EnemyMarker5" type="Marker2D" parent="EnemyPositions" index="2"]
+position = Vector2(143, 145)
+script = ExtResource("4_kaqni")
+enemy_name = "skelebromancer"
+
+[node name="EnemyMarker6" type="Marker2D" parent="EnemyPositions" index="3"]
+position = Vector2(174, 178)
+script = ExtResource("4_kaqni")
+enemy_name = "skelebromancer"
+
+[node name="EnemyMarker7" type="Marker2D" parent="EnemyPositions" index="4"]
+position = Vector2(222, 208)
+script = ExtResource("4_kaqni")
+enemy_name = "smallSlime"
+
+[node name="EnemyMarker8" type="Marker2D" parent="EnemyPositions" index="5"]
+position = Vector2(208, 241)
+script = ExtResource("4_kaqni")
+enemy_name = "mediumSlime"
+
+[node name="EnemyMarker9" type="Marker2D" parent="EnemyPositions" index="6"]
+position = Vector2(243, 234)
+script = ExtResource("4_kaqni")
+enemy_name = "mediumSlime"
+
+[node name="EnemyMarker10" type="Marker2D" parent="EnemyPositions" index="7"]
+position = Vector2(96, 93)
+script = ExtResource("4_kaqni")
+enemy_name = "smallSlime"
+
+[node name="EnemyMarker11" type="Marker2D" parent="EnemyPositions" index="8"]
+position = Vector2(81, 112)
+script = ExtResource("4_kaqni")
+enemy_name = "smallSlime"
+
+[node name="EnemyMarker12" type="Marker2D" parent="EnemyPositions" index="9"]
+position = Vector2(70, 84)
+script = ExtResource("4_kaqni")
+enemy_name = "mediumSlime"
+
+[node name="EnemyMarker13" type="Marker2D" parent="EnemyPositions" index="10"]
+position = Vector2(202, 82)
+script = ExtResource("4_kaqni")
+enemy_name = "smallSlime"
+
+[node name="EnemyMarker14" type="Marker2D" parent="EnemyPositions" index="11"]
+position = Vector2(232, 107)
+script = ExtResource("4_kaqni")
+enemy_name = "mediumSlime"
+
+[node name="EnemyMarker15" type="Marker2D" parent="EnemyPositions" index="12"]
+position = Vector2(66, 218)
+script = ExtResource("4_kaqni")
+enemy_name = "mediumSlime"
+
+[node name="EnemyMarker16" type="Marker2D" parent="EnemyPositions" index="13"]
+position = Vector2(91, 240)
+script = ExtResource("4_kaqni")
+enemy_name = "smallSlime"
+
+[node name="CrocodileTrapUp" parent="Traps" index="0" instance=ExtResource("5_ukmdy")]
+position = Vector2(75, 166)
+
+[node name="BasecampShopManagerInDanger" parent="." index="9" instance=ExtResource("4_jsdgg")]
+position = Vector2(154, 170)
+
+[node name="Torch" parent="." index="10" instance=ExtResource("6_ttcn1")]
+position = Vector2(73, 24)
+
+[node name="Torch2" parent="." index="11" instance=ExtResource("6_ttcn1")]
+position = Vector2(227, 24)
+
+[node name="Torch3" parent="." index="12" instance=ExtResource("6_ttcn1")]
+position = Vector2(227, 296)
+
+[node name="Torch4" parent="." index="13" instance=ExtResource("6_ttcn1")]
+position = Vector2(73, 296)
+
+[node name="Torch5" parent="." index="14" instance=ExtResource("6_ttcn1")]
+position = Vector2(16, 214)
+
+[node name="Torch6" parent="." index="15" instance=ExtResource("6_ttcn1")]
+position = Vector2(16, 116)
+
+[node name="Torch7" parent="." index="16" instance=ExtResource("6_ttcn1")]
+position = Vector2(288, 116)
+
+[node name="Torch8" parent="." index="17" instance=ExtResource("6_ttcn1")]
+position = Vector2(288, 214)

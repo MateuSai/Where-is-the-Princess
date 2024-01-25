@@ -11,7 +11,7 @@ func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon) -> void:
 
 	dam *= damage_taken_multiplier
 
-	if player.armor is NoArmor: # We decrease hp
+	if player.armor is Underpants: # We decrease hp
 		hit_border_effect.effect(hit_border_effect.Type.HP, invincible_after_being_hitted_time)
 		self.hp -= dam
 		_play_hit_sound(weapon)
@@ -23,7 +23,7 @@ func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon) -> void:
 			var particles: GPUParticles2D = load("res://shaders_and_particles/DestroyParticles.tscn").instantiate()
 			particles.position += Vector2.UP * 6
 			player.add_child(particles)
-			player.set_armor(NoArmor.new())
+			player.set_armor(Underpants.new())
 
 	damage_taken.emit(dam, dir, force)
 

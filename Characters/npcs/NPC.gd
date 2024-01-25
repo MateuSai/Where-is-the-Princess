@@ -1,3 +1,4 @@
+@icon("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/merchant_idle_down_01.png")
 class_name NPC extends StaticBody2D
 
 const DIALOGUE_BOX_SCENE: PackedScene = preload("res://ui/dialogue_system/dialogue_box.tscn")

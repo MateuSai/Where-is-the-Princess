@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://na3ucjqaenur"]
+
+[ext_resource type="Script" path="res://ui/reactions/reaction.gd" id="1_pwv6t"]
+[ext_resource type="Texture2D" uid="uid://blnw663f31f8x" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Reactions/globo_base.png" id="1_xlx85"]
+[ext_resource type="Texture2D" uid="uid://cgtsb36bv3jay" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Reactions/enojado.png" id="2_nh2sa"]
+[ext_resource type="Material" uid="uid://cmyqibox7jjbf" path="res://unshaded.tres" id="2_t1bua"]
+
+[node name="Reaction" type="Control"]
+z_index = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -432.0
+offset_bottom = -243.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pwv6t")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = ExtResource("2_t1bua")
+layout_mode = 0
+offset_right = 24.0
+offset_bottom = 23.0
+texture = ExtResource("1_xlx85")
+stretch_mode = 3
+
+[node name="Face" type="TextureRect" parent="TextureRect"]
+unique_name_in_owner = true
+use_parent_material = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -11.5
+offset_right = 12.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_nh2sa")
+stretch_mode = 3

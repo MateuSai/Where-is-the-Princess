@@ -1,45 +1,58 @@
-extends LineEdit
+class_name Terminal extends LineEdit
 
-var last_command: String = ""
+static var last_command: String = ""
+
+@onready var ui: GameUI = get_tree().current_scene.get_node("UI")
+
+@onready var debug_info: VBoxContainer = $"../DebugInfo"
 
 
 func _ready() -> void:
 	draw.connect(func() -> void:
 		get_tree().paused = true
 		#show()
-		set_process_input(true)
+		#set_process_input(true)
 		#get_tree().current_scene.get_node("%UI").is_external_thing_opened = true
 		grab_focus()
 	)
 	hidden.connect(func() -> void:
 		get_tree().paused = false
 		#hide()
-		set_process_input(false)
+		#set_process_input(false)
+		ui.set_process_unhandled_input(true)
 		#get_tree().current_scene.get_node("%UI").is_external_thing_opened = false
 	)
 	hide()
-	set_process_input(false)
+	#set_process_input(false)
 
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventKey:
-		# We want to ignore the inputs used to close the terminal. The closing of the terminal is handled on DebugUI
-		if (event.is_action_pressed("ui_toggle_terminal") or event.is_action_pressed("ui_cancel")):
-			return
+	if event.is_action_pressed("ui_toggle_terminal") and debug_info.visible:
+		show()
+		ui.set_process_unhandled_input(false)
+	elif (event.is_action_pressed("ui_toggle_terminal") or event.is_action_pressed("ui_cancel")) and visible:
+		hide()
+		ui.set_process_unhandled_input(true)
+		get_viewport().set_input_as_handled()
+	elif visible:
+		if event is InputEventKey:
+			# We want to ignore the inputs used to close the terminal. The closing of the terminal is handled on DebugUI
+			#if (event.is_action_pressed("ui_toggle_terminal") or event.is_action_pressed("ui_cancel")):
+				#return
 
-		# si el jugador presiona la flecha de arriba, cargamos la ultima comanda que ejecutamos, solo si esta no es nula
-		if event.is_pressed() and (event as InputEventKey).keycode == KEY_UP:
-			if last_command.length() > 0:
-				get_viewport().set_input_as_handled() # para que el caret no vuelva a la posición inicial
-				text = last_command
-				caret_column = last_command.length()
-		elif event.is_pressed() and (event as InputEventKey).keycode in [KEY_ENTER, KEY_KP_ENTER]:
-			# solo procesamos la comanda si no esta vacia
-			if text.strip_edges().length() > 0:
-				_process_command(text)
-				last_command = text
+			# si el jugador presiona la flecha de arriba, cargamos la ultima comanda que ejecutamos, solo si esta no es nula
+			if event.is_pressed() and (event as InputEventKey).keycode == KEY_UP:
+				if last_command.length() > 0:
+					get_viewport().set_input_as_handled() # para que el caret no vuelva a la posición inicial
+					text = last_command
+					caret_column = last_command.length()
+			elif event.is_pressed() and (event as InputEventKey).keycode in [KEY_ENTER, KEY_KP_ENTER]:
+				# solo procesamos la comanda si no esta vacia
+				if text.strip_edges().length() > 0:
+					_process_command(text)
+					last_command = text
 
-			text = ""
+				text = ""
 
 
 func _process_command(command: String) -> void:
@@ -121,6 +134,11 @@ func _process_command(command: String) -> void:
 							_set_dark_souls(splitted_command[2])
 						else:
 							printerr("You must specify the new value of the dark souls")
+					"biome":
+						if splitted_command.size() > 2:
+							_set_biome(splitted_command[2])
+						else:
+							printerr("You must specify the new biome")
 					_:
 						printerr("Invalid argument for set")
 			else:
@@ -151,6 +169,18 @@ func _process_command(command: String) -> void:
 						printerr("Command " + splitted_command[0] + " " + splitted_command[1] + " does not exist")
 			else:
 				printerr("Invalid number of arguments, you must specify what to spawn")
+		"start":
+			if splitted_command.size() > 1: # tiene otro argumento
+				match splitted_command[1].to_lower():
+					"dialogue", "dia":
+						if splitted_command.size() > 2:
+							_start_player_dialogue(splitted_command[2])
+						else:
+							printerr("You must specify the dialogue text")
+					_:
+						printerr("Command " + splitted_command[0] + " " + splitted_command[1] + " does not exist")
+			else:
+				printerr("Invalid number of arguments, you must specify what to spawn")
 		"i'm fucking invincible":
 			_set_player_invincible("t")
 		"reload", "rel", "r":
@@ -159,51 +189,25 @@ func _process_command(command: String) -> void:
 			_save()
 		"clear":
 			_clear_room()
-#			if splitted_command.size() > 1: # tiene otro argumento
-#				match splitted_command[1]:
-#					"weapon", "weap":
-#						if splitted_command.size() == 3: # tiene otro argumento
-#							_spawn_weapon(splitted_command[2])
-#						elif splitted_command.size() > 3: # tiene un cuarto arguemnto (el tier)
-#							_spawn_weapon(splitted_command[2], splitted_command[3])
-#						else:
-#							printerr("Invalid command: you must specify a weapon")
-#					"throw", "throwable":
-#						if splitted_command.size() > 2: # tiene otro argumento
-#							if splitted_command.size() > 3: # tiene dos argumentos más
-#								_spawn_throwable(splitted_command[2], splitted_command[3])
-#							else:
-#								_spawn_throwable(splitted_command[2])
-#						else:
-#							printerr("Invalid command: you must specify a throwable weapon")
-#					"ammo":
-#						if splitted_command.size() > 2: # tiene otro argumento
-#							_spawn_ammo(splitted_command[2])
-#						else:
-#							printerr("Invalid command: you must specify the type of ammo")
-#					"armor":
-#						if splitted_command.size() > 2: # tiene otro argumento
-#							_spawn_armor(splitted_command[2])
-#						else:
-#							printerr("Invalid command: you must specify the armor name")
-#					"enemy":
-#						if splitted_command.size() > 2: # tiene otro argumento
-#							if splitted_command.size() > 3: # tiene dos argumentos más
-#								_spawn_enemy(splitted_command[2], splitted_command[3])
-#							else:
-#								_spawn_enemy(splitted_command[2])
-#						else:
-#							printerr("Invalid command: you must specify the enemy type")
-#					"resource", "res":
-#						if splitted_command.size() > 3: # tiene dos argumentos más
-#							if not splitted_command[3].is_valid_integer() or int(splitted_command[3]) <= 0:
-#								printerr("amount must be an int and greater than 0!")
-#							else:
-#								_spawn_resource(splitted_command[2], int(splitted_command[3]))
-#						elif splitted_command.size() > 2: # tiene otro argumento
-#							_spawn_resource(splitted_command[2])
-#						else:
-#							printerr("Invalid command: you must specify the resource type")
+		"react":
+			if splitted_command.size() > 1: # tiene otro argumento
+				_react(splitted_command[1])
+			else:
+				printerr("Invalid number of arguments, you must specify the reaction face")
+		"test":
+			if splitted_command.size() > 1: # tiene otro argumento
+				match splitted_command[1]:
+					"room":
+						if splitted_command.size() > 2: # tiene otro argumento
+							_test_room(splitted_command[2])
+						else:
+							printerr("Invalid number of arguments, you must specify the room path")
+					_:
+						printerr("test has no " + splitted_command[1] + " option")
+			else:
+				printerr("test cannot be used by itself")
+		_:
+			printerr("Invalid command")
 
 
 func _set_player_hp(hp_string: String) -> void:
@@ -273,6 +277,12 @@ func _set_player_worldcol(worldcol: String) -> void:
 		Globals.player.set_collision_mask_value(1, false)
 
 
+func _start_player_dialogue(dialogue_text: String) -> void:
+	Globals.player.start_dialogue(dialogue_text)
+
+	hide()
+
+
 func _set_player_invincible(value: String) -> void:
 	if _get_bool_from_string(value):
 		hide()
@@ -310,6 +320,12 @@ func _set_dark_souls(souls_string: String) -> void:
 	SavedData.set_dark_souls(int(souls_string))
 
 
+func _set_biome(biome: String) -> void:
+	hide()
+
+	Globals.exit_level(biome)
+
+
 func _get_bool_from_string(s: String) -> bool:
 	if s in ["true", "t", "tr", "1"]:
 		return true
@@ -343,6 +359,10 @@ func _spawn_weapon(weapon_string: String) -> void:
 
 
 func _spawn_item(item_string: String) -> void:
+	if Globals.player.current_room == null:
+		printerr("You must be inside a room to spawn items")
+		return
+
 	var item_script: GDScript = load(item_string)
 	if item_script == null:
 		printerr("There is no item script at: " + item_string)
@@ -350,9 +370,10 @@ func _spawn_item(item_string: String) -> void:
 
 	var item: Item = item_script.new()
 	var item_on_floor: ItemOnFloor = (load("res://items/item_on_floor.tscn") as PackedScene).instantiate()
-	item_on_floor.position = Globals.player.position + Vector2.RIGHT * 16
+	Globals.player.current_room.add_item_on_floor(item_on_floor, (Globals.player.position + Vector2.RIGHT * 16) - Globals.player.current_room.position)
+	#item_on_floor.position = Globals.player.position + Vector2.RIGHT * 16
 	item_on_floor.initialize(item)
-	get_tree().current_scene.add_child(item_on_floor)
+	#get_tree().current_scene.add_child(item_on_floor)
 	item_on_floor.enable_pick_up()
 
 	hide()
@@ -422,5 +443,26 @@ func _clear_room() -> void:
 	for child: Node in Globals.player.current_room.get_children():
 		if child is Enemy:
 			child.life_component.take_damage(2000, Vector2.ZERO, 0, null)
+
+	hide()
+
+
+func _react(face_string: String) -> void:
+	if not face_string.is_valid_int():
+		printerr("You must indicate the reaction face using his index")
+		return
+
+	Globals.player.react(int(face_string))
+
+	hide()
+
+
+func _test_room(path: String) -> void:
+	if not FileAccess.file_exists(path):
+		printerr("There is no file at " + path)
+		return
+
+	RoomTest.room_path = path
+	SceneTransistor.start_transition_to("res://Rooms/room_test.tscn")
 
 	hide()

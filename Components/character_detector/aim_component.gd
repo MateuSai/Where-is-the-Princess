@@ -15,11 +15,14 @@ const FLAG_REDUCE_PRECISION_WHEN_MOVING: int = 2
 
 
 ## Returns a dictionary containing the aim direction to the target as `dir`. It also contains `clear` that contains a bool indicating if the trajectory is clear of obstacles
-func get_dir() -> AimResult:
+func get_dir(from: Vector2 = Vector2.ZERO) -> AimResult:
 	var res: AimResult
 
+	if from == Vector2.ZERO:
+		from = character.global_position
+
 	if flags & FLAG_PREDICT_TRAJECTORY:
-		var vector_to_target: Vector2 = (target.global_position - character.global_position)
+		var vector_to_target: Vector2 = (target.global_position - from)
 		var projectile_time_to_target: float = vector_to_target.length() / projectile_speed
 		var target_predicted_future_position: Vector2 = target.global_position + target.velocity * projectile_time_to_target
 
@@ -31,7 +34,7 @@ func get_dir() -> AimResult:
 			target_predicted_future_position = raycast_res.position + (target.global_position - raycast_res.position).normalized() * 4
 		res = AimResult.new((target_predicted_future_position - character.global_position).normalized(), _is_trajectory_clear(target_predicted_future_position))
 	else:
-		res = AimResult.new((target.global_position - character.global_position).normalized(), _is_trajectory_clear(target.global_position))
+		res = AimResult.new((target.global_position - from).normalized(), _is_trajectory_clear(target.global_position))
 
 	if flags & FLAG_REDUCE_PRECISION_WHEN_MOVING and character.velocity.length() > 10:
 		res.dir = res.dir.rotated(randf_range(-0.2, 0.2))

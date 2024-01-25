@@ -1,6 +1,39 @@
-[gd_scene load_steps=2 format=3 uid="uid://b14mh3jk8cuns"]
+[gd_scene load_steps=7 format=3 uid="uid://b14mh3jk8cuns"]
 
 [ext_resource type="Script" path="res://Rooms/characters_in_danger/CharacterInDanger.gd" id="1_d4u4a"]
+[ext_resource type="Texture2D" uid="uid://d0fqpxt1mb637" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/jail_back.png" id="2_7v8x7"]
+[ext_resource type="Texture2D" uid="uid://ncjnllmfkyfd" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/jail_front.png" id="3_o3p61"]
+[ext_resource type="Script" path="res://interact_area.gd" id="4_6wagf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lsgyd"]
+size = Vector2(18, 9)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_obytk"]
+radius = 19.0263
 
 [node name="CharacterInDanger" type="Node2D"]
 script = ExtResource("1_d4u4a")
+
+[node name="JailBack" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("2_7v8x7")
+
+[node name="JailFront" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("3_o3p61")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_lsgyd")
+
+[node name="InteractArea" type="Area2D" parent="StaticBody2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_6wagf")
+path_to_sprite = NodePath("../../JailFront")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D/InteractArea"]
+shape = SubResource("CircleShape2D_obytk")

@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://c1knbqg4jff5f"]
+
+[ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_bf3ru"]
+[ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_w17xb"]
+[ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_2xssy"]
+[ext_resource type="PackedScene" uid="uid://bqcn0vo0ait26" path="res://Characters/npcs/mercenary/RichardTheGigachadWizard.tscn" id="4_e8de4"]
+[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="5_10njs"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_kt0fn"]
+resource_local_to_scene = true
+source_geometry_mode = 2
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 2.0
+
+[node name="MercenaryForestRoom01" instance=ExtResource("1_bf3ru")]
+navigation_polygon = SubResource("NavigationPolygon_kt0fn")
+
+[node name="TileMap" parent="." index="0"]
+layer_0/tile_data = PackedInt32Array(327681, 131072, 0, 393217, 262144, 3, 393218, 0, 2, 327682, 65536, 2, 262148, 327680, 2, 262149, 327680, 2, 327684, 262144, 3, 327685, 262144, 3, 327686, 65536, 0, 262150, 327680, 3, 262151, 458752, 3, 262152, 196608, 3, 196616, 196608, 3, 196617, 524288, 1, 196618, 524288, 1, 196619, 393216, 1, 262153, 393216, 2, 196613, 131072, 0, 196614, 458752, 2, 196615, 327680, 2, 131080, 131072, 2, 131079, 327680, 3, 131078, 327680, 2, 131077, 0, 3, 131081, 393216, 2, 131082, 524288, 1, 131083, 524288, 3, 131084, 458752, 1, 196620, 393216, 1, 262154, 393216, 2, 196612, 262144, 2, 196611, 262144, 2, 131075, 524288, 1, 131076, 131072, 1, 196610, 0, 3, 262146, 131072, 0, 262155, 524288, 1, 262156, 524288, 1, 327689, 393216, 1, 327688, 196608, 3, 327687, 327680, 2, 327690, 393216, 3, 393226, 524288, 3, 393225, 524288, 1, 393224, 196608, 3, 393223, 327680, 3, 393222, 262144, 1, 327691, 524288, 3, 327692, 458752, 1, 262145, 0, 3, 393219, 393216, 3, 458753, 458752, 1, 458754, 131072, 1, 65542, 327680, 3, 6, 327680, 2, 7, 327680, 2, 65543, 327680, 2, 327680, 196608, 0, 393216, 65536, 2, 262144, 524288, 4, 196609, 524288, 4, 131074, 458752, 5, 65539, 458752, 4, 65540, 393216, 4, 65541, 393216, 5, 65544, 524288, 4, 65545, 524288, 5, 65546, 393216, 4, 65547, 458752, 5, 65548, 524288, 4, 8, 65536, 7, 5, 327680, 7, 65538, 327680, 7, 131073, 327680, 7, 196608, 327680, 7, 131072, 262144, 4, 65537, 262144, 4, 2, 262144, 4, 13, 196608, 4, 9, 131072, 7, 10, 131072, 7, 11, 131072, 7, 12, 131072, 7, 3, 131072, 7, 4, 131072, 7, 327683, 262144, 3, 262147, 458752, 2)
+layer_1/tile_data = PackedInt32Array(65549, 196608, 5, 131085, 196608, 5, 196621, 196608, 5, 262157, 196608, 5, 327693, 196608, 6, 393227, 196608, 6, 393220, 196608, 6, 458755, 196608, 6, 458752, 262144, 6, 393221, 262144, 6, 393222, 327680, 6, 393225, 65536, 6, 393226, 131072, 6, 327692, 131072, 6, 327691, 65536, 6, 458753, 131072, 6, 458754, 131072, 6, 327684, 65536, 6, 327685, 327680, 6, 393219, 131072, 6)
+layer_2/tile_data = PackedInt32Array(131084, 589824, 3, 131083, 589824, 6, 131081, 589824, 6, 131076, 655360, 6, 196620, 589824, 0, 262156, 655360, 6, 131082, 589824, 0, 327687, 524288, 0, 262148, 524288, 0, 196611, 458752, 0, 131080, 458752, 0, 131075, 327680, 0, 327691, 655360, 6, 327692, 589824, 6, 393225, 589824, 3)
+layer_3/tile_data = PackedInt32Array(393216, 327680, 6)
+
+[node name="VerticalEntry" parent="Entries/Left" index="0" instance=ExtResource("2_w17xb")]
+position = Vector2(7, 87)
+
+[node name="HorizontalEntry" parent="Entries/Up" index="0" instance=ExtResource("3_2xssy")]
+position = Vector2(103, 7)
+
+[node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("3_2xssy")]
+position = Vector2(119, 103)
+
+[node name="TeleportPosition" parent="." index="7"]
+position = Vector2(107, 71)
+
+[node name="RichardTheGigachadWizard" parent="." index="9" instance=ExtResource("4_e8de4")]
+position = Vector2(181, 61)
+flip_h = true
+dir = Vector2(-1, 0)
+
+[node name="TikiTorch" parent="." index="10" instance=ExtResource("5_10njs")]
+position = Vector2(90, 41)
+
+[node name="TikiTorch2" parent="." index="11" instance=ExtResource("5_10njs")]
+position = Vector2(29, 75)
+
+[node name="TikiTorch3" parent="." index="12" instance=ExtResource("5_10njs")]
+position = Vector2(152, 52)

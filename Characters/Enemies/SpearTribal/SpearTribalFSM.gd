@@ -93,7 +93,7 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			spear_animation_player.play("attack")
 		CHARGE:
 			parent.max_speed = 500
-			parent.acceleration = 20
+			#parent.acceleration = 20
 			parent.mov_direction = (parent.player.position - parent.global_position).normalized()
 			spear_animation_player.play("charge")
 		DEAD:
@@ -108,6 +108,6 @@ func _exit_state(state_exited: int) -> void:
 			spear_animation_player.play("restore")
 		CHARGE:
 			parent.max_speed = 70
-			parent.acceleration = 10
+			#parent.acceleration = 0.1
 			spear_hitbox_collision_shape.disabled = true
 			spear_animation_player.stop()

@@ -17,4 +17,4 @@ func test_add_kill() -> void:
 		SavedData.add_kill("skelebro")
 		assert_int(SavedData.data.kills["skelebro"]).is_equal(i+1)
 
-	assert_array(SavedData.get_discovered_weapon_paths()).contains([skelebro_unlock_weapon_on_kills.weapon_path])
+	assert_array(SavedData.get_available_weapon_paths()).contains([skelebro_unlock_weapon_on_kills.weapon_path])

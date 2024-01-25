@@ -8,6 +8,7 @@ var can_attack: bool = true
 
 @onready var attack_timer: Timer = get_node("AttackTimer")
 @onready var blowpipe_pivot: Node2D = $BlowpipePivot
+@onready var blowpipe_end: Marker2D = $BlowpipePivot/Sprite2D/End
 
 
 func _ready() -> void:
@@ -30,8 +31,8 @@ func _process(_delta: float) -> void:
 func _throw_dart(dir: Vector2) -> void:
 	var projectile: Area2D = DART_SCENE.instantiate()
 	projectile.exclude.push_back(self)
-	projectile.launch(global_position, dir, projectile_speed, true)
 	get_tree().current_scene.add_child(projectile)
+	projectile.launch(blowpipe_end.global_position, dir, projectile_speed, true)
 
 
 

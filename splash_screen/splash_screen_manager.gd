@@ -37,7 +37,7 @@ func _start_splash_screen() -> void:
 	else:
 		var splash_screen: SplashScreen = _splash_screens.pop_front()
 		splash_screen.start()
-		splash_screen.connect("finished", _start_splash_screen)
+		splash_screen.finished.connect(_start_splash_screen)
 
 
 func _skip() -> void:

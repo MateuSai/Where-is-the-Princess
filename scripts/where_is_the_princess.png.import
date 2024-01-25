@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7p87b4q386kn"
-path="res://.godot/imported/erebus.png-8a11627247e294bce6980383fcdeb2df.ctex"
+uid="uid://4pec10xwqc0l"
+path="res://.godot/imported/where_is_the_princess.png-7edb98ab3fcbb28e6315295a5965d62d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scripts/erebus.png"
-dest_files=["res://.godot/imported/erebus.png-8a11627247e294bce6980383fcdeb2df.ctex"]
+source_file="res://scripts/where_is_the_princess.png"
+dest_files=["res://.godot/imported/where_is_the_princess.png-7edb98ab3fcbb28e6315295a5965d62d.ctex"]
 
 [params]
 

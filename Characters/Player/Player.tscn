@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=62 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -7,9 +7,10 @@
 [ext_resource type="Script" path="res://Characters/Player/PlayerFSM.gd" id="5"]
 [ext_resource type="PackedScene" uid="uid://bw0adahejc8e2" path="res://Weapons/Dagger.tscn" id="5_nk70o"]
 [ext_resource type="Script" path="res://Characters/Player/player_weapons.gd" id="5_uyohi"]
+[ext_resource type="Script" path="res://Components/character_reflection.gd" id="6_dvisx"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="6_hd6on"]
+[ext_resource type="Shader" path="res://shaders_and_particles/flag.gdshader" id="6_ixope"]
 [ext_resource type="Script" path="res://Characters/Player/UI.gd" id="7_24kdb"]
-[ext_resource type="Script" path="res://Characters/Player/PassiveItemsContainer.gd" id="8_aavgb"]
 [ext_resource type="Script" path="res://Characters/Player/PlayerCamera.gd" id="9_es44d"]
 [ext_resource type="Texture2D" uid="uid://ckd65h4x4udtg" path="res://Art/6x2.png" id="10_w3xli"]
 [ext_resource type="Script" path="res://Components/PlayerLifeComponent.gd" id="11_up6en"]
@@ -28,24 +29,14 @@
 [ext_resource type="Script" path="res://ui/RightBottomGameVBoxContainer.gd" id="18_j8x6c"]
 [ext_resource type="Texture2D" uid="uid://6cx2yobwuw5b" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_naked_icon.png" id="19_bc3n7"]
 [ext_resource type="Texture2D" uid="uid://dk5fa4ot7i4y" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/big_coin.tres" id="19_bh1ic"]
+[ext_resource type="Script" path="res://Characters/Player/items_container.gd" id="21_guiy0"]
 [ext_resource type="Texture2D" uid="uid://bhpt1388lfjwl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/Dragon Killer UI icon.png" id="21_ohq06"]
 [ext_resource type="Texture2D" uid="uid://c16ltio6detb6" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/StaminaBar_UI_empty.png" id="23_l30wv"]
 [ext_resource type="Texture2D" uid="uid://dw08gv6o23kjh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/StaminaBar_UI_full_2.png" id="24_yneg1"]
 [ext_resource type="Script" path="res://Characters/Player/stamina_bar.gd" id="25_22fjy"]
 [ext_resource type="Texture2D" uid="uid://cac17vxsy4c22" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/boss_soul_animation.tres" id="26_3xjxs"]
 [ext_resource type="Script" path="res://Characters/Player/AutoAimArea.gd" id="28_r7ct4"]
-[ext_resource type="Script" path="res://ui/PauseMenu.gd" id="31_wgvip"]
-[ext_resource type="Script" path="res://ui/ButtonWithSound.gd" id="32_7v412"]
-[ext_resource type="Script" path="res://ui/SettingsButton.gd" id="32_s7s57"]
-[ext_resource type="Texture2D" uid="uid://bp6rbf2gw15f5" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_normal_x2_size.png" id="32_yd8tt"]
 [ext_resource type="AudioStream" uid="uid://dhift2qs6kcl5" path="res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Equipement (menu)/ArmorLeatherMetal1.wav" id="33_3bfpk"]
-[ext_resource type="Texture2D" uid="uid://bs075q8gb23ih" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_hover_x2_size.png" id="33_ewonj"]
-[ext_resource type="Script" path="res://ui/QuitButton.gd" id="33_ftyjl"]
-[ext_resource type="Script" path="res://ui/PauseWeaponInventory.gd" id="34_30ssx"]
-[ext_resource type="Texture2D" uid="uid://c7w1c828j4ok0" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_pressed_x2_size.png" id="34_ghh16"]
-[ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="34_y5gnn"]
-[ext_resource type="PackedScene" uid="uid://bekcqxfxkfcf5" path="res://ui/DebugUI.tscn" id="36_mdex8"]
-[ext_resource type="Script" path="res://Components/auto_focus_on_controller.gd" id="39_33y0x"]
 [ext_resource type="AudioStream" uid="uid://ddvfc4vghai55" path="res://Audio/Sounds/540275__zepurple__pick-up-tool.wav" id="39_184bl"]
 [ext_resource type="AudioStream" uid="uid://bmektc0a3ocp4" path="res://Audio/Sounds/429924__julalvr__2-macho-comewav.wav" id="40_ndcss"]
 [ext_resource type="AudioStream" uid="uid://70di52o5u7oq" path="res://Audio/Sounds/324514__deleted_user_2104797__burp.wav" id="41_cbyot"]
@@ -53,6 +44,14 @@
 [ext_resource type="PackedScene" uid="uid://bikd00kecbdlq" path="res://Components/interact_area_selector.tscn" id="43_8bx65"]
 [ext_resource type="Texture2D" uid="uid://damj8rl1ks0wt" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/under_hazard_bar.png" id="48_cmvmn"]
 [ext_resource type="Texture2D" uid="uid://dbkp2b2ecyu83" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/progress_hazard_bar.png" id="49_cukxb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q2qlt"]
+shader = ExtResource("6_ixope")
+shader_parameter/speed = 0.15
+shader_parameter/frequency_y = 5.0
+shader_parameter/frequency_x = 10.0
+shader_parameter/amplitude_y = 0.3
+shader_parameter/amplitude_x = 0.8
 
 [sub_resource type="CircleShape2D" id="18"]
 radius = 3.0
@@ -381,69 +380,6 @@ shader = ExtResource("13_siyxg")
 shader_parameter/frequency = 100.0
 shader_parameter/depth = 0.01
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_puc8s"]
-texture = ExtResource("32_yd8tt")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b25h3"]
-texture = ExtResource("33_ewonj")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xjbsq"]
-texture = ExtResource("34_ghh16")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iltp2"]
-texture = ExtResource("32_yd8tt")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1scw3"]
-texture = ExtResource("33_ewonj")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gm3k0"]
-texture = ExtResource("34_ghh16")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dh0a5"]
-texture = ExtResource("32_yd8tt")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s7wgx"]
-texture = ExtResource("33_ewonj")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tvwmx"]
-texture = ExtResource("34_ghh16")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_cevl8"]
 radius = 114.28
 
@@ -451,11 +387,6 @@ radius = 114.28
 collision_layer = 2
 collision_mask = 21
 script = ExtResource("4")
-mass = null
-acceleration = null
-max_speed = null
-flying = null
-can_be_knocked_back = null
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("5")
@@ -470,10 +401,21 @@ hframes = 6
 vframes = 4
 frame = 6
 
-[node name="CollisionShape2D" parent="." index="3"]
+[node name="CharacterReflexion" type="Sprite2D" parent="." index="3"]
+z_index = -3
+material = SubResource("ShaderMaterial_q2qlt")
+position = Vector2(0, 6)
+scale = Vector2(1, -1)
+texture = ExtResource("4_kfgmg")
+hframes = 6
+vframes = 4
+frame = 6
+script = ExtResource("6_dvisx")
+
+[node name="CollisionShape2D" parent="." index="4"]
 shape = SubResource("18")
 
-[node name="HurtBox" type="Area2D" parent="." index="4"]
+[node name="HurtBox" type="Area2D" parent="." index="5"]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("6_hd6on")
@@ -482,19 +424,19 @@ script = ExtResource("6_hd6on")
 position = Vector2(0, -3)
 shape = SubResource("CapsuleShape2D_bds3i")
 
-[node name="AnimationPlayer" parent="." index="5"]
+[node name="AnimationPlayer" parent="." index="6"]
 libraries = {
 "": SubResource("AnimationLibrary_qxyws")
 }
 
-[node name="Weapons" type="Node2D" parent="." index="6"]
+[node name="Weapons" type="Node2D" parent="." index="7"]
 position = Vector2(0, -3)
 script = ExtResource("5_uyohi")
 
 [node name="Dagger" parent="Weapons" index="0" instance=ExtResource("5_nk70o")]
 position = Vector2(0, -3)
 
-[node name="Camera2D" type="Camera2D" parent="." index="7"]
+[node name="Camera2D" type="Camera2D" parent="." index="8"]
 position_smoothing_enabled = true
 script = ExtResource("9_es44d")
 
@@ -505,17 +447,17 @@ material = SubResource("CanvasItemMaterial_ivaog")
 scale = Vector2(134.552, 184.996)
 texture = ExtResource("10_w3xli")
 
-[node name="JumpAnimationPlayer" type="AnimationPlayer" parent="." index="8"]
+[node name="JumpAnimationPlayer" type="AnimationPlayer" parent="." index="9"]
 libraries = {
 "": SubResource("AnimationLibrary_35i6s")
 }
 
-[node name="LifeComponent" parent="." index="9"]
+[node name="LifeComponent" parent="." index="10"]
 script = ExtResource("11_up6en")
 max_hp = 2
 hp = 2
 
-[node name="UI" type="CanvasLayer" parent="." index="10"]
+[node name="UI" type="CanvasLayer" parent="." index="11"]
 script = ExtResource("7_24kdb")
 
 [node name="Mirage" type="TextureRect" parent="UI" index="0"]
@@ -577,10 +519,10 @@ script = ExtResource("12_ft4r3")
 [node name="PassiveItemsContainer" type="HFlowContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar" index="1"]
 layout_mode = 2
 offset_left = 17.0
-offset_top = 19.0
+offset_top = 34.0
 offset_right = 88.0
-offset_bottom = 19.0
-script = ExtResource("8_aavgb")
+offset_bottom = 34.0
+script = ExtResource("21_guiy0")
 
 [node name="ArmorAbilityBar" type="TextureProgressBar" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar" index="2"]
 layout_mode = 0
@@ -615,7 +557,7 @@ texture_progress = ExtResource("24_yneg1")
 script = ExtResource("25_22fjy")
 
 [node name="UpdateTimer" type="Timer" parent="UI/MarginContainer/ArmorAndStaminaVBox/MarginContainer/TextureRect/StaminaBar" index="0"]
-wait_time = 0.15
+wait_time = 0.1
 autostart = true
 
 [node name="Inventory" type="HBoxContainer" parent="UI" index="3"]
@@ -690,122 +632,21 @@ layout_mode = 2
 text = "0"
 vertical_alignment = 2
 
-[node name="ColorRect" type="ColorRect" parent="UI" index="6"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 0.34902)
-
-[node name="PauseMenu" type="Control" parent="UI" index="7"]
-process_mode = 2
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("31_wgvip")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/PauseMenu" index="0"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -68.0
-offset_top = -70.0
-offset_right = 68.0
-offset_bottom = 70.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
-pivot_offset = Vector2(68, 70)
-size_flags_vertical = 4
-theme = ExtResource("17_bwb1j")
-
-[node name="ResumeButton" type="Button" parent="UI/PauseMenu/VBoxContainer" index="0"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxTexture_puc8s")
-theme_override_styles/hover = SubResource("StyleBoxTexture_b25h3")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_xjbsq")
-text = "RESUME"
-script = ExtResource("32_7v412")
-
-[node name="SettingsButton" type="Button" parent="UI/PauseMenu/VBoxContainer" index="1"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxTexture_iltp2")
-theme_override_styles/hover = SubResource("StyleBoxTexture_1scw3")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_gm3k0")
-text = "SETTINGS"
-script = ExtResource("32_s7s57")
-
-[node name="QuitButton" type="Button" parent="UI/PauseMenu/VBoxContainer" index="2"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxTexture_dh0a5")
-theme_override_styles/hover = SubResource("StyleBoxTexture_s7wgx")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_tvwmx")
-text = "QUIT"
-script = ExtResource("33_ftyjl")
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/PauseMenu" index="1"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -13.0
-offset_bottom = 8.0
-grow_horizontal = 0
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-
-[node name="SeedLabel" type="Label" parent="UI/PauseMenu/MarginContainer" index="0"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("34_y5gnn")
-theme_override_font_sizes/font_size = 10
-
-[node name="Inventory" type="HBoxContainer" parent="UI/PauseMenu" index="2"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -13.0
-offset_bottom = -13.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = -1
-alignment = 1
-script = ExtResource("34_30ssx")
-
-[node name="AutoFocusOnController" type="Node" parent="UI/PauseMenu" index="3"]
-script = ExtResource("39_33y0x")
-
-[node name="DebugUI" parent="UI" index="8" instance=ExtResource("36_mdex8")]
-process_mode = 3
-metadata/_edit_use_anchors_ = true
-
 [node name="Marker2D" type="Marker2D" parent="DustPositions" index="0"]
 
-[node name="PointLight2D" type="PointLight2D" parent="." index="12"]
+[node name="PointLight2D" type="PointLight2D" parent="." index="13"]
 texture = ExtResource("15_41qtp")
 texture_scale = 0.5
 height = 16.0
 
-[node name="AutoAimArea" parent="." index="13" instance=ExtResource("42_ctcpp")]
+[node name="AutoAimArea" parent="." index="14" instance=ExtResource("42_ctcpp")]
+visible = false
 script = ExtResource("28_r7ct4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AutoAimArea" index="1"]
 shape = SubResource("CircleShape2D_cevl8")
 
-[node name="Timers" type="Node" parent="." index="14"]
+[node name="Timers" type="Node" parent="." index="15"]
 
 [node name="ArmorEffectTimer" type="Timer" parent="Timers" index="0"]
 one_shot = true
@@ -821,33 +662,33 @@ wait_time = 0.25
 one_shot = true
 
 [node name="StaminaRegenCooldownTimer" type="Timer" parent="Timers" index="4"]
-wait_time = 0.5
+wait_time = 0.6
 one_shot = true
 
-[node name="EquipArmorSound" type="AudioStreamPlayer" parent="." index="15"]
+[node name="EquipArmorSound" type="AudioStreamPlayer" parent="." index="16"]
 stream = ExtResource("33_3bfpk")
 volume_db = -5.0
 max_polyphony = 3
 bus = &"Sounds"
 
-[node name="EquipWeaponSound" type="AudioStreamPlayer" parent="." index="16"]
+[node name="EquipWeaponSound" type="AudioStreamPlayer" parent="." index="17"]
 stream = ExtResource("39_184bl")
 volume_db = -8.0
 bus = &"Sounds"
 
-[node name="EatSound" type="AudioStreamPlayer" parent="." index="17"]
+[node name="EatSound" type="AudioStreamPlayer" parent="." index="18"]
 stream = ExtResource("40_ndcss")
 volume_db = -5.0
 bus = &"Sounds"
 
-[node name="BurpSound" type="AudioStreamPlayer" parent="." index="18"]
+[node name="BurpSound" type="AudioStreamPlayer" parent="." index="19"]
 stream = ExtResource("41_cbyot")
 volume_db = -5.0
 bus = &"Sounds"
 
-[node name="InteractAreaSelector" parent="." index="20" instance=ExtResource("43_8bx65")]
+[node name="InteractAreaSelector" parent="." index="21" instance=ExtResource("43_8bx65")]
 
-[node name="AcidBar" type="TextureProgressBar" parent="." index="21"]
+[node name="AcidBar" type="TextureProgressBar" parent="." index="22"]
 offset_left = 7.0
 offset_top = -8.0
 offset_right = 11.0

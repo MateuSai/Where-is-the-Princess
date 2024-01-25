@@ -44,7 +44,7 @@ func _on_armor_changed(new_armor: Armor) -> void:
 	armor_ability_bar.texture_under = new_armor.ability_icon
 	armor_ability_bar.texture_progress = new_armor.ability_icon
 	armor_ability_bar.value = 100
-	if new_armor is NoArmor:
+	if new_armor is Underpants:
 		value = 0
 	else:
 		new_armor.condition_changed.connect(_on_armor_condition_changed)
