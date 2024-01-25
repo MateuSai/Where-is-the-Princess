@@ -4,7 +4,7 @@ class_name GameUI extends CanvasLayer
 
 var in_combat: bool = false
 
-@onready var tab_container: TabContainer = $TabContainer
+@onready var tab_container: TabContainer = $MenuTabContainer
 @onready var minimap: MiniMap = %MINIMAP
 @onready var menu: Control = %MENU
 @onready var seed_label: Label = %SeedLabel

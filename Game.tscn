@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=35 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -6,15 +6,13 @@
 [ext_resource type="Script" path="res://ui/UI.gd" id="5_c0f27"]
 [ext_resource type="Script" path="res://Components/tab_container_controller_support.gd" id="6_25qhk"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="6_ml8df"]
+[ext_resource type="Script" path="res://ui/menu_tab_container.gd" id="6_y3275"]
 [ext_resource type="Script" path="res://ui/PauseMenu.gd" id="11_7bikg"]
 [ext_resource type="Script" path="res://ui/MiniMap.gd" id="12_icbnv"]
-[ext_resource type="Texture2D" uid="uid://bp6rbf2gw15f5" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_normal_x2_size.png" id="12_sjsnb"]
-[ext_resource type="Texture2D" uid="uid://bs075q8gb23ih" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_hover_x2_size.png" id="13_8cbgv"]
 [ext_resource type="Script" path="res://ui/MinimapScrollContainer.gd" id="13_f54tc"]
 [ext_resource type="FontFile" uid="uid://drbvct1q4mkwc" path="res://Fonts/Alkhemikal.ttf" id="13_kxa6p"]
 [ext_resource type="Texture2D" uid="uid://cm2mxt7vas7t4" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/minimap_9-patch_bigger.png" id="13_s3von"]
 [ext_resource type="Shader" path="res://shaders_and_particles/IntensityToTransparency.gdshader" id="14_qjw3b"]
-[ext_resource type="Texture2D" uid="uid://c7w1c828j4ok0" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_pressed_x2_size.png" id="14_uupl3"]
 [ext_resource type="Script" path="res://ui/ButtonWithSound.gd" id="15_2ikhu"]
 [ext_resource type="Texture2D" uid="uid://bl8w6y7gf8ubx" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/icon_map.png" id="16_0uph7"]
 [ext_resource type="Script" path="res://ui/SettingsButton.gd" id="16_gpdwi"]
@@ -54,69 +52,6 @@ region = Rect2(0, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_p4wak"]
 atlas = ExtResource("19_mm2a6")
 region = Rect2(0, 16, 16, 16)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_th65t"]
-texture = ExtResource("12_sjsnb")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3sayf"]
-texture = ExtResource("13_8cbgv")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tp6a3"]
-texture = ExtResource("14_uupl3")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y8rbg"]
-texture = ExtResource("12_sjsnb")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f6fwb"]
-texture = ExtResource("13_8cbgv")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g8g7y"]
-texture = ExtResource("14_uupl3")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kfyp7"]
-texture = ExtResource("12_sjsnb")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e2ln6"]
-texture = ExtResource("13_8cbgv")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7tqsm"]
-texture = ExtResource("14_uupl3")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nogqy"]
 shader = ExtResource("14_qjw3b")
@@ -193,7 +128,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.384314)
 
-[node name="TabContainer" type="TabContainer" parent="UI"]
+[node name="MenuTabContainer" type="TabContainer" parent="UI"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -206,66 +141,67 @@ offset_bottom = 90.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_usvbv")
-current_tab = 2
+current_tab = 3
+script = ExtResource("6_y3275")
 
-[node name="MINIMAP" type="MarginContainer" parent="UI/TabContainer"]
+[node name="MINIMAP" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(300, 150)
 layout_mode = 2
 script = ExtResource("12_icbnv")
 
-[node name="MinimapScrollContainer" type="ScrollContainer" parent="UI/TabContainer/MINIMAP"]
+[node name="MinimapScrollContainer" type="ScrollContainer" parent="UI/MenuTabContainer/MINIMAP"]
 layout_mode = 2
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 script = ExtResource("13_f54tc")
 
-[node name="PanelContainer" type="PanelContainer" parent="UI/TabContainer/MINIMAP/MinimapScrollContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="UI/MenuTabContainer/MINIMAP/MinimapScrollContainer"]
 custom_minimum_size = Vector2(330, 200)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxTexture_oed6k")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/TabContainer/MINIMAP/MinimapScrollContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MenuTabContainer/MINIMAP/MinimapScrollContainer/PanelContainer"]
 custom_minimum_size = Vector2(5000, 5000)
 layout_mode = 2
 
-[node name="MapNameLabel" type="Label" parent="UI/TabContainer/MINIMAP/MinimapScrollContainer/PanelContainer"]
+[node name="MapNameLabel" type="Label" parent="UI/MenuTabContainer/MINIMAP/MinimapScrollContainer/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "hahaha"
 label_settings = SubResource("LabelSettings_lngc4")
 
-[node name="PlayerIcon" type="Sprite2D" parent="UI/TabContainer/MINIMAP/MinimapScrollContainer/PanelContainer"]
+[node name="PlayerIcon" type="Sprite2D" parent="UI/MenuTabContainer/MINIMAP/MinimapScrollContainer/PanelContainer"]
 z_index = 5
 texture = ExtResource("16_0uph7")
 
-[node name="UpdateFogTimer" type="Timer" parent="UI/TabContainer/MINIMAP"]
+[node name="UpdateFogTimer" type="Timer" parent="UI/MenuTabContainer/MINIMAP"]
 wait_time = 0.7
 
-[node name="EQUIPMENT" type="MarginContainer" parent="UI/TabContainer"]
+[node name="EQUIPMENT" type="MarginContainer" parent="UI/MenuTabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/TabContainer/EQUIPMENT"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MenuTabContainer/EQUIPMENT"]
 layout_mode = 2
 
-[node name="EquipmentArmorVBox" type="VBoxContainer" parent="UI/TabContainer/EQUIPMENT/HBoxContainer"]
+[node name="EquipmentArmorVBox" type="VBoxContainer" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("19_8kxgb")
 
-[node name="ArmorTexture" type="TextureRect" parent="UI/TabContainer/EQUIPMENT/HBoxContainer/EquipmentArmorVBox"]
+[node name="ArmorTexture" type="TextureRect" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer/EquipmentArmorVBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 texture = SubResource("AtlasTexture_5dygx")
 stretch_mode = 4
 
-[node name="ArmorNameLabel" type="Label" parent="UI/TabContainer/EQUIPMENT/HBoxContainer/EquipmentArmorVBox"]
+[node name="ArmorNameLabel" type="Label" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer/EquipmentArmorVBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
@@ -273,7 +209,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Armor name"
 autowrap_mode = 3
 
-[node name="ArmorDescriptionLabel" type="Label" parent="UI/TabContainer/EQUIPMENT/HBoxContainer/EquipmentArmorVBox"]
+[node name="ArmorDescriptionLabel" type="Label" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer/EquipmentArmorVBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
@@ -283,108 +219,99 @@ theme_override_font_sizes/font_size = 10
 text = "armor description"
 autowrap_mode = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/TabContainer/EQUIPMENT/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="UI/TabContainer/EQUIPMENT/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "WEAPONS"
 
-[node name="Inventory" type="HBoxContainer" parent="UI/TabContainer/EQUIPMENT/HBoxContainer/VBoxContainer"]
+[node name="Inventory" type="HBoxContainer" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = -1
 alignment = 1
 script = ExtResource("19_0wxa2")
 
-[node name="Label2" type="Label" parent="UI/TabContainer/EQUIPMENT/HBoxContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "ITEMS"
 
-[node name="ItemsContainer" type="HFlowContainer" parent="UI/TabContainer/EQUIPMENT/HBoxContainer/VBoxContainer"]
+[node name="ItemsContainer" type="HFlowContainer" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 script = ExtResource("23_pwm40")
 
-[node name="Label3" type="Label" parent="UI/TabContainer/EQUIPMENT/HBoxContainer/VBoxContainer"]
+[node name="Label3" type="Label" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "UPGRADES"
 
-[node name="UpgradesContainer" type="HFlowContainer" parent="UI/TabContainer/EQUIPMENT/HBoxContainer/VBoxContainer"]
+[node name="UpgradesContainer" type="HFlowContainer" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 script = ExtResource("16_tq616")
 
-[node name="ENCYCLOPEDIA" type="MarginContainer" parent="UI/TabContainer"]
+[node name="ENCYCLOPEDIA" type="MarginContainer" parent="UI/MenuTabContainer"]
+visible = false
 layout_mode = 2
 script = ExtResource("17_k4k0u")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/TabContainer/ENCYCLOPEDIA"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA"]
 layout_mode = 2
 
-[node name="CategoryButtons" type="VBoxContainer" parent="UI/TabContainer/ENCYCLOPEDIA/HBoxContainer"]
+[node name="CategoryButtons" type="VBoxContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer"]
 layout_mode = 2
 
-[node name="WeaponsButton" type="Button" parent="UI/TabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
+[node name="WeaponsButton" type="Button" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
 layout_mode = 2
 toggle_mode = true
 icon = ExtResource("18_mfhvg")
 
-[node name="ArmorsButton" type="Button" parent="UI/TabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
+[node name="ArmorsButton" type="Button" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
 layout_mode = 2
 toggle_mode = true
 icon = SubResource("AtlasTexture_p4wak")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/TabContainer/ENCYCLOPEDIA/HBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 
-[node name="HFlowContainer" type="HFlowContainer" parent="UI/TabContainer/ENCYCLOPEDIA/HBoxContainer/ScrollContainer"]
+[node name="HFlowContainer" type="HFlowContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MENU" type="MarginContainer" parent="UI/TabContainer"]
+[node name="MENU" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
 process_mode = 2
-visible = false
 layout_mode = 2
 mouse_filter = 2
 script = ExtResource("11_7bikg")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/TabContainer/MENU"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuTabContainer/MENU"]
 layout_mode = 2
 size_flags_vertical = 4
 theme = ExtResource("4_usvbv")
 
-[node name="ResumeButton" type="Button" parent="UI/TabContainer/MENU/VBoxContainer"]
+[node name="ResumeButton" type="Button" parent="UI/MenuTabContainer/MENU/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxTexture_th65t")
-theme_override_styles/hover = SubResource("StyleBoxTexture_3sayf")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_tp6a3")
 text = "RESUME"
 script = ExtResource("15_2ikhu")
 
-[node name="SettingsButton" type="Button" parent="UI/TabContainer/MENU/VBoxContainer"]
+[node name="SettingsButton" type="Button" parent="UI/MenuTabContainer/MENU/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxTexture_y8rbg")
-theme_override_styles/hover = SubResource("StyleBoxTexture_f6fwb")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_g8g7y")
 text = "SETTINGS"
 script = ExtResource("16_gpdwi")
 
-[node name="QuitButton" type="Button" parent="UI/TabContainer/MENU/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="UI/MenuTabContainer/MENU/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxTexture_kfyp7")
-theme_override_styles/hover = SubResource("StyleBoxTexture_e2ln6")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_7tqsm")
 text = "QUIT"
 script = ExtResource("17_iw01m")
 
-[node name="AutoFocusOnController" type="Node" parent="UI/TabContainer/MENU"]
+[node name="AutoFocusOnController" type="Node" parent="UI/MenuTabContainer/MENU"]
 script = ExtResource("20_o0kce")
 
-[node name="TabContainerControllerSupport" type="Node" parent="UI/TabContainer"]
+[node name="TabContainerControllerSupport" type="Node" parent="UI/MenuTabContainer"]
 script = ExtResource("6_25qhk")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
