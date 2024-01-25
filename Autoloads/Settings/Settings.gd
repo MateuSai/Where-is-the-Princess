@@ -18,7 +18,7 @@ var damage_numbers: bool:
 signal damage_numbers_changed(new_value: bool)
 var shop_prices_always_visible: bool:
 	get:
-		return settings.get_value(GENERAL_SECTION, "shop_prices_always_visible", true)
+		return settings.get_value(GENERAL_SECTION, "shop_prices_always_visible", false)
 	set(new_value):
 		settings.set_value(GENERAL_SECTION, "shop_prices_always_visible", new_value)
 		shop_prices_always_visible_changed.emit(new_value)

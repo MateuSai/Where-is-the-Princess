@@ -26,7 +26,7 @@ func initialize(item: Item) -> void:
 			price_container.hide()
 	)
 
-	if get_tree().current_scene.name == "Game":
+	if SavedData.get_biome_conf().name != "BASE_CAMP":
 		await (get_tree().current_scene as Game).player_added
 		_update_coin_price(Globals.player.shop_discount)
 		Globals.player.shop_discount_changed.connect(func(new_value: float) -> void:
@@ -35,7 +35,7 @@ func initialize(item: Item) -> void:
 #		price = round(item.get_coin_cost() * (1 - Globals.player.shop_discount))
 		currency_icon.texture = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small_coin.tres")
 	else: # BaseCamp
-		assert(get_tree().current_scene.name == "BaseCamp")
+		assert(SavedData.get_biome_conf().name == "BASE_CAMP")
 
 		price = item.get_dark_soul_cost()
 		currency_icon.texture = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/8x8_boss_soul_animation.tres")
@@ -71,16 +71,16 @@ func _update_coin_price(discount: float) -> void:
 
 
 func can_pick_up_item(player: Player) -> bool:
-	if (SavedData.run_stats.coins < price and get_tree().current_scene.name == "Game") or (SavedData.data.dark_souls < price and get_tree().current_scene.name != "Game"):
+	if (SavedData.run_stats.coins < price and SavedData.get_biome_conf().name != "BASE_CAMP") or (SavedData.data.dark_souls < price and SavedData.get_biome_conf().name == "BASE_CAMP"):
 		return false
 	return item.can_pick_up(Globals.player)
 
 
 func _pick_item_and_free() -> void:
-	if get_tree().current_scene.name == "Game":
-		SavedData.run_stats.coins -= price
-	else:
+	if SavedData.get_biome_conf().name == "BASE_CAMP":
 		SavedData.set_dark_souls(SavedData.data.dark_souls - price)
+	else:
+		SavedData.run_stats.coins -= price
 
 	var sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
 	sound.stream = load("res://Audio/Sounds/Change-www.fesliyanstudios.com.mp3")

@@ -4,5 +4,5 @@
 [ext_resource type="FontFile" uid="uid://d2w0270hsd243" path="res://Fonts/ark-pixel/ark-pixel-10px-proportional.ttf" id="2_tfjol"]
 
 [resource]
-base_font = ExtResource("1_fcqji")
 fallbacks = Array[Font]([ExtResource("2_tfjol")])
+base_font = ExtResource("1_fcqji")
