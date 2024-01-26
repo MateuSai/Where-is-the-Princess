@@ -337,9 +337,16 @@ func add_extra_available_armor(armor_path: String) -> void:
 	save_data()
 
 
-func get_random_available_armor_path() -> String:
-	var armor_paths: PackedStringArray = get_armor_paths()
-	return armor_paths[randi() % armor_paths.size()]
+func get_random_available_armor_path(quality: Item.Quality) -> String:
+	var possible_results: Array[String] = []
+
+	for armor_path: String in data.get_available_armors():
+		if load(armor_path).new().get_quality() == quality:
+			possible_results.push_back(armor_path)
+
+	assert(not possible_results.is_empty())
+	possible_results.shuffle()
+	return possible_results[0]
 
 
 ## Adds an armor only for this session. Use this for mods to load the armor each time the mod loads. The new armors will appear at the wardrobe on the basecamp and it may appear inside the game on the events where a random armor is choosen (like the shop)

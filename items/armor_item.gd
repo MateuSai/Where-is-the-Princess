@@ -18,6 +18,10 @@ func get_icon() -> Texture2D:
 	return armor.icon
 
 
+func get_quality() -> Quality:
+	return armor.get_quality()
+
+
 func get_item_name() -> String:
 	return armor.name
 

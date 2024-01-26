@@ -63,8 +63,6 @@ var current_room: DungeonRoom = null
 
 var position_before_jumping: Vector2
 
-#var sm
-
 # @onready var armor_sprite: Sprite2D = get_node("ArmorSprite")
 
 @onready var weapons: PlayerWeapons = get_node("Weapons")

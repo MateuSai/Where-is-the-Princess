@@ -20,3 +20,6 @@ signal coins_changed(new_coins: int)
 
 @export var permanent_passive_items: Array[PermanentPassiveItem] = []
 @export var temporal_passive_items: Array[TemporalPassiveItem] = []
+
+## Bigger luck means more chance to get rare items from chests
+@export var luck: int = 50
