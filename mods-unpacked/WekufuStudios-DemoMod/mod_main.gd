@@ -18,11 +18,10 @@ func _init() -> void:
 
 	ModLoaderMod.install_script_extension("res://mods-unpacked/WekufuStudios-DemoMod/menu_override.gd")
 
-	# Add extensions
-	#modLoader.install_script_extension(ext_dir + "main.gd")
-
 	# Add translations
-	#modLoader.add_translation_from_resource(trans_dir + "modname_text.en.translation")
+	for file: String in DirAccess.get_files_at(trans_dir):
+		if file.get_extension() == "translation":
+			ModLoaderMod.add_translation(trans_dir.path_join(file))
 
 
 func _ready() -> void:

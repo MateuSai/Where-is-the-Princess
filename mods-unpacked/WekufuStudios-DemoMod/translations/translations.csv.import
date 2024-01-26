@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://cbkc1460f0bfe"
+
+[deps]
+
+files=["res://mods-unpacked/WekufuStudios-DemoMod/translations/translations.en.translation", "res://mods-unpacked/WekufuStudios-DemoMod/translations/translations.ca.translation", "res://mods-unpacked/WekufuStudios-DemoMod/translations/translations.es.translation"]
+
+source_file="res://mods-unpacked/WekufuStudios-DemoMod/translations/translations.csv"
+dest_files=["res://mods-unpacked/WekufuStudios-DemoMod/translations/translations.en.translation", "res://mods-unpacked/WekufuStudios-DemoMod/translations/translations.ca.translation", "res://mods-unpacked/WekufuStudios-DemoMod/translations/translations.es.translation"]
+
+[params]
+
+compress=true
+delimiter=0
