@@ -28,7 +28,7 @@ func _ready() -> void:
 	SavedData.add_volatile_room(MYMODNAME_LOG, "res://mods-unpacked/WekufuStudios-DemoMod/rooms/forest_chest_room.tscn", "forest", "special")
 	SavedData.add_volatile_room(MYMODNAME_LOG, "res://mods-unpacked/WekufuStudios-DemoMod/rooms/mod_forest_combat_room.tscn", "forest", "combat")
 
-	SavedData.add_volatile_armor("res://mods-unpacked/WekufuStudios-DemoMod/KnightArmor.gd")
+	SavedData.add_mod_armor("res://mods-unpacked/WekufuStudios-DemoMod/KnightArmor.gd")
 	SavedData.add_volatile_permanent_item("res://mods-unpacked/WekufuStudios-DemoMod/metal_soles.gd")
 
 	ModLoaderLog.info("Done", MYMODNAME_LOG)

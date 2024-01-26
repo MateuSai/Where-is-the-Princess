@@ -29,8 +29,11 @@ func _set_category(new_category: int) -> void:
 				icon.texture = weapon_data.icon
 				flow_container.add_child(icon)
 		ARMORS:
-			for armor_path: String in Data.ALL_VANILLA_ARMORS:
+			var available_armor_paths: PackedStringArray = SavedData.get_available_armor_paths()
+			for armor_path: String in SavedData.get_all_armor_paths():
 				var armor: Armor = load(armor_path).new()
 				var icon: TextureRect = TextureRect.new()
 				icon.texture = armor.get_icon()
+				if not available_armor_paths.has(armor_path):
+					icon.modulate = Color.BLACK
 				flow_container.add_child(icon)
