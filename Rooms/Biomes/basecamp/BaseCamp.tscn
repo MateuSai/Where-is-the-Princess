@@ -303,8 +303,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 192.0
-offset_bottom = 142.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_nybk1")
@@ -319,17 +319,21 @@ columns = 3
 [node name="VSeparator" type="VSeparator" parent="WardrobePopup/WardrobeUI/HBoxContainer"]
 layout_mode = 2
 
-[node name="ArmorDetails" type="VBoxContainer" parent="WardrobePopup/WardrobeUI/HBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="WardrobePopup/WardrobeUI/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="NameLabel" type="Label" parent="WardrobePopup/WardrobeUI/HBoxContainer/ArmorDetails"]
+[node name="ArmorDetails" type="VBoxContainer" parent="WardrobePopup/WardrobeUI/HBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NameLabel" type="Label" parent="WardrobePopup/WardrobeUI/HBoxContainer/ScrollContainer/ArmorDetails"]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 autowrap_mode = 3
 
-[node name="DescriptionLabel" type="Label" parent="WardrobePopup/WardrobeUI/HBoxContainer/ArmorDetails"]
+[node name="DescriptionLabel" type="Label" parent="WardrobePopup/WardrobeUI/HBoxContainer/ScrollContainer/ArmorDetails"]
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)

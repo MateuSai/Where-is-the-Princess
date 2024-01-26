@@ -4,8 +4,8 @@ extends MarginContainer
 
 @onready var armors_grid: GridContainer = get_node("HBoxContainer/Armors")
 
-@onready var name_label: Label = get_node("HBoxContainer/ArmorDetails/NameLabel")
-@onready var description_label: Label = get_node("HBoxContainer/ArmorDetails/DescriptionLabel")
+@onready var name_label: Label = $HBoxContainer/ScrollContainer/ArmorDetails/NameLabel
+@onready var description_label: Label = $HBoxContainer/ScrollContainer/ArmorDetails/DescriptionLabel
 
 
 func _ready() -> void:
