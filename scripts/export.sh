@@ -2,6 +2,8 @@
 
 readonly GODOT=/home/mateus/.local/share/godot/app_userdata/Godots/versions/Godot_v4_2_1-stable_linux_x86_64/Godot_v4.2.1-stable_linux.x86_64
 readonly PROJECT_DIR=/home/mateus/GitHub/Godot4RoguelikeProject
+readonly VERSION=$(sed -nr "/^\[global\]/ { :l /^version[ ]*=/ { s/[^=]*=[ ]*//; p; q;}; n; b l;}" ${PROJECT_DIR}/project.godot | tr '.' '_' | cut -d "\"" -f 2)
+#echo $VERSION
 
 targets=("Linux/X11" "Windows Desktop")
 export_name=where_is_the_princess
@@ -20,7 +22,7 @@ export_linux() {
   cp ./scripts/install.sh ${save_path}/install.sh
 
   cd ${save_dir}
-  tar -cvzf ${export_name}_lin.tar.gz ${game_folder_name}
+  tar -cvzf ${export_name}_${VERSION}_lin.tar.gz ${game_folder_name}
   rm -rf $game_folder_name
 }
 
@@ -35,7 +37,7 @@ export_windows() {
   mv $save_dir$export_name.pck ${save_path}/${export_name}.pck
 
   cd ${save_dir}
-  zip -v9r ${export_name}_win.zip ${game_folder_name}
+  zip -v9r ${export_name}_${VERSION}_win.zip ${game_folder_name}
   rm -rf $game_folder_name
 }
 
