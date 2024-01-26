@@ -20,7 +20,7 @@ export_linux() {
   cp ./scripts/install.sh ${save_path}/install.sh
 
   cd ${save_dir}
-  tar -cvzf ${export_name}.tar.gz ${game_folder_name}
+  tar -cvzf ${export_name}_lin.tar.gz ${game_folder_name}
   rm -rf $game_folder_name
 }
 
@@ -31,11 +31,11 @@ export_windows() {
   save_path=${save_dir}${game_folder_name}
   echo $save_path
   mkdir $save_path
-  mv $save_dir$export_name ${save_path}/${export_name}
+  mv $save_dir$export_name ${save_path}/${export_name}.exe
   mv $save_dir$export_name.pck ${save_path}/${export_name}.pck
 
   cd ${save_dir}
-  zip -v ${export_name}.zip ${game_folder_name}
+  zip -v9r ${export_name}_win.zip ${game_folder_name}
   rm -rf $game_folder_name
 }
 
