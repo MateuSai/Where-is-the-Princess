@@ -177,6 +177,7 @@ PopupMenu/icons/radio_checked = ExtResource("1_pp2h6")
 PopupMenu/icons/radio_unchecked = ExtResource("2_cm5ob")
 PopupMenu/styles/panel = SubResource("StyleBoxTexture_73vy8")
 PopupPanel/styles/panel = SubResource("StyleBoxTexture_b2mtb")
+TabContainer/colors/font_selected_color = Color(0.243137, 0.137255, 0.00784314, 1)
 TabContainer/font_sizes/font_size = 10
 TabContainer/fonts/font = ExtResource("16_3qg6k")
 TabContainer/styles/panel = SubResource("StyleBoxTexture_p0q2m")

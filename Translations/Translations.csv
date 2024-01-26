@@ -1,19 +1,20 @@
 keys,en,ca,es,ja
 UNDERPANTS,Underpants,Roba interior,Ropa interior,パンツ
 UNDERPANTS_DESCRIPTION,Why wear an armor? You are faster with only your underpants.,Per què equipar-te una armadura? Ets més ràpid anant només amb calçotets.,¿Por qué equiparte una armadura? Eres más rápido solo con tus gayumbos.,
-KNIGHT,Knight,Cavaller,Caballero,騎士
 MERCENARY_ARMOR,Mercenary Armor,Armadura de Mercenari,Armadura de Mercenario,傭兵
 MERCENARY_ARMOR_DESCRIPTION,An armor a reckless mercenary wore a long time ago.,Una armadura que portava un mercenari agosarat fa molt de temps.,Una armadura que llevaba un mercenario temerario hace mucho tiempo.,
 FARMER_CLOTHES,Farmer Clothes,Roba de Pagès,Ropa de Granjero,
-IMPROVISED_ARMOR,Improvised Armor,Armadura Improvisada,Armadura Improvisada,
+FARMER_CLOTHES_DESCRIPTION,"The shopkeeper, thinking that you are poor, he will make a discount to you.","El botiguer, pensant que ets pobre, et farà un descompte.","El tipo de la tienda, pensando que eres pobre, te hará un descuento.",
 NECROMANCER_ARMOR,Necromancer Armor,Armadura de Nigromant,Armadura de Nigromante,
 NECROMANCER_ARMOR_DESCRIPTION,Stole life from the enemies to restore your armor.,Roba vida dels enemics per restaurar la teva armadura.,Roba vida a los enemigos para restaurar tu armadura.,
 COMMONER_CLOTHES,Commoner Clothes,Roba de Plebeu,Ropa de Plebeyo,
 COMMONER_CLOTHES_DESCRIPTION,"Increases damage with daggers,",Augmenta el dany de les dagues.,Aumenta el daño de las dagas.,
 LEATHER_ARMOR,Leather Armor,Armadura de Cuir,Armadura de Cuero,
 LEATHER_ARMOR_DESCRIPTION,"A used leather armor. It won’t protect you much, but better this than your usual clothes.","Una armadura de cuir feta servir. No et protegirà gaire, però millor això que la teva roba usual.","Una armadura de cuero usada. No te va a proteger mucho, pero mejor esto que ir con tu ropa usual.",
-IMPROVIDED_ARMOR,Improvised Armor,Armadura Improvisada,Armadura Improvisada,
+IMPROVISED_ARMOR,Improvised Armor,Armadura Improvisada,Armadura Improvisada,
 IMPROVISED_ARMOR_DESCRIPTION,What’s this? Did you really tie a shield to your chest?,Què és això? De veritat has lligat un escut al teu pit?,¿Qué es esto? ¿De verdad has atado un escudo a tu pecho?,
+WARRIOR_ARMOR,Warrior Armor,Armadura de Guerrer,Armadura de Guerrero,
+WARRIOR_ARMOR_DESCRIPTION,A powerful armor capable of destroying projectiles and pusuing away enemies with his ability.,Una poderosa armadura capaç de destruir projectils i empènyer enemics amb la seva habilitat.,Una poderosa armadura capaz de destruir proyectiles y empujar enemigos con su habilidad.,
 ,,,,
 MAGIC_SHIELD,Magic Shield,Escut Màgic,Escudo Mágico,
 MAGIC_SHIELD_DESCRIPTION,A shield that orbits around the player,Un escut que orbita al voltant del jugador,Un escudo que orbita alrededor del jugador,
