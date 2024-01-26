@@ -13,8 +13,15 @@ func _ready() -> void:
 			set_tab_icon(tab, load(COLOR_ICONS[tab]))
 		else:
 			set_tab_icon(tab, load(GREY_ICONS[tab]))
+			set_tab_title(tab, "")
 
 	tab_changed.connect(func(tab: int) -> void:
-		set_tab_icon(get_previous_tab(), load(GREY_ICONS[tab]))
+		#print(get_previous_tab())
+		#print(tab)
+
+		set_tab_icon(get_previous_tab(), load(GREY_ICONS[get_previous_tab()]))
+		set_tab_title(get_previous_tab(), "")
+
 		set_tab_icon(tab, load(COLOR_ICONS[tab]))
+		set_tab_title(tab, get_child(tab).name)
 	)
