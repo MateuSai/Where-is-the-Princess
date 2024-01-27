@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://4diatv3rr660" path="res://brow_square.png" id="7_bvea0"]
 [ext_resource type="Texture2D" uid="uid://cpda4qwx1x4j6" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/sign.png" id="9_dti1o"]
 [ext_resource type="Script" path="res://start_area.gd" id="9_r816v"]
-[ext_resource type="PackedScene" uid="uid://bqcn0vo0ait26" path="res://Characters/npcs/mercenary/RichardTheGigachadWizard.tscn" id="11_vh5i5"]
+[ext_resource type="PackedScene" uid="uid://bqcn0vo0ait26" path="res://Characters/npcs/mercenary/mercenary.tscn" id="11_vh5i5"]
 [ext_resource type="PackedScene" uid="uid://cjc0h245lbmpd" path="res://Weapons/Melee/Katana/Katana.tscn" id="12_trlvh"]
 [ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="13_2uruh"]
 [ext_resource type="AudioStream" uid="uid://dq7f7p17hn6bl" path="res://Audio/Sounds/280235__toefur__open-wardrobe-1.wav" id="15_iuhqb"]
@@ -518,3 +518,6 @@ material = SubResource("CanvasItemMaterial_xxlah")
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 64
+
+[node name="TikiTorch16" parent="." instance=ExtResource("26_61yb5")]
+position = Vector2(70, 34)

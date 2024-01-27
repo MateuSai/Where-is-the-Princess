@@ -1,55 +1,36 @@
-[gd_scene load_steps=15 format=3 uid="uid://bqcn0vo0ait26"]
+[gd_scene load_steps=14 format=3 uid="uid://bqcn0vo0ait26"]
 
-[ext_resource type="Texture2D" uid="uid://ckm5f14just72" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armor_02.png" id="1_3fotm"]
-[ext_resource type="Script" path="res://Characters/npcs/mercenary/RichardTheGigachadWizard.gd" id="2_aqu0x"]
+[ext_resource type="Script" path="res://Characters/npcs/mercenary/mercenary.gd" id="2_aqu0x"]
+[ext_resource type="Texture2D" uid="uid://bqrekanm1lana" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/mercenary_01.png" id="2_ecygt"]
+[ext_resource type="Texture2D" uid="uid://cv376fga4y74a" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/mercenary_02.png" id="3_jm70r"]
 [ext_resource type="Script" path="res://interact_area.gd" id="3_orqtc"]
+[ext_resource type="Texture2D" uid="uid://bwtwamad2dk4i" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/mercenary_03.png" id="4_i1lte"]
 [ext_resource type="Theme" uid="uid://d0qfeecooxxpf" path="res://SmallFontTheme.tres" id="4_y3cxq"]
 [ext_resource type="Texture2D" uid="uid://bda8a38gqhymr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small_coin.tres" id="5_ac16s"]
+[ext_resource type="Texture2D" uid="uid://co3oqj1575v1p" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/mercenary_04.png" id="5_q8jq4"]
+[ext_resource type="Texture2D" uid="uid://yuti6alra4bp" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/mercenary_05.png" id="6_p4i7b"]
+[ext_resource type="Texture2D" uid="uid://crdjlg4lu1u11" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/mercenary_06.png" id="7_qmkkt"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nshvf"]
-atlas = ExtResource("1_3fotm")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lc73c"]
-atlas = ExtResource("1_3fotm")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dr5l8"]
-atlas = ExtResource("1_3fotm")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6m87i"]
-atlas = ExtResource("1_3fotm")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wkich"]
-atlas = ExtResource("1_3fotm")
-region = Rect2(64, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_82i77"]
-atlas = ExtResource("1_3fotm")
-region = Rect2(80, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_76c8i"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_gla51"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nshvf")
+"texture": ExtResource("2_ecygt")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lc73c")
+"texture": ExtResource("3_jm70r")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dr5l8")
+"texture": ExtResource("4_i1lte")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6m87i")
+"texture": ExtResource("5_q8jq4")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wkich")
+"texture": ExtResource("6_p4i7b")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_82i77")
+"texture": ExtResource("7_qmkkt")
 }],
 "loop": true,
 "name": &"default",
@@ -62,14 +43,13 @@ radius = 9.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_jeo08"]
 radius = 3.16228
 
-[node name="RichardTheGigachadWizard" type="StaticBody2D"]
+[node name="Mercenary" type="StaticBody2D"]
 collision_mask = 0
 script = ExtResource("2_aqu0x")
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_76c8i")
+sprite_frames = SubResource("SpriteFrames_gla51")
 autoplay = "default"
-frame_progress = 0.814168
 offset = Vector2(0, -5)
 
 [node name="InteractArea" type="Area2D" parent="."]
