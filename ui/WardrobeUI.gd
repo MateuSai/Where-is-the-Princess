@@ -11,7 +11,7 @@ extends MarginContainer
 func _ready() -> void:
 	var armors: Array[Armor] = [Underpants.new()]
 
-	for armor_path: String in SavedData.get_available_armor_paths():
+	for armor_path: String in SavedData.get_discovered_armors_paths():
 		armors.push_back(load(armor_path).new())
 
 	for armor: Armor in armors:

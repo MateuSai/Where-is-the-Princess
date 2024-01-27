@@ -21,22 +21,23 @@ var dark_souls: int = 0
 
 var kills: Dictionary = {}
 
-var ignored_rooms: Array[String] = []
+var ignored_rooms: PackedStringArray = []
 
-var _extra_available_weapons: Array[String] = []
-#"undiscovered_weapons": PackedStringArray(["res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn"]),
+var _extra_available_weapons: PackedStringArray = []
+var _discovered_weapons: PackedStringArray = []
 
 var equipped_armor: String = "res://Armors/underpants.gd"
-var _extra_available_armors: Array[String] = []
+var _extra_available_armors: PackedStringArray = []
+var _discovered_armors: PackedStringArray = []
 
-var _extra_available_permanent_items: Array[String] = []
-#	"undiscovered_permanent_items": PackedStringArray(["res://items/Passive/Permanent/EnhancedBoots.gd"]),
-var _extra_available_temporal_items: Array[String] = []
-#	"undiscovered_temporal_items": PackedStringArray(["res://items/Passive/Temporal/MagicSword.gd"]),
+var _extra_available_permanent_items: PackedStringArray = []
+var _discovered_permanent_items: PackedStringArray = []
+var _extra_available_temporal_items: PackedStringArray = []
+var _discovered_temporal_items: PackedStringArray = []
 
 var player_upgrades: Array[PlayerUpgrade] = []
 
-var _completed_dialogues: Array = []
+var _completed_dialogues: PackedStringArray = []
 
 var items_shop_unlocked: bool = false
 var player_upgrades_shop_unlocked: bool = false
@@ -66,10 +67,28 @@ func get_available_weapons() -> PackedStringArray:
 	return PackedStringArray(arr)
 
 
+func discover_weapon_if_not_already(weapon_path: String) -> void:
+	if not _discovered_weapons.has(weapon_path):
+		_discovered_weapons.push_back(weapon_path)
+
+
+func get_discovered_weapons() -> PackedStringArray:
+	return _discovered_weapons.duplicate()
+
+
 func get_available_armors() -> PackedStringArray:
 	var arr: Array = _extra_available_armors.duplicate()
 	arr.append_array(AVAILABLE_ARMORS_FROM_START)
 	return PackedStringArray(arr)
+
+
+func discover_armor_if_not_already(armor_path: String) -> void:
+	if not _discovered_armors.has(armor_path):
+		_discovered_armors.push_back(armor_path)
+
+
+func get_discovered_armors() -> PackedStringArray:
+	return _discovered_armors.duplicate()
 
 
 func get_available_permanent_items() -> PackedStringArray:
@@ -78,10 +97,18 @@ func get_available_permanent_items() -> PackedStringArray:
 	return PackedStringArray(arr)
 
 
+func get_discovered_permanent_items() -> PackedStringArray:
+	return _discovered_permanent_items.duplicate()
+
+
 func get_available_temporal_items() -> PackedStringArray:
 	var arr: Array = _extra_available_temporal_items.duplicate()
 	arr.append_array(AVAILABLE_TEMPORAL_ITEMS_FROM_START)
 	return PackedStringArray(arr)
+
+
+func get_discovered_temporal_items() -> PackedStringArray:
+	return _discovered_temporal_items.duplicate()
 
 
 func get_available_player_upgrades() -> PackedStringArray:
@@ -127,12 +154,13 @@ static func from_dic(dic: Dictionary) -> Data:
 
 	for key: String in dic.keys():
 		if data.get(key) != null:
-			match key:
-				"player_upgrades":
-					for player_upgrade_dic: Dictionary in dic.player_upgrades:
-						data.player_upgrades.push_back(PlayerUpgrade.from_dic(player_upgrade_dic))
-				_:
-					data.set(key, dic[key])
+			if key == "player_upgrades":
+				for player_upgrade_dic: Dictionary in dic.player_upgrades:
+					data.player_upgrades.push_back(PlayerUpgrade.from_dic(player_upgrade_dic))
+			elif dic[key] is Array:
+				data.set(key, PackedStringArray(dic[key]))
+			else:
+				data.set(key, dic[key])
 		else:
 			printerr("Data: Invalid property: " + key)
 

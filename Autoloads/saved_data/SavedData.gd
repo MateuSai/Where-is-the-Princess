@@ -350,6 +350,10 @@ func get_random_available_armor_path(quality: Item.Quality) -> String:
 	return possible_results[0]
 
 
+func get_discovered_armors_paths() -> PackedStringArray:
+	return data.get_discovered_armors()
+
+
 ## Vanilla and mod. Available and not available. All the armors in the game
 func get_all_armor_paths() -> PackedStringArray:
 	var ret: PackedStringArray = data.ALL_VANILLA_ARMORS.duplicate()
@@ -363,6 +367,12 @@ func add_mod_armor(armor_path: String) -> void:
 		return
 
 	mod_armor_paths.push_back(armor_path)
+
+
+func discover_armor_if_not_already(armor_path: String) -> void:
+	data.discover_armor_if_not_already(armor_path)
+
+	save_data()
 
 
 func discover_mod_armor(armor_path: String) -> void:

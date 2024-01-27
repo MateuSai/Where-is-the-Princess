@@ -304,6 +304,9 @@ func set_armor(new_armor: Armor) -> void:
 	SavedData.run_stats.armor = armor
 	sprite.texture = armor.sprite_sheet
 
+	if not armor is Underpants:
+		SavedData.discover_armor_if_not_already((armor.get_script() as GDScript).get_path())
+
 	armor_changed.emit(armor)
 
 

@@ -303,8 +303,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 192.0
-offset_bottom = 142.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_nybk1")
@@ -314,6 +314,7 @@ layout_mode = 2
 
 [node name="Armors" type="GridContainer" parent="WardrobePopup/WardrobeUI/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 columns = 3
 
 [node name="VSeparator" type="VSeparator" parent="WardrobePopup/WardrobeUI/HBoxContainer"]
