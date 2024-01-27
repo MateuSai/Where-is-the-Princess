@@ -1,33 +1,33 @@
 [gd_scene load_steps=10 format=3 uid="uid://bbl110ocl24oo"]
 
 [ext_resource type="PackedScene" uid="uid://xvaekjyf4uxl" path="res://Characters/npcs/NPC.tscn" id="1_fxahq"]
-[ext_resource type="Texture2D" uid="uid://djiu75ijhvk2t" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/wizard_idle_down_01.png" id="2_peyhl"]
-[ext_resource type="Texture2D" uid="uid://cys2pj86yv7fa" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/wizard_idle_down_02.png" id="3_c7hdk"]
-[ext_resource type="Texture2D" uid="uid://bn4fleil4g2o5" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/wizard_idle_down_03.png" id="4_w4ast"]
-[ext_resource type="Texture2D" uid="uid://cbosdadwulb8u" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/wizard_idle_down_04.png" id="5_on48n"]
-[ext_resource type="Texture2D" uid="uid://bvmptejkwems2" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/wizard_idle_down_05.png" id="6_75g37"]
-[ext_resource type="Texture2D" uid="uid://bjxksrjv2fikh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/wizard_idle_down_06.png" id="7_v45kp"]
+[ext_resource type="Texture2D" uid="uid://cwkwt1poqh5qb" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/camp_mechant_spritesheet_01.png" id="2_n6yiw"]
+[ext_resource type="Texture2D" uid="uid://c381ve36kl74j" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/camp_mechant_spritesheet_02.png" id="3_cbsd1"]
+[ext_resource type="Texture2D" uid="uid://bmq1fb6eh1430" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/camp_mechant_spritesheet_03.png" id="4_oqook"]
+[ext_resource type="Texture2D" uid="uid://b04hba4fh3pva" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/camp_mechant_spritesheet_04.png" id="5_yyc77"]
+[ext_resource type="Texture2D" uid="uid://cxajisu1pa6ad" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/camp_mechant_spritesheet_05.png" id="6_8n43k"]
+[ext_resource type="Texture2D" uid="uid://c56sx6c75bkgv" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/camp_mechant_spritesheet_06.png" id="7_tvha5"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_2ubcb"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_7ww7d"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_peyhl")
+"texture": ExtResource("2_n6yiw")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_c7hdk")
+"texture": ExtResource("3_cbsd1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_w4ast")
+"texture": ExtResource("4_oqook")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_on48n")
+"texture": ExtResource("5_yyc77")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_75g37")
+"texture": ExtResource("6_8n43k")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_v45kp")
+"texture": ExtResource("7_tvha5")
 }],
 "loop": true,
 "name": &"default",
@@ -41,9 +41,8 @@ radius = 3.0
 
 [node name="AnimatedSprite" parent="." index="0"]
 position = Vector2(0, -5)
-sprite_frames = SubResource("SpriteFrames_2ubcb")
+sprite_frames = SubResource("SpriteFrames_7ww7d")
 autoplay = "default"
-frame_progress = 0.862613
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CircleShape2D_s1svh")

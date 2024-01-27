@@ -6,7 +6,7 @@ func equip(player: Player) -> void:
 
 
 func get_icon() -> Texture2D:
-	return load("res://Art/Dust.png")
+	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/capacity_ITEM_upgrade.png")
 
 
 func get_dark_soul_cost() -> int:
