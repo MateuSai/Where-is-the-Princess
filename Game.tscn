@@ -129,6 +129,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.384314)
 
 [node name="MenuTabContainer" type="TabContainer" parent="UI"]
+custom_minimum_size = Vector2(340, 200)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -141,13 +142,12 @@ offset_bottom = 90.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_usvbv")
-current_tab = 3
+current_tab = 1
 script = ExtResource("6_y3275")
 
 [node name="MINIMAP" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(300, 150)
 layout_mode = 2
 script = ExtResource("12_icbnv")
 
@@ -183,8 +183,11 @@ texture = ExtResource("16_0uph7")
 wait_time = 0.7
 
 [node name="EQUIPMENT" type="MarginContainer" parent="UI/MenuTabContainer"]
-visible = false
 layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/MenuTabContainer/EQUIPMENT"]
 layout_mode = 2
@@ -201,7 +204,15 @@ layout_mode = 2
 texture = SubResource("AtlasTexture_5dygx")
 stretch_mode = 4
 
-[node name="ArmorNameLabel" type="Label" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer/EquipmentArmorVBox"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer/EquipmentArmorVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer/EquipmentArmorVBox/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ArmorNameLabel" type="Label" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer/EquipmentArmorVBox/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
@@ -209,7 +220,7 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 text = "Armor name"
 autowrap_mode = 3
 
-[node name="ArmorDescriptionLabel" type="Label" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer/EquipmentArmorVBox"]
+[node name="ArmorDescriptionLabel" type="Label" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer/EquipmentArmorVBox/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
@@ -218,6 +229,9 @@ theme_override_fonts/font = ExtResource("18_beacm")
 theme_override_font_sizes/font_size = 10
 text = "armor description"
 autowrap_mode = 3
+
+[node name="VSeparator" type="VSeparator" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer"]
+layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer"]
 layout_mode = 2
@@ -281,6 +295,7 @@ size_flags_horizontal = 3
 [node name="MENU" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
 process_mode = 2
+visible = false
 layout_mode = 2
 mouse_filter = 2
 script = ExtResource("11_7bikg")

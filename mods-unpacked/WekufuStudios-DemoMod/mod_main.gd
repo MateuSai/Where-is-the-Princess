@@ -18,18 +18,17 @@ func _init() -> void:
 
 	ModLoaderMod.install_script_extension("res://mods-unpacked/WekufuStudios-DemoMod/menu_override.gd")
 
-	# Add extensions
-	#modLoader.install_script_extension(ext_dir + "main.gd")
-
 	# Add translations
-	#modLoader.add_translation_from_resource(trans_dir + "modname_text.en.translation")
+	for file: String in DirAccess.get_files_at(trans_dir):
+		if file.get_extension() == "translation":
+			ModLoaderMod.add_translation(trans_dir.path_join(file))
 
 
 func _ready() -> void:
 	SavedData.add_volatile_room(MYMODNAME_LOG, "res://mods-unpacked/WekufuStudios-DemoMod/rooms/forest_chest_room.tscn", "forest", "special")
 	SavedData.add_volatile_room(MYMODNAME_LOG, "res://mods-unpacked/WekufuStudios-DemoMod/rooms/mod_forest_combat_room.tscn", "forest", "combat")
 
-	SavedData.add_volatile_armor("res://mods-unpacked/WekufuStudios-DemoMod/KnightArmor.gd")
+	SavedData.add_mod_armor("res://mods-unpacked/WekufuStudios-DemoMod/KnightArmor.gd")
 	SavedData.add_volatile_permanent_item("res://mods-unpacked/WekufuStudios-DemoMod/metal_soles.gd")
 
 	ModLoaderLog.info("Done", MYMODNAME_LOG)

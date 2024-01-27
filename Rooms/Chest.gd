@@ -7,7 +7,8 @@ const FRAMES: Array[Array] = [
 		[preload("res://Art/rare_chest_closed.png"), preload("res://Art/rare_chest_opened.png")]
 	],
 	[
-		[preload("res://Art/gear_chest_closed.png"), preload("res://Art/gear_chest_opened.png")]
+		[preload("res://Art/gear_chest_closed.png"), preload("res://Art/gear_chest_opened.png")],
+		[preload("res://Art/gear_chest_closed.png"), preload("res://Art/gear_chest_opened.png")],
 	]
 ]
 
@@ -35,7 +36,7 @@ func _ready() -> void:
 	var item_quality: Item.Quality
 	if item_path.is_empty():
 		type = Type.values()[randi() % Type.values().size()]
-		item_quality = Item.Quality.CHINGON if randi() % 6 == 0 else Item.Quality.COMMON
+		item_quality = Item.Quality.CHINGON if randf_range(0, 100) < clamp(1, 90, 14 + SavedData.run_stats.luck * 2) else Item.Quality.COMMON
 #		var permanent_item_paths: PackedStringArray = SavedData.get_available_permanent_item_paths()
 		match type:
 			Type.ITEM:
@@ -46,8 +47,7 @@ func _ready() -> void:
 					item_quality = Item.Quality.COMMON
 					item_path = SavedData.get_random_available_weapon_path()
 				else: # Armor
-					item_quality = Item.Quality.COMMON
-					item_path = SavedData.get_random_available_armor_path()
+					item_path = SavedData.get_random_available_armor_path(item_quality)
 			_:
 				push_error("Invalid chest type")
 	else:

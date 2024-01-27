@@ -72,6 +72,10 @@ func get_icon() -> Texture2D:
 	return null
 
 
+func get_quality() -> Item.Quality:
+	return Item.Quality.COMMON if ability_icon == null else Item.Quality.CHINGON
+
+
 static func id_to_path(id: String) -> String:
 	id = id.to_lower()
 	var path: String = ""

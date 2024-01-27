@@ -13,7 +13,8 @@ var data: Data
 
 var volatile_room_paths: Dictionary = {}
 
-var volatile_armor_paths: Array[String] = []
+var mod_armor_paths: Array[String] = []
+var discovered_mod_armor_paths: Array[String] = []
 
 var volatile_permanent_item_paths: Array[String] = []
 var volatile_temporal_item_paths: Array[String] = []
@@ -321,7 +322,7 @@ func add_extra_available_weapon(weapon_path: String) -> void:
 
 func get_available_weapon_paths() -> PackedStringArray:
 	var weapon_paths: Array = data.get_available_weapons().duplicate()
-	#armor_paths.append_array(volatile_armor_paths)
+	#armor_paths.append_array(mod_armor_paths)
 	return PackedStringArray(weapon_paths)
 
 
@@ -337,22 +338,47 @@ func add_extra_available_armor(armor_path: String) -> void:
 	save_data()
 
 
-func get_random_available_armor_path() -> String:
-	var armor_paths: PackedStringArray = get_armor_paths()
-	return armor_paths[randi() % armor_paths.size()]
+func get_random_available_armor_path(quality: Item.Quality) -> String:
+	var possible_results: Array[String] = []
+
+	for armor_path: String in get_available_armor_paths():
+		if load(armor_path).new().get_quality() == quality:
+			possible_results.push_back(armor_path)
+
+	assert(not possible_results.is_empty())
+	possible_results.shuffle()
+	return possible_results[0]
+
+
+## Vanilla and mod. Available and not available. All the armors in the game
+func get_all_armor_paths() -> PackedStringArray:
+	var ret: PackedStringArray = data.ALL_VANILLA_ARMORS.duplicate()
+	ret.append_array(mod_armor_paths)
+	return ret
 
 
 ## Adds an armor only for this session. Use this for mods to load the armor each time the mod loads. The new armors will appear at the wardrobe on the basecamp and it may appear inside the game on the events where a random armor is choosen (like the shop)
-func add_volatile_armor(armor_path: String) -> void:
-	if volatile_armor_paths.has(armor_path):
+func add_mod_armor(armor_path: String) -> void:
+	if mod_armor_paths.has(armor_path):
 		return
 
-	volatile_armor_paths.push_back(armor_path)
+	mod_armor_paths.push_back(armor_path)
 
 
-func get_armor_paths() -> PackedStringArray:
+func discover_mod_armor(armor_path: String) -> void:
+	if not mod_armor_paths.has(armor_path):
+		printerr("You must add the armor first with SavedData.add_mod_armor(armor_path)")
+		return
+	elif discovered_mod_armor_paths.has(armor_path):
+		print("Armor " + armor_path + " already discovered")
+		return
+
+	discovered_mod_armor_paths.push_back(armor_path)
+
+
+func get_available_armor_paths() -> PackedStringArray:
 	var armor_paths: Array = data.get_available_armors().duplicate()
-	armor_paths.append_array(volatile_armor_paths)
+	armor_paths.append_array(discovered_mod_armor_paths)
 	return PackedStringArray(armor_paths)
 
 

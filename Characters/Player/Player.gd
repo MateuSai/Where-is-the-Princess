@@ -63,8 +63,6 @@ var current_room: DungeonRoom = null
 
 var position_before_jumping: Vector2
 
-#var sm
-
 # @onready var armor_sprite: Sprite2D = get_node("ArmorSprite")
 
 @onready var weapons: PlayerWeapons = get_node("Weapons")
@@ -108,6 +106,8 @@ func _ready() -> void:
 		set_armor(Underpants.new())
 	else:
 		set_armor(SavedData.run_stats.armor)
+		# To avoid blocking the use of ability when changing scenes if it was recharging
+		armor.is_able_to_use_ability = true
 
 	life_component.hp_changed.connect(func(new_hp: int) -> void:
 		SavedData.run_stats.hp = new_hp
