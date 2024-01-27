@@ -1,13 +1,52 @@
-[gd_scene load_steps=4 format=3 uid="uid://n6qo87cg2osp"]
+[gd_scene load_steps=8 format=3 uid="uid://n6qo87cg2osp"]
 
 [ext_resource type="Script" path="res://Weapons/projectiles/bombs/bomb_vertical_drop.gd" id="1_lq08c"]
 [ext_resource type="PackedScene" uid="uid://drdn08idfuulc" path="res://Rooms/Furniture and Traps/traps/poison_bomb/poison_bomb.tscn" id="2_nmygl"]
+[ext_resource type="Texture2D" uid="uid://by6weqwptro71" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/height_shadow_anim.png" id="3_s7i0n"]
 
 [sub_resource type="Curve2D" id="Curve2D_paibf"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 23)
 }
 point_count = 2
+
+[sub_resource type="Animation" id="Animation_ot7l4"]
+resource_name = "drop"
+length = 0.6
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.35, 0.55),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_dbc50"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3mrik"]
+_data = {
+"RESET": SubResource("Animation_dbc50"),
+"drop": SubResource("Animation_ot7l4")
+}
 
 [node name="BombVerticalDrop" type="Path2D"]
 curve = SubResource("Curve2D_paibf")
@@ -19,3 +58,15 @@ rotation = 1.5708
 loop = false
 
 [node name="PoisonBomb" parent="PathFollow2D" instance=ExtResource("2_nmygl")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(0, 27)
+texture = ExtResource("3_s7i0n")
+hframes = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3mrik")
+}
+autoplay = "drop"
