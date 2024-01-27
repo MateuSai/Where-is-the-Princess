@@ -1,4 +1,4 @@
-class_name MetalSoles extends PermanentPassiveItem
+class_name AntiAcidRing extends PermanentPassiveItem
 
 
 func equip(player: Player) -> void:
@@ -10,4 +10,4 @@ func unequip(player: Player) -> void:
 
 
 func get_icon() -> Texture2D:
-	return load("res://icon.png")
+	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Acid_resist_ring.png")

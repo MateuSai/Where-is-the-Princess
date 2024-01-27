@@ -16,6 +16,7 @@ IMPROVISED_ARMOR_DESCRIPTION,What’s this? Did you really tie a shield to your 
 WARRIOR_ARMOR,Warrior Armor,Armadura de Guerrer,Armadura de Guerrero,
 WARRIOR_ARMOR_DESCRIPTION,A powerful armor capable of destroying projectiles and pusuing away enemies with his ability.,Una poderosa armadura capaç de destruir projectils i empènyer enemics amb la seva habilitat.,Una poderosa armadura capaz de destruir proyectiles y empujar enemigos con su habilidad.,
 ,,,,
+,,,,
 MAGIC_SHIELD,Magic Shield,Escut Màgic,Escudo Mágico,
 MAGIC_SHIELD_DESCRIPTION,A shield that orbits around the player,Un escut que orbita al voltant del jugador,Un escudo que orbita alrededor del jugador,
 MAGIC_SWORD,Magic Sword,Espasa Màgic,Espada Mágico,
@@ -36,6 +37,13 @@ SOUL_AMULET,Soul Amulet,Amulet d'Animes,Amuleto de Almas,
 SOUL_AMULET_DESCRIPTION,Attract souls even with enemies nearby,Atreu animes encara que hi hagi enemics a prop,Atrae almas aun habiendo enemigos cerca,
 ENHANCED_BOOTS,Enhanced Boots,Botes Millorades,Botas Mejoradas,エンハンスドブーツ
 ENHANCED_BOOTS_DESCRIPTION,Run faster,Corre més ràpid,Corre más rápido,早く走る
+,,,,
+ADDITIONAL_HEART,Additional Heart,Cor Addicional,Corazón Adicional,
+ADDITIONAL_HEART_DESCRIPTION,Adds an additional heart.,Afegeix un cor addicional.,Añade un corazón adicional.,
+ADDITIONAL_MAX_STAMINA,Additional Max Stamina,Vigor Màxim Addicional,Vigor Máximo Adicional,
+ADDITIONAL_MAX_STAMINA_DESCRIPTION,Increases your max stamina.,Augmenta el vigor màxim.,Aumenta el vigor máximo.,
+ADDITIONAL_WEAPON_CARRY_CAPACITY,Additional Weapon Capacity,Capacitat d'Armes Addicional,Capacidad de Armas Adicional,
+ADDITIONAL_WEAPON_CARRY_CAPACITY_DESCRIPTION,Increases your max amount of weapons by 1.,Augmenta la teva quantitat màxima d'armes en 1.,Aumenta tu capacidad máxima de armas en 1.,
 ,,,,
 ,,,,
 PLAY,Play,Juga,Jugar,遊び
