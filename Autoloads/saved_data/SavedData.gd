@@ -159,14 +159,11 @@ func set_dark_souls(new_value: int) -> void:
 	dark_souls_changed.emit(data.dark_souls)
 
 
-func add_kill(enemy_id: StringName) -> void:
-	if not data.kills.has(enemy_id):
-		data.kills[enemy_id] = 0
-
-	data.kills[enemy_id] += 1
+func add_enemy_kill(enemy_id: StringName) -> void:
+	data.add_enemy_kill(enemy_id)
 
 	var enemy_unlock_weapon_on_kills: UnlockWeaponOnKills = Globals.get_enemy_unlock_weapon_on_kills(enemy_id)
-	if enemy_unlock_weapon_on_kills and data.kills[enemy_id] == enemy_unlock_weapon_on_kills.kills_necessary:
+	if enemy_unlock_weapon_on_kills and data.get_enemy_data(enemy_id).kills == enemy_unlock_weapon_on_kills.kills_necessary:
 		add_extra_available_weapon(enemy_unlock_weapon_on_kills.weapon_path)
 
 	save_data()

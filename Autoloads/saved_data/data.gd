@@ -19,7 +19,7 @@ const AVAILABLE_PLAYER_UPGRADES_FROM_START: PackedStringArray = ["res://items/pl
 
 var dark_souls: int = 0
 
-var kills: Dictionary = {}
+var _enemies_data: Dictionary = {}
 
 var ignored_rooms: PackedStringArray = []
 
@@ -41,6 +41,25 @@ var _completed_dialogues: PackedStringArray = []
 
 var items_shop_unlocked: bool = false
 var player_upgrades_shop_unlocked: bool = false
+
+
+func get_enemies_data() -> Dictionary:
+	return _enemies_data
+
+
+func get_enemy_data(enemy_id: String) -> EnemyData:
+	if _enemies_data.has(enemy_id):
+		return _enemies_data[enemy_id]
+
+	return null
+
+
+func add_enemy_kill(enemy_id: String) -> void:
+	if not _enemies_data.has(enemy_id):
+		_enemies_data[enemy_id] = EnemyData.new()
+
+	(_enemies_data[enemy_id] as EnemyData).kills += 1
+
 
 func get_extra_max_hp() -> int:
 	var extra_hp: int = 0
@@ -157,6 +176,9 @@ static func from_dic(dic: Dictionary) -> Data:
 			if key == "player_upgrades":
 				for player_upgrade_dic: Dictionary in dic.player_upgrades:
 					data.player_upgrades.push_back(PlayerUpgrade.from_dic(player_upgrade_dic))
+			elif key == "_enemys_data":
+				for enemy_id: String in dic._enemies_data.keys():
+					data._enemies_data[enemy_id] = EnemyData.from_dic(dic._enemies_data[enemy_id])
 			elif dic[key] is Array:
 				data.set(key, PackedStringArray(dic[key]))
 			else:
@@ -182,6 +204,10 @@ func to_dic() -> Dictionary:
 					a.push_back(player_upgrade.to_dic())
 
 				dic[property_name] = a
+			"_enemy_data":
+				dic["_enemy_data"] = {}
+				for enemy_id: String in _enemies_data.keys():
+					dic["_enemy_data"][enemy_id] = get_enemy_data(enemy_id).to_dic()
 			_:
 				dic[property_name] = get(property_name)
 
