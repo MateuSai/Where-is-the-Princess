@@ -62,7 +62,7 @@ func _collide(node: Node2D, _dam: int = damage) -> void:
 	if node.get("life_component") != null:
 		@warning_ignore("unsafe_property_access")
 		var life_component: LifeComponent = node.life_component
-		life_component.take_damage(damage, knockback_direction, knockback_force, weapon)
+		life_component.take_damage(damage, knockback_direction, knockback_force, weapon, damage_dealer_id)
 		if bodies_pierced >= piercing:
 			destroy()
 		else:

@@ -40,7 +40,7 @@ var mov_direction: Vector2 = Vector2.ZERO
 var inside_acid: bool = false
 var acid_progress: float = 0.0: set = set_acid_progress ## Value between 0 and 1
 
-## The name of the scene file (after removing .tscn)
+## The name of the scene file after removing .tscn and converting it to snake_case
 @onready var id: String = scene_file_path.get_file().trim_suffix(".tscn").to_snake_case()
 
 @onready var state_machine: FiniteStateMachine = get_node("FiniteStateMachine")
@@ -183,7 +183,7 @@ func stop_progressing_acid() -> void:
 
 
 func _on_acid_damage_timer_timeout() -> void:
-	life_component.take_damage(1, Vector2.ZERO, 0, null)
+	life_component.take_damage(1, Vector2.ZERO, 0, null, "acid")
 
 
 func add_resistance(resistance: Resistance) -> void:

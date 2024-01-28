@@ -41,7 +41,7 @@ func _set_category(new_category: int) -> void:
 		ENEMIES:
 			var enemies_data: Dictionary = SavedData.data.get_enemies_data()
 			for enemy_id: String in enemies_data.keys():
-				var enemy_data: EnemyData = enemies_data[enemy_id]
+				var enemy_data: EnemyStatistics = enemies_data[enemy_id]
 				var icon: TextureRect = TextureRect.new()
 				icon.texture = load("res://Art/Dust.png")
 				flow_container.add_child(icon)

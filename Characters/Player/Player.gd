@@ -137,7 +137,7 @@ func _ready() -> void:
 				var splash: Sprite2D = load("res://effects/water_splash/water_splash.tscn").instantiate()
 				splash.position = global_position
 				get_tree().current_scene.add_child(splash)
-				life_component.take_damage(1, Vector2.ZERO, 0, null)
+				life_component.take_damage(1, Vector2.ZERO, 0, null, "water")
 				position = position_before_jumping
 	)
 
@@ -351,6 +351,10 @@ func remove_rotating_item(node: Node2D) -> void:
 
 func can_pick_up_weapon(weapon: Weapon) -> bool:
 	return weapons.can_pick_up_weapon(weapon)
+
+
+func _on_died() -> void:
+	SavedData.add_enemy_player_kill(life_component.last_damage_dealer_id)
 
 
 func enable_mirage() -> void:

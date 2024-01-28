@@ -7,6 +7,7 @@ var knockback_direction: Vector2 = Vector2.ZERO
 var exclude: Array[Node2D] = []
 
 var weapon: Weapon = null
+var damage_dealer_id: String
 
 signal collided_with_something(node: Node2D)
 
@@ -34,6 +35,11 @@ func _ready() -> void:
 	body_exited.connect(_remove_entity_if_it_is_inside)
 	area_entered.connect(_on_area_entered)
 	area_exited.connect(_remove_entity_if_it_is_inside)
+
+	owner.ready.connect(func() -> void:
+		if owner.get("id") != null:
+			damage_dealer_id = owner.id
+	)
 
 	collided_with_something.connect(func(node: Node2D) -> void:
 		if node is Character and not flesh_sounds.is_empty():
@@ -108,7 +114,7 @@ func _collide(node: Node2D, dam: int = damage) -> void:
 	if node is Bomb:
 		(node as Bomb).hit(knockback_direction, knockback_force)
 	elif node.has_node("LifeComponent"):
-		(node.get_node("LifeComponent") as LifeComponent).take_damage(dam, knockback_direction, knockback_force, weapon)
+		(node.get_node("LifeComponent") as LifeComponent).take_damage(dam, knockback_direction, knockback_force, weapon, damage_dealer_id)
 	elif node is RigidBody2D:
 		(node as RigidBody2D).apply_impulse(knockback_direction * knockback_force * 5)
 	elif node is Projectile and (node as Projectile).can_be_destroyed:

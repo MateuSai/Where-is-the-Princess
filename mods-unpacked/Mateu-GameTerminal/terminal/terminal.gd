@@ -442,7 +442,7 @@ func _clear_room() -> void:
 
 	for child: Node in Globals.player.current_room.get_children():
 		if child is Enemy:
-			child.life_component.take_damage(2000, Vector2.ZERO, 0, null)
+			child.life_component.take_damage(2000, Vector2.ZERO, 0, null, "player")
 
 	hide()
 
