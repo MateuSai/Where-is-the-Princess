@@ -115,6 +115,8 @@ func pick_up_weapon(weapon: Weapon) -> void:
 
 	await get_tree().process_frame
 
+	SavedData.discover_weapon_if_not_already(weapon.scene_file_path)
+
 	weapon_picked_up.emit(weapon)
 	weapon_switched.emit(prev_index, new_index)
 

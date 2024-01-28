@@ -1,11 +1,12 @@
 class_name PlayerLifeComponent extends LifeComponent
 
+var last_damage_dealer_id: String
 
 @onready var player: Player = get_parent()
 @onready var hit_border_effect: HitBorderEffect = $"../UI/HitBorderEffect"
 
 
-func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon) -> void:
+func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer_id: String) -> void:
 	if _must_ignore_damage():
 		return
 
@@ -26,13 +27,14 @@ func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon) -> void:
 			player.set_armor(Underpants.new())
 
 	damage_taken.emit(dam, dir, force)
+	last_damage_dealer_id = damage_dealer_id
 
 	invincible_after_being_hitted = true
 	invincible_after_being_hitted_timer.start(invincible_after_being_hitted_time)
 
 
 
-func take_damage_ignoring_armor(dam: int, dir: Vector2, force: int, weapon: Weapon) -> void:
+func take_damage_ignoring_armor(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer_id: String) -> void:
 	if _must_ignore_damage():
 		return
 
@@ -43,6 +45,7 @@ func take_damage_ignoring_armor(dam: int, dir: Vector2, force: int, weapon: Weap
 	_play_hit_sound(weapon)
 
 	damage_taken.emit(dam, dir, force)
+	last_damage_dealer_id = damage_dealer_id
 
 	invincible_after_being_hitted = true
 	invincible_after_being_hitted_timer.start(invincible_after_being_hitted_time)

@@ -43,7 +43,7 @@ func _ready() -> void:
 	add_child(invincible_after_being_hitted_timer)
 
 
-func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon) -> void:
+func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, _damage_dealer_id: String) -> void:
 	if _must_ignore_damage():
 		return
 

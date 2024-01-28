@@ -3,21 +3,23 @@ extends Node
 const BIOMES_FOLDER_PATH: String = "res://Rooms/Biomes/"
 
 const USER_FOLDER: String = "user://"
-#const MODS_FOLDER_NAME: String = "mods/"
-#const MODS_CONF_FILE_NAME: String = "mods_conf.json"
 const DATA_SAVE_NAME: String = "data.json"
+const STATISTICS_SAVE_NAME: String = "statistics.json"
 
 const RUN_STATS_SAVE_NAME: String = "run_stats.res"
 
 var data: Data
+var statistics: Statistics
 
 var volatile_room_paths: Dictionary = {}
 
-var mod_armor_paths: Array[String] = []
-var discovered_mod_armor_paths: Array[String] = []
+var mod_weapon_paths: PackedStringArray = []
 
-var volatile_permanent_item_paths: Array[String] = []
-var volatile_temporal_item_paths: Array[String] = []
+var mod_armor_paths: PackedStringArray = []
+#var discovered_mod_armor_paths: PackedStringArray = []
+
+var volatile_permanent_item_paths: PackedStringArray = []
+var volatile_temporal_item_paths: PackedStringArray = []
 
 var run_stats: RunStats
 
@@ -32,6 +34,7 @@ func _ready() -> void:
 	print("--- SavedData ---")
 	# save_data()
 	_load_data()
+	_load_statistics()
 	#print(data)
 
 	_load_run_stats()
@@ -41,30 +44,6 @@ func _ready() -> void:
 
 	var user_dir: DirAccess = DirAccess.open(USER_FOLDER)
 	assert(user_dir) # Siempre deberiamos poder abrir el directorio del usuario
-
-#	if not user_dir.dir_exists(MODS_FOLDER_NAME):
-#		print("Can't find mods folder, creating it...")
-#		if user_dir.make_dir(MODS_FOLDER_NAME):
-#			printerr("Error creating mods directory!!")
-#			return
-#
-#	var mods_dir: DirAccess = DirAccess.open(USER_FOLDER + MODS_FOLDER_NAME)
-#	if mods_dir == null:
-#		printerr("Error opening mods directory!")
-#		return
-#
-#	var mods_conf: Dictionary = _load_mods_conf()
-#	for file_name in mods_dir.get_files():
-#		print(file_name)
-#		if mods_conf.has(file_name):
-#			mods.push_back(Mod.from_dictionary(mods_conf[file_name]))
-#		else:
-#			mods.push_back(Mod.new(USER_FOLDER + MODS_FOLDER_NAME + file_name))
-#			if not ProjectSettings.load_resource_pack(USER_FOLDER + MODS_FOLDER_NAME + file_name):
-#				printerr("Error loading " + USER_FOLDER + MODS_FOLDER_NAME + file_name + " mod!")
-		#var room: PackedScene = load(USER_FOLDER + ROOMS_FOLDER_NAME + file_name)
-		#custom_rooms.push_back(room)
-		#room_paths.push_back(USER_FOLDER + ROOMS_FOLDER_NAME + file_name)
 
 	print("\t")
 
@@ -93,6 +72,32 @@ func _load_data() -> void:
 	else:
 		print("No save data found, using default value...")
 		data = Data.new()
+
+
+func save_statistics() -> void:
+	var file: FileAccess = FileAccess.open(USER_FOLDER + STATISTICS_SAVE_NAME, FileAccess.WRITE)
+	if not file:
+		printerr("Error opening " + USER_FOLDER + STATISTICS_SAVE_NAME + " for writing!! I can't save your data, bro")
+		return
+	file.store_string(JSON.stringify(statistics.to_dic(), "\t"))
+	file.close()
+	#print(JSON.new().stringify(data, "\t"))
+
+
+func _load_statistics() -> void:
+	var file: FileAccess = FileAccess.open(USER_FOLDER + STATISTICS_SAVE_NAME, FileAccess.READ)
+	if file:
+		print("Save data found. Loading it...")
+		var json: JSON = JSON.new()
+		json.parse(file.get_as_text())
+		if json.data is Dictionary:
+			statistics = Statistics.from_dic(json.data as Dictionary)
+		else:
+			printerr("Could not load file data as json, using default values...")
+			statistics = Statistics.new()
+	else:
+		print("No save data found, using default value...")
+		statistics = Statistics.new()
 
 
 func save_run_stats() -> void:
@@ -159,17 +164,21 @@ func set_dark_souls(new_value: int) -> void:
 	dark_souls_changed.emit(data.dark_souls)
 
 
-func add_kill(enemy_id: StringName) -> void:
-	if not data.kills.has(enemy_id):
-		data.kills[enemy_id] = 0
-
-	data.kills[enemy_id] += 1
+func add_enemy_times_killed(enemy_id: StringName) -> void:
+	statistics.add_enemy_times_killed(enemy_id)
 
 	var enemy_unlock_weapon_on_kills: UnlockWeaponOnKills = Globals.get_enemy_unlock_weapon_on_kills(enemy_id)
-	if enemy_unlock_weapon_on_kills and data.kills[enemy_id] == enemy_unlock_weapon_on_kills.kills_necessary:
+	if enemy_unlock_weapon_on_kills and statistics.get_enemy_statistics(enemy_id).times_killed == enemy_unlock_weapon_on_kills.kills_necessary:
 		add_extra_available_weapon(enemy_unlock_weapon_on_kills.weapon_path)
+		save_data()
 
-	save_data()
+	save_statistics()
+
+
+func add_enemy_player_kill(enemy_id: String) -> void:
+	statistics.add_enemy_player_kill(enemy_id)
+
+	save_statistics()
 
 
 func get_biome_conf() -> BiomeConf:
@@ -326,6 +335,23 @@ func get_available_weapon_paths() -> PackedStringArray:
 	return PackedStringArray(weapon_paths)
 
 
+## Vanilla and mod. Available and not available. All the weapons in the game
+func get_all_weapon_paths() -> PackedStringArray:
+	var ret: PackedStringArray = data.ALL_VANILLA_WEAPONS.duplicate()
+	ret.append_array(mod_weapon_paths)
+	return ret
+
+
+func get_discovered_weapon_paths() -> PackedStringArray:
+	return data.get_discovered_weapons()
+
+
+func discover_weapon_if_not_already(weapon_path: String) -> void:
+	data.discover_weapon_if_not_already(weapon_path)
+
+	save_data()
+
+
 func get_random_available_weapon_path() -> String:
 	var available_weapons: PackedStringArray = get_available_weapon_paths()
 
@@ -379,16 +405,16 @@ func discover_mod_armor(armor_path: String) -> void:
 	if not mod_armor_paths.has(armor_path):
 		printerr("You must add the armor first with SavedData.add_mod_armor(armor_path)")
 		return
-	elif discovered_mod_armor_paths.has(armor_path):
+	elif data._discovered_armors.has(armor_path):
 		print("Armor " + armor_path + " already discovered")
 		return
 
-	discovered_mod_armor_paths.push_back(armor_path)
+	discover_armor_if_not_already(armor_path)
 
 
 func get_available_armor_paths() -> PackedStringArray:
 	var armor_paths: Array = data.get_available_armors().duplicate()
-	armor_paths.append_array(discovered_mod_armor_paths)
+	#armor_paths.append_array(discovered_mod_armor_paths)
 	return PackedStringArray(armor_paths)
 
 

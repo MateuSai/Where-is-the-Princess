@@ -3,6 +3,7 @@ class_name Encyclopedia extends MarginContainer
 enum {
 	WEAPONS,
 	ARMORS,
+	ENEMIES,
 }
 
 @onready var category_buttons: VBoxContainer = $HBoxContainer/CategoryButtons
@@ -23,17 +24,27 @@ func _set_category(new_category: int) -> void:
 
 	match new_category:
 		WEAPONS:
-			for weapon_path: String in Data.ALL_VANILLA_WEAPONS:
+			var discovered_weapon_paths: PackedStringArray = SavedData.get_discovered_weapon_paths()
+			for weapon_path: String in SavedData.get_all_weapon_paths():
 				var weapon_data: WeaponData = Weapon.get_data(Weapon.get_id_from_path(weapon_path))
 				var icon: TextureRect = TextureRect.new()
 				icon.texture = weapon_data.icon
+				if not discovered_weapon_paths.has(weapon_path):
+					icon.modulate = Color.BLACK
 				flow_container.add_child(icon)
 		ARMORS:
-			var available_armor_paths: PackedStringArray = SavedData.get_available_armor_paths()
+			var discovered_armor_paths: PackedStringArray = SavedData.get_discovered_armors_paths()
 			for armor_path: String in SavedData.get_all_armor_paths():
 				var armor: Armor = load(armor_path).new()
 				var icon: TextureRect = TextureRect.new()
 				icon.texture = armor.get_icon()
-				if not available_armor_paths.has(armor_path):
+				if not discovered_armor_paths.has(armor_path):
 					icon.modulate = Color.BLACK
+				flow_container.add_child(icon)
+		ENEMIES:
+			var enemies_statistics: Dictionary = SavedData.statistics.get_enemies_statistics()
+			for enemy_id: String in enemies_statistics.keys():
+				var enemy_statistics: EnemyStatistics = enemies_statistics[enemy_id]
+				var icon: TextureRect = TextureRect.new()
+				icon.texture = load("res://Art/Dust.png")
 				flow_container.add_child(icon)

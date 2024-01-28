@@ -1,5 +1,6 @@
 {
 	"background_color": "04171a",
+	"light_color": "626262",
 
 	"corridor_atlas_id": 5,
 	"room_atlas_id": 5,

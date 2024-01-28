@@ -155,7 +155,7 @@ func _on_died() -> void:
 
 
 func _on_died_0_5_seconds_later() -> void:
-	SavedData.add_kill(id)
+	SavedData.add_enemy_times_killed(id)
 
 	spawn_loot()
 
