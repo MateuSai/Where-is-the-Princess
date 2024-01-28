@@ -76,6 +76,7 @@ var position_before_jumping: Vector2
 @onready var armor_recharge_timer: Timer = $Timers/ArmorRechargeTimer
 @onready var mirage_timer: Timer = $Timers/MirageTimer
 @onready var stamina_regen_cooldown_timer: Timer = $Timers/StaminaRegenCooldownTimer
+@onready var dash_cooldown_timer: Timer = $Timers/DashCooldownTimer
 
 @onready var mirage: TextureRect = $UI/Mirage
 
@@ -238,7 +239,7 @@ func get_input() -> void:
 	if Input.is_action_pressed("ui_move_up"):
 		mov_direction.y -= Input.get_action_strength("ui_move_up")
 
-	if Input.is_action_just_pressed("ui_dash") and stamina >= DASH_STAMINA_COST and not (mov_direction.is_equal_approx(Vector2.ZERO) and not armor is Underpants):
+	if Input.is_action_just_pressed("ui_dash") and stamina >= DASH_STAMINA_COST and dash_cooldown_timer.is_stopped() and not (mov_direction.is_equal_approx(Vector2.ZERO) and not armor is Underpants):
 		_dash()
 
 	if Input.is_action_just_pressed("ui_armor_ability") and armor.is_able_to_use_ability:
@@ -316,6 +317,8 @@ func jump() -> void:
 
 
 func _dash() -> void:
+	dash_cooldown_timer.start()
+
 	stamina -= DASH_STAMINA_COST
 
 	if armor is Underpants:

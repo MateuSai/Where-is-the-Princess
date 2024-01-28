@@ -665,6 +665,9 @@ one_shot = true
 wait_time = 0.6
 one_shot = true
 
+[node name="DashCooldownTimer" type="Timer" parent="Timers" index="5"]
+one_shot = true
+
 [node name="EquipArmorSound" type="AudioStreamPlayer" parent="." index="16"]
 stream = ExtResource("33_3bfpk")
 volume_db = -5.0
