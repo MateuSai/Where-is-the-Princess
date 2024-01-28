@@ -13,11 +13,13 @@ var statistics: Statistics
 
 var volatile_room_paths: Dictionary = {}
 
-var mod_armor_paths: Array[String] = []
-var discovered_mod_armor_paths: Array[String] = []
+var mod_weapon_paths: PackedStringArray = []
 
-var volatile_permanent_item_paths: Array[String] = []
-var volatile_temporal_item_paths: Array[String] = []
+var mod_armor_paths: PackedStringArray = []
+#var discovered_mod_armor_paths: PackedStringArray = []
+
+var volatile_permanent_item_paths: PackedStringArray = []
+var volatile_temporal_item_paths: PackedStringArray = []
 
 var run_stats: RunStats
 
@@ -333,6 +335,23 @@ func get_available_weapon_paths() -> PackedStringArray:
 	return PackedStringArray(weapon_paths)
 
 
+## Vanilla and mod. Available and not available. All the weapons in the game
+func get_all_weapon_paths() -> PackedStringArray:
+	var ret: PackedStringArray = data.ALL_VANILLA_WEAPONS.duplicate()
+	ret.append_array(mod_weapon_paths)
+	return ret
+
+
+func get_discovered_weapon_paths() -> PackedStringArray:
+	return data.get_discovered_weapons()
+
+
+func discover_weapon_if_not_already(weapon_path: String) -> void:
+	data.discover_weapon_if_not_already(weapon_path)
+
+	save_data()
+
+
 func get_random_available_weapon_path() -> String:
 	var available_weapons: PackedStringArray = get_available_weapon_paths()
 
@@ -386,16 +405,16 @@ func discover_mod_armor(armor_path: String) -> void:
 	if not mod_armor_paths.has(armor_path):
 		printerr("You must add the armor first with SavedData.add_mod_armor(armor_path)")
 		return
-	elif discovered_mod_armor_paths.has(armor_path):
+	elif data._discovered_armors.has(armor_path):
 		print("Armor " + armor_path + " already discovered")
 		return
 
-	discovered_mod_armor_paths.push_back(armor_path)
+	discover_armor_if_not_already(armor_path)
 
 
 func get_available_armor_paths() -> PackedStringArray:
 	var armor_paths: Array = data.get_available_armors().duplicate()
-	armor_paths.append_array(discovered_mod_armor_paths)
+	#armor_paths.append_array(discovered_mod_armor_paths)
 	return PackedStringArray(armor_paths)
 
 
