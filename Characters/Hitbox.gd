@@ -36,10 +36,11 @@ func _ready() -> void:
 	area_entered.connect(_on_area_entered)
 	area_exited.connect(_remove_entity_if_it_is_inside)
 
-	owner.ready.connect(func() -> void:
-		if owner.get("id") != null:
-			damage_dealer_id = owner.id
-	)
+	if owner:
+		owner.ready.connect(func() -> void:
+			if owner.get("id") != null:
+				damage_dealer_id = owner.id
+		)
 
 	collided_with_something.connect(func(node: Node2D) -> void:
 		if node is Character and not flesh_sounds.is_empty():
