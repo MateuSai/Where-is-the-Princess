@@ -18,8 +18,8 @@ var mod_weapon_paths: PackedStringArray = []
 var mod_armor_paths: PackedStringArray = []
 #var discovered_mod_armor_paths: PackedStringArray = []
 
-var volatile_permanent_item_paths: PackedStringArray = []
-var volatile_temporal_item_paths: PackedStringArray = []
+var mod_permanent_item_paths: PackedStringArray = []
+var mod_temporal_item_paths: PackedStringArray = []
 
 var run_stats: RunStats
 
@@ -418,6 +418,20 @@ func get_available_armor_paths() -> PackedStringArray:
 	return PackedStringArray(armor_paths)
 
 
+func get_all_items_paths() -> PackedStringArray:
+	var ret: PackedStringArray = data.ALL_VANILLA_PERMANENT_ITEMS.duplicate()
+	ret.append_array(data.ALL_VANILLA_TEMPORAL_ITEMS)
+	ret.append_array(mod_permanent_item_paths)
+	ret.append_array(mod_temporal_item_paths)
+	return ret
+
+
+func get_discovered_all_items_paths() -> PackedStringArray:
+	var ret: PackedStringArray = data.get_discovered_permanent_items()
+	ret.append_array(data.get_discovered_temporal_items())
+	return ret
+
+
 func add_extra_available_temporal_item(item_path: String) -> void:
 	data.add_extra_available_temporal_item(item_path)
 
@@ -425,16 +439,16 @@ func add_extra_available_temporal_item(item_path: String) -> void:
 
 
 ## Adds a temporal item only for this session. Use this for mods to load the item each time the mod loads.
-func add_volatile_temporal_item(item_path: String) -> void:
-	if volatile_temporal_item_paths.has(item_path):
+func add_mod_temporal_item(item_path: String) -> void:
+	if mod_temporal_item_paths.has(item_path):
 		return
 
-	volatile_temporal_item_paths.push_back(item_path)
+	mod_temporal_item_paths.push_back(item_path)
 
 
 func get_available_temporal_item_paths() -> PackedStringArray:
 	var temporal_item_paths: Array = data.get_available_temporal_items().duplicate()
-	temporal_item_paths.append_array(volatile_temporal_item_paths)
+	temporal_item_paths.append_array(mod_temporal_item_paths)
 	return PackedStringArray(temporal_item_paths)
 
 
@@ -445,16 +459,16 @@ func add_extra_available_permanent_item(item_path: String) -> void:
 
 
 ## Adds a permanent item only for this session. Use this for mods to load the item each time the mod loads.
-func add_volatile_permanent_item(item_path: String) -> void:
-	if volatile_permanent_item_paths.has(item_path):
+func add_mod_permanent_item(item_path: String) -> void:
+	if mod_permanent_item_paths.has(item_path):
 		return
 
-	volatile_permanent_item_paths.push_back(item_path)
+	mod_permanent_item_paths.push_back(item_path)
 
 
 func get_available_permanent_item_paths() -> PackedStringArray:
 	var permanent_item_paths: Array = data.get_available_permanent_items().duplicate()
-	permanent_item_paths.append_array(volatile_permanent_item_paths)
+	permanent_item_paths.append_array(mod_permanent_item_paths)
 	return PackedStringArray(permanent_item_paths)
 
 

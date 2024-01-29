@@ -3,6 +3,7 @@ class_name Encyclopedia extends MarginContainer
 enum {
 	WEAPONS,
 	ARMORS,
+	ITEMS,
 	ENEMIES,
 }
 
@@ -39,6 +40,15 @@ func _set_category(new_category: int) -> void:
 				var icon: TextureRect = TextureRect.new()
 				icon.texture = armor.get_icon()
 				if not discovered_armor_paths.has(armor_path):
+					icon.modulate = Color.BLACK
+				flow_container.add_child(icon)
+		ITEMS:
+			var discovered_item_paths: PackedStringArray = SavedData.get_discovered_all_items_paths()
+			for item_path: String in SavedData.get_all_items_paths():
+				var item: Item = load(item_path).new()
+				var icon: TextureRect = TextureRect.new()
+				icon.texture = item.get_icon()
+				if not discovered_item_paths.has(item_path):
 					icon.modulate = Color.BLACK
 				flow_container.add_child(icon)
 		ENEMIES:
