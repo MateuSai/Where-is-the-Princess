@@ -37,7 +37,7 @@
 [ext_resource type="PackedScene" uid="uid://bp2oo4273j0dc" path="res://Weapons/Melee/spear/Spear.tscn" id="35_gq7sc"]
 [ext_resource type="PackedScene" uid="uid://dkpyvq2xuuytm" path="res://Weapons/Ranged/crossbows/wooden_crossbow/wooden_crossbow.tscn" id="37_gon7g"]
 [ext_resource type="PackedScene" uid="uid://cpcdmduiwspc4" path="res://Rooms/Biomes/basecamp/base_camp_items_shop.tscn" id="37_qhx6q"]
-[ext_resource type="PackedScene" uid="uid://brjtvw0ivw80o" path="res://Characters/npcs/cats/cat_black/cat_black.tscn" id="38_vpu83"]
+[ext_resource type="PackedScene" uid="uid://brjtvw0ivw80o" path="res://Characters/npcs/cats/black_cat/black_cat.tscn" id="38_vpu83"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_s6u7b"]
 source_geometry_group_name = &"navigation_polygon_source_group"

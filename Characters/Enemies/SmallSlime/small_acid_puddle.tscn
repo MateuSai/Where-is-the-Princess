@@ -93,13 +93,11 @@ script = ExtResource("1_x18gh")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -1
-position = Vector2(0, 16)
 texture = ExtResource("2_1qwos")
 hframes = 4
 vframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 16)
 shape = SubResource("CircleShape2D_eogm3")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

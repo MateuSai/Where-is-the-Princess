@@ -37,7 +37,7 @@ func _ready() -> void:
 func _spawn_puddle() -> void:
 	var acid_puddle: AcidPuddle = acid_puddle_scene.instantiate()
 	room.add_child(acid_puddle)
-	acid_puddle.position = position - acid_puddle.sprite.position
+	acid_puddle.position = position #- acid_puddle.sprite.position
 
 
 func _duplicate_slime() -> void:

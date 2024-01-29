@@ -10,8 +10,11 @@ const DIALOGUE_BOX_SCENE: PackedScene = preload("res://ui/dialogue_system/dialog
 var dialogue_box: DialogueBox
 var dialogue_tween: Tween = null
 
-const DASH_IMPULSE: int = 2200
+#const DASH_IMPULSE: int = 22000000
 const DASH_STAMINA_COST: int = 30
+var previous_max_speed: int
+var dash_time: float = 0.06
+signal dashed(dash_time: float)
 
 var stamina_regeneration_per_second: float = 15
 signal max_stamina_changed(new_value: float)
@@ -76,6 +79,7 @@ var position_before_jumping: Vector2
 @onready var armor_recharge_timer: Timer = $Timers/ArmorRechargeTimer
 @onready var mirage_timer: Timer = $Timers/MirageTimer
 @onready var stamina_regen_cooldown_timer: Timer = $Timers/StaminaRegenCooldownTimer
+@onready var dash_timer: Timer = $Timers/DashTimer
 @onready var dash_cooldown_timer: Timer = $Timers/DashCooldownTimer
 
 @onready var mirage: TextureRect = $UI/Mirage
@@ -95,6 +99,7 @@ func _ready() -> void:
 	acid_bar.hide()
 
 	mirage_timer.timeout.connect(disable_mirage)
+	dash_timer.timeout.connect(_on_dash_timer_timeout)
 
 	weapons.weapon_picked_up.emit(weapons.get_child(0))
 	weapons.load_previous_weapons()
@@ -324,11 +329,20 @@ func _dash() -> void:
 	if armor is Underpants:
 		jump()
 	else:
-		velocity += mov_direction.limit_length(1) * DASH_IMPULSE
-		mov_direction = Vector2.ZERO
-		friction /= 10
-		await get_tree().create_timer(0.06, false).timeout
-		friction *= 10
+		#velocity += mov_direction.limit_length(1) * DASH_IMPULSE
+		#mov_direction = Vector2.ZERO
+		#friction /= 10
+		previous_max_speed = max_speed
+		max_speed = 1000
+		dash_timer.start(dash_time)
+		dashed.emit(dash_time)
+		#await get_tree().create_timer(dash_time, false).timeout
+		#max_speed = previous_max_speed
+		#friction *= 10
+
+
+func _on_dash_timer_timeout() -> void:
+	max_speed = previous_max_speed
 
 
 func add_rotating_item(node: Node2D) -> void:
@@ -357,7 +371,7 @@ func can_pick_up_weapon(weapon: Weapon) -> bool:
 
 
 func _on_died() -> void:
-	SavedData.add_enemy_player_kill(life_component.last_damage_dealer_id)
+	SavedData.add_enemy_player_kill((life_component as PlayerLifeComponent).last_damage_dealer_id)
 
 
 func enable_mirage() -> void:
