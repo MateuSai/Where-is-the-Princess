@@ -131,7 +131,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qrqmi"]
-size = Vector2(30, 20)
+size = Vector2(30, 7)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_i6dnf"]
 polygon = PackedVector2Array(-16, -16, -16, -4, 16, -4, 16, -16)
@@ -154,7 +154,7 @@ libraries = {
 }
 
 [node name="CollisionShape2D" parent="." index="2"]
-position = Vector2(0, -6)
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_qrqmi")
 disabled = true
 

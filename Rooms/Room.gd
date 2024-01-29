@@ -302,6 +302,7 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 				else:
 					vertical_door.position += Vector2(-2, 4)
 					vertical_door.scale.x = -1
+				vertical_door.open_after_combat = entry.open_after_combat
 				door_container.add_child(vertical_door)
 			else:
 				var tile_positions: Array[Vector2i] = []
@@ -336,6 +337,7 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 
 				var horizontal_door: StaticBody2D = HORIZONTAL_UP_DOOR.instantiate() if dir == EntryDirection.UP else HORIZONTAL_DOWN_DOOR.instantiate()
 				horizontal_door.position = floor(entry.position / 16) * 16 + Vector2(Rooms.TILE_SIZE, Rooms.TILE_SIZE + 12)
+				horizontal_door.open_after_combat = entry.open_after_combat
 				door_container.add_child(horizontal_door)
 				if dir == EntryDirection.UP:
 					corridor_tilemap.erase_cell(1, corridor_tilemap.local_to_map(entry.global_position) + Vector2i.UP)
@@ -374,7 +376,8 @@ func _on_enemy_killed(enemy: Enemy) -> void:
 
 func _open_doors() -> void:
 	for door: Door in door_container.get_children():
-		door.open()
+		if door.open_after_combat:
+			door.open()
 
 
 func _close_entrance() -> void:

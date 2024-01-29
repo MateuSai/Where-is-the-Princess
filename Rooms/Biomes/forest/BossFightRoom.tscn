@@ -24,6 +24,7 @@ position = Vector2(7, -183)
 
 [node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("2_0n6ur")]
 position = Vector2(21, 186)
+open_after_combat = false
 
 [node name="Marker2D" type="Marker2D" parent="EnemyPositions" index="0"]
 position = Vector2(3, 20)
