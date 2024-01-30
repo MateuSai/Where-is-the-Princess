@@ -96,6 +96,11 @@ func get_available_permanent_items() -> PackedStringArray:
 	return PackedStringArray(arr)
 
 
+func discover_permanent_item_if_not_already(item_path: String) -> void:
+	if not _discovered_permanent_items.has(item_path):
+		_discovered_permanent_items.push_back(item_path)
+
+
 func get_discovered_permanent_items() -> PackedStringArray:
 	return _discovered_permanent_items.duplicate()
 
@@ -104,6 +109,11 @@ func get_available_temporal_items() -> PackedStringArray:
 	var arr: Array = _extra_available_temporal_items.duplicate()
 	arr.append_array(AVAILABLE_TEMPORAL_ITEMS_FROM_START)
 	return PackedStringArray(arr)
+
+
+func discover_temporal_item_if_not_already(item_path: String) -> void:
+	if not _discovered_temporal_items.has(item_path):
+		_discovered_temporal_items.push_back(item_path)
 
 
 func get_discovered_temporal_items() -> PackedStringArray:

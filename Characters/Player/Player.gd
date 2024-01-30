@@ -61,7 +61,7 @@ var weapon_degradation_reduction: float = 0.0:
 
 var rotating_items: Array[Node2D] = []
 
-## Room where the player is currenty
+## Room where the player is at this moment. Contains [code]null[/code] if the player is on a corridor
 var current_room: DungeonRoom = null
 
 var position_before_jumping: Vector2
@@ -167,7 +167,6 @@ func _exit_tree() -> void:
 func _process(_delta: float) -> void:
 	#camera.position = camera.position.lerp(position, 0.08)
 
-	# sm.update(_delta)
 	if Settings.auto_aim or is_equal_approx(Settings.aim_help, 1.0):
 		mouse_direction = auto_aim_area.get_direction()
 	else:
@@ -261,16 +260,21 @@ func pick_up_passive_item(item: PassiveItem) -> void:
 		permanent_passive_item.equip(self)
 		if not SavedData.run_stats.permanent_passive_items.has(permanent_passive_item):
 			SavedData.run_stats.permanent_passive_items.push_back(permanent_passive_item)
+
+		SavedData.discover_permanent_item_if_not_already(item.get_script().get_path())
 		permanent_passive_item_picked_up.emit(permanent_passive_item)
 	elif item is WeaponModifier:
 		var weapon_modifier_item: WeaponModifier = item
 		weapon_modifier_item.equip(weapons.current_weapon)
 		weapons.current_weapon.add_weapon_modifier(weapon_modifier_item)
 	else: # TemporalPassiveItem
+		assert(item is TemporalPassiveItem)
 		var temporal_passive_item: TemporalPassiveItem = item
 		temporal_passive_item.equip(self)
 		if not SavedData.run_stats.temporal_passive_items.has(temporal_passive_item):
 			SavedData.run_stats.temporal_passive_items.push_back(temporal_passive_item)
+
+		SavedData.discover_temporal_item_if_not_already(item.get_script().get_path())
 		temporal_passive_item_picked_up.emit(temporal_passive_item)
 
 

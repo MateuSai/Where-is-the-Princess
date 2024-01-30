@@ -446,6 +446,12 @@ func add_mod_temporal_item(item_path: String) -> void:
 	mod_temporal_item_paths.push_back(item_path)
 
 
+func discover_temporal_item_if_not_already(item_path: String) -> void:
+	data.discover_temporal_item_if_not_already(item_path)
+
+	save_data()
+
+
 func get_available_temporal_item_paths() -> PackedStringArray:
 	var temporal_item_paths: Array = data.get_available_temporal_items().duplicate()
 	temporal_item_paths.append_array(mod_temporal_item_paths)
@@ -464,6 +470,12 @@ func add_mod_permanent_item(item_path: String) -> void:
 		return
 
 	mod_permanent_item_paths.push_back(item_path)
+
+
+func discover_permanent_item_if_not_already(item_path: String) -> void:
+	data.discover_permanent_item_if_not_already(item_path)
+
+	save_data()
 
 
 func get_available_permanent_item_paths() -> PackedStringArray:
