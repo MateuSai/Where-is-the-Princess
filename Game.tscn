@@ -135,7 +135,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.384314)
 
 [node name="MenuTabContainer" type="TabContainer" parent="UI"]
-custom_minimum_size = Vector2(340, 200)
+custom_minimum_size = Vector2(339, 200)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -208,7 +208,8 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 texture = SubResource("AtlasTexture_5dygx")
-stretch_mode = 4
+expand_mode = 2
+stretch_mode = 5
 
 [node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer/EquipmentArmorVBox"]
 layout_mode = 2
@@ -317,25 +318,25 @@ script = ExtResource("11_7bikg")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuTabContainer/MENU"]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("4_usvbv")
 
 [node name="ResumeButton" type="Button" parent="UI/MenuTabContainer/MENU/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
 text = "RESUME"
+alignment = 0
 script = ExtResource("15_2ikhu")
 
 [node name="SettingsButton" type="Button" parent="UI/MenuTabContainer/MENU/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
 text = "SETTINGS"
 script = ExtResource("16_gpdwi")
 
 [node name="QuitButton" type="Button" parent="UI/MenuTabContainer/MENU/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 32
 text = "QUIT"
+alignment = 0
 script = ExtResource("17_iw01m")
 
 [node name="AutoFocusOnController" type="Node" parent="UI/MenuTabContainer/MENU"]
