@@ -79,28 +79,48 @@ class PassiveItemIcon extends TextureRect:
 
 	func _get_tooltip(_at_position: Vector2) -> String:
 		if show_tooltip:
-			return tr(item.get_item_name()) + "\n" + tr(item.get_item_description())
+			match item.get_quality():
+				Item.Quality.COMMON:
+					return tr(item.get_item_name()) + "\n\n" + tr(item.get_item_description())
+				Item.Quality.CHINGON:
+					return "[color=blue]" + tr(item.get_item_name()) + "[/color]\n\n" + tr(item.get_item_description())
+				_:
+					assert(false, "invalid type")
+					return ""
 		else:
 			return ""
 
 	func _make_custom_tooltip(for_text: String) -> Object:
-		var item_info_vbox: ItemInfoVBox = (load("res://ui/item_info_vbox.tscn") as PackedScene).instantiate()
-		item_info_vbox.custom_minimum_size.x = 80
+		var label: RichTextLabel = RichTextLabel.new()
+		label.bbcode_enabled = true
+		label.text = for_text
+		label.fit_content = true
+		label.custom_minimum_size.x = 96
+		label.add_theme_font_override("normal_font", load("res://Fonts/small_font.tres"))
+		label.add_theme_font_size_override("normal_font_size", 10)
+	#	var label_settings: LabelSettings = LabelSettings.new()
+	#	label_settings.font = load("res://Fonts/Poco.ttf")
+	#	label_settings.font_size = 10
+	#	label.label_settings = label_settings
+		return label
 
-		var splitted_text: PackedStringArray = for_text.split("\n")
-		assert(splitted_text.size() == 2)
-		item_info_vbox.get_node("NameLabel").text = splitted_text[0]
-		match item.get_quality():
-			Item.Quality.COMMON:
-				item_info_vbox.get_node("NameLabel").modulate = Color.WHITE
-			Item.Quality.CHINGON:
-				item_info_vbox.get_node("NameLabel").modulate = Color.BLUE
-		item_info_vbox.get_node("DescriptionLabel").text = splitted_text[1]
-
-		await get_tree().process_frame
-		item_info_vbox.size.y = 0
-
-		return item_info_vbox
+		#var item_info_vbox: ItemInfoVBox = (load("res://ui/item_info_vbox.tscn") as PackedScene).instantiate()
+		#item_info_vbox.custom_minimum_size.x = 80
+#
+		#var splitted_text: PackedStringArray = for_text.split("\n")
+		#assert(splitted_text.size() == 2)
+		#item_info_vbox.get_node("NameLabel").text = splitted_text[0]
+		#match item.get_quality():
+			#Item.Quality.COMMON:
+				#item_info_vbox.get_node("NameLabel").modulate = Color.WHITE
+			#Item.Quality.CHINGON:
+				#item_info_vbox.get_node("NameLabel").modulate = Color.BLUE
+		#item_info_vbox.get_node("DescriptionLabel").text = splitted_text[1]
+#
+		#await get_tree().process_frame
+		#item_info_vbox.size.y = 0
+#
+		#return item_info_vbox
 
 
 class TemporalPassiveItemIcon extends PassiveItemIcon:

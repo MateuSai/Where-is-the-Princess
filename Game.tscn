@@ -148,7 +148,7 @@ offset_bottom = 90.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_usvbv")
-current_tab = 2
+current_tab = 1
 script = ExtResource("6_y3275")
 
 [node name="MINIMAP" type="MarginContainer" parent="UI/MenuTabContainer"]
@@ -189,7 +189,6 @@ texture = ExtResource("16_0uph7")
 wait_time = 0.7
 
 [node name="EQUIPMENT" type="MarginContainer" parent="UI/MenuTabContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
@@ -251,7 +250,6 @@ text = "WEAPONS"
 [node name="Inventory" type="HBoxContainer" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = -1
-alignment = 1
 script = ExtResource("19_0wxa2")
 
 [node name="Label2" type="Label" parent="UI/MenuTabContainer/EQUIPMENT/HBoxContainer/VBoxContainer"]
@@ -271,6 +269,7 @@ layout_mode = 2
 script = ExtResource("16_tq616")
 
 [node name="ENCYCLOPEDIA" type="MarginContainer" parent="UI/MenuTabContainer"]
+visible = false
 layout_mode = 2
 script = ExtResource("17_k4k0u")
 
