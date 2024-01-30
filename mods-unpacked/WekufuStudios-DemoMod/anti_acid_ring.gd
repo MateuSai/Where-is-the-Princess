@@ -1,4 +1,4 @@
-class_name AntiAcidRing extends PermanentPassiveItem
+extends PermanentPassiveItem
 
 
 func equip(player: Player) -> void:
