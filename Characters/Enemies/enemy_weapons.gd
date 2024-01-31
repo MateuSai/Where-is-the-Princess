@@ -48,6 +48,10 @@ func active_ability() -> void:
 	current_weapon._active_ability()
 
 
+func strong_attack() -> void:
+	current_weapon._strong_attack()
+
+
 func set_current_weapon(new_weapon: Weapon) -> void:
 	super(new_weapon)
 	# Enemies weapons don't break

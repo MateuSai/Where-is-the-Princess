@@ -41,3 +41,13 @@ func _spawn_steal_life_attack() -> void:
 	steal_life_attack.tromp = get_parent().get_parent()
 	steal_life_attack.global_position = (get_parent().get_parent() as Enemy).target.global_position
 	get_tree().current_scene.add_child(steal_life_attack)
+
+
+func _spawn_magic_bouncing_projectile() -> void:
+	var small_magic_bouncing_projectile_scene: PackedScene = load("res://Weapons/projectiles/magic_bouncing_projectile/magic_bouncing_projectile.tscn")
+	var dir: Vector2 = Vector2.RIGHT.rotated(rotation)
+	for frame_num: int in 1:
+		var small_magic_bouncing_projectile: MagicBouncingProjectile = small_magic_bouncing_projectile_scene.instantiate()
+		get_tree().current_scene.add_child(small_magic_bouncing_projectile)
+		small_magic_bouncing_projectile.launch(spawn_projectile_pos.global_position, dir,  200, true)
+		small_magic_bouncing_projectile.initialize_magic_bouncing_projectile(frame_num)
