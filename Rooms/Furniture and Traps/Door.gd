@@ -37,4 +37,4 @@ func open() -> void:
 
 func close() -> void:
 	animation_player.play("close")
-	player_detector.queue_free()
+	#player_detector.queue_free()

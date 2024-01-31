@@ -79,8 +79,11 @@ func _on_rooms_generation_completed() -> void:
 	camera.enabled = false
 	var player: Player = PLAYER_SCENE.instantiate()
 	if wake_up:
-		wake_up = false
-		player.position = (rooms.find_child("WakeUpMarker", true, false) as Marker2D).global_position
+		#wake_up = false
+		var wake_up_marker: Marker2D = rooms.find_child("WakeUpMarker", true, false)
+		assert(wake_up_marker.get_parent() is DungeonRoom)
+		rooms.start_room = wake_up_marker.get_parent()
+		player.position = wake_up_marker.global_position
 	else:
 		player.position = rooms.start_room.teleport_position.global_position
 

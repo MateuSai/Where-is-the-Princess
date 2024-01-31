@@ -65,9 +65,6 @@ const FOG_PADDING: int = 128
 @onready var biome_conf: BiomeConf = SavedData.get_biome_conf()
 
 @onready var fog_sprite: Sprite2D = $"../FogSprite"
-
-# @onready var player: CharacterBody2D = get_parent().get_node("Player")
-
 @onready var corridor_tile_map: TileMap = get_node("CorridorTileMap")
 
 
@@ -88,6 +85,15 @@ func _ready() -> void:
 	else:
 		corridor_tile_map.z_index = 0
 		corridor_tile_map.material = null
+
+	game.player_added.connect(func() -> void:
+		_create_fog()
+		if Game.wake_up:
+			for room: DungeonRoom in rooms:
+				room.remove_enemies_and_open_doors()
+
+		start_room._on_player_entered_room()
+	)
 
 
 func _input(event: InputEvent) -> void:
@@ -123,9 +129,6 @@ func _process(delta: float) -> void:
 		var ok: bool = await _create_corridors()
 		if not ok:
 			return
-		_create_fog()
-		start_room._on_player_entered_room()
-		#start_room._on_player_entered_room()
 
 
 func _get_rooms(type: String) -> PackedStringArray:
@@ -1347,6 +1350,7 @@ class Connection:
 	var room_1_entry_positions: EntryPositions
 	var room_2_entry_positions: EntryPositions
 	enum Type {
+		NULL = -1,
 		VERTICAL,
 		HORIZONTAL,
 		L_315,

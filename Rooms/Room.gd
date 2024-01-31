@@ -22,6 +22,7 @@ var num_enemies: int
 var float_position: Vector2
 
 enum EntryDirection {
+	NULL = -1,
 	LEFT,
 	UP,
 	RIGHT,
@@ -388,6 +389,15 @@ func _close_entrance() -> void:
 #		tilemap.set_cell(1, tilemap.local_to_map(entry_position.position) + Vector2i.DOWN, 2, Vector2i.ZERO)
 
 
+func remove_enemies_and_open_doors() -> void:
+	for i: int in range(enemy_positions_container.get_child_count() - 1, -1, -1):
+		enemy_positions_container.get_child(i).free()
+	num_enemies = 0
+
+	_close_entrance()
+	_open_doors()
+
+
 func _spawn_enemies() -> void:
 	#var enemy_paths: Array[String] = Globals.get_enemy_paths(SavedData.run_stats.biome)
 
@@ -416,6 +426,8 @@ func _on_player_entered_room() -> void:
 	Globals.player.current_room = self
 
 	if not player_entered_previously:
+		player_entered_previously = true
+
 		rooms.clear_room_fog(position + Vector2(room_white_image_offset), room_white_image)
 
 		#for door: Door in door_container.get_children():
@@ -435,8 +447,6 @@ func _on_player_entered_room() -> void:
 			#black_tilemap.queue_free()
 			#_close_entrance()
 			#_open_doors()
-
-		player_entered_previously = true
 
 
 func get_random_spawn_point(spawn_shape: Rooms.SpawnShape) -> Vector2:
