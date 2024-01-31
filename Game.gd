@@ -123,8 +123,6 @@ func _process(_delta: float) -> void:
 
 
 func _exit_tree() -> void:
-	wake_up = false
-
 	if generation_thread:
 		generation_thread.wait_to_finish()
 

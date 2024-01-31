@@ -20,17 +20,17 @@ layer_1/tile_data = PackedInt32Array(524305, 196613, 5, 589841, 196613, 5, 65537
 [node name="VerticalEntry" parent="Entries/Left" index="0" instance=ExtResource("2_ko3l7")]
 position = Vector2(54, 181)
 
-[node name="TeleportPosition" parent="." index="8"]
+[node name="TeleportPosition" parent="." index="7"]
 position = Vector2(167, 170)
 
-[node name="Torch" parent="." index="10" instance=ExtResource("4_bessc")]
+[node name="Torch" parent="." index="9" instance=ExtResource("4_bessc")]
 position = Vector2(148, 119)
 
-[node name="Torch2" parent="." index="11" instance=ExtResource("4_bessc")]
+[node name="Torch2" parent="." index="10" instance=ExtResource("4_bessc")]
 position = Vector2(241, 120)
 
-[node name="Torch3" parent="." index="12" instance=ExtResource("4_bessc")]
+[node name="Torch3" parent="." index="11" instance=ExtResource("4_bessc")]
 position = Vector2(140, 232)
 
-[node name="Torch4" parent="." index="13" instance=ExtResource("4_bessc")]
+[node name="Torch4" parent="." index="12" instance=ExtResource("4_bessc")]
 position = Vector2(241, 231)
