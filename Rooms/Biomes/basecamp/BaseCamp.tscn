@@ -178,7 +178,7 @@ bus = &"Sounds"
 [node name="StartArea1" type="Area2D" parent="."]
 position = Vector2(128, 8)
 collision_layer = 0
-collision_mask = 2
+collision_mask = 256
 script = ExtResource("9_r816v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartArea1"]
@@ -187,7 +187,7 @@ shape = SubResource("RectangleShape2D_qm2jb")
 [node name="StartArea2" type="Area2D" parent="."]
 position = Vector2(128, -9)
 collision_layer = 0
-collision_mask = 2
+collision_mask = 256
 script = ExtResource("9_r816v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartArea2"]
@@ -196,7 +196,7 @@ shape = SubResource("RectangleShape2D_qm2jb")
 [node name="StartArea3" type="Area2D" parent="."]
 position = Vector2(128, -26)
 collision_layer = 0
-collision_mask = 2
+collision_mask = 256
 script = ExtResource("9_r816v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartArea3"]
@@ -205,7 +205,7 @@ shape = SubResource("RectangleShape2D_qm2jb")
 [node name="StartArea4" type="Area2D" parent="."]
 position = Vector2(128, -44)
 collision_layer = 0
-collision_mask = 2
+collision_mask = 256
 script = ExtResource("9_r816v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartArea4"]
@@ -304,8 +304,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = -8.0
-offset_bottom = -8.0
+offset_right = 192.0
+offset_bottom = 142.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_nybk1")
