@@ -16,6 +16,7 @@ class_name BaseCamp extends DungeonRoom
 func _ready() -> void:
 	super()
 
+	randomize()
 	_set_seed()
 
 	game.player_added.connect(func() -> void:

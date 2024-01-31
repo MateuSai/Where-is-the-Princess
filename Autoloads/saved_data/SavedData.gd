@@ -87,7 +87,7 @@ func save_statistics() -> void:
 func _load_statistics() -> void:
 	var file: FileAccess = FileAccess.open(USER_FOLDER + STATISTICS_SAVE_NAME, FileAccess.READ)
 	if file:
-		print("Save data found. Loading it...")
+		print("Statistics file found. Loading it...")
 		var json: JSON = JSON.new()
 		json.parse(file.get_as_text())
 		if json.data is Dictionary:
@@ -96,7 +96,7 @@ func _load_statistics() -> void:
 			printerr("Could not load file data as json, using default values...")
 			statistics = Statistics.new()
 	else:
-		print("No save data found, using default value...")
+		print("No statistics file found, using default value...")
 		statistics = Statistics.new()
 
 
@@ -120,40 +120,6 @@ func _remove_and_reset_run_stats() -> void:
 
 func are_there_run_stats() -> bool:
 	return FileAccess.file_exists(USER_FOLDER.path_join(RUN_STATS_SAVE_NAME))
-
-
-#func save_mods_conf() -> void:
-#	var mods_dic: Dictionary = {}
-#	for mod in mods:
-#		mods_dic[mod.get_name()] = mod.to_dictionary()
-#
-#	var file: FileAccess = FileAccess.open(USER_FOLDER + MODS_CONF_FILE_NAME, FileAccess.WRITE)
-#	if not file:
-#		printerr("Error opening " + USER_FOLDER + MODS_CONF_FILE_NAME + " for writing!! I can't save your mods configuration, bro")
-#		return
-#	file.store_string(JSON.stringify(mods_dic, "\t"))
-#	file.close()
-#
-#
-#func _load_mods_conf() -> Dictionary:
-#	var file: FileAccess = FileAccess.open(USER_FOLDER + MODS_CONF_FILE_NAME, FileAccess.READ)
-#	if file:
-#		print("Mods configuration found. Loading it...")
-#		var json: JSON = JSON.new()
-#		json.parse(file.get_as_text())
-#		return json.data
-#
-#	return {}
-#
-#
-#func load_mods() -> void:
-#	if OS.has_feature("editor"):
-#		print("Not loading mods because they are only supported on the exported version")
-#		return
-#
-#	for mod in mods:
-#		if not ProjectSettings.load_resource_pack(mod.resource_path):
-#			printerr("Error loading " + mod.resource_path + " mod!")
 
 
 func reset_run_stats() -> void:
