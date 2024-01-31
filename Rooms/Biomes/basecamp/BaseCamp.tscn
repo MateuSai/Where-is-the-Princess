@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=59 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="Script" path="res://Rooms/Biomes/basecamp/BaseCamp.gd" id="1_tpf7m"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="2_ipa5f"]
@@ -37,6 +37,7 @@
 [ext_resource type="PackedScene" uid="uid://bp2oo4273j0dc" path="res://Weapons/Melee/spear/Spear.tscn" id="35_gq7sc"]
 [ext_resource type="PackedScene" uid="uid://dkpyvq2xuuytm" path="res://Weapons/Ranged/crossbows/wooden_crossbow/wooden_crossbow.tscn" id="37_gon7g"]
 [ext_resource type="PackedScene" uid="uid://cpcdmduiwspc4" path="res://Rooms/Biomes/basecamp/base_camp_items_shop.tscn" id="37_qhx6q"]
+[ext_resource type="PackedScene" uid="uid://brjtvw0ivw80o" path="res://Characters/npcs/cats/black_cat/black_cat.tscn" id="38_vpu83"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_s6u7b"]
 source_geometry_group_name = &"navigation_polygon_source_group"
@@ -177,7 +178,7 @@ bus = &"Sounds"
 [node name="StartArea1" type="Area2D" parent="."]
 position = Vector2(128, 8)
 collision_layer = 0
-collision_mask = 2
+collision_mask = 256
 script = ExtResource("9_r816v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartArea1"]
@@ -186,7 +187,7 @@ shape = SubResource("RectangleShape2D_qm2jb")
 [node name="StartArea2" type="Area2D" parent="."]
 position = Vector2(128, -9)
 collision_layer = 0
-collision_mask = 2
+collision_mask = 256
 script = ExtResource("9_r816v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartArea2"]
@@ -195,7 +196,7 @@ shape = SubResource("RectangleShape2D_qm2jb")
 [node name="StartArea3" type="Area2D" parent="."]
 position = Vector2(128, -26)
 collision_layer = 0
-collision_mask = 2
+collision_mask = 256
 script = ExtResource("9_r816v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartArea3"]
@@ -204,7 +205,7 @@ shape = SubResource("RectangleShape2D_qm2jb")
 [node name="StartArea4" type="Area2D" parent="."]
 position = Vector2(128, -44)
 collision_layer = 0
-collision_mask = 2
+collision_mask = 256
 script = ExtResource("9_r816v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartArea4"]
@@ -354,7 +355,7 @@ theme = ExtResource("4_6s3ou")
 [node name="SpinBox" type="SpinBox" parent="SeedPopup/MarginContainer"]
 layout_mode = 2
 min_value = -1.0
-max_value = 9.22337e+18
+max_value = 1e+08
 value = -1.0
 
 [node name="RichardTheGigachadWizard" parent="." instance=ExtResource("11_vh5i5")]
@@ -522,3 +523,6 @@ theme_override_font_sizes/font_size = 64
 
 [node name="TikiTorch16" parent="." instance=ExtResource("26_61yb5")]
 position = Vector2(70, 34)
+
+[node name="CatBlack" parent="." instance=ExtResource("38_vpu83")]
+position = Vector2(195, 49)

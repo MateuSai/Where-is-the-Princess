@@ -10,5 +10,6 @@ func _ready() -> void:
 	super()
 
 	pressed.connect(func() -> void:
+		Game.wake_up = true
 		SceneTransistor.start_transition_to("res://Game.tscn")
 	)

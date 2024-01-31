@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format=3 uid="uid://brjtvw0ivw80o"]
+
+[ext_resource type="PackedScene" uid="uid://xvaekjyf4uxl" path="res://Characters/npcs/NPC.tscn" id="1_y5y3s"]
+[ext_resource type="Texture2D" uid="uid://bpo61641t3ks0" path="res://Art/cat_black_0.png" id="2_8b26p"]
+[ext_resource type="Script" path="res://Characters/npcs/cats/cat.gd" id="2_x5xjj"]
+[ext_resource type="Texture2D" uid="uid://brebnmv5exfw2" path="res://Art/cat_black_1.png" id="3_yr7fj"]
+[ext_resource type="Texture2D" uid="uid://cxn81ihnj82be" path="res://Art/cat_black_2.png" id="4_dsdrf"]
+[ext_resource type="Texture2D" uid="uid://bv2o77amj222u" path="res://Art/cat_black_3.png" id="5_1c2p1"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_equv8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8b26p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_yr7fj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_dsdrf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_1c2p1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jl45a"]
+radius = 2.0
+height = 8.0
+
+[node name="BlackCat" instance=ExtResource("1_y5y3s")]
+script = ExtResource("2_x5xjj")
+
+[node name="AnimatedSprite" parent="." index="0"]
+position = Vector2(0, -6)
+sprite_frames = SubResource("SpriteFrames_equv8")
+autoplay = "default"
+frame_progress = 0.22922
+
+[node name="CollisionShape2D" parent="." index="1"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_jl45a")

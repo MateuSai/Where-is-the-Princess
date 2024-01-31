@@ -6,6 +6,8 @@ const PLAYER_SCENE: PackedScene = preload("res://Characters/Player/Player.tscn")
 @export var reload_on_generation_eror: bool = true
 @export var execute_procedural_generation_on_thread: bool = true
 
+static var wake_up: bool = false
+
 var generation_thread: Thread = null
 
 signal player_added()
@@ -21,6 +23,10 @@ var scroll_vertical_at_start_of_drag: float = 0
 @onready var canvas_modulate: CanvasModulate = $CanvasModulate
 @onready var generating_dungeon_canvas_layer: CanvasLayer = get_node("GeneratingDungeonCanvasLayer")
 @onready var music: AudioStreamPlayer = $Music
+
+
+func _init() -> void:
+	seed(SavedData.run_stats.get_level_seed())
 
 
 func _ready() -> void:
@@ -72,7 +78,14 @@ func _on_rooms_generation_completed() -> void:
 
 	camera.enabled = false
 	var player: Player = PLAYER_SCENE.instantiate()
-	player.position = rooms.start_room.teleport_position.global_position
+	if wake_up:
+		#wake_up = false
+		var wake_up_marker: Marker2D = rooms.find_child("WakeUpMarker", true, false)
+		assert(wake_up_marker.get_parent() is DungeonRoom)
+		rooms.start_room = wake_up_marker.get_parent()
+		player.position = wake_up_marker.global_position
+	else:
+		player.position = rooms.start_room.teleport_position.global_position
 
 	add_child(player)
 	player_added.emit()

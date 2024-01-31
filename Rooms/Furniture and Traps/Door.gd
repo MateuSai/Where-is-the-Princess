@@ -3,6 +3,8 @@ class_name Door extends StaticBody2D
 
 signal player_entered_room()
 
+var open_after_combat: bool = true
+
 enum DoorOrientation {VERTICAL, HORIZONTAL_UP, HORIZONTAL_DOWN}
 @export var door_type: DoorOrientation = DoorOrientation.VERTICAL
 
@@ -35,4 +37,4 @@ func open() -> void:
 
 func close() -> void:
 	animation_player.play("close")
-	player_detector.queue_free()
+	#player_detector.queue_free()

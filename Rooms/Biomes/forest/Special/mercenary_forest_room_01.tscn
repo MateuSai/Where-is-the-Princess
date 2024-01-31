@@ -34,7 +34,7 @@ position = Vector2(119, 103)
 position = Vector2(107, 71)
 
 [node name="RichardTheGigachadWizard" parent="." index="9" instance=ExtResource("4_e8de4")]
-position = Vector2(181, 61)
+position = Vector2(171, 62)
 flip_h = true
 dir = Vector2(-1, 0)
 

@@ -22,6 +22,7 @@ var num_enemies: int
 var float_position: Vector2
 
 enum EntryDirection {
+	NULL = -1,
 	LEFT,
 	UP,
 	RIGHT,
@@ -302,6 +303,7 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 				else:
 					vertical_door.position += Vector2(-2, 4)
 					vertical_door.scale.x = -1
+				vertical_door.open_after_combat = entry.open_after_combat
 				door_container.add_child(vertical_door)
 			else:
 				var tile_positions: Array[Vector2i] = []
@@ -336,6 +338,7 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 
 				var horizontal_door: StaticBody2D = HORIZONTAL_UP_DOOR.instantiate() if dir == EntryDirection.UP else HORIZONTAL_DOWN_DOOR.instantiate()
 				horizontal_door.position = floor(entry.position / 16) * 16 + Vector2(Rooms.TILE_SIZE, Rooms.TILE_SIZE + 12)
+				horizontal_door.open_after_combat = entry.open_after_combat
 				door_container.add_child(horizontal_door)
 				if dir == EntryDirection.UP:
 					corridor_tilemap.erase_cell(1, corridor_tilemap.local_to_map(entry.global_position) + Vector2i.UP)
@@ -374,7 +377,8 @@ func _on_enemy_killed(enemy: Enemy) -> void:
 
 func _open_doors() -> void:
 	for door: Door in door_container.get_children():
-		door.open()
+		if door.open_after_combat:
+			door.open()
 
 
 func _close_entrance() -> void:
@@ -383,6 +387,15 @@ func _close_entrance() -> void:
 #	for entry_position in entrance.get_children():
 #		tilemap.set_cell(1, tilemap.local_to_map(entry_position.position), 1, Vector2i.ZERO)
 #		tilemap.set_cell(1, tilemap.local_to_map(entry_position.position) + Vector2i.DOWN, 2, Vector2i.ZERO)
+
+
+func remove_enemies_and_open_doors() -> void:
+	for i: int in range(enemy_positions_container.get_child_count() - 1, -1, -1):
+		enemy_positions_container.get_child(i).free()
+	num_enemies = 0
+
+	_close_entrance()
+	_open_doors()
 
 
 func _spawn_enemies() -> void:
@@ -413,6 +426,8 @@ func _on_player_entered_room() -> void:
 	Globals.player.current_room = self
 
 	if not player_entered_previously:
+		player_entered_previously = true
+
 		rooms.clear_room_fog(position + Vector2(room_white_image_offset), room_white_image)
 
 		#for door: Door in door_container.get_children():
@@ -432,8 +447,6 @@ func _on_player_entered_room() -> void:
 			#black_tilemap.queue_free()
 			#_close_entrance()
 			#_open_doors()
-
-		player_entered_previously = true
 
 
 func get_random_spawn_point(spawn_shape: Rooms.SpawnShape) -> Vector2:

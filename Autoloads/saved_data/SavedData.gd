@@ -18,8 +18,8 @@ var mod_weapon_paths: PackedStringArray = []
 var mod_armor_paths: PackedStringArray = []
 #var discovered_mod_armor_paths: PackedStringArray = []
 
-var volatile_permanent_item_paths: PackedStringArray = []
-var volatile_temporal_item_paths: PackedStringArray = []
+var mod_permanent_item_paths: PackedStringArray = []
+var mod_temporal_item_paths: PackedStringArray = []
 
 var run_stats: RunStats
 
@@ -39,7 +39,7 @@ func _ready() -> void:
 
 	_load_run_stats()
 
-	change_biome(run_stats.biome)
+	change_biome(run_stats.biome, run_stats.level)
 	# print(biome_conf)
 
 	var user_dir: DirAccess = DirAccess.open(USER_FOLDER)
@@ -87,7 +87,7 @@ func save_statistics() -> void:
 func _load_statistics() -> void:
 	var file: FileAccess = FileAccess.open(USER_FOLDER + STATISTICS_SAVE_NAME, FileAccess.READ)
 	if file:
-		print("Save data found. Loading it...")
+		print("Statistics file found. Loading it...")
 		var json: JSON = JSON.new()
 		json.parse(file.get_as_text())
 		if json.data is Dictionary:
@@ -96,7 +96,7 @@ func _load_statistics() -> void:
 			printerr("Could not load file data as json, using default values...")
 			statistics = Statistics.new()
 	else:
-		print("No save data found, using default value...")
+		print("No statistics file found, using default value...")
 		statistics = Statistics.new()
 
 
@@ -115,44 +115,11 @@ func _load_run_stats() -> void:
 func _remove_and_reset_run_stats() -> void:
 	DirAccess.remove_absolute(USER_FOLDER.path_join(RUN_STATS_SAVE_NAME))
 	run_stats = RunStats.new()
+	change_biome(run_stats.biome, run_stats.level)
 
 
 func are_there_run_stats() -> bool:
 	return FileAccess.file_exists(USER_FOLDER.path_join(RUN_STATS_SAVE_NAME))
-
-
-#func save_mods_conf() -> void:
-#	var mods_dic: Dictionary = {}
-#	for mod in mods:
-#		mods_dic[mod.get_name()] = mod.to_dictionary()
-#
-#	var file: FileAccess = FileAccess.open(USER_FOLDER + MODS_CONF_FILE_NAME, FileAccess.WRITE)
-#	if not file:
-#		printerr("Error opening " + USER_FOLDER + MODS_CONF_FILE_NAME + " for writing!! I can't save your mods configuration, bro")
-#		return
-#	file.store_string(JSON.stringify(mods_dic, "\t"))
-#	file.close()
-#
-#
-#func _load_mods_conf() -> Dictionary:
-#	var file: FileAccess = FileAccess.open(USER_FOLDER + MODS_CONF_FILE_NAME, FileAccess.READ)
-#	if file:
-#		print("Mods configuration found. Loading it...")
-#		var json: JSON = JSON.new()
-#		json.parse(file.get_as_text())
-#		return json.data
-#
-#	return {}
-#
-#
-#func load_mods() -> void:
-#	if OS.has_feature("editor"):
-#		print("Not loading mods because they are only supported on the exported version")
-#		return
-#
-#	for mod in mods:
-#		if not ProjectSettings.load_resource_pack(mod.resource_path):
-#			printerr("Error loading " + mod.resource_path + " mod!")
 
 
 func reset_run_stats() -> void:
@@ -262,13 +229,13 @@ func add_ignored_room(room_path: String) -> void:
 
 
 ## You can specify a vanilla biome like [code]"forest"[/code] or [code]"sewer"[/code] or you can use an absolute path to the config.json for your own biome
-func change_biome(new_biome: String) -> void:
+func change_biome(new_biome: String, level: int = 1) -> void:
 	if new_biome.is_absolute_path():
 		_change_biome_conf(new_biome)
 	else:
 		_change_biome_conf(BIOMES_FOLDER_PATH + new_biome + "/conf.json")
 	run_stats.biome = new_biome
-	run_stats.level = 1
+	run_stats.level = level
 
 
 func _change_biome_conf(biome_conf_path: String) -> void:
@@ -418,6 +385,20 @@ func get_available_armor_paths() -> PackedStringArray:
 	return PackedStringArray(armor_paths)
 
 
+func get_all_items_paths() -> PackedStringArray:
+	var ret: PackedStringArray = data.ALL_VANILLA_PERMANENT_ITEMS.duplicate()
+	ret.append_array(data.ALL_VANILLA_TEMPORAL_ITEMS)
+	ret.append_array(mod_permanent_item_paths)
+	ret.append_array(mod_temporal_item_paths)
+	return ret
+
+
+func get_discovered_all_items_paths() -> PackedStringArray:
+	var ret: PackedStringArray = data.get_discovered_permanent_items()
+	ret.append_array(data.get_discovered_temporal_items())
+	return ret
+
+
 func add_extra_available_temporal_item(item_path: String) -> void:
 	data.add_extra_available_temporal_item(item_path)
 
@@ -425,16 +406,22 @@ func add_extra_available_temporal_item(item_path: String) -> void:
 
 
 ## Adds a temporal item only for this session. Use this for mods to load the item each time the mod loads.
-func add_volatile_temporal_item(item_path: String) -> void:
-	if volatile_temporal_item_paths.has(item_path):
+func add_mod_temporal_item(item_path: String) -> void:
+	if mod_temporal_item_paths.has(item_path):
 		return
 
-	volatile_temporal_item_paths.push_back(item_path)
+	mod_temporal_item_paths.push_back(item_path)
+
+
+func discover_temporal_item_if_not_already(item_path: String) -> void:
+	data.discover_temporal_item_if_not_already(item_path)
+
+	save_data()
 
 
 func get_available_temporal_item_paths() -> PackedStringArray:
 	var temporal_item_paths: Array = data.get_available_temporal_items().duplicate()
-	temporal_item_paths.append_array(volatile_temporal_item_paths)
+	temporal_item_paths.append_array(mod_temporal_item_paths)
 	return PackedStringArray(temporal_item_paths)
 
 
@@ -445,16 +432,22 @@ func add_extra_available_permanent_item(item_path: String) -> void:
 
 
 ## Adds a permanent item only for this session. Use this for mods to load the item each time the mod loads.
-func add_volatile_permanent_item(item_path: String) -> void:
-	if volatile_permanent_item_paths.has(item_path):
+func add_mod_permanent_item(item_path: String) -> void:
+	if mod_permanent_item_paths.has(item_path):
 		return
 
-	volatile_permanent_item_paths.push_back(item_path)
+	mod_permanent_item_paths.push_back(item_path)
+
+
+func discover_permanent_item_if_not_already(item_path: String) -> void:
+	data.discover_permanent_item_if_not_already(item_path)
+
+	save_data()
 
 
 func get_available_permanent_item_paths() -> PackedStringArray:
 	var permanent_item_paths: Array = data.get_available_permanent_items().duplicate()
-	permanent_item_paths.append_array(volatile_permanent_item_paths)
+	permanent_item_paths.append_array(mod_permanent_item_paths)
 	return PackedStringArray(permanent_item_paths)
 
 

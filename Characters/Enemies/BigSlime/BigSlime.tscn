@@ -111,7 +111,7 @@ script = ExtResource("2_74gab")
 acid_puddle_scene = ExtResource("3_havo4")
 child_slime_scene = ExtResource("4_sih7s")
 
-[node name="FiniteStateMachine" parent="." index="1"]
+[node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("5_g0ud0")
 start_circling_at_distance = 30
 stop_circling_at_distance = 45

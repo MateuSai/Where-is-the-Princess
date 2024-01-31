@@ -13,6 +13,7 @@ func _ready() -> void:
 func _on_draw() -> void:
 	var current_armor: Armor = Globals.player.armor
 
-	atlas_texture.atlas = current_armor.sprite_sheet
+	%ArmorTexture.texture = %UI.cropped_viewport_texture
+	#atlas_texture.atlas = current_armor.sprite_sheet
 	armor_name_label.text = current_armor.get_armor_name()
 	armor_description_label.text = current_armor.get_description()

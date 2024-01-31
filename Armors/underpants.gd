@@ -13,7 +13,7 @@ func unequip(player: Player) -> void:
 	player.max_speed -= 10
 
 
-func enable_ability_effect(player: Player) -> void:
+func enable_ability_effect(_player: Player) -> void:
 	pass
 	#player.jump()
 

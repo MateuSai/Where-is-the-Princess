@@ -10,7 +10,7 @@ func _ready() -> void:
 		var item_class_name: String = (player_upgrade.get_script() as Script).get_path().get_file().trim_suffix(".gd")
 		var icon: PlayerUpgradeItemIcon = PlayerUpgradeItemIcon.new()
 		icon.show_tooltip = true
-		icon.name
+		icon.name = item_class_name
 		icon.item = player_upgrade
 		icon.texture = player_upgrade.get_icon()
 		add_child(icon)
