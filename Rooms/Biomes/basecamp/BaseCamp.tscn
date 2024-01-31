@@ -304,8 +304,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = -8.0
-offset_bottom = -8.0
+offset_right = 192.0
+offset_bottom = 142.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_nybk1")
@@ -355,7 +355,7 @@ theme = ExtResource("4_6s3ou")
 [node name="SpinBox" type="SpinBox" parent="SeedPopup/MarginContainer"]
 layout_mode = 2
 min_value = -1.0
-max_value = 9.22337e+18
+max_value = 1e+08
 value = -1.0
 
 [node name="RichardTheGigachadWizard" parent="." instance=ExtResource("11_vh5i5")]

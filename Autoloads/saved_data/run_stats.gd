@@ -4,6 +4,8 @@ class_name RunStats extends Resource
 
 signal coins_changed(new_coins: int)
 
+## First eight digits are random seed. Then comes 7 digits for the biome name hash and the last digit is the level
+@export var run_seed: int
 @export var biome: String = "basecamp"
 @export var level: int = 1
 
@@ -23,3 +25,7 @@ signal coins_changed(new_coins: int)
 
 ## Bigger luck means more chance to get rare items from chests
 @export var luck: int = 50
+
+
+func get_level_seed() -> int:
+	return int(str(run_seed) + str(biome.hash()).left(7) + str(level))

@@ -16,6 +16,8 @@ class_name BaseCamp extends DungeonRoom
 func _ready() -> void:
 	super()
 
+	_set_seed()
+
 	game.player_added.connect(func() -> void:
 		var armor_script: GDScript = load(SavedData.data.equipped_armor)
 		Globals.player.set_armor(armor_script.new() as Armor)
@@ -48,6 +50,7 @@ func _ready() -> void:
 		)
 		seed_popup.popup_hide.connect(func() -> void:
 			Globals.player.can_move = true
+			_set_seed()
 		)
 
 		wardrobe_interact_area.player_interacted.connect(func() -> void:
@@ -67,15 +70,14 @@ func _exit_tree() -> void:
 	SavedData.save_data()
 
 
-func start_game() -> void:
+func _set_seed() -> void:
 	var seed_spin_box: SpinBox = seed_popup.get_node("MarginContainer/SpinBox")
 	var run_seed: int
 	if seed_spin_box.value == -1:
-		run_seed = randi()
+		run_seed = randi() % 100000000 # Eight digit number
 	else:
 		run_seed = int(seed_spin_box.value)
 	#run_seed = 2838917277
-	print("Seed: " + str(run_seed) + "\n")
-	seed(run_seed)
-	Globals.run_seed = run_seed
-	SceneTransistor.start_transition_to("res://Game.tscn")
+	print("Changed seed to  " + str(run_seed) + "\n")
+	#seed(run_seed)
+	SavedData.run_stats.run_seed = run_seed

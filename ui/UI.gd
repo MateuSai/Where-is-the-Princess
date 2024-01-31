@@ -27,7 +27,7 @@ func _ready() -> void:
 	tab_container.hide()
 	#pause_menu.hide()
 	seed_label.hide()
-	seed_label.text = str(Globals.run_seed)
+	seed_label.text = str(SavedData.run_stats.get_level_seed())
 
 	#minimap.popup_hide.connect(func(): minimap_visible = false)
 

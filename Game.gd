@@ -23,6 +23,10 @@ var scroll_vertical_at_start_of_drag: float = 0
 @onready var music: AudioStreamPlayer = $Music
 
 
+func _init() -> void:
+	seed(SavedData.run_stats.get_level_seed())
+
+
 func _ready() -> void:
 	RenderingServer.set_default_clear_color(SavedData.get_biome_conf().background_color)
 	canvas_modulate.color = SavedData.get_biome_conf().light_color
