@@ -6,6 +6,8 @@ const PLAYER_SCENE: PackedScene = preload("res://Characters/Player/Player.tscn")
 @export var reload_on_generation_eror: bool = true
 @export var execute_procedural_generation_on_thread: bool = true
 
+static var wake_up: bool = false
+
 var generation_thread: Thread = null
 
 signal player_added()
@@ -76,7 +78,11 @@ func _on_rooms_generation_completed() -> void:
 
 	camera.enabled = false
 	var player: Player = PLAYER_SCENE.instantiate()
-	player.position = rooms.start_room.teleport_position.global_position
+	if wake_up:
+		wake_up = false
+		player.position = (rooms.find_child("WakeUpMarker", true, false) as Marker2D).global_position
+	else:
+		player.position = rooms.start_room.teleport_position.global_position
 
 	add_child(player)
 	player_added.emit()
@@ -114,6 +120,8 @@ func _process(_delta: float) -> void:
 
 
 func _exit_tree() -> void:
+	wake_up = false
+
 	if generation_thread:
 		generation_thread.wait_to_finish()
 

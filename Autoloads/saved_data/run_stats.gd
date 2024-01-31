@@ -7,7 +7,9 @@ signal coins_changed(new_coins: int)
 ## First eight digits are random seed. Then comes 7 digits for the biome name hash and the last digit is the level
 @export var run_seed: int
 @export var biome: String = "basecamp"
-@export var level: int = 1
+@export var level: int = 1:
+	set(new_value):
+		level = new_value
 
 @export var hp: int = Character.DB["player"].max_hp + SavedData.data.get_extra_max_hp()
 @export var weapon_stats: Array[WeaponStats] = []

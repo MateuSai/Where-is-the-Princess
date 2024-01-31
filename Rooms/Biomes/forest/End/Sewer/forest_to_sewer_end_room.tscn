@@ -38,3 +38,6 @@ path_to_sprite = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SleepBag/SaveRunInteractArea" index="0"]
 shape = SubResource("CircleShape2D_87w00")
+
+[node name="WakeUpMarker" type="Marker2D" parent="SleepBag" index="1"]
+position = Vector2(12, 10)

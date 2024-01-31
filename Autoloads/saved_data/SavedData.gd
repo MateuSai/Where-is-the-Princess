@@ -39,7 +39,7 @@ func _ready() -> void:
 
 	_load_run_stats()
 
-	change_biome(run_stats.biome)
+	change_biome(run_stats.biome, run_stats.level)
 	# print(biome_conf)
 
 	var user_dir: DirAccess = DirAccess.open(USER_FOLDER)
@@ -262,13 +262,13 @@ func add_ignored_room(room_path: String) -> void:
 
 
 ## You can specify a vanilla biome like [code]"forest"[/code] or [code]"sewer"[/code] or you can use an absolute path to the config.json for your own biome
-func change_biome(new_biome: String) -> void:
+func change_biome(new_biome: String, level: int = 1) -> void:
 	if new_biome.is_absolute_path():
 		_change_biome_conf(new_biome)
 	else:
 		_change_biome_conf(BIOMES_FOLDER_PATH + new_biome + "/conf.json")
 	run_stats.biome = new_biome
-	run_stats.level = 1
+	run_stats.level = level
 
 
 func _change_biome_conf(biome_conf_path: String) -> void:
