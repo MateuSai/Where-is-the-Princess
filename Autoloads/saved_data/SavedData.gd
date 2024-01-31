@@ -115,6 +115,7 @@ func _load_run_stats() -> void:
 func _remove_and_reset_run_stats() -> void:
 	DirAccess.remove_absolute(USER_FOLDER.path_join(RUN_STATS_SAVE_NAME))
 	run_stats = RunStats.new()
+	change_biome(run_stats.biome, run_stats.level)
 
 
 func are_there_run_stats() -> bool:
