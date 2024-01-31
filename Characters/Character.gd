@@ -38,6 +38,7 @@ var resistances: int = 0 # I can't make an exported using an enum to select flag
 var mov_direction: Vector2 = Vector2.ZERO
 
 var inside_acid: bool = false
+var acid_progress_per_second: float = 0.7
 var acid_progress: float = 0.0: set = set_acid_progress ## Value between 0 and 1
 
 ## The name of the scene file after removing .tscn and converting it to snake_case
@@ -87,7 +88,7 @@ func _load_csv_data(data: Dictionary) -> void:
 
 func _physics_process(delta: float) -> void:
 	if inside_acid and acid_damage_timer.is_stopped():
-		acid_progress += 0.7 * delta
+		acid_progress += acid_progress_per_second * delta
 	elif acid_progress > 0.0 and not inside_acid:
 		acid_progress -= 0.7 * delta
 
