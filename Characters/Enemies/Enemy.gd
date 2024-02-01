@@ -14,6 +14,8 @@ var get_dir: Callable = func() -> Vector2:
 
 #@export var unlock_weapon_on_kills: UnlockWeaponOnKills = null
 
+@export var icon: Texture2D = null
+
 @export var min_coins: int = 2
 @export var max_coins: int = 3
 @export var min_souls: int = 1

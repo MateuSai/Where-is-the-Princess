@@ -8,6 +8,7 @@
 collision_layer = 4
 collision_mask = 151
 script = ExtResource("2_cslvc")
+icon = null
 min_coins = 2
 max_coins = 3
 min_souls = 1

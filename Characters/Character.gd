@@ -17,23 +17,13 @@ var damage_multiplier: int = 1
 
 var can_move: bool = true
 
-@export var mass: float = 1
-@export var acceleration: float = 0.4
-@export var max_speed: int = 100
-
-@export var flying: bool = false: set = set_flying
-
-@export var can_be_knocked_back: bool = true
-@export var motionless: bool = false
-
 enum Resistance {
 	FIRE = 1,
 	ACID = 2,
 	FREEZE = 4,
 	ELECTRICITY = 8,
 }
-var initial_resistances: int = 0
-var resistances: int = 0 # I can't make an exported using an enum to select flags, so, change this variable from the script if you need to
+var resistances: int = 0
 
 var mov_direction: Vector2 = Vector2.ZERO
 
@@ -200,10 +190,6 @@ func has_resistance(resistance: Resistance, initially: bool = false) -> bool:
 		return initial_resistances & resistance
 	else:
 		return resistances & resistance
-
-
-func set_flying(new_value: bool) -> void:
-	flying = new_value
 
 
 func get_exclude_bodies() -> Array[Node2D]:
