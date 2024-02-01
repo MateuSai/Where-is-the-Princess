@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://26gamp73h168"]
+[gd_scene load_steps=25 format=3 uid="uid://26gamp73h168"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_xn8jn"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_5cqls"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://ipm06xwlrvow" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Furniture props/bed.png" id="10_828ft"]
 [ext_resource type="Texture2D" uid="uid://xg3hiwjad3kc" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Furniture props/bed_normal.png" id="11_quu2a"]
 [ext_resource type="Script" path="res://save_run_interact_area.gd" id="12_bem22"]
+[ext_resource type="Texture2D" uid="uid://b4rd7wx2f4jtl" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Furniture props/stairs_down.png" id="13_axedw"]
+[ext_resource type="Texture2D" uid="uid://btvgjcqywqydf" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Furniture props/stairs_down_normal.png" id="14_hmew1"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_0tabj"]
 resource_local_to_scene = true
@@ -38,6 +40,15 @@ size = Vector2(16, 20)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rrlcx"]
 radius = 12.0
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_dixoh"]
+diffuse_texture = ExtResource("13_axedw")
+normal_texture = ExtResource("14_hmew1")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kexld"]
+size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b6gk7"]
 
 [node name="BossRoom" instance=ExtResource("1_xn8jn")]
 navigation_polygon = SubResource("NavigationPolygon_0tabj")
@@ -95,6 +106,8 @@ texture = SubResource("CanvasTexture_irqyd")
 
 [node name="InteractArea" type="Area2D" parent="Hole_in_floor" index="1"]
 script = ExtResource("8_1wa3h")
+biome = null
+backwards = null
 path_to_sprite = NodePath("../Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hole_in_floor/InteractArea" index="0"]
@@ -133,3 +146,22 @@ position = Vector2(0, -8)
 shape = SubResource("CapsuleShape2D_rrlcx")
 
 [node name="WakeUpMarker" type="Marker2D" parent="." index="21"]
+
+[node name="StairsDown" type="StaticBody2D" parent="." index="22"]
+position = Vector2(135, 149)
+collision_layer = 16
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="StairsDown" index="0"]
+texture = SubResource("CanvasTexture_dixoh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StairsDown" index="1"]
+shape = SubResource("RectangleShape2D_kexld")
+
+[node name="ExitLevelOnInteract" type="Area2D" parent="StairsDown" index="2"]
+script = ExtResource("8_1wa3h")
+backwards = true
+path_to_sprite = NodePath("../Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StairsDown/ExitLevelOnInteract" index="0"]
+shape = SubResource("RectangleShape2D_b6gk7")

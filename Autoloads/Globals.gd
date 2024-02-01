@@ -232,10 +232,13 @@ func get_joypad_event_image_id(event: InputEvent) -> String:
 	return Globals.controller_type + "_joypad_button_" + (str((event as InputEventJoypadButton).button_index) if event is InputEventJoypadButton else str((event as InputEventJoypadMotion).axis))
 
 
-func exit_level(biome: String = "") -> void:
+func exit_level(biome: String = "", backwards: bool = false) -> void:
 	biome = biome.to_lower()
 	if biome.is_empty() or biome == SavedData.run_stats.biome:
-		SavedData.run_stats.level += 1
+		if backwards:
+			SavedData.run_stats.level -= 1
+		else:
+			SavedData.run_stats.level += 1
 		#SceneTransistor.start_transition_to("res://Game.tscn")
 	else:
 		SavedData.change_biome(biome)

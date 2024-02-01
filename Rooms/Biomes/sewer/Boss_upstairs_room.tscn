@@ -1,14 +1,27 @@
-[gd_scene load_steps=5 format=3 uid="uid://kwk4nyuukrww"]
+[gd_scene load_steps=11 format=3 uid="uid://kwk4nyuukrww"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_7aiom"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_ko3l7"]
 [ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="4_bessc"]
+[ext_resource type="Texture2D" uid="uid://bp77m3d56csy4" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Furniture props/stairs_up.png" id="4_n1o6v"]
+[ext_resource type="Texture2D" uid="uid://bkuimtal2yq74" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Furniture props/stairs_up_normal.png" id="5_lpbo7"]
+[ext_resource type="Script" path="res://Rooms/exit_level_on_interact.gd" id="6_fopiw"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_0tabj"]
 resource_local_to_scene = true
 source_geometry_mode = 2
 source_geometry_group_name = &"navigation_polygon_source_group"
 agent_radius = 2.0
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_o804t"]
+diffuse_texture = ExtResource("4_n1o6v")
+normal_texture = ExtResource("5_lpbo7")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5dt10"]
+size = Vector2(15, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ucw63"]
+size = Vector2(14, 16)
 
 [node name="BossRoom" instance=ExtResource("1_7aiom")]
 navigation_polygon = SubResource("NavigationPolygon_0tabj")
@@ -34,3 +47,24 @@ position = Vector2(140, 232)
 
 [node name="Torch4" parent="." index="12" instance=ExtResource("4_bessc")]
 position = Vector2(241, 231)
+
+[node name="StairsUp" type="StaticBody2D" parent="." index="13"]
+position = Vector2(196, 172)
+collision_layer = 16
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="StairsUp" index="0"]
+position = Vector2(0, -12)
+texture = SubResource("CanvasTexture_o804t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StairsUp" index="1"]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_5dt10")
+
+[node name="ExitLevelOnInteract" type="Area2D" parent="StairsUp" index="2"]
+script = ExtResource("6_fopiw")
+path_to_sprite = NodePath("../Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StairsUp/ExitLevelOnInteract" index="0"]
+position = Vector2(-6, -8)
+shape = SubResource("RectangleShape2D_ucw63")
