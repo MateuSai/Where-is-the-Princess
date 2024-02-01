@@ -8,7 +8,11 @@ var direction: Vector2 = Vector2.ZERO:
 		direction = new_dir
 		if rotate_to_dir and not random_rotate:
 			for child: Node in get_children():
-				if child is Node2D:
+				if child is GPUParticles2D:
+					print_debug(rad_to_deg(direction.angle()) * -1)
+					((child as GPUParticles2D).process_material as ParticleProcessMaterial).angle_min = rad_to_deg(direction.angle()) * -1
+					((child as GPUParticles2D).process_material as ParticleProcessMaterial).angle_max = rad_to_deg(direction.angle()) * -1
+				elif child is Node2D:
 					child.rotation = direction.angle()
 var speed: int = 0
 var rotate_to_dir: bool = false
