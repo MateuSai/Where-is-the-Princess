@@ -48,4 +48,4 @@ func _spawn_magic_bouncing_projectile() -> void:
 	var dir: Vector2 = Vector2.RIGHT.rotated(rotation)
 	var small_magic_bouncing_projectile: MagicBouncingProjectile = small_magic_bouncing_projectile_scene.instantiate()
 	get_tree().current_scene.add_child(small_magic_bouncing_projectile)
-	small_magic_bouncing_projectile.launch(spawn_projectile_pos.global_position, dir,  175, true)
+	small_magic_bouncing_projectile.launch(spawn_projectile_pos.global_position, dir,  140, true)
