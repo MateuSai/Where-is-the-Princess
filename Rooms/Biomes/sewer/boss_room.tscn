@@ -30,6 +30,7 @@ position = Vector2(441, 164)
 
 [node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("2_w66xr")]
 position = Vector2(216, 364)
+open_after_combat = false
 
 [node name="EnemyMarker" type="Marker2D" parent="EnemyPositions" index="0"]
 position = Vector2(154, 184)
@@ -41,28 +42,28 @@ position = Vector2(264, 192)
 script = ExtResource("3_2v6j3")
 enemy_name = "crocodile_joe"
 
-[node name="TeleportPosition" parent="." index="8"]
-position = Vector2(218, 178)
+[node name="TeleportPosition" parent="." index="7"]
+position = Vector2(223, 228)
 
-[node name="TikiTorch" parent="." index="10" instance=ExtResource("4_s6f4k")]
+[node name="TikiTorch" parent="." index="9" instance=ExtResource("4_s6f4k")]
 position = Vector2(126, 94)
 
-[node name="TikiTorch2" parent="." index="11" instance=ExtResource("4_s6f4k")]
+[node name="TikiTorch2" parent="." index="10" instance=ExtResource("4_s6f4k")]
 position = Vector2(329, 88)
 
-[node name="TikiTorch3" parent="." index="12" instance=ExtResource("4_s6f4k")]
+[node name="TikiTorch3" parent="." index="11" instance=ExtResource("4_s6f4k")]
 position = Vector2(319, 266)
 
-[node name="TikiTorch4" parent="." index="13" instance=ExtResource("4_s6f4k")]
+[node name="TikiTorch4" parent="." index="12" instance=ExtResource("4_s6f4k")]
 position = Vector2(113, 278)
 
-[node name="TikiTorch5" parent="." index="14" instance=ExtResource("4_s6f4k")]
+[node name="TikiTorch5" parent="." index="13" instance=ExtResource("4_s6f4k")]
 position = Vector2(250, 187)
 
-[node name="TikiTorch6" parent="." index="15" instance=ExtResource("4_s6f4k")]
+[node name="TikiTorch6" parent="." index="14" instance=ExtResource("4_s6f4k")]
 position = Vector2(199, 187)
 
-[node name="SacrificeShrine" type="StaticBody2D" parent="." index="16" groups=["navigation_polygon_source_group"]]
+[node name="SacrificeShrine" type="StaticBody2D" parent="." index="15" groups=["navigation_polygon_source_group"]]
 position = Vector2(225, 187)
 collision_layer = 16
 collision_mask = 0

@@ -7,6 +7,7 @@ const PLAYER_SCENE: PackedScene = preload("res://Characters/Player/Player.tscn")
 @export var execute_procedural_generation_on_thread: bool = true
 
 static var wake_up: bool = false
+static var came_from_next_level: bool = false
 
 var generation_thread: Thread = null
 
@@ -84,6 +85,9 @@ func _on_rooms_generation_completed() -> void:
 		assert(wake_up_marker.get_parent() is DungeonRoom)
 		rooms.start_room = wake_up_marker.get_parent()
 		player.position = wake_up_marker.global_position
+	elif came_from_next_level:
+		rooms.start_room = rooms.rooms[1]
+		player.position = rooms.start_room.teleport_position.global_position
 	else:
 		player.position = rooms.start_room.teleport_position.global_position
 

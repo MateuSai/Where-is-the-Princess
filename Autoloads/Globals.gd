@@ -236,6 +236,7 @@ func exit_level(biome: String = "", backwards: bool = false) -> void:
 	biome = biome.to_lower()
 	if biome.is_empty() or biome == SavedData.run_stats.biome:
 		if backwards:
+			Game.came_from_next_level = true
 			SavedData.run_stats.level -= 1
 		else:
 			SavedData.run_stats.level += 1

@@ -67,7 +67,7 @@ position = Vector2(266, 420)
 position = Vector2(152, 523)
 
 [node name="TeleportPosition" parent="." index="7"]
-position = Vector2(157, 445)
+position = Vector2(155, 458)
 
 [node name="Torch" parent="." index="9" instance=ExtResource("3_m2tfn")]
 position = Vector2(97, 71)
@@ -146,6 +146,7 @@ position = Vector2(0, -8)
 shape = SubResource("CapsuleShape2D_rrlcx")
 
 [node name="WakeUpMarker" type="Marker2D" parent="." index="21"]
+position = Vector2(102, 141)
 
 [node name="StairsDown" type="StaticBody2D" parent="." index="22"]
 position = Vector2(135, 149)

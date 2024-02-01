@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bow0jibx5ymhk"]
+
+[ext_resource type="PackedScene" uid="uid://26gamp73h168" path="res://Rooms/Biomes/sewer/SewerEnd_01.tscn" id="1_rfjgk"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_7cxli"]
+resource_local_to_scene = true
+source_geometry_mode = 2
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 2.0
+
+[node name="TrompRoom" instance=ExtResource("1_rfjgk")]
+navigation_polygon = SubResource("NavigationPolygon_7cxli")
+
+[node name="TeleportPosition" parent="." index="7"]
+position = Vector2(172, 177)

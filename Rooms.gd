@@ -88,8 +88,9 @@ func _ready() -> void:
 
 	game.player_added.connect(func() -> void:
 		_create_fog()
-		if Game.wake_up:
+		if Game.wake_up or Game.came_from_next_level:
 			Game.wake_up = false
+			Game.came_from_next_level = false
 			for room: DungeonRoom in rooms:
 				room.remove_enemies_and_open_doors()
 
