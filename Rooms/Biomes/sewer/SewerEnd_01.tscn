@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://26gamp73h168"]
+[gd_scene load_steps=20 format=3 uid="uid://26gamp73h168"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_xn8jn"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_5cqls"]
@@ -9,6 +9,9 @@
 [ext_resource type="Texture2D" uid="uid://c13l0lk3c3e0y" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/hole_floor_normal.png" id="7_d6al6"]
 [ext_resource type="Script" path="res://Rooms/exit_level_on_interact.gd" id="8_1wa3h"]
 [ext_resource type="Script" path="res://start_player_dialogue_area.gd" id="9_ws84t"]
+[ext_resource type="Texture2D" uid="uid://ipm06xwlrvow" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Furniture props/bed.png" id="10_828ft"]
+[ext_resource type="Texture2D" uid="uid://xg3hiwjad3kc" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Furniture props/bed_normal.png" id="11_quu2a"]
+[ext_resource type="Script" path="res://save_run_interact_area.gd" id="12_bem22"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_0tabj"]
 resource_local_to_scene = true
@@ -26,6 +29,16 @@ radius = 28.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwdoq"]
 size = Vector2(46, 67)
 
+[sub_resource type="CanvasTexture" id="CanvasTexture_r3gtm"]
+diffuse_texture = ExtResource("10_828ft")
+normal_texture = ExtResource("11_quu2a")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ie7gn"]
+size = Vector2(16, 20)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rrlcx"]
+radius = 12.0
+
 [node name="BossRoom" instance=ExtResource("1_xn8jn")]
 navigation_polygon = SubResource("NavigationPolygon_0tabj")
 
@@ -42,37 +55,37 @@ position = Vector2(266, 420)
 [node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("3_jmxxw")]
 position = Vector2(152, 523)
 
-[node name="TeleportPosition" parent="." index="8"]
+[node name="TeleportPosition" parent="." index="7"]
 position = Vector2(157, 445)
 
-[node name="Torch" parent="." index="10" instance=ExtResource("3_m2tfn")]
+[node name="Torch" parent="." index="9" instance=ExtResource("3_m2tfn")]
 position = Vector2(97, 71)
 
-[node name="Torch2" parent="." index="11" instance=ExtResource("3_m2tfn")]
+[node name="Torch2" parent="." index="10" instance=ExtResource("3_m2tfn")]
 position = Vector2(227, 71)
 
-[node name="Torch3" parent="." index="12" instance=ExtResource("3_m2tfn")]
+[node name="Torch3" parent="." index="11" instance=ExtResource("3_m2tfn")]
 position = Vector2(111, 214)
 
-[node name="Torch4" parent="." index="13" instance=ExtResource("3_m2tfn")]
+[node name="Torch4" parent="." index="12" instance=ExtResource("3_m2tfn")]
 position = Vector2(231, 215)
 
-[node name="Torch5" parent="." index="14" instance=ExtResource("3_m2tfn")]
+[node name="Torch5" parent="." index="13" instance=ExtResource("3_m2tfn")]
 position = Vector2(121, 341)
 
-[node name="Torch6" parent="." index="15" instance=ExtResource("3_m2tfn")]
+[node name="Torch6" parent="." index="14" instance=ExtResource("3_m2tfn")]
 position = Vector2(195, 340)
 
-[node name="Torch7" parent="." index="16" instance=ExtResource("3_m2tfn")]
+[node name="Torch7" parent="." index="15" instance=ExtResource("3_m2tfn")]
 position = Vector2(91, 487)
 
-[node name="Torch8" parent="." index="17" instance=ExtResource("3_m2tfn")]
+[node name="Torch8" parent="." index="16" instance=ExtResource("3_m2tfn")]
 position = Vector2(229, 488)
 
-[node name="BossSign" parent="." index="18" instance=ExtResource("5_2gus8")]
+[node name="BossSign" parent="." index="17" instance=ExtResource("5_2gus8")]
 position = Vector2(136, 359)
 
-[node name="Hole_in_floor" type="StaticBody2D" parent="." index="19"]
+[node name="Hole_in_floor" type="StaticBody2D" parent="." index="18"]
 z_index = -1
 position = Vector2(110, 386)
 collision_mask = 0
@@ -90,10 +103,33 @@ shape = SubResource("CircleShape2D_o84ar")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hole_in_floor" index="2"]
 polygon = PackedVector2Array(-19, 16, -5, 16, 2, 10, 11, 10, 16, 4, 18, -5, 19, -14, 5, -20, -2, -19, -20, -9, -20, 13)
 
-[node name="StartPlayerDialogueArea" type="Area2D" parent="." index="20"]
+[node name="StartPlayerDialogueArea" type="Area2D" parent="." index="19"]
 script = ExtResource("9_ws84t")
 dialogue = "Yare yare, I guess it's time to jump"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartPlayerDialogueArea" index="0"]
 position = Vector2(161, 378)
 shape = SubResource("RectangleShape2D_gwdoq")
+
+[node name="Bed" type="StaticBody2D" parent="." index="20"]
+position = Vector2(114, 125)
+collision_layer = 16
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Bed" index="0"]
+position = Vector2(0, -10)
+texture = SubResource("CanvasTexture_r3gtm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bed" index="1"]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_ie7gn")
+
+[node name="SaveRunInteractArea" type="Area2D" parent="Bed" index="2"]
+script = ExtResource("12_bem22")
+path_to_sprite = NodePath("../Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bed/SaveRunInteractArea" index="0"]
+position = Vector2(0, -8)
+shape = SubResource("CapsuleShape2D_rrlcx")
+
+[node name="WakeUpMarker" type="Marker2D" parent="." index="21"]
