@@ -11,7 +11,7 @@ enum {
 
 var max_consecutive_spits: int
 
-@onready var insector_musk: InsectorMusk = get_parent()
+@onready var insector_musk: InsectonMusk = get_parent()
 @onready var pathfinding_component: PathfindingComponent = $"../PathfindingComponent"
 @onready var wings: Sprite2D = $"../Wings"
 @onready var hitbox: Hitbox = $"../Hitbox"
