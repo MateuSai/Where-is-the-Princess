@@ -18,7 +18,10 @@ static func from_dic(dic: Dictionary) -> EnemyData:
 
 	_load_dic_into_data(dic, enemy_data)
 
-	enemy_data.icon = load(dic.icon)
+	if dic.icon.is_empty():
+		enemy_data.icon = load("res://Art/no_enemy_icon.png")
+	else:
+		enemy_data.icon = load(dic.icon)
 
 	var splitted_coins: PackedStringArray = str(dic.coins).split("-")
 	enemy_data.min_coins = int(splitted_coins[0])

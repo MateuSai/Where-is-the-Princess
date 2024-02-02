@@ -185,6 +185,7 @@ func _on_flying_enemy_navigation_updated() -> void:
 static func get_data(id: String) -> EnemyData:
 	if DB.has(id):
 		return EnemyData.from_dic(DB[id])
+	elif Globals.ENEMIES.has(id):
+		return Globals.ENEMIES[id].data
 	else:
-		assert(false, "Implement this")
 		return null

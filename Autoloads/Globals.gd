@@ -142,6 +142,8 @@ func _ready() -> void:
 		var info: Dictionary = {}
 		if FileAccess.file_exists(ENEMIES_FOLDER_PATH + enemy_folder + "/" + "unlock_weapon_on_kills.tres"):
 			info["unlock_weapon_on_kills"] = load(ENEMIES_FOLDER_PATH + enemy_folder + "/" + "unlock_weapon_on_kills.tres")
+		if FileAccess.file_exists(ENEMIES_FOLDER_PATH + enemy_folder + "/" + "data.tres"):
+			info["data"] = load(ENEMIES_FOLDER_PATH + enemy_folder + "/" + "data.tres")
 		ENEMIES[enemy_folder.to_snake_case()] = {
 			"path": ENEMIES_FOLDER_PATH + enemy_folder + "/" + enemy_folder + ".tscn",
 			"info": info,
