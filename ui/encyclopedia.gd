@@ -28,12 +28,19 @@ func _set_category(new_category: int) -> void:
 		WEAPONS:
 			var discovered_weapon_paths: PackedStringArray = SavedData.get_discovered_weapon_paths()
 			for weapon_path: String in SavedData.get_all_weapon_paths():
-				var weapon_data: WeaponData = Weapon.get_data(Weapon.get_id_from_path(weapon_path))
-				var icon: TextureRect = TextureRect.new()
-				icon.texture = weapon_data.icon
+				var id: String = Weapon.get_id_from_path(weapon_path)
+				var weapon_data: WeaponData = Weapon.get_data(id)
+				var button: Button = Button.new()
+				button.icon = weapon_data.icon
 				if not discovered_weapon_paths.has(weapon_path):
-					icon.modulate = Color.BLACK
-				flow_container.add_child(icon)
+					button.modulate = Color.BLACK
+					button.disabled = true
+				else:
+					button.pressed.connect(func() -> void:
+						_clear_details()
+						_show_weapon_details(id, weapon_data)
+					)
+				flow_container.add_child(button)
 		ARMORS:
 			var discovered_armor_paths: PackedStringArray = SavedData.get_discovered_armors_paths()
 			for armor_path: String in SavedData.get_all_armor_paths():
@@ -87,6 +94,28 @@ func _set_category(new_category: int) -> void:
 func _clear_details() -> void:
 	for i: int in range(details_vbox.get_child_count() - 1, -1, -1):
 		details_vbox.get_child(i).free()
+
+
+func _show_weapon_details(id: String, data: WeaponData) -> void:
+	var weapon_texture: TextureRect = TextureRect.new()
+	weapon_texture.expand_mode = TextureRect.EXPAND_FIT_WIDTH
+	weapon_texture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
+	weapon_texture.custom_minimum_size.y = 64
+	weapon_texture.texture = data.icon
+	details_vbox.add_child(weapon_texture)
+
+	var name_label: Label = Label.new()
+	name_label.custom_minimum_size.x = details_vbox.size.x - 16
+	name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	name_label.text = id.to_upper()
+	details_vbox.add_child(name_label)
+
+	var type_label: Label = Label.new()
+	type_label.theme = load("res://SmallFontTheme.tres")
+	type_label.custom_minimum_size.x = details_vbox.size.x - 16
+	type_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	type_label.text = WeaponData.Type.keys()[data.type]
+	details_vbox.add_child(type_label)
 
 
 func _show_armor_details(armor: Armor) -> void:
@@ -194,7 +223,7 @@ func _show_enemy_details(id: String, data: EnemyData, statistics: EnemyStatistic
 	var name_label: Label = Label.new()
 	name_label.custom_minimum_size.x = details_vbox.size.x - 16
 	name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	name_label.text = id
+	name_label.text = id.to_upper()
 	details_vbox.add_child(name_label)
 
 	var description_label: Label = Label.new()
