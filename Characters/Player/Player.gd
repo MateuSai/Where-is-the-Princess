@@ -336,8 +336,8 @@ func _dash() -> void:
 		#velocity += mov_direction.limit_length(1) * DASH_IMPULSE
 		#mov_direction = Vector2.ZERO
 		#friction /= 10
-		previous_max_speed = max_speed
-		max_speed = 1000
+		previous_max_speed = data.max_speed
+		data.max_speed = 1000
 		dash_timer.start(dash_time)
 		dashed.emit(dash_time)
 		#await get_tree().create_timer(dash_time, false).timeout
@@ -346,7 +346,7 @@ func _dash() -> void:
 
 
 func _on_dash_timer_timeout() -> void:
-	max_speed = previous_max_speed
+	data.max_speed = previous_max_speed
 
 
 func add_rotating_item(node: Node2D) -> void:

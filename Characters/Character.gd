@@ -17,6 +17,8 @@ var damage_multiplier: int = 1
 
 var can_move: bool = true
 
+var data: CharacterData
+
 enum Resistance {
 	FIRE = 1,
 	ACID = 2,
@@ -49,31 +51,31 @@ func _ready() -> void:
 	life_component.died.connect(_on_died)
 	acid_damage_timer.timeout.connect(_on_acid_damage_timer_timeout)
 
-	if DB.has(id):
-		var weapon_data: Dictionary = DB[id]
-		_load_csv_data(weapon_data)
+	#if DB.has(id):
+		#var weapon_data: Dictionary = DB[id]
+		#_load_csv_data(weapon_data)
 
-	set_flying(flying)
+	_load_data()
+	life_component.max_hp = data.max_hp
+	life_component.hp = data.max_hp
+	life_component.body_type = data.body_type
+	resistances = data.initial_resistances
+
+	set_flying(data.flying)
 	state_machine.start()
 
 
-func _load_csv_data(data: Dictionary) -> void:
-	life_component.max_hp = data.max_hp
-	life_component.hp = data.max_hp
+func _load_data() -> void:
+	data = Character.get_data(id)
 
-	mass = data.mass
-	acceleration = data.acceleration
-	max_speed = data.max_speed
-	var flying_int: int = data.flying
-	flying = bool(flying_int)
-	var can_be_knocked_back_int: int = data.can_be_knocked_back
-	can_be_knocked_back = bool(can_be_knocked_back_int)
-	var motionless_int: int = data.motionless
-	motionless = bool(motionless_int)
-	@warning_ignore("int_as_enum_without_cast")
-	life_component.body_type = life_component.BodyType.keys().find(data.body_type)
-	initial_resistances = data.resistances
-	resistances = data.resistances
+
+#func _load_csv_data(data: Dictionary) -> void:
+	#life_component.max_hp = data.max_hp
+	#life_component.hp = data.max_hp
+#
+	#@warning_ignore("int_as_enum_without_cast")
+	#life_component.body_type = life_component.BodyType.keys().find(data.body_type)
+	#resistances = data.resistances
 
 
 func _physics_process(delta: float) -> void:
@@ -83,7 +85,7 @@ func _physics_process(delta: float) -> void:
 		acid_progress -= 0.7 * delta
 
 	state_machine.physics_process(delta)
-	if not motionless:
+	if not data.motionless:
 		move_and_slide()
 	velocity = lerp(velocity, Vector2.ZERO, friction)
 
@@ -92,9 +94,9 @@ func move() -> void:
 	mov_direction = mov_direction.limit_length(1.0)
 	#velocity += mov_direction * acceleration
 	if not mov_direction.is_equal_approx(Vector2.ZERO) and can_move:
-		velocity = lerp(velocity, mov_direction * max_speed, acceleration)
+		velocity = lerp(velocity, mov_direction * data.max_speed, data.acceleration)
 	#print_debug(velocity)
-	velocity = velocity.limit_length(max_speed)
+	velocity = velocity.limit_length(data.max_speed)
 
 
 func add_status_condition(status: StatusComponent.Status) -> void:
@@ -116,14 +118,14 @@ func _on_damage_taken(_dam: int, dir: Vector2, force: int) -> void:
 	#	self.hp -= dam
 #		if hp > 0:
 			#state_machine.set_state(state_machine.states.hurt)
-	if can_be_knocked_back:
-		velocity += dir * force / (mass / 3)
+	if data.can_be_knocked_back:
+		velocity += dir * force / (data.mass / 3)
 	if life_component.hp == 0:
 		assert(state_machine.get("DEAD") != null)
 		@warning_ignore("unsafe_property_access", "unsafe_call_argument")
 		state_machine.set_state(state_machine.DEAD)
-		if can_be_knocked_back:
-			velocity += dir * force / (mass / 3)
+		if data.can_be_knocked_back:
+			velocity += dir * force / (data.mass / 3)
 
 
 #func set_hp(new_hp: int) -> void:
@@ -152,6 +154,10 @@ func react(reaction_face: int, at_pos: Vector2 = Vector2(0, -34)) -> void:
 	reaction.position = at_pos
 	add_child(reaction)
 	reaction.react(reaction_face)
+
+
+func set_flying(new_value: bool) -> void:
+	data.flying = new_value
 
 
 func set_acid_progress(new_value: float) -> void:
@@ -187,10 +193,19 @@ func remove_resistance(resistance: Resistance) -> void:
 
 func has_resistance(resistance: Resistance, initially: bool = false) -> bool:
 	if initially:
-		return initial_resistances & resistance
+		return data.initial_resistances & resistance
 	else:
 		return resistances & resistance
 
 
 func get_exclude_bodies() -> Array[Node2D]:
 	return [self]
+
+
+@warning_ignore("shadowed_variable")
+static func get_data(id: String) -> CharacterData:
+	if DB.has(id):
+		return CharacterData.from_dic(DB[id])
+	else:
+		assert(false, "Implement this")
+		return null
