@@ -72,7 +72,7 @@ enemy_name = "skelebrommer"
 [node name="EnemyMarker4" type="Marker2D" parent="EnemyPositions" index="3"]
 position = Vector2(148, 85)
 script = ExtResource("4_4q52s")
-enemy_name = "insector_musk"
+enemy_name = "insecton_musk"
 
 [node name="CrocodileTrapUp" parent="Traps" index="0" instance=ExtResource("5_huqid")]
 position = Vector2(91, 134)
@@ -87,14 +87,14 @@ position = Vector2(197, 59)
 position = Vector2(221, 53)
 id = 1
 
-[node name="Torch" parent="." index="10" instance=ExtResource("4_58pbf")]
+[node name="Torch" parent="." index="9" instance=ExtResource("4_58pbf")]
 position = Vector2(89, 22)
 
-[node name="Torch2" parent="." index="11" instance=ExtResource("4_58pbf")]
+[node name="Torch2" parent="." index="10" instance=ExtResource("4_58pbf")]
 position = Vector2(200, 23)
 
-[node name="Torch3" parent="." index="12" instance=ExtResource("4_58pbf")]
+[node name="Torch3" parent="." index="11" instance=ExtResource("4_58pbf")]
 position = Vector2(201, 232)
 
-[node name="Torch4" parent="." index="13" instance=ExtResource("4_58pbf")]
+[node name="Torch4" parent="." index="12" instance=ExtResource("4_58pbf")]
 position = Vector2(104, 232)

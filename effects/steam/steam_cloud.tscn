@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=3 uid="uid://c7hesijwn1xpi"]
+
+[ext_resource type="Texture2D" uid="uid://ci4o4d5h7j271" path="res://Art/effects/smoke-steam_16x16.png" id="1_bdgtt"]
+[ext_resource type="Script" path="res://effects/steam/steam_cloud.gd" id="2_6dm8u"]
+
+[sub_resource type="Animation" id="Animation_ektqg"]
+resource_name = "go_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_2648f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ntpkw"]
+_data = {
+"RESET": SubResource("Animation_2648f"),
+"go_up": SubResource("Animation_ektqg")
+}
+
+[node name="SteamCloud" type="Sprite2D"]
+texture = ExtResource("1_bdgtt")
+offset = Vector2(0, -20)
+hframes = 4
+vframes = 4
+script = ExtResource("2_6dm8u")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ntpkw")
+}
+autoplay = "go_up"

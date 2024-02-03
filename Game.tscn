@@ -20,9 +20,9 @@
 [ext_resource type="Script" path="res://ui/QuitButton.gd" id="17_iw01m"]
 [ext_resource type="Script" path="res://ui/encyclopedia.gd" id="17_k4k0u"]
 [ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="18_beacm"]
-[ext_resource type="Texture2D" uid="uid://tn7bpukhe0kh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Spear.png" id="18_mfhvg"]
 [ext_resource type="Script" path="res://ui/PauseWeaponInventory.gd" id="19_0wxa2"]
 [ext_resource type="Script" path="res://ui/equipment_armorvbox.gd" id="19_8kxgb"]
+[ext_resource type="Texture2D" uid="uid://7yv3hw00djdm" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/sword_icon.png" id="19_ft0qi"]
 [ext_resource type="Texture2D" uid="uid://bxk8oa3os0ddl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armor_04.png" id="19_l7ulb"]
 [ext_resource type="Texture2D" uid="uid://cnu6qs5gu74lh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armors_icons.png" id="19_mm2a6"]
 [ext_resource type="Script" path="res://Components/auto_focus_on_controller.gd" id="20_o0kce"]
@@ -281,7 +281,7 @@ layout_mode = 2
 [node name="WeaponsButton" type="Button" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
 layout_mode = 2
 toggle_mode = true
-icon = ExtResource("18_mfhvg")
+icon = ExtResource("19_ft0qi")
 
 [node name="ArmorsButton" type="Button" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
 layout_mode = 2

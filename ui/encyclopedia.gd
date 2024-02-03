@@ -31,7 +31,7 @@ func _set_category(new_category: int) -> void:
 				var id: String = Weapon.get_id_from_path(weapon_path)
 				var weapon_data: WeaponData = Weapon.get_data(id)
 				var button: Button = Button.new()
-				button.icon = weapon_data.icon
+				button.icon = weapon_data.weapon_texture
 				if not discovered_weapon_paths.has(weapon_path):
 					button.modulate = Color.BLACK
 					button.disabled = true
