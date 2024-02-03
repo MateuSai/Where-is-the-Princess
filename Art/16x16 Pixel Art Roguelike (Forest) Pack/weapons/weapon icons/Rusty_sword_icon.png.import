@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ikdfetjvyi1v"
-path="res://.godot/imported/Rustic_sword_icon.png-993680f14008cce48f6f7e1a8e06e5a5.ctex"
+path="res://.godot/imported/Rusty_sword_icon.png-eef8f52e3945841d7390a01844c688fd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/Rustic_sword_icon.png"
-dest_files=["res://.godot/imported/Rustic_sword_icon.png-993680f14008cce48f6f7e1a8e06e5a5.ctex"]
+source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/Rusty_sword_icon.png"
+dest_files=["res://.godot/imported/Rusty_sword_icon.png-eef8f52e3945841d7390a01844c688fd.ctex"]
 
 [params]
 

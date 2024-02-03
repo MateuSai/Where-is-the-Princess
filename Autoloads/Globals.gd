@@ -136,7 +136,7 @@ func _ready() -> void:
 	var enemies_folder: DirAccess = DirAccess.open(ENEMIES_FOLDER_PATH)
 	assert(enemies_folder != null)
 	for enemy_folder: String in enemies_folder.get_directories():
-		if not enemies_folder.file_exists(enemy_folder + "/" + enemy_folder + ".tscn"):
+		if not enemies_folder.file_exists(enemy_folder + "/" + enemy_folder + (".tscn" if OS.has_feature("editor") else ".tscn.remap")):
 			push_error(enemy_folder + "/" + enemy_folder + ".tscn" + " not found on " + ENEMIES_FOLDER_PATH)
 			continue
 		var info: Dictionary = {}
