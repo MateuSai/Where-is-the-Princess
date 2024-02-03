@@ -9,19 +9,12 @@ const FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE: int = 2
 
 var target: Character
 
+var enemy_data: EnemyData
+
 var get_dir: Callable = func() -> Vector2:
 	return navigation_agent.get_next_path_position() - global_position
 
 #@export var unlock_weapon_on_kills: UnlockWeaponOnKills = null
-
-@export var min_coins: int = 2
-@export var max_coins: int = 3
-@export var min_souls: int = 1
-@export var max_souls: int = 1
-@export var min_dark_souls: int = 0
-@export var max_dark_souls: int = 0
-@export_range(0.0, 1.0) var food_prob: float = 0.1
-@export_range(0.0, 1.0) var armor_shard_prob: float = 0.1
 
 @onready var room: DungeonRoom = get_parent()
 @onready var player: Player = get_tree().current_scene.get_node("Player")
@@ -34,9 +27,9 @@ func _ready() -> void:
 
 	target = player
 
-	assert(min_coins <= max_coins)
-	assert(min_souls <= max_souls)
-	assert(min_dark_souls <= max_dark_souls)
+	assert(data.min_coins <= data.max_coins)
+	assert(data.min_souls <= data.max_souls)
+	assert(data.min_dark_souls <= data.max_dark_souls)
 
 #	life_component.died.connect(func():
 #		get_parent()._on_enemy_killed(self)
@@ -48,46 +41,32 @@ func _ready() -> void:
 	)
 
 
-func _load_csv_data(data: Dictionary) -> void:
-	super(data)
-
-	var splitted_coins: PackedStringArray = str(data.coins).split("-")
-	min_coins = int(splitted_coins[0])
-	max_coins = int(splitted_coins[0 if splitted_coins.size() == 1 else 1])
-
-	var splitted_souls: PackedStringArray = str(data.souls).split("-")
-	min_souls = int(splitted_souls[0])
-	max_souls = int(splitted_souls[0 if splitted_souls.size() == 1 else 1])
-
-	var splitted_dark_souls: PackedStringArray = str(data.dark_souls).split("-")
-	min_dark_souls = int(splitted_dark_souls[0])
-	max_dark_souls = int(splitted_dark_souls[0 if splitted_dark_souls.size() == 1 else 1])
-
-	food_prob = data.food_prob
-	armor_shard_prob = data.armor_shard_prob
+func _load_data() -> void:
+	data = Enemy.get_data(id)
+	enemy_data = data
 
 
 func spawn_loot() -> void:
-	for i: int in randi_range(min_coins, max_coins):
+	for i: int in randi_range(enemy_data.min_coins, enemy_data.max_coins):
 		var coin: Coin = COIN_SCENE.instantiate()
 		room.cleared.connect(coin.go_to_player)
 		coin.position = global_position
 		get_tree().current_scene.call_deferred("add_child", coin)
 
-	for i: int in randi_range(min_souls, max_souls):
+	for i: int in randi_range(enemy_data.min_souls, enemy_data.max_souls):
 		var soul: SoulItem = SOUL_SCENE.instantiate()
 		room.cleared.connect(soul.go_to_player)
 		soul.position = global_position
 		get_tree().current_scene.call_deferred("add_child", soul)
 
-	for i: int in randi_range(min_dark_souls, max_dark_souls):
+	for i: int in randi_range(enemy_data.min_dark_souls, enemy_data.max_dark_souls):
 		var soul: DarkSoulOnFloor = (load("res://items/DarkSoul.tscn") as PackedScene).instantiate()
 		room.cleared.connect(soul.go_to_player)
 		soul.position = global_position
 		get_tree().current_scene.call_deferred("add_child", soul)
 
 	# Armor shard
-	if randf() <= armor_shard_prob:
+	if randf() <= enemy_data.armor_shard_prob:
 		var item_on_floor: ItemOnFloor = preload("res://items/item_on_floor.tscn").instantiate()
 		var armor_shard: ArmorShard = ArmorShard.new()
 		room.add_item_on_floor(item_on_floor, position + Vector2(randf_range(-8, 8), randf_range(-8, 8)))
@@ -95,7 +74,7 @@ func spawn_loot() -> void:
 		item_on_floor.enable_pick_up()
 
 	# Food
-	if randf() <= food_prob:
+	if randf() <= data.food_prob:
 		var item_on_floor: ItemOnFloor = preload("res://items/item_on_floor.tscn").instantiate()
 		var food: Food = Food.new()
 		room.add_item_on_floor(item_on_floor, position + Vector2(randf_range(-8, 8), randf_range(-8, 8)))
@@ -180,7 +159,7 @@ func set_flying(new_value: bool) -> void:
 	super(new_value)
 
 	if navigation_agent:
-		if flying:
+		if data.flying:
 			add_resistance(Resistance.ACID)
 			#navigation_agent.navigation_layers |=  FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE
 #			navigation_agent.navigation_layers = 2
@@ -200,3 +179,13 @@ func set_flying(new_value: bool) -> void:
 
 func _on_flying_enemy_navigation_updated() -> void:
 	navigation_agent.set_navigation_map(room.navigation_map_flying_units)
+
+
+@warning_ignore("shadowed_variable")
+static func get_data(id: String) -> EnemyData:
+	if DB.has(id):
+		return EnemyData.from_dic(DB[id])
+	elif Globals.ENEMIES.has(id):
+		return Globals.ENEMIES[id].data
+	else:
+		return null

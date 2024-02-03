@@ -1,4 +1,4 @@
-class_name InsectorMusk extends Enemy
+class_name InsectonMusk extends Enemy
 
 const BITE_EFFECT_SCENE: PackedScene = preload("res://Characters/Enemies/BiteEffect.tscn")
 const ACID_SPIT_SCENE: PackedScene = preload("res://Weapons/projectiles/acid_spit/acid_spit.tscn")

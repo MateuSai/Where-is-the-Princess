@@ -136,12 +136,14 @@ func _ready() -> void:
 	var enemies_folder: DirAccess = DirAccess.open(ENEMIES_FOLDER_PATH)
 	assert(enemies_folder != null)
 	for enemy_folder: String in enemies_folder.get_directories():
-		if not enemies_folder.file_exists(enemy_folder + "/" + enemy_folder + ".tscn"):
+		if not enemies_folder.file_exists(enemy_folder + "/" + enemy_folder + (".tscn" if OS.has_feature("editor") else ".tscn.remap")):
 			push_error(enemy_folder + "/" + enemy_folder + ".tscn" + " not found on " + ENEMIES_FOLDER_PATH)
 			continue
 		var info: Dictionary = {}
 		if FileAccess.file_exists(ENEMIES_FOLDER_PATH + enemy_folder + "/" + "unlock_weapon_on_kills.tres"):
 			info["unlock_weapon_on_kills"] = load(ENEMIES_FOLDER_PATH + enemy_folder + "/" + "unlock_weapon_on_kills.tres")
+		if FileAccess.file_exists(ENEMIES_FOLDER_PATH + enemy_folder + "/" + "data.tres"):
+			info["data"] = load(ENEMIES_FOLDER_PATH + enemy_folder + "/" + "data.tres")
 		ENEMIES[enemy_folder.to_snake_case()] = {
 			"path": ENEMIES_FOLDER_PATH + enemy_folder + "/" + enemy_folder + ".tscn",
 			"info": info,

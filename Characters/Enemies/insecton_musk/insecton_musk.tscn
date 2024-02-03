@@ -1,9 +1,9 @@
 [gd_scene load_steps=20 format=3 uid="uid://dy6onebtjklye"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_eqhtg"]
-[ext_resource type="Script" path="res://Characters/Enemies/insector_musk/insector_musk.gd" id="2_jufq1"]
+[ext_resource type="Script" path="res://Characters/Enemies/insecton_musk/insecton_musk.gd" id="2_jufq1"]
 [ext_resource type="Texture2D" uid="uid://tp17qsq11dsl" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/insector/insector_musk.png" id="2_v7ysj"]
-[ext_resource type="Script" path="res://Characters/Enemies/insector_musk/insector_musk_fsm.gd" id="2_yjm48"]
+[ext_resource type="Script" path="res://Characters/Enemies/insecton_musk/insecton_musk_fsm.gd" id="2_yjm48"]
 [ext_resource type="Texture2D" uid="uid://d04uxwluqy5gw" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/player_shadow.png" id="3_jjhp4"]
 [ext_resource type="Texture2D" uid="uid://bvhrlwhd4dabo" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/insector/insector_wings.png" id="3_v50kv"]
 [ext_resource type="Script" path="res://Characters/Hitbox.gd" id="7_qxftq"]
@@ -199,7 +199,7 @@ _data = {
 "fly_up": SubResource("Animation_8g0s4")
 }
 
-[node name="InsectorMusk" instance=ExtResource("1_eqhtg")]
+[node name="InsectonMusk" instance=ExtResource("1_eqhtg")]
 script = ExtResource("2_jufq1")
 
 [node name="FiniteStateMachine" parent="." index="0"]

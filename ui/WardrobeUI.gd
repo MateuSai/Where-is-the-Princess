@@ -39,18 +39,6 @@ func _on_armor_selected(armor: Armor) -> void:
 	SavedData.data.equipped_armor = (armor.get_script() as Script).get_path()
 
 
-#func _get_armors() -> PackedStringArray:
-#	var armors_dir: DirAccess = DirAccess.open(ARMORS_FOLDER_PATH)
-#	if armors_dir == null:
-#		printerr("Error opening " + ARMORS_FOLDER_PATH + "!")
-#		return []
-#
-#	var armor_names: PackedStringArray = armors_dir.get_files()
-##	for i in room_names.size():
-##		room_names[i] = room_names[i].trim_suffix(".remap")
-#	return armor_names
-
-
 class ArmorGridButton extends Button:
 	var armor: Armor
 

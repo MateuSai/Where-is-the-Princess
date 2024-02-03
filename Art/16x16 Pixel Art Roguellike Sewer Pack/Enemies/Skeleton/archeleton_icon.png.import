@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yxp4kghgtx87"
-path="res://.godot/imported/rustic_sword.png-f82939cba540ceb545c067674f1d406d.ctex"
+uid="uid://bxg67yww36qhc"
+path="res://.godot/imported/archeleton_icon.png-4092c926b5d06833f18bf4e9aa2d6be8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/rustic_sword.png"
-dest_files=["res://.godot/imported/rustic_sword.png-f82939cba540ceb545c067674f1d406d.ctex"]
+source_file="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/archeleton_icon.png"
+dest_files=["res://.godot/imported/archeleton_icon.png-4092c926b5d06833f18bf4e9aa2d6be8.ctex"]
 
 [params]
 

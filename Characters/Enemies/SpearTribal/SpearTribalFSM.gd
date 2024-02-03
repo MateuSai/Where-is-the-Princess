@@ -92,7 +92,7 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 				animation_player.play("idle_up")
 			spear_animation_player.play("attack")
 		CHARGE:
-			parent.max_speed = 500
+			parent.data.max_speed = 500
 			#parent.acceleration = 20
 			parent.mov_direction = (parent.player.position - parent.global_position).normalized()
 			spear_animation_player.play("charge")

@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://b4rd7wx2f4jtl" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Furniture props/stairs_down.png" id="13_axedw"]
 [ext_resource type="Texture2D" uid="uid://btvgjcqywqydf" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Furniture props/stairs_down_normal.png" id="14_hmew1"]
 [ext_resource type="Texture2D" uid="uid://bhtnjdlk3glm7" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Furniture props/tromp_carpets.png" id="15_k1hvi"]
-[ext_resource type="PackedScene" uid="uid://b3c2umuvd1fro" path="res://Rooms/Furniture and Traps/stairs_up.tscn" id="16_jg6n4"]
+[ext_resource type="PackedScene" path="res://Rooms/Furniture and Traps/stairs_up.tscn" id="16_jg6n4"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_0tabj"]
 resource_local_to_scene = true

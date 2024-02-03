@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4pec10xwqc0l"
-path="res://.godot/imported/where_is_the_princess.png-7edb98ab3fcbb28e6315295a5965d62d.ctex"
+uid="uid://7mvtsy2gstpt"
+path="res://.godot/imported/mark_the_reptilian_icon.png-0c6266647a0ed180584a5832066538e6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scripts/where_is_the_princess.png"
-dest_files=["res://.godot/imported/where_is_the_princess.png-7edb98ab3fcbb28e6315295a5965d62d.ctex"]
+source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/reptiles/mark_the_reptilian_icon.png"
+dest_files=["res://.godot/imported/mark_the_reptilian_icon.png-0c6266647a0ed180584a5832066538e6.ctex"]
 
 [params]
 

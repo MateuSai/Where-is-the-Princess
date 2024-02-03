@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ikdfetjvyi1v"
-path="res://.godot/imported/Rustic_sword_icon.png-993680f14008cce48f6f7e1a8e06e5a5.ctex"
+uid="uid://bn33wyo663kuu"
+path="res://.godot/imported/blowpipe_tribal_icon.png-4f9df1bbf19dd28baaa24854ab1b884c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/Rustic_sword_icon.png"
-dest_files=["res://.godot/imported/Rustic_sword_icon.png-993680f14008cce48f6f7e1a8e06e5a5.ctex"]
+source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/blowpipe_tribal_icon.png"
+dest_files=["res://.godot/imported/blowpipe_tribal_icon.png-4f9df1bbf19dd28baaa24854ab1b884c.ctex"]
 
 [params]
 
