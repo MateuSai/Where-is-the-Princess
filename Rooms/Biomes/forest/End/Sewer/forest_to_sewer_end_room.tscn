@@ -1,18 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://cbynu0soxc1tc"]
+[gd_scene load_steps=6 format=3 uid="uid://cbynu0soxc1tc"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_21p28"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="2_rhjec"]
 [ext_resource type="PackedScene" uid="uid://cpgi3p64qtndv" path="res://Rooms/Furniture and Traps/sewer_entrance.tscn" id="3_142rc"]
-[ext_resource type="Texture2D" uid="uid://spi7xutqgvj5" path="res://Art/sleeping_bag.png" id="4_ewplc"]
-[ext_resource type="Script" path="res://save_run_interact_area.gd" id="5_slldr"]
+[ext_resource type="PackedScene" uid="uid://geovcmu2q826" path="res://Rooms/Furniture and Traps/sleeping_bag.tscn" id="4_x3hw6"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_dmu6y"]
 resource_local_to_scene = true
 source_geometry_mode = 2
 source_geometry_group_name = &"navigation_polygon_source_group"
 agent_radius = 2.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_87w00"]
 
 [node name="ForestToSewerEndRoom" instance=ExtResource("1_21p28")]
 navigation_polygon = SubResource("NavigationPolygon_dmu6y")
@@ -31,16 +28,7 @@ position = Vector2(124, 90)
 [node name="SewerEntrance" parent="." index="9" instance=ExtResource("3_142rc")]
 position = Vector2(111, 74)
 
-[node name="SleepBag" type="Sprite2D" parent="." index="10"]
-position = Vector2(73, 74)
-texture = ExtResource("4_ewplc")
-
-[node name="SaveRunInteractArea" type="Area2D" parent="SleepBag" index="0"]
-script = ExtResource("5_slldr")
-path_to_sprite = NodePath("..")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SleepBag/SaveRunInteractArea" index="0"]
-shape = SubResource("CircleShape2D_87w00")
+[node name="SleepingBag" parent="." index="10" instance=ExtResource("4_x3hw6")]
 
 [node name="WakeUpMarker" type="Marker2D" parent="." index="11"]
 position = Vector2(85, 84)

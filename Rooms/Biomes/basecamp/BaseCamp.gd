@@ -9,7 +9,6 @@ class_name BaseCamp extends DungeonRoom
 @onready var seed_interact_area: InteractArea = $SeedSelectorSprite/InteractArea
 @onready var seed_popup: Popup = get_node("SeedPopup")
 
-@onready var exit_interact_area: InteractArea = get_node("ExitInteractArea")
 @onready var wardrobe_popup: Popup = get_node("WardrobePopup")
 
 
@@ -40,10 +39,6 @@ func _ready() -> void:
 	#			player.can_move = true
 	#		)
 	#	)
-
-		exit_interact_area.player_interacted.connect(func() -> void:
-			get_tree().quit()
-		)
 
 		seed_interact_area.player_interacted.connect(func() -> void:
 			seed_popup.popup_centered()
