@@ -1,9 +1,10 @@
 #!/bin/sh
 
-BINARY_DIRECTORY=$HOME/.local/bin/
+BINARY_DIRECTORY=/usr/local/bin/
+PROGRAM_NAME=where_is_the_princess
 
-cp -fr erebus_demo.x86_64 $BINARY_DIRECTORY/erebus_demo.x86_64
-cp -fr erebus_demo.pck $BINARY_DIRECTORY/erebus_demo.pck
-cp -fr erebus.png $HOME/.icons/erebus.png
-cp -fr erebus-demo.desktop $HOME/.local/share/applications/erebus-demo.desktop
-chmod u+x $HOME/.local/share/applications/erebus-demo.desktop
+cp -f where_is_the_princess.x86_64 $BINARY_DIRECTORY/${PROGRAM_NAME}
+cp -f where_is_the_princess.pck $BINARY_DIRECTORY/${PROGRAM_NAME}.pck
+cp -f where_is_the_princess.png /usr/share/pixmaps/${PROGRAM_NAME}.png
+cp -f where_is_the_princess.desktop /usr/share/applications/${PROGRAM_NAME}.desktop
+chmod u+x /usr/share/applications/${PROGRAM_NAME}.desktop

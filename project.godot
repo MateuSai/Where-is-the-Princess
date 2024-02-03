@@ -53,8 +53,6 @@ project/assembly_name="Godot4RoguelikeProject"
 [editor]
 
 run/main_run_args="-- --debug"
-version_control/plugin_name="GitPlugin"
-version_control/autoload_on_startup=true
 
 [editor_plugins]
 

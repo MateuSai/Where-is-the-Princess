@@ -16,10 +16,11 @@ export_linux() {
   game_folder_name=${export_name}_${target_no_slash}
   save_path=${save_dir}${game_folder_name}
   mkdir $save_path
-  mv $save_dir$export_name $save_path/$export_name
+  mv $save_dir$export_name $save_path/${export_name}.x86_64
   mv $save_dir$export_name.pck $save_path/$export_name.pck
-  cp ./scripts/where_is_the_princess.png ${save_path}/where_is_the_princess.png
+  cp ./icon.png ${save_path}/where_is_the_princess.png
   cp ./scripts/install.sh ${save_path}/install.sh
+  cp ./scripts/where_is_the_princess.desktop ${save_path}/where_is_the_princess.desktop
 
   cd ${save_dir}
   tar -cvzf ${export_name}_${VERSION}_lin.tar.gz ${game_folder_name}

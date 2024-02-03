@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Where is the Princess?
+Exec=sh -c '/usr/local/bin/where_is_the_princess'
+Icon=where_is_the_princess
+Categories=Game;
