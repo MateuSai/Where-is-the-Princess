@@ -101,7 +101,7 @@ func _show_weapon_details(id: String, data: WeaponData) -> void:
 	weapon_texture.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 	weapon_texture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
 	weapon_texture.custom_minimum_size.y = 64
-	weapon_texture.texture = data.icon
+	weapon_texture.texture = data.weapon_texture
 	details_vbox.add_child(weapon_texture)
 
 	var name_label: Label = Label.new()

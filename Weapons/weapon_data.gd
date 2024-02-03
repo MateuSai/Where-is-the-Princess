@@ -38,6 +38,8 @@ static func from_dic(dic: Dictionary) -> WeaponData:
 	var weapon_data: WeaponData = WeaponData.new()
 
 	weapon_data.weapon_name = dic["name"]
+	var weapon_texture_path: String = dic["weapon_texture"]
+	weapon_data.weapon_texture = load(weapon_texture_path) as Texture2D
 	var icon_path: String = dic["icon"]
 	weapon_data.icon = load(icon_path) as Texture2D
 	weapon_data.type = Type.values()[Type.keys().find(dic["type"])]

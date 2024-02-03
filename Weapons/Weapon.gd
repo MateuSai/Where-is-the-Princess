@@ -20,7 +20,8 @@ enum Type {
 @export var type: Type
 @export var weapon_name: String = ""
 @export var description: String = ""
-@export var icon: Texture = null ## 16x16 weapon icon, the one that appears on the bottom of the screen
+@export var weapon_texture: Texture2D = null
+@export var icon: Texture2D = null ## 16x16 weapon icon, the one that appears on the bottom of the screen
 
 @export var stamina_cost_per_normal_attack: float = 10
 @export var condition_cost_per_normal_attack: float = 5
