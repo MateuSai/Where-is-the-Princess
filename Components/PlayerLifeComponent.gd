@@ -1,7 +1,5 @@
 class_name PlayerLifeComponent extends LifeComponent
 
-var last_damage_dealer_id: String
-
 @onready var player: Player = get_parent()
 @onready var hit_border_effect: HitBorderEffect = $"../UI/HitBorderEffect"
 

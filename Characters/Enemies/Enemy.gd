@@ -128,6 +128,9 @@ func _on_change_dir() -> void:
 func _on_died() -> void:
 	super()
 
+	if life_component.last_weapon != null and life_component.last_damage_dealer_id == "player":
+		SavedData.statistics.add_weapon_kill(life_component.last_weapon.weapon_id)
+
 	await get_tree().create_timer(0.5, false).timeout
 
 	_on_died_0_5_seconds_later()

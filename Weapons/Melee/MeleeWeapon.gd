@@ -253,3 +253,8 @@ func _spawn_shadow_effect() -> void:
 	shadow_sprite.offset = weapon_sprite.offset
 	get_tree().current_scene.add_child(shadow_sprite)
 	shadow_sprite.start(weapon_sprite.texture)
+
+
+func _set_damage_dealer_id(new_id: String) -> void:
+	super(new_id)
+	hitbox.damage_dealer_id = damage_dealer_id

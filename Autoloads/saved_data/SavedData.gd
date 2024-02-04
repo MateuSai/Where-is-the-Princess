@@ -4,7 +4,6 @@ const BIOMES_FOLDER_PATH: String = "res://Rooms/Biomes/"
 
 const USER_FOLDER: String = "user://"
 const DATA_SAVE_NAME: String = "data.json"
-const STATISTICS_SAVE_NAME: String = "statistics.json"
 
 const RUN_STATS_SAVE_NAME: String = "run_stats.res"
 
@@ -34,7 +33,7 @@ func _ready() -> void:
 	print("--- SavedData ---")
 	# save_data()
 	_load_data()
-	_load_statistics()
+	statistics = Statistics._load()
 	#print(data)
 
 	_load_run_stats()
@@ -72,32 +71,6 @@ func _load_data() -> void:
 	else:
 		print("No save data found, using default value...")
 		data = Data.new()
-
-
-func save_statistics() -> void:
-	var file: FileAccess = FileAccess.open(USER_FOLDER + STATISTICS_SAVE_NAME, FileAccess.WRITE)
-	if not file:
-		printerr("Error opening " + USER_FOLDER + STATISTICS_SAVE_NAME + " for writing!! I can't save your data, bro")
-		return
-	file.store_string(JSON.stringify(statistics.to_dic(), "\t"))
-	file.close()
-	#print(JSON.new().stringify(data, "\t"))
-
-
-func _load_statistics() -> void:
-	var file: FileAccess = FileAccess.open(USER_FOLDER + STATISTICS_SAVE_NAME, FileAccess.READ)
-	if file:
-		print("Statistics file found. Loading it...")
-		var json: JSON = JSON.new()
-		json.parse(file.get_as_text())
-		if json.data is Dictionary:
-			statistics = Statistics.from_dic(json.data as Dictionary)
-		else:
-			printerr("Could not load file data as json, using default values...")
-			statistics = Statistics.new()
-	else:
-		print("No statistics file found, using default value...")
-		statistics = Statistics.new()
 
 
 func save_run_stats() -> void:
@@ -139,13 +112,9 @@ func add_enemy_times_killed(enemy_id: StringName) -> void:
 		add_extra_available_weapon(enemy_unlock_weapon_on_kills.weapon_path)
 		save_data()
 
-	save_statistics()
-
 
 func add_enemy_player_kill(enemy_id: String) -> void:
 	statistics.add_enemy_player_kill(enemy_id)
-
-	save_statistics()
 
 
 func get_biome_conf() -> BiomeConf:

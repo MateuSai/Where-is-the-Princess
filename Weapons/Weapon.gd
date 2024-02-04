@@ -37,6 +37,7 @@ enum Type {
 @export var ability_knockback: int = 300: set = set_ability_knockback
 @export_group("")
 
+var damage_dealer_id: String: set = _set_damage_dealer_id
 static var damage_modifiers_by_type: Dictionary = {}
 @export var damage: int = 1: set = set_damage
 @export var knockback: int = 300: set = set_knockback
@@ -354,6 +355,10 @@ func set_ability_knockback(new_ability_knockback: int) -> void:
 
 func _decrease_weapon_condition(by: float) -> void:
 	stats.condition -= (by + 0.5 * stats.modifiers.size()) * (1 - Globals.player.weapon_degradation_reduction)
+
+
+func _set_damage_dealer_id(new_id: String) -> void:
+	damage_dealer_id = new_id
 
 
 func _is_on_water() -> bool:

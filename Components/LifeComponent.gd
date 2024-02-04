@@ -13,6 +13,9 @@ var damage_taken_multiplier: int = 1
 const BONES_HIT_SOUNDS: Array[AudioStream] = [preload("res://Audio/Sounds/impact/420252__redroxpeterpepper__step-skeleton.wav"), preload("res://Audio/Sounds/impact/420253__redroxpeterpepper__step-skeleton-2.wav")]
 const WOOD_HIT_SOUNDS: Array[AudioStream] = [preload("res://Audio/Sounds/impact/547414__ian_g__wood-hit.wav")]
 
+var last_weapon: Weapon
+var last_damage_dealer_id: String
+
 enum BodyType {
 	FLESH,
 	SLIME,
@@ -43,9 +46,12 @@ func _ready() -> void:
 	add_child(invincible_after_being_hitted_timer)
 
 
-func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, _damage_dealer_id: String) -> void:
+func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer_id: String) -> void:
 	if _must_ignore_damage():
 		return
+
+	last_damage_dealer_id = damage_dealer_id
+	last_weapon = weapon
 
 	dam *= damage_taken_multiplier
 	self.hp -= dam
