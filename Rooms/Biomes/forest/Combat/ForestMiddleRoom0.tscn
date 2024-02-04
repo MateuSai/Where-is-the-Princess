@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_wgek8"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_0u5d0"]
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_00w47"]
-[ext_resource type="PackedScene" uid="uid://cjc0h245lbmpd" path="res://Weapons/Melee/Katana/Katana.tscn" id="4_6oo1u"]
-[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/Forest/TikiTorch.tscn" id="6_up8qn"]
+[ext_resource type="PackedScene" uid="uid://c8pix6j8t15oo" path="res://Weapons/Melee/SmallAxe/SmallAxe.tscn" id="6_008xn"]
+[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="6_up8qn"]
 
 [node name="ForestMiddleRoom0" instance=ExtResource("1_o3owg")]
 
@@ -30,23 +30,33 @@ position = Vector2(234, 201)
 [node name="Marker2D" type="Marker2D" parent="EnemyPositions" index="0"]
 position = Vector2(121, 65)
 script = ExtResource("4_00w47")
-enemy_name = "Snake"
+enemy_name = "mole"
 
-[node name="Katana" parent="." index="6" instance=ExtResource("4_6oo1u")]
-position = Vector2(189, 117)
-on_floor = true
+[node name="Marker2D2" type="Marker2D" parent="EnemyPositions" index="1"]
+position = Vector2(157, 105)
+script = ExtResource("4_00w47")
+enemy_name = "goblin"
+
+[node name="Marker2D3" type="Marker2D" parent="EnemyPositions" index="2"]
+position = Vector2(211, 92)
+script = ExtResource("4_00w47")
+enemy_name = "goblin"
 
 [node name="TeleportPosition" parent="." index="7"]
 position = Vector2(192, 122)
 
-[node name="TikiTorch" parent="." index="9" instance=ExtResource("6_up8qn")]
+[node name="TikiTorch" parent="." index="8" instance=ExtResource("6_up8qn")]
 position = Vector2(105, 56)
 
-[node name="TikiTorch2" parent="." index="10" instance=ExtResource("6_up8qn")]
+[node name="TikiTorch2" parent="." index="9" instance=ExtResource("6_up8qn")]
 position = Vector2(109, 157)
 
-[node name="TikiTorch3" parent="." index="11" instance=ExtResource("6_up8qn")]
+[node name="TikiTorch3" parent="." index="10" instance=ExtResource("6_up8qn")]
 position = Vector2(259, 51)
 
-[node name="TikiTorch4" parent="." index="12" instance=ExtResource("6_up8qn")]
+[node name="TikiTorch4" parent="." index="11" instance=ExtResource("6_up8qn")]
 position = Vector2(311, 171)
+
+[node name="SmallAxe" parent="." index="13" instance=ExtResource("6_008xn")]
+position = Vector2(213, 63)
+rotation = 1.9251

@@ -17,7 +17,7 @@ func _init() -> void:
 	trans_dir = dir.path_join("translations/")
 
 	var debug_ui: DebugUI = load("res://ui/DebugUI.tscn").instantiate()
-	ModLoaderMod.append_node_in_scene(debug_ui, "Terminal", null, "res://mods-unpacked/Mateu-GameTerminal/terminal/terminal.tscn")
+	ModLoaderMod.append_node_in_scene(debug_ui, "Console", null, "res://mods-unpacked/Mateu-GameTerminal/console/console.tscn")
 	ModLoaderMod.save_scene(debug_ui, "res://ui/DebugUI.tscn")
 	debug_ui.queue_free()
 

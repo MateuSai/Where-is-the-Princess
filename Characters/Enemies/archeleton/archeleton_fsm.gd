@@ -26,6 +26,11 @@ func _state_logic(_delta: float) -> void:
 				animation_player.play("idle")
 			elif dir_to_player.y < 0 and animation_player.current_animation != "idle_up":
 				animation_player.play("idle_up")
+
+			if dir_to_player.x > 0 and parent.sprite.flip_h:
+				parent._on_change_dir()
+			elif dir_to_player.x < 0 and not parent.sprite.flip_h:
+				parent._on_change_dir()
 			parent.aim_bow()
 		APPROACH:
 			parent.move_to_target()

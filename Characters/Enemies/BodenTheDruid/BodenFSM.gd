@@ -118,9 +118,9 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			$"../LightningAttackTimer".queue_free()
 			$"../StaffPivot".queue_free()
 #			pathfinding_component.mode.timer.wait_time = 0.15
-			parent.max_speed = 450
-			parent.acceleration = 0.1
-			parent.mass = 150
+			parent.data.max_speed = 450
+			parent.data.acceleration = 0.1
+			parent.data.mass = 150
 			parent.can_move = true
 		BEAR_RUN:
 			pathfinding_component.set_mode(PathfindingComponent.Approach.new())

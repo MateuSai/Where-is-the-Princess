@@ -298,13 +298,13 @@ texture = ExtResource("5_c3c0h")
 offset = Vector2(1.5, -4)
 
 [node name="CollisionShape2D" parent="Node2D/WeaponSprite/Hitbox" index="0"]
+visible = false
 position = Vector2(2.12133, -3.53553)
-rotation = 0.0
 shape = SubResource("CapsuleShape2D_d51ec")
 
 [node name="CollisionShape2D" parent="Node2D/WeaponSprite/PlayerDetector" index="0"]
-position = Vector2(-4, 1.00001)
-rotation = 0.785398
+visible = false
+position = Vector2(2, -3.5)
 shape = SubResource("CapsuleShape2D_0tcog")
 
 [node name="AnimationPlayer" parent="." index="1"]

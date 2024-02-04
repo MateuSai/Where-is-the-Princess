@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=56 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="Script" path="res://Rooms/Biomes/basecamp/BaseCamp.gd" id="1_tpf7m"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="2_ipa5f"]
@@ -13,7 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://4diatv3rr660" path="res://brow_square.png" id="7_bvea0"]
 [ext_resource type="Texture2D" uid="uid://cpda4qwx1x4j6" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/sign.png" id="9_dti1o"]
 [ext_resource type="Script" path="res://start_area.gd" id="9_r816v"]
-[ext_resource type="PackedScene" uid="uid://bqcn0vo0ait26" path="res://Characters/npcs/mercenary/mercenary.tscn" id="11_vh5i5"]
 [ext_resource type="PackedScene" uid="uid://cjc0h245lbmpd" path="res://Weapons/Melee/Katana/Katana.tscn" id="12_trlvh"]
 [ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="13_2uruh"]
 [ext_resource type="AudioStream" uid="uid://dq7f7p17hn6bl" path="res://Audio/Sounds/280235__toefur__open-wardrobe-1.wav" id="15_iuhqb"]
@@ -31,7 +30,6 @@
 [ext_resource type="PackedScene" uid="uid://c8pix6j8t15oo" path="res://Weapons/Melee/SmallAxe/SmallAxe.tscn" id="29_5p8c5"]
 [ext_resource type="PackedScene" uid="uid://bau1jfwsnyo2o" path="res://Characters/practice_dummy.tscn" id="31_1hy67"]
 [ext_resource type="PackedScene" uid="uid://d3qmv5odokhfh" path="res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn" id="31_pmolu"]
-[ext_resource type="PackedScene" uid="uid://dt58rwqk2borq" path="res://Rooms/game_shops/GameShopLevel1.tscn" id="31_rm7le"]
 [ext_resource type="Texture2D" uid="uid://cxwois4ml3d4s" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/sign_boss.png" id="32_76hog"]
 [ext_resource type="PackedScene" uid="uid://cpyqtlqtdkuiq" path="res://Weapons/Ranged/scepters/lightning_stick/lightning_stick.tscn" id="34_nl6xg"]
 [ext_resource type="PackedScene" uid="uid://bp2oo4273j0dc" path="res://Weapons/Melee/spear/Spear.tscn" id="35_gq7sc"]
@@ -342,9 +340,6 @@ min_value = -1.0
 max_value = 1e+08
 value = -1.0
 
-[node name="RichardTheGigachadWizard" parent="." instance=ExtResource("11_vh5i5")]
-position = Vector2(174, 89)
-
 [node name="Katana" parent="." instance=ExtResource("12_trlvh")]
 position = Vector2(154, 116)
 on_floor = true
@@ -404,9 +399,6 @@ on_floor = true
 [node name="SmallAxe" parent="." instance=ExtResource("29_5p8c5")]
 position = Vector2(42, 140)
 on_floor = true
-
-[node name="GameShopLevel1" parent="." instance=ExtResource("31_rm7le")]
-position = Vector2(70, 228)
 
 [node name="WoodenBow" parent="." instance=ExtResource("31_pmolu")]
 position = Vector2(185, 174)

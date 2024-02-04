@@ -183,10 +183,7 @@ _data = {
 [node name="Goblin" instance=ExtResource("1")]
 motion_mode = 0
 script = ExtResource("5")
-max_speed = 75
-projectile_speed = 150
-is_boss = false
-accerelation = 30
+projectile_speed = null
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("6")
