@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1tqb5c7ah478"]
+[gd_scene load_steps=6 format=3 uid="uid://d1tqb5c7ah478"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_yae1t"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_frt26"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_gfuie"]
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_ygi7o"]
+[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="5_cdvwc"]
 
 [node name="ModForestCombatRoom" instance=ExtResource("1_yae1t")]
 
@@ -50,3 +51,15 @@ enemy_name = "blowpipeTribal"
 
 [node name="TeleportPosition" parent="." index="7"]
 position = Vector2(168, 131)
+
+[node name="TikiTorch" parent="." index="9" instance=ExtResource("5_cdvwc")]
+position = Vector2(120, 57)
+
+[node name="TikiTorch2" parent="." index="10" instance=ExtResource("5_cdvwc")]
+position = Vector2(182, 100)
+
+[node name="TikiTorch3" parent="." index="11" instance=ExtResource("5_cdvwc")]
+position = Vector2(233, 85)
+
+[node name="TikiTorch4" parent="." index="12" instance=ExtResource("5_cdvwc")]
+position = Vector2(211, 186)

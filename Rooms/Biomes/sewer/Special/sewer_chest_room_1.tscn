@@ -32,23 +32,20 @@ position = Vector2(201, 69)
 [node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("3_bscno")]
 position = Vector2(103, 124)
 
-[node name="TeleportPosition" parent="." index="8"]
-position = Vector2(112, 83)
+[node name="TeleportPosition" parent="." index="7"]
+position = Vector2(112, 95)
 
-[node name="Chest" parent="." index="10" instance=ExtResource("2_jg1p0")]
-position = Vector2(80, 62)
+[node name="Chest" parent="." index="9" instance=ExtResource("2_jg1p0")]
+position = Vector2(112, 75)
 
-[node name="Chest2" parent="." index="11" instance=ExtResource("2_jg1p0")]
-position = Vector2(146, 62)
-
-[node name="Torch" parent="." index="12" instance=ExtResource("5_hfqyr")]
+[node name="Torch" parent="." index="10" instance=ExtResource("5_hfqyr")]
 position = Vector2(88, 22)
 
-[node name="Torch2" parent="." index="13" instance=ExtResource("5_hfqyr")]
+[node name="Torch2" parent="." index="11" instance=ExtResource("5_hfqyr")]
 position = Vector2(138, 22)
 
-[node name="Torch3" parent="." index="14" instance=ExtResource("5_hfqyr")]
+[node name="Torch3" parent="." index="12" instance=ExtResource("5_hfqyr")]
 position = Vector2(138, 120)
 
-[node name="Torch4" parent="." index="15" instance=ExtResource("5_hfqyr")]
+[node name="Torch4" parent="." index="13" instance=ExtResource("5_hfqyr")]
 position = Vector2(88, 120)

@@ -114,8 +114,8 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			else:
 				animation_player.play("prejump_up")
 		JUMP:
-			parent.flying = true
-			parent.max_speed = 150
+			parent.data.flying = true
+			parent.data.max_speed = 150
 
 			if animation_player.current_animation == "prejump":
 				animation_player.play("jump")
@@ -145,8 +145,8 @@ func _exit_state(state_exited: int) -> void:
 		IDLE:
 			idle_timer.stop()
 		JUMP:
-			parent.flying = false
-			parent.max_speed = 50
+			parent.data.flying = false
+			parent.data.max_speed = 50
 			jump_timer.stop()
 		HUG:
 			collision_shape.set_deferred("disabled", false)
