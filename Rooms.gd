@@ -623,7 +623,7 @@ func _create_corridors() -> bool:
 
 		for layer: int in room.tilemap.get_layers_count():
 			for cell: Vector2i in room.tilemap.get_used_cells(layer):
-				tilemap_clone.set_cell(layer, cell, ATLAS_ID, room.tilemap.get_cell_atlas_coords(layer, cell))
+				tilemap_clone.set_cell(layer, cell, room.tilemap.get_cell_source_id(layer, cell), room.tilemap.get_cell_atlas_coords(layer, cell))
 		room.tilemap.queue_free()
 		room.add_child(tilemap_clone)
 		room.tilemap = tilemap_clone
