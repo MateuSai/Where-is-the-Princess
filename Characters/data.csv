@@ -1,7 +1,7 @@
 id,max_hp,mass,acceleration,max_speed,flying,can_be_knocked_back,motionless,resistances,body_type,,icon,coins,souls,dark_souls,food_prob,armor_shard_prob
 player,4,60,0.1,250,0,1,0,0,FLESH,,,,,,,
 ,,,,,,,,,,,,,,,,
-practice_dummy,2,40,0.1,100,0,0,1,0,FLESH,,,,,,,
+practice_dummy,500000,40,0.1,100,0,0,1,0,FLESH,,,,,,,
 ,,,,,,,,,,,,,,,,
 mark_the_reptilian,6,60,0.1,100,0,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/reptiles/mark_the_reptilian_icon.png,1-2,1,0,0.1,0.1
 naked_mark,5,55,0.1,100,0,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/reptiles/naked_mark_icon.png,1-2,1,0,0.1,0.1
@@ -31,5 +31,5 @@ insecton_musk,6,15,0.1,120,1,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguellike S
 rat,1,3,0.1,75,0,1,0,0,FLESH,,,0-1,0-1,0,0.03,0.03
 ,,,,,,,,,,,,,,,,
 boden_the_druid,15,55,0.1,110,0,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/boss_druid/boden_icon.png,5-8,5-7,1,1,1
-necro_tromp,40,65,0.1,65,0,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Tromp the necromancer/tromp_icon.png,6-10,10-15,1,1,1
-crocodile_joe,60,90,0.1,35,0,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Crocodile/joe_icon.png,6-10,5-8,1,1,1
+necro_tromp,25,65,0.1,65,0,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Tromp the necromancer/tromp_icon.png,6-10,10-15,1,1,1
+crocodile_joe,36,90,0.1,35,0,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Crocodile/joe_icon.png,6-10,5-8,1,1,1

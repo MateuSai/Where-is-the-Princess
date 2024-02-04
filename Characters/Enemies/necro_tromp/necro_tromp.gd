@@ -12,7 +12,7 @@ func _ready() -> void:
 	super()
 
 	life_component.hp_changed.connect(func(new_hp: int) -> void:
-		if not bald and new_hp <= 30:
+		if not bald and new_hp <= life_component.max_hp/2.0:
 			bald = true
 			_change_to_bald_mode()
 	)
@@ -23,6 +23,7 @@ func _process(_delta: float) -> void:
 
 
 func _change_to_bald_mode() -> void:
+	react(Reaction.VERY_MAD)
 	sprite.texture = load("res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Tromp the necromancer/Tromp_02.png")
 	var hair: TrompHair = load("res://Characters/Enemies/necro_tromp/tromp_hair.tscn").instantiate()
 	hair.position = global_position + Vector2.UP * 8

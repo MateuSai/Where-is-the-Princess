@@ -10,4 +10,4 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	position += dir * 35 * delta
+	position += dir * 70 * delta

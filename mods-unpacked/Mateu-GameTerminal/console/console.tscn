@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://be111nvyj8hvv"]
 
 [ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="1_anvrm"]
-[ext_resource type="Script" path="res://mods-unpacked/Mateu-GameTerminal/terminal/terminal.gd" id="2_qm45f"]
+[ext_resource type="Script" path="res://mods-unpacked/Mateu-GameTerminal/console/console.gd" id="2_qm45f"]
 
-[node name="Terminal" type="LineEdit"]
+[node name="Console" type="LineEdit"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0

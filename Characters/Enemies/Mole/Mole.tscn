@@ -102,8 +102,6 @@ _data = {
 
 [node name="Mole" instance=ExtResource("1_sqxlg")]
 script = ExtResource("2_pw6f4")
-max_speed = 80
-can_be_knocked_back = false
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("3_bqtei")

@@ -1,4 +1,4 @@
-class_name Terminal extends LineEdit
+class_name Console extends LineEdit
 
 static var last_command: String = ""
 
