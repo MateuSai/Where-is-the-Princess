@@ -31,9 +31,9 @@ var rooms: Array[DungeonRoom] = []
 var start_room: DungeonRoom
 #var end_room: DungeonRoom
 var mst_astar: AStar2D = null
-@onready var game: Game = get_parent()
+var game: Game
 # DEBUG
-@onready var debug: bool = game.debug
+var debug: bool
 @export var debug_check_entry_positions: bool = false
 @export var use_delaunay: bool = false
 @export var pause_between_steps: float = 1.2
@@ -60,16 +60,23 @@ var map_rect: Rect2 = Rect2(0, 0, 0, 0)
 var fog_image: Image = Image.new()
 const FOG_PADDING: int = 128
 
-@onready var reload_on_eror: bool = game.reload_on_generation_eror
+var reload_on_eror: bool
 
-@onready var biome_conf: BiomeConf = SavedData.get_biome_conf()
+var biome_conf: BiomeConf
 
-@onready var fog_sprite: Sprite2D = $"../FogSprite"
-@onready var corridor_tile_map: TileMap = get_node("CorridorTileMap")
+var fog_sprite: Sprite2D
+var corridor_tile_map: TileMap
 
 
 func _ready() -> void:
 	set_process(false)
+
+	game = get_parent()
+	debug = game.debug
+	reload_on_eror = game.reload_on_generation_eror
+	biome_conf = SavedData.get_biome_conf()
+	fog_sprite = $"../FogSprite"
+	corridor_tile_map = get_node("CorridorTileMap")
 
 	ATLAS_ID = biome_conf.corridor_atlas_id
 	if not biome_conf.corridor_floor_tiles_coor.is_empty():
