@@ -12,7 +12,7 @@ spider,2,3,0.1,100,0,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguelike (Forest) P
 snake,4,3,0.1,120,0,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/snake/snake_icon.png,0-2,0-1,0,0.1,0.03
 flying_creature,4,3,0.1,200,1,1,0,0,FLESH,,,0-2,1,0,0.1,0.1
 goblin,5,25,0.1,140,0,1,0,0,FLESH,,,0-1,1,0,0.1,0.1
-dark_goblin,7,25,0.1,100,0,1,0,0,FLESH,,,0-1,1,0,0.1,0.1
+dark_goblin,7,25,0.1,140,0,1,0,0,FLESH,,,3-6,2-4,0,0.1,0.15
 shield_knight,7,25,0.1,100,0,1,0,0,FLESH,,,0-1,1,0,0.1,0.1
 spear_tribal,5,50,0.1,80,0,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/spear_tribal_icon.png,1-2,1,0,0.1,0.1
 blowpipe_tribal,5,50,0.1,60,0,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/blowpipe_tribal_icon.png,1-2,1,0,0.1,0.1
