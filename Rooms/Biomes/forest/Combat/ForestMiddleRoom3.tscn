@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_hkc40"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_f6vrj"]
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_mnjah"]
-[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/Forest/TikiTorch.tscn" id="5_e3i50"]
+[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="5_e3i50"]
 
 [node name="ForestMiddleRoom3" instance=ExtResource("1_ekm14")]
 
@@ -46,7 +46,7 @@ position = Vector2(377, 107)
 script = ExtResource("4_mnjah")
 enemy_name = "SpiderEgg"
 
-[node name="TeleportPosition" parent="." index="6"]
+[node name="TeleportPosition" parent="." index="7"]
 position = Vector2(192, 122)
 
 [node name="TikiTorch" parent="." index="8" instance=ExtResource("5_e3i50")]

@@ -49,11 +49,11 @@ position = Vector2(273, 170)
 script = ExtResource("4_0pnak")
 enemy_name = "SpiderEgg"
 
+[node name="TeleportPosition" parent="." index="7"]
+position = Vector2(210, 113)
+
 [node name="Torch2" parent="." index="8" instance=ExtResource("5_ivsi8")]
 position = Vector2(157, -10)
 
 [node name="Torch3" parent="." index="9" instance=ExtResource("5_ivsi8")]
 position = Vector2(46, 102)
-
-[node name="TeleportPosition" parent="." index="10"]
-position = Vector2(210, 113)

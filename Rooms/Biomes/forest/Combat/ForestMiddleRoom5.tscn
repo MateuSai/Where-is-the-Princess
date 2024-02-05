@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_b78vs"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_c5jng"]
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_mi6po"]
-[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/Forest/TikiTorch.tscn" id="5_7mi43"]
+[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="5_7mi43"]
 
 [node name="ForestMiddleRoom5" instance=ExtResource("1_b78vs")]
 
@@ -43,7 +43,7 @@ position = Vector2(270, 197)
 script = ExtResource("4_mi6po")
 enemy_name = "MarkTheReptilian"
 
-[node name="TeleportPosition" parent="." index="6"]
+[node name="TeleportPosition" parent="." index="7"]
 position = Vector2(192, 122)
 
 [node name="TikiTorch" parent="." index="8" instance=ExtResource("5_7mi43")]

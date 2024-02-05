@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_vv0p2"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_8n1ea"]
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_qt8fw"]
-[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/Forest/TikiTorch.tscn" id="5_bayj8"]
+[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="5_bayj8"]
 
 [node name="ForestMiddleRoom4" instance=ExtResource("1_onh3r")]
 
@@ -43,7 +43,7 @@ position = Vector2(321, 169)
 script = ExtResource("4_qt8fw")
 enemy_name = "Snake"
 
-[node name="TeleportPosition" parent="." index="6"]
+[node name="TeleportPosition" parent="." index="7"]
 position = Vector2(192, 122)
 
 [node name="TikiTorch" parent="." index="8" instance=ExtResource("5_bayj8")]

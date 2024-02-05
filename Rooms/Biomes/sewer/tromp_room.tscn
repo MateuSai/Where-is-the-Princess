@@ -11,5 +11,23 @@ agent_radius = 2.0
 [node name="TrompRoom" instance=ExtResource("1_rfjgk")]
 navigation_polygon = SubResource("NavigationPolygon_7cxli")
 
+[node name="TileMap" parent="." index="0"]
+layer_2/tile_data = PackedInt32Array(393225, 131112, 0, 393226, 131112, 0, 393229, 262184, 0, 393230, 131112, 0, 655367, 327720, 1, 393228, 262184, 1, 458764, 40, 1, 458765, 65576, 1)
+
 [node name="TeleportPosition" parent="." index="7"]
 position = Vector2(172, 177)
+
+[node name="Torch" parent="." index="9"]
+position = Vector2(96, 165)
+
+[node name="TrompCarpet_02" parent="." index="22"]
+position = Vector2(185, 151)
+
+[node name="StairsUp" parent="." index="23"]
+position = Vector2(232, 159)
+
+[node name="Cualdron" parent="." index="25"]
+position = Vector2(177, 133)
+
+[node name="StairsUpLight" parent="." index="26"]
+position = Vector2(215, 143)
