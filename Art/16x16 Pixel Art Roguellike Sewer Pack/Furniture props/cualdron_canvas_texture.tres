@@ -1,0 +1,8 @@
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://c5ivs3wsuaer"]
+
+[ext_resource type="Texture2D" uid="uid://bb027uruho13x" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Furniture props/cualdron_new_23x19.png" id="1_t28ys"]
+[ext_resource type="Texture2D" uid="uid://s2drm6lusx8t" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Furniture props/cualdron_new_normal_23x19.png" id="2_fko84"]
+
+[resource]
+diffuse_texture = ExtResource("1_t28ys")
+normal_texture = ExtResource("2_fko84")

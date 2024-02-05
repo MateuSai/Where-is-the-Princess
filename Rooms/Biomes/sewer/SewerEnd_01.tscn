@@ -18,7 +18,7 @@
 [ext_resource type="PackedScene" path="res://Rooms/Furniture and Traps/stairs_up.tscn" id="16_jg6n4"]
 [ext_resource type="Texture2D" uid="uid://df56k6eh6cbnc" path="res://Art/gate_dirty.png" id="17_mu2ve"]
 [ext_resource type="Texture2D" uid="uid://bd6bvq6rxcn2k" path="res://Art/gate_normal.png" id="18_hwms7"]
-[ext_resource type="Texture2D" uid="uid://dhy06e4g25mfu" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Furniture props/cualdron_23x19.png" id="18_re3nf"]
+[ext_resource type="Texture2D" uid="uid://c5ivs3wsuaer" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Furniture props/cualdron_canvas_texture.tres" id="19_x21mh"]
 [ext_resource type="PackedScene" uid="uid://d3fawn28rueao" path="res://effects/steam/steam_spawner.tscn" id="20_fn7qw"]
 [ext_resource type="Texture2D" uid="uid://qpavrq646j4l" path="res://Art/effects/light_from_exterior.png" id="21_wcn47"]
 
@@ -64,29 +64,29 @@ normal_texture = ExtResource("18_hwms7")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_be44r"]
 size = Vector2(32, 3)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gvo3t"]
-atlas = ExtResource("18_re3nf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_iw8e6"]
+atlas = ExtResource("19_x21mh")
 region = Rect2(0, 0, 23, 19)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nvey8"]
-atlas = ExtResource("18_re3nf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_tiutk"]
+atlas = ExtResource("19_x21mh")
 region = Rect2(23, 0, 23, 19)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_c4pi1"]
-atlas = ExtResource("18_re3nf")
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvejf"]
+atlas = ExtResource("19_x21mh")
 region = Rect2(46, 0, 23, 19)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ghqqy"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gvo3t")
+"texture": SubResource("AtlasTexture_iw8e6")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nvey8")
+"texture": SubResource("AtlasTexture_tiutk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_c4pi1")
+"texture": SubResource("AtlasTexture_xvejf")
 }],
 "loop": true,
 "name": &"default",
@@ -121,7 +121,7 @@ position = Vector2(155, 458)
 position = Vector2(95, 136)
 
 [node name="Torch4" parent="." index="10" instance=ExtResource("3_m2tfn")]
-position = Vector2(224, 168)
+position = Vector2(184, 103)
 
 [node name="Torch5" parent="." index="11" instance=ExtResource("3_m2tfn")]
 position = Vector2(121, 341)
