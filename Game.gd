@@ -137,6 +137,17 @@ func reload_generation(msg: String) -> void:
 		generation_thread.wait_to_finish()
 		generation_thread = null
 	print_rich("[color=purple]%s. Reloading level generation...[/color]" % msg)
-	get_tree().reload_current_scene()
+
+	for i: int in range(rooms.get_child_count()-1, 0, -1):
+		rooms.get_child(i).free()
+	($Rooms/CorridorTileMap as TileMap).clear()
+
+	# To reset all variables
+	rooms.set_script(null)
+	rooms.set_script(Rooms)
+
+	rooms._ready()
+	_ready()
+	#get_tree().reload_current_scene()
 
 	#print_debug("Scene reloaded")
