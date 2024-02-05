@@ -15,26 +15,12 @@ var distance_to_player: float
 
 
 func _ready() -> void:
+	super()
+
 	eye_grow_sprite.hide()
 	swap_cooldown_timer.timeout.connect(func():
 		eye_grow_sprite.show()
 	)
-
-
-func _on_PathTimer_timeout() -> void:
-	if is_instance_valid(player):
-		distance_to_player = (player.position - global_position).length()
-		if distance_to_player > MAX_DISTANCE_TO_PLAYER:
-			_get_path_to_player()
-		elif distance_to_player < MIN_DISTANCE_TO_PLAYER:
-			_get_path_to_move_away_from_player()
-	else:
-		mov_direction = Vector2.ZERO
-
-
-func _get_path_to_move_away_from_player() -> void:
-	var dir: Vector2 = (global_position - player.position).normalized()
-	navigation_agent.target_position = global_position + dir * 100
 
 
 func normal_attack() -> void:
@@ -45,8 +31,9 @@ func normal_attack() -> void:
 
 func _throw_knife(angle_offset: float = 0) -> void:
 	var projectile: Area2D = THROWABLE_KNIFE_SCENE.instantiate()
-	projectile.launch(global_position, (player.position - global_position).normalized().rotated(angle_offset), projectile_speed)
+	projectile.exclude = get_exclude_bodies()
 	get_tree().current_scene.add_child(projectile)
+	projectile.launch(global_position, (player.position - global_position).normalized().rotated(angle_offset), projectile_speed, true)
 
 
 func swap_and_throw_knives() -> void:

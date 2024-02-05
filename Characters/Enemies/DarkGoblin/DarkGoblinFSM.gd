@@ -6,13 +6,14 @@ enum {
 	DEAD,
 }
 
-const MIN_ATTACK_COOLDOWN: float = 0.5
-const MAX_ATTACK_COOLDOWN: float = 1.0
+const MIN_ATTACK_COOLDOWN: float = 1.0
+const MAX_ATTACK_COOLDOWN: float = 2.0
 
-const MIN_ABILTY_COOLDOWN: float = 2.5
-const MAX_ABILITY_COOLDOWN: float = 4
+const MIN_ABILTY_COOLDOWN: float = 5.0
+const MAX_ABILITY_COOLDOWN: float = 10.0
 
 
+@onready var pathfinding_component: PathfindingComponent = $"../PathfindingComponent"
 @onready var swap_cooldown_timer: Timer = get_node("../SwapCooldownTimer")
 @onready var attack_timer: Timer = get_node("../AttackTimer")
 
@@ -40,6 +41,12 @@ func _state_logic(_delta: float) -> void:
 			elif dir_to_player.y < 0 and animation_player.current_animation != "idle_up":
 				animation_player.play("idle_up")
 		MOVE:
+			var distance_to_player: float = (parent.target.global_position - parent.global_position).length()
+			if distance_to_player > DarkGoblin.MAX_DISTANCE_TO_PLAYER and not pathfinding_component.mode is PathfindingComponent.Approach:
+				pathfinding_component.set_mode(PathfindingComponent.Approach.new())
+			elif distance_to_player < DarkGoblin.MIN_DISTANCE_TO_PLAYER and not pathfinding_component.mode is PathfindingComponent.Flee:
+				pathfinding_component.set_mode(PathfindingComponent.Flee.new())
+
 			parent.move_to_target()
 			parent.move()
 			var dir_to_player: Vector2 = (parent.player.position - parent.global_position).normalized()

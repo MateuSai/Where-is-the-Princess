@@ -51,7 +51,12 @@ enemy_name = "FlyingCreature"
 [node name="EnemyMarker2" type="Marker2D" parent="EnemyPositions" index="1"]
 position = Vector2(306, 129)
 script = ExtResource("4_j2riv")
-enemy_name = "FlyingCreature"
+enemy_name = "armored_mark"
+
+[node name="EnemyMarker3" type="Marker2D" parent="EnemyPositions" index="2"]
+position = Vector2(173, 205)
+script = ExtResource("4_j2riv")
+enemy_name = "snake"
 
 [node name="TeleportPosition" parent="." index="7"]
 position = Vector2(221, 208)

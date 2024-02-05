@@ -1,13 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://bf6eca3ug0flr"]
+[gd_scene load_steps=14 format=3 uid="uid://bf6eca3ug0flr"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_l8tqo"]
 [ext_resource type="Script" path="res://Characters/Enemies/DarkGoblin/DarkGoblin.gd" id="2_ippv8"]
 [ext_resource type="Script" path="res://Characters/Enemies/DarkGoblin/DarkGoblinFSM.gd" id="3_wfqar"]
 [ext_resource type="Texture2D" uid="uid://pkfij4c7x55n" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/goblin/goblin02_full_spritesheet.png" id="4_ahdp5"]
+[ext_resource type="Material" uid="uid://cmyqibox7jjbf" path="res://unshaded.tres" id="4_p0jni"]
 [ext_resource type="Texture2D" uid="uid://fqeoudxqnnss" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/goblin/goblin02_eyes_full_spritesheet.png" id="5_pf1b0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q8klo"]
-radius = 3.0
+radius = 2.0
 
 [sub_resource type="Animation" id="Animation_8c62w"]
 length = 0.001
@@ -30,6 +31,18 @@ tracks/1/path = NodePath("EyeGrowSprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EyeGrowSprite:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -64,6 +77,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EyeGrowSprite:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
 
 [sub_resource type="Animation" id="Animation_ebsj1"]
 resource_name = "idle_up"
@@ -80,6 +105,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [12, 13, 14, 15, 16, 17]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EyeGrowSprite:z_index")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_ss50i"]
@@ -110,6 +147,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [6, 7, 8, 9, 10, 11]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EyeGrowSprite:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
 
 [sub_resource type="Animation" id="Animation_ehk7v"]
 resource_name = "move_up"
@@ -126,6 +175,30 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [18, 19, 20, 21, 22, 23]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("EyeGrowSprite:z_index")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("EyeGrowSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 9, 10, 11]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_de16t"]
@@ -146,6 +219,7 @@ script = ExtResource("2_ippv8")
 script = ExtResource("3_wfqar")
 
 [node name="EyeGrowSprite" type="Sprite2D" parent="." index="2"]
+material = ExtResource("4_p0jni")
 position = Vector2(0, -4)
 texture = ExtResource("5_pf1b0")
 hframes = 6
@@ -158,7 +232,6 @@ hframes = 6
 vframes = 4
 
 [node name="CollisionShape2D" parent="." index="4"]
-position = Vector2(0, -2)
 shape = SubResource("CircleShape2D_q8klo")
 
 [node name="AnimationPlayer" parent="." index="5"]
