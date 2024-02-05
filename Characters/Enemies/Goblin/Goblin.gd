@@ -9,8 +9,6 @@ const MIN_DISTANCE_TO_PLAYER: int = 40
 
 var can_attack: bool = true
 
-var distance_to_player: float
-
 @onready var attack_timer: Timer = get_node("AttackTimer")
 @onready var aim_raycast: RayCast2D = get_node("AimRayCast")
 
@@ -23,8 +21,9 @@ func _ready() -> void:
 
 func _throw_knife() -> void:
 	var projectile: Area2D = THROWABLE_KNIFE_SCENE.instantiate()
+	projectile.exclude = get_exclude_bodies()
 	get_tree().current_scene.add_child(projectile)
-	projectile.launch(global_position, (player.position - global_position).normalized(), projectile_speed)
+	projectile.launch(global_position, (player.position - global_position).normalized(), projectile_speed, true)
 
 
 

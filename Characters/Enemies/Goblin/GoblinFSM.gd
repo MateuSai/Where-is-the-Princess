@@ -47,12 +47,13 @@ func _state_logic(_delta: float) -> void:
 
 
 func _get_transition() -> int:
+	var distance_to_player: float = (parent.target.global_position - parent.global_position).length()
 	match state:
 		IDLE:
-			if parent.distance_to_player > parent.MAX_DISTANCE_TO_PLAYER or parent.distance_to_player < parent.MIN_DISTANCE_TO_PLAYER:
+			if distance_to_player > parent.MAX_DISTANCE_TO_PLAYER or distance_to_player < parent.MIN_DISTANCE_TO_PLAYER:
 				return MOVE
 		MOVE:
-			if parent.distance_to_player < parent.MAX_DISTANCE_TO_PLAYER and parent.distance_to_player > parent.MIN_DISTANCE_TO_PLAYER:
+			if distance_to_player < parent.MAX_DISTANCE_TO_PLAYER and distance_to_player > parent.MIN_DISTANCE_TO_PLAYER:
 				return IDLE
 	return -1
 

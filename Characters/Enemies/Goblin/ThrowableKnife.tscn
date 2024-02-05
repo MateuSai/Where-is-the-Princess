@@ -5,7 +5,7 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_br7x4"]
 resource_local_to_scene = true
 radius = 1.41421
-height = 15.5564
+height = 11.3137
 
 [node name="ThrowableKnife" instance=ExtResource("1")]
 
