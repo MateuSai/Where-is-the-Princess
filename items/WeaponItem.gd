@@ -15,7 +15,8 @@ func pick_up(player: Player) -> void:
 
 
 func get_icon() -> Texture2D:
-	return weapon.get_node("%WeaponSprite").texture
+	var data: WeaponData = Weapon.get_data(Weapon.get_id_from_path(weapon.scene_file_path))
+	return data.weapon_texture
 
 
 func _notification(what: int) -> void:
