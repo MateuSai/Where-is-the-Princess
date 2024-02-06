@@ -58,11 +58,10 @@ color = Color(0.701961, 0.478431, 0.219608, 1)
 energy = 1.5
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 1)
-shadow_filter = 1
 shadow_filter_smooth = 8.0
 texture = ExtResource("1_lk8e2")
 texture_scale = 1.3
-height = 20.0
+height = 50.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("7")
