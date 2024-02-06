@@ -315,7 +315,7 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 				tilemap.erase_cell(0, tile_positions[0])
 				tilemap.erase_cell(0, tile_positions[1])
 				if dir == EntryDirection.LEFT:
-					if tilemap.get_cell_atlas_coords(0, tile_positions[0] + Vector2i.UP * 2 + Vector2i.RIGHT) == Rooms.UPPER_WALL_COOR:
+					if tilemap.get_cell_atlas_coords(0, tile_positions[0] + Vector2i.UP * 2 + Vector2i.RIGHT) in [Rooms.UPPER_WALL_COOR, Rooms.UPPER_WALL_RIGHT_COOR]:
 						tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, ATLAS_ID, Rooms.UPPER_WALL_LEFT_CORNER_COOR)
 					else:
 						tilemap.set_cell(1, tile_positions[0] + Vector2i.UP * 2, ATLAS_ID, Rooms.LEFT_WALL_COOR)
@@ -323,7 +323,7 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 					tilemap.set_cell(1, tile_positions[0], ATLAS_ID, Rooms.LEFT_WALL_COOR)
 					tilemap.set_cell(1, tile_positions[1], ATLAS_ID, Rooms.LEFT_WALL_COOR)
 				else:
-					if tilemap.get_cell_atlas_coords(0, tile_positions[0] + Vector2i.UP * 2 + Vector2i.LEFT) == Rooms.UPPER_WALL_COOR:
+					if tilemap.get_cell_atlas_coords(0, tile_positions[0] + Vector2i.UP * 2 + Vector2i.LEFT) in [Rooms.UPPER_WALL_COOR, Rooms.UPPER_WALL_LEFT_COOR]:
 						tilemap.set_cell(0, tile_positions[0] + Vector2i.UP * 2, ATLAS_ID, Rooms.UPPER_WALL_RIGHT_CORNER_COOR)
 					else:
 						tilemap.set_cell(1, tile_positions[0] + Vector2i.UP * 2, ATLAS_ID, Rooms.RIGHT_WALL_COOR)
