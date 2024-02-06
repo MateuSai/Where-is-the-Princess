@@ -1,4 +1,4 @@
-class_name AcidDash extends PermanentPassiveItem
+class_name AcidBoots extends PermanentPassiveItem
 
 var player: Player
 
@@ -30,4 +30,4 @@ func _on_dashed(dash_time: float) -> void:
 
 
 func get_icon() -> Texture2D:
-	return load("res://Art/items/boots_icon.png")
+	return load("res://Art/items/boots_acid_icon.png")
