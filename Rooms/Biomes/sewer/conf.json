@@ -1,6 +1,6 @@
 {
 	"background_color": "04171a",
-	"light_color": "626262",
+	"light_color": "272727",
 
 	"corridor_atlas_id": 5,
 	"room_atlas_id": 5,
@@ -41,7 +41,7 @@
 			"num_combat_rooms": 0,
 			"num_special_rooms": 0,
 
-			"overwrite_start_rooms": ["res://Rooms/Biomes/sewer/tromp_room.tscn"],
+			"overwrite_start_rooms": ["res://Rooms/Biomes/sewer/tromp_room_do_not_edit.tscn"],
 		}
 	}
 }

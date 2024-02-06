@@ -68,3 +68,9 @@ height = 20.0
 sprite_frames = SubResource("7")
 autoplay = "default"
 frame_progress = 0.307575
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(0.8, 0.556863, 0.141176, 1)
+energy = 1.4
+texture = ExtResource("1_lk8e2")
+height = 100.0
