@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://gfa4qnde1ng"]
+[gd_scene load_steps=4 format=3 uid="uid://gfa4qnde1ng"]
 
 [ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/projectiles/projectile.tscn" id="1"]
+[ext_resource type="Texture2D" uid="uid://bwjk38lwgb8a7" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/goblin/goblin_knife_not_diagonal.png" id="2_mqlow"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_br7x4"]
 resource_local_to_scene = true
@@ -10,5 +11,9 @@ height = 11.3137
 [node name="ThrowableKnife" instance=ExtResource("1")]
 collision_mask = 135
 
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_mqlow")
+
 [node name="CollisionShape2D" parent="." index="1"]
+rotation = 1.5708
 shape = SubResource("CapsuleShape2D_br7x4")

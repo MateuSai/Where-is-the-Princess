@@ -1,30 +1,58 @@
-[gd_scene load_steps=11 format=3 uid="uid://cyfrse4f5lihp"]
+[gd_scene load_steps=12 format=3 uid="uid://cyfrse4f5lihp"]
 
 [ext_resource type="Texture2D" uid="uid://bu6f7y7mv63om" path="res://Art/Furniture and room elements/tiki_torch.png" id="1_i8jtk"]
-[ext_resource type="Shader" path="res://shaders_and_particles/Fire.gdshader" id="2_yksvn"]
-[ext_resource type="Texture2D" uid="uid://daudq4kfwccvu" path="res://Art/Status Conditions/condition_status_top_fire_full_16x16.png" id="3_4bbpa"]
+[ext_resource type="Texture2D" uid="uid://c7d52g3bw70w1" path="res://Art/effects/fires.png" id="1_r5dc3"]
 [ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png" id="4_cxn5a"]
 
-[sub_resource type="Gradient" id="Gradient_dcjy5"]
-offsets = PackedFloat32Array(0, 0.784849)
+[sub_resource type="AtlasTexture" id="AtlasTexture_j2d0y"]
+atlas = ExtResource("1_r5dc3")
+region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_2thpa"]
-gradient = SubResource("Gradient_dcjy5")
+[sub_resource type="AtlasTexture" id="AtlasTexture_q5s4g"]
+atlas = ExtResource("1_r5dc3")
+region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_5y85m"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjpis"]
+atlas = ExtResource("1_r5dc3")
+region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c610p"]
-noise = SubResource("FastNoiseLite_5y85m")
+[sub_resource type="AtlasTexture" id="AtlasTexture_308gq"]
+atlas = ExtResource("1_r5dc3")
+region = Rect2(48, 0, 16, 16)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_h6axw"]
-shader = ExtResource("2_yksvn")
-shader_parameter/brighter_color = Color(1, 0.8, 0, 1)
-shader_parameter/middle_color = Color(1, 0.56, 0, 1)
-shader_parameter/darker_color = Color(0.64, 0.2, 0.05, 1)
-shader_parameter/spread = 0.485
-shader_parameter/amount = 80
-shader_parameter/noise_tex = SubResource("NoiseTexture2D_c610p")
-shader_parameter/gradient_tex = SubResource("GradientTexture1D_2thpa")
+[sub_resource type="AtlasTexture" id="AtlasTexture_c30aq"]
+atlas = ExtResource("1_r5dc3")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m1cpw"]
+atlas = ExtResource("1_r5dc3")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rn8pe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j2d0y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q5s4g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pjpis")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_308gq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c30aq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m1cpw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5kb1b"]
 radius = 1.0
@@ -33,23 +61,22 @@ radius = 1.0
 collision_layer = 16
 collision_mask = 0
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_h6axw")
-position = Vector2(-0.5, -9.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_4bbpa")
-offset = Vector2(0, -8)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_rn8pe")
+autoplay = "default"
+frame_progress = 0.831773
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(0.5, -8)
 texture = ExtResource("1_i8jtk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, -1)
+position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_5kb1b")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(-0.5, -12)
+position = Vector2(0, -12)
 color = Color(0.831373, 0.521569, 0.192157, 1)
 energy = 1.5
 shadow_enabled = true
