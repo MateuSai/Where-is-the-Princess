@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0cyi71h3v3u4"]
+[gd_scene load_steps=5 format=3 uid="uid://d0cyi71h3v3u4"]
 
 [ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/projectiles/projectile.tscn" id="1_n0aex"]
+[ext_resource type="Script" path="res://Weapons/projectiles/big_rock.gd" id="2_4717d"]
 [ext_resource type="Texture2D" uid="uid://h2wccuohbfru" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/boss_druid/rock.png" id="2_mrekp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b7mtu"]
@@ -8,9 +9,7 @@ radius = 8.60232
 
 [node name="BigRock" instance=ExtResource("1_n0aex")]
 collision_mask = 3
-random_rotate = true
-can_be_destroyed = false
-knockback_force = 3000
+script = ExtResource("2_4717d")
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_mrekp")
