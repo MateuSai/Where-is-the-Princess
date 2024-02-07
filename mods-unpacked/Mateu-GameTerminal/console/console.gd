@@ -206,6 +206,15 @@ func _process_command(command: String) -> void:
 						printerr("test has no " + splitted_command[1] + " option")
 			else:
 				printerr("test cannot be used by itself")
+		"discover":
+			if splitted_command.size() > 1: # tiene otro argumento
+				match splitted_command[1]:
+					"items":
+						_discover_all_items()
+					_:
+						printerr("discover has no " + splitted_command[1] + " option")
+			else:
+				printerr("discover cannot be used by itself")
 		_:
 			printerr("Invalid command")
 
@@ -464,5 +473,15 @@ func _test_room(path: String) -> void:
 
 	RoomTest.room_path = path
 	SceneTransistor.start_transition_to("res://Rooms/room_test.tscn")
+
+	hide()
+
+
+func _discover_all_items() -> void:
+	for item_path: String in SavedData.data.AVAILABLE_PERMANENT_ITEMS_FROM_START:
+		SavedData.discover_permanent_item_if_not_already(item_path)
+
+	for item_path: String in SavedData.data.AVAILABLE_TEMPORAL_ITEMS_FROM_START:
+		SavedData.discover_temporal_item_if_not_already(item_path)
 
 	hide()
