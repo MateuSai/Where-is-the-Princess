@@ -26,7 +26,7 @@ var fog_sprite: Sprite2D
 @onready var map_name_label: Label = $MinimapScrollContainer/PanelContainer/MapNameLabel
 @onready var player_icon: Sprite2D = $MinimapScrollContainer/PanelContainer/PlayerIcon
 
-@onready var update_fog_timer: Timer = $UpdateFogTimer
+#@onready var update_fog_timer: Timer = $UpdateFogTimer
 #@onready var tilemap: TileMap = $TileMap
 
 
@@ -42,7 +42,7 @@ func _ready() -> void:
 		_on_hide()
 	)
 
-	update_fog_timer.timeout.connect(_update_fog)
+	#update_fog_timer.timeout.connect(_update_fog)
 
 
 func set_up() -> void:
@@ -128,7 +128,7 @@ func set_up() -> void:
 
 func _on_draw() -> void:
 	_update_fog()
-	update_fog_timer.start()
+	#update_fog_timer.start()
 
 	for i: int in rooms_items_ui.size():
 		var items_ui: ItemsUI = rooms_items_ui[i]
@@ -139,7 +139,7 @@ func _on_draw() -> void:
 
 
 func _on_hide() -> void:
-	update_fog_timer.stop()
+	#update_fog_timer.stop()
 
 	set_process_input(false)
 

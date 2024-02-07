@@ -185,9 +185,6 @@ label_settings = SubResource("LabelSettings_lngc4")
 z_index = 5
 texture = ExtResource("16_0uph7")
 
-[node name="UpdateFogTimer" type="Timer" parent="UI/MenuTabContainer/MINIMAP"]
-wait_time = 0.7
-
 [node name="EQUIPMENT" type="MarginContainer" parent="UI/MenuTabContainer"]
 visible = false
 layout_mode = 2
