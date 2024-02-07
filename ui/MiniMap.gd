@@ -184,12 +184,12 @@ func _process(_delta: float) -> void:
 			var room_tilemap: TileMap = room_tilemaps[i]
 #			print(container.get_local_mouse_position())
 #			print(Rect2(room_tilemap.position + Vector2(room_tilemap.get_used_rect().position * TILE_SIZE), room_tilemap.get_used_rect().size * TILE_SIZE))
-			if Rect2(room_tilemap.position + Vector2(room_tilemap.get_used_rect().position * TILE_SIZE), room_tilemap.get_used_rect().size * TILE_SIZE).has_point(container.get_local_mouse_position()):
+			if Rect2(room_tilemap.position + Vector2(room_tilemap.get_used_rect().position * TILE_SIZE), room_tilemap.get_used_rect().size * TILE_SIZE).has_point(container.get_local_mouse_position()) and get_global_rect().has_point(get_global_mouse_position()):
 				room_selected = rooms.rooms[i]
 				room_tilemap.modulate = Color.GRAY
 	else:
 		var room_tilemap: TileMap = room_tilemaps[rooms.rooms.find(room_selected)]
-		if not Rect2(room_tilemap.position + Vector2(room_tilemap.get_used_rect().position * TILE_SIZE), room_tilemap.get_used_rect().size * TILE_SIZE).has_point(container.get_local_mouse_position()):
+		if not Rect2(room_tilemap.position + Vector2(room_tilemap.get_used_rect().position * TILE_SIZE), room_tilemap.get_used_rect().size * TILE_SIZE).has_point(container.get_local_mouse_position()) or not get_global_rect().has_point(get_global_mouse_position()):
 			room_selected = null
 			room_tilemap.modulate = Color.WHITE
 #	print(container.get_local_mouse_position())
