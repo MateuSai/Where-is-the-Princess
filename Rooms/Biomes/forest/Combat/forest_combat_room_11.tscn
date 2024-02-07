@@ -44,3 +44,6 @@ enemy_name = "goblin"
 position = Vector2(148, 84)
 script = ExtResource("4_ptype")
 enemy_name = "nakedMark"
+
+[node name="TeleportPosition" parent="." index="7"]
+position = Vector2(130, 114)

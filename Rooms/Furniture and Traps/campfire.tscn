@@ -80,7 +80,7 @@ offset = Vector2(0, -8)
 position = Vector2(0, -13)
 sprite_frames = SubResource("SpriteFrames_xoke0")
 autoplay = "default"
-frame_progress = 0.887931
+frame_progress = 0.13739
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
