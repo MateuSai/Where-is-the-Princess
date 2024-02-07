@@ -31,6 +31,10 @@ var mov_direction: Vector2 = Vector2.ZERO
 
 var inside_acid: bool = false
 var acid_progress_per_second: float = 0.7
+var time_between_acid_damages: float = 1.0:
+	set(new_value):
+		time_between_acid_damages = new_value
+		acid_damage_timer.wait_time = time_between_acid_damages
 var acid_progress: float = 0.0: set = set_acid_progress ## Value between 0 and 1
 
 ## The name of the scene file after removing .tscn and converting it to snake_case

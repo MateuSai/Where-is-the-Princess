@@ -9,11 +9,13 @@ const ACID_PUDDLE_SCENE: PackedScene = preload("res://Characters/Enemies/MediumS
 func equip(player: Player) -> void:
 	self.player = player
 	player.dashed.connect(_on_dashed)
+	player.acid_progress_per_second -= 0.2
 
 
 @warning_ignore("shadowed_variable")
 func unequip(player: Player) -> void:
 	player.dashed.disconnect(_on_dashed)
+	player.acid_progress_per_second += 0.2
 
 
 func _on_dashed(dash_time: float) -> void:

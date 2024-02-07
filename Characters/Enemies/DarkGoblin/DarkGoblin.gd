@@ -18,7 +18,7 @@ func _ready() -> void:
 	super()
 
 	eye_grow_sprite.hide()
-	swap_cooldown_timer.timeout.connect(func():
+	swap_cooldown_timer.timeout.connect(func() -> void:
 		eye_grow_sprite.show()
 	)
 
@@ -39,6 +39,7 @@ func _throw_knife(angle_offset: float = 0) -> void:
 func swap_and_throw_knives() -> void:
 	eye_grow_sprite.hide()
 	_swap()
+	await get_tree().process_frame
 	_throw_knife()
 	_throw_knife(PI/6)
 	_throw_knife(-PI/6)
