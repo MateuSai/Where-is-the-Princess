@@ -452,7 +452,9 @@ position = Vector2(195, 49)
 position = Vector2(169, 156)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-height = 1.0
+rotation = -0.733038
+shadow_enabled = true
+height = 0.51
 max_distance = 500.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]

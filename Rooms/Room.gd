@@ -119,6 +119,7 @@ func generate_room_white_image() -> void:
 	var size: Vector2 = tilemap.get_used_rect().size * Rooms.TILE_SIZE
 
 	var tile_cells: Array = tilemap.get_used_cells(0)
+	tile_cells.append_array(tilemap.get_used_cells(1))
 	if include_water_in_room_white_image:
 		tile_cells.append_array(tilemap.get_used_cells(WATER_LAYER_ID))
 	#tile_cells.append_array(tilemap.get_used_cells(1))
@@ -158,10 +159,21 @@ func generate_room_white_image() -> void:
 	room_white_image = Image.create(size.x, size.y, false, Image.FORMAT_RGBAH)
 
 	for tile_cell: Vector2i in tile_cells:
-		if (tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.UPPER_WALL_COOR, Rooms.UPPER_WALL_LEFT_COOR, Rooms.UPPER_WALL_LEFT_CORNER_COOR, Rooms.UPPER_WALL_RIGHT_COOR, Rooms.UPPER_WALL_RIGHT_CORNER_COOR, Rooms.LEFT_WALL_COOR, Rooms.RIGHT_WALL_COOR, Rooms.LAST_LEFT_WALL_COOR, Rooms.LAST_RIGHT_WALL_COOR]): # if the atlas coordinates are (-1, -1), it means it's a corridor tile
-			continue
+		var rect: Rect2
 
-		var rect: Rect2 = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset), Vector2.ONE * Rooms.TILE_SIZE)
+		if (tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.UPPER_WALL_RIGHT_CORNER_COOR]):
+			rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset) + Vector2(0, 0.5) * Rooms.TILE_SIZE, Vector2(0.5, 0.5) * Rooms.TILE_SIZE)
+		elif tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.UPPER_WALL_LEFT_CORNER_COOR]:
+			rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset) + Vector2(0.5, 0.5) * Rooms.TILE_SIZE, Vector2(0.5, 0.5) * Rooms.TILE_SIZE)
+		elif tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.UPPER_WALL_COOR]:
+			rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset) + Vector2(0, 0.5) * Rooms.TILE_SIZE, Vector2(1, 0.5) * Rooms.TILE_SIZE)
+		elif tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.LEFT_WALL_COOR, Rooms.LAST_LEFT_WALL_COOR] or tilemap.get_cell_atlas_coords(1, tile_cell) in [Rooms.LEFT_WALL_COOR, Rooms.LAST_LEFT_WALL_COOR]:
+			rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset) + Vector2(0.5, 0) * Rooms.TILE_SIZE, Vector2(0.5, 1) * Rooms.TILE_SIZE)
+		elif tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.RIGHT_WALL_COOR, Rooms.LAST_RIGHT_WALL_COOR] or tilemap.get_cell_atlas_coords(1, tile_cell) in [Rooms.RIGHT_WALL_COOR, Rooms.LAST_RIGHT_WALL_COOR]:
+			rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset), Vector2(0.5, 1) * Rooms.TILE_SIZE)
+		else:
+			rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset), Vector2.ONE * Rooms.TILE_SIZE)
+
 		@warning_ignore("narrowing_conversion")
 		var image: Image = Image.create(rect.size.x, rect.size.y, false, Image.FORMAT_RGBAH)
 		image.fill(Color.WHITE)
