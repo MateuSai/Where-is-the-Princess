@@ -339,10 +339,8 @@ func _dash() -> void:
 		previous_max_speed = data.max_speed
 		data.max_speed = 1000
 		dash_timer.start(dash_time)
-		dashed.emit(dash_time)
-		#await get_tree().create_timer(dash_time, false).timeout
-		#max_speed = previous_max_speed
-		#friction *= 10
+
+	dashed.emit(dash_time)
 
 
 func _on_dash_timer_timeout() -> void:
