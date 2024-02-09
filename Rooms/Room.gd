@@ -97,7 +97,7 @@ func _ready() -> void:
 
 	var navigation_region_to_debug_flying_units_navigation: NavigationRegion2D = NavigationRegion2D.new()
 	add_child(navigation_region_to_debug_flying_units_navigation)
-	self_modulate.a = 0
+	#self_modulate.a = 0
 	navigation_region_to_debug_flying_units_navigation.self_modulate = Color.RED
 	navigation_region_to_debug_flying_units_navigation.name = "FlyingUnitsNavigationDebug"
 	navigation_region_to_debug_flying_units_navigation.navigation_polygon = NavigationPolygon.new()
@@ -611,7 +611,7 @@ func _generate_flying_units_navigation() -> void:
 	# Set navigation mesh for the region.
 	NavigationServer2D.region_set_navigation_polygon(navigation_region_flying_units, navigation_mesh_flying_units)
 
-	(get_node("FlyingUnitsNavigationDebug") as NavigationRegion2D).navigation_polygon = navigation_mesh_flying_units
+	#(get_node("FlyingUnitsNavigationDebug") as NavigationRegion2D).navigation_polygon = navigation_mesh_flying_units
 
 
 func _free_navigation() -> void:

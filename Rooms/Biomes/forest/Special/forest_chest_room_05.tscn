@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbwb7td7bky0q"]
+
+[ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_ekter"]
+[ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_018k1"]
+[ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_7wjjf"]
+[ext_resource type="PackedScene" uid="uid://cwb0heh4qdkh8" path="res://Rooms/Chest.tscn" id="4_d2xcs"]
+
+[node name="ForestChestRoom05" instance=ExtResource("1_ekter")]
+
+[node name="TileMap" parent="." index="0"]
+layer_0/tile_data = PackedInt32Array(262146, 327680, 2, 327682, 458752, 3, 393218, 262144, 3, 327683, 327680, 3, 262148, 196608, 0, 262149, 262144, 2, 196613, 524288, 1, 196614, 393216, 2, 131078, 524288, 1, 131079, 524288, 1, 131080, 524288, 1, 196616, 262144, 2, 262152, 327680, 2, 327688, 65536, 2, 393223, 65536, 2, 393222, 327680, 3, 393221, 458752, 2, 327685, 327680, 3, 327684, 458752, 3, 262150, 262144, 2, 262151, 131072, 0, 196615, 0, 3, 327687, 458752, 3, 327686, 327680, 2, 196612, 131072, 2, 262147, 458752, 3, 131077, 458752, 1, 393220, 65536, 0, 393219, 262144, 3, 393224, 0, 2, 458759, 0, 2, 458758, 327680, 3, 458757, 458752, 2, 458756, 262144, 1, 458755, 393216, 1, 131081, 393216, 3, 196617, 131072, 2, 262153, 458752, 3, 327689, 262144, 3, 65542, 524288, 3, 65543, 524288, 3, 65544, 393216, 2, 262145, 0, 3, 327681, 327680, 3, 393217, 262144, 3, 327680, 327680, 3, 393216, 327680, 2, 262154, 327680, 3, 327690, 327680, 2, 196610, 327680, 3, 196611, 327680, 3, 131075, 327680, 3, 131074, 327680, 3, 262144, 393216, 4, 196609, 393216, 4, 131076, 458752, 5, 65541, 393216, 5, 6, 458752, 5, 7, 393216, 5, 8, 458752, 5, 65545, 524288, 5, 196618, 393216, 4, 131073, 327680, 7, 196608, 327680, 7, 65540, 327680, 7, 5, 327680, 7, 131082, 65536, 7, 9, 65536, 7, -65527, 196608, 4, 10, 196608, 4, 131072, 262144, 4, 4, 262144, 4, -65531, 262144, 4, -65530, 131072, 7, -65529, 131072, 7, -65528, 131072, 7)
+layer_1/tile_data = PackedInt32Array(458756, 327680, 6, 458759, 65536, 6, 393224, 65536, 6, 327689, 65536, 6, 393218, 327680, 6, 393217, 131072, 6, 458755, 131072, 6, 393225, 196608, 6, 458760, 196608, 6, 458754, 262144, 6, 65546, 196608, 5)
+layer_2/tile_data = PackedInt32Array(65542, 0, 8, 65543, 393216, 8, 65544, 393216, 8, 131077, 589824, 3, 131081, 393216, 8, 458755, 131072, 8, 262145, 262144, 0, 196611, 458752, 0, 131074, 458752, 0, 327685, 458752, 0, 196614, 524288, 0, 196613, 524288, 0, 196617, 458752, 0, 262152, 524288, 0, 327687, 458752, 0, 458758, 458752, 0, 327681, 524288, 0, 393218, 524288, 0, 327684, 458752, 0, 327683, 524288, 0)
+layer_3/tile_data = PackedInt32Array(393216, 131072, 6, 327690, 131072, 6)
+
+[node name="VerticalEntry" parent="Entries/Left" index="0" instance=ExtResource("2_018k1")]
+position = Vector2(6, 84)
+
+[node name="HorizontalEntry" parent="Entries/Up" index="0" instance=ExtResource("3_7wjjf")]
+position = Vector2(40, 37)
+
+[node name="VerticalEntry" parent="Entries/Right" index="0" instance=ExtResource("2_018k1")]
+position = Vector2(170, 69)
+
+[node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("3_7wjjf")]
+position = Vector2(88, 125)
+
+[node name="TeleportPosition" parent="." index="7"]
+position = Vector2(92, 86)
+
+[node name="Chest" parent="." index="9" instance=ExtResource("4_d2xcs")]
+position = Vector2(121, 42)
