@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5c164oquiy7d"]
+[gd_scene load_steps=6 format=3 uid="uid://b5c164oquiy7d"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_24mjl"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_irvac"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_hua0d"]
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_q4fto"]
+[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="5_d45r1"]
 
 [node name="ForestCombatRoom13" instance=ExtResource("1_24mjl")]
 
@@ -53,3 +54,12 @@ enemy_name = "goblin"
 
 [node name="TeleportPosition" parent="." index="7"]
 position = Vector2(164, 116)
+
+[node name="TikiTorch" parent="." index="9" instance=ExtResource("5_d45r1")]
+position = Vector2(154, 51)
+
+[node name="TikiTorch2" parent="." index="10" instance=ExtResource("5_d45r1")]
+position = Vector2(103, 171)
+
+[node name="TikiTorch3" parent="." index="11" instance=ExtResource("5_d45r1")]
+position = Vector2(264, 37)

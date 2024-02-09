@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=45 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="Script" path="res://Rooms/Biomes/basecamp/BaseCamp.gd" id="1_tpf7m"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="2_ipa5f"]
@@ -27,7 +27,6 @@
 [ext_resource type="PackedScene" uid="uid://c8pix6j8t15oo" path="res://Weapons/Melee/SmallAxe/SmallAxe.tscn" id="29_5p8c5"]
 [ext_resource type="PackedScene" uid="uid://bau1jfwsnyo2o" path="res://Characters/practice_dummy.tscn" id="31_1hy67"]
 [ext_resource type="PackedScene" uid="uid://d3qmv5odokhfh" path="res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn" id="31_pmolu"]
-[ext_resource type="Texture2D" uid="uid://cxwois4ml3d4s" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/sign_boss.png" id="32_76hog"]
 [ext_resource type="PackedScene" uid="uid://cpyqtlqtdkuiq" path="res://Weapons/Ranged/scepters/lightning_stick/lightning_stick.tscn" id="34_nl6xg"]
 [ext_resource type="PackedScene" uid="uid://bp2oo4273j0dc" path="res://Weapons/Melee/spear/Spear.tscn" id="35_gq7sc"]
 [ext_resource type="PackedScene" uid="uid://dkpyvq2xuuytm" path="res://Weapons/Ranged/crossbows/wooden_crossbow/wooden_crossbow.tscn" id="37_gon7g"]
@@ -72,19 +71,6 @@ size = Vector2(8, 8)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_va5t1"]
 radius = 6.0
 height = 20.0
-
-[sub_resource type="GDScript" id="GDScript_5h4yt"]
-script/source = "extends CharacterBody2D
-
-
-func _process(delta: float) -> void:
-	$NavigationAgent2D.target_position = get_global_mouse_position()
-
-
-func _physics_process(delta: float) -> void:
-	velocity = ($NavigationAgent2D.get_next_path_position() - position).normalized() * 50
-	move_and_slide()
-"
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xxlah"]
 light_mode = 1
@@ -352,15 +338,6 @@ on_floor = true
 [node name="PracticeDummy" parent="." instance=ExtResource("31_1hy67")]
 position = Vector2(141, 127)
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-script = SubResource("GDScript_5h4yt")
-
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-position = Vector2(0, -5)
-texture = ExtResource("32_76hog")
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="CharacterBody2D"]
-
 [node name="TikiTorch3" parent="." instance=ExtResource("26_61yb5")]
 position = Vector2(535, 129)
 
@@ -452,8 +429,7 @@ position = Vector2(195, 49)
 position = Vector2(169, 156)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-rotation = -0.733038
-shadow_enabled = true
+rotation = 1.37706
 height = 0.51
 max_distance = 500.0
 

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbwb7td7bky0q"]
+[gd_scene load_steps=6 format=3 uid="uid://dbwb7td7bky0q"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_ekter"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_018k1"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_7wjjf"]
 [ext_resource type="PackedScene" uid="uid://cwb0heh4qdkh8" path="res://Rooms/Chest.tscn" id="4_d2xcs"]
+[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="5_6cyig"]
 
 [node name="ForestChestRoom05" instance=ExtResource("1_ekter")]
 
@@ -30,3 +31,9 @@ position = Vector2(92, 86)
 
 [node name="Chest" parent="." index="9" instance=ExtResource("4_d2xcs")]
 position = Vector2(121, 42)
+
+[node name="TikiTorch" parent="." index="10" instance=ExtResource("5_6cyig")]
+position = Vector2(106, 44)
+
+[node name="TikiTorch2" parent="." index="11" instance=ExtResource("5_6cyig")]
+position = Vector2(136, 43)
