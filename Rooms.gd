@@ -676,14 +676,14 @@ func _create_fog() -> void:
 	map_rect.size += Vector2.ONE * FOG_PADDING * 2
 	fog_sprite.position = map_rect.position
 	@warning_ignore("narrowing_conversion")
-	fog_image = Image.create(map_rect.size.x, map_rect.size.y, false, Image.FORMAT_RGBAH)
+	fog_image = Image.create(map_rect.size.x, map_rect.size.y, false, Image.FORMAT_RGBA8)
 	fog_image.fill(Color.BLACK)
 
 	#fog_sprite.texture = ImageTexture.create_from_image(fog_image)
 
 	while is_instance_valid(Globals.player):
 		var light: Image = (load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png") as Texture2D).get_image()
-		light.convert(Image.FORMAT_RGBAH)
+		light.convert(Image.FORMAT_RGBA8)
 		fog_image.blend_rect(light, Rect2(Vector2.ZERO, light.get_size()), Globals.player.position - map_rect.position - light.get_size()/2.0)
 		fog_sprite.texture = ImageTexture.create_from_image(fog_image)
 		await get_tree().create_timer(0.2).timeout
