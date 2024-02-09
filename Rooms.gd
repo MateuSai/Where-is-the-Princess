@@ -69,7 +69,7 @@ var corridor_tile_map: TileMap
 
 
 func _ready() -> void:
-	set_process(false)
+	set_physics_process(false)
 
 	game = get_parent()
 	debug = game.debug
@@ -112,7 +112,7 @@ func _input(event: InputEvent) -> void:
 			queue_redraw()
 
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var no_more_rooms_moving: bool = true
 
 	#var dirs: Array[Vector2] = []
@@ -131,7 +131,7 @@ func _process(delta: float) -> void:
 #			print(str(i) + ": " + str(dirs[i]))
 
 	if no_more_rooms_moving:
-		set_process(false)
+		set_physics_process(false)
 		#var thread: Thread = Thread.new()
 		#thread.start(_create_corridors)
 		#var ok: bool = thread.wait_to_finish()
@@ -277,7 +277,7 @@ func spawn_rooms() -> void:
 	#print_debug("Finished changing rooms start position")
 
 	# return
-	set_process(true)
+	set_physics_process(true)
 
 	#print_debug("spawn_rooms finished")
 

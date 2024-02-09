@@ -163,16 +163,19 @@ func generate_room_white_image() -> void:
 
 		if (tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.UPPER_WALL_RIGHT_CORNER_COOR]):
 			rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset) + Vector2(0, 0.5) * Rooms.TILE_SIZE, Vector2(0.5, 0.5) * Rooms.TILE_SIZE)
-		elif tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.UPPER_WALL_LEFT_CORNER_COOR]:
-			rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset) + Vector2(0.5, 0.5) * Rooms.TILE_SIZE, Vector2(0.5, 0.5) * Rooms.TILE_SIZE)
-		elif tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.UPPER_WALL_COOR]:
-			rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset) + Vector2(0, 0.5) * Rooms.TILE_SIZE, Vector2(1, 0.5) * Rooms.TILE_SIZE)
-		elif tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.LEFT_WALL_COOR, Rooms.LAST_LEFT_WALL_COOR] or tilemap.get_cell_atlas_coords(1, tile_cell) in [Rooms.LEFT_WALL_COOR, Rooms.LAST_LEFT_WALL_COOR]:
-			rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset) + Vector2(0.5, 0) * Rooms.TILE_SIZE, Vector2(0.5, 1) * Rooms.TILE_SIZE)
-		elif tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.RIGHT_WALL_COOR, Rooms.LAST_RIGHT_WALL_COOR] or tilemap.get_cell_atlas_coords(1, tile_cell) in [Rooms.RIGHT_WALL_COOR, Rooms.LAST_RIGHT_WALL_COOR]:
-			rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset), Vector2(0.5, 1) * Rooms.TILE_SIZE)
+		#elif tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.UPPER_WALL_LEFT_CORNER_COOR]:
+			#rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset) + Vector2(0.5, 0.5) * Rooms.TILE_SIZE, Vector2(0.5, 0.5) * Rooms.TILE_SIZE)
+		#elif tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.UPPER_WALL_COOR]:
+			#rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset) + Vector2(0, 0.5) * Rooms.TILE_SIZE, Vector2(1, 0.5) * Rooms.TILE_SIZE)
+		#elif tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.LEFT_WALL_COOR, Rooms.LAST_LEFT_WALL_COOR] or tilemap.get_cell_atlas_coords(1, tile_cell) in [Rooms.LEFT_WALL_COOR, Rooms.LAST_LEFT_WALL_COOR]:
+			#rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset) + Vector2(0.5, 0) * Rooms.TILE_SIZE, Vector2(0.5, 1) * Rooms.TILE_SIZE)
+		#elif tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.RIGHT_WALL_COOR, Rooms.LAST_RIGHT_WALL_COOR] or tilemap.get_cell_atlas_coords(1, tile_cell) in [Rooms.RIGHT_WALL_COOR, Rooms.LAST_RIGHT_WALL_COOR]:
+			#rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset), Vector2(0.5, 1) * Rooms.TILE_SIZE)
 		else:
 			rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset), Vector2.ONE * Rooms.TILE_SIZE)
+
+		var tileset_image: Image = (tilemap.tile_set.get_source(ATLAS_ID) as TileSetAtlasSource).texture.get_image()
+		var tile_image: Image = tileset_image.get_region(Rect2(tilemap.get_cell_atlas_coords(0, tile_cell) * Rooms.TILE_SIZE, Vector2(16, 16)))
 
 		@warning_ignore("narrowing_conversion")
 		var image: Image = Image.create(rect.size.x, rect.size.y, false, Image.FORMAT_RGBAH)
@@ -180,6 +183,7 @@ func generate_room_white_image() -> void:
 		#var light: Image = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png").get_image()
 		#light.convert(Image.FORMAT_RGBAH)
 		var image_size: Vector2 = image.get_size()
+		image.blit_rect_mask(image, tile_image, Rect2(Vector2.ZERO, image_size), Vector2.ZERO)
 		room_white_image.blend_rect(image, Rect2(Vector2.ZERO, image_size), rect.position)
 
 
