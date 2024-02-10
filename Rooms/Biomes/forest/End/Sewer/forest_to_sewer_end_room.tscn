@@ -29,6 +29,7 @@ position = Vector2(124, 90)
 position = Vector2(111, 74)
 
 [node name="SleepingBag" parent="." index="10" instance=ExtResource("4_x3hw6")]
+position = Vector2(75, 77)
 
 [node name="WakeUpMarker" type="Marker2D" parent="." index="11"]
 position = Vector2(85, 84)

@@ -19,6 +19,14 @@ func get_icon() -> Texture2D:
 	return data.weapon_texture
 
 
+func get_item_name() -> String:
+	return Weapon.get_id_from_path(weapon.scene_file_path).to_upper()
+
+
+func get_item_description() -> String:
+	return ""
+
+
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_PREDELETE:
 		if weapon != null:
