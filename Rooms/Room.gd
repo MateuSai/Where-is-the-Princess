@@ -97,7 +97,7 @@ func _ready() -> void:
 
 	var navigation_region_to_debug_flying_units_navigation: NavigationRegion2D = NavigationRegion2D.new()
 	add_child(navigation_region_to_debug_flying_units_navigation)
-	self_modulate.a = 0
+	#self_modulate.a = 0
 	navigation_region_to_debug_flying_units_navigation.self_modulate = Color.RED
 	navigation_region_to_debug_flying_units_navigation.name = "FlyingUnitsNavigationDebug"
 	navigation_region_to_debug_flying_units_navigation.navigation_polygon = NavigationPolygon.new()
@@ -118,9 +118,16 @@ func _draw() -> void:
 func generate_room_white_image() -> void:
 	var size: Vector2 = tilemap.get_used_rect().size * Rooms.TILE_SIZE
 
-	var tile_cells: Array = tilemap.get_used_cells(0)
+	var layers_to_check: PackedInt32Array = [0, 1]
 	if include_water_in_room_white_image:
-		tile_cells.append_array(tilemap.get_used_cells(WATER_LAYER_ID))
+		layers_to_check.push_back(WATER_LAYER_ID)
+
+	var tile_cells: Array[Vector2i] = []
+	for layer: int in layers_to_check:
+		var layer_used_cells: Array[Vector2i] = tilemap.get_used_cells(layer)
+		for cell: Vector2i in layer_used_cells:
+			if not tile_cells.has(cell):
+				tile_cells.push_back(cell)
 	#tile_cells.append_array(tilemap.get_used_cells(1))
 
 	# We add one more tile in the direction of the entries so the entries of the room are more visible
@@ -155,20 +162,44 @@ func generate_room_white_image() -> void:
 						size.y += Rooms.TILE_SIZE
 
 	@warning_ignore("narrowing_conversion")
-	room_white_image = Image.create(size.x, size.y, false, Image.FORMAT_RGBAH)
+	room_white_image = Image.create(size.x, size.y, false, Image.FORMAT_RGBA8)
+
+	var tileset_image: Image = (tilemap.tile_set.get_source(ATLAS_ID) as TileSetAtlasSource).texture.get_image()
 
 	for tile_cell: Vector2i in tile_cells:
-		if (tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.UPPER_WALL_COOR, Rooms.UPPER_WALL_LEFT_COOR, Rooms.UPPER_WALL_LEFT_CORNER_COOR, Rooms.UPPER_WALL_RIGHT_COOR, Rooms.UPPER_WALL_RIGHT_CORNER_COOR, Rooms.LEFT_WALL_COOR, Rooms.RIGHT_WALL_COOR, Rooms.LAST_LEFT_WALL_COOR, Rooms.LAST_RIGHT_WALL_COOR]): # if the atlas coordinates are (-1, -1), it means it's a corridor tile
-			continue
+		var rect: Rect2
 
-		var rect: Rect2 = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset), Vector2.ONE * Rooms.TILE_SIZE)
-		@warning_ignore("narrowing_conversion")
-		var image: Image = Image.create(rect.size.x, rect.size.y, false, Image.FORMAT_RGBAH)
-		image.fill(Color.WHITE)
-		#var light: Image = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png").get_image()
-		#light.convert(Image.FORMAT_RGBAH)
-		var image_size: Vector2 = image.get_size()
-		room_white_image.blend_rect(image, Rect2(Vector2.ZERO, image_size), rect.position)
+		#if (tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.UPPER_WALL_RIGHT_CORNER_COOR]):
+			#rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset) + Vector2(0, 0.5) * Rooms.TILE_SIZE, Vector2(0.5, 0.5) * Rooms.TILE_SIZE)
+		#elif tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.UPPER_WALL_LEFT_CORNER_COOR]:
+			#rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset) + Vector2(0.5, 0.5) * Rooms.TILE_SIZE, Vector2(0.5, 0.5) * Rooms.TILE_SIZE)
+		#elif tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.UPPER_WALL_COOR]:
+			#rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset) + Vector2(0, 0.5) * Rooms.TILE_SIZE, Vector2(1, 0.5) * Rooms.TILE_SIZE)
+		#elif tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.LEFT_WALL_COOR, Rooms.LAST_LEFT_WALL_COOR] or tilemap.get_cell_atlas_coords(1, tile_cell) in [Rooms.LEFT_WALL_COOR, Rooms.LAST_LEFT_WALL_COOR]:
+			#rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset) + Vector2(0.5, 0) * Rooms.TILE_SIZE, Vector2(0.5, 1) * Rooms.TILE_SIZE)
+		#elif tilemap.get_cell_atlas_coords(0, tile_cell) in [Rooms.RIGHT_WALL_COOR, Rooms.LAST_RIGHT_WALL_COOR] or tilemap.get_cell_atlas_coords(1, tile_cell) in [Rooms.RIGHT_WALL_COOR, Rooms.LAST_RIGHT_WALL_COOR]:
+			#rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset), Vector2(0.5, 1) * Rooms.TILE_SIZE)
+		#else:
+			#rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset), Vector2.ONE * Rooms.TILE_SIZE)
+
+		rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset), Vector2.ONE * Rooms.TILE_SIZE)
+
+		for layer: int in layers_to_check:
+			if tilemap.get_cell_atlas_coords(layer, tile_cell) == Vector2i(-1, -1):
+				continue
+
+			var tile_image: Image = tileset_image.get_region(Rect2(tilemap.get_cell_atlas_coords(layer, tile_cell) * Rooms.TILE_SIZE, Vector2(16, 16)))
+			for x: int in tile_image.get_width():
+				for y: int in tile_image.get_height():
+					tile_image.set_pixel(x, y, Color.WHITE * tile_image.get_pixel(x, y).a)
+
+			#@warning_ignore("narrowing_conversion")
+			#var image: Image = Image.create(rect.size.x, rect.size.y, false, Image.FORMAT_RGBAH)
+			#image.fill(Color.WHITE)
+			#var image_size: Vector2 = image.get_size()
+			#image.blit_rect_mask(image, tile_image, Rect2(Vector2.ZERO, image_size), Vector2.ZERO)
+			var image_size: Vector2 = tile_image.get_size()
+			room_white_image.blend_rect(tile_image, Rect2(Vector2.ZERO, image_size), rect.position)
 
 
 func get_separation_steering_dir(rooms_array: Array[DungeonRoom], delta: float) -> Vector2:
@@ -580,7 +611,7 @@ func _generate_flying_units_navigation() -> void:
 	# Set navigation mesh for the region.
 	NavigationServer2D.region_set_navigation_polygon(navigation_region_flying_units, navigation_mesh_flying_units)
 
-	(get_node("FlyingUnitsNavigationDebug") as NavigationRegion2D).navigation_polygon = navigation_mesh_flying_units
+	#(get_node("FlyingUnitsNavigationDebug") as NavigationRegion2D).navigation_polygon = navigation_mesh_flying_units
 
 
 func _free_navigation() -> void:

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://clcdyxubqxg32"]
+[gd_scene load_steps=6 format=3 uid="uid://clcdyxubqxg32"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_lmasa"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_5gkd6"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_qtc11"]
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_ptype"]
+[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="5_12gro"]
 
 [node name="ForestCombatRoom11" instance=ExtResource("1_lmasa")]
 
@@ -47,3 +48,12 @@ enemy_name = "nakedMark"
 
 [node name="TeleportPosition" parent="." index="7"]
 position = Vector2(130, 114)
+
+[node name="TikiTorch" parent="." index="9" instance=ExtResource("5_12gro")]
+position = Vector2(197, 55)
+
+[node name="TikiTorch2" parent="." index="10" instance=ExtResource("5_12gro")]
+position = Vector2(140, 171)
+
+[node name="TikiTorch3" parent="." index="11" instance=ExtResource("5_12gro")]
+position = Vector2(54, 135)

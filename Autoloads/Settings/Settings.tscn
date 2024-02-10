@@ -120,6 +120,7 @@ script = ExtResource("5_p1umr")
 
 [node name="DamageNumbersHBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer"]
 layout_mode = 2
+tooltip_text = "DAMAGE_NUMBERS_TOOLTIP"
 
 [node name="Label" type="Label" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer/DamageNumbersHBoxContainer"]
 layout_mode = 2

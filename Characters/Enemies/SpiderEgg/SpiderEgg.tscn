@@ -62,7 +62,6 @@ _data = {
 
 [node name="SpiderEgg" instance=ExtResource("1_u8gmx")]
 script = ExtResource("2_t1q62")
-mass = 3.0
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("2_kp3rr")

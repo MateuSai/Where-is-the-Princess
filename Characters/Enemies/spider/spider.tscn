@@ -1,8 +1,8 @@
 [gd_scene load_steps=14 format=3 uid="uid://ceuehjhajvx56"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_bow3n"]
-[ext_resource type="Script" path="res://Characters/Enemies/SpiderEgg/Spider.gd" id="2_ftttc"]
-[ext_resource type="Script" path="res://Characters/Enemies/SpiderEgg/SpiderFSM.gd" id="3_cr4ur"]
+[ext_resource type="Script" path="res://Characters/Enemies/spider/spider.gd" id="2_ftttc"]
+[ext_resource type="Script" path="res://Characters/Enemies/spider/spider_fsm.gd" id="3_cr4ur"]
 [ext_resource type="Texture2D" uid="uid://kmysly17x4xl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/spider/spider.png" id="3_oqbny"]
 [ext_resource type="Script" path="res://Characters/Hitbox.gd" id="5_1jgs1"]
 

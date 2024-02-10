@@ -5,7 +5,7 @@ const THROWABLE_KNIFE_SCENE: PackedScene = preload("res://Characters/Enemies/Gob
 const MAX_DISTANCE_TO_PLAYER: int = 140
 const MIN_DISTANCE_TO_PLAYER: int = 40
 
-var projectile_speed: int = 200
+var projectile_speed: int = 180
 
 var distance_to_player: float
 

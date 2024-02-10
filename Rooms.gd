@@ -69,7 +69,7 @@ var corridor_tile_map: TileMap
 
 
 func _ready() -> void:
-	set_process(false)
+	set_physics_process(false)
 
 	game = get_parent()
 	debug = game.debug
@@ -112,7 +112,7 @@ func _input(event: InputEvent) -> void:
 			queue_redraw()
 
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var no_more_rooms_moving: bool = true
 
 	#var dirs: Array[Vector2] = []
@@ -131,7 +131,7 @@ func _process(delta: float) -> void:
 #			print(str(i) + ": " + str(dirs[i]))
 
 	if no_more_rooms_moving:
-		set_process(false)
+		set_physics_process(false)
 		#var thread: Thread = Thread.new()
 		#thread.start(_create_corridors)
 		#var ok: bool = thread.wait_to_finish()
@@ -277,7 +277,7 @@ func spawn_rooms() -> void:
 	#print_debug("Finished changing rooms start position")
 
 	# return
-	set_process(true)
+	set_physics_process(true)
 
 	#print_debug("spawn_rooms finished")
 
@@ -589,7 +589,7 @@ func _create_corridors() -> bool:
 		await get_tree().process_frame
 		await get_tree().create_timer(pause_between_steps).timeout
 
-	(%MINIMAP as MiniMap).set_up()
+	(%MAP as MiniMap).set_up()
 	_divide_corridor_tile_map()
 
 	if debug:
@@ -676,14 +676,14 @@ func _create_fog() -> void:
 	map_rect.size += Vector2.ONE * FOG_PADDING * 2
 	fog_sprite.position = map_rect.position
 	@warning_ignore("narrowing_conversion")
-	fog_image = Image.create(map_rect.size.x, map_rect.size.y, false, Image.FORMAT_RGBAH)
+	fog_image = Image.create(map_rect.size.x, map_rect.size.y, false, Image.FORMAT_RGBA8)
 	fog_image.fill(Color.BLACK)
 
 	#fog_sprite.texture = ImageTexture.create_from_image(fog_image)
 
 	while is_instance_valid(Globals.player):
 		var light: Image = (load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png") as Texture2D).get_image()
-		light.convert(Image.FORMAT_RGBAH)
+		light.convert(Image.FORMAT_RGBA8)
 		fog_image.blend_rect(light, Rect2(Vector2.ZERO, light.get_size()), Globals.player.position - map_rect.position - light.get_size()/2.0)
 		fog_sprite.texture = ImageTexture.create_from_image(fog_image)
 		await get_tree().create_timer(0.2).timeout

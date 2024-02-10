@@ -6,11 +6,11 @@ enum {
 	DEAD,
 }
 
-const MIN_ATTACK_COOLDOWN: float = 1.0
-const MAX_ATTACK_COOLDOWN: float = 2.0
+const MIN_ATTACK_COOLDOWN: float = 1.5
+const MAX_ATTACK_COOLDOWN: float = 2.8
 
-const MIN_ABILTY_COOLDOWN: float = 5.0
-const MAX_ABILITY_COOLDOWN: float = 10.0
+const MIN_ABILTY_COOLDOWN: float = 7.0
+const MAX_ABILITY_COOLDOWN: float = 13.0
 
 
 @onready var pathfinding_component: PathfindingComponent = $"../PathfindingComponent"

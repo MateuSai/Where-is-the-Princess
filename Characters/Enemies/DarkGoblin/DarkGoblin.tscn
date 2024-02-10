@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://fqeoudxqnnss" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/goblin/goblin02_eyes_full_spritesheet.png" id="5_pf1b0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_q8klo"]
-radius = 2.0
+radius = 3.0
 
 [sub_resource type="Animation" id="Animation_8c62w"]
 length = 0.001

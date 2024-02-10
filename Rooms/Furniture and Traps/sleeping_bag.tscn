@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_87w00"]
 
 [node name="SleepingBag" type="Sprite2D"]
-position = Vector2(73, 74)
+z_index = -1
 texture = ExtResource("1_fo53d")
 
 [node name="SaveRunInteractArea" type="Area2D" parent="."]

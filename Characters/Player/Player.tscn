@@ -616,6 +616,9 @@ stretch_mode = 5
 
 [node name="CoinsLabel" type="Label" parent="UI/RightBottomGameVBoxContainer/HBoxContainer" index="1"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.780392, 0.631373, 0.360784, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
 text = "0"
 vertical_alignment = 2
 
@@ -629,6 +632,9 @@ stretch_mode = 5
 
 [node name="DarkSoulsLabel" type="Label" parent="UI/RightBottomGameVBoxContainer/HBoxContainer2" index="1"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.780392, 0.631373, 0.360784, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
 text = "0"
 vertical_alignment = 2
 

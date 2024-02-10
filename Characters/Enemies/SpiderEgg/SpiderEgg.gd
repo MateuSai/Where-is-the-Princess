@@ -2,7 +2,7 @@ class_name SpiderEgg extends Enemy
 
 var spider_amount: int = randi_range(2, 3)
 
-const SPIDER_SCENE: PackedScene = preload("res://Characters/Enemies/SpiderEgg/Spider.tscn")
+const SPIDER_SCENE: PackedScene = preload("res://Characters/Enemies/spider/spider.tscn")
 
 
 func _ready() -> void:

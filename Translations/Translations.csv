@@ -57,8 +57,9 @@ ADDITIONAL_WEAPON_CARRY_CAPACITY_DESCRIPTION,Increases your max amount of weapon
 PLAY,Play,Juga,Jugar,遊び
 CONTINUE,Continue,Continuar,Continuar, コンティニュー 
 BASE_CAMP,Base Camp,Campament,Campamento,バースキャンプ
+NEW_GAME,New Game,Nova Partida,Nueva Partida,
 RESUME,Resume,Resumir,Resumir,レジューム
-RESTART,Restart,,Reiniciar,
+RESTART,Restart,Reiniciar,Reiniciar,
 MODS,Mods,Mods,Mods,MODS
 SETTINGS,Settings,Configuració,Configuración,設定
 QUIT,Quit,Surt,Salir,退く
@@ -74,6 +75,8 @@ FULL_SCREEN,Full Screen,Pantalla Completa,Pantalla Completa,全画面
 DISABLED,Disabled,Desactivat,Desactivado,
 ENABLED,Enabled,Activat,Activado,
 ADAPTIVE,Adaptive,Adaptatiu,Adaptativo,
+DAMAGE_NUMBERS,Damage Numbers,Números de Dany,Números de Daño,
+DAMAGE_NUMBERS_TOOLTIP,"If enabled, shows numbers that indicate the damage of the attacks.","Si està activat, mostra números indicant el dany dels atacs.","Si está activado, muestra números indicando el daño de los ataques.",
 ,,,,
 MASTER_VOLUME,Master Volume,Volum Mestre,Volumen Maestro,
 MUSIC_VOLUME,Music Volume,Volum Música,Volumen Música,
@@ -87,9 +90,11 @@ UI_WEAPON_ABILITY,Weapon Ability,Habilitat Arma,Habilidad Arma,
 UI_ARMOR_ABILITY,Armor Ability,Habilitat Armadura,Habilidad Armadura,
 UI_PAUSE,Pause,Pausa,Pausa,
 UI_MINIMAP,Minimap,Mini Mapa,Mini Mapa,
+UI_INTERACT,Interact,Interactuar,Interactuar,
 ,,,,
 SCREEN_FLASHES,Screen Flashes,Flaixos de Pantalla,Flashes de Pantalla,
 AUTO_AIM,Auto Aim,Apuntat Automàtic,Apuntado Automático,
+AIM_HELP,Aim Help,Ajuda a l'Apuntar,Ayuda de Apuntado,
 ,,,,
 ,,,,
 SELECT_PROFILE,Select Profile,Selecciona un Perfil,Selecciona un Perfil,
@@ -107,8 +112,21 @@ TEXT_MOD_CURRENT_CONFIG_CHANGE_ERROR,There was an error changing the config - ch
 TEXT_CURRENT_PROFILE,%s (Current Profile),%s (Perfil Actual),%s (Perfil Actual),
 ,,,,
 ,,,,
+MAP,Map,Mapa,Mapa,地図
+EQUIPMENT,Equipment,Equipament,Equipamiento,
+WEAPONS,Weapons,Armes,Armas,兵器
+ITEMS,Items,,,
+UPGRADES,Upgrades,Millores,Mejoras,アップグレード
+ENCYCLOPEDIA,Encyclopedia,Enciclopèdia,Enciclopedia,事典
+OPTIONS,Options,Opcions,Opciones,オプションメニュー
+,,,,
+,,,,
+HAMMER,Hammer,Martell,Martillo,ハンマー
 SWORD,Sword,Espasa,Espada,剣
 SPEAR,Spear,Llança,Lanza,槍
+AXE,Axe,Destral,Hacha,
+BOW,Bow,Arc,Arco,弓
+CROSSBOW,Crossbow,Ballesta,Ballesta,
 ,,,,
 DAGGER,Dagger,Daga,Daga,短剣
 KATANA,Katana,Katana,Katana,刀
@@ -118,4 +136,7 @@ SCIMITAR,Scimitar,Simitarra,Cimitarra,偃月刀
 WARRIOR_SWORD,Warrior Sword,Espasa de Guerrer,Espada de Guerrero,
 WAR_HAMMER,War Hammer,Martell de Guerra,Martillo de Guerra, ウォーハンマー 
 SHARP_AXE,Sharp Axe,Destral Esmolada,Hacha Afilada,鋭い斧
+SMALL_AXE,Small Axe,Destral Xica,Hacha Pequeña,
+WAR_AXE,War Axe,Destral de Guerra,Hacha de Guerra,
 WOODEN_BOW,Wooden Bow,Arc de Fusta,Arco de Madera,木製の弓
+WOODEN_CROSSBOW,Wooden Crossbow,Ballesta de Fusta,Ballesta de Madera,
