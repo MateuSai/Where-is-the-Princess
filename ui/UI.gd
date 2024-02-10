@@ -8,8 +8,8 @@ var viewport_texture: ViewportTexture
 var cropped_viewport_texture: ImageTexture
 
 @onready var tab_container: TabContainer = $MenuTabContainer
-@onready var minimap: MiniMap = %MINIMAP
-@onready var menu: Control = %MENU
+@onready var minimap: MiniMap = %MAP
+@onready var menu: Control = %OPTIONS
 @onready var seed_label: Label = %SeedLabel
 @onready var color_rect: ColorRect = %UIColorRect
 

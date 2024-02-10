@@ -151,37 +151,37 @@ theme = ExtResource("4_usvbv")
 current_tab = 2
 script = ExtResource("6_y3275")
 
-[node name="MINIMAP" type="MarginContainer" parent="UI/MenuTabContainer"]
+[node name="MAP" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 script = ExtResource("12_icbnv")
 
-[node name="MinimapScrollContainer" type="ScrollContainer" parent="UI/MenuTabContainer/MINIMAP"]
+[node name="MinimapScrollContainer" type="ScrollContainer" parent="UI/MenuTabContainer/MAP"]
 layout_mode = 2
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 3
 script = ExtResource("13_f54tc")
 
-[node name="PanelContainer" type="PanelContainer" parent="UI/MenuTabContainer/MINIMAP/MinimapScrollContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="UI/MenuTabContainer/MAP/MinimapScrollContainer"]
 custom_minimum_size = Vector2(330, 200)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxTexture_oed6k")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/MenuTabContainer/MINIMAP/MinimapScrollContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MenuTabContainer/MAP/MinimapScrollContainer/PanelContainer"]
 custom_minimum_size = Vector2(5000, 5000)
 layout_mode = 2
 
-[node name="MapNameLabel" type="Label" parent="UI/MenuTabContainer/MINIMAP/MinimapScrollContainer/PanelContainer"]
+[node name="MapNameLabel" type="Label" parent="UI/MenuTabContainer/MAP/MinimapScrollContainer/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "hahaha"
 label_settings = SubResource("LabelSettings_lngc4")
 
-[node name="PlayerIcon" type="Sprite2D" parent="UI/MenuTabContainer/MINIMAP/MinimapScrollContainer/PanelContainer"]
+[node name="PlayerIcon" type="Sprite2D" parent="UI/MenuTabContainer/MAP/MinimapScrollContainer/PanelContainer"]
 z_index = 5
 texture = ExtResource("16_0uph7")
 
@@ -315,7 +315,7 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MENU" type="MarginContainer" parent="UI/MenuTabContainer"]
+[node name="OPTIONS" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
 process_mode = 2
 visible = false
@@ -323,30 +323,30 @@ layout_mode = 2
 mouse_filter = 2
 script = ExtResource("11_7bikg")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuTabContainer/MENU"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuTabContainer/OPTIONS"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("4_usvbv")
 
-[node name="ResumeButton" type="Button" parent="UI/MenuTabContainer/MENU/VBoxContainer"]
+[node name="ResumeButton" type="Button" parent="UI/MenuTabContainer/OPTIONS/VBoxContainer"]
 layout_mode = 2
 text = "RESUME"
 alignment = 0
 script = ExtResource("15_2ikhu")
 
-[node name="SettingsButton" type="Button" parent="UI/MenuTabContainer/MENU/VBoxContainer"]
+[node name="SettingsButton" type="Button" parent="UI/MenuTabContainer/OPTIONS/VBoxContainer"]
 layout_mode = 2
 text = "SETTINGS"
 script = ExtResource("16_gpdwi")
 
-[node name="QuitButton" type="Button" parent="UI/MenuTabContainer/MENU/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="UI/MenuTabContainer/OPTIONS/VBoxContainer"]
 layout_mode = 2
 text = "QUIT"
 alignment = 0
 script = ExtResource("17_iw01m")
 
-[node name="AutoFocusOnController" type="Node" parent="UI/MenuTabContainer/MENU"]
+[node name="AutoFocusOnController" type="Node" parent="UI/MenuTabContainer/OPTIONS"]
 script = ExtResource("20_o0kce")
 
 [node name="TabContainerControllerSupport" type="Node" parent="UI/MenuTabContainer"]
