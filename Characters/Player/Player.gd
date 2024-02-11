@@ -261,7 +261,7 @@ func pick_up_passive_item(item: PassiveItem) -> void:
 		if not SavedData.run_stats.permanent_passive_items.has(permanent_passive_item):
 			SavedData.run_stats.permanent_passive_items.push_back(permanent_passive_item)
 
-		SavedData.discover_permanent_item_if_not_already(item.get_script().get_path())
+		SavedData.discover_permanent_item_if_not_already((item.get_script() as GDScript).get_path())
 		permanent_passive_item_picked_up.emit(permanent_passive_item)
 	elif item is WeaponModifier:
 		var weapon_modifier_item: WeaponModifier = item
@@ -274,7 +274,7 @@ func pick_up_passive_item(item: PassiveItem) -> void:
 		if not SavedData.run_stats.temporal_passive_items.has(temporal_passive_item):
 			SavedData.run_stats.temporal_passive_items.push_back(temporal_passive_item)
 
-		SavedData.discover_temporal_item_if_not_already(item.get_script().get_path())
+		SavedData.discover_temporal_item_if_not_already((item.get_script() as GDScript).get_path())
 		temporal_passive_item_picked_up.emit(temporal_passive_item)
 
 
