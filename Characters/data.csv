@@ -9,7 +9,7 @@ armored_mark,7,90,0.1,100,0,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguelike (Fo
 mole,4,5,0.1,100,0,0,1,0,FLESH,,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/mole/mole_icon.png,0-1,1,0,0.1,0.1
 spider_egg,1,20,0.1,0,0,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/spider/spider_egg_icon.png,0-1,0-1,0,0.05,0.05
 spider,2,3,0.1,100,0,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/spider/spider_icon.png,0-1,1,0,0.05,0.05
-snake,4,3,0.1,120,0,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/snake/snake_icon.png,0-2,0-1,0,0.1,0.03
+snake,4,3,0.1,160,0,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/snake/snake_icon.png,0-2,0-1,0,0.1,0.03
 flying_creature,4,3,0.1,200,1,1,0,0,FLESH,,,0-2,1,0,0.1,0.1
 goblin,5,25,0.1,140,0,1,0,0,FLESH,,res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/goblin/goblin_icon.png,0-1,1,0,0.1,0.1
 dark_goblin,7,25,0.1,115,0,1,0,0,FLESH,,,3-6,2-4,0,0.1,0.15
