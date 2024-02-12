@@ -1353,8 +1353,8 @@ class Connection:
 	var room_1_id: int = -1
 	var room_2_id: int = -1
 
-	var dir_1: DungeonRoom.EntryDirection = -1
-	var dir_2: DungeonRoom.EntryDirection = -1
+	var dir_1: DungeonRoom.EntryDirection = DungeonRoom.EntryDirection.NULL
+	var dir_2: DungeonRoom.EntryDirection = DungeonRoom.EntryDirection.NULL
 
 	var room_1_entry_positions: EntryPositions
 	var room_2_entry_positions: EntryPositions

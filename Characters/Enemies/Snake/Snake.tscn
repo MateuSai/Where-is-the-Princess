@@ -252,7 +252,6 @@ radius = 7.07107
 
 [node name="Snake" instance=ExtResource("1_siu4v")]
 script = ExtResource("2_tcp35")
-max_speed = 50
 
 [node name="Shadow" type="Sprite2D" parent="." index="0"]
 texture = ExtResource("4_mbahi")
