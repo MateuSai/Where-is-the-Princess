@@ -56,8 +56,7 @@ ADDITIONAL_WEAPON_CARRY_CAPACITY_DESCRIPTION,Increases your max amount of weapon
 ,,,,
 PLAY,Play,Juga,Jugar,遊び
 CONTINUE,Continue,Continuar,Continuar, コンティニュー 
-BASE_CAMP,Base Camp,Campament,Campamento,バースキャンプ
-NEW_GAME,New Game,Nova Partida,Nueva Partida,
+NEW_GAME,New Game,Nova Partida,Nueva Partida,ニューゲーム
 RESUME,Resume,Resumir,Resumir,レジューム
 RESTART,Restart,Reiniciar,Reiniciar,
 MODS,Mods,Mods,Mods,MODS
@@ -68,7 +67,7 @@ QUIT,Quit,Surt,Salir,退く
 GENERAL,General,General,General,
 INPUT,Input,Input,Mapeo de teclas,入力
 AUDIO,Audio,Àudio,Audio,音響
-ACCESSIBILITY,Accessibility,Accessibilitat,Accesibilidad,
+ACCESSIBILITY,Accessibility,Accessibilitat,Accesibilidad,アクセシビリティ
 ,,,,
 LANGUAGE,Language,Idioma,Idioma,言葉
 FULL_SCREEN,Full Screen,Pantalla Completa,Pantalla Completa,全画面
@@ -124,8 +123,8 @@ OPTIONS,Options,Opcions,Opciones,オプションメニュー
 HAMMER,Hammer,Martell,Martillo,ハンマー
 SWORD,Sword,Espasa,Espada,剣
 SPEAR,Spear,Llança,Lanza,槍
-AXE,Axe,Destral,Hacha,
-BOW,Bow,Arc,Arco,弓
+AXE,Axe,Destral,Hacha,弓
+BOW,Bow,Arc,Arco,クロスボウ
 CROSSBOW,Crossbow,Ballesta,Ballesta,
 ,,,,
 DAGGER,Dagger,Daga,Daga,短剣
@@ -139,4 +138,18 @@ SHARP_AXE,Sharp Axe,Destral Esmolada,Hacha Afilada,鋭い斧
 SMALL_AXE,Small Axe,Destral Xica,Hacha Pequeña,
 WAR_AXE,War Axe,Destral de Guerra,Hacha de Guerra,
 WOODEN_BOW,Wooden Bow,Arc de Fusta,Arco de Madera,木製の弓
-WOODEN_CROSSBOW,Wooden Crossbow,Ballesta de Fusta,Ballesta de Madera,
+WOODEN_CROSSBOW,Wooden Crossbow,Ballesta de Fusta,Ballesta de Madera,木製のクロスボウ
+,,,,
+,,,,
+BASE_CAMP,Base Camp,Campament,Campamento,バースキャンプ
+FOREST,Forest,Bosc,Bosque,森
+SEWER,Sewer,Claveguera,Cloaca,下水道
+,,,,
+,,,,
+GOBLIN,Goblin,Follet,Duende,ゴブリン
+DARK_GOBLIN,Dark Goblin,Follet Fosc,Duende Oscuro,黒いゴブリン
+SPIDER,Spider,Aranya,Araña,クモ
+SPIDER_EGG,Spider Egg,Ou d’Aranyes,Huevo de Arañas,クモの卵
+SNAKE,Snake,Serp,Serpiente,ヘビ
+MOLE,Mole,Talp,Topo,モル
+PILE_OF_BONES,Pile of Bones,Pila d'Ossos,Pila de Huesos,
