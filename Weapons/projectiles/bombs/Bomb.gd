@@ -4,6 +4,12 @@ var reflected: bool = false
 
 var dir: Vector2
 var speed: float
+var dam: int = 2:
+	set(new_dam):
+		dam = new_dam
+		if hitbox:
+			hitbox.damage = dam
+var destroy_on_collide_with_world: bool = false
 
 @onready var bomb_path: BombPath = owner
 @onready var sprite: Sprite2D = $Sprite2D
@@ -55,6 +61,8 @@ func destroy() -> void:
 
 func _on_body_entered(_body: Node2D) -> void:
 	set_physics_process(false)
+	if destroy_on_collide_with_world:
+		destroy()
 
 
 func _spawn_shrapnel() -> void:
