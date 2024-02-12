@@ -114,7 +114,7 @@ TEXT_CURRENT_PROFILE,%s (Current Profile),%s (Perfil Actual),%s (Perfil Actual),
 MAP,Map,Mapa,Mapa,地図
 EQUIPMENT,Equipment,Equipament,Equipamiento,
 WEAPONS,Weapons,Armes,Armas,兵器
-ITEMS,Items,,,
+ITEMS,Items,Ítems,Ítems,
 UPGRADES,Upgrades,Millores,Mejoras,アップグレード
 ENCYCLOPEDIA,Encyclopedia,Enciclopèdia,Enciclopedia,事典
 OPTIONS,Options,Opcions,Opciones,オプションメニュー
@@ -153,3 +153,11 @@ SPIDER_EGG,Spider Egg,Ou d’Aranyes,Huevo de Arañas,クモの卵
 SNAKE,Snake,Serp,Serpiente,ヘビ
 MOLE,Mole,Talp,Topo,モル
 PILE_OF_BONES,Pile of Bones,Pila d'Ossos,Pila de Huesos,
+SMALL_SLIME,Small Slime,Bava Petit,Baba Pequeño,
+MEDIUM_SLIME,Medium Slime,Bava Mitja,Baba Mediano,
+BIG_SLIME,Big Slime,Bava Gran,Baba Grande,
+INSECTON_MUSK,Insecton Musk,Insecton Musk,Insecton Musk,
+BODEN_THE_DRUID,Boden the Druid,El Druida Boden,El Druida Boden,
+BODEN_THE_BEAR,Boden the Bear,L’Ós Boden,El Oso Boden,
+NECRO_TROMP,Necro Tromp,Nigro Tromp,Nigro Tromp,
+CROCODILE_JOE,Crocodile Joe,Joe el Cocodril,Joe el Cocodrilo,
