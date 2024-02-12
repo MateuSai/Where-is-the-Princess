@@ -31,7 +31,7 @@ func _set_category(new_category: int) -> void:
 				var id: String = Weapon.get_id_from_path(weapon_path)
 				var weapon_data: WeaponData = Weapon.get_data(id)
 				var button: Button = Button.new()
-				button.icon = weapon_data.weapon_texture
+				button.icon = weapon_data.prop
 				if not discovered_weapon_paths.has(weapon_path):
 					button.modulate = Color.BLACK
 					button.disabled = true
@@ -101,7 +101,7 @@ func _show_weapon_details(id: String, data: WeaponData) -> void:
 	weapon_texture.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 	weapon_texture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
 	weapon_texture.custom_minimum_size.y = 64
-	weapon_texture.texture = data.weapon_texture
+	weapon_texture.texture = data.prop
 	details_vbox.add_child(weapon_texture)
 
 	var name_label: Label = Label.new()

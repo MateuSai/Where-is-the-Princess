@@ -13,7 +13,7 @@ enum Type {
 @export var type: Type
 @export var weapon_name: String = ""
 @export var description: String = ""
-@export var weapon_texture: Texture2D = null
+@export var prop: Texture2D = null
 @export var icon: Texture2D = null ## 16x16 weapon icon, the one that appears on the bottom of the screen
 
 @export var stamina_cost_per_normal_attack: float = 10
@@ -38,8 +38,8 @@ static func from_dic(dic: Dictionary) -> WeaponData:
 	var weapon_data: WeaponData = WeaponData.new()
 
 	weapon_data.weapon_name = dic["name"]
-	var weapon_texture_path: String = dic["weapon_texture"]
-	weapon_data.weapon_texture = load(weapon_texture_path) as Texture2D
+	var prop_path: String = dic["prop"]
+	weapon_data.prop = load(prop_path) as Texture2D
 	var icon_path: String = dic["icon"]
 	weapon_data.icon = load(icon_path) as Texture2D
 	weapon_data.type = Type.values()[Type.keys().find(dic["type"])]
