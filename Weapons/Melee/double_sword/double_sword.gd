@@ -1,0 +1,1 @@
+class_name DoubleSword extends MeleeWeapon

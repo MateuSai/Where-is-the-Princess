@@ -16,6 +16,8 @@ enum Type {
 
 	BOW,
 	CROSSBOW,
+
+	OTHER,
 }
 @export var type: Type
 @export var weapon_name: String = ""

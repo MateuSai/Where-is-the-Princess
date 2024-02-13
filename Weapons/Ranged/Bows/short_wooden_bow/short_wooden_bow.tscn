@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dfwr6ghpa5ecq" path="res://Weapons/Ranged/ranged_weapon.tscn" id="1_pd21h"]
 [ext_resource type="Script" path="res://Weapons/Ranged/Bows/Bow.gd" id="2_1583x"]
-[ext_resource type="Shader" path="res://Characters/Player/White.gdshader" id="3_ss4ci"]
+[ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="3_ss4ci"]
 [ext_resource type="Texture2D" uid="uid://b31xodv746lr1" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/short_wooden_bow.png" id="4_7i1x5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cqanw"]
