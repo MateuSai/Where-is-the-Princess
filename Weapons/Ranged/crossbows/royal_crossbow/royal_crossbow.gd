@@ -9,6 +9,6 @@ func _spawn_bomb() -> void:
 	bomb.position = spawn_projectile_pos.global_position
 	bomb.dir = Vector2.RIGHT.rotated(rotation)
 	bomb.speed = 250
-	bomb.dam = ability_damage
+	bomb.dam = data.ability_damage
 	bomb.destroy_on_collide = true
 	bomb.set_physics_process(true)

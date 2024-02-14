@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bniwnj5mwimkj"]
+[gd_scene load_steps=9 format=3 uid="uid://bniwnj5mwimkj"]
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_wj7tv"]
 [ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="2_ur1xs"]
@@ -10,6 +10,14 @@
 resource_local_to_scene = true
 shader = ExtResource("2_ur1xs")
 shader_parameter/active = true
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kqjqc"]
+radius = 3.0
+height = 20.2591
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ff3xx"]
+radius = 3.53154
+height = 41.7738
 
 [node name="OrientalSpear" instance=ExtResource("1_wj7tv")]
 script = ExtResource("2_xja4i")
@@ -23,6 +31,14 @@ position = Vector2(-5, 0)
 rotation = 0.436332
 texture = ExtResource("3_5la21")
 offset = Vector2(0, 3)
+
+[node name="CollisionShape2D" parent="Node2D/WeaponSprite/Hitbox" index="0"]
+position = Vector2(-0.468443, -6.11311)
+shape = SubResource("CapsuleShape2D_kqjqc")
+
+[node name="CollisionShape2D" parent="Node2D/WeaponSprite/PlayerDetector" index="0"]
+position = Vector2(-0.468482, 2.88689)
+shape = SubResource("CapsuleShape2D_ff3xx")
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {
