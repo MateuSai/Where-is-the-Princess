@@ -226,8 +226,8 @@ func can_pick_up_weapon(weapon_to_pick: Weapon) -> bool:
 
 
 func _on_normal_attack() -> void:
-	player.stamina -= current_weapon.stamina_cost_per_normal_attack
+	player.stamina -= current_weapon.data.stamina_cost_per_normal_attack
 
 
 func _on_active_ability() -> void:
-	player.stamina -= current_weapon.stamina_to_activate_active_ability
+	player.stamina -= current_weapon.data.stamina_to_activate_active_ability

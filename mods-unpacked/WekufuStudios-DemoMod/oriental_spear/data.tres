@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="MeleeWeaponData" load_steps=5 format=3 uid="uid://bbr0n1qrpr0uk"]
+
+[ext_resource type="Texture2D" uid="uid://dj8a5fefbwj21" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/Oriental_Spear_icon.png" id="1_gcw4w"]
+[ext_resource type="Script" path="res://Weapons/data/melee_weapon_data.gd" id="1_hwpl5"]
+[ext_resource type="Texture2D" uid="uid://j7eerhqsiqai" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/Oriental Spear UI icon.png" id="1_umdoq"]
+[ext_resource type="Texture2D" uid="uid://bgudwi1sd4kaj" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Oriental Spear.png" id="2_bj0vf"]
+
+[resource]
+script = ExtResource("1_hwpl5")
+num_normal_attacks = 1
+increase_num_normal_attacks_on_ability = false
+invert_scale_when_looking_left = false
+type = 0
+weapon_name = "ORIENTAL_SPEAR"
+description = ""
+prop = ExtResource("2_bj0vf")
+icon = ExtResource("1_gcw4w")
+stamina_cost_per_normal_attack = 10.0
+condition_cost_per_normal_attack = 5.0
+animation_library = "oriental_spear"
+active_ability_icon = ExtResource("1_umdoq")
+stamina_to_activate_active_ability = 20.0
+souls_to_activate_ability = 3
+active_ability_condition_cost = 10.0
+ability_damage = 2
+ability_knockback = 300
+damage = 2
+knockback = 300
