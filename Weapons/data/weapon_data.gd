@@ -9,6 +9,8 @@ enum Type {
 
 	BOW,
 	CROSSBOW,
+
+	OTHER,
 }
 @export var type: Type
 @export var weapon_name: String = ""
@@ -26,17 +28,23 @@ enum Type {
 @export var stamina_to_activate_active_ability: float = 20
 @export var souls_to_activate_ability: int = 3 ## The souls you need to collect in order to activate the ability
 @export_range(0.0, 100.0) var active_ability_condition_cost: float = 10 ## The weapon condition will decrease this amount after using the ability. Remember all the weapons have 100 condition initially
-@export var ability_damage: int = 2: set = set_ability_damage
-@export var ability_knockback: int = 300: set = set_ability_knockback
+@export var ability_damage: int = 2
+@export var ability_knockback: int = 300
 @export_group("")
 
-@export var damage: int = 1: set = set_damage
-@export var knockback: int = 300: set = set_knockback
+@export var damage: int = 1
+@export var knockback: int = 300
 
 
 static func from_dic(dic: Dictionary) -> WeaponData:
 	var weapon_data: WeaponData = WeaponData.new()
 
+	_load_dic(weapon_data, dic)
+
+	return weapon_data
+
+
+static func _load_dic(weapon_data: WeaponData, dic: Dictionary) -> void:
 	weapon_data.weapon_name = dic["name"]
 	var prop_path: String = dic["prop"]
 	weapon_data.prop = load(prop_path) as Texture2D
@@ -58,21 +66,3 @@ static func from_dic(dic: Dictionary) -> WeaponData:
 		weapon_data.active_ability_icon = null
 	weapon_data.souls_to_activate_ability = dic["souls_to_activate_ability"]
 	weapon_data.active_ability_condition_cost = dic["ability_condition_cost"]
-
-	return weapon_data
-
-
-func set_damage(new_damage: int) -> void:
-	damage = new_damage
-
-
-func set_ability_damage(new_ability_damage: int) -> void:
-	ability_damage = new_ability_damage
-
-
-func set_knockback(new_knockback: int) -> void:
-	knockback = new_knockback
-
-
-func set_ability_knockback(new_ability_knockback: int) -> void:
-	ability_knockback = new_ability_knockback

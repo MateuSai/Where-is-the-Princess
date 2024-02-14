@@ -4,15 +4,10 @@ class_name MeleeWeapon extends Weapon
 const CUT_FLESH_SOUNDS: Array[AudioStream] = [preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Sword/MetalSlash1.wav"), preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Sword/MetalSlash2.wav"), preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Sword/MetalSlash3.wav")]
 const IMPACT_FLESH_SOUNDS: Array[AudioStream] = [preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hit(Impact)/HitGore1.wav"), preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hit(Impact)/HitGore2.wav"), preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hit(Impact)/HitGore3.wav"), preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hit(Impact)/HitGore4.wav")]
 
-## This variable indicates wheter the number of normal attacks. They will be used on order. If it has value 2 but only has one attack animation, for the second attack it will use the first animation but backwards, this is used on the Katana for example
-@export var num_normal_attacks: int = 1
+
 var attack_num: int = 0:
 	set(new_attack_num):
-		attack_num = wrapi(new_attack_num, 0, num_normal_attacks)
-@export var increase_num_normal_attacks_on_ability: bool = true
-
-## If this is true, the scale will be inverted when looking at the left
-@export var invert_scale_when_looking_left: bool = false
+		attack_num = wrapi(new_attack_num, 0, data.num_normal_attacks)
 
 @export var throw_speed: int = 200
 var throw_dir: Vector2
@@ -40,23 +35,14 @@ func _ready() -> void:
 	set_physics_process(false)
 
 	hitbox.weapon = self
-	hitbox.damage = damage
+	hitbox.damage = data.damage
 #	hitbox.exclude.push_back(Globals.player)
 
-	match type:
-		Type.HAMMER:
+	match data.type:
+		WeaponData.Type.HAMMER:
 			hitbox.flesh_sounds = IMPACT_FLESH_SOUNDS
 		_:
 			hitbox.flesh_sounds = CUT_FLESH_SOUNDS
-
-
-func _load_csv_data(data: Dictionary) -> void:
-	super(data)
-
-	num_normal_attacks = data["num_normal_attacks"]
-	var increase_num_normal_attacks_on_ability_int: int = data["increase_num_normal_attacks_on_ability"]
-	increase_num_normal_attacks_on_ability = bool(increase_num_normal_attacks_on_ability_int)
-	invert_scale_when_looking_left = data.invert_scale_when_looking_left
 
 
 func _physics_process(delta: float) -> void:
@@ -66,7 +52,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_collided_with_something(col_mat: Hitbox.CollisionMaterial = Hitbox.CollisionMaterial.FLESH) -> void:
 	# Double degrade amount if we collide with stone
-	_decrease_weapon_condition(round(condition_cost_per_normal_attack * (col_mat+1)) as float)
+	_decrease_weapon_condition(round(data.condition_cost_per_normal_attack * (col_mat+1)) as float)
 	#stats.set_condition(stats.condition - round(condition_cost_per_normal_attack * (col_mat+1)))
 #	match col_mat:
 #		Hitbox.CollisionMaterial.FLESH:
@@ -110,7 +96,7 @@ func _strong_attack() -> void:
 
 func _active_ability(_animation_name: String = "active_ability") -> void:
 	super("active_ability_" + str(attack_num + 1))
-	if increase_num_normal_attacks_on_ability:
+	if data.increase_num_normal_attacks_on_ability:
 		attack_num += 1
 	used_active_ability.emit()
 
@@ -119,7 +105,7 @@ func throw() -> void:
 	throw_dir = (get_parent().get_parent() as Player).mouse_direction
 	bodies_pierced = 0
 	piercing = (get_parent().get_parent() as Player).throw_piercing
-	if type == Type.SWORD:
+	if data.type == WeaponData.Type.SWORD:
 		throw_rot_speed = 25 if attack_num == 0 else -25
 	(get_parent() as PlayerWeapons).throw_weapon()
 	(hitbox.get_node("CollisionShape2D") as CollisionShape2D).disabled = false
@@ -174,7 +160,7 @@ func add_status_inflicter(status: StatusComponent.Status, amount: int = 1) -> vo
 func move(mouse_direction: Vector2) -> void:
 	super(mouse_direction)
 	hitbox.knockback_direction = mouse_direction
-	if invert_scale_when_looking_left:
+	if data.invert_scale_when_looking_left:
 		if scale.y == 1 and mouse_direction.x < 0:
 			scale.y = -1
 		elif scale.y == -1 and mouse_direction.x > 0:
@@ -189,27 +175,27 @@ func destroy() -> void:
 func set_damage(new_damage: int) -> void:
 	super(new_damage)
 	if animation_player and not animation_player.current_animation.begins_with("active_ability"):
-		hitbox.damage = damage
+		hitbox.damage = data.damage
 
 
 func set_ability_damage(new_ability_damage: int) -> void:
 	super(new_ability_damage)
 	if animation_player and animation_player.current_animation.begins_with("active_ability"):
-		hitbox.damage = ability_damage
+		hitbox.damage = data.ability_damage
 
 
 func set_knockback(new_knockback: int) -> void:
 	super(new_knockback)
 
 	if animation_player and not animation_player.current_animation.begins_with("active_ability"):
-			hitbox.knockback_force = knockback
+			hitbox.knockback_force = data.knockback
 
 
 func set_ability_knockback(new_ability_knockback: int) -> void:
 	super(new_ability_knockback)
 
 	if animation_player and animation_player.current_animation.begins_with("active_ability"):
-		hitbox.knockback_force = ability_knockback
+		hitbox.knockback_force = data.ability_knockback
 
 
 func _on_animation_started(anim_name: StringName) -> void:
@@ -220,16 +206,16 @@ func _on_animation_started(anim_name: StringName) -> void:
 		#hitbox.exclude = a
 
 	if anim_name.begins_with("active_ability"):
-		hitbox.damage = ability_damage
-		hitbox.knockback_force = ability_knockback
+		hitbox.damage = data.ability_damage
+		hitbox.knockback_force = data.ability_knockback
 
 
 func _on_animation_finished(anim_name: String) -> void:
 	super(anim_name)
 
 	if anim_name.begins_with("active_ability"):
-		hitbox.damage = damage
-		hitbox.knockback_force = knockback
+		hitbox.damage = data.damage
+		hitbox.knockback_force = data.knockback
 
 
 func _start_shadow_effect() -> void:
@@ -258,3 +244,10 @@ func _spawn_shadow_effect() -> void:
 func _set_damage_dealer_id(new_id: String) -> void:
 	super(new_id)
 	hitbox.damage_dealer_id = damage_dealer_id
+
+
+static func get_data(id: String) -> WeaponData:
+	if DB.has(id):
+		return MeleeWeaponData.from_dic(DB[id])
+	else:
+		return null

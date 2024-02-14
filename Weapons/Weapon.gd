@@ -7,43 +7,10 @@ const DB: Dictionary = preload("res://Weapons/data/data.csv").records
 
 @export var on_floor: bool = false
 
-enum Type {
-	SPEAR,
-	SWORD,
-	HAMMER,
-	DAGGER,
-	AXE,
-
-	BOW,
-	CROSSBOW,
-
-	OTHER,
-}
-@export var type: Type
-@export var weapon_name: String = ""
-@export var description: String = ""
-@export var weapon_texture: Texture2D = null
-@export var icon: Texture2D = null ## 16x16 weapon icon, the one that appears on the bottom of the screen
-
-@export var stamina_cost_per_normal_attack: float = 10
-@export var condition_cost_per_normal_attack: float = 5
-
-@export var animation_library: String = ""
-
-@export_group("Active Ability")
-@export var active_ability_icon: Texture ## Icon of the weapon's active ability
-@export var stamina_to_activate_active_ability: float = 20
-@export var souls_to_activate_ability: int = 3 ## The souls you need to collect in order to activate the ability
-@export_range(0.0, 100.0) var active_ability_condition_cost: float = 10 ## The weapon condition will decrease this amount after using the ability. Remember all the weapons have 100 condition initially
-@export var ability_damage: int = 2: set = set_ability_damage
-@export var ability_knockback: int = 300: set = set_ability_knockback
-@export_group("")
-
 var damage_dealer_id: String: set = _set_damage_dealer_id
 static var damage_modifiers_by_type: Dictionary = {}
-@export var damage: int = 1: set = set_damage
-@export var knockback: int = 300: set = set_knockback
 
+var data: WeaponData = null
 var stats: WeaponStats = null
 
 signal condition_changed(weapon: Weapon, new_condition: float)
@@ -67,8 +34,9 @@ var tween: Tween = null
 
 func _ready() -> void:
 	if DB.has(weapon_id):
-		var weapon_data: Dictionary = DB[weapon_id]
-		_load_csv_data(weapon_data)
+		data = get_data(weapon_id)
+	else:
+		data = load(scene_file_path + scene_file_path.get_file().replace(".tscn", ".tres"))
 
 	if not on_floor:
 		player_detector.set_collision_mask_value(1, false)
@@ -77,50 +45,28 @@ func _ready() -> void:
 	if stats == null:
 		stats = WeaponStats.new()
 		stats.weapon_path = scene_file_path
-		stats.souls_to_activate_ability = souls_to_activate_ability
+		stats.souls_to_activate_ability = data.souls_to_activate_ability
 
 	set_process_unhandled_input(false)
 	@warning_ignore("unsafe_call_argument")
-	add_to_group(Type.keys()[type])
+	add_to_group(WeaponData.Type.keys()[data.type])
 
 	stats.condition_changed.connect(_on_condition_changed)
 
 	animation_player.animation_started.connect(_on_animation_started)
 	animation_player.animation_finished.connect(_on_animation_finished)
 
-	if damage_modifiers_by_type.has(type):
-		self.damage = damage + damage_modifiers_by_type[type]
+	if damage_modifiers_by_type.has(data.type):
+		data.damage = data.damage + damage_modifiers_by_type[data.type]
 	else:
-		self.damage = damage
-	self.ability_damage = ability_damage
+		data.damage = data.damage
+	data.ability_damage = data.ability_damage
 
 
 func load_modifiers() -> void:
 	for modifier: WeaponModifier in stats.modifiers:
 		# modifier.equip(get_parent().get_parent())
 		modifier.equip(self)
-
-
-func _load_csv_data(data: Dictionary) -> void:
-	weapon_name = data["name"]
-	var icon_path: String = data["icon"]
-	icon = load(icon_path) as Texture2D
-	type = Type.values()[Type.keys().find(data["type"])]
-	#animation_library = load(ANIMATION_LIBRARIES_FOLDER.path_join(data["animation_library"]))
-	animation_library = data["animation_library"] + "_animation_library"
-	damage = data.damage
-	knockback = data.knockback
-	ability_damage = data.ability_damage
-	ability_knockback = data.ability_knockback
-	stamina_cost_per_normal_attack = data.stamina_cost_per_normal_attack
-	condition_cost_per_normal_attack = data.condition_cost_per_normal_attack
-	var ability_icon_path: String = data["ability_icon"]
-	if FileAccess.file_exists(ability_icon_path):
-		active_ability_icon = load(ability_icon_path)
-	else:
-		active_ability_icon = null
-	souls_to_activate_ability = data["souls_to_activate_ability"]
-	active_ability_condition_cost = data["ability_condition_cost"]
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -271,27 +217,27 @@ func add_weapon_modifier(item: WeaponModifier) -> void:
 
 
 func can_attack() -> bool:
-	return not animation_player.is_playing() and (not get_parent().get_parent() is Player or (get_parent().get_parent() as Player).stamina >= stamina_to_activate_active_ability)
+	return not animation_player.is_playing() and (not get_parent().get_parent() is Player or (get_parent().get_parent() as Player).stamina >= data.stamina_to_activate_active_ability)
 
 
 func can_active_ability() -> bool:
-	return cool_down_timer.is_stopped() and stats.souls == souls_to_activate_ability and (not get_parent().get_parent() is Player or (get_parent().get_parent() as Player).stamina >= stamina_to_activate_active_ability)
+	return cool_down_timer.is_stopped() and stats.souls == data.souls_to_activate_ability and (not get_parent().get_parent() is Player or (get_parent().get_parent() as Player).stamina >= data.stamina_to_activate_active_ability)
 
 
 func get_texture() -> Texture2D:
-	return icon
+	return data.icon
 
 
 func has_active_ability() -> bool:
-	return (animation_player.has_animation("active_ability") or animation_player.has_animation("active_ability_1")) and active_ability_icon
+	return (animation_player.has_animation("active_ability") or animation_player.has_animation("active_ability_1")) and data.active_ability_icon
 
 
 func has_strong_attack() -> bool:
-	return animation_player.has_animation(animation_library.path_join("charge")) or animation_player.has_animation(animation_library.path_join("charge_1"))
+	return animation_player.has_animation(data.animation_library.path_join("charge")) or animation_player.has_animation(data.animation_library.path_join("charge_1"))
 
 
 func can_pick_up_soul() -> bool:
-	return has_active_ability() and stats.souls < souls_to_activate_ability
+	return has_active_ability() and stats.souls < data.souls_to_activate_ability
 
 
 func _on_animation_started(_anim_name: StringName) -> void:
@@ -300,13 +246,13 @@ func _on_animation_started(_anim_name: StringName) -> void:
 
 func _on_animation_finished(anim_name: String) -> void:
 	if anim_name.begins_with("active_ability"):
-		_decrease_weapon_condition(active_ability_condition_cost)
+		_decrease_weapon_condition(data.active_ability_condition_cost)
 #		stats.set_condition(stats.condition - active_ability_condition_cost)
 
 
 func get_info() -> String:
 	@warning_ignore("unsafe_call_argument")
-	return tr(weapon_name) + "\n\n" + tr(Type.keys()[type])
+	return tr(data.weapon_name) + "\n\n" + tr(WeaponData.Type.keys()[data.type])
 
 
 ## Get currently playing animation without library name in front
@@ -319,15 +265,15 @@ func get_current_animation() -> String:
 func get_animation_full_name(anim: String) -> String:
 	if animation_player.has_animation(anim):
 		return anim
-	elif animation_player.has_animation(animation_library.path_join(anim)):
-		return animation_library.path_join(anim)
+	elif animation_player.has_animation(data.animation_library.path_join(anim)):
+		return data.animation_library.path_join(anim)
 	else:
 		#printerr(str(weapon_id) + " animation player does not have animation " + anim)
 		return ""
 
 
 @warning_ignore("shadowed_variable")
-static func _add_damage_modifier_by_type(type: Type, dam: int) -> void:
+static func _add_damage_modifier_by_type(type: WeaponData.Type, dam: int) -> void:
 	if damage_modifiers_by_type.has(type):
 		damage_modifiers_by_type[type] += dam
 	else:
@@ -335,24 +281,24 @@ static func _add_damage_modifier_by_type(type: Type, dam: int) -> void:
 
 
 @warning_ignore("shadowed_variable")
-static func _remove_damage_modifier_by_type(type: Type, dam: int) -> void:
+static func _remove_damage_modifier_by_type(type: WeaponData.Type, dam: int) -> void:
 	damage_modifiers_by_type[type] -= dam
 
 
 func set_damage(new_damage: int) -> void:
-	damage = new_damage
+	data.damage = new_damage
 
 
 func set_ability_damage(new_ability_damage: int) -> void:
-	ability_damage = new_ability_damage
+	data.ability_damage = new_ability_damage
 
 
 func set_knockback(new_knockback: int) -> void:
-	knockback = new_knockback
+	data.knockback = new_knockback
 
 
 func set_ability_knockback(new_ability_knockback: int) -> void:
-	ability_knockback = new_ability_knockback
+	data.ability_knockback = new_ability_knockback
 
 
 func _decrease_weapon_condition(by: float) -> void:
@@ -403,5 +349,4 @@ static func get_data(id: String) -> WeaponData:
 	if DB.has(id):
 		return WeaponData.from_dic(DB[id])
 	else:
-		assert(false, "Implement this")
 		return null

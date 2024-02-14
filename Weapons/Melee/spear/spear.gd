@@ -5,8 +5,8 @@ const ABILITY_EFFECT: PackedScene = preload("res://Weapons/Melee/spear/spear_abi
 
 func _add_ability_effect() -> void:
 	var effect: Hitbox = ABILITY_EFFECT.instantiate()
-	effect.damage = ability_damage
-	effect.knockback_force = ability_knockback
+	effect.damage = data.ability_damage
+	effect.knockback_force = data.ability_knockback
 	effect.knockback_direction = Vector2.RIGHT.rotated(rotation)
 	effect.rotation_degrees = -45
 	effect.position = Vector2(20, -20)
