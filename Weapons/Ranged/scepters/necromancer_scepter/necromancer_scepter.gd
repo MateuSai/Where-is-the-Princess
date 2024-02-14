@@ -19,7 +19,7 @@ func _spawn_projectile(_angle: float = 0.0, _amount: int = 1) -> Array[Projectil
 	if not raycast_res.is_empty():
 		position_to_spawn_skeleton = raycast_res.position + Vector2.RIGHT.rotated(rotation) * -16
 
-	var necromancer_spawn: NecromancerSpawn = (load(projectile_scene_path) as PackedScene).instantiate()
+	var necromancer_spawn: NecromancerSpawn = (load(data.projectile_scene_path) as PackedScene).instantiate()
 	(get_parent().get_parent() as Enemy).room.add_child(necromancer_spawn)
 	necromancer_spawn.global_position = position_to_spawn_skeleton
 

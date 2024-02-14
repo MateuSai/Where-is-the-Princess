@@ -36,7 +36,8 @@ func _ready() -> void:
 	if DB.has(weapon_id):
 		data = get_data(weapon_id)
 	else:
-		data = load(scene_file_path + scene_file_path.get_file().replace(".tscn", ".tres"))
+		var data_path: String = scene_file_path.replace(scene_file_path.get_file(), "data.tres")
+		data = load(data_path)
 
 	if not on_floor:
 		player_detector.set_collision_mask_value(1, false)

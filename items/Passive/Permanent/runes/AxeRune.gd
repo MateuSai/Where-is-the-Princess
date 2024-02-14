@@ -2,11 +2,11 @@ class_name AxeRune extends Rune
 
 
 func equip(_player: Player) -> void:
-	Globals.add_weapon_damage_modifier_by_type(Weapon.Type.AXE, 1)
+	Globals.add_weapon_damage_modifier_by_type(WeaponData.Type.AXE, 1)
 
 
 func unequip(_player: Player) -> void:
-	Globals.remove_weapon_damage_modifier_by_type(Weapon.Type.AXE, 1)
+	Globals.remove_weapon_damage_modifier_by_type(WeaponData.Type.AXE, 1)
 
 
 func get_icon() -> Texture2D:
