@@ -269,6 +269,7 @@ func remove_weapon_damage_modifier_by_type(type: WeaponData.Type, dam: int) -> v
 func _on_scene_changed(new_scene: String) -> void:
 	Weapon.damage_modifiers_by_type = {} # Reset damage modifiers so they don't acummulate
 	AcidPuddle.characters_inside = []
+	Snake.there_is_a_snake_hugging_the_player = false
 
 	if new_scene.get_basename().get_file().to_lower() == "game" or new_scene.get_basename().get_file().to_lower() == "basecamp":
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

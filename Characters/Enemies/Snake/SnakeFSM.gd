@@ -24,13 +24,13 @@ var player_attacks_when_hugged: int = 0
 func start() -> void:
 	set_state(MOVE)
 
-	player_detector.body_entered.connect(func(body: Node2D):
+	player_detector.body_entered.connect(func(body: Node2D) -> void:
 		if not body is Player:
 			return
 
 		player_inside = true
 	)
-	player_detector.body_exited.connect(func(body: Node2D):
+	player_detector.body_exited.connect(func(body: Node2D) -> void:
 		if not body is Player:
 			return
 
@@ -76,17 +76,24 @@ func _get_transition() -> int:
 	match state:
 		IDLE:
 			if idle_timer.is_stopped():
-				return MOVE
+				if dis > MIN_DISTANCE_TO_JUMP:
+					return MOVE
+				else:
+					if not Snake.there_is_a_snake_hugging_the_player:
+						return PREJUMP
 		MOVE:
 			if dis <= MIN_DISTANCE_TO_JUMP:
-				return PREJUMP
+				if Snake.there_is_a_snake_hugging_the_player:
+					return IDLE
+				else:
+					return PREJUMP
 		PREJUMP:
 			if not animation_player.is_playing():
 				return JUMP
 		JUMP:
 			if jump_timer.is_stopped():
 				return MOVE
-			elif player_inside:
+			elif player_inside and not Snake.there_is_a_snake_hugging_the_player:
 				return HUG
 		HUG:
 			if player_attacks_when_hugged >= 3:
@@ -124,13 +131,15 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 
 			jump_timer.start()
 		HUG:
+			Snake.there_is_a_snake_hugging_the_player = true
+
 			parent.mov_direction = Vector2.ZERO
 			player_attacks_when_hugged = 0
 			collision_shape.set_deferred("disabled", true)
 			parent.player.weapons.disabled = true
 			parent.player.can_move = false
 			animation_player.play("hug")
-			for child in parent.get_children():
+			for child: Node in parent.get_children():
 				if child is Node2D:
 					child.position.y -= 4
 			set_process_unhandled_input(true)
@@ -149,10 +158,12 @@ func _exit_state(state_exited: int) -> void:
 			parent.data.max_speed = 160
 			jump_timer.stop()
 		HUG:
+			Snake.there_is_a_snake_hugging_the_player = false
+
 			collision_shape.set_deferred("disabled", false)
 			parent.player.weapons.disabled = false
 			parent.player.can_move = true
-			for child in parent.get_children():
+			for child: Node in parent.get_children():
 				if child is Node2D:
 					child.position.y += 4
 			set_process_unhandled_input(false)
