@@ -19,7 +19,7 @@ func unequip(player: Player) -> void:
 
 
 func get_icon() -> Texture2D:
-	return load("res://Art/items/boots_icon.png")
+	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/beherit.png")
 
 
 func _on_hp_changed(new_hp: int) -> void:

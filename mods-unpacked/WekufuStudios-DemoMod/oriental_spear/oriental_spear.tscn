@@ -53,7 +53,8 @@ _data = {
 
 [node name="OrientalSpear" instance=ExtResource("1_wj7tv")]
 script = ExtResource("2_xja4i")
-throw_speed = 200
+throw_speed = null
+on_floor = null
 
 [node name="Node2D" parent="." index="0"]
 rotation = 1.39626
