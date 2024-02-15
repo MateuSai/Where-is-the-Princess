@@ -1,9 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://cjc0h245lbmpd"]
+[gd_scene load_steps=13 format=3 uid="uid://cjc0h245lbmpd"]
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_ph15r"]
 [ext_resource type="Script" path="res://Weapons/Melee/Katana/Katana.gd" id="2_7omnp"]
 [ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="3_xhct7"]
-[ext_resource type="Texture2D" uid="uid://cubmwrwdwupb8" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/Katana UI icon.png" id="3_xtsvr"]
 [ext_resource type="Texture2D" uid="uid://cyt2xu4k2v10u" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/katana.png" id="4_npc6b"]
 [ext_resource type="AnimationLibrary" uid="uid://d177jeworynq6" path="res://Weapons/animation_libraries/quick_swing_animation_library.tres" id="6_e7xgf"]
 
@@ -262,12 +261,7 @@ _data = {
 
 [node name="Katana" instance=ExtResource("1_ph15r")]
 script = ExtResource("2_7omnp")
-num_normal_attacks = 2
-increase_num_normal_attacks_on_ability = true
-invert_scale_when_looking_left = false
 throw_speed = 200
-type = 1
-active_ability_icon = ExtResource("3_xtsvr")
 
 [node name="WeaponSprite" parent="Node2D" index="0"]
 material = SubResource("ShaderMaterial_hwkdh")
