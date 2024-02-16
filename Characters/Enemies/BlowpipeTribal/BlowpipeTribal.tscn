@@ -149,6 +149,7 @@ shape = SubResource("CapsuleShape2D_w2kga")
 [node name="AttackTimer" type="Timer" parent="." index="12"]
 wait_time = 1.5
 one_shot = true
+autostart = true
 
 [node name="BlowpipePivot" type="Node2D" parent="." index="13"]
 position = Vector2(0, -3)
