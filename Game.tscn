@@ -1,9 +1,11 @@
-[gd_scene load_steps=38 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=40 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
+[ext_resource type="Script" path="res://day_night_system.gd" id="4_83i0d"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="4_usvbv"]
 [ext_resource type="Script" path="res://ui/UI.gd" id="5_c0f27"]
+[ext_resource type="Script" path="res://day_night_fsm.gd" id="5_c8y6e"]
 [ext_resource type="Script" path="res://Components/tab_container_controller_support.gd" id="6_25qhk"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="6_ml8df"]
 [ext_resource type="Script" path="res://ui/menu_tab_container.gd" id="6_y3275"]
@@ -90,6 +92,15 @@ layer_1/tile_data = PackedInt32Array()
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.152941, 0.152941, 0.152941, 1)
+
+[node name="DayNightSystem" type="DirectionalLight2D" parent="."]
+rotation = 1.37706
+height = 0.51
+max_distance = 500.0
+script = ExtResource("4_83i0d")
+
+[node name="DayNightFSM" type="Node" parent="DayNightSystem"]
+script = ExtResource("5_c8y6e")
 
 [node name="GeneratingDungeonCanvasLayer" type="CanvasLayer" parent="."]
 

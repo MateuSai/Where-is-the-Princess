@@ -1,6 +1,7 @@
 {
 	"name": "SEWER",
 
+	"day_night_cycle": false,
 	"background_color": "04171a",
 	"light_color": "272727",
 

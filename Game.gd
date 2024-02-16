@@ -32,7 +32,10 @@ func _init() -> void:
 
 func _ready() -> void:
 	RenderingServer.set_default_clear_color(SavedData.get_biome_conf().background_color)
-	canvas_modulate.color = SavedData.get_biome_conf().light_color
+	if SavedData.get_biome_conf().day_night_cycle:
+		canvas_modulate.color = Color.BLACK
+	else:
+		canvas_modulate.color = SavedData.get_biome_conf().light_color
 	#print_debug("Game _ready")
 
 	set_process(false)

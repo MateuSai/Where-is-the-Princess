@@ -63,7 +63,7 @@ func _ready() -> void:
 func _exit_tree() -> void:
 	super()
 
-	SavedData.save_data()
+	SavedData.data.save()
 
 
 func _set_seed() -> void:
