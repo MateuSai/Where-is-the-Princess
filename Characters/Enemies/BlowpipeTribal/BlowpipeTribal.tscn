@@ -153,6 +153,7 @@ autostart = true
 
 [node name="BlowpipePivot" type="Node2D" parent="." index="13"]
 position = Vector2(0, -3)
+rotation = -0.0471373
 
 [node name="Sprite2D" type="Sprite2D" parent="BlowpipePivot" index="0"]
 position = Vector2(5, 0)
