@@ -61,8 +61,13 @@ func _on_animation_started(anim_name: StringName) -> void:
 		projectile_speed = normal_attack_projectile_speed
 
 
-static func get_data(id: String) -> WeaponData:
+static func get_data(path: String) -> WeaponData:
+	var id: String = get_id_from_path(path)
 	if DB.has(id):
 		return RangedWeaponData.from_dic(DB[id])
 	else:
-		return null
+		var data_path: String = path.replace(path.get_file(), "data.tres")
+		if FileAccess.file_exists(data_path):
+			return load(data_path)
+
+	return null

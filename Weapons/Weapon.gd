@@ -33,11 +33,7 @@ var tween: Tween = null
 
 
 func _ready() -> void:
-	if DB.has(weapon_id):
-		data = get_data(weapon_id)
-	else:
-		var data_path: String = scene_file_path.replace(scene_file_path.get_file(), "data.tres")
-		data = load(data_path)
+	data = get_data(weapon_id)
 
 	if not on_floor:
 		player_detector.set_collision_mask_value(1, false)
@@ -346,8 +342,13 @@ static func get_id_from_path(path: String) -> String:
 	return path.get_file().trim_suffix(".tscn").to_snake_case()
 
 
-static func get_data(id: String) -> WeaponData:
+static func get_data(path: String) -> WeaponData:
+	var id: String = get_id_from_path(path)
 	if DB.has(id):
 		return WeaponData.from_dic(DB[id])
 	else:
-		return null
+		var data_path: String = path.replace(path.get_file(), "data.tres")
+		if FileAccess.file_exists(data_path):
+			return load(data_path)
+
+	return null

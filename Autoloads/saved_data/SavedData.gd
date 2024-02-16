@@ -8,9 +8,10 @@ const DATA_SAVE_NAME: String = "data.json"
 const RUN_STATS_SAVE_NAME: String = "run_stats.res"
 
 var data: Data
+signal data_loaded()
 var statistics: Statistics
 
-var volatile_room_paths: Dictionary = {}
+var mod_room_paths: Dictionary = {}
 
 var mod_weapon_paths: PackedStringArray = []
 
@@ -33,6 +34,7 @@ func _ready() -> void:
 	print("--- SavedData ---")
 	# save_data()
 	_load_data()
+	data_loaded.emit()
 	statistics = Statistics._load()
 	#print(data)
 
@@ -228,35 +230,42 @@ func add_volatile_room(mod_id: String, room_path: String, biome: String, room_ty
 	room_type = room_type.to_lower()
 	end_to = end_to.to_lower()
 
-	if not volatile_room_paths.has(biome):
-		volatile_room_paths[biome] = {}
-	if not volatile_room_paths[biome].has(room_type):
+	if not mod_room_paths.has(biome):
+		mod_room_paths[biome] = {}
+	if not mod_room_paths[biome].has(room_type):
 		@warning_ignore("incompatible_ternary")
-		volatile_room_paths[biome][room_type] = ({} if room_type == "end" else [])
+		mod_room_paths[biome][room_type] = ({} if room_type == "end" else [])
 
 	if room_type == "end" and not end_to.is_empty():
-		if not volatile_room_paths[biome][room_type].has(end_to):
-			volatile_room_paths[biome][room_type][end_to] = []
-		volatile_room_paths[biome][room_type][end_to].push_back(room_path)
+		if not mod_room_paths[biome][room_type].has(end_to):
+			mod_room_paths[biome][room_type][end_to] = []
+		mod_room_paths[biome][room_type][end_to].push_back(room_path)
 	else:
-		volatile_room_paths[biome][room_type].push_back(room_path)
+		mod_room_paths[biome][room_type].push_back(room_path)
 
 	ModLoaderLog.success(room_path + " with biome " + biome + " and type " + room_type + " added succesfully", mod_id)
 
 
-func get_volatile_room_paths(biome: String, room_type: String, end_to: String = "") -> PackedStringArray:
+func get_mod_room_paths(biome: String, room_type: String, end_to: String = "") -> PackedStringArray:
 	biome = biome.to_lower()
 	room_type = room_type.to_lower()
 	end_to = end_to.to_lower()
 
-	if volatile_room_paths.has(biome) and volatile_room_paths[biome].has(room_type) and room_type != "end":
-		var a: Array = volatile_room_paths[biome][room_type]
+	if mod_room_paths.has(biome) and mod_room_paths[biome].has(room_type) and room_type != "end":
+		var a: Array = mod_room_paths[biome][room_type]
 		return PackedStringArray(a)
-	elif volatile_room_paths.has(biome) and volatile_room_paths[biome].has(room_type) and volatile_room_paths[biome][room_type].has(end_to):
-		var a: Array = volatile_room_paths[biome][room_type][end_to]
+	elif mod_room_paths.has(biome) and mod_room_paths[biome].has(room_type) and mod_room_paths[biome][room_type].has(end_to):
+		var a: Array = mod_room_paths[biome][room_type][end_to]
 		return PackedStringArray(a)
 	else:
 		return PackedStringArray([])
+
+
+func add_mod_weapon(weapon_path: String) -> void:
+	if mod_weapon_paths.has(weapon_path):
+		return
+
+	mod_weapon_paths.push_back(weapon_path)
 
 
 func add_extra_available_weapon(weapon_path: String) -> void:
