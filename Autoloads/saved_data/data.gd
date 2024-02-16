@@ -1,5 +1,7 @@
 class_name Data
 
+const SAVE_NAME: String = "data.json"
+
 #region Data available from start
 const ALL_VANILLA_WEAPONS: PackedStringArray = ["res://Weapons/Dagger.tscn", "res://Weapons/Melee/Katana/Katana.tscn", "res://Weapons/Melee/spear/Spear.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/KombatHammer/KombatHammer.tscn", "res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/Scimitar/Scimitar.tscn", "res://Weapons/Melee/SharpAxe/SharpAxe.tscn", "res://Weapons/Melee/SmallAxe/SmallAxe.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn", "res://Weapons/Melee/WarHammer/WarHammer.tscn", "res://Weapons/Melee/WarriorSword/WarriorSword.tscn", "res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn", "res://Weapons/Ranged/Bows/short_wooden_bow/short_wooden_bow.tscn", "res://Weapons/Melee/rusty_sword/rusty_sword.tscn", "res://Weapons/Ranged/crossbows/wooden_crossbow/wooden_crossbow.tscn", "res://Weapons/Ranged/crossbows/royal_crossbow/royal_crossbow.tscn"]
 const AVAILABLE_WEAPONS_FROM_START: PackedStringArray = ["res://Weapons/Melee/Katana/Katana.tscn", "res://Weapons/Melee/spear/Spear.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/KombatHammer/KombatHammer.tscn", "res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/Scimitar/Scimitar.tscn", "res://Weapons/Melee/SharpAxe/SharpAxe.tscn", "res://Weapons/Melee/SmallAxe/SmallAxe.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn", "res://Weapons/Melee/WarHammer/WarHammer.tscn", "res://Weapons/Melee/WarriorSword/WarriorSword.tscn", "res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn", "res://Weapons/Ranged/crossbows/royal_crossbow/royal_crossbow.tscn"]
@@ -41,6 +43,32 @@ var items_shop_unlocked: bool = false
 var player_upgrades_shop_unlocked: bool = false
 
 
+func save() -> void:
+	var file: FileAccess = FileAccess.open(SavedData.USER_FOLDER + SAVE_NAME, FileAccess.WRITE)
+	if not file:
+		printerr("Error opening " + SavedData.USER_FOLDER + SAVE_NAME + " for writing!! I can't save your data, bro")
+		return
+	file.store_string(JSON.stringify(to_dic(), "\t"))
+	file.close()
+	#print(JSON.new().stringify(data, "\t"))
+
+
+static func _load() -> Data:
+	var file: FileAccess = FileAccess.open(SavedData.USER_FOLDER + SAVE_NAME, FileAccess.READ)
+	if file:
+		print("Save data found. Loading it...")
+		var json: JSON = JSON.new()
+		json.parse(file.get_as_text())
+		if json.data is Dictionary:
+			return Data.from_dic(json.data as Dictionary)
+		else:
+			printerr("Could not load file data as json, using default values...")
+	else:
+		print("No save data found, using default value...")
+
+	return Data.new()
+
+
 func get_extra_max_hp() -> int:
 	var extra_hp: int = 0
 
@@ -69,6 +97,7 @@ func get_available_weapons() -> PackedStringArray:
 func discover_weapon_if_not_already(weapon_path: String) -> void:
 	if not _discovered_weapons.has(weapon_path):
 		_discovered_weapons.push_back(weapon_path)
+		save()
 
 
 func get_discovered_weapons() -> PackedStringArray:
@@ -84,6 +113,7 @@ func get_available_armors() -> PackedStringArray:
 func discover_armor_if_not_already(armor_path: String) -> void:
 	if not _discovered_armors.has(armor_path):
 		_discovered_armors.push_back(armor_path)
+		save()
 
 
 func get_discovered_armors() -> PackedStringArray:
@@ -99,6 +129,7 @@ func get_available_permanent_items() -> PackedStringArray:
 func discover_permanent_item_if_not_already(item_path: String) -> void:
 	if not _discovered_permanent_items.has(item_path):
 		_discovered_permanent_items.push_back(item_path)
+		save()
 
 
 func get_discovered_permanent_items() -> PackedStringArray:
@@ -114,6 +145,7 @@ func get_available_temporal_items() -> PackedStringArray:
 func discover_temporal_item_if_not_already(item_path: String) -> void:
 	if not _discovered_temporal_items.has(item_path):
 		_discovered_temporal_items.push_back(item_path)
+		save()
 
 
 func get_discovered_temporal_items() -> PackedStringArray:
@@ -129,25 +161,30 @@ func get_available_player_upgrades() -> PackedStringArray:
 func add_extra_available_weapon(weapon_path: String) -> void:
 	if not _extra_available_weapons.has(weapon_path):
 		_extra_available_weapons.push_back(weapon_path)
+		save()
 
 
 func add_extra_available_armor(armor_path: String) -> void:
 	if not _extra_available_armors.has(armor_path):
 		_extra_available_armors.push_back(armor_path)
+		save()
 
 
 func add_extra_available_permanent_item(item_path: String) -> void:
 	if not _extra_available_permanent_items.has(item_path):
 		_extra_available_permanent_items.push_back(item_path)
+		save()
 
 
 func add_extra_available_temporal_item(item_path: String) -> void:
 	if not _extra_available_temporal_items.has(item_path):
 		_extra_available_temporal_items.push_back(item_path)
+		save()
 
 
 func add_completed_dialogue(dialogue: String) -> void:
 	_completed_dialogues.push_back(dialogue)
+	save()
 
 
 func has_completed_dialogue(dialogue: String) -> bool:
