@@ -446,7 +446,7 @@ func _spawn_enemies() -> void:
 		#else:
 		var enemy_scene: PackedScene = Globals.get_enemy_scene(enemy_marker.enemy_name)
 		if not enemy_scene:
-			push_error("Invalid enemy " + enemy_marker.enemy_name + " on room " + name)
+			push_error("Invalid enemy " + enemy_marker.enemy_name + " on room " + scene_file_path)
 			return
 		enemy = enemy_scene.instantiate()
 		enemy.position = enemy_marker.position
