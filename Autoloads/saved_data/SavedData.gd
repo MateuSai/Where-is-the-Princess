@@ -3,14 +3,14 @@ extends Node
 const BIOMES_FOLDER_PATH: String = "res://Rooms/Biomes/"
 
 const USER_FOLDER: String = "user://"
-const DATA_SAVE_NAME: String = "data.json"
 
 const RUN_STATS_SAVE_NAME: String = "run_stats.res"
 
 var data: Data
+signal data_loaded()
 var statistics: Statistics
 
-var volatile_room_paths: Dictionary = {}
+var mod_room_paths: Dictionary = {}
 
 var mod_weapon_paths: PackedStringArray = []
 
@@ -32,7 +32,8 @@ signal dark_souls_changed(new_value: int)
 func _ready() -> void:
 	print("--- SavedData ---")
 	# save_data()
-	_load_data()
+	data = Data._load()
+	data_loaded.emit()
 	statistics = Statistics._load()
 	#print(data)
 
@@ -45,32 +46,6 @@ func _ready() -> void:
 	assert(user_dir) # Siempre deberiamos poder abrir el directorio del usuario
 
 	print("\t")
-
-
-func save_data() -> void:
-	var file: FileAccess = FileAccess.open(USER_FOLDER + DATA_SAVE_NAME, FileAccess.WRITE)
-	if not file:
-		printerr("Error opening " + USER_FOLDER + DATA_SAVE_NAME + " for writing!! I can't save your data, bro")
-		return
-	file.store_string(JSON.stringify(data.to_dic(), "\t"))
-	file.close()
-	#print(JSON.new().stringify(data, "\t"))
-
-
-func _load_data() -> void:
-	var file: FileAccess = FileAccess.open(USER_FOLDER + DATA_SAVE_NAME, FileAccess.READ)
-	if file:
-		print("Save data found. Loading it...")
-		var json: JSON = JSON.new()
-		json.parse(file.get_as_text())
-		if json.data is Dictionary:
-			data = Data.from_dic(json.data as Dictionary)
-		else:
-			printerr("Could not load file data as json, using default values...")
-			data = Data.new()
-	else:
-		print("No save data found, using default value...")
-		data = Data.new()
 
 
 func save_run_stats() -> void:
@@ -110,7 +85,6 @@ func add_enemy_times_killed(enemy_id: StringName) -> void:
 	var enemy_unlock_weapon_on_kills: UnlockWeaponOnKills = Globals.get_enemy_unlock_weapon_on_kills(enemy_id)
 	if enemy_unlock_weapon_on_kills and statistics.get_enemy_statistics(enemy_id).times_killed == enemy_unlock_weapon_on_kills.kills_necessary:
 		add_extra_available_weapon(enemy_unlock_weapon_on_kills.weapon_path)
-		save_data()
 
 
 func add_enemy_player_kill(enemy_id: String) -> void:
@@ -194,7 +168,7 @@ func get_ignored_rooms() -> PackedStringArray:
 
 func add_ignored_room(room_path: String) -> void:
 	data.ignored_rooms.push_back(room_path)
-	save_data()
+	data.save()
 
 
 ## You can specify a vanilla biome like [code]"forest"[/code] or [code]"sewer"[/code] or you can use an absolute path to the config.json for your own biome
@@ -228,41 +202,46 @@ func add_volatile_room(mod_id: String, room_path: String, biome: String, room_ty
 	room_type = room_type.to_lower()
 	end_to = end_to.to_lower()
 
-	if not volatile_room_paths.has(biome):
-		volatile_room_paths[biome] = {}
-	if not volatile_room_paths[biome].has(room_type):
+	if not mod_room_paths.has(biome):
+		mod_room_paths[biome] = {}
+	if not mod_room_paths[biome].has(room_type):
 		@warning_ignore("incompatible_ternary")
-		volatile_room_paths[biome][room_type] = ({} if room_type == "end" else [])
+		mod_room_paths[biome][room_type] = ({} if room_type == "end" else [])
 
 	if room_type == "end" and not end_to.is_empty():
-		if not volatile_room_paths[biome][room_type].has(end_to):
-			volatile_room_paths[biome][room_type][end_to] = []
-		volatile_room_paths[biome][room_type][end_to].push_back(room_path)
+		if not mod_room_paths[biome][room_type].has(end_to):
+			mod_room_paths[biome][room_type][end_to] = []
+		mod_room_paths[biome][room_type][end_to].push_back(room_path)
 	else:
-		volatile_room_paths[biome][room_type].push_back(room_path)
+		mod_room_paths[biome][room_type].push_back(room_path)
 
 	ModLoaderLog.success(room_path + " with biome " + biome + " and type " + room_type + " added succesfully", mod_id)
 
 
-func get_volatile_room_paths(biome: String, room_type: String, end_to: String = "") -> PackedStringArray:
+func get_mod_room_paths(biome: String, room_type: String, end_to: String = "") -> PackedStringArray:
 	biome = biome.to_lower()
 	room_type = room_type.to_lower()
 	end_to = end_to.to_lower()
 
-	if volatile_room_paths.has(biome) and volatile_room_paths[biome].has(room_type) and room_type != "end":
-		var a: Array = volatile_room_paths[biome][room_type]
+	if mod_room_paths.has(biome) and mod_room_paths[biome].has(room_type) and room_type != "end":
+		var a: Array = mod_room_paths[biome][room_type]
 		return PackedStringArray(a)
-	elif volatile_room_paths.has(biome) and volatile_room_paths[biome].has(room_type) and volatile_room_paths[biome][room_type].has(end_to):
-		var a: Array = volatile_room_paths[biome][room_type][end_to]
+	elif mod_room_paths.has(biome) and mod_room_paths[biome].has(room_type) and mod_room_paths[biome][room_type].has(end_to):
+		var a: Array = mod_room_paths[biome][room_type][end_to]
 		return PackedStringArray(a)
 	else:
 		return PackedStringArray([])
 
 
+func add_mod_weapon(weapon_path: String) -> void:
+	if mod_weapon_paths.has(weapon_path):
+		return
+
+	mod_weapon_paths.push_back(weapon_path)
+
+
 func add_extra_available_weapon(weapon_path: String) -> void:
 	data.add_extra_available_weapon(weapon_path)
-
-	save_data()
 
 
 func get_available_weapon_paths() -> PackedStringArray:
@@ -285,8 +264,6 @@ func get_discovered_weapon_paths() -> PackedStringArray:
 func discover_weapon_if_not_already(weapon_path: String) -> void:
 	data.discover_weapon_if_not_already(weapon_path)
 
-	save_data()
-
 
 func get_random_available_weapon_path() -> String:
 	var available_weapons: PackedStringArray = get_available_weapon_paths()
@@ -296,8 +273,6 @@ func get_random_available_weapon_path() -> String:
 
 func add_extra_available_armor(armor_path: String) -> void:
 	data.add_extra_available_armor(armor_path)
-
-	save_data()
 
 
 func get_random_available_armor_path(quality: Item.Quality) -> String:
@@ -334,8 +309,6 @@ func add_mod_armor(armor_path: String) -> void:
 func discover_armor_if_not_already(armor_path: String) -> void:
 	data.discover_armor_if_not_already(armor_path)
 
-	save_data()
-
 
 func discover_mod_armor(armor_path: String) -> void:
 	if not mod_armor_paths.has(armor_path):
@@ -371,8 +344,6 @@ func get_discovered_all_items_paths() -> PackedStringArray:
 func add_extra_available_temporal_item(item_path: String) -> void:
 	data.add_extra_available_temporal_item(item_path)
 
-	save_data()
-
 
 ## Adds a temporal item only for this session. Use this for mods to load the item each time the mod loads.
 func add_mod_temporal_item(item_path: String) -> void:
@@ -385,8 +356,6 @@ func add_mod_temporal_item(item_path: String) -> void:
 func discover_temporal_item_if_not_already(item_path: String) -> void:
 	data.discover_temporal_item_if_not_already(item_path)
 
-	save_data()
-
 
 func get_available_temporal_item_paths() -> PackedStringArray:
 	var temporal_item_paths: Array = data.get_available_temporal_items().duplicate()
@@ -396,8 +365,6 @@ func get_available_temporal_item_paths() -> PackedStringArray:
 
 func add_extra_available_permanent_item(item_path: String) -> void:
 	data.add_extra_available_permanent_item(item_path)
-
-	save_data()
 
 
 ## Adds a permanent item only for this session. Use this for mods to load the item each time the mod loads.
@@ -410,8 +377,6 @@ func add_mod_permanent_item(item_path: String) -> void:
 
 func discover_permanent_item_if_not_already(item_path: String) -> void:
 	data.discover_permanent_item_if_not_already(item_path)
-
-	save_data()
 
 
 func get_available_permanent_item_paths() -> PackedStringArray:
@@ -446,5 +411,3 @@ func get_limit_entrance_connections_to_one() -> bool:
 
 func add_completed_dialogue(dialogue: String) -> void:
 	data.add_completed_dialogue(dialogue)
-
-	save_data()

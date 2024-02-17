@@ -246,8 +246,13 @@ func _set_damage_dealer_id(new_id: String) -> void:
 	hitbox.damage_dealer_id = damage_dealer_id
 
 
-static func get_data(id: String) -> WeaponData:
+static func get_data(path: String) -> WeaponData:
+	var id: String = get_id_from_path(path)
 	if DB.has(id):
 		return MeleeWeaponData.from_dic(DB[id])
 	else:
-		return null
+		var data_path: String = path.replace(path.get_file(), "data.tres")
+		if FileAccess.file_exists(data_path):
+			return load(data_path)
+
+	return null

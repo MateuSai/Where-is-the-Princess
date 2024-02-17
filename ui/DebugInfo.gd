@@ -1,10 +1,12 @@
 extends VBoxContainer
 
+@warning_ignore("shadowed_variable_base_class")
 static var is_visible: bool = false
 
 @onready var fps_label: Label = get_node("FpsLabel")
 @onready var memory_label: Label = get_node("MemoryLabel")
 @onready var memory_peak_label: Label = get_node("MemoryPeakLabel")
+@onready var time_label: Label = $TimeLabel
 
 
 func _ready() -> void:
@@ -31,3 +33,4 @@ func _process(_delta: float) -> void:
 	fps_label.text = str("FPS: ", Engine.get_frames_per_second())
 	memory_label.text = str(snappedf(OS.get_static_memory_usage() / 1000000.0, 0.01)) + " MB"
 	memory_peak_label.text = tr("Peak") + ": " + str(snappedf(OS.get_static_memory_peak_usage() / 1000000.0, 0.01)) + " MB"
+	time_label.text = str(snappedf(DayNightSystem.time, 0.01))

@@ -28,8 +28,7 @@ func _set_category(new_category: int) -> void:
 		WEAPONS:
 			var discovered_weapon_paths: PackedStringArray = SavedData.get_discovered_weapon_paths()
 			for weapon_path: String in SavedData.get_all_weapon_paths():
-				var id: String = Weapon.get_id_from_path(weapon_path)
-				var weapon_data: WeaponData = Weapon.get_data(id)
+				var weapon_data: WeaponData = Weapon.get_data(weapon_path)
 				var button: Button = Button.new()
 				button.icon = weapon_data.prop
 				if not discovered_weapon_paths.has(weapon_path):
@@ -38,7 +37,7 @@ func _set_category(new_category: int) -> void:
 				else:
 					button.pressed.connect(func() -> void:
 						_clear_details()
-						_show_weapon_details(id, weapon_data)
+						_show_weapon_details(Weapon.get_id_from_path(weapon_path), weapon_data)
 					)
 				flow_container.add_child(button)
 		ARMORS:

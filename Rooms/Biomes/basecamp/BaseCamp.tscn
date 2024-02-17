@@ -433,11 +433,3 @@ position = Vector2(195, 49)
 
 [node name="SleepingBag" parent="." instance=ExtResource("39_sleg1")]
 position = Vector2(169, 156)
-
-[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-rotation = 1.37706
-height = 0.51
-max_distance = 500.0
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0, 0, 0, 1)

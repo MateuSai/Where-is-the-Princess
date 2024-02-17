@@ -9,7 +9,7 @@
 script = ExtResource("1_hwpl5")
 num_normal_attacks = 1
 increase_num_normal_attacks_on_ability = false
-invert_scale_when_looking_left = false
+invert_scale_when_looking_left = true
 type = 0
 weapon_name = "ORIENTAL_SPEAR"
 description = ""
@@ -17,7 +17,7 @@ prop = ExtResource("2_bj0vf")
 icon = ExtResource("1_gcw4w")
 stamina_cost_per_normal_attack = 10.0
 condition_cost_per_normal_attack = 5.0
-animation_library = "oriental_spear"
+animation_library = "oriental_spear_animation_library"
 active_ability_icon = ExtResource("1_umdoq")
 stamina_to_activate_active_ability = 20.0
 souls_to_activate_ability = 3

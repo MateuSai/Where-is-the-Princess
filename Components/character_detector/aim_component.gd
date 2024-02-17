@@ -32,9 +32,9 @@ func get_dir(from: Vector2 = Vector2.ZERO) -> AimResult:
 		var raycast_res: Dictionary = space_state.intersect_ray(query)
 		if not raycast_res.is_empty():
 			target_predicted_future_position = raycast_res.position + (target.global_position - raycast_res.position).normalized() * 4
-		res = AimResult.new((target_predicted_future_position - character.global_position).normalized(), _is_trajectory_clear(target_predicted_future_position))
+		res = AimResult.new((target_predicted_future_position - character.global_position).normalized(), _is_trajectory_clear(from, target_predicted_future_position))
 	else:
-		res = AimResult.new((target.global_position - from).normalized(), _is_trajectory_clear(target.global_position))
+		res = AimResult.new((target.global_position - from).normalized(), _is_trajectory_clear(from, target.global_position))
 
 	if flags & FLAG_REDUCE_PRECISION_WHEN_MOVING and character.velocity.length() > 10:
 		res.dir = res.dir.rotated(randf_range(-0.2, 0.2))
@@ -43,10 +43,16 @@ func get_dir(from: Vector2 = Vector2.ZERO) -> AimResult:
 	return res
 
 
-func _is_trajectory_clear(to: Vector2) -> bool:
+func _is_trajectory_clear(from: Vector2, to: Vector2) -> bool:
 	var space_state: PhysicsDirectSpaceState2D = character.get_world_2d().direct_space_state
 	# use global coordinates, not local to node
-	var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(character.global_position, to, 1 | character.collision_layer)
+	var exclude: Array[RID] = []
+	exclude.push_back(character.get_rid())
+	if character.has_node("HurtBox"):
+		exclude.push_back((character.get_node("HurtBox") as HurtBox).get_rid())
+	var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(from, to, 1 | character.collision_layer, exclude)
+	query.collide_with_areas = true
+	query.hit_from_inside  = true
 	return space_state.intersect_ray(query).is_empty()
 
 

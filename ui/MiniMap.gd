@@ -34,6 +34,7 @@ func _ready() -> void:
 	set_process(false)
 
 	draw.connect(func() -> void:
+		scroll_to_player()
 		set_process(true)
 		_on_draw()
 	)

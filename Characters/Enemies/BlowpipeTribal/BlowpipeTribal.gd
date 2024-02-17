@@ -4,7 +4,7 @@ const DART_SCENE: PackedScene = preload("res://Characters/Enemies/BlowpipeTribal
 
 @export var projectile_speed: int = 150
 
-var can_attack: bool = true
+var can_attack: bool = false
 
 @onready var attack_timer: Timer = get_node("AttackTimer")
 @onready var blowpipe_pivot: Node2D = $BlowpipePivot

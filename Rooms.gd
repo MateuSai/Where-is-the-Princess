@@ -148,13 +148,13 @@ func _get_rooms(type: String) -> PackedStringArray:
 		room_paths = overwrite_room_paths
 	else:
 		if type.to_lower().begins_with("end"):
-			room_paths = SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "end", type.split("/")[1])
+			room_paths = SavedData.get_mod_room_paths(SavedData.run_stats.biome, "end", type.split("/")[1])
 		else:
-			room_paths = SavedData.get_volatile_room_paths(SavedData.run_stats.biome, type)
+			room_paths = SavedData.get_mod_room_paths(SavedData.run_stats.biome, type)
 
 		var rooms_dir: DirAccess = DirAccess.open(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type)
 		if room_paths.is_empty() and rooms_dir == null:
-			push_error("Error opening " + BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "!")
+			print_rich("[color=yellow]Error opening " + BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "![/color]")
 			return []
 		if rooms_dir:
 			for file: String in rooms_dir.get_files():
@@ -210,11 +210,11 @@ func spawn_rooms() -> void:
 	var special_room_paths: PackedStringArray = _get_rooms("Special")
 	var end_room_paths: Array[PackedStringArray] = _get_end_rooms()
 
-#	room_paths.start.append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "start"))
-#	room_paths.combat.append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "combat"))
-#	room_paths.special.append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "special"))
+#	room_paths.start.append_array(SavedData.get_mod_room_paths(SavedData.run_stats.biome, "start"))
+#	room_paths.combat.append_array(SavedData.get_mod_room_paths(SavedData.run_stats.biome, "combat"))
+#	room_paths.special.append_array(SavedData.get_mod_room_paths(SavedData.run_stats.biome, "special"))
 #	for end_to in room_paths.end:
-#		room_paths.end[end_to].append_array(SavedData.get_volatile_room_paths(SavedData.run_stats.biome, "special"))
+#		room_paths.end[end_to].append_array(SavedData.get_mod_room_paths(SavedData.run_stats.biome, "special"))
 
 	# print(room_paths)
 	start_room = (load(start_room_paths[randi() % start_room_paths.size()]) as PackedScene).instantiate()
@@ -230,7 +230,7 @@ func spawn_rooms() -> void:
 		rooms.push_back(end_room)
 
 	if end_rooms.is_empty():
-		push_error("No end rooms for this level. Make sure you put the rooms on the correct folder, a subfolder of the 'End' folder")
+		print_rich("[color=yellow]No end rooms for this level. Make sure you put the rooms on the correct folder, a subfolder of the 'End' folder[/color]")
 
 	var num_special_rooms: int = SavedData.get_num_rooms("special")
 	for i: int in num_special_rooms:

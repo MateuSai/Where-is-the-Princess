@@ -1,6 +1,7 @@
 {
 	"name": "BASE_CAMP",
 
+	"day_night_cycle": true,
 	"background_color": "1a1c00",
 	"light_color": "878787",
 

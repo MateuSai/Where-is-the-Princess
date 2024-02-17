@@ -59,7 +59,7 @@ func _get_transition() -> int:
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
 		WANDER:
-			enemy.max_speed = 40
+			enemy.data.max_speed = 40
 			pathfinding_component.set_mode(PathfindingComponent.Wander.new())
 			wander_timer.start(randf_range(3.0, 6.0))
 		IDLE:
@@ -69,7 +69,7 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 				animation_player.play("idle_up")
 			idle_timer.start(randf_range(1.2, 2.5))
 		CHASE:
-			enemy.max_speed = 75
+			enemy.data.max_speed = 75
 			pathfinding_component.set_mode(PathfindingComponent.Approach.new())
 			#animation_player.play("fly")
 		ATTACK:

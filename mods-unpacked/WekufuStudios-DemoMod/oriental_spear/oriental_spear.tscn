@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bniwnj5mwimkj"]
+[gd_scene load_steps=11 format=3 uid="uid://bniwnj5mwimkj"]
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_wj7tv"]
 [ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="2_ur1xs"]
@@ -9,38 +9,72 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6p8i7"]
 resource_local_to_scene = true
 shader = ExtResource("2_ur1xs")
-shader_parameter/active = true
+shader_parameter/active = false
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kqjqc"]
 radius = 3.0
-height = 20.2591
+height = 14.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ff3xx"]
 radius = 3.53154
-height = 41.7738
+height = 32.0
+
+[sub_resource type="Animation" id="Animation_7jh7l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/WeaponSprite:material:shader_parameter/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/WeaponSprite/ChargeParticles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l7x7i"]
+_data = {
+"RESET": SubResource("Animation_7jh7l")
+}
 
 [node name="OrientalSpear" instance=ExtResource("1_wj7tv")]
 script = ExtResource("2_xja4i")
+throw_speed = 200
 
 [node name="Node2D" parent="." index="0"]
-rotation = 1.13446
+rotation = 1.39626
 
 [node name="WeaponSprite" parent="Node2D" index="0"]
 material = SubResource("ShaderMaterial_6p8i7")
-position = Vector2(-5, 0)
-rotation = 0.436332
+position = Vector2(1.61997, -14.9458)
+rotation = 0.169297
 texture = ExtResource("3_5la21")
-offset = Vector2(0, 3)
+offset = Vector2(0, -2)
 
 [node name="CollisionShape2D" parent="Node2D/WeaponSprite/Hitbox" index="0"]
-position = Vector2(-0.468443, -6.11311)
+position = Vector2(-0.468421, -11.1131)
 shape = SubResource("CapsuleShape2D_kqjqc")
 
 [node name="CollisionShape2D" parent="Node2D/WeaponSprite/PlayerDetector" index="0"]
-position = Vector2(-0.468482, 2.88689)
+position = Vector2(-0.468461, -2.11311)
 shape = SubResource("CapsuleShape2D_ff3xx")
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {
+"": SubResource("AnimationLibrary_l7x7i"),
 "oriental_spear_animation_library": ExtResource("4_rt1e5")
 }
