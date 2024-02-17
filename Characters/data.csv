@@ -28,7 +28,7 @@ skelebrommer,7,25,0.1,100,0,1,0,10,BONES,,res://Art/16x16 Pixel Art Roguellike S
 skelebromancer,5,20,0.1,80,0,1,0,10,BONES,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebromancer_icon.png,1-2,1,0,0.05,0.05
 pile_of_bones,9,130,0.1,0,0,0,1,10,BONES,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_bonepile.png,1-2,1,0,0,0
 insecton_musk,6,15,0.1,120,1,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/insector/insector_musk_icon.png,1-2,1-2,0,0.1,0.1
-rat,1,3,0.1,75,0,1,0,0,FLESH,,,0-1,0-1,0,0.03,0.03
+rat,1,3,0.1,75,0,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Rat/rat_icon.png,0-1,0-1,0,0.03,0.03
 ,,,,,,,,,,,,,,,,
 boden_the_druid,15,55,0.1,110,0,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/boss_druid/boden_icon.png,5-8,5-7,1,1,1
 necro_tromp,25,65,0.1,65,0,1,0,0,FLESH,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Tromp the necromancer/tromp_icon.png,6-10,10-15,1,1,1

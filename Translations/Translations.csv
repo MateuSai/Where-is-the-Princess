@@ -153,11 +153,24 @@ SPIDER,Spider,Aranya,Araña,クモ
 SPIDER_EGG,Spider Egg,Ou d’Aranyes,Huevo de Arañas,クモの卵
 SNAKE,Snake,Serp,Serpiente,ヘビ
 MOLE,Mole,Talp,Topo,モル
+RAT,Rat,Rata,Rata,ネズミ
 PILE_OF_BONES,Pile of Bones,Pila d'Ossos,Pila de Huesos,
 SMALL_SLIME,Small Slime,Bava Petit,Baba Pequeño,
 MEDIUM_SLIME,Medium Slime,Bava Mitja,Baba Mediano,
 BIG_SLIME,Big Slime,Bava Gran,Baba Grande,
 INSECTON_MUSK,Insecton Musk,Insecton Musk,Insecton Musk,
+NAKED_MARK,Naked Mark,Mark Despullat,Mark Desnudo,
+ARMORED_MARK,Armored Mark,Mark Blindat,Mark Blindado,
+AGGRESSOR_MARK,Aggressor Mark,Mark Agressor,Mark Agresor,
+SPEAR_TRIBAL,Spear Tribal,Tribal amb Llança,Tribal con Lanza,
+BOMB_TRIBAL,Bomb Tribal,Tribal amb Bomba,Tribal con Bomba,
+BLOWPIPE_TRIBAL,Blowpipe Tribal,Tribal amb Sarbatana,Tribal con Cerbatana,
+SHAMAN_TRIBAL,Shaman Tribal,Tribal Xaman,Tribal Chamán,
+SKELEBRO,Skelebro,Skelebro,Skelebro,
+ARCHELETON,Archeleton,Archeleton,Archeleton,
+DAGGER_SKELEBRO,Dagger Skelebro,Skelebro amb Daga,Skelebro con Daga,
+SKELEBROMMER,Skelebrommer,Skelebrommer,Skelebrommer,
+SKELEBROMANCER,Skelebromancer,Skelebromant,Skelebromante,
 BODEN_THE_DRUID,Boden the Druid,El Druida Boden,El Druida Boden,
 BODEN_THE_BEAR,Boden the Bear,L’Ós Boden,El Oso Boden,
 NECRO_TROMP,Necro Tromp,Nigro Tromp,Nigro Tromp,
