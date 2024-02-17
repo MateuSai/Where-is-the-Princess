@@ -102,6 +102,9 @@ script = ExtResource("4_83i0d")
 [node name="DayNightFSM" type="Node" parent="DayNightSystem"]
 script = ExtResource("5_c8y6e")
 
+[node name="UpdateTimer" type="Timer" parent="DayNightSystem"]
+wait_time = 0.15
+
 [node name="GeneratingDungeonCanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="GeneratingDungeonCanvasLayer"]

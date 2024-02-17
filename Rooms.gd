@@ -230,7 +230,7 @@ func spawn_rooms() -> void:
 		rooms.push_back(end_room)
 
 	if end_rooms.is_empty():
-		push_error("No end rooms for this level. Make sure you put the rooms on the correct folder, a subfolder of the 'End' folder")
+		print_rich("[color=yellow]No end rooms for this level. Make sure you put the rooms on the correct folder, a subfolder of the 'End' folder[/color]")
 
 	var num_special_rooms: int = SavedData.get_num_rooms("special")
 	for i: int in num_special_rooms:
