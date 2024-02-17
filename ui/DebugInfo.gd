@@ -1,5 +1,6 @@
 extends VBoxContainer
 
+@warning_ignore("shadowed_variable_base_class")
 static var is_visible: bool = false
 
 @onready var fps_label: Label = get_node("FpsLabel")

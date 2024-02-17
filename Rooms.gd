@@ -154,7 +154,7 @@ func _get_rooms(type: String) -> PackedStringArray:
 
 		var rooms_dir: DirAccess = DirAccess.open(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type)
 		if room_paths.is_empty() and rooms_dir == null:
-			push_error("Error opening " + BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "!")
+			print_rich("[color=yellow]Error opening " + BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "![/color]")
 			return []
 		if rooms_dir:
 			for file: String in rooms_dir.get_files():
