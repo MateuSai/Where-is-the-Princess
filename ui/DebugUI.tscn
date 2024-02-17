@@ -43,3 +43,8 @@ theme_override_font_sizes/font_size = 10
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_4w6it")
 theme_override_font_sizes/font_size = 10
+
+[node name="TimeLabel" type="Label" parent="DebugInfo"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_4w6it")
+theme_override_font_sizes/font_size = 10

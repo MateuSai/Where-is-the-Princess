@@ -5,7 +5,7 @@ var previous_state: int = -1
 var state: int = -1: set = set_state
 
 @onready var parent: Node = get_parent()
-@onready var animation_player: AnimationPlayer = parent.get_node("AnimationPlayer")
+@onready var animation_player: AnimationPlayer = parent.get_node_or_null("AnimationPlayer")
 
 
 func start() -> void:

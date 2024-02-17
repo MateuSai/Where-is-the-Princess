@@ -26,19 +26,7 @@ const NOON_COLOR: Color = Color.WHITE
 
 static var tween: Tween
 
-static var time: float = 7.0:
-	set(new_time):
-		time = new_time
-		if time > SUNRISE_TIME and time < MORNING_TIME:
-			day_time = SUNRISE_TIME
-		elif time > MORNING_TIME and time < AFTERNOON_TIME:
-			day_time = MORNING
-		elif time > AFTERNOON_TIME and time < SUNSET_TIME:
-			day_time = SUNSET
-		elif time > SUNSET_TIME or time < SUNRISE_TIME:
-			day_time = NIGHT
-
-static var day_time: int = SUNRISE
+static var time: float = 7.0
 
 @onready var game: Game = get_parent()
 @onready var fsm: FiniteStateMachine = $DayNightFSM
@@ -83,7 +71,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	time = wrapf(time + delta, 0.0, 24.0)
+	fsm.physics_process(delta)
 
 
 #func _exit_tree() -> void:
