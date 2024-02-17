@@ -103,7 +103,11 @@ func _get_transition() -> int:
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
+		SUNRISE_START_TIME:
+			day_night_system.day_started.emit()
 		AFTERNOON:
 			day_night_system.color = NOON_COLOR
 		NIGHT:
 			day_night_system.color = NIGHT_COLOR
+
+			day_night_system.night_started.emit()

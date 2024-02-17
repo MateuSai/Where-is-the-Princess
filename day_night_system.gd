@@ -2,6 +2,9 @@ class_name DayNightSystem extends DirectionalLight2D
 
 const TIME_SCALE: float = 1.0
 
+signal day_started()
+signal night_started()
+
 static var time: float = 7.0
 
 @onready var game: Game = get_parent()
@@ -13,6 +16,11 @@ func _ready() -> void:
 	if not SavedData.get_biome_conf().day_night_cycle:
 		hide()
 		return
+
+	if time > DayNightFSM.SUNRISE_START_TIME and time < DayNightFSM.SUNSET_FINAL_TIME:
+		day_started.emit()
+	else:
+		night_started.emit()
 
 	game.player_added.connect(func() -> void:
 		fsm.start()

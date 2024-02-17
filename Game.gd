@@ -20,6 +20,7 @@ var scroll_vertical_at_start_of_drag: float = 0
 
 # @onready var ui: MainUi = get_node("UI")
 @onready var rooms: Rooms = get_node("Rooms")
+@onready var day_night_system: DayNightSystem = $DayNightSystem
 @onready var camera: Camera2D = get_node("Camera2D")
 @onready var canvas_modulate: CanvasModulate = $CanvasModulate
 @onready var generating_dungeon_canvas_layer: CanvasLayer = get_node("GeneratingDungeonCanvasLayer")
@@ -36,6 +37,13 @@ func _ready() -> void:
 		canvas_modulate.color = Color.BLACK
 	else:
 		canvas_modulate.color = SavedData.get_biome_conf().light_color
+
+		day_night_system.day_started.connect(func() -> void:
+			RenderingServer.set_default_clear_color(SavedData.get_biome_conf().background_color)
+		)
+		day_night_system.night_started.connect(func() -> void:
+			RenderingServer.set_default_clear_color(SavedData.get_biome_conf().background_color)
+		)
 	#print_debug("Game _ready")
 
 	set_process(false)
