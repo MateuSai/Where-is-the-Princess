@@ -22,7 +22,6 @@ const NIGHT_TOTAL_TIME: float = NIGHT_FIRST_HALF_TOTAL_TIME + NIGHT_SECOND_HALF_
 
 const NIGHT_COLOR: Color = Color(0.2, 0.2, 0.7, 1)
 const SUNRISE_COLOR: Color = Color(0.5, 0.5, 1.0)
-# TODO
 const SUNSET_COLOR: Color = Color.ORANGE
 const NOON_COLOR: Color = Color.WHITE
 
@@ -103,7 +102,7 @@ func _get_transition() -> int:
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
-		SUNRISE_START_TIME:
+		SUNRISE:
 			day_night_system.day_started.emit()
 		AFTERNOON:
 			day_night_system.color = NOON_COLOR

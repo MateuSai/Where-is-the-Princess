@@ -17,7 +17,7 @@ func _ready() -> void:
 		hide()
 		return
 
-	if time > DayNightFSM.SUNRISE_START_TIME and time < DayNightFSM.SUNSET_FINAL_TIME:
+	if DayNightSystem.is_day():
 		day_started.emit()
 	else:
 		night_started.emit()
@@ -33,3 +33,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	time = wrapf(time + delta * TIME_SCALE, 0.0, 24.0)
+
+
+static func is_day() -> bool:
+	return time >= DayNightFSM.SUNRISE_START_TIME and time < DayNightFSM.SUNSET_FINAL_TIME
