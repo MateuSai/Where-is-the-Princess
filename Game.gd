@@ -20,6 +20,7 @@ var scroll_vertical_at_start_of_drag: float = 0
 
 # @onready var ui: MainUi = get_node("UI")
 @onready var rooms: Rooms = get_node("Rooms")
+@onready var day_night_system: DayNightSystem = $DayNightSystem
 @onready var camera: Camera2D = get_node("Camera2D")
 @onready var canvas_modulate: CanvasModulate = $CanvasModulate
 @onready var generating_dungeon_canvas_layer: CanvasLayer = get_node("GeneratingDungeonCanvasLayer")
@@ -31,12 +32,23 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	RenderingServer.set_default_clear_color(SavedData.get_biome_conf().background_color)
 	if SavedData.get_biome_conf().day_night_cycle:
 		canvas_modulate.color = Color.BLACK
+
+		if DayNightSystem.is_day():
+			RenderingServer.set_default_clear_color(SavedData.get_biome_conf().background_color)
+		else:
+			RenderingServer.set_default_clear_color((SavedData.get_biome_conf().background_color as Color).darkened(0.5))
+		day_night_system.day_started.connect(func() -> void:
+			RenderingServer.set_default_clear_color(SavedData.get_biome_conf().background_color)
+		)
+		day_night_system.night_started.connect(func() -> void:
+			RenderingServer.set_default_clear_color((SavedData.get_biome_conf().background_color as Color).darkened(0.5))
+		)
 	else:
 		canvas_modulate.color = SavedData.get_biome_conf().light_color
-	#print_debug("Game _ready")
+
+		RenderingServer.set_default_clear_color(SavedData.get_biome_conf().background_color)
 
 	set_process(false)
 

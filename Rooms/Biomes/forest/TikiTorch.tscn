@@ -1,5 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://cyfrse4f5lihp"]
+[gd_scene load_steps=13 format=3 uid="uid://cyfrse4f5lihp"]
 
+[ext_resource type="Script" path="res://Rooms/Biomes/forest/tiki_torch.gd" id="1_7smiu"]
 [ext_resource type="Texture2D" uid="uid://bu6f7y7mv63om" path="res://Art/Furniture and room elements/tiki_torch.png" id="1_i8jtk"]
 [ext_resource type="Texture2D" uid="uid://c7d52g3bw70w1" path="res://Art/effects/fires.png" id="1_r5dc3"]
 [ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png" id="4_cxn5a"]
@@ -60,6 +61,7 @@ radius = 1.0
 [node name="TikiTorch" type="StaticBody2D" groups=["flying_units_navigation_polygon_source_group", "navigation_polygon_source_group"]]
 collision_layer = 16
 collision_mask = 0
+script = ExtResource("1_7smiu")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -16)
