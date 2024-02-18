@@ -29,4 +29,4 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	for enemy: Enemy in enemies_inside:
-		enemy.velocity += (enemy.global_position - position).normalized() * 1500 * delta / (enemy.mass / 3)
+		enemy.velocity += (enemy.global_position - position).normalized() * 1500 * delta / (enemy.data.mass / 3)
