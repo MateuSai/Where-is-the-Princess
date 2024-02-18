@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bphrmf6n5s7be"]
+[gd_scene load_steps=9 format=3 uid="uid://bphrmf6n5s7be"]
 
 [ext_resource type="Script" path="res://Rooms/Furniture and Traps/crate.gd" id="1_57qlx"]
 [ext_resource type="Texture2D" uid="uid://b6spbsun5dowr" path="res://Art/crate/crate-full_broken.png" id="1_srv81"]
 [ext_resource type="Script" path="res://Components/LifeComponent.gd" id="2_rjurv"]
 [ext_resource type="Script" path="res://Components/shake_component.gd" id="4_opbo7"]
-[ext_resource type="Script" path="res://Components/enable_flying_units_navigation_on_died.gd" id="5_akkc0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v35wa"]
 size = Vector2(16, 9)
@@ -73,6 +72,3 @@ script = ExtResource("4_opbo7")
 libraries = {
 "": SubResource("AnimationLibrary_ffqc5")
 }
-
-[node name="EnableFlyingUnitsNavigationOnDead" type="Node" parent="."]
-script = ExtResource("5_akkc0")
