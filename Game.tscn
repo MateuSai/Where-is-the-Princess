@@ -94,6 +94,7 @@ layer_1/tile_data = PackedInt32Array()
 color = Color(0.152941, 0.152941, 0.152941, 1)
 
 [node name="DayNightSystem" type="DirectionalLight2D" parent="."]
+unique_name_in_owner = true
 rotation = 1.37706
 height = 0.51
 max_distance = 500.0

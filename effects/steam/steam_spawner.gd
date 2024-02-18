@@ -11,3 +11,12 @@ func _ready() -> void:
 		steam_cloud.position.y -= steam_cloud.offset.y
 		add_child(steam_cloud)
 	)
+	timer.start()
+
+
+func start() -> void:
+	timer.start()
+
+
+func stop() -> void:
+	timer.stop()
