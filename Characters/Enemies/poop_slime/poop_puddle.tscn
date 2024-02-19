@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bgpah5tswmo0d"]
+[gd_scene load_steps=8 format=3 uid="uid://bgpah5tswmo0d"]
 
 [ext_resource type="Texture2D" uid="uid://dgekf1n7tsgxl" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/slime/slime_poop_puddle.png" id="1_3po5u"]
+[ext_resource type="Script" path="res://Characters/Enemies/poop_slime/poop_puddle.gd" id="1_fex4c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3i8ll"]
 radius = 8.06226
@@ -89,6 +90,7 @@ _data = {
 z_index = -1
 collision_layer = 0
 collision_mask = 6
+script = ExtResource("1_fex4c")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -1
