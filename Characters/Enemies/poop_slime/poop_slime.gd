@@ -15,5 +15,5 @@ func _ready() -> void:
 
 		var insecton_musk: InsectonMusk = load(Globals.ENEMIES["insecton_musk"].path).instantiate()
 		insecton_musk.position = position
-		room.add_enemy(insecton_musk)
+		room.call_deferred("add_enemy", insecton_musk)
 	)
