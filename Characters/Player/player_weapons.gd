@@ -222,7 +222,7 @@ func set_current_weapon(new_weapon: Weapon) -> void:
 
 
 func can_pick_up_weapon(weapon_to_pick: Weapon) -> bool:
-	return get_child_count() < max_weapons and weapon_to_pick != null and is_instance_valid(weapon_to_pick) and not weapon_to_pick.is_queued_for_deletion() and pick_up_weapon_cooldown_timer.is_stopped()
+	return get_child_count() < max_weapons and weapon_to_pick != null and is_instance_valid(weapon_to_pick) and not weapon_to_pick.is_queued_for_deletion() and pick_up_weapon_cooldown_timer.is_stopped() and not current_weapon.is_busy()
 
 
 func _on_normal_attack() -> void:
