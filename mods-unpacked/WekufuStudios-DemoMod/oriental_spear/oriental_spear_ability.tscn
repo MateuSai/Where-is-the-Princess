@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://xanu60cn2egk"]
+
+[ext_resource type="Script" path="res://Characters/Hitbox.gd" id="1_rxpwr"]
+[ext_resource type="Texture2D" uid="uid://cxi8ojrjh2tn3" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/Oriental spear ground attack.png" id="2_7a1vt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rqhm0"]
+radius = 5.09902
+
+[sub_resource type="Animation" id="Animation_oh8cu"]
+resource_name = "attack"
+length = 0.7
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.7),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_l0pmo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6i54x"]
+_data = {
+"RESET": SubResource("Animation_l0pmo"),
+"attack": SubResource("Animation_oh8cu")
+}
+
+[node name="OrientalSpearAbility" type="Area2D"]
+collision_layer = 0
+collision_mask = 132
+script = ExtResource("1_rxpwr")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -16)
+texture = ExtResource("2_7a1vt")
+hframes = 7
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, -5)
+shape = SubResource("CircleShape2D_rqhm0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_6i54x")
+}
+autoplay = "attack"

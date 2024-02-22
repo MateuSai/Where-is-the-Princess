@@ -60,6 +60,7 @@ func _ready() -> void:
 		#_load_csv_data(weapon_data)
 
 	_load_data()
+	assert(data)
 	life_component.max_hp = data.max_hp
 	life_component.hp = data.max_hp
 	life_component.body_type = data.body_type

@@ -530,6 +530,10 @@ func add_enemy(enemy: Enemy) -> void:
 	num_enemies += 1
 	add_child(enemy)
 
+	var spawn_explosion: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()
+	spawn_explosion.position = enemy.position
+	call_deferred("add_child", spawn_explosion)
+
 
 func add_item_on_floor(item_on_floor: ItemOnFloor, at_pos: Vector2) -> void:
 	if is_on_water(at_pos):

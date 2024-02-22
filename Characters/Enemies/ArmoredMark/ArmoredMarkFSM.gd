@@ -13,7 +13,7 @@ var attack_finished: bool = false
 func start() -> void:
 	set_state(CHASE)
 
-	parent.ball_picked_up.connect(func():
+	parent.ball_picked_up.connect(func() -> void:
 		attack_finished = true
 	)
 

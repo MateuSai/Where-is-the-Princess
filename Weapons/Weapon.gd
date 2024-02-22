@@ -33,7 +33,7 @@ var tween: Tween = null
 
 
 func _ready() -> void:
-	data = get_data(weapon_id)
+	data = get_data(scene_file_path)
 
 	if not on_floor:
 		player_detector.set_collision_mask_value(1, false)
