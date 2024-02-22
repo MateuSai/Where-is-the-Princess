@@ -20,3 +20,7 @@ func enable_ability_effect(_player: Player) -> void:
 
 func get_sprite_sheet() -> Texture2D:
 	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/no_armor.png")
+
+
+func get_icon() -> Texture2D:
+	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/undies.png")

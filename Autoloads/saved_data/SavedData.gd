@@ -294,12 +294,15 @@ func get_random_available_armor_path(quality: Item.Quality) -> String:
 
 
 func get_discovered_armors_paths() -> PackedStringArray:
-	return data.get_discovered_armors()
+	var ret: PackedStringArray = ["res://Armors/underpants.gd"]
+	ret.append_array(data.get_discovered_armors().duplicate())
+	return ret
 
 
 ## Vanilla and mod. Available and not available. All the armors in the game
 func get_all_armor_paths() -> PackedStringArray:
-	var ret: PackedStringArray = data.ALL_VANILLA_ARMORS.duplicate()
+	var ret: PackedStringArray = ["res://Armors/underpants.gd"]
+	ret.append_array(data.ALL_VANILLA_ARMORS.duplicate())
 	ret.append_array(mod_armor_paths)
 	return ret
 
