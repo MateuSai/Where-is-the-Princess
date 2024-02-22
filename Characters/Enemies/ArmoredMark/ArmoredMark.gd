@@ -15,7 +15,7 @@ signal ball_picked_up()
 func _ready() -> void:
 	super()
 
-	attack_timer.timeout.connect(func():
+	attack_timer.timeout.connect(func() -> void:
 		_throw()
 		pull_back_timer.start(randf_range(0.8, 1.4))
 	)

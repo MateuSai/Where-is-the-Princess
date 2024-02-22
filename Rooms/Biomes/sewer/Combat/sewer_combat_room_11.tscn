@@ -225,6 +225,9 @@ position = Vector2(237, 131)
 [node name="BombDropper39" parent="Traps" index="44" groups=["enabler_6"] instance=ExtResource("5_ht4ls")]
 position = Vector2(236, 39)
 
+[node name="TeleportPosition" parent="." index="7"]
+position = Vector2(153, 209)
+
 [node name="Crate" parent="." index="9" instance=ExtResource("4_l0xsw")]
 position = Vector2(131, 136)
 
