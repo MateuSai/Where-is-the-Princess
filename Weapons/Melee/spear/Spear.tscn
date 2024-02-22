@@ -45,7 +45,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-5, 0)]
+"values": [Vector2(0, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -121,7 +121,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(-5, 0), Vector2(0, -20), Vector2(-5, 0)]
+"values": [Vector2(0, 0), Vector2(2, -20), Vector2(0, 0)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -201,7 +201,6 @@ rotation = 1.5708
 
 [node name="WeaponSprite" parent="Node2D" index="0"]
 material = SubResource("ShaderMaterial_ocbcb")
-position = Vector2(-5, 0)
 texture = ExtResource("4_bfx2a")
 offset = Vector2(4, -4)
 
