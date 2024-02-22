@@ -20,7 +20,7 @@ var other_biome_conf: BiomeConf = BiomeConf.from_dic({
 
 func before() -> void:
 	for biome: String in ["basecamp", "forest", "sewer"]:
-		SavedData.change_biome(biome)
+		SavedData.change_biome_by_id_or_path(biome)
 		biomes.push_back(SavedData.get_biome_conf())
 
 

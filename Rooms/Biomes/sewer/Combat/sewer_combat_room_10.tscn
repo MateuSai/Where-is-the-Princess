@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://csok64vgnmkjo"]
+[gd_scene load_steps=8 format=3 uid="uid://csok64vgnmkjo"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_6rrbs"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_e00oh"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_d30yk"]
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_e51qg"]
 [ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="4_qsa4x"]
+[ext_resource type="PackedScene" uid="uid://dg8c6o1msojno" path="res://Rooms/Furniture and Traps/traps/crocodile_trap/crocodile_trap_up.tscn" id="5_jojc5"]
+[ext_resource type="PackedScene" uid="uid://k0b7jt7bd1nh" path="res://Rooms/Furniture and Traps/traps/crocodile_trap/crocodile_trap_left.tscn" id="6_2cwv7"]
 
 [node name="SewerCombatRoom10" instance=ExtResource("1_6rrbs")]
 
@@ -61,6 +63,20 @@ enemy_name = "pile_of_bones"
 position = Vector2(235, 64)
 script = ExtResource("4_e51qg")
 enemy_name = "skelebromancer"
+
+[node name="EnemyMarker5" type="Marker2D" parent="EnemyPositions" index="4"]
+position = Vector2(93, 265)
+script = ExtResource("4_e51qg")
+enemy_name = "insecton_musk"
+
+[node name="CrocodileTrapUp" parent="Traps" index="0" instance=ExtResource("5_jojc5")]
+position = Vector2(170, 348)
+
+[node name="CrocodileTrapUp2" parent="Traps" index="1" instance=ExtResource("6_2cwv7")]
+position = Vector2(91, 178)
+
+[node name="CrocodileTrapUp3" parent="Traps" index="2" instance=ExtResource("6_2cwv7")]
+position = Vector2(379, 183)
 
 [node name="TeleportPosition" parent="." index="7"]
 position = Vector2(339, 308)

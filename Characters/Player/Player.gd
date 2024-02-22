@@ -119,7 +119,7 @@ func _ready() -> void:
 		SavedData.run_stats.hp = new_hp
 		if new_hp == 0:
 			SavedData.reset_run_stats()
-			SavedData.change_biome("basecamp")
+			SavedData.change_biome_by_id_or_path("basecamp")
 			SceneTransistor.start_transition_to("res://Game.tscn")
 	)
 

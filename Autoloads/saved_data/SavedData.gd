@@ -39,7 +39,7 @@ func _ready() -> void:
 
 	_load_run_stats()
 
-	change_biome(run_stats.biome, run_stats.level)
+	change_biome_by_id_or_path(run_stats.biome, run_stats.level)
 	# print(biome_conf)
 
 	var user_dir: DirAccess = DirAccess.open(USER_FOLDER)
@@ -63,7 +63,7 @@ func _load_run_stats() -> void:
 func _remove_and_reset_run_stats() -> void:
 	DirAccess.remove_absolute(USER_FOLDER.path_join(RUN_STATS_SAVE_NAME))
 	run_stats = RunStats.new()
-	change_biome(run_stats.biome, run_stats.level)
+	change_biome_by_id_or_path(run_stats.biome, run_stats.level)
 
 
 func are_there_run_stats() -> bool:
@@ -172,7 +172,7 @@ func add_ignored_room(room_path: String) -> void:
 
 
 ## You can specify a vanilla biome like [code]"forest"[/code] or [code]"sewer"[/code] or you can use an absolute path to the config.json for your own biome
-func change_biome(new_biome: String, level: int = 1) -> void:
+func change_biome_by_id_or_path(new_biome: String, level: int = 1) -> void:
 	if new_biome.is_absolute_path():
 		_change_biome_conf(new_biome)
 	else:
@@ -181,16 +181,22 @@ func change_biome(new_biome: String, level: int = 1) -> void:
 	run_stats.level = level
 
 
+func _change_biome_by_conf(conf: BiomeConf, level: int = 1) -> void:
+	self.biome_conf = conf
+	run_stats.biome = "Biome loaded with config, can't be saved to run stats"
+	run_stats.level = level
+
+
 func _change_biome_conf(biome_conf_path: String) -> void:
 	var json: JSON = JSON.new()
 	if json.parse(FileAccess.open(biome_conf_path, FileAccess.READ).get_as_text()):
-		printerr("Error reading " + biome_conf_path + "! Loading default biome conf...")
+		push_error("Error reading " + biome_conf_path + "! Loading default biome conf...")
 		biome_conf = BiomeConf.new()
 	else:
 		if json.data is Dictionary:
 			biome_conf = BiomeConf.from_dic(json.data as Dictionary)
 		else:
-			printerr("Could not load file biome data as json, using default values...")
+			push_error("Could not load file biome data as json, using default values...")
 			biome_conf = BiomeConf.new()
 
 

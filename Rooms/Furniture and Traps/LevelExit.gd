@@ -11,7 +11,7 @@ func _on_Stairs_body_entered(_body: CharacterBody2D) -> void:
 	Globals.exit_level(next_biome)
 #	if SavedData.run_stats.level > SavedData.get_biome_info().levels:
 #		if SavedData.get_biome_info().has("next_biome"):
-#			SavedData.change_biome(SavedData.get_biome_info()["next_biome"])
+#			SavedData.change_biome_by_id_or_path(SavedData.get_biome_info()["next_biome"])
 #			SceneTransistor.start_transition_to("res://Game.tscn")
 #		else:
 #			SceneTransistor.start_transition_to("res://BaseCamp.tscn")

@@ -244,7 +244,7 @@ func exit_level(biome: String = "", backwards: bool = false) -> void:
 			SavedData.run_stats.level += 1
 		#SceneTransistor.start_transition_to("res://Game.tscn")
 	else:
-		SavedData.change_biome(biome)
+		SavedData.change_biome_by_id_or_path(biome)
 
 	SceneTransistor.start_transition_to("res://Game.tscn")
 

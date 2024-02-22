@@ -471,8 +471,16 @@ func _test_room(path: String) -> void:
 		printerr("There is no file at " + path)
 		return
 
-	RoomTest.room_path = path
-	SceneTransistor.start_transition_to("res://Rooms/room_test.tscn")
+	var biome_conf: BiomeConf = BiomeConf.new()
+	var level: BiomeConf.Level = BiomeConf.Level.new()
+	level.overwrite_start_rooms = ["res://Rooms/Biomes/forest/Start/ForestSpawnRoom0.tscn"]
+	level.num_combat_rooms = 1
+	level.overwrite_combat_rooms = [path]
+	biome_conf.levels.push_back(level)
+
+	SavedData._change_biome_by_conf(biome_conf)
+
+	SceneTransistor.start_transition_to("res://Game.tscn")
 
 	hide()
 
