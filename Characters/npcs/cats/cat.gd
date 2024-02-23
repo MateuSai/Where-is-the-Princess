@@ -1,10 +1,17 @@
 @icon("res://Art/cat_black_0.png")
 class_name Cat extends NPC
 
+const CAT_SOUNDS: PackedStringArray = ["res://Audio/Sounds/cat/小次郎/1.wav", "res://Audio/Sounds/cat/小次郎/2.wav", "res://Audio/Sounds/cat/小次郎/3.wav"]
+
 var interacted_with: bool = false
+
+@onready var audio_stream_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 
 func _on_player_interacted() -> void:
+	audio_stream_player.stream = load(CAT_SOUNDS[randi() % CAT_SOUNDS.size()])
+	audio_stream_player.play()
+
 	if not interacted_with:
 		interacted_with = true
 		SavedData.run_stats.luck += 1

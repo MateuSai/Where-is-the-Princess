@@ -43,3 +43,5 @@ frame_progress = 0.22922
 [node name="CollisionShape2D" parent="." index="1"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_jl45a")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="3"]

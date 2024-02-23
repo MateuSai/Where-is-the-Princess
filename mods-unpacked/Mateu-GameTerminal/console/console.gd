@@ -139,6 +139,11 @@ func _process_command(command: String) -> void:
 							_set_biome(splitted_command[2])
 						else:
 							printerr("You must specify the new biome")
+					"time":
+						if splitted_command.size() > 2:
+							_set_time(splitted_command[2])
+						else:
+							printerr("You must specify the new time")
 					_:
 						printerr("Invalid argument for set")
 			else:
@@ -333,6 +338,16 @@ func _set_biome(biome: String) -> void:
 	hide()
 
 	Globals.exit_level(biome)
+
+
+func _set_time(time_string: String) -> void:
+	if not time_string.is_valid_float():
+		printerr("the time specified must be a float")
+		return
+
+	DayNightSystem.time = time_string.to_float()
+
+	hide()
 
 
 func _get_bool_from_string(s: String) -> bool:
