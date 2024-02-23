@@ -6,6 +6,6 @@ extends AcidPuddle
 
 func _process(delta: float) -> void:
 	dir = dir.rotated(randf_range(-0.6, 0.6))
-	var new_position: Vector2 = position + dir * randf_range(0.6, 1.8) * delta
+	var new_position: Vector2 = position + dir * randf_range(0.4, 1.2) * delta
 	new_position = new_position.clamp(initial_position - Vector2(12, 12), initial_position + Vector2(12, 12))
 	position = new_position

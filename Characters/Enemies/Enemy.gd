@@ -1,6 +1,8 @@
 @icon("res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/goblin/goblin_idle_anim_f0.png")
 class_name Enemy extends Character
 
+static var coin_multiplier: float = 1
+
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/SpawnExplosion.tscn")
 const COIN_SCENE: PackedScene = preload("res://items/Coin.tscn")
 const SOUL_SCENE: PackedScene = preload("res://items/Soul.tscn")
@@ -47,7 +49,9 @@ func _load_data() -> void:
 
 
 func spawn_loot() -> void:
-	for i: int in randi_range(enemy_data.min_coins, enemy_data.max_coins):
+	var coin_amount: int = randi_range(enemy_data.min_coins, enemy_data.max_coins)
+	coin_amount = round(coin_amount * coin_multiplier)
+	for i: int in coin_amount:
 		var coin: Coin = COIN_SCENE.instantiate()
 		room.cleared.connect(coin.go_to_player)
 		coin.position = global_position

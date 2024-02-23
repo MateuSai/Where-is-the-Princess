@@ -8,14 +8,15 @@ func _init() -> void:
 
 
 func enable_ability_effect(player: Player) -> void:
-	var amount: int = randi_range(10, 14)
-	var angle_step: float = 2 * PI / amount
-	var initial_angle: float = randf_range(0.0, angle_step)
+	for i: int in 2:
+		var amount: int = (i+1) * 9 + randi_range(-2, 2)
+		var angle_step: float = 2 * PI / amount
+		var initial_angle: float = randf_range(0.0, angle_step)
 
-	for i: int in amount:
-		var poison_cloud: AcidPuddle = POISON_CLOUD_SCENE.instantiate()
-		poison_cloud.position = player.global_position + Vector2.RIGHT.rotated(initial_angle + i * angle_step) * randf_range(8, 32)
-		player.get_tree().current_scene.add_child(poison_cloud)
+		for j: int in amount:
+			var poison_cloud: AcidPuddle = POISON_CLOUD_SCENE.instantiate()
+			poison_cloud.position = player.global_position + Vector2.RIGHT.rotated(initial_angle + j * angle_step) * (6 + (i + 1) * 9 + randf_range(-4, 4))
+			player.get_tree().current_scene.add_child(poison_cloud)
 
 
 func disable_ability_effect(_player: Player) -> void:
