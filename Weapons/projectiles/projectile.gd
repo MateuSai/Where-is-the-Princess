@@ -1,6 +1,8 @@
 @icon("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/boss_druid/rock.png")
 class_name Projectile extends Hitbox
 
+static var non_player_projectile_speed_multiplier: float = 1.0
+
 const HOMING_COMPONENT_SCENE: PackedScene = preload("res://Components/character_detector/homing_component.tscn")
 
 var direction: Vector2 = Vector2.ZERO:
@@ -42,7 +44,10 @@ func _ready() -> void:
 func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: bool = false) -> void:
 	position = initial_position
 	knockback_direction = dir
-	self.speed = speed
+	if damage_dealer_id == "player":
+		self.speed = speed
+	else:
+		self.speed = round(speed * Projectile.non_player_projectile_speed_multiplier)
 	self.rotate_to_dir = rotate_to_dir
 	self.direction = dir
 
