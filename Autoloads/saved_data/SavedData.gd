@@ -20,7 +20,11 @@ var mod_armor_paths: PackedStringArray = []
 var mod_permanent_item_paths: PackedStringArray = []
 var mod_temporal_item_paths: PackedStringArray = []
 
-var run_stats: RunStats
+var run_stats: RunStats:
+	set(new_run_stats):
+		if run_stats:
+			run_stats._on_free()
+		run_stats = new_run_stats
 
 #var mods: Array[Mod] = []
 

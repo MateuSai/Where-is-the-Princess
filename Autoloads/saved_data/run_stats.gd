@@ -31,3 +31,8 @@ signal coins_changed(new_coins: int)
 
 func get_level_seed() -> int:
 	return int(str(run_seed) + str(biome.hash()).left(7) + str(level))
+
+
+func _on_free() -> void:
+	for permanent_item: PermanentPassiveItem in permanent_passive_items:
+		permanent_item.unequip(Globals.player)
