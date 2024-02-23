@@ -68,12 +68,16 @@ var position_before_jumping: Vector2
 
 # @onready var armor_sprite: Sprite2D = get_node("ArmorSprite")
 
+@onready var day_night_system: DayNightSystem = get_tree().current_scene.get_node("DayNightSystem")
+
 @onready var weapons: PlayerWeapons = get_node("Weapons")
 @onready var camera: Camera2D = $Camera2D
 
 @onready var jump_animation_player: AnimationPlayer = get_node("JumpAnimationPlayer")
 
 @onready var auto_aim_area: AutoAimArea = $AutoAimArea
+
+@onready var light: PointLight2D = $Light
 
 @onready var armor_effect_timer: Timer = $Timers/ArmorEffectTimer
 @onready var armor_recharge_timer: Timer = $Timers/ArmorRechargeTimer
@@ -145,6 +149,17 @@ func _ready() -> void:
 				get_tree().current_scene.add_child(splash)
 				life_component.take_damage(1, Vector2.ZERO, 0, null, "water")
 				position = position_before_jumping
+	)
+
+	if DayNightSystem.is_day():
+		light.enabled = false
+	else:
+		light.enabled = true
+	day_night_system.day_started.connect(func() -> void:
+		light.enabled = false
+	)
+	day_night_system.night_started.connect(func() -> void:
+		light.enabled = true
 	)
 
 

@@ -640,7 +640,7 @@ vertical_alignment = 2
 
 [node name="Marker2D" type="Marker2D" parent="DustPositions" index="0"]
 
-[node name="PointLight2D" type="PointLight2D" parent="." index="13"]
+[node name="Light" type="PointLight2D" parent="." index="13"]
 texture = ExtResource("15_41qtp")
 texture_scale = 0.5
 height = 16.0

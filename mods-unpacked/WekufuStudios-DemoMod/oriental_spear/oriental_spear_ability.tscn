@@ -1,10 +1,26 @@
-[gd_scene load_steps=7 format=3 uid="uid://xanu60cn2egk"]
+[gd_scene load_steps=8 format=3 uid="uid://xanu60cn2egk"]
 
 [ext_resource type="Script" path="res://Characters/Hitbox.gd" id="1_rxpwr"]
 [ext_resource type="Texture2D" uid="uid://cxi8ojrjh2tn3" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/Oriental spear ground attack.png" id="2_7a1vt"]
+[ext_resource type="Material" uid="uid://cmyqibox7jjbf" path="res://unshaded.tres" id="2_fvqd1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rqhm0"]
 radius = 5.09902
+
+[sub_resource type="Animation" id="Animation_l0pmo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_oh8cu"]
 resource_name = "attack"
@@ -37,21 +53,6 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_l0pmo"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_6i54x"]
 _data = {
 "RESET": SubResource("Animation_l0pmo"),
@@ -64,6 +65,7 @@ collision_mask = 132
 script = ExtResource("1_rxpwr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("2_fvqd1")
 position = Vector2(0, -16)
 texture = ExtResource("2_7a1vt")
 hframes = 7

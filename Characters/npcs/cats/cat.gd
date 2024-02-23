@@ -26,7 +26,7 @@ func _spawn_heart() -> void:
 
 	var t: Tween = create_tween()
 	t.set_parallel(true)
-	t.tween_property(heart, "position:y", heart.position.y - 8, 0.7).set_delay(1.0)
-	t.tween_property(heart, "modulate:a", 0.0, 0.7).set_delay(1.0)
+	t.tween_property(heart, "position:y", heart.position.y - 8, 0.7).set_delay(0.4)
+	t.tween_property(heart, "modulate:a", 0.0, 0.7).set_delay(0.4)
 	await t.finished
 	t.tween_callback(heart.queue_free)

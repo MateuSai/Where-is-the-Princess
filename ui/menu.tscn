@@ -237,7 +237,7 @@ theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
-text = "NEW_GAME"
+text = "BASE_CAMP"
 script = ExtResource("7_8j46j")
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
