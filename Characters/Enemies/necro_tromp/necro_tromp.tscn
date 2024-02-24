@@ -64,7 +64,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_ueepp"]
-resource_name = "run"
+resource_name = "move"
 length = 0.6
 loop_mode = 1
 tracks/0/type = "value"
@@ -81,7 +81,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_3ap0t"]
-resource_name = "run_up"
+resource_name = "move_up"
 length = 0.6
 loop_mode = 1
 tracks/0/type = "value"
@@ -102,8 +102,8 @@ _data = {
 "RESET": SubResource("Animation_v7hb1"),
 "idle": SubResource("Animation_rs0ca"),
 "idle_up": SubResource("Animation_wp7k7"),
-"run": SubResource("Animation_ueepp"),
-"run_up": SubResource("Animation_3ap0t")
+"move": SubResource("Animation_ueepp"),
+"move_up": SubResource("Animation_3ap0t")
 }
 
 [node name="NecroTromp" instance=ExtResource("1_loyuw")]

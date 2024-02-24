@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bheousdjxqa14"]
+[gd_scene load_steps=7 format=3 uid="uid://bheousdjxqa14"]
 
 [ext_resource type="Script" path="res://Characters/Character.gd" id="1"]
 [ext_resource type="Script" path="res://Characters/FSM.gd" id="2"]
 [ext_resource type="Script" path="res://Components/LifeComponent.gd" id="3_q1yud"]
 [ext_resource type="Script" path="res://Components/SpawnDamageLabel.gd" id="4_l103p"]
 [ext_resource type="Script" path="res://Components/flash_on_damage.gd" id="5_erjg1"]
+[ext_resource type="Theme" uid="uid://d0qfeecooxxpf" path="res://SmallFontTheme.tres" id="6_in4bq"]
 
 [node name="Character" type="CharacterBody2D"]
 texture_filter = 1
@@ -33,3 +34,11 @@ script = ExtResource("4_l103p")
 
 [node name="FlashOnDamage" type="Node" parent="."]
 script = ExtResource("5_erjg1")
+
+[node name="StateLabel" type="Label" parent="."]
+z_index = 50
+offset_top = -1.0
+offset_right = 16.0
+offset_bottom = 15.0
+theme = ExtResource("6_in4bq")
+text = "IDLE"

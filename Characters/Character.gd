@@ -49,6 +49,8 @@ var acid_progress: float = 0.0: set = set_acid_progress ## Value between 0 and 1
 # @onready var status_conditions_container: HBoxContainer = get_node("StatusConditionsContainer")
 @onready var acid_damage_timer: Timer = $AcidDamageTimer
 
+@onready var state_label: Label = $StateLabel
+
 
 func _ready() -> void:
 	life_component.damage_taken.connect(_on_damage_taken)
@@ -67,6 +69,9 @@ func _ready() -> void:
 	resistances = data.initial_resistances
 
 	set_flying(data.flying)
+	state_machine.state_changed.connect(func(new_state: int) -> void:
+		state_label.text = str(new_state)
+	)
 	state_machine.start()
 
 

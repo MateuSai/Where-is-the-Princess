@@ -3,6 +3,7 @@ class_name FiniteStateMachine
 
 var previous_state: int = -1
 var state: int = -1: set = set_state
+signal state_changed(new_state: int)
 
 @onready var parent: Node = get_parent()
 @onready var animation_player: AnimationPlayer = parent.get_node_or_null("AnimationPlayer")
@@ -33,6 +34,7 @@ func set_state(new_state: int) -> void:
 	_exit_state(state)
 	previous_state = state
 	state = new_state
+	state_changed.emit(state)
 	_enter_state(previous_state, state)
 
 
