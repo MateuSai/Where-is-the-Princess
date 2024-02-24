@@ -5,7 +5,7 @@ const TIME_SCALE: float = 0.04
 signal day_started()
 signal night_started()
 
-static var time: float = 7.0
+static var time: float = 12
 
 @onready var game: Game = get_parent()
 @onready var fsm: FiniteStateMachine = $DayNightFSM

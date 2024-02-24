@@ -221,7 +221,7 @@ radius = 9.0
 radius = 95.021
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4ieya"]
-radius = 60.075
+radius = 89.0225
 
 [node name="Rat" instance=ExtResource("1_llcor")]
 script = ExtResource("2_nvfog")
@@ -247,9 +247,6 @@ libraries = {
 libraries = {
 "": SubResource("AnimationLibrary_epomg")
 }
-
-[node name="NavigationAgent2D" parent="." index="6"]
-debug_enabled = true
 
 [node name="IdleTimer" type="Timer" parent="." index="12"]
 one_shot = true
@@ -278,3 +275,6 @@ script = ExtResource("7_l5tsk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FlockSteering" index="1"]
 shape = SubResource("CircleShape2D_4ieya")
+
+[node name="StateLabel" parent="." index="18"]
+z_index = 0
