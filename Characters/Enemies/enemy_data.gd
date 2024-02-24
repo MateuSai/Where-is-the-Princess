@@ -11,6 +11,7 @@ class_name EnemyData extends CharacterData
 @export var max_dark_souls: int = 0
 @export_range(0.0, 1.0) var food_prob: float = 0.1
 @export_range(0.0, 1.0) var armor_shard_prob: float = 0.1
+@export_range(0.0, 1.0) var whetstone_prob: float = 0.1
 
 
 static func from_dic(dic: Dictionary) -> EnemyData:
@@ -37,5 +38,6 @@ static func from_dic(dic: Dictionary) -> EnemyData:
 
 	enemy_data.food_prob = dic.food_prob
 	enemy_data.armor_shard_prob = dic.armor_shard_prob
+	enemy_data.whetstone_prob = dic.whetstone_prob
 
 	return enemy_data

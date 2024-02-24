@@ -85,6 +85,14 @@ func spawn_loot() -> void:
 		item_on_floor.initialize(food)
 		item_on_floor.enable_pick_up()
 
+	# Whetstone
+	if randf() <= data.whetstone_prob:
+		var item_on_floor: ItemOnFloor = preload("res://items/item_on_floor.tscn").instantiate()
+		var whetstone: Whetstone = Whetstone.new()
+		room.add_item_on_floor(item_on_floor, position + Vector2(randf_range(-8, 8), randf_range(-8, 8)))
+		item_on_floor.initialize(whetstone)
+		item_on_floor.enable_pick_up()
+
 
 func move_to_target() -> void:
 	if not navigation_agent.is_target_reached():
