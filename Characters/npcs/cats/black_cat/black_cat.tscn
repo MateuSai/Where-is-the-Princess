@@ -45,3 +45,4 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_jl45a")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="3"]
+bus = &"Sounds"
