@@ -15,6 +15,7 @@ unresizable = true
 borderless = true
 popup_window = true
 theme = ExtResource("1_03nlb")
+cancel_button_text = "CANCEL"
 script = ExtResource("2_k85if")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
