@@ -69,4 +69,4 @@ func _get_cohesion_steering() -> Vector2:
 
 	steering = (center_pos - character.global_position).normalized()
 
-	return steering * 5
+	return steering * 50

@@ -15,6 +15,7 @@ const WOOD_HIT_SOUNDS: Array[AudioStream] = [preload("res://Audio/Sounds/impact/
 
 var last_weapon: Weapon
 var last_damage_dealer_id: String
+var last_is_projectile: bool
 
 enum BodyType {
 	FLESH,
@@ -46,12 +47,13 @@ func _ready() -> void:
 	add_child(invincible_after_being_hitted_timer)
 
 
-func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer_id: String) -> void:
+func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer_id: String, is_projectile: bool = false) -> void:
 	if _must_ignore_damage():
 		return
 
 	last_damage_dealer_id = damage_dealer_id
 	last_weapon = weapon
+	last_is_projectile = is_projectile
 
 	dam *= damage_taken_multiplier
 	self.hp -= dam
