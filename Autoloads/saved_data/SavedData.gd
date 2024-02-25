@@ -25,6 +25,7 @@ var run_stats: RunStats:
 		if run_stats:
 			run_stats._on_free()
 		run_stats = new_run_stats
+		DebugInfo.start_time = Time.get_ticks_msec()
 
 #var mods: Array[Mod] = []
 
