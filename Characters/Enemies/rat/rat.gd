@@ -21,17 +21,14 @@ func _spawn_bite_effect() -> void:
 
 
 func move_to_leader(leader: Character) -> void:
-	if not navigation_agent.is_target_reached():
-		if can_move:
-			var dir: Vector2 = leader.mov_direction.normalized()
+	if can_move:
+		var dir: Vector2 = leader.mov_direction.normalized()
 
-			dir += flock_steering._get_separation_steering()
-			dir += flock_steering._get_cohesion_steering()
+		dir += flock_steering._get_separation_steering()
+		dir += flock_steering._get_cohesion_steering()
 
-			mov_direction = mov_direction.lerp(dir.normalized(), 0.15)
-			if mov_direction.x > 0 and sprite.flip_h:
-				_on_change_dir()
-			elif mov_direction.x < 0 and not sprite.flip_h:
-				_on_change_dir()
-		else:
-			mov_direction = Vector2.ZERO
+		mov_direction = mov_direction.lerp(dir.normalized(), 0.15)
+		if mov_direction.x > 0 and sprite.flip_h:
+			_on_change_dir()
+		elif mov_direction.x < 0 and not sprite.flip_h:
+			_on_change_dir()
