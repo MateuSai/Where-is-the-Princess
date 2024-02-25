@@ -42,6 +42,8 @@ var _completed_dialogues: PackedStringArray = []
 var items_shop_unlocked: bool = false
 var player_upgrades_shop_unlocked: bool = false
 
+var show_save_and_return_window: bool = true: set = set_show_save_and_return_window
+
 
 func save() -> void:
 	var file: FileAccess = FileAccess.open(SavedData.USER_FOLDER + SAVE_NAME, FileAccess.WRITE)
@@ -193,6 +195,11 @@ func has_completed_dialogue(dialogue: String) -> bool:
 			return true
 
 	return false
+
+
+func set_show_save_and_return_window(new_value: bool) -> void:
+	show_save_and_return_window = new_value
+	save()
 
 
 static func from_dic(dic: Dictionary) -> Data:
