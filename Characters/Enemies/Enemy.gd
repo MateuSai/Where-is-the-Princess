@@ -50,7 +50,7 @@ func _load_data() -> void:
 
 func spawn_loot() -> void:
 	var coin_amount: int = randi_range(enemy_data.min_coins, enemy_data.max_coins)
-	coin_amount = round(coin_amount * coin_multiplier)
+	coin_amount = ceil(coin_amount * coin_multiplier)
 	for i: int in coin_amount:
 		var coin: Coin = COIN_SCENE.instantiate()
 		room.cleared.connect(coin.go_to_player)
