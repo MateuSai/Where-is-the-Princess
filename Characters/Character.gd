@@ -78,8 +78,19 @@ func _ready() -> void:
 	add_child(spawn_shadow_timer)
 
 	set_flying(data.flying)
-	state_machine.state_changed.connect(func(new_state: int) -> void:
-		state_label.text = str(new_state)
+
+	if DebugInfo.is_visible:
+		state_label.show()
+		state_machine.state_changed.connect(_update_state_label)
+	else:
+		state_label.hide()
+	(get_tree().current_scene.get_node("UI/DebugUI/DebugInfo") as DebugInfo).visibility_changed.connect(func() -> void:
+		if state_label.visible:
+			state_machine.state_changed.disconnect(_update_state_label)
+			state_label.hide()
+		else:
+			state_label.show()
+			state_machine.state_changed.connect(_update_state_label)
 	)
 	state_machine.start()
 
@@ -244,6 +255,10 @@ func _spawn_shadow_effect() -> void:
 	shadow_sprite.offset = sprite.offset
 	get_tree().current_scene.add_child(shadow_sprite)
 	shadow_sprite.start(sprite.texture)
+
+
+func _update_state_label(new_state: int) -> void:
+	state_label.text = str(new_state)
 
 
 @warning_ignore("shadowed_variable")
