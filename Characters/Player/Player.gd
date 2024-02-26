@@ -357,12 +357,15 @@ func _dash() -> void:
 		previous_max_speed = data.max_speed
 		data.max_speed = 1000
 		dash_timer.start(dash_time)
+		_start_shadow_effect()
 
 	dashed.emit(dash_time)
 
 
 func _on_dash_timer_timeout() -> void:
 	data.max_speed = previous_max_speed
+	await get_tree().create_timer(0.04).timeout
+	_stop_shadow_effect()
 
 
 func add_rotating_item(node: Node2D) -> void:
