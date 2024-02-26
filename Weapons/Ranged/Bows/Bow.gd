@@ -35,6 +35,6 @@ func _bow_attack(charge: float) -> void:
 	elif charge > 0.6:
 		data.damage -= 1
 
-
-func is_charging() -> bool:
-	return weapon_sprite.frame > 0
+#
+#func is_charging() -> bool:
+	#return weapon_sprite.frame > 0

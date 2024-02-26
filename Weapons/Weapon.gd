@@ -327,7 +327,7 @@ func _is_on_water() -> bool:
 
 
 func is_charging() -> bool:
-	return charge_particles.emitting
+	return not charge_timer.is_stopped()
 
 
 static func get_weapon_path(weap_name: String) -> String:
