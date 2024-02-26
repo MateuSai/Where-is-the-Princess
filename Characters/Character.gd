@@ -243,7 +243,7 @@ func _stop_shadow_effect() -> void:
 
 func _spawn_shadow_effect() -> void:
 	var shadow_sprite: ShadowSprite = ShadowSprite.new()
-	shadow_sprite.modulate.a = 0.7
+	shadow_sprite.modulate.a = 1.0
 	shadow_sprite.scale = sprite.scale
 	shadow_sprite.flip_h = sprite.flip_h
 	shadow_sprite.flip_v = sprite.flip_v

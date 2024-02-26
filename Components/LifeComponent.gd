@@ -25,13 +25,16 @@ enum BodyType {
 }
 @export var body_type: BodyType = BodyType.FLESH
 
+var _set_hp: Callable = func(new_hp: int) -> void:
+	hp_changed.emit(hp)
+	if hp == 0:
+		died.emit()
+
 @export var max_hp: int = 4
 @export var hp: int:
 	set(new_hp):
 		hp = clamp(new_hp, 0, max_hp)
-		hp_changed.emit(hp)
-		if hp == 0:
-			died.emit()
+		_set_hp.call(new_hp)
 
 signal hp_changed(new_hp: int)
 signal damage_taken(dam: int, dir: Vector2, force: int)
@@ -97,4 +100,3 @@ func _play_hit_sound(weapon: Weapon) -> void:
 		var sound: AutoFreeSound = AutoFreeSound.new()
 		get_tree().current_scene.add_child(sound)
 		sound.start(stream, parent.global_position)
-
