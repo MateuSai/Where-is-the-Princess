@@ -22,11 +22,14 @@ var max_stamina: float = 100:
 	set(new_value):
 		max_stamina = new_value
 		max_stamina_changed.emit(max_stamina)
+signal oh_shit_im_out_of_stamina()
 var stamina: float = max_stamina:
 	set(new_value):
 		if new_value < stamina:
 			stamina_regen_cooldown_timer.start()
 		stamina = clamp(new_value, 0.0, max_stamina)
+		if stamina == 0.0:
+			oh_shit_im_out_of_stamina.emit()
 
 signal temporal_passive_item_picked_up(item: TemporalPassiveItem)
 signal temporal_passive_item_unequiped(item: TemporalPassiveItem)

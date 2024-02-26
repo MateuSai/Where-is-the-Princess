@@ -63,7 +63,7 @@ func _ready() -> void:
 	data.ability_damage = data.ability_damage
 
 	charge_timer = Timer.new()
-	charge_timer.wait_time = 0.1
+	charge_timer.wait_time = 0.05
 	charge_timer.timeout.connect(func() -> void:
 		charge_animation_still_executing.emit()
 	)
@@ -83,7 +83,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.is_action_released("ui_attack"):
 			if animation_player.is_playing() and get_current_animation().begins_with("charge"):
 				_attack()
-			elif charge_particles.emitting:
+			elif is_charging():
 				_strong_attack()
 	else:
 		if event.is_action_pressed("ui_attack") and can_attack():
@@ -324,6 +324,10 @@ func _is_on_water() -> bool:
 		return Globals.player.current_room.tilemap.get_cell_atlas_coords(DungeonRoom.WATER_LAYER_ID, Globals.player.current_room.tilemap.local_to_map(position - Globals.player.current_room.position)) != Vector2i(-1, -1)
 	else:
 		return false
+
+
+func is_charging() -> bool:
+	return charge_particles.emitting
 
 
 static func get_weapon_path(weap_name: String) -> String:

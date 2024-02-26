@@ -5,9 +5,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_attack") and not animation_player.is_playing():
 		_charge()
 	elif event.is_action_released("ui_attack"):
-		if animation_player.is_playing() and animation_player.current_animation.begins_with("charge") and weapon_sprite.frame > 0:
+		if animation_player.is_playing() and animation_player.current_animation.begins_with("charge") and is_charging():
 			_bow_attack(animation_player.current_animation_position / animation_player.current_animation_length)
-		elif weapon_sprite.frame > 0:
+		elif is_charging():
 			_bow_attack(1.0)
 		else:
 			animation_player.play("RESET")
@@ -34,3 +34,7 @@ func _bow_attack(charge: float) -> void:
 		data.damage -= 2
 	elif charge > 0.6:
 		data.damage -= 1
+
+
+func is_charging() -> bool:
+	return weapon_sprite.frame > 0

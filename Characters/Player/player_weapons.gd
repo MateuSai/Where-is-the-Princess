@@ -26,6 +26,12 @@ var disabled: bool = false:
 @onready var equip_weapon_sound: AudioStreamPlayer = $"../EquipWeaponSound"
 
 
+func _ready() -> void:
+	super()
+
+	player.oh_shit_im_out_of_stamina.connect(_on_oh_shit_im_out_of_stamina)
+
+
 func load_previous_weapons() -> void:
 	var dagger: MeleeWeapon = get_child(0)
 	dagger.hide()
@@ -236,4 +242,9 @@ func _on_active_ability() -> void:
 
 
 func _on_charge_animation_still_executing() -> void:
-	player.stamina -= 1.0
+	player.stamina -= 0.7
+
+
+func _on_oh_shit_im_out_of_stamina() -> void:
+	if current_weapon.is_charging():
+		current_weapon.cancel_attack()
