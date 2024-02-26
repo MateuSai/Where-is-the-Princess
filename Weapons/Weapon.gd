@@ -17,11 +17,14 @@ signal condition_changed(weapon: Weapon, new_condition: float)
 signal status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
 signal used_normal_attack()
 signal used_active_ability()
+signal charge_animation_still_executing()
 
 var tween: Tween = null
 
+var charge_timer: Timer
+
 ## The name of the scene file (after removing .tscn)
-@onready var weapon_id: String = get_id_from_path(scene_file_path)
+@onready var weapon_id: String = Weapon.get_id_from_path(scene_file_path)
 
 @onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
 @onready var weapon_sprite: Sprite2D = %WeaponSprite
@@ -59,6 +62,13 @@ func _ready() -> void:
 		data.damage = data.damage
 	data.ability_damage = data.ability_damage
 
+	charge_timer = Timer.new()
+	charge_timer.wait_time = 0.05
+	charge_timer.timeout.connect(func() -> void:
+		charge_animation_still_executing.emit()
+	)
+	add_child(charge_timer)
+
 
 func load_modifiers() -> void:
 	for modifier: WeaponModifier in stats.modifiers:
@@ -73,7 +83,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.is_action_released("ui_attack"):
 			if animation_player.is_playing() and get_current_animation().begins_with("charge"):
 				_attack()
-			elif charge_particles.emitting:
+			elif is_charging():
 				_strong_attack()
 	else:
 		if event.is_action_pressed("ui_attack") and can_attack():
@@ -237,8 +247,11 @@ func can_pick_up_soul() -> bool:
 	return has_active_ability() and stats.souls < data.souls_to_activate_ability
 
 
-func _on_animation_started(_anim_name: StringName) -> void:
-	pass
+func _on_animation_started(anim_name: StringName) -> void:
+	if anim_name.contains("charge"):
+		charge_timer.start()
+	elif not charge_timer.is_stopped():
+		charge_timer.stop()
 
 
 func _on_animation_finished(anim_name: String) -> void:
@@ -311,6 +324,10 @@ func _is_on_water() -> bool:
 		return Globals.player.current_room.tilemap.get_cell_atlas_coords(DungeonRoom.WATER_LAYER_ID, Globals.player.current_room.tilemap.local_to_map(position - Globals.player.current_room.position)) != Vector2i(-1, -1)
 	else:
 		return false
+
+
+func is_charging() -> bool:
+	return not charge_timer.is_stopped()
 
 
 static func get_weapon_path(weap_name: String) -> String:

@@ -25,6 +25,7 @@ var run_stats: RunStats:
 		if run_stats:
 			run_stats._on_free()
 		run_stats = new_run_stats
+		DebugInfo.start_time = Time.get_ticks_msec()
 
 #var mods: Array[Mod] = []
 
@@ -298,14 +299,14 @@ func get_random_available_armor_path(quality: Item.Quality) -> String:
 
 
 func get_discovered_armors_paths() -> PackedStringArray:
-	var ret: PackedStringArray = ["res://Armors/underpants.gd"]
+	var ret: PackedStringArray = []
 	ret.append_array(data.get_discovered_armors().duplicate())
 	return ret
 
 
 ## Vanilla and mod. Available and not available. All the armors in the game
 func get_all_armor_paths() -> PackedStringArray:
-	var ret: PackedStringArray = ["res://Armors/underpants.gd"]
+	var ret: PackedStringArray = []
 	ret.append_array(data.ALL_VANILLA_ARMORS.duplicate())
 	ret.append_array(mod_armor_paths)
 	return ret

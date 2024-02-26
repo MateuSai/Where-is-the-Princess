@@ -9,8 +9,8 @@ const AVAILABLE_WEAPONS_FROM_START: PackedStringArray = ["res://Weapons/Melee/Ka
 const ALL_VANILLA_ARMORS: PackedStringArray = ["res://Armors/CommonerClothes.gd", "res://Armors/LeatherArmor.gd", "res://Armors/MercenaryArmor.gd", "res://Armors/WarriorArmor.gd", "res://Armors/NecromancerArmor.gd", "res://Armors/improvised_armor.gd", "res://Armors/farmer_clothes.gd", "res://Armors/plague_armor.gd"]
 const AVAILABLE_ARMORS_FROM_START: PackedStringArray = ["res://Armors/CommonerClothes.gd", "res://Armors/LeatherArmor.gd", "res://Armors/MercenaryArmor.gd", "res://Armors/WarriorArmor.gd", "res://Armors/NecromancerArmor.gd", "res://Armors/improvised_armor.gd", "res://Armors/farmer_clothes.gd", "res://Armors/plague_armor.gd"]
 
-const ALL_VANILLA_PERMANENT_ITEMS: PackedStringArray = ["res://items/Passive/Permanent/StrongThrow.gd", "res://items/Passive/Permanent/ToughSkin.gd", "res://items/Passive/Permanent/EnhancedBoots.gd", "res://items/Passive/Permanent/meteor_stone.gd", "res://items/Passive/Permanent/SoulAmulet.gd", "res://items/Passive/Permanent/runes/AxeRune.gd", "res://items/Passive/Permanent/runes/HammerRune.gd", "res://items/Passive/Permanent/runes/MeleeRune.gd", "res://items/Passive/Permanent/runes/SpearRune.gd", "res://items/Passive/Permanent/runes/SwordRune.gd", "res://items/Passive/Permanent/acid_boots.gd", "res://items/Passive/Permanent/orb_of_the_berserker.gd"]
-const AVAILABLE_PERMANENT_ITEMS_FROM_START: PackedStringArray = ["res://items/Passive/Permanent/StrongThrow.gd", "res://items/Passive/Permanent/ToughSkin.gd", "res://items/Passive/Permanent/EnhancedBoots.gd", "res://items/Passive/Permanent/meteor_stone.gd", "res://items/Passive/Permanent/SoulAmulet.gd", "res://items/Passive/Permanent/runes/AxeRune.gd", "res://items/Passive/Permanent/runes/HammerRune.gd", "res://items/Passive/Permanent/runes/MeleeRune.gd", "res://items/Passive/Permanent/runes/SpearRune.gd", "res://items/Passive/Permanent/runes/SwordRune.gd", "res://items/Passive/Permanent/acid_boots.gd", "res://items/Passive/Permanent/orb_of_the_berserker.gd"]
+const ALL_VANILLA_PERMANENT_ITEMS: PackedStringArray = ["res://items/Passive/Permanent/StrongThrow.gd", "res://items/Passive/Permanent/ToughSkin.gd", "res://items/Passive/Permanent/EnhancedBoots.gd", "res://items/Passive/Permanent/meteor_stone.gd", "res://items/Passive/Permanent/SoulAmulet.gd", "res://items/Passive/Permanent/runes/AxeRune.gd", "res://items/Passive/Permanent/runes/HammerRune.gd", "res://items/Passive/Permanent/runes/MeleeRune.gd", "res://items/Passive/Permanent/runes/SpearRune.gd", "res://items/Passive/Permanent/runes/SwordRune.gd", "res://items/Passive/Permanent/acid_boots.gd", "res://items/Passive/Permanent/orb_of_the_berserker.gd", "res://items/Passive/Permanent/bigger_rations.gd", "res://items/Passive/Permanent/projectile_orb.gd"]
+const AVAILABLE_PERMANENT_ITEMS_FROM_START: PackedStringArray = ["res://items/Passive/Permanent/StrongThrow.gd", "res://items/Passive/Permanent/ToughSkin.gd", "res://items/Passive/Permanent/EnhancedBoots.gd", "res://items/Passive/Permanent/meteor_stone.gd", "res://items/Passive/Permanent/SoulAmulet.gd", "res://items/Passive/Permanent/runes/AxeRune.gd", "res://items/Passive/Permanent/runes/HammerRune.gd", "res://items/Passive/Permanent/runes/MeleeRune.gd", "res://items/Passive/Permanent/runes/SpearRune.gd", "res://items/Passive/Permanent/runes/SwordRune.gd", "res://items/Passive/Permanent/acid_boots.gd", "res://items/Passive/Permanent/orb_of_the_berserker.gd", "res://items/Passive/Permanent/bigger_rations.gd", "res://items/Passive/Permanent/projectile_orb.gd"]
 
 const ALL_VANILLA_TEMPORAL_ITEMS: PackedStringArray = ["res://items/Passive/Temporal/magic_shields/wooden_magic_shield.gd", "res://items/Passive/Temporal/magic_shields/reinforced_magic_shield.gd", "res://items/Passive/Temporal/MagicSword.gd"]
 const AVAILABLE_TEMPORAL_ITEMS_FROM_START: PackedStringArray = ["res://items/Passive/Temporal/magic_shields/wooden_magic_shield.gd", "res://items/Passive/Temporal/magic_shields/reinforced_magic_shield.gd", "res://items/Passive/Temporal/MagicSword.gd"]
@@ -41,6 +41,8 @@ var _completed_dialogues: PackedStringArray = []
 
 var items_shop_unlocked: bool = false
 var player_upgrades_shop_unlocked: bool = false
+
+var show_save_and_return_window: bool = true: set = set_show_save_and_return_window
 
 
 func save() -> void:
@@ -193,6 +195,11 @@ func has_completed_dialogue(dialogue: String) -> bool:
 			return true
 
 	return false
+
+
+func set_show_save_and_return_window(new_value: bool) -> void:
+	show_save_and_return_window = new_value
+	save()
 
 
 static func from_dic(dic: Dictionary) -> Data:

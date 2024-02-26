@@ -15,6 +15,7 @@ func test_weapons() -> void:
 		assert_bool(FileAccess.file_exists(weapon_path))
 		assert_bool(weapon_path.get_extension() == "tscn")
 		assert_object(auto_free(load(weapon_path).instantiate())).is_instanceof(Weapon)
+		assert_object(Weapon.get_data(Weapon.get_id_from_path(weapon_path))).is_not_null()
 
 
 func test_armors() -> void:

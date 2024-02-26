@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://2awu7p1ku5pp"]
+
+[ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="1_03nlb"]
+[ext_resource type="Theme" uid="uid://d0qfeecooxxpf" path="res://SmallFontTheme.tres" id="2_3qad5"]
+[ext_resource type="Script" path="res://ui/save_and_return_window/save_and_return_window.gd" id="2_k85if"]
+
+[node name="SaveAndReturnWindow" type="ConfirmationDialog"]
+process_mode = 3
+disable_3d = true
+title = "ARE_YOU_SURE"
+position = Vector2i(0, 36)
+size = Vector2i(249, 94)
+visible = true
+unresizable = true
+borderless = true
+popup_window = true
+theme = ExtResource("1_03nlb")
+cancel_button_text = "CANCEL"
+script = ExtResource("2_k85if")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 241.0
+offset_bottom = 52.0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(233, 0)
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("2_3qad5")
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+text = "SAVE_AND_RETURN_TO_MENU"
+autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="DontAskAgainCheckBox" type="CheckBox" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+flat = true
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_3qad5")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "DONT_ASK_AGAIN"

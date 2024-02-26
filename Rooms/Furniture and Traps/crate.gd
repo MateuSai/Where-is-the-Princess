@@ -40,7 +40,8 @@ func _spawn_wood_fragments(dir: Vector2) -> void:
 
 	var amount: int = randi_range(4, 10)
 	for i: int in amount:
+		await get_tree().process_frame
 		var wood_fragment: WoodFragment = wood_fragment_scene.instantiate()
 		wood_fragment.position = position
 		room.add_child(wood_fragment)
-		wood_fragment.throw(dir.rotated(randf_range(-1.0, 1.0)))
+		wood_fragment.throw(self, dir.rotated(randf_range(-1.0, 1.0)))

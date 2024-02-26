@@ -44,10 +44,7 @@ func _ready() -> void:
 func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: bool = false) -> void:
 	position = initial_position
 	knockback_direction = dir
-	if damage_dealer_id == "player":
-		self.speed = speed
-	else:
-		self.speed = round(speed * Projectile.non_player_projectile_speed_multiplier)
+	self.speed = speed
 	self.rotate_to_dir = rotate_to_dir
 	self.direction = dir
 
@@ -60,7 +57,8 @@ func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: 
 
 
 func _physics_process(delta: float) -> void:
-	position += direction * speed * delta
+	var speed_to_use: int = speed if damage_dealer_id == "player" else round(speed * Projectile.non_player_projectile_speed_multiplier)
+	position += direction * speed_to_use * delta
 	if random_rotate:
 		rotation += rot_dir * delta
 
@@ -71,7 +69,7 @@ func _collide(node: Node2D, _dam: int = damage) -> void:
 	if node.get("life_component") != null:
 		@warning_ignore("unsafe_property_access")
 		var life_component: LifeComponent = node.life_component
-		life_component.take_damage(damage, knockback_direction, knockback_force, weapon, damage_dealer_id)
+		life_component.take_damage(damage, knockback_direction, knockback_force, weapon, damage_dealer_id, true)
 		if bodies_pierced >= piercing:
 			destroy()
 		else:

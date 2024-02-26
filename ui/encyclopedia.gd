@@ -6,6 +6,7 @@ enum {
 	ITEMS,
 	ENEMIES,
 }
+var last_category: int = -1
 
 @onready var category_buttons: VBoxContainer = $HBoxContainer/CategoryButtons
 @onready var flow_container: HFlowContainer = $HBoxContainer/ScrollContainer/HFlowContainer
@@ -20,7 +21,13 @@ func _ready() -> void:
 	_set_category(WEAPONS)
 
 
+func _draw() -> void:
+	_set_category(last_category)
+
+
 func _set_category(new_category: int) -> void:
+	last_category = new_category
+
 	for i: int in range(flow_container.get_child_count() - 1, -1, -1):
 		flow_container.get_child(i).free()
 

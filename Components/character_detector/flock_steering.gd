@@ -55,12 +55,12 @@ func _get_separation_steering() -> Vector2:
 	for character_in_range: Character in characters_inside:
 		steering += character.global_position - character_in_range.global_position
 
-	return steering.normalized() * 0.1
+	return steering.normalized() * 2
 
 
 func _get_cohesion_steering() -> Vector2:
 	var steering: Vector2 = Vector2.ZERO
-	var center_pos: Vector2 = global_position
+	var center_pos: Vector2 = Vector2.ZERO
 
 	for character_in_range: Character in characters_inside:
 		center_pos += character_in_range.global_position
@@ -69,4 +69,4 @@ func _get_cohesion_steering() -> Vector2:
 
 	steering = (center_pos - character.global_position).normalized()
 
-	return steering * 5
+	return steering * 2

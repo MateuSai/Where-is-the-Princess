@@ -4,7 +4,7 @@ class_name PlayerLifeComponent extends LifeComponent
 @onready var hit_border_effect: HitBorderEffect = $"../UI/HitBorderEffect"
 
 
-func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer_id: String) -> void:
+func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer_id: String, is_projectile: bool = false) -> void:
 	if _must_ignore_damage():
 		return
 
@@ -24,8 +24,10 @@ func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_deal
 			player.add_child(particles)
 			player.set_armor(Underpants.new())
 
-	damage_taken.emit(dam, dir, force)
+	last_weapon = weapon
 	last_damage_dealer_id = damage_dealer_id
+	last_is_projectile = is_projectile
+	damage_taken.emit(dam, dir, force)
 
 	invincible_after_being_hitted = true
 	invincible_after_being_hitted_timer.start(invincible_after_being_hitted_time)

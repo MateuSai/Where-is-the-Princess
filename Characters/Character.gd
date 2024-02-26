@@ -37,6 +37,8 @@ var time_between_acid_damages: float = 1.0:
 		acid_damage_timer.wait_time = time_between_acid_damages
 var acid_progress: float = 0.0: set = set_acid_progress ## Value between 0 and 1
 
+var spawn_shadow_timer: Timer
+
 ## The name of the scene file after removing .tscn and converting it to snake_case
 @onready var id: String = scene_file_path.get_file().trim_suffix(".tscn").to_snake_case()
 
@@ -68,9 +70,27 @@ func _ready() -> void:
 	life_component.body_type = data.body_type
 	resistances = data.initial_resistances
 
+	spawn_shadow_timer = Timer.new()
+	spawn_shadow_timer.wait_time = 0.02
+	spawn_shadow_timer.autostart = false
+	spawn_shadow_timer.one_shot = false
+	spawn_shadow_timer.timeout.connect(_spawn_shadow_effect)
+	add_child(spawn_shadow_timer)
+
 	set_flying(data.flying)
-	state_machine.state_changed.connect(func(new_state: int) -> void:
-		state_label.text = str(new_state)
+
+	if DebugInfo.is_visible:
+		state_label.show()
+		state_machine.state_changed.connect(_update_state_label)
+	else:
+		state_label.hide()
+	(get_tree().current_scene.get_node("UI/DebugUI/DebugInfo") as DebugInfo).visibility_changed.connect(func() -> void:
+		if state_label.visible:
+			state_machine.state_changed.disconnect(_update_state_label)
+			state_label.hide()
+		else:
+			state_label.show()
+			state_machine.state_changed.connect(_update_state_label)
 	)
 	state_machine.start()
 
@@ -210,6 +230,35 @@ func has_resistance(resistance: Resistance, initially: bool = false) -> bool:
 
 func get_exclude_bodies() -> Array[Node2D]:
 	return [self]
+
+
+func _start_shadow_effect() -> void:
+	_spawn_shadow_effect()
+	spawn_shadow_timer.start()
+
+
+func _stop_shadow_effect() -> void:
+	spawn_shadow_timer.stop()
+
+
+func _spawn_shadow_effect() -> void:
+	var shadow_sprite: ShadowSprite = ShadowSprite.new()
+	shadow_sprite.modulate.a = 0.7
+	shadow_sprite.scale = sprite.scale
+	shadow_sprite.flip_h = sprite.flip_h
+	shadow_sprite.flip_v = sprite.flip_v
+	shadow_sprite.hframes = sprite.hframes
+	shadow_sprite.vframes = sprite.vframes
+	shadow_sprite.transform = sprite.global_transform
+	#shadow_sprite.position = weapon_sprite.global_position
+	#shadow_sprite.rotation = weapon_sprite.global_rotation
+	shadow_sprite.offset = sprite.offset
+	get_tree().current_scene.add_child(shadow_sprite)
+	shadow_sprite.start(sprite.texture)
+
+
+func _update_state_label(new_state: int) -> void:
+	state_label.text = str(new_state)
 
 
 @warning_ignore("shadowed_variable")
