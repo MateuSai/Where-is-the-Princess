@@ -8,6 +8,9 @@ var invincible_after_being_hitted_timer: Timer
 ## Value between 0 and 100 where 0 is impossible to block and 100 is 100% blocking probability
 var block_probability: int = 0
 
+var thorn_damage: int = 0
+signal thorn_damage_used()
+
 var damage_taken_multiplier: int = 1
 
 const BONES_HIT_SOUNDS: Array[AudioStream] = [preload("res://Audio/Sounds/impact/420252__redroxpeterpepper__step-skeleton.wav"), preload("res://Audio/Sounds/impact/420253__redroxpeterpepper__step-skeleton-2.wav")]
@@ -15,7 +18,7 @@ const WOOD_HIT_SOUNDS: Array[AudioStream] = [preload("res://Audio/Sounds/impact/
 
 var last_weapon: Weapon
 var last_damage_dealer_id: String
-var last_is_projectile: bool
+var last_is_ranged: bool
 
 enum BodyType {
 	FLESH,
@@ -50,13 +53,13 @@ func _ready() -> void:
 	add_child(invincible_after_being_hitted_timer)
 
 
-func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer_id: String, is_projectile: bool = false) -> void:
+func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer: Node, damage_dealer_id: String, is_ranged: bool = false) -> void:
 	if _must_ignore_damage():
 		return
 
 	last_damage_dealer_id = damage_dealer_id
 	last_weapon = weapon
-	last_is_projectile = is_projectile
+	last_is_ranged = is_ranged
 
 	dam *= damage_taken_multiplier
 	self.hp -= dam
@@ -66,6 +69,9 @@ func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_deal
 
 	invincible_after_being_hitted = true
 	invincible_after_being_hitted_timer.start(invincible_after_being_hitted_time)
+
+	if not is_ranged and damage_dealer and damage_dealer.has_node("LifeComponent") and thorn_damage:
+		_apply_thorn_damage(damage_dealer)
 
 
 func _must_ignore_damage() -> bool:
@@ -100,3 +106,8 @@ func _play_hit_sound(weapon: Weapon) -> void:
 		var sound: AutoFreeSound = AutoFreeSound.new()
 		get_tree().current_scene.add_child(sound)
 		sound.start(stream, parent.global_position)
+
+
+func _apply_thorn_damage(to: Node) -> void:
+	(to.get_node("LifeComponent") as LifeComponent).take_damage(thorn_damage, (to.global_position - get_parent().global_position).normalized(), 300, null, null, "thorn")
+	thorn_damage_used.emit()

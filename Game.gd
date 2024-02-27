@@ -90,6 +90,7 @@ func _on_rooms_generation_completed() -> void:
 		var stream: AudioStream = load(SavedData.get_biome_conf().music as String)
 		assert(stream)
 		music.stream = stream
+		music.volume_db = SavedData.get_biome_conf().music_volume_db
 		music.play()
 
 	camera.enabled = false

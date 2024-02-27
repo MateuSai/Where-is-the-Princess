@@ -34,6 +34,7 @@ var default_num_special_rooms: int = DEFAULT_NUM_SPECIAL_ROOMS
 var levels: Array[Level] = []
 
 var music: String = ""
+var music_volume_db: float = 0.0
 
 static func from_dic(dic: Dictionary) -> BiomeConf:
 	var data: BiomeConf = BiomeConf.new()

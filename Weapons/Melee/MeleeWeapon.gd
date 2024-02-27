@@ -241,6 +241,11 @@ func _spawn_shadow_effect() -> void:
 	shadow_sprite.start(weapon_sprite.texture)
 
 
+func _set_damage_dealer(new_damage_dealer: Node) -> void:
+	super(new_damage_dealer)
+	hitbox.damage_dealer = damage_dealer
+
+
 func _set_damage_dealer_id(new_id: String) -> void:
 	super(new_id)
 	hitbox.damage_dealer_id = damage_dealer_id

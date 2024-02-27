@@ -210,7 +210,7 @@ func stop_progressing_acid() -> void:
 
 
 func _on_acid_damage_timer_timeout() -> void:
-	life_component.take_damage(1, Vector2.ZERO, 0, null, "acid")
+	life_component.take_damage(1, Vector2.ZERO, 0, null, null, "acid")
 
 
 func add_resistance(resistance: Resistance) -> void:

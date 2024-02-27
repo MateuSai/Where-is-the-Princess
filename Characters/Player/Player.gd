@@ -150,7 +150,7 @@ func _ready() -> void:
 				var splash: Sprite2D = load("res://effects/water_splash/water_splash.tscn").instantiate()
 				splash.position = global_position
 				get_tree().current_scene.add_child(splash)
-				life_component.take_damage(1, Vector2.ZERO, 0, null, "water")
+				life_component.take_damage(1, Vector2.ZERO, 0, null, null, "water")
 				position = position_before_jumping
 	)
 

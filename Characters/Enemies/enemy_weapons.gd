@@ -7,7 +7,9 @@ var attack_cooldown_timer: Timer
 func _ready() -> void:
 	super()
 
-	current_weapon = get_child(0)
+	character.ready.connect(func() -> void:
+		current_weapon = get_child(0)
+	)
 
 	pre_attack_cooldown_timer = Timer.new()
 	pre_attack_cooldown_timer.one_shot = true

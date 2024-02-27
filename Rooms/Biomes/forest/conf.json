@@ -48,4 +48,5 @@
 	},
 
 	"music": "res://Audio/Music/Incompetech/Shamanistic.mp3",
+	"music_volume_db": -4.0,
 }

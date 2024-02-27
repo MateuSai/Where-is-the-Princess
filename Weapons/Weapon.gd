@@ -7,6 +7,7 @@ const DB: Dictionary = preload("res://Weapons/data/data.csv").records
 
 @export var on_floor: bool = false
 
+var damage_dealer: Node = null: set = _set_damage_dealer
 var damage_dealer_id: String: set = _set_damage_dealer_id
 static var damage_modifiers_by_type: Dictionary = {}
 
@@ -313,6 +314,10 @@ func set_ability_knockback(new_ability_knockback: int) -> void:
 
 func _decrease_weapon_condition(by: float) -> void:
 	stats.condition -= (by + 0.5 * stats.modifiers.size()) * (1 - Globals.player.weapon_degradation_reduction)
+
+
+func _set_damage_dealer(new_damage_dealer: Node) -> void:
+	damage_dealer = new_damage_dealer
 
 
 func _set_damage_dealer_id(new_id: String) -> void:
