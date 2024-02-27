@@ -4,7 +4,7 @@ class_name PlayerLifeComponent extends LifeComponent
 @onready var hit_border_effect: HitBorderEffect = $"../UI/HitBorderEffect"
 
 
-func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer_id: String, is_projectile: bool = false) -> void:
+func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer: Node, damage_dealer_id: String, is_ranged: bool = false) -> void:
 	if _must_ignore_damage():
 		return
 
@@ -26,15 +26,18 @@ func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_deal
 
 	last_weapon = weapon
 	last_damage_dealer_id = damage_dealer_id
-	last_is_projectile = is_projectile
+	last_is_ranged = is_ranged
 	damage_taken.emit(dam, dir, force)
 
 	invincible_after_being_hitted = true
 	invincible_after_being_hitted_timer.start(invincible_after_being_hitted_time)
 
+	if not is_ranged and damage_dealer and damage_dealer.has_node("LifeComponent") and thorn_damage:
+		_apply_thorn_damage(damage_dealer)
 
 
-func take_damage_ignoring_armor(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer_id: String) -> void:
+
+func take_damage_ignoring_armor(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer: Node, damage_dealer_id: String, is_ranged: bool = false) -> void:
 	if _must_ignore_damage():
 		return
 
@@ -49,3 +52,6 @@ func take_damage_ignoring_armor(dam: int, dir: Vector2, force: int, weapon: Weap
 
 	invincible_after_being_hitted = true
 	invincible_after_being_hitted_timer.start(invincible_after_being_hitted_time)
+
+	if not is_ranged and damage_dealer and damage_dealer.has_node("LifeComponent") and thorn_damage:
+		_apply_thorn_damage(damage_dealer)

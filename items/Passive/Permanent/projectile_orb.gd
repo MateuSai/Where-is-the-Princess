@@ -12,7 +12,7 @@ func get_icon() -> Texture2D:
 
 func equip(player: Player) -> void:
 	player.life_component.damage_taken.connect(func(_dam: int, _dir: Vector2, _force: int) -> void:
-		if player.life_component.last_is_projectile and can_use:
+		if player.life_component.last_is_ranged and can_use:
 			effect_active = true
 			can_use = false
 			Projectile.non_player_projectile_speed_multiplier *= 0.5

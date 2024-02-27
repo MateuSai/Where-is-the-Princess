@@ -222,7 +222,9 @@ func set_current_weapon(new_weapon: Weapon) -> void:
 		current_weapon.used_normal_attack.disconnect(_on_normal_attack)
 		current_weapon.used_active_ability.disconnect(_on_active_ability)
 		current_weapon.charge_animation_still_executing.disconnect(_on_charge_animation_still_executing)
+
 	super(new_weapon)
+
 	current_weapon.set_process_unhandled_input(true)
 	current_weapon.used_normal_attack.connect(_on_normal_attack)
 	current_weapon.used_active_ability.connect(_on_active_ability)

@@ -37,6 +37,7 @@ func set_current_weapon(new_weapon: Weapon) -> void:
 			(current_weapon as MeleeWeapon).hitbox.exclude = a
 
 		current_weapon = new_weapon
+		current_weapon.damage_dealer = character
 		current_weapon.damage_dealer_id = character.id
 		reflection_sprite.texture = current_weapon.weapon_sprite.texture
 		reflection_sprite.offset = current_weapon.weapon_sprite.offset
