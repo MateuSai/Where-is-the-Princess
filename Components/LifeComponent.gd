@@ -9,6 +9,7 @@ var invincible_after_being_hitted_timer: Timer
 var block_probability: int = 0
 
 var thorn_damage: int = 0
+signal thorn_damage_used()
 
 var damage_taken_multiplier: int = 1
 
@@ -109,3 +110,4 @@ func _play_hit_sound(weapon: Weapon) -> void:
 
 func _apply_thorn_damage(to: Node) -> void:
 	(to.get_node("LifeComponent") as LifeComponent).take_damage(thorn_damage, (to.global_position - get_parent().global_position).normalized(), 300, null, null, "thorn")
+	thorn_damage_used.emit()

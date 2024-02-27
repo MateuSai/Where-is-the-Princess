@@ -33,6 +33,16 @@ func get_level_seed() -> int:
 	return int(str(run_seed) + str(biome.hash()).left(7) + str(level))
 
 
+func get_amount_of_temporl_passive_items_of_type(item: Object) -> int:
+	var amount: int = 0
+
+	for temporal_item: TemporalPassiveItem in temporal_passive_items:
+		if typeof(temporal_item) == typeof(item):
+			amount += 1
+
+	return amount
+
+
 func _on_free() -> void:
 	for permanent_item: PermanentPassiveItem in permanent_passive_items:
 		permanent_item.unequip(Globals.player)
