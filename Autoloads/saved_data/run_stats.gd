@@ -22,7 +22,8 @@ signal coins_changed(new_coins: int)
 
 @export var armor: Armor = null
 
-@export var permanent_passive_items: Array[PermanentPassiveItem] = []
+@export var _permanent_passive_items: Array[PermanentPassiveItem] = []
+@export var _permanent_passive_items_names: PackedStringArray = []
 @export var temporal_passive_items: Array[TemporalPassiveItem] = []
 
 ## Bigger luck means more chance to get rare items from chests
@@ -31,6 +32,18 @@ signal coins_changed(new_coins: int)
 
 func get_level_seed() -> int:
 	return int(str(run_seed) + str(biome.hash()).left(7) + str(level))
+
+
+func add_permanent_passive_item(item: PermanentPassiveItem) -> void:
+	assert(not _permanent_passive_items.has(item))
+	assert(not _permanent_passive_items_names.has(item.get_item_name()))
+
+	_permanent_passive_items.push_back(item)
+	_permanent_passive_items_names.push_back(item.get_item_name())
+
+
+func get_permanent_passive_items() -> Array[PermanentPassiveItem]:
+	return _permanent_passive_items
 
 
 func get_amount_of_temporl_passive_items_of_type(item: Object) -> int:
@@ -44,5 +57,5 @@ func get_amount_of_temporl_passive_items_of_type(item: Object) -> int:
 
 
 func _on_free() -> void:
-	for permanent_item: PermanentPassiveItem in permanent_passive_items:
+	for permanent_item: PermanentPassiveItem in _permanent_passive_items:
 		permanent_item.unequip(Globals.player)

@@ -9,11 +9,11 @@ func _init() -> void:
 
 
 func equip(player: Player) -> void:
-	player.max_speed += 70
+	player.data.max_speed += 70
 
 
 func unequip(player: Player) -> void:
-	player.max_speed -= 70
+	player.data.max_speed -= 70
 
 
 func get_icon() -> Texture2D:
