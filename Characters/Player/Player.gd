@@ -172,7 +172,7 @@ func _restore_previous_state() -> void:
 			player_upgrade.equip(self)
 
 	life_component.hp = SavedData.run_stats.hp
-	for permanent_passive_item: PermanentPassiveItem in SavedData.run_stats.permanent_passive_items:
+	for permanent_passive_item: PermanentPassiveItem in SavedData.run_stats.get_permanent_passive_items():
 		pick_up_passive_item(permanent_passive_item)
 	for temporal_passive_item: TemporalPassiveItem in SavedData.run_stats.temporal_passive_items:
 		pick_up_passive_item(temporal_passive_item)
@@ -276,8 +276,7 @@ func pick_up_passive_item(item: PassiveItem) -> void:
 	if item is PermanentPassiveItem:
 		var permanent_passive_item: PermanentPassiveItem = item
 		permanent_passive_item.equip(self)
-		if not SavedData.run_stats.permanent_passive_items.has(permanent_passive_item):
-			SavedData.run_stats.permanent_passive_items.push_back(permanent_passive_item)
+		SavedData.run_stats.add_permanent_passive_item(item)
 
 		SavedData.discover_permanent_item_if_not_already((item.get_script() as GDScript).get_path())
 		permanent_passive_item_picked_up.emit(permanent_passive_item)
