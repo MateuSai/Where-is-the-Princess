@@ -46,6 +46,10 @@ func get_permanent_passive_items() -> Array[PermanentPassiveItem]:
 	return _permanent_passive_items
 
 
+func get_permanent_passive_items_names() -> PackedStringArray:
+	return _permanent_passive_items_names
+
+
 func get_amount_of_temporl_passive_items_of_type(item: Object) -> int:
 	var amount: int = 0
 
