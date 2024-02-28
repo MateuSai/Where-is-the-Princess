@@ -9,7 +9,13 @@ const DB: Dictionary = preload("res://Weapons/data/data.csv").records
 
 var damage_dealer: Node = null: set = _set_damage_dealer
 var damage_dealer_id: String: set = _set_damage_dealer_id
+
+## This variable is resetted after each scene change on the _on_scene_changed of Globals
 static var damage_modifiers_by_type: Dictionary = {}
+## This variable is resetted after each scene change on the _on_scene_changed of Globals
+static var damage_modifiers_by_subtype: Dictionary = {}
+
+static var attack_animation_speed_modifier: float = 1.0
 
 var data: WeaponData = null
 var stats: WeaponStats = null
@@ -51,6 +57,7 @@ func _ready() -> void:
 	set_process_unhandled_input(false)
 	@warning_ignore("unsafe_call_argument")
 	add_to_group(WeaponData.Type.keys()[data.type])
+	add_to_group(WeaponData.Subtype.keys()[data.subtype])
 
 	stats.condition_changed.connect(_on_condition_changed)
 
@@ -58,10 +65,9 @@ func _ready() -> void:
 	animation_player.animation_finished.connect(_on_animation_finished)
 
 	if damage_modifiers_by_type.has(data.type):
-		data.damage = data.damage + damage_modifiers_by_type[data.type]
-	else:
-		data.damage = data.damage
-	data.ability_damage = data.ability_damage
+		data.damage += damage_modifiers_by_type[data.type]
+	if damage_modifiers_by_subtype.has(data.subtype):
+		data.damage += damage_modifiers_by_subtype[data.subtype]
 
 	charge_timer = Timer.new()
 	charge_timer.wait_time = 0.05
@@ -254,6 +260,11 @@ func _on_animation_started(anim_name: StringName) -> void:
 	elif not charge_timer.is_stopped():
 		charge_timer.stop()
 
+	if anim_name.contains("attack"):
+		animation_player.speed_scale = Weapon.attack_animation_speed_modifier
+	else:
+		animation_player.speed_scale = 1.0
+
 
 func _on_animation_finished(anim_name: String) -> void:
 	if anim_name.begins_with("active_ability"):
@@ -283,7 +294,6 @@ func get_animation_full_name(anim: String) -> String:
 		return ""
 
 
-@warning_ignore("shadowed_variable")
 static func _add_damage_modifier_by_type(type: WeaponData.Type, dam: int) -> void:
 	if damage_modifiers_by_type.has(type):
 		damage_modifiers_by_type[type] += dam
@@ -291,9 +301,19 @@ static func _add_damage_modifier_by_type(type: WeaponData.Type, dam: int) -> voi
 		damage_modifiers_by_type[type] = dam
 
 
-@warning_ignore("shadowed_variable")
 static func _remove_damage_modifier_by_type(type: WeaponData.Type, dam: int) -> void:
 	damage_modifiers_by_type[type] -= dam
+
+
+static func _add_damage_modifier_by_subtype(subtype: WeaponData.Subtype, dam: int) -> void:
+	if damage_modifiers_by_subtype.has(subtype):
+		damage_modifiers_by_subtype[subtype] += dam
+	else:
+		damage_modifiers_by_subtype[subtype] = dam
+
+
+static func _remove_damage_modifier_by_subtype(subtype: WeaponData.Subtype, dam: int) -> void:
+	damage_modifiers_by_subtype[subtype] -= dam
 
 
 func set_damage(new_damage: int) -> void:

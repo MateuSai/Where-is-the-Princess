@@ -13,6 +13,11 @@ enum Type {
 	OTHER,
 }
 @export var type: Type
+enum Subtype {
+	NONE,
+	KATANA,
+}
+@export var subtype: Subtype
 @export var weapon_name: String = ""
 @export var description: String = ""
 @export var prop: Texture2D = null
@@ -51,6 +56,7 @@ static func _load_dic(weapon_data: WeaponData, dic: Dictionary) -> void:
 	var icon_path: String = dic["icon"]
 	weapon_data.icon = load(icon_path) as Texture2D
 	weapon_data.type = Type.values()[Type.keys().find(dic["type"])]
+	weapon_data.subtype = Subtype.values()[Subtype.keys().find(dic["subtype"])]
 	#animation_library = load(ANIMATION_LIBRARIES_FOLDER.path_join(data["animation_library"]))
 	weapon_data.animation_library = dic["animation_library"] + "_animation_library"
 	weapon_data.damage = dic.damage
