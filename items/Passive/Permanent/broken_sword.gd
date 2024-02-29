@@ -2,7 +2,7 @@ extends PermanentPassiveItem
 
 
 func get_icon() -> Texture2D:
-	return load("res://Art/items/big_ration_icon.png")
+	return load("res://Art/items/broken_sword_icon.png")
 
 
 func equip(player: Player) -> void:

@@ -1,0 +1,44 @@
+[gd_scene load_steps=9 format=3 uid="uid://u6q2tn1xph6o"]
+
+[ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_6uy2j"]
+[ext_resource type="Script" path="res://Weapons/Melee/branch/branch.gd" id="2_4q20e"]
+[ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="2_hhsln"]
+[ext_resource type="Texture2D" uid="uid://d1lbq8823sir2" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/branch_with_leaves.png" id="3_78uq3"]
+[ext_resource type="AnimationLibrary" uid="uid://d177jeworynq6" path="res://Weapons/animation_libraries/quick_swing_animation_library.tres" id="4_78261"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_so07t"]
+resource_local_to_scene = true
+shader = ExtResource("2_hhsln")
+shader_parameter/active = false
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_242ew"]
+radius = 3.0
+height = 20.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ukwsx"]
+radius = 4.0
+height = 22.0001
+
+[node name="Branch" instance=ExtResource("1_6uy2j")]
+script = ExtResource("2_4q20e")
+throw_speed = 200
+
+[node name="WeaponSprite" parent="Node2D" index="0"]
+material = SubResource("ShaderMaterial_so07t")
+position = Vector2(7, 0)
+rotation = 0.0
+texture = ExtResource("3_78uq3")
+offset = Vector2(0, -6)
+
+[node name="CollisionShape2D" parent="Node2D/WeaponSprite/Hitbox" index="0"]
+position = Vector2(2.54194e-05, -6.99997)
+shape = SubResource("CapsuleShape2D_242ew")
+
+[node name="CollisionShape2D" parent="Node2D/WeaponSprite/PlayerDetector" index="0"]
+position = Vector2(2.53398e-05, -6.99997)
+shape = SubResource("CapsuleShape2D_ukwsx")
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {
+"quick_swing_animation_library": ExtResource("4_78261")
+}

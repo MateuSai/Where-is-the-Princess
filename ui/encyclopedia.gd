@@ -33,6 +33,7 @@ func _set_category(new_category: int) -> void:
 
 	match new_category:
 		WEAPONS:
+			var weapons_statistics: Dictionary = SavedData.statistics.get_weapons_statistics()
 			var discovered_weapon_paths: PackedStringArray = SavedData.get_discovered_weapon_paths()
 			for weapon_path: String in SavedData.get_all_weapon_paths():
 				var weapon_data: WeaponData = Weapon.get_data(weapon_path)
@@ -44,7 +45,8 @@ func _set_category(new_category: int) -> void:
 				else:
 					button.pressed.connect(func() -> void:
 						_clear_details()
-						_show_weapon_details(Weapon.get_id_from_path(weapon_path), weapon_data)
+						var weapon_id: String = Weapon.get_id_from_path(weapon_path)
+						_show_weapon_details(weapon_id, weapon_data, weapons_statistics[weapon_id] if weapons_statistics.has(weapon_id) else null)
 					)
 				flow_container.add_child(button)
 		ARMORS:
@@ -83,7 +85,7 @@ func _set_category(new_category: int) -> void:
 				var enemy_data: EnemyData = Enemy.get_data(enemy_id)
 				if enemy_data != null:
 					var button: Button = Button.new()
-					button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+					#button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 					button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 					button.icon = enemy_data.icon
 					if not enemies_statistics.has(enemy_id):
@@ -102,7 +104,10 @@ func _clear_details() -> void:
 		details_vbox.get_child(i).free()
 
 
-func _show_weapon_details(id: String, data: WeaponData) -> void:
+func _show_weapon_details(id: String, data: WeaponData, statistics: WeaponStatistics) -> void:
+	if not statistics:
+		statistics = WeaponStatistics.new()
+
 	var weapon_texture: TextureRect = TextureRect.new()
 	weapon_texture.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 	weapon_texture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
@@ -122,6 +127,13 @@ func _show_weapon_details(id: String, data: WeaponData) -> void:
 	type_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	type_label.text = WeaponData.Type.keys()[data.type]
 	details_vbox.add_child(type_label)
+
+	var kills_label: Label = Label.new()
+	kills_label.theme = load("res://SmallFontTheme.tres")
+	kills_label.custom_minimum_size.x = details_vbox.size.x - 16
+	kills_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	kills_label.text = tr("KILLS") + ": " + str(statistics.enemies_killed)
+	details_vbox.add_child(kills_label)
 
 
 func _show_armor_details(armor: Armor) -> void:
