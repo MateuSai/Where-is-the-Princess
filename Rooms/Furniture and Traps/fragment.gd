@@ -1,10 +1,16 @@
-class_name WoodFragment extends Sprite2D
+class_name Fragment extends Sprite2D
+
+@export var textures: Array[Texture2D] = []
 
 @onready var area: Area2D = $Area2D
 
 
+func _ready() -> void:
+	assert(not textures.is_empty())
+
+
 func throw(thrower_body: Node, dir: Vector2) -> void:
-	texture = load("res://Art/crate/wood-particle_0" + str((randi() % 6) + 1) + ".png")
+	texture = textures[randi() % textures.size()]
 	var tween: Tween = create_tween()
 	tween.set_parallel(true)
 	var time: float = 0.5

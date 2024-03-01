@@ -38,6 +38,9 @@ shape = SubResource("CapsuleShape2D_242ew")
 position = Vector2(2.53398e-05, -6.99997)
 shape = SubResource("CapsuleShape2D_ukwsx")
 
+[node name="DropLeafsPosition" type="Marker2D" parent="Node2D/WeaponSprite" index="3"]
+position = Vector2(3.61998e-05, -9.99997)
+
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {
 "quick_swing_animation_library": ExtResource("4_78261")

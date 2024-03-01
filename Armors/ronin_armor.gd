@@ -2,7 +2,7 @@ extends Armor
 
 
 func _init() -> void:
-	initialize(4, load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_ronin_icon.png") as Texture2D, 5, 3)
+	initialize(4, load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_ronin_icon.png") as Texture2D, 5, 2.5)
 
 
 func equip(_player: Player) -> void:
