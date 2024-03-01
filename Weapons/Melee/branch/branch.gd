@@ -23,6 +23,7 @@ func _on_first_collide(_body: Node2D) -> void:
 	hitbox.collided_with_something.disconnect(_on_first_collide)
 
 	for i: int in 2:
+		await get_tree().process_frame
 		var leaf: Fragment = LEAF_SCENE.instantiate()
 		leaf.position = drop_leafs_position.global_position
 		get_tree().current_scene.add_child(leaf)

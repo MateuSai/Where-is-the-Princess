@@ -6,6 +6,7 @@ class_name Weapon extends Node2D
 const DB: Dictionary = preload("res://Weapons/data/data.csv").records
 
 @export var on_floor: bool = false
+@export var bad_state: bool = false
 
 var damage_dealer: Node = null: set = _set_damage_dealer
 var damage_dealer_id: String: set = _set_damage_dealer_id
@@ -53,6 +54,19 @@ func _ready() -> void:
 		stats = WeaponStats.new()
 		stats.weapon_path = scene_file_path
 		stats.souls_to_activate_ability = data.souls_to_activate_ability
+		if bad_state:
+			data.damage = ceil(data.damage / 2.0)
+			data.condition_cost_per_normal_attack *= 5.0
+			weapon_sprite.modulate = Color.BURLYWOOD
+
+			stats.bad_state = bad_state
+			# Random initial condition. We make sure it's not greater than 35
+			stats.set_condition(clamp(data.condition_cost_per_normal_attack * randi_range(2, 5) * randf_range(0.8, 1.2), 0, 35))
+	else:
+		if stats.bad_state:
+			data.damage = ceil(data.damage / 2.0)
+			data.condition_cost_per_normal_attack *= 5.0
+			weapon_sprite.modulate = Color.BURLYWOOD
 
 	set_process_unhandled_input(false)
 	@warning_ignore("unsafe_call_argument")

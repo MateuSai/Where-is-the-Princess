@@ -4,6 +4,8 @@ class_name WeaponStats extends Resource
 @export var condition: float = 100: set = set_condition
 signal condition_changed(new_condition: int)
 
+@export var bad_state: bool = false
+
 signal souls_changed(new_souls: int, souls_to_activate_ability: int)
 @export var souls_to_activate_ability: int
 @export var souls: int = 0:
