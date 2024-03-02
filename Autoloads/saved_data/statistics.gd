@@ -5,6 +5,7 @@ const SAVE_NAME: String = "statistics.json"
 
 var _enemies_statistics: Dictionary = {}
 var _weapons_statistics: Dictionary = {}
+var _items_statistics: Dictionary = {}
 
 
 func save() -> void:
@@ -91,6 +92,26 @@ func add_weapon_times_picked_up(weapon_id: String) -> void:
 	save()
 
 
+func get_items_statistics() -> Dictionary:
+	return _items_statistics
+
+
+func get_item_statistics(id: String) -> ItemStatistics:
+	if _items_statistics.has(id):
+		return _items_statistics[id]
+
+	return null
+
+
+func add_item_times_picked_up(id: String) -> void:
+	if not _items_statistics.has(id):
+		_items_statistics[id] = ItemStatistics.new()
+
+	(_items_statistics[id] as ItemStatistics).times_picked_up += 1
+
+	save()
+
+
 static func from_dic(dic: Dictionary) -> Statistics:
 	var statistics: Statistics = Statistics.new()
 
@@ -102,6 +123,9 @@ static func from_dic(dic: Dictionary) -> Statistics:
 			elif key == "_weapons_statistics":
 				for weapon_id: String in dic._weapons_statistics.keys():
 					statistics._weapons_statistics[weapon_id] = WeaponStatistics.from_dic(dic._weapons_statistics[weapon_id])
+			elif key == "_items_statistics":
+				for item_id: String in dic._items_statistics.keys():
+					statistics._items_statistics[item_id] = ItemStatistics.from_dic(dic._items_statistics[item_id])
 			else:
 				statistics.set(key, dic[key])
 		else:
@@ -127,6 +151,10 @@ func to_dic() -> Dictionary:
 				dic["_weapons_statistics"] = {}
 				for weapon_id: String in _weapons_statistics.keys():
 					dic["_weapons_statistics"][weapon_id] = get_weapon_statistics(weapon_id).to_dic()
+			"_items_statistics":
+				dic["_items_statistics"] = {}
+				for item_id: String in _items_statistics.keys():
+					dic["_items_statistics"][item_id] = get_item_statistics(item_id).to_dic()
 			_:
 				dic[property_name] = get(property_name)
 

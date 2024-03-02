@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://owphbhck14b4"]
+
+[ext_resource type="Script" path="res://Rooms/Furniture and Traps/fragment.gd" id="1_j05kr"]
+[ext_resource type="Texture2D" uid="uid://b5iills1x1687" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/leaf_01.png" id="1_rv6rg"]
+[ext_resource type="Texture2D" uid="uid://cflrtoy37fmyb" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/leaf_02.png" id="3_hicx0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cjm0n"]
+radius = 2.0
+
+[node name="Leaf" type="Sprite2D"]
+texture = ExtResource("1_rv6rg")
+script = ExtResource("1_j05kr")
+textures = Array[Texture2D]([ExtResource("1_rv6rg"), ExtResource("3_hicx0")])
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_cjm0n")

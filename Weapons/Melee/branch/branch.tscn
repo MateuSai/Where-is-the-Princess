@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://u6q2tn1xph6o"]
+[gd_scene load_steps=11 format=3 uid="uid://u6q2tn1xph6o"]
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_6uy2j"]
 [ext_resource type="Script" path="res://Weapons/Melee/branch/branch.gd" id="2_4q20e"]
@@ -19,6 +19,14 @@ height = 20.0
 radius = 4.0
 height = 22.0001
 
+[sub_resource type="Animation" id="Animation_gs28d"]
+resource_name = "RESET"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5rla1"]
+_data = {
+"RESET": SubResource("Animation_gs28d")
+}
+
 [node name="Branch" instance=ExtResource("1_6uy2j")]
 script = ExtResource("2_4q20e")
 throw_speed = 200
@@ -38,7 +46,11 @@ shape = SubResource("CapsuleShape2D_242ew")
 position = Vector2(2.53398e-05, -6.99997)
 shape = SubResource("CapsuleShape2D_ukwsx")
 
+[node name="DropLeafsPosition" type="Marker2D" parent="Node2D/WeaponSprite" index="3"]
+position = Vector2(3.61998e-05, -9.99997)
+
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {
+"": SubResource("AnimationLibrary_5rla1"),
 "quick_swing_animation_library": ExtResource("4_78261")
 }

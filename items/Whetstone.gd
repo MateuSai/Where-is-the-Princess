@@ -10,4 +10,6 @@ func can_pick_up(player: Player) -> bool:
 
 
 func pick_up(player: Player) -> void:
+	super(player)
+
 	player.weapons.current_weapon.stats.set_condition(player.weapons.current_weapon.stats.condition + 50)

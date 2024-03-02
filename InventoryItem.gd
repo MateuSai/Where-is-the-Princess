@@ -6,6 +6,7 @@ var weapon: Weapon
 @onready var condition_bar: TextureProgressBar = $Background/VBoxContainer/TextureProgressBar
 @onready var status_container: HBoxContainer = %StatusContainer
 @onready var arrow_icon: TextureRect = %ArrowIcon
+@onready var bad_state_overlay_texture: TextureRect = %BadStateOverlayTexture
 
 
 @warning_ignore("shadowed_variable")
@@ -27,6 +28,11 @@ func initialize(weapon: Weapon) -> void:
 		arrow_icon.texture = ArrowOrBolt.MODIFIER_TEXTURES[(weapon as BowOrCrossbowWeapon).arrow_type]
 	else:
 		arrow_icon.hide()
+
+	if weapon.stats.bad_state:
+		bad_state_overlay_texture.show()
+	else:
+		bad_state_overlay_texture.hide()
 
 
 #func _ready() -> void:

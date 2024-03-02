@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://l7jamfdo82o1"]
+[gd_scene load_steps=9 format=3 uid="uid://l7jamfdo82o1"]
 
 [ext_resource type="Script" path="res://InventoryItem.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://devpx70x22gpo" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/icons base.png" id="2_fedqx"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b5hj6a0ryvuww" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weap_condition_bar_frame.png" id="3_xxadb"]
 [ext_resource type="Texture2D" uid="uid://f34b2kx0r2pa" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/piercing_arrow_icon.png" id="4_kn0hx"]
 [ext_resource type="Texture2D" uid="uid://dkyt1eqee8dmm" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weap_condition_bar_fill.png" id="4_ttt0i"]
+[ext_resource type="Texture2D" uid="uid://neet7re3yqjg" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/broken_weapon_ui_overlay.png" id="5_d3g2q"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_03pqv"]
 atlas = ExtResource("2_fedqx")
@@ -54,8 +55,16 @@ offset_bottom = 6.0
 texture = ExtResource("4_kn0hx")
 stretch_mode = 2
 
+[node name="BadStateOverlayTexture" type="TextureRect" parent="Background/VBoxContainer/TextureRect"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+texture = ExtResource("5_d3g2q")
+
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Background/VBoxContainer"]
 layout_mode = 2
 value = 100.0
 texture_under = ExtResource("3_xxadb")
 texture_progress = ExtResource("4_ttt0i")
+texture_progress_offset = Vector2(1, 1)

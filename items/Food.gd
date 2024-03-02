@@ -20,5 +20,7 @@ func can_pick_up(player: Player) -> bool:
 
 
 func pick_up(player: Player) -> void:
+	super(player)
+
 	player.life_component.hp += 1 + extra_hp
 	player.eat_sound.play()

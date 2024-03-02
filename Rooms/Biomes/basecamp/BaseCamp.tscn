@@ -284,6 +284,7 @@ on_floor = true
 [node name="DragonKiller" parent="." instance=ExtResource("16_885t0")]
 position = Vector2(235, 168)
 on_floor = true
+bad_state = true
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("18_0hiag")

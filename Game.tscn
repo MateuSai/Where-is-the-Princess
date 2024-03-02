@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=41 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -35,6 +35,8 @@
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
 light_mode = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6orv6"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oed6k"]
 texture = ExtResource("13_s3von")
@@ -164,6 +166,7 @@ offset_bottom = 90.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_usvbv")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_6orv6")
 current_tab = 2
 script = ExtResource("6_y3275")
 
