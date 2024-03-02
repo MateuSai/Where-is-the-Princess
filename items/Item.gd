@@ -21,7 +21,7 @@ func can_pick_up(_player: Player) -> bool:
 
 ## This function is executed when the player interacts with the item when it's on the floor
 func pick_up(_player: Player) -> void:
-	pass
+	SavedData.statistics.add_item_times_picked_up(get_item_name().to_lower())
 
 
 func get_icon() -> Texture2D:

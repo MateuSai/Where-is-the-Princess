@@ -257,7 +257,7 @@ func get_texture() -> Texture2D:
 
 
 func has_active_ability() -> bool:
-	return (animation_player.has_animation("active_ability") or animation_player.has_animation("active_ability_1")) and data.active_ability_icon
+	return (animation_player.has_animation("active_ability") or animation_player.has_animation("active_ability_1")) and data.active_ability_icon and not stats.bad_state
 
 
 func has_strong_attack() -> bool:

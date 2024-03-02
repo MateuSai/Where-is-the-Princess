@@ -65,6 +65,7 @@ func _set_category(new_category: int) -> void:
 					)
 				flow_container.add_child(button)
 		ITEMS:
+			var items_statistics: Dictionary = SavedData.statistics.get_items_statistics()
 			var discovered_item_paths: PackedStringArray = SavedData.get_discovered_all_items_paths()
 			for item_path: String in SavedData.get_all_items_paths():
 				var item: Item = load(item_path).new()
@@ -76,7 +77,8 @@ func _set_category(new_category: int) -> void:
 				else:
 					button.pressed.connect(func() -> void:
 						_clear_details()
-						_show_item_details(item)
+						var item_id: String = item.get_item_name().to_lower()
+						_show_item_details(item, items_statistics[item_id] if items_statistics.has(item_id) else ItemStatistics.new())
 					)
 				flow_container.add_child(button)
 		ENEMIES:
@@ -187,7 +189,7 @@ func _show_armor_details(armor: Armor) -> void:
 	details_vbox.add_child(description_label)
 
 
-func _show_item_details(item: Item) -> void:
+func _show_item_details(item: Item, statistics: ItemStatistics) -> void:
 	var item_texture: TextureRect = TextureRect.new()
 	item_texture.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 	item_texture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
@@ -207,6 +209,13 @@ func _show_item_details(item: Item) -> void:
 	description_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	description_label.text = item.get_item_description()
 	details_vbox.add_child(description_label)
+
+	var times_picked_up_label: Label = Label.new()
+	times_picked_up_label.theme = load("res://SmallFontTheme.tres")
+	times_picked_up_label.custom_minimum_size.x = details_vbox.size.x - 16
+	times_picked_up_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	times_picked_up_label.text = tr("TIMES_PICKED_UP") + ": " + str(statistics.times_picked_up)
+	details_vbox.add_child(times_picked_up_label)
 
 
 func _show_enemy_details(id: String, data: EnemyData, statistics: EnemyStatistics) -> void:
