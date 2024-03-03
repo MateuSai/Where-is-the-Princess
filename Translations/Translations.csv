@@ -133,6 +133,12 @@ SAVE_AND_RETURN_TO_MENU,Do you want to save the game and return to the menu?,Vol
 DONT_ASK_AGAIN,Don’t ask again.,No m'ho tornis a preguntar.,No me lo vuelvas a preguntar.,
 ,,,,
 ,,,,
+TIMES_PICKED_UP,Times picked up,Vegades equipat,Veces equipado,
+KILLS,Kills,Morts,Muertes,
+TIMES_KILLED,Times killed,Nombre de morts,Numero de muertes,
+PLAYER_KILLS,Player kills,Morts del jugador,Muertes del jugador,
+,,,,
+,,,,
 MAP,Map,Mapa,Mapa,地図
 EQUIPMENT,Equipment,Equipament,Equipamiento,
 WEAPONS,Weapons,Armes,Armas,兵器

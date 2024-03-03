@@ -168,6 +168,7 @@ func throw_weapon() -> void:
 	remove_child(weapon_to_drop)
 
 	weapon_to_drop.position = pos
+	weapon_to_drop.hitbox.exclude = character.get_exclude_bodies()
 	get_tree().current_scene.add_child(weapon_to_drop)
 	weapon_to_drop.show()
 

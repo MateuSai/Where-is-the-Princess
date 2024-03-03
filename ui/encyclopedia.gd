@@ -8,9 +8,10 @@ enum {
 }
 var last_category: int = -1
 
-@onready var category_buttons: VBoxContainer = $HBoxContainer/CategoryButtons
-@onready var flow_container: HFlowContainer = $HBoxContainer/ScrollContainer/HFlowContainer
-@onready var details_vbox: VBoxContainer = $HBoxContainer/DetailsScrollContainer/VBoxContainer
+@onready var category_buttons: VBoxContainer = %CategoryButtons
+@onready var flow_container: HFlowContainer = $HBoxContainer/HBoxContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/HFlowContainer
+@onready var details_scroll_container: ScrollContainer = %DetailsScrollContainer
+@onready var details_vbox: VBoxContainer = %DetailsVBoxContainer
 
 
 func _ready() -> void:
@@ -26,7 +27,12 @@ func _draw() -> void:
 
 
 func _set_category(new_category: int) -> void:
+	if last_category != -1:
+		(category_buttons.get_child(last_category) as Button).button_pressed = false
+		(category_buttons.get_child(last_category) as Button).z_index = 0
 	last_category = new_category
+	(category_buttons.get_child(last_category) as Button).button_pressed = true
+	(category_buttons.get_child(last_category) as Button).z_index = 1
 
 	for i: int in range(flow_container.get_child_count() - 1, -1, -1):
 		flow_container.get_child(i).free()
@@ -105,6 +111,8 @@ func _clear_details() -> void:
 	for i: int in range(details_vbox.get_child_count() - 1, -1, -1):
 		details_vbox.get_child(i).free()
 
+	details_scroll_container.scroll_vertical = 0
+
 
 func _show_weapon_details(id: String, data: WeaponData, statistics: WeaponStatistics) -> void:
 	if not statistics:
@@ -127,7 +135,9 @@ func _show_weapon_details(id: String, data: WeaponData, statistics: WeaponStatis
 	type_label.theme = load("res://SmallFontTheme.tres")
 	type_label.custom_minimum_size.x = details_vbox.size.x - 16
 	type_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	type_label.text = WeaponData.Type.keys()[data.type]
+	type_label.text = tr(WeaponData.Type.keys()[data.type])
+	if data.subtype:
+		type_label.text += " / " + tr(WeaponData.Subtype.keys()[data.subtype])
 	details_vbox.add_child(type_label)
 
 	var kills_label: Label = Label.new()

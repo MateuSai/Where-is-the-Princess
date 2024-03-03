@@ -1,8 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://bu6m7pa3yuk4r"]
+[gd_scene load_steps=12 format=3 uid="uid://bu6m7pa3yuk4r"]
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_3tpi4"]
 [ext_resource type="Script" path="res://Weapons/Melee/DragonKiller/DragonKiller.gd" id="2_1equw"]
-[ext_resource type="Texture2D" uid="uid://bhpt1388lfjwl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/Dragon Killer UI icon.png" id="3_bc7ab"]
 [ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="3_yfm3w"]
 [ext_resource type="Texture2D" uid="uid://dpf5my02ckue4" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Dragon killer.png" id="4_e2opm"]
 [ext_resource type="AnimationLibrary" uid="uid://byptxr6sfhkfy" path="res://Weapons/animation_libraries/heavy_melee_weapon_animation_library.tres" id="6_lnrtc"]
@@ -170,18 +169,12 @@ _data = {
 
 [node name="DragonKiller" instance=ExtResource("1_3tpi4")]
 script = ExtResource("2_1equw")
-num_normal_attacks = 1
-increase_num_normal_attacks_on_ability = true
-invert_scale_when_looking_left = false
 throw_speed = 200
-type = 1
-active_ability_icon = ExtResource("3_bc7ab")
 
 [node name="WeaponSprite" parent="Node2D" index="0"]
 material = SubResource("ShaderMaterial_eav6s")
 position = Vector2(6, -2.09808e-05)
 rotation = 0.0
-scale = Vector2(-1, 1)
 texture = ExtResource("4_e2opm")
 offset = Vector2(0, -9)
 
