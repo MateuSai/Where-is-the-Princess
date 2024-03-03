@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://bw0adahejc8e2"]
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_bl8c5"]
+[ext_resource type="Script" path="res://Weapons/dagger.gd" id="2_2s05r"]
 [ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="2_lmpvs"]
-[ext_resource type="Script" path="res://Weapons/Melee/MeleeWeapon.gd" id="2_xa6l8"]
 [ext_resource type="Texture2D" uid="uid://dv23ariebhak2" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/dagger.png" id="3_vxd16"]
 [ext_resource type="Texture2D" uid="uid://evihltxw1ud3" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/effects (new)/slash_effect_anim_spritesheet.png" id="4_enpbj"]
 
@@ -202,10 +202,7 @@ _data = {
 }
 
 [node name="Dagger" instance=ExtResource("1_bl8c5")]
-script = ExtResource("2_xa6l8")
-num_normal_attacks = 1
-increase_num_normal_attacks_on_ability = true
-invert_scale_when_looking_left = true
+script = ExtResource("2_2s05r")
 throw_speed = 200
 
 [node name="WeaponSprite" parent="Node2D" index="0"]

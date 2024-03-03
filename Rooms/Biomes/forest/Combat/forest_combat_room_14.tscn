@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dr225w2pxg0x"]
+[gd_scene load_steps=7 format=3 uid="uid://dr225w2pxg0x"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_ns72n"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_yr20q"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_sf5qy"]
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_kqfj1"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="5_ehgrv"]
+[ext_resource type="PackedScene" uid="uid://u6q2tn1xph6o" path="res://Weapons/Melee/branch/branch.tscn" id="5_mrdol"]
 
 [node name="ForestCombatRoom14" instance=ExtResource("1_ns72n")]
 
@@ -59,6 +60,18 @@ enemy_name = "spiderEgg"
 position = Vector2(373, 185)
 script = ExtResource("4_kqfj1")
 enemy_name = "spiderEgg"
+
+[node name="Branch" parent="Weapons" index="0" instance=ExtResource("5_mrdol")]
+position = Vector2(131, 88)
+rotation = -0.670119
+
+[node name="Branch2" parent="Weapons" index="1" instance=ExtResource("5_mrdol")]
+position = Vector2(231, 175)
+rotation = -0.182176
+
+[node name="Branch3" parent="Weapons" index="2" instance=ExtResource("5_mrdol")]
+position = Vector2(392, 162)
+rotation = -0.885134
 
 [node name="TikiTorch" parent="." index="9" instance=ExtResource("5_ehgrv")]
 position = Vector2(137, 40)

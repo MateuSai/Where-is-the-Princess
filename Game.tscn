@@ -107,7 +107,7 @@ texture = ExtResource("25_47jkq")
 texture_margin_left = 10.0
 texture_margin_top = 5.0
 texture_margin_right = 5.0
-texture_margin_bottom = 10.0
+texture_margin_bottom = 11.0
 axis_stretch_vertical = 1
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tg24n"]
@@ -345,10 +345,11 @@ script = ExtResource("17_k4k0u")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA"]
 layout_mode = 2
-theme_override_constants/separation = -4
+theme_override_constants/separation = -10
 
 [node name="CategoryButtons" type="VBoxContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer"]
 unique_name_in_owner = true
+z_index = 1
 custom_minimum_size = Vector2(21, 0)
 layout_mode = 2
 theme_override_constants/separation = 2
@@ -393,11 +394,13 @@ icon_alignment = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 theme_override_constants/separation = 0
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_c3pu2")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/HBoxContainer/PanelContainer"]

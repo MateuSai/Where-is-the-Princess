@@ -29,10 +29,10 @@ func _draw() -> void:
 func _set_category(new_category: int) -> void:
 	if last_category != -1:
 		(category_buttons.get_child(last_category) as Button).button_pressed = false
-		(category_buttons.get_child(last_category) as Button).z_index = 0
+		#(category_buttons.get_child(last_category) as Button).z_index = 0
 	last_category = new_category
 	(category_buttons.get_child(last_category) as Button).button_pressed = true
-	(category_buttons.get_child(last_category) as Button).z_index = 1
+	#(category_buttons.get_child(last_category) as Button).z_index = 1
 
 	for i: int in range(flow_container.get_child_count() - 1, -1, -1):
 		flow_container.get_child(i).free()

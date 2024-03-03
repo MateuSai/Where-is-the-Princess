@@ -76,6 +76,8 @@ y_sort_enabled = true
 
 [node name="Items" type="Node2D" parent="."]
 
+[node name="Weapons" type="Node2D" parent="."]
+
 [node name="TeleportPosition" type="Marker2D" parent="."]
 
 [node name="DebugRoomId" type="Label" parent="."]

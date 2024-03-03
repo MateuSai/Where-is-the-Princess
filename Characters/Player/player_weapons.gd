@@ -112,12 +112,15 @@ func pick_up_weapon(weapon: Weapon) -> void:
 	weapon.get_parent().call_deferred("remove_child", weapon)
 	call_deferred("add_child", weapon)
 	# set_deferred("owner", self)
-	current_weapon.hide()
-	current_weapon.cancel_attack()
-	set_current_weapon(weapon)
+	if current_weapon is Dagger:
+		current_weapon.hide()
+		current_weapon.cancel_attack()
+		set_current_weapon(weapon)
 
-	weapon.condition_changed.connect(_on_weapon_condition_changed)
-	weapon.status_inflicter_added.connect(_on_weapon_status_inflicter_added)
+		weapon.condition_changed.connect(_on_weapon_condition_changed)
+		weapon.status_inflicter_added.connect(_on_weapon_status_inflicter_added)
+	else:
+		weapon.hide()
 
 	await get_tree().process_frame
 
@@ -125,7 +128,8 @@ func pick_up_weapon(weapon: Weapon) -> void:
 	SavedData.statistics.add_weapon_times_picked_up(weapon.weapon_id)
 
 	weapon_picked_up.emit(weapon)
-	weapon_switched.emit(prev_index, new_index)
+	if get_child(prev_index) is Dagger:
+		weapon_switched.emit(prev_index, new_index)
 
 	equip_weapon_sound.play()
 

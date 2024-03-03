@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://eomwe3w6gj6i"]
+[gd_scene load_steps=7 format=3 uid="uid://eomwe3w6gj6i"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_w2g7h"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="2_sqssm"]
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="3_fql5d"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="3_oju1t"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="4_eem8a"]
+[ext_resource type="PackedScene" uid="uid://u6q2tn1xph6o" path="res://Weapons/Melee/branch/branch.tscn" id="5_5f588"]
 
 [node name="ForestCombatRoom10" instance=ExtResource("1_w2g7h")]
 
@@ -48,7 +49,15 @@ position = Vector2(190, 213)
 script = ExtResource("3_fql5d")
 enemy_name = "shaman_tribal"
 
-[node name="TeleportPosition" parent="." index="7"]
+[node name="Branch" parent="Weapons" index="0" instance=ExtResource("5_5f588")]
+position = Vector2(370, 126)
+rotation = 0.298632
+
+[node name="Branch2" parent="Weapons" index="1" instance=ExtResource("5_5f588")]
+position = Vector2(272, 216)
+rotation = -0.668076
+
+[node name="TeleportPosition" parent="." index="8"]
 position = Vector2(149, 136)
 
 [node name="TikiTorch" parent="." index="9" instance=ExtResource("4_eem8a")]
