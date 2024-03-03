@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bnhj80g0p1e87"]
+[gd_scene load_steps=7 format=3 uid="uid://bnhj80g0p1e87"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_onh3r"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_vv0p2"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_8n1ea"]
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_qt8fw"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="5_bayj8"]
+[ext_resource type="PackedScene" uid="uid://u6q2tn1xph6o" path="res://Weapons/Melee/branch/branch.tscn" id="5_xhp6e"]
 
 [node name="ForestMiddleRoom4" instance=ExtResource("1_onh3r")]
 
@@ -43,8 +44,13 @@ position = Vector2(321, 169)
 script = ExtResource("4_qt8fw")
 enemy_name = "Snake"
 
-[node name="TeleportPosition" parent="." index="7"]
-position = Vector2(192, 122)
+[node name="Branch" parent="Weapons" index="0" instance=ExtResource("5_xhp6e")]
+position = Vector2(144, 59)
+rotation = 0.212556
+
+[node name="Branch2" parent="Weapons" index="1" instance=ExtResource("5_xhp6e")]
+position = Vector2(389, 156)
+rotation = -0.304304
 
 [node name="TikiTorch" parent="." index="8" instance=ExtResource("5_bayj8")]
 position = Vector2(24, 21)
@@ -60,3 +66,6 @@ position = Vector2(391, 248)
 
 [node name="TikiTorch5" parent="." index="12" instance=ExtResource("5_bayj8")]
 position = Vector2(257, 182)
+
+[node name="TeleportPosition" parent="." index="13"]
+position = Vector2(192, 122)

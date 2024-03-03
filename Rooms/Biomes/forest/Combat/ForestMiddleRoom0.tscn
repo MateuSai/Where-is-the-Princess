@@ -42,9 +42,6 @@ position = Vector2(211, 92)
 script = ExtResource("4_00w47")
 enemy_name = "goblin"
 
-[node name="TeleportPosition" parent="." index="7"]
-position = Vector2(192, 122)
-
 [node name="TikiTorch" parent="." index="8" instance=ExtResource("6_up8qn")]
 position = Vector2(105, 56)
 
@@ -57,6 +54,11 @@ position = Vector2(259, 51)
 [node name="TikiTorch4" parent="." index="11" instance=ExtResource("6_up8qn")]
 position = Vector2(311, 171)
 
+[node name="TeleportPosition" parent="." index="12"]
+position = Vector2(192, 122)
+
 [node name="SmallAxe" parent="." index="13" instance=ExtResource("6_008xn")]
 position = Vector2(213, 63)
 rotation = 1.9251
+on_floor = true
+bad_state = true
