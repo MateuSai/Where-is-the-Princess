@@ -8,9 +8,9 @@ enum {
 }
 var last_category: int = -1
 
-@onready var category_buttons: VBoxContainer = $HBoxContainer/CategoryButtons
-@onready var flow_container: HFlowContainer = $HBoxContainer/ScrollContainer/HFlowContainer
-@onready var details_vbox: VBoxContainer = $HBoxContainer/DetailsScrollContainer/VBoxContainer
+@onready var category_buttons: VBoxContainer = %CategoryButtons
+@onready var flow_container: HFlowContainer = $HBoxContainer/HBoxContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/HFlowContainer
+@onready var details_vbox: VBoxContainer = %DetailsVBoxContainer
 
 
 func _ready() -> void:
@@ -26,7 +26,12 @@ func _draw() -> void:
 
 
 func _set_category(new_category: int) -> void:
+	if last_category != -1:
+		(category_buttons.get_child(last_category) as Button).button_pressed = false
+		(category_buttons.get_child(last_category) as Button).z_index = 0
 	last_category = new_category
+	(category_buttons.get_child(last_category) as Button).button_pressed = true
+	(category_buttons.get_child(last_category) as Button).z_index = 1
 
 	for i: int in range(flow_container.get_child_count() - 1, -1, -1):
 		flow_container.get_child(i).free()

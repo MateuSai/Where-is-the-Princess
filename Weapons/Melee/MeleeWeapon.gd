@@ -119,6 +119,10 @@ func throw() -> void:
 
 func _throw_body_entered_hitbox(body: Node2D) -> void:
 	body = hitbox._get_entity(body)
+
+	if body in hitbox.exclude:
+		return
+
 	if body.get_node_or_null("LifeComponent") != null:
 		hitbox._on_body_entered(body)
 		bodies_pierced += 1

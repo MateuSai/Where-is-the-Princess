@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=64 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -28,16 +28,21 @@
 [ext_resource type="Texture2D" uid="uid://bxk8oa3os0ddl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armor_04.png" id="19_l7ulb"]
 [ext_resource type="Script" path="res://Components/auto_focus_on_controller.gd" id="20_o0kce"]
 [ext_resource type="Texture2D" uid="uid://w61p1cpdfhlh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_pestaña_weapons_ui.png" id="21_vur2q"]
+[ext_resource type="Texture2D" uid="uid://omllpury1k25" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_pestaña_weapons_ui_hover.png" id="22_8grwp"]
 [ext_resource type="PackedScene" uid="uid://bekcqxfxkfcf5" path="res://ui/DebugUI.tscn" id="22_luxu7"]
 [ext_resource type="Texture2D" uid="uid://b1fdm2d7lb1li" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_pestaña_armors_ui.png" id="23_gpxw8"]
 [ext_resource type="Script" path="res://Characters/Player/items_container.gd" id="23_pwm40"]
+[ext_resource type="Texture2D" uid="uid://cd4dpenxm2e0q" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_pestaña_select_ui.png" id="23_v5mjo"]
 [ext_resource type="Texture2D" uid="uid://dcbeuiwmkgyup" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/armors_ui_pestaña.png" id="24_0uwt0"]
+[ext_resource type="Texture2D" uid="uid://cdonb5xhunqjh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_pestaña_armors_ui_hover.png" id="24_v55ln"]
 [ext_resource type="Texture2D" uid="uid://bunt0yqyxs7sc" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_ui_9-patch.png" id="25_47jkq"]
 [ext_resource type="Texture2D" uid="uid://cstne4urjkhfx" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_pestaña_items_ui.png" id="25_spwha"]
 [ext_resource type="Texture2D" uid="uid://powqedrtfvqb" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/items_ui_pestaña.png" id="26_d38pc"]
 [ext_resource type="Texture2D" uid="uid://dt5cun88w2p2b" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_ui_9-patch_right.png" id="26_vfvqj"]
 [ext_resource type="Texture2D" uid="uid://7ggd7od8nut3" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_pestaña_enemies_ui.png" id="27_ncf2s"]
+[ext_resource type="Texture2D" uid="uid://bp8fo8a7fbjut" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_pestaña_items_ui_hover.png" id="27_tot21"]
 [ext_resource type="Texture2D" uid="uid://di27i6k4x0mdr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/enemies_ui_pestaña.png" id="28_7eh7l"]
+[ext_resource type="Texture2D" uid="uid://dloouft4djv72" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_pestaña_enemies_ui_hover.png" id="30_xla5k"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
 light_mode = 1
@@ -64,14 +69,38 @@ region = Rect2(0, 0, 16, 16)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oacd8"]
 texture = ExtResource("21_vur2q")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pwgnx"]
+texture = ExtResource("22_8grwp")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_43d14"]
+texture = ExtResource("23_v5mjo")
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f253n"]
 texture = ExtResource("23_gpxw8")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cisq3"]
+texture = ExtResource("24_v55ln")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e1sc2"]
+texture = ExtResource("23_v5mjo")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_20fsp"]
 texture = ExtResource("25_spwha")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_opbia"]
+texture = ExtResource("27_tot21")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ge2fu"]
+texture = ExtResource("23_v5mjo")
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w6scg"]
 texture = ExtResource("27_ncf2s")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v8ysw"]
+texture = ExtResource("30_xla5k")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hdbdv"]
+texture = ExtResource("23_v5mjo")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c3pu2"]
 texture = ExtResource("25_47jkq")
@@ -316,15 +345,19 @@ script = ExtResource("17_k4k0u")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA"]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = -4
 
 [node name="CategoryButtons" type="VBoxContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(21, 0)
 layout_mode = 2
+theme_override_constants/separation = 2
 
 [node name="WeaponsButton" type="Button" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_oacd8")
+theme_override_styles/hover = SubResource("StyleBoxTexture_pwgnx")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_43d14")
 toggle_mode = true
 icon = ExtResource("19_ft0qi")
 icon_alignment = 2
@@ -332,6 +365,8 @@ icon_alignment = 2
 [node name="ArmorsButton" type="Button" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_f253n")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cisq3")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_e1sc2")
 toggle_mode = true
 icon = ExtResource("24_0uwt0")
 icon_alignment = 2
@@ -340,6 +375,8 @@ icon_alignment = 2
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_20fsp")
+theme_override_styles/hover = SubResource("StyleBoxTexture_opbia")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ge2fu")
 toggle_mode = true
 icon = ExtResource("26_d38pc")
 icon_alignment = 2
@@ -347,6 +384,8 @@ icon_alignment = 2
 [node name="EnemiesButton" type="Button" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_w6scg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_v8ysw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_hdbdv")
 toggle_mode = true
 icon = ExtResource("28_7eh7l")
 icon_alignment = 2
@@ -356,26 +395,46 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(150, 0)
+[node name="PanelContainer" type="PanelContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxTexture_c3pu2")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/HBoxContainer/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/HBoxContainer/PanelContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 5
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 0
 
-[node name="HFlowContainer" type="HFlowContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/HBoxContainer/ScrollContainer/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/HBoxContainer/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="DetailsScrollContainer" type="ScrollContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/HBoxContainer/PanelContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 4
+
+[node name="HFlowContainer" type="HFlowContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/HBoxContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer2" type="PanelContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxTexture_tg24n")
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/HBoxContainer/PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DetailsScrollContainer" type="ScrollContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/HBoxContainer/PanelContainer2/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
 horizontal_scroll_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/HBoxContainer/DetailsScrollContainer"]
+[node name="DetailsVBoxContainer" type="VBoxContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/HBoxContainer/PanelContainer2/MarginContainer2/DetailsScrollContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
