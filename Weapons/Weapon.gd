@@ -5,7 +5,7 @@ class_name Weapon extends Node2D
 
 const DB: Dictionary = preload("res://Weapons/data/data.csv").records
 
-@export var on_floor: bool = false
+#@export var on_floor: bool = false
 @export var bad_state: bool = false
 
 var damage_dealer: Node = null: set = _set_damage_dealer
@@ -45,6 +45,8 @@ var charge_timer: Timer
 
 func _ready() -> void:
 	data = get_data(scene_file_path)
+
+	var on_floor: bool = not get_parent() is Weapons
 
 	if not on_floor:
 		player_detector.set_collision_mask_value(1, false)

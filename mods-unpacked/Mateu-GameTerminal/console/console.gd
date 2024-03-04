@@ -378,7 +378,7 @@ func _spawn_weapon(weapon_string: String) -> void:
 	hide()
 	var weapon: Weapon = (load(weapon_path) as PackedScene).instantiate()
 	weapon.position = Globals.player.position + Vector2.RIGHT * 16
-	weapon.on_floor = true
+	#weapon.on_floor = true
 	get_tree().current_scene.add_child(weapon)
 
 

@@ -116,11 +116,11 @@ func pick_up_weapon(weapon: Weapon) -> void:
 		current_weapon.hide()
 		current_weapon.cancel_attack()
 		set_current_weapon(weapon)
-
-		weapon.condition_changed.connect(_on_weapon_condition_changed)
-		weapon.status_inflicter_added.connect(_on_weapon_status_inflicter_added)
 	else:
 		weapon.hide()
+
+	weapon.condition_changed.connect(_on_weapon_condition_changed)
+	weapon.status_inflicter_added.connect(_on_weapon_status_inflicter_added)
 
 	await get_tree().process_frame
 
