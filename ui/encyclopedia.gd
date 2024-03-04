@@ -56,8 +56,11 @@ func _set_category(new_category: int) -> void:
 					)
 				flow_container.add_child(button)
 		ARMORS:
-			var discovered_armor_paths: PackedStringArray = SavedData.get_discovered_armors_paths()
-			for armor_path: String in SavedData.get_all_armor_paths():
+			var discovered_armor_paths: PackedStringArray = ["res://Armors/underpants.gd"]
+			discovered_armor_paths.append_array(SavedData.get_discovered_armors_paths())
+			var all_armors: PackedStringArray = ["res://Armors/underpants.gd"]
+			all_armors.append_array(SavedData.get_all_armor_paths())
+			for armor_path: String in all_armors:
 				var armor: Armor = load(armor_path).new()
 				var button: Button = Button.new()
 				button.icon = armor.get_icon()

@@ -1,4 +1,4 @@
-class_name SecondHeart extends TemporalPassiveItem
+class_name Fairy extends TemporalPassiveItem
 
 var default_set_hp_function: Callable
 
@@ -24,3 +24,7 @@ func unequip(player: Player) -> void:
 
 func get_quality() -> Quality:
 	return Quality.CHINGON
+
+
+func get_max_amount() -> int:
+	return 1
