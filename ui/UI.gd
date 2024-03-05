@@ -9,6 +9,7 @@ var cropped_viewport_texture: ImageTexture
 
 @onready var tab_container: TabContainer = $MenuTabContainer
 @onready var minimap: MiniMap = %MAP
+@onready var equipment: MarginContainer = %EQUIPMENT
 @onready var menu: Control = %OPTIONS
 @onready var seed_label: Label = %SeedLabel
 @onready var color_rect: ColorRect = %UIColorRect
@@ -36,6 +37,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_minimap") and not in_combat and not tab_container.visible:
 		show_tab_container()
 		tab_container.current_tab = minimap.get_index()
+	elif event.is_action_pressed("ui_equipment") and not in_combat and not tab_container.visible:
+		show_tab_container()
+		tab_container.current_tab = equipment.get_index()
 
 	if event.is_action_pressed("ui_pause"):
 		if tab_container.visible:

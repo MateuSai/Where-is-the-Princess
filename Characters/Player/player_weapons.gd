@@ -8,6 +8,8 @@ signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Sta
 
 var max_weapons: int = 3
 
+var double_damage_when_weapon_breaks: bool = true
+
 enum {UP, DOWN}
 
 var disabled: bool = false:

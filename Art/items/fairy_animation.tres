@@ -8,10 +8,10 @@
 [resource]
 frames = 4
 frame_0/texture = ExtResource("1_nn0ph")
-frame_0/duration = 0.35
+frame_0/duration = 0.2
 frame_1/texture = ExtResource("2_xkirj")
-frame_1/duration = 0.35
+frame_1/duration = 0.2
 frame_2/texture = ExtResource("3_7x8gw")
-frame_2/duration = 0.35
+frame_2/duration = 0.2
 frame_3/texture = ExtResource("4_7a0nk")
-frame_3/duration = 0.35
+frame_3/duration = 0.2
