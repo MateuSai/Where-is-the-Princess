@@ -1,4 +1,4 @@
-class_name StrongThrow extends PermanentPassiveItem
+class_name Target extends PermanentPassiveItem
 
 
 #func _init() -> void:
@@ -15,3 +15,7 @@ func unequip(player: Player) -> void:
 
 func get_icon() -> Texture2D:
 	return load("res://Art/items/Bolt_icon.png")
+
+
+func get_big_icon() -> Texture2D:
+	return load("res://Art/items/Bolt_UI_desc.png")

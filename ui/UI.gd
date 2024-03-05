@@ -40,6 +40,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("ui_equipment") and not in_combat and not tab_container.visible:
 		show_tab_container()
 		tab_container.current_tab = equipment.get_index()
+	elif event.is_action_pressed("ui_options_menu") and not in_combat and not tab_container.visible:
+		show_tab_container()
+		tab_container.current_tab = menu.get_index()
 
 	if event.is_action_pressed("ui_pause"):
 		if tab_container.visible:
@@ -48,7 +51,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			#color_rect.hide()
 			#get_tree().paused = false
 		else:
-			tab_container.current_tab = menu.get_index()
 			show_tab_container()
 			#pause_menu.show()
 			#color_rect.show()

@@ -90,6 +90,13 @@ func add_enemy_times_killed(enemy_id: StringName) -> void:
 	var enemy_unlock_weapon_on_kills: UnlockWeaponOnKills = Globals.get_enemy_unlock_weapon_on_kills(enemy_id)
 	if enemy_unlock_weapon_on_kills and statistics.get_enemy_statistics(enemy_id).times_killed == enemy_unlock_weapon_on_kills.kills_necessary:
 		add_extra_available_weapon(enemy_unlock_weapon_on_kills.weapon_path)
+		(get_tree().current_scene as Game).show_notification(
+			load("res://ui/notifications/weapon_unlocked_notification.tscn"),
+			{
+				id = Weapon.get_id_from_path(enemy_unlock_weapon_on_kills.weapon_path),
+				data = Weapon.get_data(Weapon.get_id_from_path(enemy_unlock_weapon_on_kills.weapon_path))
+			}
+		)
 
 
 func add_enemy_player_kill(enemy_id: String) -> void:
