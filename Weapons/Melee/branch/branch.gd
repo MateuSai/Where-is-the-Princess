@@ -24,7 +24,8 @@ func _on_first_collide(_body: Node2D) -> void:
 
 	for i: int in 2:
 		await get_tree().process_frame
-		var leaf: Fragment = LEAF_SCENE.instantiate()
-		leaf.position = drop_leafs_position.global_position
-		get_tree().current_scene.add_child(leaf)
-		leaf.throw((get_parent() as Weapons).character, (drop_leafs_position.global_position - last_position).normalized().rotated(randf_range(-0.3, 0.3)))
+		if is_instance_valid(get_parent()):
+			var leaf: Fragment = LEAF_SCENE.instantiate()
+			leaf.position = drop_leafs_position.global_position
+			get_tree().current_scene.add_child(leaf)
+			leaf.throw((get_parent() as Weapons).character, (drop_leafs_position.global_position - last_position).normalized().rotated(randf_range(-0.3, 0.3)))

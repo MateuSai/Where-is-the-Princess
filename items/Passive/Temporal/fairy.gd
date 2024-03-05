@@ -1,10 +1,10 @@
-class_name SecondHeart extends TemporalPassiveItem
+class_name Fairy extends TemporalPassiveItem
 
 var default_set_hp_function: Callable
 
 
 func get_icon() -> Texture2D:
-	return load("res://Art/items/orbital_sword_icon.png")
+	return load("res://Art/items/fairy_animation.tres")
 
 
 func equip(player: Player) -> void:
@@ -24,3 +24,7 @@ func unequip(player: Player) -> void:
 
 func get_quality() -> Quality:
 	return Quality.CHINGON
+
+
+func get_max_amount() -> int:
+	return 1

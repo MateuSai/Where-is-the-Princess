@@ -1,0 +1,17 @@
+[gd_resource type="AnimatedTexture" load_steps=5 format=3 uid="uid://cetl1hivkayuk"]
+
+[ext_resource type="Texture2D" uid="uid://cfajptiv8p014" path="res://Art/items/fairy_0.png" id="1_nn0ph"]
+[ext_resource type="Texture2D" uid="uid://dtojjy2ll4rhx" path="res://Art/items/fairy_1.png" id="2_xkirj"]
+[ext_resource type="Texture2D" uid="uid://r6v5swr310io" path="res://Art/items/fairy_2.png" id="3_7x8gw"]
+[ext_resource type="Texture2D" uid="uid://8jix4qqpld1n" path="res://Art/items/fairy_3.png" id="4_7a0nk"]
+
+[resource]
+frames = 4
+frame_0/texture = ExtResource("1_nn0ph")
+frame_0/duration = 0.2
+frame_1/texture = ExtResource("2_xkirj")
+frame_1/duration = 0.2
+frame_2/texture = ExtResource("3_7x8gw")
+frame_2/duration = 0.2
+frame_3/texture = ExtResource("4_7a0nk")
+frame_3/duration = 0.2

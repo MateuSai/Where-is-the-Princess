@@ -378,7 +378,7 @@ func _spawn_weapon(weapon_string: String) -> void:
 	hide()
 	var weapon: Weapon = (load(weapon_path) as PackedScene).instantiate()
 	weapon.position = Globals.player.position + Vector2.RIGHT * 16
-	weapon.on_floor = true
+	#weapon.on_floor = true
 	get_tree().current_scene.add_child(weapon)
 
 
@@ -466,7 +466,7 @@ func _clear_room() -> void:
 
 	for child: Node in Globals.player.current_room.get_children():
 		if child is Enemy:
-			child.life_component.take_damage(2000, Vector2.ZERO, 0, null, "player")
+			child.life_component.take_damage(2000, Vector2.ZERO, 0, null, null, "player")
 
 	hide()
 

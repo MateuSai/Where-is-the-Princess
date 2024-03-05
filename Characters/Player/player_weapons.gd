@@ -8,6 +8,8 @@ signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Sta
 
 var max_weapons: int = 3
 
+var double_damage_when_weapon_breaks: bool = true
+
 enum {UP, DOWN}
 
 var disabled: bool = false:
@@ -116,11 +118,11 @@ func pick_up_weapon(weapon: Weapon) -> void:
 		current_weapon.hide()
 		current_weapon.cancel_attack()
 		set_current_weapon(weapon)
-
-		weapon.condition_changed.connect(_on_weapon_condition_changed)
-		weapon.status_inflicter_added.connect(_on_weapon_status_inflicter_added)
 	else:
 		weapon.hide()
+
+	weapon.condition_changed.connect(_on_weapon_condition_changed)
+	weapon.status_inflicter_added.connect(_on_weapon_status_inflicter_added)
 
 	await get_tree().process_frame
 

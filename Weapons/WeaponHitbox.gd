@@ -1,7 +1,5 @@
+## Melee weapon hitbox
 class_name WeaponHitbox extends Hitbox
-
-
-@export var player_damage_multiplier: bool = true
 
 
 func _ready() -> void:
@@ -9,7 +7,12 @@ func _ready() -> void:
 
 
 func _collide(body: Node2D, _dam: int = damage) -> void:
-	if damage_dealer is Player and player_damage_multiplier:
+	assert(weapon)
+	if damage_dealer is Player and (damage_dealer as Player).weapons.double_damage_when_weapon_breaks:
+		if weapon.stats.condition - weapon.data.condition_cost_per_normal_attack <= 0:
+			damage *= 2
+
+	if damage_dealer is Player:
 		super(body, damage * Globals.player.damage_multiplier)
 	else:
 		super(body, damage)
