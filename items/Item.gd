@@ -29,6 +29,12 @@ func get_icon() -> Texture2D:
 	return null
 
 
+## This is the icon that is used on the encyclopedia
+func get_big_icon() -> Texture2D:
+	push_error("You must override get_big_icon on " + (get_script() as Script).get_path())
+	return null
+
+
 func get_quality() -> Quality:
 	return Quality.COMMON
 

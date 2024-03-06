@@ -206,8 +206,12 @@ func _show_item_details(item: Item, statistics: ItemStatistics) -> void:
 	var item_texture: TextureRect = TextureRect.new()
 	item_texture.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 	item_texture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
-	item_texture.custom_minimum_size.y = 64
-	item_texture.texture = item.get_icon()
+	item_texture.custom_minimum_size.y = 48
+	if item.get_big_icon():
+		item_texture.texture = item.get_big_icon()
+	else:
+		push_warning("No big icon found, using small one")
+		item_texture.texture = item.get_icon()
 	details_vbox.add_child(item_texture)
 
 	var name_label: Label = Label.new()

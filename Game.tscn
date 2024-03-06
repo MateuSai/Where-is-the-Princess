@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=65 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -43,6 +43,7 @@
 [ext_resource type="Texture2D" uid="uid://bp8fo8a7fbjut" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_pestaña_items_ui_hover.png" id="27_tot21"]
 [ext_resource type="Texture2D" uid="uid://di27i6k4x0mdr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/enemies_ui_pestaña.png" id="28_7eh7l"]
 [ext_resource type="Texture2D" uid="uid://dloouft4djv72" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_pestaña_enemies_ui_hover.png" id="30_xla5k"]
+[ext_resource type="Script" path="res://ui/notification_container.gd" id="43_c88jh"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
 light_mode = 1
@@ -341,6 +342,7 @@ layout_mode = 2
 script = ExtResource("16_tq616")
 
 [node name="ENCYCLOPEDIA" type="MarginContainer" parent="UI/MenuTabContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("17_k4k0u")
 
@@ -500,6 +502,18 @@ text = "511232"
 [node name="DebugUI" parent="UI" instance=ExtResource("22_luxu7")]
 process_mode = 3
 metadata/_edit_use_anchors_ = true
+
+[node name="NotificationContainer" type="MarginContainer" parent="UI"]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+script = ExtResource("43_c88jh")
 
 [node name="FogSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true

@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://dl5kcnppm01we"]
+
+[ext_resource type="Texture2D" uid="uid://ch6svkgjqehyx" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/Dragon_killer_icon.png" id="1_2peak"]
+[ext_resource type="Theme" uid="uid://goou6c7yowv1" path="res://notification_theme.tres" id="1_fti8g"]
+[ext_resource type="Script" path="res://ui/notifications/weapon_unlocked_notification.gd" id="2_yiiko"]
+[ext_resource type="FontFile" uid="uid://c1qoupv8j6mt2" path="res://Fonts/Pixellari.ttf" id="3_1kpew"]
+
+[node name="WeaponUnlockedNotification" type="PanelContainer"]
+offset_right = 100.0
+offset_bottom = 40.0
+theme = ExtResource("1_fti8g")
+script = ExtResource("2_yiiko")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture = ExtResource("1_2peak")
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_1kpew")
+text = "WEAPON_UNLOCKED_NOTIFICATION_TITLE"
+
+[node name="Description" type="Label" parent="HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "WEAPON_UNLOCKED_NOTIFICATION_DESCRIPTION"
+autowrap_mode = 3

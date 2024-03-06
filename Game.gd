@@ -24,6 +24,7 @@ var scroll_vertical_at_start_of_drag: float = 0
 @onready var camera: Camera2D = get_node("Camera2D")
 @onready var canvas_modulate: CanvasModulate = $CanvasModulate
 @onready var generating_dungeon_canvas_layer: CanvasLayer = get_node("GeneratingDungeonCanvasLayer")
+@onready var notification_container: NotificationContainer = %NotificationContainer
 @onready var music: AudioStreamPlayer = $Music
 
 
@@ -167,3 +168,7 @@ func reload_generation(msg: String) -> void:
 	#get_tree().reload_current_scene()
 
 	#print_debug("Scene reloaded")
+
+
+func show_notification(notification_scene: PackedScene, arguments: Dictionary) -> void:
+	notification_container.add_notification_to_queue(notification_scene, arguments)
