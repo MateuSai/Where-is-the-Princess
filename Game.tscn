@@ -342,6 +342,7 @@ layout_mode = 2
 script = ExtResource("16_tq616")
 
 [node name="ENCYCLOPEDIA" type="MarginContainer" parent="UI/MenuTabContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("17_k4k0u")
 

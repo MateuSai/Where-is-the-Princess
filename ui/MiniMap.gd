@@ -165,10 +165,6 @@ func _update_fog() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_minimap"):
-		ui.hide_tab_container()
-		get_viewport().set_input_as_handled()
-
 	if room_selected != null:
 		if event is InputEventMouseButton:
 			if event.is_pressed() and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:

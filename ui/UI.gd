@@ -10,7 +10,9 @@ var cropped_viewport_texture: ImageTexture
 @onready var tab_container: TabContainer = $MenuTabContainer
 @onready var minimap: MiniMap = %MAP
 @onready var equipment: MarginContainer = %EQUIPMENT
+@onready var encyclopedia: MarginContainer = %ENCYCLOPEDIA
 @onready var menu: Control = %OPTIONS
+
 @onready var seed_label: Label = %SeedLabel
 @onready var color_rect: ColorRect = %UIColorRect
 
@@ -34,15 +36,23 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_minimap") and not in_combat and not tab_container.visible:
-		show_tab_container()
-		tab_container.current_tab = minimap.get_index()
-	elif event.is_action_pressed("ui_equipment") and not in_combat and not tab_container.visible:
-		show_tab_container()
-		tab_container.current_tab = equipment.get_index()
-	elif event.is_action_pressed("ui_options_menu") and not in_combat and not tab_container.visible:
-		show_tab_container()
-		tab_container.current_tab = menu.get_index()
+	if not in_combat:
+		if event.is_action_pressed("ui_minimap") and (not tab_container.visible or tab_container.current_tab != minimap.get_index()):
+			show_tab_container()
+			tab_container.current_tab = minimap.get_index()
+		elif event.is_action_pressed("ui_equipment") and (not tab_container.visible or tab_container.current_tab != equipment.get_index()):
+			show_tab_container()
+			tab_container.current_tab = equipment.get_index()
+		elif event.is_action_pressed("ui_encyclopedia") and (not tab_container.visible or tab_container.current_tab != encyclopedia.get_index()):
+			show_tab_container()
+			tab_container.current_tab = encyclopedia.get_index()
+		elif event.is_action_pressed("ui_options_menu") and (not tab_container.visible or tab_container.current_tab != menu.get_index()):
+			show_tab_container()
+			tab_container.current_tab = menu.get_index()
+		else:
+			if tab_container.visible:
+				if (event.is_action_pressed("ui_minimap") and tab_container.current_tab == minimap.get_index()) or (event.is_action_pressed("ui_equipment") and tab_container.current_tab == equipment.get_index()) or (event.is_action_pressed("ui_encyclopedia") and tab_container.current_tab == encyclopedia.get_index()) or (event.is_action_pressed("ui_options_menu") and tab_container.current_tab == menu.get_index()):
+					hide_tab_container()
 
 	if event.is_action_pressed("ui_pause"):
 		if tab_container.visible:
