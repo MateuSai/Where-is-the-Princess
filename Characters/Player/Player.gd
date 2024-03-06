@@ -276,7 +276,8 @@ func pick_up_passive_item(item: PassiveItem) -> void:
 	if item is PermanentPassiveItem:
 		var permanent_passive_item: PermanentPassiveItem = item
 		permanent_passive_item.equip(self)
-		SavedData.run_stats.add_permanent_passive_item(item)
+		if not SavedData.run_stats._permanent_passive_items.has(item): # So the item is not added again when we change maps
+			SavedData.run_stats.add_permanent_passive_item(item)
 
 		SavedData.discover_permanent_item_if_not_already((item.get_script() as GDScript).get_path())
 		permanent_passive_item_picked_up.emit(permanent_passive_item)
