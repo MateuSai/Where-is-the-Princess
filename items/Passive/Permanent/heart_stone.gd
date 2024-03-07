@@ -12,7 +12,8 @@ func equip(player: Player) -> void:
 
 
 func unequip(_player: Player) -> void:
-	pass
+	for room: DungeonRoom in (player.get_tree().current_scene as Game).rooms.rooms:
+		room.closed.disconnect(_on_room_closed)
 
 
 func _on_room_closed() -> void:
