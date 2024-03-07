@@ -13,7 +13,7 @@ var friction: float = 0.15
 #@export var hp: int = 2: set = set_hp
 #signal hp_changed(new_hp)
 
-var damage_multiplier: int = 1
+var damage_multiplier: float = 1.0
 
 var can_move: bool = true
 

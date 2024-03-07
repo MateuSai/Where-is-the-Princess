@@ -66,6 +66,7 @@ func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_deal
 	_play_hit_sound(weapon)
 
 	damage_taken.emit(dam, dir, force)
+	Globals.character_received_damage.emit(parent, damage_dealer)
 
 	invincible_after_being_hitted = true
 	invincible_after_being_hitted_timer.start(invincible_after_being_hitted_time)

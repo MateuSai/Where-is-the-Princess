@@ -73,7 +73,7 @@ func _set_seed() -> void:
 		run_seed = randi() % 100000000 # Eight digit number
 	else:
 		run_seed = int(seed_spin_box.value)
-	#run_seed = 71043565
+	run_seed = 24359070
 	print("Changed seed to  " + str(run_seed) + "\n")
 	#seed(run_seed)
 	SavedData.run_stats.run_seed = run_seed

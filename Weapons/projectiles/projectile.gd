@@ -63,13 +63,16 @@ func _physics_process(delta: float) -> void:
 		rotation += rot_dir * delta
 
 
-func _collide(node: Node2D, _dam: int = damage) -> void:
+func _collide(node: Node2D, dam: int = damage) -> void:
 	collided_with_something.emit(node)
+
+	if damage_dealer is Player:
+		dam *= (damage_dealer as Player).damage_multiplier
 
 	if node.get("life_component") != null:
 		@warning_ignore("unsafe_property_access")
 		var life_component: LifeComponent = node.life_component
-		life_component.take_damage(damage, knockback_direction, knockback_force, weapon, damage_dealer, damage_dealer_id, true)
+		life_component.take_damage(dam, knockback_direction, knockback_force, weapon, damage_dealer, damage_dealer_id, true)
 		if bodies_pierced >= piercing:
 			destroy()
 		else:

@@ -29,12 +29,16 @@ func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> Array[Projectile]
 		var projectile: Projectile = (load(data.projectile_scene_path) as PackedScene).instantiate() if data.projectile_scene_path.ends_with(".tscn") else (load(data.projectile_scene_path) as GDScript).new()
 		projectile.weapon = self
 		projectile.damage_dealer_id = damage_dealer_id
+		projectile.damage_dealer = damage_dealer
 		if animation_player.current_animation == "active_ability":
 			projectile.damage = data.ability_damage
 			projectile.knockback_force = data.ability_knockback
 		else:
 			projectile.damage = data.damage
 			projectile.knockback_force = data.knockback
+
+		if damage_dealer is Player:
+			projectile.damage *= damage_dealer.damage_multiplier
 
 		if get_parent() is PlayerWeapons and (get_parent() as PlayerWeapons).double_damage_when_weapon_breaks and stats.condition - data.condition_cost_per_normal_attack <= 0:
 			projectile.damage *= 2

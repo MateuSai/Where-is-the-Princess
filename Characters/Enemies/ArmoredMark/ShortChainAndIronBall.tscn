@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://co8qs2inyx147" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/reptiles/chain-link.png" id="1_0s68f"]
 [ext_resource type="Script" path="res://Characters/Enemies/ArmoredMark/ShortChainAndIronBall.gd" id="1_lo6nh"]
 [ext_resource type="Texture2D" uid="uid://darmns08iyc2t" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/reptiles/chain-end.png" id="1_v14v6"]
-[ext_resource type="Script" path="res://Weapons/WeaponHitbox.gd" id="4_xngsb"]
+[ext_resource type="Script" path="res://Characters/Hitbox.gd" id="4_7e2sv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8gktb"]
 size = Vector2(6, 2)
@@ -67,8 +67,7 @@ shape = SubResource("CircleShape2D_i2q7o")
 [node name="Hitbox" type="Area2D" parent="RigidBodyWeapon"]
 collision_layer = 0
 collision_mask = 10
-script = ExtResource("4_xngsb")
-player_damage_multiplier = false
+script = ExtResource("4_7e2sv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBodyWeapon/Hitbox"]
 shape = SubResource("CircleShape2D_8bd81")

@@ -25,6 +25,9 @@ func get_dir(from: Vector2 = Vector2.ZERO) -> AimResult:
 		var vector_to_target: Vector2 = (target.global_position - from)
 		var projectile_time_to_target: float = vector_to_target.length() / projectile_speed
 		var target_predicted_future_position: Vector2 = target.global_position + target.velocity * projectile_time_to_target
+		#assert(target.mov_direction.length() <= 1)
+		#var predicted_dir: Vector2 = (target.global_position * target.data.max_speed * target.mov_direction) / (from * projectile_speed)
+		#print_debug(predicted_dir)
 
 		var space_state: PhysicsDirectSpaceState2D = character.get_world_2d().direct_space_state
 		# use global coordinates, not local to node
@@ -32,7 +35,7 @@ func get_dir(from: Vector2 = Vector2.ZERO) -> AimResult:
 		var raycast_res: Dictionary = space_state.intersect_ray(query)
 		if not raycast_res.is_empty():
 			target_predicted_future_position = raycast_res.position + (target.global_position - raycast_res.position).normalized() * 4
-		res = AimResult.new((target_predicted_future_position - character.global_position).normalized(), _is_trajectory_clear(from, target_predicted_future_position))
+		res = AimResult.new((target_predicted_future_position - from).normalized(), _is_trajectory_clear(from, target_predicted_future_position))
 	else:
 		res = AimResult.new((target.global_position - from).normalized(), _is_trajectory_clear(from, target.global_position))
 

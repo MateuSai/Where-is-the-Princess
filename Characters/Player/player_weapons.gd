@@ -6,6 +6,8 @@ signal weapon_droped(index: int)
 signal weapon_condition_changed(weapon: Weapon, new_value: float)
 signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
 
+signal normal_attacked()
+
 var max_weapons: int = 3
 
 var double_damage_when_weapon_breaks: bool = true
@@ -245,6 +247,8 @@ func can_pick_up_weapon(weapon_to_pick: Weapon) -> bool:
 
 func _on_normal_attack() -> void:
 	player.stamina -= current_weapon.data.stamina_cost_per_normal_attack
+
+	normal_attacked.emit()
 
 
 func _on_active_ability() -> void:

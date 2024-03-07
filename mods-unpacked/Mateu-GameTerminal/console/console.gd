@@ -220,6 +220,8 @@ func _process_command(command: String) -> void:
 						printerr("discover has no " + splitted_command[1] + " option")
 			else:
 				printerr("discover cannot be used by itself")
+		"where am i", "where the fuck am i", "pr", "print room":
+			_print_current_room_name()
 		_:
 			printerr("Invalid command")
 
@@ -506,5 +508,14 @@ func _discover_all_items() -> void:
 
 	for item_path: String in SavedData.data.AVAILABLE_TEMPORAL_ITEMS_FROM_START:
 		SavedData.discover_temporal_item_if_not_already(item_path)
+
+	hide()
+
+
+func _print_current_room_name() -> void:
+	if Globals.player.current_room:
+		print("You are on " + Globals.player.current_room.name)
+	else:
+		print("You are not in any room")
 
 	hide()

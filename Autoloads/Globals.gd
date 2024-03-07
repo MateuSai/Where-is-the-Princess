@@ -6,6 +6,8 @@ signal room_cleared()
 signal pause_menu_opened()
 signal pause_menu_closed()
 
+signal character_received_damage(character: Character, damage_dealer: Character)
+
 var player: Player = null
 
 var debug: bool = false

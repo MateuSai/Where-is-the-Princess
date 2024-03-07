@@ -21,7 +21,7 @@ func _ready() -> void:
 	flesh_sounds = MeleeWeapon.IMPACT_FLESH_SOUNDS
 
 
-func _collide(node: Node2D, _dam: int = damage) -> void:
+func _collide(node: Node2D, dam: int = damage) -> void:
 	collided_with_something.emit(node)
 
 	if type == Type.EXPLOSIVE:
@@ -34,7 +34,7 @@ func _collide(node: Node2D, _dam: int = damage) -> void:
 
 	if node.get("life_component") != null:
 		@warning_ignore("unsafe_property_access", "unsafe_method_access")
-		node.life_component.take_damage(damage, knockback_direction, knockback_force, weapon, damage_dealer, damage_dealer_id, true)
+		node.life_component.take_damage(dam, knockback_direction, knockback_force, weapon, damage_dealer, damage_dealer_id, true)
 		if bodies_pierced >= piercing:
 			_attach_projectile(node)
 		else:
