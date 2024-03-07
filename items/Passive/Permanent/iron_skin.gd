@@ -1,4 +1,4 @@
-class_name ToughSkin extends PermanentPassiveItem
+class_name IronSkin extends PermanentPassiveItem
 
 
 #func _init() -> void:
