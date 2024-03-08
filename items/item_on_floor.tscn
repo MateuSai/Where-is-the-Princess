@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" path="res://shaders_and_particles/outline.gdshader" id="1_dqm6r"]
 [ext_resource type="Script" path="res://items/item_on_floor.gd" id="1_kov16"]
-[ext_resource type="Texture2D" uid="uid://c01kbmjcx60wl" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/bag_coins.png" id="1_xr1gm"]
+[ext_resource type="Texture2D" uid="uid://5anyafkwkshp" path="res://Art/items/boots_icon.png" id="2_3ssyl"]
 [ext_resource type="Script" path="res://interact_area.gd" id="3_gjocj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hinuy"]
@@ -20,7 +20,7 @@ radius = 15.0
 [node name="ItemOnFloor" type="Sprite2D"]
 texture_filter = 1
 material = SubResource("ShaderMaterial_hinuy")
-texture = ExtResource("1_xr1gm")
+texture = ExtResource("2_3ssyl")
 script = ExtResource("1_kov16")
 
 [node name="InteractArea" type="Area2D" parent="."]

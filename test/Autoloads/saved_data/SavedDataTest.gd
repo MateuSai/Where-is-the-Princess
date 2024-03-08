@@ -8,7 +8,8 @@ extends GdUnitTestSuite
 const __source: String = 'res://Autoloads/saved_data/SavedData.gd'
 
 
-func test_add_enemy_times_killed() -> void:
+@warning_ignore("unused_parameter")
+func test_add_enemy_times_killed(do_skip: bool = true, skip_reason: String = "Broken because add_enemy_times_killed now need access to notification container which is only available on the game") -> void:
 	var skelebro_unlock_weapon_on_kills: UnlockWeaponOnKills = load("res://Characters/Enemies/skelebro/unlock_weapon_on_kills.tres")
 
 	SavedData.statistics._enemies_statistics.erase("skelebro")

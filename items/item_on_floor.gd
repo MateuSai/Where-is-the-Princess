@@ -1,6 +1,7 @@
 class_name ItemOnFloor extends Sprite2D
 
 const SHINE_TEX: Texture = preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/item_shine_anim_5x5.png")
+const CURSED_PARTICLES_SCENE: PackedScene = preload("res://effects/cursed_particles.tscn")
 
 var item: Item
 #var can_pick_up: bool = false
@@ -24,10 +25,6 @@ func _ready() -> void:
 			interact_area.sprite_material.set("shader_parameter/interior_color", Color.TRANSPARENT)
 	)
 
-	spawn_shine_effect_timer.timeout.connect(_spawn_shine_effect)
-	visible_on_screen_notifier.screen_entered.connect(spawn_shine_effect_timer.start)
-	visible_on_screen_notifier.screen_exited.connect(spawn_shine_effect_timer.stop)
-
 
 func enable_pick_up() -> void:
 	if is_queued_for_deletion():
@@ -41,6 +38,13 @@ func enable_pick_up() -> void:
 
 		_pick_item_and_free()
 	)
+
+	if item is CursedPermanentPassiveItem:
+		add_child(CURSED_PARTICLES_SCENE.instantiate())
+	else:
+		spawn_shine_effect_timer.timeout.connect(_spawn_shine_effect)
+		visible_on_screen_notifier.screen_entered.connect(spawn_shine_effect_timer.start)
+		visible_on_screen_notifier.screen_exited.connect(spawn_shine_effect_timer.stop)
 
 
 ## Call after _ready

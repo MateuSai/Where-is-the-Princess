@@ -34,6 +34,7 @@ var stamina: float = max_stamina:
 signal temporal_passive_item_picked_up(item: TemporalPassiveItem)
 signal temporal_passive_item_unequiped(item: TemporalPassiveItem)
 signal permanent_passive_item_picked_up(item: PermanentPassiveItem)
+signal permanent_passive_item_unequiped(item: PermanentPassiveItem)
 signal player_upgrade_item_picked_up(item: PlayerUpgrade)
 
 var armor: Armor = Underpants.new() : set = set_armor
@@ -297,11 +298,18 @@ func pick_up_passive_item(item: PassiveItem) -> void:
 
 
 func unequip_passive_item(item: PassiveItem) -> void:
-	assert(item is TemporalPassiveItem)
-	var temporal_passive_item: TemporalPassiveItem = item
-	temporal_passive_item.unequip(self)
-	temporal_passive_item_unequiped.emit(temporal_passive_item)
-	SavedData.run_stats.temporal_passive_items.erase(temporal_passive_item)
+	if item is TemporalPassiveItem:
+		var temporal_passive_item: TemporalPassiveItem = item
+		temporal_passive_item.unequip(self)
+		temporal_passive_item_unequiped.emit(temporal_passive_item)
+		SavedData.run_stats.temporal_passive_items.erase(temporal_passive_item)
+	elif item is PermanentPassiveItem:
+		var permanent_passive_item: PermanentPassiveItem = item
+		permanent_passive_item.unequip(self)
+		permanent_passive_item_unequiped.emit(item)
+		SavedData.run_stats.remove_permanent_passive_item(item)
+	else:
+		assert(false, "Invalid item type")
 
 
 #func switch_camera() -> void:

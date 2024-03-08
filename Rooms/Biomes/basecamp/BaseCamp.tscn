@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=46 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="Script" path="res://Rooms/Biomes/basecamp/BaseCamp.gd" id="1_tpf7m"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="2_ipa5f"]
@@ -27,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://c8pix6j8t15oo" path="res://Weapons/Melee/SmallAxe/SmallAxe.tscn" id="29_5p8c5"]
 [ext_resource type="PackedScene" uid="uid://bau1jfwsnyo2o" path="res://Characters/practice_dummy.tscn" id="31_1hy67"]
 [ext_resource type="PackedScene" uid="uid://d3qmv5odokhfh" path="res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn" id="31_pmolu"]
+[ext_resource type="PackedScene" uid="uid://dwiop8wuc7ah8" path="res://Rooms/cursed_idol/cursed_idol.tscn" id="34_0d44n"]
 [ext_resource type="PackedScene" uid="uid://cpyqtlqtdkuiq" path="res://Weapons/Ranged/scepters/lightning_stick/lightning_stick.tscn" id="34_nl6xg"]
 [ext_resource type="PackedScene" uid="uid://bp2oo4273j0dc" path="res://Weapons/Melee/spear/Spear.tscn" id="35_gq7sc"]
 [ext_resource type="PackedScene" uid="uid://dkpyvq2xuuytm" path="res://Weapons/Ranged/crossbows/wooden_crossbow/wooden_crossbow.tscn" id="37_gon7g"]
@@ -279,11 +280,9 @@ value = -1.0
 
 [node name="Katana" parent="." instance=ExtResource("12_trlvh")]
 position = Vector2(154, 116)
-on_floor = true
 
 [node name="DragonKiller" parent="." instance=ExtResource("16_885t0")]
 position = Vector2(235, 168)
-on_floor = true
 bad_state = true
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
@@ -299,19 +298,15 @@ bus = &"Sounds"
 
 [node name="OrcSword" parent="." instance=ExtResource("20_vg655")]
 position = Vector2(181, 121)
-on_floor = true
 
 [node name="WarriorSword" parent="." instance=ExtResource("21_lb8k2")]
 position = Vector2(236, 72)
-on_floor = true
 
 [node name="Scimitar" parent="." instance=ExtResource("22_ovxvs")]
 position = Vector2(309, 137)
-on_floor = true
 
 [node name="WarAxe" parent="." instance=ExtResource("23_7aqvg")]
 position = Vector2(176, 230)
-on_floor = true
 
 [node name="Hut" parent="." instance=ExtResource("25_mnnam")]
 position = Vector2(-111, 131)
@@ -324,23 +319,18 @@ position = Vector2(-59, 187)
 
 [node name="KombatHammer" parent="." instance=ExtResource("26_b0hvw")]
 position = Vector2(216, 231)
-on_floor = true
 
 [node name="WarHammer" parent="." instance=ExtResource("28_loeac")]
 position = Vector2(-122, 172)
-on_floor = true
 
 [node name="SharpAxe" parent="." instance=ExtResource("28_qb8lk")]
 position = Vector2(-46, 149)
-on_floor = true
 
 [node name="SmallAxe" parent="." instance=ExtResource("29_5p8c5")]
 position = Vector2(42, 140)
-on_floor = true
 
 [node name="WoodenBow" parent="." instance=ExtResource("31_pmolu")]
 position = Vector2(185, 174)
-on_floor = true
 
 [node name="PracticeDummy" parent="." instance=ExtResource("31_1hy67")]
 position = Vector2(141, 127)
@@ -386,15 +376,12 @@ position = Vector2(2430, 131)
 
 [node name="LightningStick" parent="." instance=ExtResource("34_nl6xg")]
 position = Vector2(33, 277)
-on_floor = true
 
 [node name="Spear" parent="." instance=ExtResource("35_gq7sc")]
 position = Vector2(136, 175)
-on_floor = true
 
 [node name="WoodenCrossbow" parent="." instance=ExtResource("37_gon7g")]
 position = Vector2(196, 261)
-on_floor = true
 
 [node name="BaseCampItemsShop" parent="." instance=ExtResource("37_qhx6q")]
 position = Vector2(91, 57)
@@ -434,3 +421,6 @@ position = Vector2(195, 49)
 
 [node name="SleepingBag" parent="." instance=ExtResource("39_sleg1")]
 position = Vector2(169, 156)
+
+[node name="CursedIdol" parent="." instance=ExtResource("34_0d44n")]
+position = Vector2(139, 76)
