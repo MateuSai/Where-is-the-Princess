@@ -35,6 +35,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_interact"):
 		get_viewport().set_input_as_handled()
 		player_interacted.emit()
+		body_entered.emit(player)  # To update the outline of the cursed idol, npcs, ...
 
 
 @warning_ignore("shadowed_variable")

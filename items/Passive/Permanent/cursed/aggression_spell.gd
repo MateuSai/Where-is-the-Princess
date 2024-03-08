@@ -1,4 +1,4 @@
-class_name AggressionSpell extends PermanentPassiveItem
+class_name AggressionSpell extends CursedPermanentPassiveItem
 
 
 var player: Player = null
