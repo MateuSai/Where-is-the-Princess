@@ -1,4 +1,4 @@
-class_name AggressionSpell extends CursedPermanentPassiveItem
+class_name AggressionSpell extends PermanentPassiveItem
 
 
 var player: Player = null
@@ -18,23 +18,23 @@ func unequip(_player: Player) -> void:
 	if player.weapons.normal_attacked.is_connected(_on_character_received_damage):
 		player.weapons.normal_attacked.disconnect(_on_character_received_damage)
 	if damage_doubled:
-		player.damage_multiplier /= 2.0
+		player.damage_multiplier /= 1.5
 
 
 func _on_player_hp_changed(new_hp: int) -> void:
 	if new_hp == player.life_component.max_hp:
-		player.damage_multiplier *= 2.0
+		player.damage_multiplier *= 1.5
 		damage_doubled = true
 		Globals.character_received_damage.connect(_on_character_received_damage)
 	elif damage_doubled:
-		player.damage_multiplier /= 2.0
+		player.damage_multiplier /= 1.5
 		damage_doubled = false
 		Globals.character_received_damage.disconnect(_on_character_received_damage)
 
 
 func _on_character_received_damage(character: Character, damage_dealer: Character) -> void:
 	if not character is Player and damage_dealer is Player:
-		player.life_component.take_damage_ignoring_armor(2, Vector2.ZERO, 0, null, player, player.id)
+		player.life_component.take_damage_ignoring_armor(1, Vector2.ZERO, 0, null, player, player.id)
 
 
 func get_icon() -> Texture2D:
