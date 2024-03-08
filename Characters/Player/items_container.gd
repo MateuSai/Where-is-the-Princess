@@ -16,6 +16,12 @@ func _ready() -> void:
 		player = Globals.player
 		show_tooltip = true
 
+		# Since we waited for the player to be ready, we missed the signals he emitted, so we iterate over the items and add them
+		for item: PermanentPassiveItem in SavedData.run_stats.get_permanent_passive_items():
+			_on_player_permanent_passive_item_picked_up(item)
+		for item: TemporalPassiveItem in SavedData.run_stats.temporal_passive_items:
+			_on_player_temporal_passive_item_picked_up(item)
+
 	player.permanent_passive_item_picked_up.connect(_on_player_permanent_passive_item_picked_up)
 	player.permanent_passive_item_unequiped.connect(_on_player_permanent_passive_item_unequiped)
 	player.temporal_passive_item_picked_up.connect(_on_player_temporal_passive_item_picked_up)
