@@ -154,6 +154,16 @@ func get_discovered_temporal_items() -> PackedStringArray:
 	return _discovered_temporal_items.duplicate()
 
 
+func is_passive_item_discovered(item: PassiveItem) -> bool:
+	if item is PermanentPassiveItem:
+		return _discovered_permanent_items.has((item.get_script() as GDScript).get_path())
+	elif item is TemporalPassiveItem:
+		return _discovered_temporal_items.has((item.get_script() as GDScript).get_path())
+	else:
+		assert(false, "Invalid item type")
+		return false
+
+
 func get_available_player_upgrades() -> PackedStringArray:
 	#var arr: Array = _discovered_temporal_items.duplicate()
 	#arr.append_array(DISCOVERED_TEMPORAL_ITEMS_FROM_START)

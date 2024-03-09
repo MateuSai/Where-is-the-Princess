@@ -23,7 +23,10 @@ func show_at(pos: Vector2, item: Item) -> void:
 			name_label.modulate = Color.WHITE
 		Item.Quality.CHINGON:
 			name_label.modulate = Color.BLUE
-	description_label.text = item.get_item_description()
+	if item is PassiveItem and not SavedData.data.is_passive_item_discovered(item):
+		description_label.text = "?"
+	else:
+		description_label.text = item.get_item_description()
 	#size.y = 0
 
 	position = pos
