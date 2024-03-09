@@ -36,9 +36,9 @@ shape = SubResource("CapsuleShape2D_fswc4")
 
 [node name="CostHBox" type="HBoxContainer" parent="."]
 offset_left = -8.0
-offset_top = -25.0
+offset_top = -35.0
 offset_right = 7.0
-offset_bottom = -9.0
+offset_bottom = -19.0
 theme = ExtResource("4_ho103")
 theme_override_constants/separation = 0
 
