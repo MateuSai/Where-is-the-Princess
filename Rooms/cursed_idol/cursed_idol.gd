@@ -1,10 +1,18 @@
 class_name CursedIdol extends StaticBody2D
 
+const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/SpawnExplosion.tscn")
+
+const DIALOGUE_BOX_SCENE: PackedScene = preload("res://ui/dialogue_system/dialogue_box.tscn")
+var dialogue_box: DialogueBox
+var dialogue_tween: Tween = null
+
 var coin_price: int = 10
 
 var permanent_passive_item: PermanentPassiveItem
 var item_in_the_process_of_cursing: PermanentPassiveItem
 var tween: Tween = null
+
+#var canvas_modulate: CanvasModulate
 
 @onready var room: DungeonRoom = owner
 
@@ -16,6 +24,13 @@ func _ready() -> void:
 	cost_hbox.hide()
 
 	interact_area.body_entered.connect(func(_player: Player) -> void:
+		#canvas_modulate = CanvasModulate.new()
+		#canvas_modulate.color = Color.BLACK
+		#canvas_modulate.light_mask = 2
+		#canvas_modulate.z_index = 100
+		#get_tree().current_scene.add_child(canvas_modulate)
+
+		#_start_dialogue("Hwy, come over here...")
 		cost_hbox.show()
 		if _can_interact():
 			interact_area.sprite_material.set("shader_parameter/color", Color.WHITE)
@@ -25,6 +40,8 @@ func _ready() -> void:
 			interact_area.sprite_material.set("shader_parameter/interior_color", Color("#8f20178d"))
 	)
 	interact_area.body_exited.connect(func(_player: Player) -> void:
+		#canvas_modulate.queue_free()
+
 		cost_hbox.hide()
 		if not _can_interact():
 			interact_area.sprite_material.set("shader_parameter/interior_color", Color.TRANSPARENT)
@@ -54,9 +71,13 @@ func _on_player_interacted() -> void:
 
 
 func _spawn_cursed_item() -> void:
+	var spawn_explosion: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()
+	spawn_explosion.modulate = Color("460e03ba")
+	add_child(spawn_explosion)
+
 	var item_on_floor: ItemOnFloor = (load("res://items/item_on_floor.tscn") as PackedScene).instantiate()
 	room.add_item_on_floor(item_on_floor, position)
-	item_on_floor.initialize((load(item_in_the_process_of_cursing.get_cursed_version_path()) as GDScript).new())
+	item_on_floor.initialize((load(item_in_the_process_of_cursing.get_cursed_version_path()) as GDScript).new() as Item)
 
 	tween = create_tween()
 	tween.tween_property(item_on_floor, "position:y", position.y + 16, 1).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
@@ -80,3 +101,30 @@ func _get_random_permanent_passive_item_that_has_cursed_version() -> PermanentPa
 			return item
 
 	return null
+
+
+func _start_dialogue(text: String) -> void:
+	dialogue_box = DIALOGUE_BOX_SCENE.instantiate()
+	dialogue_box.position = Vector2(5, -26)
+	add_child(dialogue_box)
+
+	#var available_dialogue_texts: PackedStringArray = dialogue_texts.duplicate()
+	#for i: int in range(available_dialogue_texts.size()-1, -1, -1):
+		#if used_dialogue_texts.has(available_dialogue_texts[i]):
+			#available_dialogue_texts.remove_at(i)
+	#if available_dialogue_texts.is_empty():
+		#available_dialogue_texts = dialogue_texts.duplicate()
+		#used_dialogue_texts = []
+	var random_dialogue_text: String = text
+	dialogue_box.start_displaying_text(random_dialogue_text)
+	#used_dialogue_texts.push_back(random_dialogue_text)
+
+	dialogue_box.finished_displaying_text.connect(func() -> void:
+		dialogue_tween = create_tween()
+		dialogue_tween.tween_property(dialogue_box, "modulate:a", 0.0, 1).set_delay(3)
+		await dialogue_tween.finished
+		dialogue_tween = null
+		dialogue_box.queue_free()
+		dialogue_box = null
+		#dialogue_finished.emit()
+	)

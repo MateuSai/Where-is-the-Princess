@@ -406,6 +406,8 @@ position = Vector2(183, 158)
 
 [node name="Items" type="Node2D" parent="."]
 
+[node name="Weapons" type="Node2D" parent="."]
+
 [node name="DebugRoomId" type="Label" parent="."]
 z_index = 4
 material = SubResource("CanvasItemMaterial_xxlah")

@@ -6,9 +6,10 @@ const GROUND_ATTACK_SCENE: PackedScene = preload("res://mods-unpacked/WekufuStud
 
 
 func _spawn_ground_attack() -> void:
-	var amount: int = 10
-	for i: int in amount:
-		var ground_attack: Hitbox = GROUND_ATTACK_SCENE.instantiate()
-		ground_attack.damage = data.ability_damage
-		ground_attack.global_position = spear_point.global_position + Vector2.RIGHT.rotated((2*PI / amount) * (i + randf_range(-0.2, 0.2))) * randf_range(20, 36)
-		get_tree().current_scene.add_child(ground_attack)
+	for i: int in 2:
+		var amount: int = 8 + i * 6
+		for j: int in amount:
+			var ground_attack: Hitbox = GROUND_ATTACK_SCENE.instantiate()
+			ground_attack.damage = data.ability_damage
+			ground_attack.global_position = spear_point.global_position + Vector2.RIGHT.rotated((2*PI / amount) * (j + randf_range(-0.2, 0.2))) * (randf_range(12, 20) + i * 16)
+			get_tree().current_scene.add_child(ground_attack)
