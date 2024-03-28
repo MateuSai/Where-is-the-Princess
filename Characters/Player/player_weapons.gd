@@ -152,13 +152,16 @@ func _drop_weapon() -> void:
 	weapon_droped.emit(weapon_to_drop.get_index())
 
 	call_deferred("remove_child", weapon_to_drop)
-	get_tree().current_scene.call_deferred("add_child", weapon_to_drop)
+	if (player.current_room):
+		player.current_room.call_deferred("add_weapon_on_floor", weapon_to_drop, player.global_position - player.current_room.global_position)
+	else:
+		get_tree().current_scene.call_deferred("add_child", weapon_to_drop)
 	# weapon_to_drop.set_owner(get_tree().current_scene)
 	await weapon_to_drop.tree_entered
 	weapon_to_drop.show()
 
 	var throw_dir: Vector2 = (get_global_mouse_position() - character_position).normalized()
-	weapon_to_drop.interpolate_pos(character_position, character_position + throw_dir * 50)
+	weapon_to_drop.interpolate_pos(weapon_to_drop.position, weapon_to_drop.position + throw_dir * 50)
 
 
 func throw_weapon() -> void:
@@ -177,7 +180,11 @@ func throw_weapon() -> void:
 
 	weapon_to_drop.position = pos
 	weapon_to_drop.hitbox.exclude = character.get_exclude_bodies()
-	get_tree().current_scene.add_child(weapon_to_drop)
+	if (player.current_room):
+		player.current_room.add_weapon_on_floor(weapon_to_drop, player.global_position - player.current_room.global_position)
+	else:
+		get_tree().current_scene.add_child(weapon_to_drop)
+	#get_tree().current_scene.add_child(weapon_to_drop)
 	weapon_to_drop.show()
 
 

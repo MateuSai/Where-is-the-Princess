@@ -1,6 +1,8 @@
-[gd_resource type="CanvasTexture" load_steps=2 format=3 uid="uid://bpx3tad7bw0w4"]
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://bpx3tad7bw0w4"]
 
 [ext_resource type="Texture2D" uid="uid://7oiom4dycjn0" path="res://Art/Furniture and room elements/cursed_shrine_albedo.png" id="1_eafyn"]
+[ext_resource type="Texture2D" uid="uid://cy5utn52k7w3q" path="res://Art/Furniture and room elements/cursed_shrine_normal.png" id="2_enlaa"]
 
 [resource]
 diffuse_texture = ExtResource("1_eafyn")
+normal_texture = ExtResource("2_enlaa")

@@ -66,6 +66,7 @@ var room_white_image: Image
 @onready var door_container: Node2D = get_node("Doors")
 @onready var enemy_positions_container: Node2D = get_node("EnemyPositions")
 @onready var items_container: Node2D = $Items
+@onready var weapons_container: Node2D = $Weapons
 
 
 func _ready() -> void:
@@ -549,6 +550,23 @@ func add_item_on_floor(item_on_floor: ItemOnFloor, at_pos: Vector2) -> void:
 func get_items() -> Array[ItemOnFloor]:
 	var array: Array[ItemOnFloor] = []
 	array.assign(items_container.get_children())
+	return array
+
+
+func add_weapon_on_floor(weapon: Weapon, at_pos: Vector2) -> void:
+	if is_on_water(at_pos):
+		weapon.queue_free()
+		var splash: Sprite2D = load("res://effects/water_splash/water_splash.tscn").instantiate()
+		splash.position = at_pos
+		add_child(splash)
+	else:
+		weapon.position = at_pos
+		weapons_container.add_child(weapon)
+
+
+func get_weapons() -> Array[Weapon]:
+	var array: Array[Weapon] = []
+	array.assign(weapons_container.get_children())
 	return array
 
 

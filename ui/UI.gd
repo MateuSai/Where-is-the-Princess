@@ -68,6 +68,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func show_tab_container() -> void:
+	Globals.player.get_node("UI").hide()
+
 	viewport_texture = get_viewport().get_texture()
 	var image: Image = viewport_texture.get_image()
 	var scale_x: float = float(image.get_width()) / ProjectSettings.get_setting("display/window/size/viewport_width")
@@ -87,6 +89,8 @@ func show_tab_container() -> void:
 
 
 func hide_tab_container() -> void:
+	Globals.player.get_node("UI").show()
+
 	color_rect.hide()
 	tab_container.hide()
 	seed_label.hide()

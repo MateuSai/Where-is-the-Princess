@@ -206,7 +206,7 @@ func _show_item_details(item: Item, statistics: ItemStatistics) -> void:
 	var item_texture: TextureRect = TextureRect.new()
 	item_texture.expand_mode = TextureRect.EXPAND_FIT_WIDTH
 	item_texture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
-	item_texture.custom_minimum_size.y = 48
+	item_texture.custom_minimum_size.y = 48 # big icon has an height of 48 pixels, so the displayed image of the big icon is the real size
 	if item.get_big_icon():
 		item_texture.texture = item.get_big_icon()
 	else:
