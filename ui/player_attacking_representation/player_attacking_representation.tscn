@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://pj1i4qilio7a"]
+
+[ext_resource type="Script" path="res://ui/player_attacking_representation/player_attacking_representation.gd" id="1_wo62y"]
+[ext_resource type="Texture2D" uid="uid://br7c70c5injos" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/no_armor.png" id="2_42nnr"]
+
+[node name="PlayerAttackingRepresentation" type="MarginContainer"]
+custom_minimum_size = Vector2(32, 32)
+script = ExtResource("1_wo62y")
+
+[node name="Player" type="Sprite2D" parent="."]
+position = Vector2(16, 16)
+texture = ExtResource("2_42nnr")
+hframes = 6
+vframes = 4

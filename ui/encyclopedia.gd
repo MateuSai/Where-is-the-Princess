@@ -52,7 +52,7 @@ func _set_category(new_category: int) -> void:
 					button.pressed.connect(func() -> void:
 						_clear_details()
 						var weapon_id: String = Weapon.get_id_from_path(weapon_path)
-						_show_weapon_details(weapon_id, weapon_data, weapons_statistics[weapon_id] if weapons_statistics.has(weapon_id) else null)
+						_show_weapon_details(weapon_id, weapon_path, weapon_data, weapons_statistics[weapon_id] if weapons_statistics.has(weapon_id) else null)
 					)
 				flow_container.add_child(button)
 		ARMORS:
@@ -117,16 +117,20 @@ func _clear_details() -> void:
 	details_scroll_container.scroll_vertical = 0
 
 
-func _show_weapon_details(id: String, data: WeaponData, statistics: WeaponStatistics) -> void:
+func _show_weapon_details(id: String, weapon_path: String, data: WeaponData, statistics: WeaponStatistics) -> void:
 	if not statistics:
 		statistics = WeaponStatistics.new()
 
-	var weapon_texture: TextureRect = TextureRect.new()
-	weapon_texture.expand_mode = TextureRect.EXPAND_FIT_WIDTH
-	weapon_texture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
-	weapon_texture.custom_minimum_size.y = 64
-	weapon_texture.texture = data.prop
-	details_vbox.add_child(weapon_texture)
+	#var weapon_texture: TextureRect = TextureRect.new()
+	#weapon_texture.expand_mode = TextureRect.EXPAND_FIT_WIDTH
+	#weapon_texture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
+	#weapon_texture.custom_minimum_size.y = 64
+	#weapon_texture.texture = data.prop
+	#details_vbox.add_child(weapon_texture)
+
+	var player_attacking_representation: PlayerAttackingRepresentation = load("res://ui/player_attacking_representation/player_attacking_representation.tscn").instantiate()
+	details_vbox.add_child(player_attacking_representation)
+	player_attacking_representation.initialize(weapon_path)
 
 	var name_label: Label = Label.new()
 	name_label.custom_minimum_size.x = details_vbox.size.x - 16

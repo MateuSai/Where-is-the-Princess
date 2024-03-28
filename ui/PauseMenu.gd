@@ -2,7 +2,7 @@ extends Control
 
 @onready var ui: GameUI = %UI
 #@onready var color_rect: ColorRect = %UIColorRect
-@onready var resume_button: Button = $VBoxContainer/ResumeButton
+@onready var resume_button: Button = $PanelContainer/VBoxContainer/ResumeButton
 
 
 func _ready() -> void:
