@@ -149,7 +149,7 @@ layer_1/tile_data = PackedInt32Array()
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.152941, 0.152941, 0.152941, 1)
+color = Color(0, 0, 0, 1)
 
 [node name="DayNightSystem" type="DirectionalLight2D" parent="."]
 unique_name_in_owner = true
@@ -223,7 +223,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_usvbv")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6orv6")
-current_tab = 2
+current_tab = 1
 script = ExtResource("6_y3275")
 
 [node name="MAP" type="MarginContainer" parent="UI/MenuTabContainer"]
@@ -262,7 +262,6 @@ texture = ExtResource("16_0uph7")
 
 [node name="EQUIPMENT" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
@@ -343,6 +342,7 @@ script = ExtResource("16_tq616")
 
 [node name="ENCYCLOPEDIA" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 script = ExtResource("17_k4k0u")
 
