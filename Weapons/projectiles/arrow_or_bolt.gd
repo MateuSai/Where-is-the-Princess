@@ -3,7 +3,7 @@ class_name ArrowOrBolt extends Projectile
 
 const WORLD_IMPACT_SOUNDS: Array[AudioStreamWAV] = [preload("res://Audio/Sounds/impact/521242__cyoung510__arrow_hits_target_1.wav"), preload("res://Audio/Sounds/impact/521242__cyoung510__arrow_hits_target_2.wav"), preload("res://Audio/Sounds/impact/521242__cyoung510__arrow_hits_target_3.wav")]
 var textures: Array[Texture2D] = []
-const MODIFIER_TEXTURES: Array[Texture] = [preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/default_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/homing_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/piercing_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/bouncing_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/explosive_arrow_icon.png")]
+const MODIFIER_TEXTURES: Array[Texture] = [preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/default_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/homing_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/piercing_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/bouncing_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/explosive_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/icon_map.png")]
 
 enum Type {
 	NORMAL,
@@ -11,6 +11,7 @@ enum Type {
 	PIERCING,
 	BOUNCING,
 	EXPLOSIVE,
+	UI,
 }
 var type: Type = Type.NORMAL: set = _set_type
 
@@ -85,3 +86,6 @@ func _set_type(new_type: Type) -> void:
 			bounces_remaining += 1
 		Type.EXPLOSIVE:
 			pass
+		Type.UI:
+			z_index = 10
+			get_tree().create_timer(0.2).timeout.connect(destroy)

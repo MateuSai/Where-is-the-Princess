@@ -27,8 +27,24 @@ func initialize(weapon_path: String) -> void:
 	weapons.add_child(weapon)
 	weapon.data.condition_cost_per_normal_attack = 0.0
 
+	if weapon is BowOrCrossbowWeapon:
+		(weapon as BowOrCrossbowWeapon).arrow_type = ArrowOrBolt.Type.UI
+	#if weapon is Bow:
+		#var bow: Bow = weapon
+		#bow.projectiles_spawned.connect(func(projectiles: Array[Projectile]) -> void:
+			#for projectile in projectiles:
+				#projectile.queue_free()
+		#)
 
-func _process(delta: float) -> void:
+	draw.connect(func() -> void:
+		set_process(true)
+	)
+	hidden.connect(func() -> void:
+		set_process(false)
+	)
+
+
+func _process(_delta: float) -> void:
 	if not is_busy():
 		attack()
 
@@ -51,6 +67,18 @@ func reload() -> void:
 
 
 func _actually_attack() -> void:
-	weapon._attack()
+	if weapon is MeleeWeapon:
+		weapon._attack()
+	elif weapon is Bow:
+		var bow: Bow = weapon
+		bow._charge()
+		bow.animation_player.animation_finished.connect(_on_bow_animation_finished)
+	else:
+		push_error("Unsupoorted weapon attack")
 
 	attack_cooldown_timer.start()
+
+
+func _on_bow_animation_finished(_anim_name: String) -> void:
+	(weapon as Bow)._bow_attack(1.0)
+	weapon.animation_player.animation_finished.disconnect(_on_bow_animation_finished)

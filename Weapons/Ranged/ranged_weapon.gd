@@ -4,6 +4,8 @@ var projectile_speed: int
 var normal_attack_projectile_speed: int = 200
 var ability_projectile_speed: int = 300
 
+signal projectiles_spawned(projectiles: Array[Projectile])
+
 @onready var spawn_projectile_pos: Marker2D = %SpawnProjectilePos
 @onready var shoot_sound: AudioStreamPlayer = $ShootSound
 
@@ -56,6 +58,8 @@ func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> Array[Projectile]
 
 		_decrease_weapon_condition(data.condition_cost_per_normal_attack)
 #		stats.condition -= condition_cost_per_normal_attack
+
+	projectiles_spawned.emit(spawned_projectiles)
 
 	return spawned_projectiles
 
