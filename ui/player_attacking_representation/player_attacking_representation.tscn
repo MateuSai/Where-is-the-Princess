@@ -1,14 +1,79 @@
-[gd_scene load_steps=3 format=3 uid="uid://pj1i4qilio7a"]
+[gd_scene load_steps=9 format=3 uid="uid://pj1i4qilio7a"]
 
 [ext_resource type="Script" path="res://ui/player_attacking_representation/player_attacking_representation.gd" id="1_wo62y"]
 [ext_resource type="Texture2D" uid="uid://br7c70c5injos" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/no_armor.png" id="2_42nnr"]
+[ext_resource type="Script" path="res://ui/player_attacking_representation/player_representation.gd" id="2_fu3tv"]
+[ext_resource type="Script" path="res://Components/LifeComponent.gd" id="4_6kqmb"]
+[ext_resource type="Script" path="res://Characters/FSM.gd" id="5_46shn"]
+
+[sub_resource type="Animation" id="Animation_gpbld"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_lxksm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_23u56"]
+_data = {
+"RESET": SubResource("Animation_lxksm"),
+"idle": SubResource("Animation_gpbld")
+}
 
 [node name="PlayerAttackingRepresentation" type="MarginContainer"]
 custom_minimum_size = Vector2(32, 32)
 script = ExtResource("1_wo62y")
 
-[node name="Player" type="Sprite2D" parent="."]
+[node name="PlayerRepresentation" type="CharacterBody2D" parent="."]
+script = ExtResource("2_fu3tv")
+
+[node name="PlayerSprite" type="Sprite2D" parent="PlayerRepresentation"]
 position = Vector2(16, 16)
 texture = ExtResource("2_42nnr")
 hframes = 6
 vframes = 4
+
+[node name="Weapons" type="Node2D" parent="PlayerRepresentation"]
+position = Vector2(16, 19)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayerRepresentation"]
+libraries = {
+"": SubResource("AnimationLibrary_23u56")
+}
+autoplay = "idle"
+
+[node name="LifeComponent" type="Node" parent="PlayerRepresentation"]
+script = ExtResource("4_6kqmb")
+
+[node name="AcidDamageTimer" type="Timer" parent="PlayerRepresentation"]
+
+[node name="StateLabel" type="Label" parent="PlayerRepresentation"]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="FiniteStateMachine" type="Node" parent="PlayerRepresentation"]
+script = ExtResource("5_46shn")

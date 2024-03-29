@@ -237,7 +237,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_usvbv")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6orv6")
-current_tab = 3
+current_tab = 1
 script = ExtResource("6_y3275")
 
 [node name="MAP" type="MarginContainer" parent="UI/MenuTabContainer"]
@@ -276,7 +276,6 @@ texture = ExtResource("16_0uph7")
 
 [node name="EQUIPMENT" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
@@ -284,13 +283,16 @@ theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/MenuTabContainer/EQUIPMENT"]
+custom_minimum_size = Vector2(280, 140)
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxTexture_rfhhj")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 32
+theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 8
 
@@ -474,6 +476,7 @@ size_flags_horizontal = 3
 [node name="OPTIONS" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
 process_mode = 2
+visible = false
 layout_mode = 2
 mouse_filter = 2
 script = ExtResource("11_7bikg")
