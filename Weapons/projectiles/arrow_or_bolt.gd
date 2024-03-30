@@ -87,5 +87,5 @@ func _set_type(new_type: Type) -> void:
 		Type.EXPLOSIVE:
 			pass
 		Type.UI:
-			z_index = 10
-			get_tree().create_timer(0.2).timeout.connect(destroy)
+			collision_shape.shape = null
+			get_tree().create_timer(0.8).timeout.connect(destroy)

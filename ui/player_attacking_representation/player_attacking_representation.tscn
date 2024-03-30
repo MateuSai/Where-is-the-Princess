@@ -1,10 +1,26 @@
-[gd_scene load_steps=9 format=3 uid="uid://pj1i4qilio7a"]
+[gd_scene load_steps=10 format=3 uid="uid://pj1i4qilio7a"]
 
 [ext_resource type="Script" path="res://ui/player_attacking_representation/player_attacking_representation.gd" id="1_wo62y"]
 [ext_resource type="Texture2D" uid="uid://br7c70c5injos" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/no_armor.png" id="2_42nnr"]
 [ext_resource type="Script" path="res://ui/player_attacking_representation/player_representation.gd" id="2_fu3tv"]
+[ext_resource type="Texture2D" uid="uid://u32p7gyrdxj3" path="res://Rooms/Biomes/forest/forest_background.png" id="2_orkgs"]
 [ext_resource type="Script" path="res://Components/LifeComponent.gd" id="4_6kqmb"]
 [ext_resource type="Script" path="res://Characters/FSM.gd" id="5_46shn"]
+
+[sub_resource type="Animation" id="Animation_lxksm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_gpbld"]
 resource_name = "idle"
@@ -23,21 +39,6 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4, 5]
 }
 
-[sub_resource type="Animation" id="Animation_lxksm"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_23u56"]
 _data = {
 "RESET": SubResource("Animation_lxksm"),
@@ -46,7 +47,16 @@ _data = {
 
 [node name="PlayerAttackingRepresentation" type="MarginContainer"]
 custom_minimum_size = Vector2(32, 32)
+offset_right = 94.0
+offset_bottom = 32.0
 script = ExtResource("1_wo62y")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+clip_contents = true
+layout_mode = 2
+texture = ExtResource("2_orkgs")
+expand_mode = 1
+stretch_mode = 2
 
 [node name="PlayerRepresentation" type="CharacterBody2D" parent="."]
 script = ExtResource("2_fu3tv")

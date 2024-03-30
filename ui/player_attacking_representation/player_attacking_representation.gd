@@ -23,13 +23,21 @@ func initialize(weapon_path: String) -> void:
 
 	player_sprite.texture = Globals.player.sprite.texture
 	weapon = load(weapon_path).instantiate()
-	weapon.rotation = +PI/5
+	#weapon.rotation = +PI/24
 	weapons.add_child(weapon)
 	weapon.data.condition_cost_per_normal_attack = 0.0
 
 	if weapon is BowOrCrossbowWeapon:
 		(weapon as BowOrCrossbowWeapon).arrow_type = ArrowOrBolt.Type.UI
-	#if weapon is Bow:
+	if weapon is Bow:
+		var bow: Bow = weapon
+		bow.projectiles_spawned.connect(func(projectiles: Array[Projectile]) -> void:
+			for projectile in projectiles:
+				projectile.get_parent().remove_child(projectile)
+				projectile.position -= global_position
+				add_child(projectile)
+				#projectile.launch((weapon as Bow).spawn_projectile_pos.global_position)
+		)
 		#var bow: Bow = weapon
 		#bow.projectiles_spawned.connect(func(projectiles: Array[Projectile]) -> void:
 			#for projectile in projectiles:
