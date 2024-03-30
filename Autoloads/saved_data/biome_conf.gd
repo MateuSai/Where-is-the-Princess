@@ -36,6 +36,8 @@ var levels: Array[Level] = []
 var music: String = ""
 var music_volume_db: float = 0.0
 
+var encyclopedia_background: String = ""
+
 static func from_dic(dic: Dictionary) -> BiomeConf:
 	var data: BiomeConf = BiomeConf.new()
 

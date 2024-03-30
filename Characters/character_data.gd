@@ -15,6 +15,8 @@ class_name CharacterData extends Resource
 
 @export var body_type: LifeComponent.BodyType = LifeComponent.BodyType.FLESH
 
+@export var biome: String = "forest"
+
 
 static func from_dic(dic: Dictionary) -> CharacterData:
 	var character_data: CharacterData = CharacterData.new()
@@ -39,3 +41,4 @@ static func _load_dic_into_data(dic: Dictionary, character_data: CharacterData) 
 	@warning_ignore("int_as_enum_without_cast")
 	character_data.body_type = LifeComponent.BodyType.keys().find(dic.body_type)
 	character_data.initial_resistances = dic.resistances
+	character_data.biome = dic.biome

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.8" tiledversion="1.8.0" orientation="orthogonal" renderorder="right-down" width="9" height="6" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="1">
+ <tileset firstgid="1" source="Forest.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="9" height="6">
+  <data encoding="csv">
+42,79,44,44,42,44,42,77,79,
+112,114,44,77,78,77,112,77,77,
+42,43,43,43,79,112,114,113,78,
+44,43,113,79,112,112,79,42,43,
+77,113,44,114,42,42,79,79,77,
+44,78,43,112,113,42,114,43,44
+</data>
+ </layer>
+ <layer id="2" name="Furniture" width="9" height="6">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+</map>

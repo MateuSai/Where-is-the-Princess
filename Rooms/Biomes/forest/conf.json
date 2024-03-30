@@ -49,4 +49,6 @@
 
 	"music": "res://Audio/Music/Incompetech/Shamanistic.mp3",
 	"music_volume_db": -4.0,
+
+	"encyclopedia_background": "res://Rooms/Biomes/forest/forest_background.png",
 }

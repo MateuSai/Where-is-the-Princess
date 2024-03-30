@@ -243,17 +243,40 @@ func _show_enemy_details(id: String, data: EnemyData, statistics: EnemyStatistic
 	if not statistics:
 		statistics = EnemyStatistics.new()
 
+	var biome_background: TextureRect = TextureRect.new()
+	biome_background.clip_contents = true
+	biome_background.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	biome_background.stretch_mode = TextureRect.STRETCH_KEEP
+	biome_background.texture = load(SavedData.get_biome_by_id_or_path(data.biome).encyclopedia_background)
+	biome_background.custom_minimum_size.y = 64
+	details_vbox.add_child(biome_background)
+
 	#var ability_icon: TextureRect = TextureRect.new()
 	#ability_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
 	#ability_icon.texture = armor.ability_icon if armor.ability_icon else load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/armor_no_ability.png")
 	#left_vbox.add_child(ability_icon)
 
+	var center_container: CenterContainer = CenterContainer.new()
+	center_container.set_anchors_preset(Control.PRESET_FULL_RECT)
+	biome_background.add_child(center_container)
+
 	var enemy_texture: TextureRect = TextureRect.new()
-	enemy_texture.expand_mode = TextureRect.EXPAND_FIT_WIDTH
-	enemy_texture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
-	enemy_texture.custom_minimum_size.y = 64
+	enemy_texture.expand_mode = TextureRect.EXPAND_KEEP_SIZE
+	enemy_texture.stretch_mode = TextureRect.STRETCH_KEEP
 	enemy_texture.texture = data.icon
-	details_vbox.add_child(enemy_texture)
+	enemy_texture.size = enemy_texture.texture.get_size()
+	center_container.add_child(enemy_texture)
+	#enemy_texture.pivot_offset = enemy_texture.texture.get_size() / 2
+	#enemy_texture.anchor_left = 0.5
+	#enemy_texture.anchor_top = 0.5
+	#enemy_texture.anchor_right = 0.5
+	#enemy_texture.anchor_bottom = 0.5
+	#enemy_texture.layout_mode = 1 # Anchors
+	#enemy_texture.set_anchors_preset(Control.PRESET_CENTER)
+	#enemy_texture.offset_left = 0
+	#enemy_texture.offset_right = 0
+	#enemy_texture.offset_bottom = 0
+	#enemy_texture.offset_top = 0
 
 	var hearts_hflow: HFlowContainer = HFlowContainer.new()
 	hearts_hflow.add_theme_constant_override("h_separation", 0)

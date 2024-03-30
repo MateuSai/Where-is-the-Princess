@@ -185,31 +185,35 @@ func add_ignored_room(room_path: String) -> void:
 
 ## You can specify a vanilla biome like [code]"forest"[/code] or [code]"sewer"[/code] or you can use an absolute path to the config.json for your own biome
 func change_biome_by_id_or_path(new_biome: String, level: int = 1) -> void:
-	if new_biome.is_absolute_path():
-		_change_biome_conf(new_biome)
-	else:
-		_change_biome_conf(BIOMES_FOLDER_PATH + new_biome + "/conf.json")
+	biome_conf = get_biome_by_id_or_path(new_biome)
+	assert(biome_conf)
+
 	run_stats.biome = new_biome
 	run_stats.level = level
+
+
+func get_biome_by_id_or_path(biome: String) -> BiomeConf:
+	if not biome.is_absolute_path():
+		biome = BIOMES_FOLDER_PATH + biome + "/conf.json"
+
+	var ret_biome_conf: BiomeConf = null
+
+	var json: JSON = JSON.new()
+	if json.parse(FileAccess.open(biome, FileAccess.READ).get_as_text()):
+		push_error("Error reading " + biome + "! Loading default biome conf...")
+	else:
+		if json.data is Dictionary:
+			ret_biome_conf = BiomeConf.from_dic(json.data as Dictionary)
+		else:
+			push_error("Could not load file biome data as json, using default values...")
+
+	return ret_biome_conf
 
 
 func _change_biome_by_conf(conf: BiomeConf, level: int = 1) -> void:
 	self.biome_conf = conf
 	run_stats.biome = "Biome loaded with config, can't be saved to run stats"
 	run_stats.level = level
-
-
-func _change_biome_conf(biome_conf_path: String) -> void:
-	var json: JSON = JSON.new()
-	if json.parse(FileAccess.open(biome_conf_path, FileAccess.READ).get_as_text()):
-		push_error("Error reading " + biome_conf_path + "! Loading default biome conf...")
-		biome_conf = BiomeConf.new()
-	else:
-		if json.data is Dictionary:
-			biome_conf = BiomeConf.from_dic(json.data as Dictionary)
-		else:
-			push_error("Could not load file biome data as json, using default values...")
-			biome_conf = BiomeConf.new()
 
 
 ## room_type must be "combat", "end", "special" or "start"
