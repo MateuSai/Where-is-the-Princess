@@ -22,3 +22,7 @@ func _on_room_closed() -> void:
 
 func get_icon() -> Texture2D:
 	return load("res://Art/items/Hearth_Stone.png")
+
+
+func get_big_icon() -> Texture2D:
+	return load("res://Art/items/Hearth_Stone_UI_desc.png")

@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://8nmhwu5g4jap"]
+
+[ext_resource type="Texture2D" uid="uid://dk5fa4ot7i4y" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/big_coin.tres" id="1_uuhnf"]
+
+[node name="CoinIndicatorHBoxContainer" type="HBoxContainer"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_uuhnf")
+stretch_mode = 5
+
+[node name="CoinsLabel" type="Label" parent="."]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.780392, 0.631373, 0.360784, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+text = "0"
+vertical_alignment = 2

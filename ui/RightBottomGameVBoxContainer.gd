@@ -2,8 +2,8 @@ extends VBoxContainer
 
 var transparency_tween: Tween
 
-@onready var coins_label: Label = get_node("HBoxContainer/CoinsLabel")
-@onready var dark_souls_label: Label = $HBoxContainer2/DarkSoulsLabel
+@onready var coins_label: Label = get_node("CoinIndicatorHBoxContainer/CoinsLabel")
+@onready var dark_souls_label: Label = $SoulsIndicatorHBoxContainer/DarkSoulsLabel
 
 
 func _ready() -> void:

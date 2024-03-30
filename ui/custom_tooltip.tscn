@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://idxmgbn0qskm"]
+
+[ext_resource type="Script" path="res://ui/custom_tooltip.gd" id="1_au8xh"]
+[ext_resource type="Texture2D" uid="uid://jd301hy5xxl2" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/tooltip_9patch.png" id="1_hnoph"]
+[ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="3_gaypv"]
+
+[node name="CustomTooltip" type="MarginContainer"]
+offset_right = 72.0
+offset_bottom = 26.0
+script = ExtResource("1_au8xh")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("1_hnoph")
+patch_margin_left = 4
+patch_margin_top = 16
+patch_margin_right = 4
+patch_margin_bottom = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = -2
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="TitleLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("3_gaypv")
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "Title"
+fit_content = true
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_gaypv")
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "description"
+fit_content = true

@@ -23,3 +23,7 @@ func _on_room_cleared() -> void:
 
 func get_icon() -> Texture2D:
 	return load("res://Art/items/Stone_Hearth.png")
+
+
+func get_big_icon() -> Texture2D:
+	return load("res://Art/items/Stone_Hearth_UI_desc.png")

@@ -3,8 +3,6 @@ class_name Fairy extends TemporalPassiveItem
 var default_set_hp_function: Callable
 
 
-func get_icon() -> Texture2D:
-	return load("res://Art/items/fairy_animation.tres")
 
 
 func equip(player: Player) -> void:
@@ -28,3 +26,11 @@ func get_quality() -> Quality:
 
 func get_max_amount() -> int:
 	return 1
+
+
+func get_icon() -> Texture2D:
+	return load("res://Art/items/fairy_animation.tres")
+
+
+func get_big_icon() -> Texture2D:
+	return load("res://Art/items/fairy_UI_desc.png")

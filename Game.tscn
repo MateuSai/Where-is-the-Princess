@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=72 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -22,6 +22,9 @@
 [ext_resource type="Script" path="res://ui/upgrades_container.gd" id="16_tq616"]
 [ext_resource type="Script" path="res://ui/QuitButton.gd" id="17_iw01m"]
 [ext_resource type="Script" path="res://ui/encyclopedia.gd" id="17_k4k0u"]
+[ext_resource type="Script" path="res://ui/coins_and_souls_equipment_container.gd" id="17_o3o7r"]
+[ext_resource type="PackedScene" uid="uid://8nmhwu5g4jap" path="res://ui/coin_indicator_h_box_container.tscn" id="17_rexui"]
+[ext_resource type="PackedScene" uid="uid://cyojcc0r4upob" path="res://ui/souls_indicatorh_box_container.tscn" id="18_26pc0"]
 [ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="18_beacm"]
 [ext_resource type="Script" path="res://ui/PauseWeaponInventory.gd" id="19_0wxa2"]
 [ext_resource type="Script" path="res://ui/equipment_armorvbox.gd" id="19_8kxgb"]
@@ -238,7 +241,7 @@ grow_vertical = 2
 theme = ExtResource("4_usvbv")
 theme_override_constants/side_margin = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6orv6")
-current_tab = 3
+current_tab = 1
 script = ExtResource("6_y3275")
 
 [node name="MAP" type="MarginContainer" parent="UI/MenuTabContainer"]
@@ -277,7 +280,6 @@ texture = ExtResource("16_0uph7")
 
 [node name="EQUIPMENT" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
@@ -301,42 +303,44 @@ theme_override_constants/margin_bottom = 8
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="EquipmentArmorVBox" type="VBoxContainer" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EquipmentArmorVBox" type="VBoxContainer" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("19_8kxgb")
 
-[node name="ArmorTexture" type="TextureRect" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer/EquipmentArmorVBox"]
+[node name="ArmorTexture" type="TextureRect" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/EquipmentArmorVBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 texture = SubResource("AtlasTexture_5dygx")
-expand_mode = 2
-stretch_mode = 5
+stretch_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer/EquipmentArmorVBox"]
+[node name="Label" type="Label" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-size_flags_vertical = 3
+text = "WEAPONS"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer/EquipmentArmorVBox/ScrollContainer"]
+[node name="Inventory" type="HBoxContainer" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = -1
+script = ExtResource("19_0wxa2")
+
+[node name="CoinsAndSoulsEquipmentContainer" type="HBoxContainer" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 10
+script = ExtResource("17_o3o7r")
+
+[node name="CoinIndicatorHBoxContainer" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/CoinsAndSoulsEquipmentContainer" instance=ExtResource("17_rexui")]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ArmorNameLabel" type="Label" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer/EquipmentArmorVBox/ScrollContainer/VBoxContainer"]
+[node name="SoulsIndicatorHBoxContainer" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2/CoinsAndSoulsEquipmentContainer" instance=ExtResource("18_26pc0")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
-text = "Armor name"
-autowrap_mode = 3
-
-[node name="ArmorDescriptionLabel" type="Label" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer/EquipmentArmorVBox/ScrollContainer/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("18_beacm")
-theme_override_font_sizes/font_size = 10
-text = "armor description"
-autowrap_mode = 3
+size_flags_horizontal = 3
 
 [node name="VSeparator" type="VSeparator" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -344,15 +348,6 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "WEAPONS"
-
-[node name="Inventory" type="HBoxContainer" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = -1
-script = ExtResource("19_0wxa2")
 
 [node name="Label2" type="Label" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -478,6 +473,7 @@ size_flags_horizontal = 3
 [node name="OPTIONS" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
 process_mode = 2
+visible = false
 layout_mode = 2
 mouse_filter = 2
 script = ExtResource("11_7bikg")

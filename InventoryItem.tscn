@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://l7jamfdo82o1"]
+[gd_scene load_steps=11 format=3 uid="uid://l7jamfdo82o1"]
 
 [ext_resource type="Script" path="res://InventoryItem.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://devpx70x22gpo" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/icons base.png" id="2_fedqx"]
@@ -7,6 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://f34b2kx0r2pa" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/piercing_arrow_icon.png" id="4_kn0hx"]
 [ext_resource type="Texture2D" uid="uid://dkyt1eqee8dmm" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weap_condition_bar_fill.png" id="4_ttt0i"]
 [ext_resource type="Texture2D" uid="uid://neet7re3yqjg" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/broken_weapon_ui_overlay.png" id="5_d3g2q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kcnt1"]
+
+[sub_resource type="Theme" id="Theme_6dt82"]
+TooltipPanel/styles/panel = SubResource("StyleBoxEmpty_kcnt1")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_03pqv"]
 atlas = ExtResource("2_fedqx")
@@ -17,6 +22,7 @@ modulate = Color(0.462745, 0.462745, 0.462745, 1)
 texture_filter = 1
 offset_right = 16.0
 offset_bottom = 16.0
+theme = SubResource("Theme_6dt82")
 script = ExtResource("2")
 
 [node name="Background" type="TextureRect" parent="."]

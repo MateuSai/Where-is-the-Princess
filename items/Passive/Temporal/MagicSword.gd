@@ -10,6 +10,10 @@ func get_icon() -> Texture2D:
 	return load("res://Art/items/orbital_sword_icon.png")
 
 
+func get_big_icon() -> Texture2D:
+	return load("res://Art/items/orbital_sword_UI_desc.png")
+
+
 func equip(player: Player) -> void:
 	magic_sword_node = MagicSwordNode.new()
 	magic_sword_node.life_component.hp = hp

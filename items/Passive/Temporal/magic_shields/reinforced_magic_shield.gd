@@ -14,5 +14,9 @@ func get_icon() -> Texture2D:
 	return load("res://Art/items/shield_icon_metal.png")
 
 
+func get_big_icon() -> Texture2D:
+	return load("res://Art/items/shield_metal_UI_desc.png")
+
+
 func get_quality() -> Item.Quality:
 	return Item.Quality.CHINGON

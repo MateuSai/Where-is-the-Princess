@@ -72,15 +72,9 @@ func _get_tooltip(_at_position: Vector2) -> String:
 
 
 func _make_custom_tooltip(for_text: String) -> Object:
-	var label: RichTextLabel = RichTextLabel.new()
-	label.bbcode_enabled = true
-	label.text = for_text
-	label.fit_content = true
-	label.custom_minimum_size.x = 64
-	label.add_theme_font_override("normal_font", load("res://Fonts/small_font.tres"))
-	label.add_theme_font_size_override("normal_font_size", 10)
-#	var label_settings: LabelSettings = LabelSettings.new()
-#	label_settings.font = load("res://Fonts/Poco.ttf")
-#	label_settings.font_size = 10
-#	label.label_settings = label_settings
-	return label
+	var custom_tooltip: CustomTooltip = load("res://ui/custom_tooltip.tscn").instantiate()
+
+	var splitted_text: PackedStringArray = for_text.split("\n\n")
+	custom_tooltip.initialize(splitted_text[0], splitted_text[1])
+
+	return custom_tooltip

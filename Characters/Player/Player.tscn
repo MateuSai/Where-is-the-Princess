@@ -28,15 +28,15 @@
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="17_bwb1j"]
 [ext_resource type="Script" path="res://ui/RightBottomGameVBoxContainer.gd" id="18_j8x6c"]
 [ext_resource type="Texture2D" uid="uid://6cx2yobwuw5b" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_naked_icon.png" id="19_bc3n7"]
-[ext_resource type="Texture2D" uid="uid://dk5fa4ot7i4y" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/big_coin.tres" id="19_bh1ic"]
 [ext_resource type="Script" path="res://Characters/Player/items_container.gd" id="21_guiy0"]
 [ext_resource type="Texture2D" uid="uid://bhpt1388lfjwl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/Dragon Killer UI icon.png" id="21_ohq06"]
 [ext_resource type="Texture2D" uid="uid://c16ltio6detb6" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/StaminaBar_UI_empty.png" id="23_l30wv"]
 [ext_resource type="Texture2D" uid="uid://dw08gv6o23kjh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/StaminaBar_UI_full_2.png" id="24_yneg1"]
 [ext_resource type="Script" path="res://Characters/Player/stamina_bar.gd" id="25_22fjy"]
-[ext_resource type="Texture2D" uid="uid://cac17vxsy4c22" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/boss_soul_animation.tres" id="26_3xjxs"]
 [ext_resource type="Script" path="res://Characters/Player/AutoAimArea.gd" id="28_r7ct4"]
 [ext_resource type="AudioStream" uid="uid://dhift2qs6kcl5" path="res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Equipement (menu)/ArmorLeatherMetal1.wav" id="33_3bfpk"]
+[ext_resource type="PackedScene" uid="uid://8nmhwu5g4jap" path="res://ui/coin_indicator_h_box_container.tscn" id="33_ra0ly"]
+[ext_resource type="PackedScene" uid="uid://cyojcc0r4upob" path="res://ui/souls_indicatorh_box_container.tscn" id="34_cqcnu"]
 [ext_resource type="AudioStream" uid="uid://ddvfc4vghai55" path="res://Audio/Sounds/540275__zepurple__pick-up-tool.wav" id="39_184bl"]
 [ext_resource type="AudioStream" uid="uid://bmektc0a3ocp4" path="res://Audio/Sounds/429924__julalvr__2-macho-comewav.wav" id="40_ndcss"]
 [ext_resource type="AudioStream" uid="uid://70di52o5u7oq" path="res://Audio/Sounds/324514__deleted_user_2104797__burp.wav" id="41_cbyot"]
@@ -657,37 +657,11 @@ grow_vertical = 0
 theme = ExtResource("17_bwb1j")
 script = ExtResource("18_j8x6c")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/RightBottomGameVBoxContainer" index="0"]
+[node name="CoinIndicatorHBoxContainer" parent="UI/RightBottomGameVBoxContainer" index="0" instance=ExtResource("33_ra0ly")]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="UI/RightBottomGameVBoxContainer/HBoxContainer" index="0"]
+[node name="SoulsIndicatorHBoxContainer" parent="UI/RightBottomGameVBoxContainer" index="1" instance=ExtResource("34_cqcnu")]
 layout_mode = 2
-texture = ExtResource("19_bh1ic")
-stretch_mode = 5
-
-[node name="CoinsLabel" type="Label" parent="UI/RightBottomGameVBoxContainer/HBoxContainer" index="1"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.780392, 0.631373, 0.360784, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-text = "0"
-vertical_alignment = 2
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="UI/RightBottomGameVBoxContainer" index="1"]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="UI/RightBottomGameVBoxContainer/HBoxContainer2" index="0"]
-layout_mode = 2
-texture = ExtResource("26_3xjxs")
-stretch_mode = 5
-
-[node name="DarkSoulsLabel" type="Label" parent="UI/RightBottomGameVBoxContainer/HBoxContainer2" index="1"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.780392, 0.631373, 0.360784, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 2
-text = "0"
-vertical_alignment = 2
 
 [node name="Marker2D" type="Marker2D" parent="DustPositions" index="0"]
 
