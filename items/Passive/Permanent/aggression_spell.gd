@@ -39,3 +39,7 @@ func _on_character_received_damage(character: Character, damage_dealer: Characte
 
 func get_icon() -> Texture2D:
 	return load("res://Art/items/Agression_spell.png")
+
+
+func get_big_icon() -> Texture2D:
+	return load("res://Art/items/Agression_spell_UI_desc.png")
