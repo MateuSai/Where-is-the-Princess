@@ -22,6 +22,8 @@
 
 	"music": "res://Audio/Music/Incompetech/Shamanistic.mp3",
 
+	"encyclopedia_background": "res://Rooms/Biomes/sewer/sewer_background.png",
+
 	"levels": {
 		"1": {
 			"overwrite_end_sewer_rooms": ["res://Rooms/Biomes/sewer/SewerEnd_01.tscn"],

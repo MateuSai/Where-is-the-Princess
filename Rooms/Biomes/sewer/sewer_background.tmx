@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.8" tiledversion="1.8.0" orientation="orthogonal" renderorder="right-down" width="9" height="6" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" source="sewer.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="9" height="6">
+  <data encoding="csv">
+152,153,125,154,152,124,153,154,125,
+89,61,60,61,90,64,59,59,88,
+60,90,89,89,61,64,59,59,59,
+90,89,90,61,90,89,34,34,34,
+61,60,89,89,61,89,90,89,60,
+89,61,60,90,89,61,60,89,61
+</data>
+ </layer>
+</map>
