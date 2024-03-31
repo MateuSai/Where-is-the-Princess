@@ -41,6 +41,11 @@ func test_music() -> void:
 		assert_bool(biome_conf.music.is_empty() or FileAccess.file_exists(biome_conf.music))
 
 
+func test_encyclopedia_background() -> void:
+	for biome_conf: BiomeConf in biomes:
+		assert_bool(FileAccess.file_exists(biome_conf.encyclopedia_background))
+
+
 func test_rooms() -> void:
 	for biome_conf: BiomeConf in biomes:
 		for level: BiomeConf.Level in biome_conf.levels:

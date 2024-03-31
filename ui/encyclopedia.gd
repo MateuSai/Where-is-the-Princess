@@ -208,9 +208,8 @@ func _show_armor_details(armor: Armor) -> void:
 
 func _show_item_details(item: Item, statistics: ItemStatistics) -> void:
 	var item_texture: TextureRect = TextureRect.new()
-	item_texture.expand_mode = TextureRect.EXPAND_FIT_WIDTH
-	item_texture.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT
-	item_texture.custom_minimum_size.y = 48 # big icon has an height of 48 pixels, so the displayed image of the big icon is the real size
+	item_texture.expand_mode = TextureRect.EXPAND_KEEP_SIZE
+	item_texture.stretch_mode = TextureRect.STRETCH_KEEP
 	if item.get_big_icon():
 		item_texture.texture = item.get_big_icon()
 	else:
@@ -247,7 +246,7 @@ func _show_enemy_details(id: String, data: EnemyData, statistics: EnemyStatistic
 	biome_background.clip_contents = true
 	biome_background.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	biome_background.stretch_mode = TextureRect.STRETCH_KEEP
-	biome_background.texture = load(SavedData.get_biome_by_id_or_path(data.biome).encyclopedia_background)
+	biome_background.texture = load(SavedData.get_biome_by_id_or_path(data.biomes[0]).encyclopedia_background)
 	biome_background.custom_minimum_size.y = 64
 	details_vbox.add_child(biome_background)
 

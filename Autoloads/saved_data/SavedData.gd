@@ -198,14 +198,18 @@ func get_biome_by_id_or_path(biome: String) -> BiomeConf:
 
 	var ret_biome_conf: BiomeConf = null
 
-	var json: JSON = JSON.new()
-	if json.parse(FileAccess.open(biome, FileAccess.READ).get_as_text()):
-		push_error("Error reading " + biome + "! Loading default biome conf...")
-	else:
-		if json.data is Dictionary:
-			ret_biome_conf = BiomeConf.from_dic(json.data as Dictionary)
+	var file: FileAccess = FileAccess.open(biome, FileAccess.READ)
+	if file:
+		var json: JSON = JSON.new()
+		if json.parse(FileAccess.open(biome, FileAccess.READ).get_as_text()):
+			push_error("Error reading " + biome + "! Loading default biome conf...")
 		else:
-			push_error("Could not load file biome data as json, using default values...")
+			if json.data is Dictionary:
+				ret_biome_conf = BiomeConf.from_dic(json.data as Dictionary)
+			else:
+				push_error("Could not load file biome data as json, using default values...")
+	else:
+		push_error("There is not file at " + biome)
 
 	return ret_biome_conf
 

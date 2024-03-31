@@ -1,5 +1,5 @@
-id,max_hp,mass,acceleration,max_speed,flying,can_be_knocked_back,motionless,resistances,body_type,biome,,icon,coins,souls,dark_souls,food_prob,armor_shard_prob,whetstone_prob
-player,4,60,0.1,250,0,1,0,0,FLESH,forest,,,,,,,,
+id,max_hp,mass,acceleration,max_speed,flying,can_be_knocked_back,motionless,resistances,body_type,biomes,,icon,coins,souls,dark_souls,food_prob,armor_shard_prob,whetstone_prob
+player,4,60,0.1,250,0,1,0,0,FLESH,"forest,sewer",,,,,,,,
 ,,,,,,,,,,,,,,,,,,
 practice_dummy,500000,40,0.1,100,0,0,1,0,FLESH,forest,,,,,,,,
 ,,,,,,,,,,,,,,,,,,
@@ -13,7 +13,7 @@ snake,4,3,0.1,160,0,1,0,0,FLESH,forest,,res://Art/16x16 Pixel Art Roguelike (For
 flying_creature,4,3,0.1,200,1,1,0,0,FLESH,forest,,res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/flying creature/fly_anim_f0.png,0-2,1,0,0.1,0.1,0.1
 goblin,5,25,0.1,140,0,1,0,0,FLESH,forest,,res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/goblin/goblin_icon.png,0-1,1,0,0.1,0.1,0.1
 dark_goblin,7,25,0.1,115,0,1,0,0,FLESH,forest,,res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/goblin/dark_goblin_icon.png,3-6,2-4,0,0.1,0.15,0.15
-shield_knight,7,25,0.1,100,0,1,0,0,FLESH,,,,0-1,1,0,0.1,0.1,0.1
+shield_knight,7,25,0.1,100,0,1,0,0,FLESH,forest,,,0-1,1,0,0.1,0.1,0.1
 spear_tribal,5,50,0.1,80,0,1,0,0,FLESH,forest,,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/spear_tribal_icon.png,1-2,1,0,0.1,0.1,0.1
 blowpipe_tribal,5,50,0.1,60,0,1,0,0,FLESH,forest,,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/blowpipe_tribal_icon.png,1-2,1,0,0.1,0.1,0.1
 bomb_tribal,5,50,0.1,60,0,1,0,0,FLESH,forest,,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/bomb_tribal_icon.png,1-2,1,0,0.1,0.1,0.1
