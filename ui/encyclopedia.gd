@@ -296,6 +296,18 @@ func _show_enemy_details(id: String, data: EnemyData, statistics: EnemyStatistic
 	name_label.text = id.to_upper()
 	details_vbox.add_child(name_label)
 
+	var biome_label: Label = Label.new()
+	biome_label.theme = load("res://SmallFontTheme.tres")
+	biome_label.custom_minimum_size.x = details_vbox.size.x - 16
+	biome_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	biome_label.text = tr("BIOMES") + ": "
+	assert(data.biomes.size() > 0)
+	for biome: String in data.biomes:
+		var biome_conf: BiomeConf = SavedData.get_biome_by_id_or_path(biome)
+		biome_label.text += tr(biome_conf.name) + ", "
+	biome_label.text = biome_label.text.trim_suffix(", ")
+	details_vbox.add_child(biome_label)
+
 	var description_label: Label = Label.new()
 	description_label.theme = load("res://SmallFontTheme.tres")
 	description_label.custom_minimum_size.x = details_vbox.size.x - 16

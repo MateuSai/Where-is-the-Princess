@@ -26,6 +26,8 @@ func initialize(weapon_path: String) -> void:
 	#weapon.rotation = +PI/24
 	weapons.add_child(weapon)
 	weapon.data.condition_cost_per_normal_attack = 0.0
+	weapon.data.active_ability_condition_cost = 0.0
+	weapon.data.souls_to_activate_ability = 0
 
 	if weapon is BowOrCrossbowWeapon:
 		(weapon as BowOrCrossbowWeapon).arrow_type = ArrowOrBolt.Type.UI
