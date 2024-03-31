@@ -2,14 +2,18 @@ class_name PermanentPassiveItem extends PassiveItem
 
 const CURSED_ITEMS_DEFAULT_FODER_PATH: String = "res://items/Passive/Permanent/cursed/"
 
+var effects: Array[ItemEffect] = []
+
 
 ## This function will be executed when the player picks up the passive item
-func equip(_player: Player) -> void:
-	pass
+func equip(player: Player) -> void:
+	for effect: ItemEffect in effects:
+		effect.enable(player)
 
 
-func unequip(_player: Player) -> void:
-	pass
+func unequip(player: Player) -> void:
+	for effect: ItemEffect in effects:
+		effect.disable(player)
 
 
 func get_cursed_version_path() -> String:

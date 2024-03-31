@@ -12,6 +12,7 @@ var thorn_damage: int = 0
 signal thorn_damage_used()
 
 var damage_taken_multiplier: int = 1
+var extra_damage_taken: int = 0
 
 const BONES_HIT_SOUNDS: Array[AudioStream] = [preload("res://Audio/Sounds/impact/420252__redroxpeterpepper__step-skeleton.wav"), preload("res://Audio/Sounds/impact/420253__redroxpeterpepper__step-skeleton-2.wav")]
 const WOOD_HIT_SOUNDS: Array[AudioStream] = [preload("res://Audio/Sounds/impact/547414__ian_g__wood-hit.wav")]
@@ -61,7 +62,7 @@ func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_deal
 	last_weapon = weapon
 	last_is_ranged = is_ranged
 
-	dam *= damage_taken_multiplier
+	dam = dam * damage_taken_multiplier + extra_damage_taken
 	self.hp -= dam
 	_play_hit_sound(weapon)
 

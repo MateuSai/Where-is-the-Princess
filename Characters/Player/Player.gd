@@ -61,6 +61,9 @@ var shop_discount: float = 0.0: ## 0 = no discount, 1 = free
 var weapon_degradation_reduction: float = 0.0:
 	set(new_value):
 		weapon_degradation_reduction = clamp(new_value, 0.0, 0.9)
+var armor_shard_break_probability: float = 0.0:
+	set(new_value):
+			armor_shard_break_probability = clamp(new_value, 0.0, 100.0)
 #var projectiles_homing_degree: float = 0.05
 
 var rotating_items: Array[Node2D] = []

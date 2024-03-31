@@ -10,6 +10,9 @@ func can_pick_up(player: Player) -> bool:
 
 
 func pick_up(player: Player) -> void:
+	if randf_range(0, 100) < player.armor_shard_break_probability:
+		return
+
 	super(player)
 
 	player.armor.condition += 2
