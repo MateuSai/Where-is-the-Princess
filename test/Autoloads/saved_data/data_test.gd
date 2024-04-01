@@ -34,26 +34,37 @@ func test_armors() -> void:
 		assert_bool(armor.get_sprite_sheet() != null)
 
 
+func test_passive_items() -> void:
+	var ar: PackedStringArray = data.ALL_VANILLA_PERMANENT_ITEMS.duplicate()
+	ar.append_array(data.ALL_VANILLA_TEMPORAL_ITEMS.duplicate())
+
+	for item_path: String in ar:
+		assert_bool(FileAccess.file_exists(item_path))
+		assert_bool(item_path.get_extension() == "gd")
+		var passive_item: PassiveItem = load(item_path).new()
+		assert_object(passive_item).is_instanceof(PassiveItem)
+		assert_bool(passive_item.get_icon() != null)
+
+		var unite_dic: Dictionary = passive_item.get_unite_dictionary()
+		if not unite_dic.is_empty():
+			for other_item_path: String in unite_dic.keys():
+				assert_dict((load(other_item_path).new() as PassiveItem).get_unite_dictionary()).is_not_empty().contains_key_value(passive_item.get_script_path(), unite_dic[other_item_path])
+
+
 func test_permanent_items() -> void:
 	assert_array(data.ALL_VANILLA_PERMANENT_ITEMS).contains(data.AVAILABLE_PERMANENT_ITEMS_FROM_START)
 
 	for item_path: String in data.ALL_VANILLA_PERMANENT_ITEMS:
-		assert_bool(FileAccess.file_exists(item_path))
-		assert_bool(item_path.get_extension() == "gd")
 		var item: PermanentPassiveItem = load(item_path).new()
 		assert_object(item).is_instanceof(PermanentPassiveItem)
-		assert_bool(item.get_icon() != null)
 
 
 func test_temporal_items() -> void:
 	assert_array(data.ALL_VANILLA_TEMPORAL_ITEMS).contains(data.AVAILABLE_TEMPORAL_ITEMS_FROM_START)
 
 	for item_path: String in data.ALL_VANILLA_TEMPORAL_ITEMS:
-		assert_bool(FileAccess.file_exists(item_path))
-		assert_bool(item_path.get_extension() == "gd")
 		var item: TemporalPassiveItem = load(item_path).new()
 		assert_object(item).is_instanceof(TemporalPassiveItem)
-		assert_bool(item.get_icon() != null)
 
 
 func test_completed_dialogue() -> void:
