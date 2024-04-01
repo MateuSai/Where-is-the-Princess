@@ -169,6 +169,10 @@ func _ready() -> void:
 		light.enabled = true
 	)
 
+	await get_tree().create_timer(1).timeout
+	StoneHeart.new().pick_up(self)
+	HeartStone.new().pick_up(self)
+
 
 func _restore_previous_state() -> void:
 	for player_upgrade: PlayerUpgrade in SavedData.data.player_upgrades:
@@ -299,6 +303,13 @@ func pick_up_passive_item(item: PassiveItem) -> void:
 		SavedData.discover_temporal_item_if_not_already((item.get_script() as GDScript).get_path())
 		temporal_passive_item_picked_up.emit(temporal_passive_item)
 
+	# Check for unite
+	for other_item_path: String in item.get_unite_dictionary().keys():
+		for passive_item: PassiveItem in SavedData.run_stats.get_passive_items():
+			if other_item_path == passive_item.get_script_path():
+				_unite_items(item, passive_item, load(item.get_unite_dictionary()[other_item_path]).new())
+				break
+
 
 func unequip_passive_item(item: PassiveItem) -> void:
 	if item is TemporalPassiveItem:
@@ -313,6 +324,55 @@ func unequip_passive_item(item: PassiveItem) -> void:
 		SavedData.run_stats.remove_permanent_passive_item(item)
 	else:
 		assert(false, "Invalid item type")
+
+
+func _unite_items(item_1: PassiveItem, item_2: PassiveItem, result: PassiveItem) -> void:
+	unequip_passive_item(item_1)
+	unequip_passive_item(item_2)
+
+	var unite_x: int = 10
+	var unite_y: int = -14
+
+	var left_sprite: Sprite2D = Sprite2D.new()
+	left_sprite.texture = item_1.get_icon()
+	left_sprite.position = Vector2(unite_x * -1, unite_y)
+	left_sprite.scale = Vector2(0.1, 0.1)
+	add_child(left_sprite)
+
+	var right_sprite: Sprite2D = Sprite2D.new()
+	right_sprite.texture = item_2.get_icon()
+	right_sprite.position = Vector2(unite_x, unite_y)
+	right_sprite.scale = Vector2(0.1, 0.1)
+	add_child(right_sprite)
+
+	var result_sprite: Sprite2D = Sprite2D.new()
+	result_sprite.texture = result.get_icon()
+	result_sprite.position = Vector2(0, unite_y)
+	result_sprite.scale = Vector2(0.1, 0.1)
+	result_sprite.hide()
+	add_child(result_sprite)
+
+	var tween: Tween = create_tween().set_parallel(true)
+	tween.tween_property(left_sprite, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(right_sprite, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.chain()
+	tween.tween_interval(0.2)
+	tween.chain()
+	tween.tween_property(left_sprite, "position:x", 0, 0.6).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN)
+	tween.tween_property(right_sprite, "position:x", 0, 0.6).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN)
+	tween.chain()
+	tween.tween_callback(left_sprite.queue_free)
+	tween.tween_callback(right_sprite.queue_free)
+	tween.tween_callback(result_sprite.show)
+	tween.tween_property(result_sprite, "scale", Vector2.ONE, 0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.chain()
+	tween.tween_interval(0.3)
+	tween.chain()
+	tween.tween_property(result_sprite, "position:y", -3, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	tween.chain()
+	tween.tween_callback(result_sprite.queue_free)
+
+	result.pick_up(self)
 
 
 #func switch_camera() -> void:

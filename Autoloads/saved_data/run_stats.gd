@@ -23,7 +23,7 @@ signal coins_changed(new_coins: int)
 @export var armor: Armor = null
 
 @export var _permanent_passive_items: Array[PermanentPassiveItem] = []
-@export var _permanent_passive_items_names: PackedStringArray = []
+@export var _permanent_passive_items_ids: PackedStringArray = []
 @export var temporal_passive_items: Array[TemporalPassiveItem] = []
 
 ## Bigger luck means more chance to get rare items from chests
@@ -36,10 +36,10 @@ func get_level_seed() -> int:
 
 func add_permanent_passive_item(item: PermanentPassiveItem) -> void:
 	assert(not _permanent_passive_items.has(item))
-	assert(not _permanent_passive_items_names.has(item.get_item_name()))
+	assert(not _permanent_passive_items_ids.has(item.get_id()))
 
 	_permanent_passive_items.push_back(item)
-	_permanent_passive_items_names.push_back(item.get_item_name())
+	_permanent_passive_items_ids.push_back(item.get_id())
 
 
 func remove_permanent_passive_item(item: PermanentPassiveItem) -> void:
@@ -47,12 +47,25 @@ func remove_permanent_passive_item(item: PermanentPassiveItem) -> void:
 	# Note that I don't remove the item from _permanent_passive_items_names, so the item won't appear again on chest or shops. This is useful when we convert the item to cursed, we don't want the item to appear again
 
 
+func get_passive_items() -> Array[PassiveItem]:
+	var res: Array[PassiveItem] = []
+	var per: Array[PermanentPassiveItem] = _permanent_passive_items.duplicate()
+	res.assign(per)
+
+	var tem: Array[TemporalPassiveItem] = temporal_passive_items.duplicate()
+	var adapted_tem: Array[PassiveItem] = []
+	adapted_tem.assign(tem)
+
+	res.append_array(adapted_tem)
+	return res
+
+
 func get_permanent_passive_items() -> Array[PermanentPassiveItem]:
 	return _permanent_passive_items
 
 
-func get_permanent_passive_items_names() -> PackedStringArray:
-	return _permanent_passive_items_names
+func get_permanent_passive_items_ids() -> PackedStringArray:
+	return _permanent_passive_items_ids
 
 
 func get_amount_of_temporl_passive_items_of_type(item: Object) -> int:

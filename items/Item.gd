@@ -47,13 +47,17 @@ func get_dark_soul_cost() -> int:
 	return 1
 
 
+func get_script_path() -> String:
+	return (get_script() as Script).get_path()
+
+
 func get_id() -> String:
-	return (get_script() as Script).get_path().get_basename().get_file().to_snake_case()
+	return get_script_path().get_basename().get_file().to_snake_case()
 
 
 func get_item_name() -> String:
-	return (get_script() as Script).get_path().get_basename().get_file().to_snake_case().to_upper()
+	return get_script_path().get_basename().get_file().to_snake_case().to_upper()
 
 
 func get_item_description() -> String:
-	return (get_script() as Script).get_path().get_basename().get_file().to_snake_case().to_upper() + "_DESCRIPTION"
+	return get_script_path().get_basename().get_file().to_snake_case().to_upper() + "_DESCRIPTION"
