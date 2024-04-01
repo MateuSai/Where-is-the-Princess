@@ -263,6 +263,9 @@ func _set_armor(armor_string: String) -> void:
 
 	Globals.player.set_armor(script_instance as Armor)
 
+	if SavedData.run_stats.biome == "basecamp":
+		SavedData.data.equipped_armor = (script_instance.get_script() as Script).get_path()
+
 	hide()
 
 
