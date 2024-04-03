@@ -8,7 +8,6 @@ var attack_cooldown_timer: Timer
 @onready var player_sprite: Sprite2D = $PlayerRepresentation/PlayerSprite
 @onready var weapons: Node2D = $PlayerRepresentation/Weapons
 
-
 func initialize(weapon_path: String) -> void:
 	pre_attack_cooldown_timer = Timer.new()
 	pre_attack_cooldown_timer.one_shot = true
@@ -34,7 +33,7 @@ func initialize(weapon_path: String) -> void:
 	if weapon is Bow:
 		var bow: Bow = weapon
 		bow.projectiles_spawned.connect(func(projectiles: Array[Projectile]) -> void:
-			for projectile in projectiles:
+			for projectile: Projectile in projectiles:
 				projectile.get_parent().remove_child(projectile)
 				projectile.position -= global_position
 				add_child(projectile)
@@ -53,28 +52,23 @@ func initialize(weapon_path: String) -> void:
 		set_process(false)
 	)
 
-
 func _process(_delta: float) -> void:
 	if not is_busy():
 		attack()
 
-
 func is_busy() -> bool:
 	return weapon.is_busy() or not attack_cooldown_timer.is_stopped() or not pre_attack_cooldown_timer.is_stopped()
-
 
 func attack() -> void:
 	assert(not is_busy())
 
 	pre_attack_cooldown_timer.start()
 
-
 func reload() -> void:
 	assert(weapon is Crossbow)
 	assert(not is_busy())
 
 	weapon._reload()
-
 
 func _actually_attack() -> void:
 	if weapon is MeleeWeapon:
@@ -87,7 +81,6 @@ func _actually_attack() -> void:
 		push_error("Unsupoorted weapon attack")
 
 	attack_cooldown_timer.start()
-
 
 func _on_bow_animation_finished(_anim_name: String) -> void:
 	(weapon as Bow)._bow_attack(1.0)

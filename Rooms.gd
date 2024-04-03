@@ -67,7 +67,6 @@ var biome_conf: BiomeConf
 var fog_sprite: Sprite2D
 var corridor_tile_map: TileMap
 
-
 func _ready() -> void:
 	set_physics_process(false)
 
@@ -96,21 +95,19 @@ func _ready() -> void:
 	game.player_added.connect(func() -> void:
 		_create_fog()
 		if Game.wake_up or Game.came_from_next_level:
-			Game.wake_up = false
-			Game.came_from_next_level = false
+			Game.wake_up=false
+			Game.came_from_next_level=false
 			for room: DungeonRoom in rooms:
 				room.remove_enemies_and_open_doors()
 
 		start_room._on_player_entered_room()
 	)
 
-
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.is_pressed() and (event as InputEventKey).keycode == KEY_K:
 			debug_check_entry_positions = !debug_check_entry_positions
 			queue_redraw()
-
 
 func _physics_process(delta: float) -> void:
 	var no_more_rooms_moving: bool = true
@@ -139,7 +136,6 @@ func _physics_process(delta: float) -> void:
 		if not ok:
 			return
 
-
 func _get_rooms(type: String) -> PackedStringArray:
 	var room_paths: PackedStringArray
 
@@ -160,13 +156,13 @@ func _get_rooms(type: String) -> PackedStringArray:
 			for file: String in rooms_dir.get_files():
 				room_paths.push_back(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/" + type + "/" + file)
 
-		for i: int in range(room_paths.size()-1, -1, -1):
+		for i: int in range(room_paths.size() - 1, -1, -1):
 			room_paths[i] = room_paths[i].trim_suffix(".remap")
 			var room_scene_state: SceneState = (load(room_paths[i]) as PackedScene).get_state()
 			for ii: int in room_scene_state.get_node_property_count(0):
 				if room_scene_state.get_node_property_name(0, ii) == "levels":
 					var levels: String = room_scene_state.get_node_property_value(0, ii)
-					if (levels.length() == 1 and levels.is_valid_int() and int(levels) != SavedData.run_stats.level) or (levels.length() >= 3 and levels.find("-") != -1 and (int(levels.split("-")[0]) > SavedData.run_stats.level or int(levels.split("-")[1]) < SavedData.run_stats.level)):
+					if (levels.length() == 1 and levels.is_valid_int() and int(levels) != SavedData.run_stats.level) or (levels.length() >= 3 and levels.find("-") != - 1 and (int(levels.split("-")[0]) > SavedData.run_stats.level or int(levels.split("-")[1]) < SavedData.run_stats.level)):
 						room_paths.remove_at(i)
 					break
 
@@ -175,7 +171,6 @@ func _get_rooms(type: String) -> PackedStringArray:
 			room_paths.remove_at(room_paths.find(ignored_room_path))
 
 	return room_paths
-
 
 func _get_end_rooms() -> Array[PackedStringArray]:
 	#var end_rooms_dir: DirAccess = DirAccess.open(BIOMES_FOLDER_PATH + SavedData.run_stats.biome + "/End")
@@ -198,7 +193,6 @@ func _get_end_rooms() -> Array[PackedStringArray]:
 #			end_room_array[ii] = end_rooms_dir.get_directories()[i] + "/" + room_name
 
 	return end_rooms
-
 
 func spawn_rooms() -> void:
 	#print_debug("spawn_rooms started")
@@ -239,9 +233,9 @@ func spawn_rooms() -> void:
 		rooms.push_back(random_special_room_scene.instantiate())
 		special_room_paths.remove_at(special_room_paths.find(random_speacial_room_path)) # So the same special room is not spawned 2 times
 
-		if special_room_paths.is_empty() and (i+1) < num_special_rooms:
+		if special_room_paths.is_empty() and (i + 1) < num_special_rooms:
 			if debug:
-				print_rich("[color=yellow]" + str(num_special_rooms) + " special rooms should have spawned, but only " + str(i+1) + " did, since there are not enough special rooms[/color]")
+				print_rich("[color=yellow]" + str(num_special_rooms) + " special rooms should have spawned, but only " + str(i + 1) + " did, since there are not enough special rooms[/color]")
 			break
 
 	var num_combat_rooms: int = SavedData.get_num_rooms("combat")
@@ -252,9 +246,9 @@ func spawn_rooms() -> void:
 		rooms.push_back(combat_room_scene.instantiate())
 
 		combat_room_paths.remove_at(combat_room_paths.find(random_combat_room_path))
-		if combat_room_paths.is_empty() and (i+1) < num_combat_rooms:
+		if combat_room_paths.is_empty() and (i + 1) < num_combat_rooms:
 			if debug:
-				print_rich("[color=yellow]" + str(num_combat_rooms) + " combat rooms should have spawned, but only " + str(i+1) + " did, since there are not enough combat rooms[/color]")
+				print_rich("[color=yellow]" + str(num_combat_rooms) + " combat rooms should have spawned, but only " + str(i + 1) + " did, since there are not enough combat rooms[/color]")
 			break
 
 	#print_debug("Adding rooms to scene tree and other things")
@@ -280,7 +274,6 @@ func spawn_rooms() -> void:
 	set_physics_process(true)
 
 	#print_debug("spawn_rooms finished")
-
 
 func _create_corridors() -> bool:
 	#var room_centers: Array[Vector2] = []
@@ -310,9 +303,9 @@ func _create_corridors() -> bool:
 			initial_astar.add_point(i, room_centers[i])
 		for i: int in delaunay_indices.size() / 3.0:
 			i = i * 3
-			initial_astar.connect_points(delaunay_indices[i], delaunay_indices[i+1])
-			initial_astar.connect_points(delaunay_indices[i+1], delaunay_indices[i+2])
-			initial_astar.connect_points(delaunay_indices[i+2], delaunay_indices[i])
+			initial_astar.connect_points(delaunay_indices[i], delaunay_indices[i + 1])
+			initial_astar.connect_points(delaunay_indices[i + 1], delaunay_indices[i + 2])
+			initial_astar.connect_points(delaunay_indices[i + 2], delaunay_indices[i])
 	else:
 		# Connect each room with all the others
 		for i: int in room_centers.size():
@@ -322,7 +315,6 @@ func _create_corridors() -> bool:
 				if i == j:
 					continue
 				initial_astar.connect_points(i, j)
-
 
 	var overwrite_connections: Array[Array] = SavedData.get_overwrite_connections()
 
@@ -339,7 +331,7 @@ func _create_corridors() -> bool:
 	for i: int in range(1, initial_astar.get_point_count()):
 		var min_connection: Connection = null
 		#var min_dist: float = INF  # Minimum distance found so far
-		var min_p: Vector2  # Position of that node
+		var min_p: Vector2 # Position of that node
 		#var p = null  # Current position
 		var first_room_id: int = -1
 		# Loop through the points in the path
@@ -374,7 +366,7 @@ func _create_corridors() -> bool:
 									break
 							if block_connection:
 								if debug:
-									print_rich("\t[color=yellow]Connection between " + str(id) + " and " + str(room_centers.find(point2)) +  " is not possible because the connections are overwritten[/color]")
+									print_rich("\t[color=yellow]Connection between " + str(id) + " and " + str(room_centers.find(point2)) + " is not possible because the connections are overwritten[/color]")
 								continue
 
 						if not (min_connection == null or connection.cost < min_connection.cost):
@@ -499,7 +491,7 @@ func _create_corridors() -> bool:
 	# MODIFY TILES BEFORE APPLYING THE AUTOTILE
 	# To fill 1 tile gaps
 	for cell_pos: Vector2i in corridor_tile_map.get_used_cells(0):
-		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) == Vector2i(-1, -1) and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT * 2) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FLOOR_TILE_COORDS:
+		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) == Vector2i( - 1, -1) and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT * 2) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FLOOR_TILE_COORDS:
 			corridor_tile_map.set_cell(0, cell_pos + Vector2i.LEFT, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 			if debug:
 				await get_tree().create_timer(add_tile_group_time).timeout
@@ -511,12 +503,12 @@ func _create_corridors() -> bool:
 	# CORRIDOR WALLS
 #	corridor_tile_map.set_cells_terrain_connect(0, corridor_tile_map.get_used_cells(0), 0, 0 if ATLAS_ID == 40 else 1)
 	for cell_pos: Vector2i in corridor_tile_map.get_used_cells(0):
-		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) == Vector2i(-1, -1):
+		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) == Vector2i( - 1, -1):
 			corridor_tile_map.set_cell(1, cell_pos + Vector2i.LEFT, ATLAS_ID, LEFT_WALL_COOR)
-		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) == Vector2i(-1, -1):
+		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) == Vector2i( - 1, -1):
 			corridor_tile_map.set_cell(1, cell_pos + Vector2i.RIGHT, ATLAS_ID, RIGHT_WALL_COOR)
 
-		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.UP) == Vector2i(-1, -1):
+		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.UP) == Vector2i( - 1, -1):
 			corridor_tile_map.erase_cell(1, cell_pos + Vector2i.UP)
 			corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, FULL_WALL_COORDS[randi() % FULL_WALL_COORDS.size()])
 
@@ -543,16 +535,16 @@ func _create_corridors() -> bool:
 			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i(1, -1)) in FULL_WALL_COORDS:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_RIGHT_COOR)
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP * 2, ATLAS_ID, UPPER_WALL_LEFT_CORNER_COOR)
-			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i(-1, -1)) in FULL_WALL_COORDS:
+			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i( - 1, -1)) in FULL_WALL_COORDS:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_LEFT_COOR)
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP * 2, ATLAS_ID, UPPER_WALL_RIGHT_CORNER_COOR)
 			else:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_COOR)
 
-			if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) == Vector2i(-1, -1) and not entry_cells.has(cell_pos + Vector2i.RIGHT + Vector2i.DOWN):
+			if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) == Vector2i( - 1, -1) and not entry_cells.has(cell_pos + Vector2i.RIGHT + Vector2i.DOWN):
 				corridor_tile_map.set_cell(1, cell_pos + Vector2i.RIGHT, ATLAS_ID, RIGHT_WALL_COOR)
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.RIGHT + Vector2i.UP, ATLAS_ID, UPPER_WALL_RIGHT_CORNER_COOR)
-			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) == Vector2i(-1, -1) and not entry_cells.has(cell_pos + Vector2i.LEFT + Vector2i.DOWN):
+			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) == Vector2i( - 1, -1) and not entry_cells.has(cell_pos + Vector2i.LEFT + Vector2i.DOWN):
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.LEFT, ATLAS_ID, LEFT_WALL_COOR)
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.LEFT + Vector2i.UP, ATLAS_ID, UPPER_WALL_LEFT_CORNER_COOR)
 		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FLOOR_TILE_COORDS and not corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) in FLOOR_TILE_COORDS:
@@ -562,9 +554,9 @@ func _create_corridors() -> bool:
 				corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, RIGHT_BOTTOM_WALL_COOR)
 			else:
 				corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, BOTTOM_WALL_COOR)
-		elif corridor_tile_map.get_cell_atlas_coords(1, cell_pos) == LEFT_WALL_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == Vector2i(-1, -1) and not entry_cells.has(cell_pos + Vector2i.ONE):
+		elif corridor_tile_map.get_cell_atlas_coords(1, cell_pos) == LEFT_WALL_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == Vector2i( - 1, -1) and not entry_cells.has(cell_pos + Vector2i.ONE):
 			corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, LAST_LEFT_WALL_COOR)
-		elif corridor_tile_map.get_cell_atlas_coords(1, cell_pos) == RIGHT_WALL_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == Vector2i(-1, -1) and not entry_cells.has(cell_pos + Vector2i.DOWN + Vector2i.LEFT):
+		elif corridor_tile_map.get_cell_atlas_coords(1, cell_pos) == RIGHT_WALL_COOR and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) == Vector2i( - 1, -1) and not entry_cells.has(cell_pos + Vector2i.DOWN + Vector2i.LEFT):
 			corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, LAST_RIGHT_WALL_COOR)
 
 		if debug:
@@ -639,13 +631,12 @@ func _create_corridors() -> bool:
 
 	return true
 
-
 func _add_lights() -> void:
 	var TIKI_TORCH_SCENE: PackedScene = load("res://Rooms/Biomes/forest/TikiTorch.tscn")
 
 	for cell: Vector2i in corridor_tile_map.get_used_cells(0):
 		if corridor_tile_map.get_cell_atlas_coords(0, cell) == UPPER_WALL_COOR:
-			if cell.x % 8 == 0 :
+			if cell.x % 8 == 0:
 				var light: Node2D = TIKI_TORCH_SCENE.instantiate()
 				light.position = corridor_tile_map.map_to_local(cell) + Vector2.DOWN * 27
 				add_child(light)
@@ -668,7 +659,6 @@ func _add_lights() -> void:
 				if debug:
 					await get_tree().create_timer(add_light_pause).timeout
 
-
 func _create_fog() -> void:
 	for room: DungeonRoom in rooms:
 		map_rect = map_rect.merge(room.get_rect())
@@ -684,10 +674,9 @@ func _create_fog() -> void:
 	while is_instance_valid(Globals.player):
 		var light: Image = (load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png") as Texture2D).get_image()
 		light.convert(Image.FORMAT_RGBA8)
-		fog_image.blend_rect(light, Rect2(Vector2.ZERO, light.get_size()), Globals.player.position - map_rect.position - light.get_size()/2.0)
+		fog_image.blend_rect(light, Rect2(Vector2.ZERO, light.get_size()), Globals.player.position - map_rect.position - light.get_size() / 2.0)
 		fog_sprite.texture = ImageTexture.create_from_image(fog_image)
 		await get_tree().create_timer(0.2).timeout
-
 
 func clear_room_fog(at_pos: Vector2, room_white_image: Image) -> void:
 #	for tile_cell in tilemap.get_used_cells(0):
@@ -700,7 +689,6 @@ func clear_room_fog(at_pos: Vector2, room_white_image: Image) -> void:
 #		var image_size: Vector2 = image.get_size()
 	fog_image.blend_rect(room_white_image, Rect2(Vector2.ZERO, room_white_image.get_size()), at_pos - map_rect.position)
 	fog_sprite.texture = ImageTexture.create_from_image(fog_image)
-
 
 func _create_corridor_between_rooms(connection: Connection) -> void:
 	#var dif: Vector2 = room_centers[connection_with] - room_centers[id]
@@ -743,7 +731,6 @@ func _create_corridor_between_rooms(connection: Connection) -> void:
 	connection.room_1_entry_positions.connections += 1
 	connection.room_2_entry_positions.connections += 1
 
-
 ## @deprecated
 #func _decide_direction_and_create_l_corridor(id: int, connection_with: int, directions: Array[Array]) -> void:
 	#var rand: int = randi() % 2
@@ -759,7 +746,6 @@ func _create_corridor_between_rooms(connection: Connection) -> void:
 		#await _create_l_corridor(connection.room_1_entry_positions, connection.room_2_entry_positions, directions[rand][0], directions[rand][1])
 ##		rooms[id].mark_entry_as_used(entries[0])
 ##		rooms[connection_with].mark_entry_as_used(entries[1])
-
 
 func _is_connection_possible(id: int, connection_with: int) -> Connection:
 	var connection_return: Connection = null
@@ -865,7 +851,6 @@ func _is_connection_possible(id: int, connection_with: int) -> Connection:
 
 	return connection_return
 
-
 #func _analyze_and_create_l_corridor(id: int, connection_with: int, directions: Array[Array]) -> void:
 #	var rand: int = randi() % 2
 #	if rooms[id].has_entry(directions[rand][0]) and rooms[connection_with].has_entry(directions[rand][1]) and await _check_entry_positions_l_corridor(id, connection_with, directions[rand][0], directions[rand][1]):
@@ -885,7 +870,6 @@ func _is_connection_possible(id: int, connection_with: int) -> Connection:
 #				await _create_horizontal_corridor(rooms[connection_with].get_random_entry(DungeonRoom.EntryDirection.RIGHT), rooms[id].get_random_entry(DungeonRoom.EntryDirection.LEFT))
 #			else:
 #				printerr("\tI have not been able to create a path between " + str(id) + " and " + str(connection_with))
-
 
 func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_dir: DungeonRoom.EntryDirection, connection_with_dir: DungeonRoom.EntryDirection) -> Connection:
 	for i: int in 2:
@@ -941,7 +925,6 @@ func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_
 
 	return null
 
-
 func _check_entry_positions_horizontal_corridor(id: int, connection_with: int, id_dir: DungeonRoom.EntryDirection, connection_with_dir: DungeonRoom.EntryDirection) -> Connection:
 	for i: int in 2:
 		var ids: Array = [[id, connection_with], [connection_with, id]][i]
@@ -968,7 +951,7 @@ func _check_entry_positions_horizontal_corridor(id: int, connection_with: int, i
 					continue
 
 				horizontal_corridor_1_rect = Rect2(connection_with_entry_position + Vector2.UP * TILE_SIZE * 2, Vector2(center, TILE_SIZE * 4))
-				horizontal_corridor_2_rect = Rect2(connection_with_entry_position if connection_with_entry_position.x > id_entry_position.x else id_entry_position, Vector2((dis - center if connection_with_entry_position.x > id_entry_position.x else -dis + center) - (MIN_TILES_TO_MAKE_DESVIATION + 1) * TILE_SIZE, TILE_SIZE * 4))
+				horizontal_corridor_2_rect = Rect2(connection_with_entry_position if connection_with_entry_position.x > id_entry_position.x else id_entry_position, Vector2((dis - center if connection_with_entry_position.x > id_entry_position.x else - dis + center) - (MIN_TILES_TO_MAKE_DESVIATION + 1) * TILE_SIZE, TILE_SIZE * 4))
 				vertical_corridor_rect = Rect2((connection_with_entry_position if connection_with_entry_position.x > id_entry_position.x else id_entry_position) + Vector2.LEFT * center, Vector2(TILE_SIZE * 4, (id_entry_position.y - connection_with_entry_position.y) if connection_with_entry_position.x > id_entry_position.x else (connection_with_entry_position.y - id_entry_position.y)))
 
 				for room: DungeonRoom in rooms:
@@ -987,13 +970,11 @@ func _check_entry_positions_horizontal_corridor(id: int, connection_with: int, i
 				if connection_possible:
 					return Connection.new(entry, other_entry, Connection.Type.HORIZONTAL, (dis + abs(entry.global_position.y - other_entry.global_position.y)) / TILE_SIZE)
 
-
 #	if id == 4 and connection_with == 6:
 #		queue_redraw()
 #		await get_tree().create_timer(5).timeout
 
 	return null
-
 
 func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: DungeonRoom.EntryDirection, connection_with_dir: DungeonRoom.EntryDirection) -> Connection:
 	for i: int in 2:
@@ -1053,7 +1034,7 @@ func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: Du
 						connection_possible = false
 
 				if connection_possible:
-					var type: Connection.Type = -1
+					var type: Connection.Type = Connection.Type.NULL
 					var dir_1: DungeonRoom.EntryDirection
 					var dir_2: DungeonRoom.EntryDirection
 					if (id_dir == DungeonRoom.EntryDirection.RIGHT and connection_with_dir == DungeonRoom.EntryDirection.DOWN):
@@ -1088,16 +1069,15 @@ func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: Du
 						type = Connection.Type.L_315
 						dir_1 = DungeonRoom.EntryDirection.DOWN
 						dir_2 = DungeonRoom.EntryDirection.LEFT
-					assert(type > -1)
-					assert(dir_1 > -1)
-					assert(dir_2 > -1)
+					assert(type > - 1)
+					assert(dir_1 > - 1)
+					assert(dir_2 > - 1)
 					var connection: Connection = Connection.new(entry, other_entry, type, (abs(entry.global_position.x - other_entry.global_position.x) + abs(entry.global_position.y - other_entry.global_position.y)) / TILE_SIZE)
 					connection.dir_1 = dir_1
 					connection.dir_2 = dir_2
 					return connection
 
 	return null
-
 
 #region Create corridors
 # above and below are entries, with 2 children
@@ -1158,7 +1138,6 @@ func _create_vertical_corridor(above: EntryPositions, below: EntryPositions) -> 
 			if debug:
 				await get_tree().create_timer(add_tile_group_time).timeout
 
-
 ## [code]left[/code] is the entry of the room on the left and [code]right[/code] is the entry of the room on the right
 func _create_horizontal_corridor(left: EntryPositions, right: EntryPositions) -> void:
 	assert(left.get_child_count() == 2 and right.get_child_count() == 2)
@@ -1207,7 +1186,6 @@ func _create_horizontal_corridor(left: EntryPositions, right: EntryPositions) ->
 			if debug:
 				await get_tree().create_timer(add_tile_group_time).timeout
 
-
 func _create_l_corridor(from: EntryPositions, to: EntryPositions, from_dir: DungeonRoom.EntryDirection, to_dir: DungeonRoom.EntryDirection) -> void:
 	assert(from.get_child_count() == 2 and to.get_child_count() == 2)
 
@@ -1251,7 +1229,6 @@ func _create_l_corridor(from: EntryPositions, to: EntryPositions, from_dir: Dung
 				await get_tree().create_timer(add_tile_group_time).timeout
 #endregion
 
-
 ## We have to use this aberration to divide the tilemap because if we don't do it, the lights turn on and off whenever thay please. Because the tilemap is 1 object, it can't have more than 16 lights at the same time, apparently
 func _divide_corridor_tile_map() -> void:
 	var BLOCK_SIZE: int = 8
@@ -1262,7 +1239,7 @@ func _divide_corridor_tile_map() -> void:
 	for i: int in x_blocks:
 		for ii: int in y_blocks:
 			var block_tilemap: TileMap = TileMap.new()
-			block_tilemap.add_layer(-1)
+			block_tilemap.add_layer( - 1)
 			block_tilemap.set_layer_z_index(0, corridor_tile_map.get_layer_z_index(0))
 			block_tilemap.set_layer_z_index(1, corridor_tile_map.get_layer_z_index(1))
 			block_tilemap.set_layer_navigation_enabled(0, corridor_tile_map.is_layer_navigation_enabled(0))
@@ -1278,10 +1255,8 @@ func _divide_corridor_tile_map() -> void:
 	corridor_tile_map.queue_free()
 	corridor_tile_map = null # At this point this tilemap should not be accessed
 
-
 func _get_random_corridor_floor_tile_coor() -> Vector2i:
 	return CORRIDOR_FLOOR_TILE_COORDS[randi() % CORRIDOR_FLOOR_TILE_COORDS.size()]
-
 
 func int_arr_to_vec_array(array: Array[Array]) -> Array[Vector2i]:
 	var vec_arr: Array[Vector2i] = []
@@ -1296,7 +1271,6 @@ func int_arr_to_vec_array(array: Array[Array]) -> Array[Vector2i]:
 
 	#vec_arr.assign(tmp_arr)
 	return vec_arr
-
 
 func _draw() -> void:
 #	if not debug:
@@ -1316,7 +1290,6 @@ func _draw() -> void:
 		draw_rect(horizontal_corridor_2_rect, Color.WHITE, true)
 		draw_rect(room_rect, Color.WEB_MAROON, true)
 
-
 #func _get_random_point_in_circle(radius: float) -> Vector2:
 #	var t: float = 2 * PI * randf()
 #	var u: float = randf() + randf()
@@ -1328,10 +1301,8 @@ func _draw() -> void:
 #
 #	return Vector2(radius * r * cos(t), radius * r * sin(t))
 
-
 class SpawnShape:
 	const MARGIN: int = 20
-
 
 class CircleSpawnShape extends SpawnShape:
 	var radius: float
@@ -1340,14 +1311,12 @@ class CircleSpawnShape extends SpawnShape:
 	func _init(radius: float) -> void:
 		self.radius = radius
 
-
 class RectangleSpawnShape extends SpawnShape:
 	var size: Vector2
 
 	@warning_ignore("shadowed_variable")
 	func _init(size: Vector2) -> void:
 		self.size = size
-
 
 class Connection:
 	var room_1_id: int = -1
@@ -1376,7 +1345,6 @@ class Connection:
 		self.room_2_entry_positions = room_2_entry_positions
 		self.type = type
 		self.cost = cost
-
 
 	func as_string() -> String:
 		return "room_1_id: " + str(room_1_id) + ", room_2_id: " + str(room_2_id) + ", cost: " + str(cost)

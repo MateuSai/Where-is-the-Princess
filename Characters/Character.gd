@@ -1,10 +1,10 @@
 @icon("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/new_mechant_idle_down_01.png")
 class_name Character extends CharacterBody2D
 
-const DB: Dictionary = preload("res://Characters/data.csv").records
+const DB: Dictionary = preload ("res://Characters/data.csv").records
 
-const DUST_SCENE: PackedScene = preload("res://Characters/Player/Dust.tscn")
-const HIT_EFFECT_SCENE: PackedScene = preload("res://Characters/HitEffect.tscn")
+const DUST_SCENE: PackedScene = preload ("res://Characters/Player/Dust.tscn")
+const HIT_EFFECT_SCENE: PackedScene = preload ("res://Characters/HitEffect.tscn")
 
 var friction: float = 0.15
 
@@ -35,7 +35,7 @@ var time_between_acid_damages: float = 1.0:
 	set(new_value):
 		time_between_acid_damages = new_value
 		acid_damage_timer.wait_time = time_between_acid_damages
-var acid_progress: float = 0.0: set = set_acid_progress ## Value between 0 and 1
+var acid_progress: float = 0.0: set = set_acid_progress # # Value between 0 and 1
 
 var spawn_shadow_timer: Timer
 
@@ -52,7 +52,6 @@ var spawn_shadow_timer: Timer
 @onready var acid_damage_timer: Timer = $AcidDamageTimer
 
 @onready var state_label: Label = $StateLabel
-
 
 func _ready() -> void:
 	life_component.damage_taken.connect(_on_damage_taken)
@@ -94,10 +93,8 @@ func _ready() -> void:
 	)
 	state_machine.start()
 
-
 func _load_data() -> void:
 	data = Character.get_data(id)
-
 
 #func _load_csv_data(data: Dictionary) -> void:
 	#life_component.max_hp = data.max_hp
@@ -106,7 +103,6 @@ func _load_data() -> void:
 	#@warning_ignore("int_as_enum_without_cast")
 	#life_component.body_type = life_component.BodyType.keys().find(data.body_type)
 	#resistances = data.resistances
-
 
 func _physics_process(delta: float) -> void:
 	if inside_acid and acid_damage_timer.is_stopped():
@@ -119,7 +115,6 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()
 	velocity = lerp(velocity, Vector2.ZERO, friction)
 
-
 func move() -> void:
 	mov_direction = mov_direction.limit_length(1.0)
 	#velocity += mov_direction * acceleration
@@ -127,7 +122,6 @@ func move() -> void:
 		velocity = lerp(velocity, mov_direction * data.max_speed, data.acceleration)
 	#print_debug(velocity)
 	velocity = velocity.limit_length(data.max_speed)
-
 
 func add_status_condition(status: StatusComponent.Status) -> void:
 	var status_key: String = StatusComponent.Status.keys()[status]
@@ -137,7 +131,6 @@ func add_status_condition(status: StatusComponent.Status) -> void:
 		add_child(status_component)
 		status_component.name = StatusComponent.Status.keys()[status]
 	status_component.add()
-
 
 func _on_damage_taken(_dam: int, dir: Vector2, force: int) -> void:
 #	if invincible:
@@ -157,20 +150,16 @@ func _on_damage_taken(_dam: int, dir: Vector2, force: int) -> void:
 		if data.can_be_knocked_back:
 			velocity += dir * force / (data.mass / 3)
 
-
 #func set_hp(new_hp: int) -> void:
 #	hp = clamp(new_hp, 0, max_hp)
 #	emit_signal("hp_changed", hp)
-
 
 func _spawn_hit_effect() -> void:
 	var hit_effect: Sprite2D = HIT_EFFECT_SCENE.instantiate()
 	add_child(hit_effect)
 
-
 func _on_died() -> void:
 	pass
-
 
 func spawn_dust() -> void:
 	for dust_position: Marker2D in dust_positions.get_children():
@@ -178,17 +167,14 @@ func spawn_dust() -> void:
 		dust.position = dust_position.position + position
 		get_parent().get_child(get_index() - 1).add_sibling(dust)
 
-
-func react(reaction_face: int, at_pos: Vector2 = Vector2(0, -34)) -> void:
+func react(reaction_face: int, at_pos: Vector2=Vector2(0, -34)) -> void:
 	var reaction: Reaction = load("res://ui/reactions/reaction.tscn").instantiate()
 	reaction.position = at_pos
 	add_child(reaction)
 	reaction.react(reaction_face)
 
-
 func set_flying(new_value: bool) -> void:
 	data.flying = new_value
-
 
 func set_acid_progress(new_value: float) -> void:
 	acid_progress = clamp(new_value, 0.0, 1.0)
@@ -198,48 +184,38 @@ func set_acid_progress(new_value: float) -> void:
 		acid_damage_timer.start()
 		_on_acid_damage_timer_timeout()
 
-
 func start_progressing_acid() -> void:
 	inside_acid = true
-
 
 func stop_progressing_acid() -> void:
 	inside_acid = false
 	sprite.modulate = Color.WHITE
 	acid_damage_timer.stop()
 
-
 func _on_acid_damage_timer_timeout() -> void:
 	life_component.take_damage(1, Vector2.ZERO, 0, null, null, "acid")
-
 
 func add_resistance(resistance: Resistance) -> void:
 	resistances |= resistance
 
-
 func remove_resistance(resistance: Resistance) -> void:
 	resistances &= ~resistance
 
-
-func has_resistance(resistance: Resistance, initially: bool = false) -> bool:
+func has_resistance(resistance: Resistance, initially: bool=false) -> bool:
 	if initially:
-		return data.initial_resistances & resistance
+		return data.initial_resistances&resistance
 	else:
-		return resistances & resistance
-
+		return resistances&resistance
 
 func get_exclude_bodies() -> Array[Node2D]:
 	return [self]
-
 
 func _start_shadow_effect() -> void:
 	_spawn_shadow_effect()
 	spawn_shadow_timer.start()
 
-
 func _stop_shadow_effect() -> void:
 	spawn_shadow_timer.stop()
-
 
 func _spawn_shadow_effect() -> void:
 	var shadow_sprite: ShadowSprite = ShadowSprite.new()
@@ -256,10 +232,8 @@ func _spawn_shadow_effect() -> void:
 	get_tree().current_scene.add_child(shadow_sprite)
 	shadow_sprite.start(sprite.texture)
 
-
 func _update_state_label(new_state: int) -> void:
 	state_label.text = str(new_state)
-
 
 @warning_ignore("shadowed_variable")
 static func get_data(id: String) -> CharacterData:

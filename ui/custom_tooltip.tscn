@@ -39,6 +39,7 @@ theme_override_font_sizes/normal_font_size = 10
 bbcode_enabled = true
 text = "Title"
 fit_content = true
+autowrap_mode = 0
 
 [node name="DescriptionLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

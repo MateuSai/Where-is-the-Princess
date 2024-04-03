@@ -24,7 +24,7 @@ func pick_up(player: Player) -> void:
 	if not found:
 		SavedData.data.player_upgrades.push_back(self)
 
-	SavedData.save_data()
+	SavedData.data.save()
 
 	equip(player)
 
