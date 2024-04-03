@@ -1,16 +1,10 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://d0qfeecooxxpf"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://d0qfeecooxxpf"]
 
-[ext_resource type="Texture2D" uid="uid://c8nuwmhxuntfu" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/dialog_panel_9-patch.png" id="1_b76y4"]
 [ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="1_l8aod"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vrruj"]
-texture = ExtResource("1_b76y4")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_idt3i"]
 
 [resource]
 default_font = ExtResource("1_l8aod")
 default_font_size = 10
-TooltipPanel/styles/panel = SubResource("StyleBoxTexture_vrruj")
+TooltipPanel/styles/panel = SubResource("StyleBoxEmpty_idt3i")

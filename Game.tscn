@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=73 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://bl8w6y7gf8ubx" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/icon_map.png" id="16_0uph7"]
 [ext_resource type="Script" path="res://ui/SettingsButton.gd" id="16_gpdwi"]
 [ext_resource type="Script" path="res://ui/upgrades_container.gd" id="16_tq616"]
+[ext_resource type="Theme" uid="uid://brj1juypq3c84" path="res://NoTooltipPanelTheme.tres" id="17_4a2w7"]
 [ext_resource type="Script" path="res://ui/QuitButton.gd" id="17_iw01m"]
 [ext_resource type="Script" path="res://ui/encyclopedia.gd" id="17_k4k0u"]
 [ext_resource type="Script" path="res://ui/coins_and_souls_equipment_container.gd" id="17_o3o7r"]
@@ -324,6 +325,7 @@ text = "WEAPONS"
 
 [node name="Inventory" type="HBoxContainer" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
+theme = ExtResource("17_4a2w7")
 theme_override_constants/separation = -1
 script = ExtResource("19_0wxa2")
 
@@ -355,6 +357,7 @@ text = "ITEMS"
 
 [node name="ItemsContainer" type="HFlowContainer" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("17_4a2w7")
 script = ExtResource("23_pwm40")
 
 [node name="Label3" type="Label" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
@@ -363,6 +366,7 @@ text = "UPGRADES"
 
 [node name="UpgradesContainer" type="HFlowContainer" parent="UI/MenuTabContainer/EQUIPMENT/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("17_4a2w7")
 script = ExtResource("16_tq616")
 
 [node name="ENCYCLOPEDIA" type="MarginContainer" parent="UI/MenuTabContainer"]

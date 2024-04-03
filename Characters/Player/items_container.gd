@@ -1,9 +1,7 @@
 class_name ItemsContainer extends HFlowContainer
 
-
 var player: Player
 var show_tooltip: bool
-
 
 func _ready() -> void:
 	if owner is Player:
@@ -27,7 +25,6 @@ func _ready() -> void:
 	player.temporal_passive_item_picked_up.connect(_on_player_temporal_passive_item_picked_up)
 	player.temporal_passive_item_unequiped.connect(_on_player_temporal_passive_item_unequiped)
 
-
 func _on_player_permanent_passive_item_picked_up(item: PermanentPassiveItem) -> void:
 	var texture_rect: PassiveItemIcon = PassiveItemIcon.new()
 	texture_rect.show_tooltip = show_tooltip
@@ -37,10 +34,8 @@ func _on_player_permanent_passive_item_picked_up(item: PermanentPassiveItem) -> 
 	texture_rect.name = item_class_name
 	add_child(texture_rect)
 
-
 func _on_player_permanent_passive_item_unequiped(item: PermanentPassiveItem) -> void:
 	(get_node((item.get_script() as Script).get_path().get_file().trim_suffix(".gd")) as PassiveItemIcon).free()
-
 
 func _on_player_temporal_passive_item_picked_up(item: TemporalPassiveItem) -> void:
 	var item_class_name: String = (item.get_script() as Script).get_path().get_file().trim_suffix(".gd")
@@ -56,10 +51,8 @@ func _on_player_temporal_passive_item_picked_up(item: TemporalPassiveItem) -> vo
 		temporal_passive_item_icon.texture = item.get_icon()
 		add_child(temporal_passive_item_icon)
 
-
 func _on_player_temporal_passive_item_unequiped(item: TemporalPassiveItem) -> void:
 	(get_node((item.get_script() as Script).get_path().get_file().trim_suffix(".gd")) as TemporalPassiveItemIcon).remove()
-
 
 class PassiveItemIcon extends TextureRect:
 	var item: Item
@@ -104,37 +97,12 @@ class PassiveItemIcon extends TextureRect:
 			return ""
 
 	func _make_custom_tooltip(for_text: String) -> Object:
-		var label: RichTextLabel = RichTextLabel.new()
-		label.bbcode_enabled = true
-		label.text = for_text
-		label.fit_content = true
-		label.custom_minimum_size.x = 96
-		label.add_theme_font_override("normal_font", load("res://Fonts/small_font.tres"))
-		label.add_theme_font_size_override("normal_font_size", 10)
-	#	var label_settings: LabelSettings = LabelSettings.new()
-	#	label_settings.font = load("res://Fonts/Poco.ttf")
-	#	label_settings.font_size = 10
-	#	label.label_settings = label_settings
-		return label
+		var custom_tooltip: CustomTooltip = load("res://ui/custom_tooltip.tscn").instantiate()
 
-		#var item_info_vbox: ItemInfoVBox = (load("res://ui/item_info_vbox.tscn") as PackedScene).instantiate()
-		#item_info_vbox.custom_minimum_size.x = 80
-#
-		#var splitted_text: PackedStringArray = for_text.split("\n")
-		#assert(splitted_text.size() == 2)
-		#item_info_vbox.get_node("NameLabel").text = splitted_text[0]
-		#match item.get_quality():
-			#Item.Quality.COMMON:
-				#item_info_vbox.get_node("NameLabel").modulate = Color.WHITE
-			#Item.Quality.CHINGON:
-				#item_info_vbox.get_node("NameLabel").modulate = Color.BLUE
-		#item_info_vbox.get_node("DescriptionLabel").text = splitted_text[1]
-#
-		#await get_tree().process_frame
-		#item_info_vbox.size.y = 0
-#
-		#return item_info_vbox
+		var splitted_text: PackedStringArray = for_text.split("\n\n")
+		custom_tooltip.initialize(splitted_text[0], splitted_text[1])
 
+		return custom_tooltip
 
 class TemporalPassiveItemIcon extends PassiveItemIcon:
 	var amount: int = 1
@@ -154,11 +122,9 @@ class TemporalPassiveItemIcon extends PassiveItemIcon:
 		label.text = "1"
 		add_child(label)
 
-
 	func add() -> void:
 		amount += 1
 		label.text = str(amount)
-
 
 	func remove() -> void:
 		amount -= 1

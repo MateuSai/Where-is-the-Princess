@@ -1034,7 +1034,7 @@ func _check_entry_positions_l_corridor(id: int, connection_with: int, id_dir: Du
 						connection_possible = false
 
 				if connection_possible:
-					var type: Connection.Type = -1
+					var type: Connection.Type = Connection.Type.NULL
 					var dir_1: DungeonRoom.EntryDirection
 					var dir_2: DungeonRoom.EntryDirection
 					if (id_dir == DungeonRoom.EntryDirection.RIGHT and connection_with_dir == DungeonRoom.EntryDirection.DOWN):

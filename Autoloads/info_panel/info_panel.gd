@@ -1,4 +1,4 @@
-extends PanelContainer
+extends Control
 
 var fade_tween: Tween
 
@@ -7,10 +7,8 @@ var fade_tween: Tween
 @onready var name_label: Label = item_info_vbox.name_label
 @onready var description_label: RichTextLabel = item_info_vbox.description_label
 
-
 func _ready() -> void:
 	hide()
-
 
 func show_at(pos: Vector2, item: Item) -> void:
 	if fade_tween:
@@ -36,7 +34,6 @@ func show_at(pos: Vector2, item: Item) -> void:
 	# For some reason, I have to wait a frame
 	await get_tree().process_frame
 	size.y = 0
-
 
 func stop_showing() -> void:
 	fade_tween = create_tween()
