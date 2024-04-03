@@ -169,9 +169,9 @@ func _ready() -> void:
 		light.enabled = true
 	)
 
-	await get_tree().create_timer(1).timeout
-	StoneHeart.new().pick_up(self)
-	HeartStone.new().pick_up(self)
+	#await get_tree().create_timer(1).timeout
+	#StoneHeart.new().pick_up(self)
+	#HeartStone.new().pick_up(self)
 
 
 func _restore_previous_state() -> void:
