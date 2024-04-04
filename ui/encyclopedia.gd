@@ -9,10 +9,9 @@ enum {
 var last_category: int = -1
 
 @onready var category_buttons: VBoxContainer = %CategoryButtons
-@onready var flow_container: HFlowContainer = $HBoxContainer/HBoxContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer/HFlowContainer
+@onready var list_container: MarginContainer = $HBoxContainer/HBoxContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer
 @onready var details_scroll_container: ScrollContainer = %DetailsScrollContainer
 @onready var details_vbox: VBoxContainer = %DetailsVBoxContainer
-
 
 func _ready() -> void:
 	for button: Button in category_buttons.get_children():
@@ -21,24 +20,24 @@ func _ready() -> void:
 
 	_set_category(WEAPONS)
 
-
 func _draw() -> void:
 	_set_category(last_category)
 
-
 func _set_category(new_category: int) -> void:
-	if last_category != -1:
+	if last_category != - 1:
 		(category_buttons.get_child(last_category) as Button).button_pressed = false
 		#(category_buttons.get_child(last_category) as Button).z_index = 0
 	last_category = new_category
 	(category_buttons.get_child(last_category) as Button).button_pressed = true
 	#(category_buttons.get_child(last_category) as Button).z_index = 1
 
-	for i: int in range(flow_container.get_child_count() - 1, -1, -1):
-		flow_container.get_child(i).free()
+	for i: int in range(list_container.get_child_count() - 1, -1, -1):
+		list_container.get_child(i).free()
 
 	match new_category:
 		WEAPONS:
+			var flow_container: HFlowContainer = HFlowContainer.new();
+
 			var weapons_statistics: Dictionary = SavedData.statistics.get_weapons_statistics()
 			var discovered_weapon_paths: PackedStringArray = SavedData.get_discovered_weapon_paths()
 			for weapon_path: String in SavedData.get_all_weapon_paths():
@@ -51,11 +50,15 @@ func _set_category(new_category: int) -> void:
 				else:
 					button.pressed.connect(func() -> void:
 						_clear_details()
-						var weapon_id: String = Weapon.get_id_from_path(weapon_path)
+						var weapon_id: String=Weapon.get_id_from_path(weapon_path)
 						_show_weapon_details(weapon_id, weapon_path, weapon_data, weapons_statistics[weapon_id] if weapons_statistics.has(weapon_id) else null)
 					)
 				flow_container.add_child(button)
+
+			list_container.add_child(flow_container)
 		ARMORS:
+			var flow_container: HFlowContainer = HFlowContainer.new()
+
 			var discovered_armor_paths: PackedStringArray = ["res://Armors/underpants.gd"]
 			discovered_armor_paths.append_array(SavedData.get_discovered_armors_paths())
 			var all_armors: PackedStringArray = ["res://Armors/underpants.gd"]
@@ -73,24 +76,57 @@ func _set_category(new_category: int) -> void:
 						_show_armor_details(armor)
 					)
 				flow_container.add_child(button)
+
+			list_container.add_child(flow_container);
 		ITEMS:
-			var items_statistics: Dictionary = SavedData.statistics.get_items_statistics()
-			var discovered_item_paths: PackedStringArray = SavedData.get_discovered_all_items_paths()
-			for item_path: String in SavedData.get_all_items_paths():
+			var vbox: VBoxContainer = VBoxContainer.new()
+
+			var consumable_items_label: Label = Label.new()
+			consumable_items_label.text = "CONSUMABLE"
+			vbox.add_child(consumable_items_label)
+
+			var consumable_items_flow_container: HFlowContainer = HFlowContainer.new()
+			for item_path: String in Data.ALL_CONSUMABLE_ITEMS:
 				var item: Item = load(item_path).new()
+				var statistics: ItemStatistics = SavedData.statistics.get_item_statistics(item.get_id())
 				var button: Button = Button.new()
 				button.icon = item.get_icon()
-				if not discovered_item_paths.has(item_path):
+				if statistics == null:
 					button.modulate = Color.BLACK
 					button.disabled = true
 				else:
 					button.pressed.connect(func() -> void:
 						_clear_details()
-						var item_id: String = item.get_item_name().to_lower()
-						_show_item_details(item, items_statistics[item_id] if items_statistics.has(item_id) else ItemStatistics.new())
+						_show_item_details(item, statistics)
 					)
-				flow_container.add_child(button)
+				consumable_items_flow_container.add_child(button)
+			vbox.add_child(consumable_items_flow_container)
+
+			var passive_items_label: Label = Label.new()
+			passive_items_label.text = "PASSIVE"
+			vbox.add_child(passive_items_label)
+
+			var passive_items_flow_container: HFlowContainer = HFlowContainer.new()
+			for item_path: String in SavedData.get_all_items_paths():
+				var item: Item = load(item_path).new()
+				var statistics: ItemStatistics = SavedData.statistics.get_item_statistics(item.get_id())
+				var button: Button = Button.new()
+				button.icon = item.get_icon()
+				if statistics == null:
+					button.modulate = Color.BLACK
+					button.disabled = true
+				else:
+					button.pressed.connect(func() -> void:
+						_clear_details()
+						_show_item_details(item, statistics)
+					)
+				passive_items_flow_container.add_child(button)
+			vbox.add_child(passive_items_flow_container)
+
+			list_container.add_child(vbox)
 		ENEMIES:
+			var flow_container: HFlowContainer = HFlowContainer.new()
+
 			var enemies_statistics: Dictionary = SavedData.statistics.get_enemies_statistics()
 			for enemy_id: String in Globals.ENEMIES.keys():
 				var enemy_data: EnemyData = Enemy.get_data(enemy_id)
@@ -109,13 +145,13 @@ func _set_category(new_category: int) -> void:
 						)
 					flow_container.add_child(button)
 
+			list_container.add_child(flow_container);
 
 func _clear_details() -> void:
 	for i: int in range(details_vbox.get_child_count() - 1, -1, -1):
 		details_vbox.get_child(i).free()
 
 	details_scroll_container.scroll_vertical = 0
-
 
 func _show_weapon_details(id: String, weapon_path: String, data: WeaponData, statistics: WeaponStatistics) -> void:
 	if not statistics:
@@ -154,7 +190,6 @@ func _show_weapon_details(id: String, weapon_path: String, data: WeaponData, sta
 	kills_label.text = tr("KILLS") + ": " + str(statistics.enemies_killed)
 	details_vbox.add_child(kills_label)
 
-
 func _show_armor_details(armor: Armor) -> void:
 	var top_hbox: HBoxContainer = HBoxContainer.new()
 	var left_vbox: VBoxContainer = VBoxContainer.new()
@@ -191,7 +226,6 @@ func _show_armor_details(armor: Armor) -> void:
 
 	details_vbox.add_child(top_hbox)
 
-
 	var name_label: Label = Label.new()
 	name_label.custom_minimum_size.x = details_vbox.size.x - 16
 	name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -204,7 +238,6 @@ func _show_armor_details(armor: Armor) -> void:
 	description_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	description_label.text = armor.get_description()
 	details_vbox.add_child(description_label)
-
 
 func _show_item_details(item: Item, statistics: ItemStatistics) -> void:
 	var item_texture: TextureRect = TextureRect.new()
@@ -236,7 +269,6 @@ func _show_item_details(item: Item, statistics: ItemStatistics) -> void:
 	times_picked_up_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	times_picked_up_label.text = tr("TIMES_PICKED_UP") + ": " + str(statistics.times_picked_up)
 	details_vbox.add_child(times_picked_up_label)
-
 
 func _show_enemy_details(id: String, data: EnemyData, statistics: EnemyStatistics) -> void:
 	if not statistics:

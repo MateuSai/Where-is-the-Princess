@@ -9,6 +9,8 @@ const AVAILABLE_WEAPONS_FROM_START: PackedStringArray = ["res://Weapons/Melee/Ka
 const ALL_VANILLA_ARMORS: PackedStringArray = ["res://Armors/CommonerClothes.gd", "res://Armors/LeatherArmor.gd", "res://Armors/MercenaryArmor.gd", "res://Armors/WarriorArmor.gd", "res://Armors/NecromancerArmor.gd", "res://Armors/improvised_armor.gd", "res://Armors/farmer_clothes.gd", "res://Armors/plague_armor.gd", "res://Armors/ronin_armor.gd"]
 const AVAILABLE_ARMORS_FROM_START: PackedStringArray = ["res://Armors/CommonerClothes.gd", "res://Armors/LeatherArmor.gd", "res://Armors/MercenaryArmor.gd", "res://Armors/WarriorArmor.gd", "res://Armors/NecromancerArmor.gd", "res://Armors/improvised_armor.gd", "res://Armors/farmer_clothes.gd", "res://Armors/plague_armor.gd", "res://Armors/ronin_armor.gd"]
 
+const ALL_CONSUMABLE_ITEMS: PackedStringArray = ["res://items/food.gd", "res://items/armor_shard.gd", "res://items/double_armor_shard.gd", "res://items/whetstone.gd", "res://items/godly_whetstone.gd"]
+
 const ALL_VANILLA_PERMANENT_ITEMS: PackedStringArray = ["res://items/Passive/Permanent/target.gd", "res://items/Passive/Permanent/iron_skin.gd", "res://items/Passive/Permanent/enhanced_boots.gd", "res://items/Passive/Permanent/meteor_stone.gd", "res://items/Passive/Permanent/SoulAmulet.gd", "res://items/Passive/Permanent/runes/AxeRune.gd", "res://items/Passive/Permanent/runes/HammerRune.gd", "res://items/Passive/Permanent/runes/MeleeRune.gd", "res://items/Passive/Permanent/runes/SpearRune.gd", "res://items/Passive/Permanent/runes/SwordRune.gd", "res://items/Passive/Permanent/acid_boots.gd", "res://items/Passive/Permanent/orb_of_the_berserker.gd", "res://items/Passive/Permanent/bigger_rations.gd", "res://items/Passive/Permanent/projectile_orb.gd", "res://items/Passive/Permanent/money_bag.gd", "res://items/Passive/Permanent/broken_sword.gd", "res://items/Passive/Permanent/heart_stone.gd", "res://items/Passive/Permanent/stone_heart.gd", "res://items/Passive/Permanent/aggression_spell.gd", "res://items/Passive/Permanent/heart_rock.gd"]
 const AVAILABLE_PERMANENT_ITEMS_FROM_START: PackedStringArray = ["res://items/Passive/Permanent/target.gd", "res://items/Passive/Permanent/iron_skin.gd", "res://items/Passive/Permanent/enhanced_boots.gd", "res://items/Passive/Permanent/meteor_stone.gd", "res://items/Passive/Permanent/SoulAmulet.gd", "res://items/Passive/Permanent/runes/AxeRune.gd", "res://items/Passive/Permanent/runes/HammerRune.gd", "res://items/Passive/Permanent/runes/MeleeRune.gd", "res://items/Passive/Permanent/runes/SpearRune.gd", "res://items/Passive/Permanent/runes/SwordRune.gd", "res://items/Passive/Permanent/acid_boots.gd", "res://items/Passive/Permanent/orb_of_the_berserker.gd", "res://items/Passive/Permanent/bigger_rations.gd", "res://items/Passive/Permanent/projectile_orb.gd", "res://items/Passive/Permanent/money_bag.gd", "res://items/Passive/Permanent/broken_sword.gd", "res://items/Passive/Permanent/heart_stone.gd", "res://items/Passive/Permanent/stone_heart.gd", "res://items/Passive/Permanent/aggression_spell.gd"]
 
@@ -31,8 +33,10 @@ var _extra_available_armors: PackedStringArray = []
 var _discovered_armors: PackedStringArray = []
 
 var _extra_available_permanent_items: PackedStringArray = []
+## @deprecated
 var _discovered_permanent_items: PackedStringArray = []
 var _extra_available_temporal_items: PackedStringArray = []
+## @deprecated
 var _discovered_temporal_items: PackedStringArray = []
 
 var player_upgrades: Array[PlayerUpgrade] = []
@@ -44,7 +48,6 @@ var player_upgrades_shop_unlocked: bool = false
 
 var show_save_and_return_window: bool = true: set = set_show_save_and_return_window
 
-
 func save() -> void:
 	var file: FileAccess = FileAccess.open(SavedData.USER_FOLDER + SAVE_NAME, FileAccess.WRITE)
 	if not file:
@@ -53,7 +56,6 @@ func save() -> void:
 	file.store_string(JSON.stringify(to_dic(), "\t"))
 	file.close()
 	#print(JSON.new().stringify(data, "\t"))
-
 
 static func _load() -> Data:
 	var file: FileAccess = FileAccess.open(SavedData.USER_FOLDER + SAVE_NAME, FileAccess.READ)
@@ -70,7 +72,6 @@ static func _load() -> Data:
 
 	return Data.new()
 
-
 func get_extra_max_hp() -> int:
 	var extra_hp: int = 0
 
@@ -81,7 +82,6 @@ func get_extra_max_hp() -> int:
 
 	return extra_hp
 
-
 func can_pick_up_player_upgrade(item_name: String) -> int:
 	for player_upgrade: PlayerUpgrade in player_upgrades:
 		if player_upgrade.get_item_name() == item_name:
@@ -89,115 +89,100 @@ func can_pick_up_player_upgrade(item_name: String) -> int:
 
 	return true
 
-
 func get_available_weapons() -> PackedStringArray:
 	var arr: Array = _extra_available_weapons.duplicate()
 	arr.append_array(AVAILABLE_WEAPONS_FROM_START)
 	return PackedStringArray(arr)
-
 
 func discover_weapon_if_not_already(weapon_path: String) -> void:
 	if not _discovered_weapons.has(weapon_path):
 		_discovered_weapons.push_back(weapon_path)
 		save()
 
-
 func get_discovered_weapons() -> PackedStringArray:
 	return _discovered_weapons.duplicate()
-
 
 func get_available_armors() -> PackedStringArray:
 	var arr: Array = _extra_available_armors.duplicate()
 	arr.append_array(AVAILABLE_ARMORS_FROM_START)
 	return PackedStringArray(arr)
 
-
 func discover_armor_if_not_already(armor_path: String) -> void:
 	if not _discovered_armors.has(armor_path):
 		_discovered_armors.push_back(armor_path)
 		save()
 
-
 func get_discovered_armors() -> PackedStringArray:
 	return _discovered_armors.duplicate()
-
 
 func get_available_permanent_items() -> PackedStringArray:
 	var arr: Array = _extra_available_permanent_items.duplicate()
 	arr.append_array(AVAILABLE_PERMANENT_ITEMS_FROM_START)
 	return PackedStringArray(arr)
 
-
+## @deprecated
 func discover_permanent_item_if_not_already(item_path: String) -> void:
 	if not _discovered_permanent_items.has(item_path):
 		_discovered_permanent_items.push_back(item_path)
 		save()
 
-
+## @deprecated
 func get_discovered_permanent_items() -> PackedStringArray:
 	return _discovered_permanent_items.duplicate()
-
 
 func get_available_temporal_items() -> PackedStringArray:
 	var arr: Array = _extra_available_temporal_items.duplicate()
 	arr.append_array(AVAILABLE_TEMPORAL_ITEMS_FROM_START)
 	return PackedStringArray(arr)
 
-
+## @deprecated
 func discover_temporal_item_if_not_already(item_path: String) -> void:
 	if not _discovered_temporal_items.has(item_path):
 		_discovered_temporal_items.push_back(item_path)
 		save()
 
-
+## @deprecated
 func get_discovered_temporal_items() -> PackedStringArray:
 	return _discovered_temporal_items.duplicate()
 
-
-func is_passive_item_discovered(item: PassiveItem) -> bool:
-	if item is PermanentPassiveItem:
-		return _discovered_permanent_items.has((item.get_script() as GDScript).get_path())
-	elif item is TemporalPassiveItem:
-		return _discovered_temporal_items.has((item.get_script() as GDScript).get_path())
-	else:
-		assert(false, "Invalid item type")
-		return false
-
+func is_item_discovered(item: Item) -> bool:
+	return SavedData.statistics.get_item_statistics(item.get_id()) != null
+	#if item is PermanentPassiveItem:
+	#	return _discovered_permanent_items.has((item.get_script() as GDScript).get_path())
+	#elif item is TemporalPassiveItem:
+	#	return _discovered_temporal_items.has((item.get_script() as GDScript).get_path())
+	#else:
+	#	assert(false, "Invalid item type")
+	#	return false
 
 func get_available_player_upgrades() -> PackedStringArray:
 	#var arr: Array = _discovered_temporal_items.duplicate()
 	#arr.append_array(DISCOVERED_TEMPORAL_ITEMS_FROM_START)
 	return AVAILABLE_PLAYER_UPGRADES_FROM_START
 
-
 func add_extra_available_weapon(weapon_path: String) -> void:
 	if not _extra_available_weapons.has(weapon_path):
 		_extra_available_weapons.push_back(weapon_path)
 		save()
-
 
 func add_extra_available_armor(armor_path: String) -> void:
 	if not _extra_available_armors.has(armor_path):
 		_extra_available_armors.push_back(armor_path)
 		save()
 
-
 func add_extra_available_permanent_item(item_path: String) -> void:
 	if not _extra_available_permanent_items.has(item_path):
 		_extra_available_permanent_items.push_back(item_path)
 		save()
-
 
 func add_extra_available_temporal_item(item_path: String) -> void:
 	if not _extra_available_temporal_items.has(item_path):
 		_extra_available_temporal_items.push_back(item_path)
 		save()
 
-
 func add_completed_dialogue(dialogue: String) -> void:
 	_completed_dialogues.push_back(dialogue)
 	save()
-
 
 func has_completed_dialogue(dialogue: String) -> bool:
 	for dia: String in _completed_dialogues:
@@ -206,11 +191,9 @@ func has_completed_dialogue(dialogue: String) -> bool:
 
 	return false
 
-
 func set_show_save_and_return_window(new_value: bool) -> void:
 	show_save_and_return_window = new_value
 	save()
-
 
 static func from_dic(dic: Dictionary) -> Data:
 	var data: Data = Data.new()
