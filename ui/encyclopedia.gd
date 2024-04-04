@@ -85,43 +85,19 @@ func _set_category(new_category: int) -> void:
 			consumable_items_label.text = "CONSUMABLE"
 			vbox.add_child(consumable_items_label)
 
-			var consumable_items_flow_container: HFlowContainer = HFlowContainer.new()
-			for item_path: String in Data.ALL_CONSUMABLE_ITEMS:
-				var item: Item = load(item_path).new()
-				var statistics: ItemStatistics = SavedData.statistics.get_item_statistics(item.get_id())
-				var button: Button = Button.new()
-				button.icon = item.get_icon()
-				if statistics == null:
-					button.modulate = Color.BLACK
-					button.disabled = true
-				else:
-					button.pressed.connect(func() -> void:
-						_clear_details()
-						_show_item_details(item, statistics)
-					)
-				consumable_items_flow_container.add_child(button)
-			vbox.add_child(consumable_items_flow_container)
+			vbox.add_child(_create_items_flow_container(Data.ALL_VANILLA_CONSUMABLE_ITEMS))
 
 			var passive_items_label: Label = Label.new()
 			passive_items_label.text = "PASSIVE"
 			vbox.add_child(passive_items_label)
 
-			var passive_items_flow_container: HFlowContainer = HFlowContainer.new()
-			for item_path: String in SavedData.get_all_items_paths():
-				var item: Item = load(item_path).new()
-				var statistics: ItemStatistics = SavedData.statistics.get_item_statistics(item.get_id())
-				var button: Button = Button.new()
-				button.icon = item.get_icon()
-				if statistics == null:
-					button.modulate = Color.BLACK
-					button.disabled = true
-				else:
-					button.pressed.connect(func() -> void:
-						_clear_details()
-						_show_item_details(item, statistics)
-					)
-				passive_items_flow_container.add_child(button)
-			vbox.add_child(passive_items_flow_container)
+			vbox.add_child(_create_items_flow_container(SavedData.get_all_items_paths()))
+
+			var weapon_modifiers_label: Label = Label.new()
+			weapon_modifiers_label.text = "WEAPON_MODIFIERS"
+			vbox.add_child(weapon_modifiers_label)
+
+			vbox.add_child(_create_items_flow_container(Data.ALL_VANILLA_WEAPON_MODIFIERS))
 
 			list_container.add_child(vbox)
 		ENEMIES:
@@ -360,3 +336,23 @@ func _show_enemy_details(id: String, data: EnemyData, statistics: EnemyStatistic
 	player_kills_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	player_kills_label.text = tr("PLAYER_KILLS") + ": " + str(statistics.player_kills)
 	details_vbox.add_child(player_kills_label)
+
+func _create_items_flow_container(items: PackedStringArray) -> HFlowContainer:
+	var flow_container: HFlowContainer = HFlowContainer.new()
+	
+	for item_path: String in items:
+		var item: Item = load(item_path).new()
+		var statistics: ItemStatistics = SavedData.statistics.get_item_statistics(item.get_id())
+		var button: Button = Button.new()
+		button.icon = item.get_icon()
+		if statistics == null:
+			button.modulate = Color.BLACK
+			button.disabled = true
+		else:
+			button.pressed.connect(func() -> void:
+				_clear_details()
+				_show_item_details(item, statistics)
+			)
+		flow_container.add_child(button)
+	
+	return flow_container
