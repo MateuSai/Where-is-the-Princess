@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=75 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -50,6 +50,7 @@
 [ext_resource type="Texture2D" uid="uid://dloouft4djv72" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_pestaña_enemies_ui_hover.png" id="30_xla5k"]
 [ext_resource type="Texture2D" uid="uid://cbj7lfujwbpfd" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/pause_menu_ui_9-patch.png" id="38_uvlqo"]
 [ext_resource type="Script" path="res://ui/notification_container.gd" id="43_c88jh"]
+[ext_resource type="Script" path="res://ui/biome_banner.gd" id="50_gojcj"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
 light_mode = 1
@@ -136,6 +137,8 @@ texture_margin_right = 16.0
 texture_margin_bottom = 12.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mnaft"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nogqy"]
 shader = ExtResource("14_qjw3b")
@@ -242,7 +245,7 @@ grow_vertical = 2
 theme = ExtResource("4_usvbv")
 theme_override_constants/side_margin = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6orv6")
-current_tab = 1
+current_tab = 2
 script = ExtResource("6_y3275")
 
 [node name="MAP" type="MarginContainer" parent="UI/MenuTabContainer"]
@@ -281,6 +284,7 @@ texture = ExtResource("16_0uph7")
 
 [node name="EQUIPMENT" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
@@ -371,7 +375,6 @@ script = ExtResource("16_tq616")
 
 [node name="ENCYCLOPEDIA" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 script = ExtResource("17_k4k0u")
 
@@ -415,6 +418,15 @@ icon = ExtResource("26_d38pc")
 icon_alignment = 2
 
 [node name="EnemiesButton" type="Button" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_w6scg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_v8ysw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_hdbdv")
+toggle_mode = true
+icon = ExtResource("28_7eh7l")
+icon_alignment = 2
+
+[node name="BiomesButton" type="Button" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_w6scg")
 theme_override_styles/hover = SubResource("StyleBoxTexture_v8ysw")
@@ -548,6 +560,36 @@ grow_horizontal = 0
 size_flags_horizontal = 0
 size_flags_vertical = 8
 script = ExtResource("43_c88jh")
+
+[node name="BiomeBanner" type="PanelContainer" parent="UI"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.1
+anchor_right = 0.5
+anchor_bottom = 0.288
+offset_left = -59.0
+offset_top = -0.300001
+offset_right = 59.0
+offset_bottom = 0.0159988
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_mnaft")
+script = ExtResource("50_gojcj")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/BiomeBanner"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="UI/BiomeBanner/MarginContainer"]
+layout_mode = 2
+text = "BIOME_NAME"
+
+[node name="InitialDelayTimer" type="Timer" parent="UI/BiomeBanner"]
+wait_time = 1.3
+one_shot = true
 
 [node name="FogSprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true

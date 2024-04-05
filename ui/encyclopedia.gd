@@ -5,6 +5,7 @@ enum {
 	ARMORS,
 	ITEMS,
 	ENEMIES,
+	BIOMES,
 }
 var last_category: int = -1
 
@@ -94,6 +95,7 @@ func _set_category(new_category: int) -> void:
 			vbox.add_child(_create_items_flow_container(SavedData.get_all_items_paths()))
 
 			var weapon_modifiers_label: Label = Label.new()
+			weapon_modifiers_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			weapon_modifiers_label.text = "WEAPON_MODIFIERS"
 			vbox.add_child(weapon_modifiers_label)
 
@@ -103,25 +105,48 @@ func _set_category(new_category: int) -> void:
 		ENEMIES:
 			var flow_container: HFlowContainer = HFlowContainer.new()
 
-			var enemies_statistics: Dictionary = SavedData.statistics.get_enemies_statistics()
 			for enemy_id: String in Globals.ENEMIES.keys():
-				var enemy_data: EnemyData = Enemy.get_data(enemy_id)
-				if enemy_data != null:
-					var button: Button = Button.new()
-					#button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-					button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
-					button.icon = enemy_data.icon
-					if not enemies_statistics.has(enemy_id):
-						button.modulate = Color.BLACK
-						button.disabled = true
-					else:
-						button.pressed.connect(func() -> void:
-							_clear_details()
-							_show_enemy_details(enemy_id, enemy_data, enemies_statistics[enemy_id] if enemies_statistics.has(enemy_id) else null)
-						)
-					flow_container.add_child(button)
+				flow_container.add_child(_create_enemy_button(enemy_id))
 
 			list_container.add_child(flow_container);
+		BIOMES:
+			var vbox: VBoxContainer = VBoxContainer.new()
+
+			for biome: String in Data.ALL_VANILLA_BIOMES:
+				var biome_conf: BiomeConf = SavedData.get_biome_by_id_or_path(biome)
+				
+				var button: Button = Button.new()
+				button.custom_minimum_size.y = 48
+				button.clip_contents = true
+				#button.icon = load(biome_conf.encyclopedia_background)
+				#button.expand_icon = true
+				vbox.add_child(button)
+
+				var margin_container: MarginContainer = MarginContainer.new()
+				margin_container.set_anchors_preset(Control.PRESET_FULL_RECT)
+				margin_container.add_theme_constant_override("margin_left", 4)
+				margin_container.add_theme_constant_override("margin_top", 4)
+				margin_container.add_theme_constant_override("margin_right", 4)
+				margin_container.add_theme_constant_override("margin_bottom", 4)
+				button.add_child(margin_container)
+
+				# What the fuck is this? I wish I knew, for some reason a second margin container is necessary
+				var second_margin_container: MarginContainer = MarginContainer.new()
+				second_margin_container.clip_contents = true
+				margin_container.add_child(second_margin_container)
+
+				var tex: TextureRect = TextureRect.new()
+				tex.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+				tex.stretch_mode = TextureRect.STRETCH_KEEP
+				tex.texture = load(biome_conf.encyclopedia_background)
+				second_margin_container.add_child(tex)
+
+				button.pressed.connect(func() -> void:
+					_clear_details()
+					_show_biome_details(biome_conf)
+				)
+
+			list_container.add_child(vbox)
 
 func _clear_details() -> void:
 	for i: int in range(details_vbox.get_child_count() - 1, -1, -1):
@@ -337,6 +362,29 @@ func _show_enemy_details(id: String, data: EnemyData, statistics: EnemyStatistic
 	player_kills_label.text = tr("PLAYER_KILLS") + ": " + str(statistics.player_kills)
 	details_vbox.add_child(player_kills_label)
 
+func _show_biome_details(conf: BiomeConf) -> void:
+	var name_label: Label = Label.new()
+	name_label.custom_minimum_size.x = details_vbox.size.x - 16
+	name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	name_label.text = conf.name
+	details_vbox.add_child(name_label)
+
+	var enemies_hflow: HFlowContainer = HFlowContainer.new()
+	for enemy_id: String in Globals.ENEMIES.keys():
+		var enemy_data: EnemyData = Enemy.get_data(enemy_id)
+		for biome: String in enemy_data.biomes:
+			if SavedData.get_biome_by_id_or_path(biome).name == conf.name:
+				var button: Button = _create_enemy_button(enemy_id)
+				#button.flat = true
+				enemies_hflow.add_child(button)
+				#var tex: TextureRect = TextureRect.new()
+				#tex.texture = enemy_data.icon
+				#tex.expand_mode = TextureRect.EXPAND_KEEP_SIZE
+				#tex.stretch_mode = TextureRect.STRETCH_KEEP
+				#enemies_hflow.add_child(tex)
+				break
+	details_vbox.add_child(enemies_hflow)
+
 func _create_items_flow_container(items: PackedStringArray) -> HFlowContainer:
 	var flow_container: HFlowContainer = HFlowContainer.new()
 	
@@ -356,3 +404,22 @@ func _create_items_flow_container(items: PackedStringArray) -> HFlowContainer:
 		flow_container.add_child(button)
 	
 	return flow_container
+
+func _create_enemy_button(enemy_id: String) -> Button:
+	var enemy_data: EnemyData = Enemy.get_data(enemy_id)
+	var enemy_statistics: EnemyStatistics = SavedData.statistics.get_enemy_statistics(enemy_id)
+
+	var button: Button = Button.new()
+	#button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	button.icon = enemy_data.icon
+	if not enemy_statistics:
+		button.modulate = Color.BLACK
+		button.disabled = true
+	else:
+		button.pressed.connect(func() -> void:
+			_clear_details()
+			_show_enemy_details(enemy_id, enemy_data, enemy_statistics)
+		)
+
+	return button

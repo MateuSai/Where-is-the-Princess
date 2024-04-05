@@ -21,6 +21,8 @@ const AVAILABLE_TEMPORAL_ITEMS_FROM_START: PackedStringArray = ["res://items/Pas
 
 const ALL_VANILLA_PLAYER_UPGRADES: PackedStringArray = ["res://items/player_upgrades/additional_heart.gd", "res://items/player_upgrades/additional_movement_speed.gd", "res://items/player_upgrades/additional_weapon_carry_capacity.gd", "res://items/player_upgrades/additional_max_stamina.gd"]
 const AVAILABLE_PLAYER_UPGRADES_FROM_START: PackedStringArray = ["res://items/player_upgrades/additional_heart.gd", "res://items/player_upgrades/additional_movement_speed.gd", "res://items/player_upgrades/additional_weapon_carry_capacity.gd", "res://items/player_upgrades/additional_max_stamina.gd"]
+
+const ALL_VANILLA_BIOMES: PackedStringArray = ["basecamp", "forest", "sewer"]
 #endregion
 
 var dark_souls: int = 0
