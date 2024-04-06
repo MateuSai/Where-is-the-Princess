@@ -114,7 +114,7 @@ func _set_category(new_category: int) -> void:
 
 			for biome: String in Data.ALL_VANILLA_BIOMES:
 				var biome_conf: BiomeConf = SavedData.get_biome_by_id_or_path(biome)
-				
+
 				var button: Button = Button.new()
 				button.custom_minimum_size.y = 48
 				button.clip_contents = true
@@ -369,6 +369,14 @@ func _show_biome_details(conf: BiomeConf) -> void:
 	name_label.text = conf.name
 	details_vbox.add_child(name_label)
 
+	var biome_background: TextureRect = TextureRect.new()
+	biome_background.clip_contents = true
+	biome_background.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	biome_background.stretch_mode = TextureRect.STRETCH_KEEP
+	biome_background.texture = load(conf.encyclopedia_background)
+	biome_background.custom_minimum_size.y = 64
+	details_vbox.add_child(biome_background)
+
 	var enemies_hflow: HFlowContainer = HFlowContainer.new()
 	for enemy_id: String in Globals.ENEMIES.keys():
 		var enemy_data: EnemyData = Enemy.get_data(enemy_id)
@@ -387,7 +395,7 @@ func _show_biome_details(conf: BiomeConf) -> void:
 
 func _create_items_flow_container(items: PackedStringArray) -> HFlowContainer:
 	var flow_container: HFlowContainer = HFlowContainer.new()
-	
+
 	for item_path: String in items:
 		var item: Item = load(item_path).new()
 		var statistics: ItemStatistics = SavedData.statistics.get_item_statistics(item.get_id())
@@ -402,7 +410,7 @@ func _create_items_flow_container(items: PackedStringArray) -> HFlowContainer:
 				_show_item_details(item, statistics)
 			)
 		flow_container.add_child(button)
-	
+
 	return flow_container
 
 func _create_enemy_button(enemy_id: String) -> Button:
@@ -420,6 +428,6 @@ func _create_enemy_button(enemy_id: String) -> Button:
 		button.pressed.connect(func() -> void:
 			_clear_details()
 			_show_enemy_details(enemy_id, enemy_data, enemy_statistics)
-		)
+		, CONNECT_DEFERRED)
 
 	return button
