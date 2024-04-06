@@ -141,10 +141,15 @@ func _set_category(new_category: int) -> void:
 				tex.texture = load(biome_conf.encyclopedia_background)
 				second_margin_container.add_child(tex)
 
-				button.pressed.connect(func() -> void:
-					_clear_details()
-					_show_biome_details(biome_conf)
-				)
+				var biome_statistics: BiomeStatistics = SavedData.statistics.get_biome_statistics(biome_conf.name)
+				if biome_statistics:
+					button.pressed.connect(func() -> void:
+						_clear_details()
+						_show_biome_details(biome_conf)
+					)
+				else:
+					button.modulate = Color.BLACK.lightened(0.3)
+					button.disabled = true
 
 			list_container.add_child(vbox)
 
