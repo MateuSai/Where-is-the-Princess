@@ -2,18 +2,22 @@ class_name Food extends Item
 
 static var extra_hp: int = 0
 
-const POSSIBLE_ICONS: Array[Texture] = [ preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/food_apple.png"), preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/food_banana.png"), preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/food_chicken.png"), preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/food_ham.png")]
+const POSSIBLE_ICONS: Array[Texture2D] = [ preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/food_apple.png"), preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/food_banana.png"), preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/food_chicken.png"), preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/food_ham.png")]
+const POSSIBLE_BIG_ICONS: Array[Texture2D] = [ preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Apple_UI_desc.png"), preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Banana_UI_desc.png"), preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Chicken_UI_desc.png"), preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Ham_UI_desc.png")]
 
-var icon: Texture
+var icon: Texture2D
+var big_icon: Texture2D
 
 func _init() -> void:
-	icon = POSSIBLE_ICONS[randi() % POSSIBLE_ICONS.size()]
+	var rand_int: int = randi() % POSSIBLE_ICONS.size()
+	icon = POSSIBLE_ICONS[rand_int]
+	big_icon = POSSIBLE_BIG_ICONS[rand_int]
 
 func get_icon() -> Texture2D:
 	return icon
 
 func get_big_icon() -> Texture2D:
-	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Apple_UI_desc.png")
+	return big_icon
 
 func can_pick_up(player: Player) -> bool:
 	return player.life_component.max_hp > player.life_component.hp
