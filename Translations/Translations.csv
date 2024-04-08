@@ -81,6 +81,9 @@ STONE_HEART_DESCRIPTION,Restores a quarter of a heart when you clear a room.,Res
 AGGRESSION_SPELL,Aggression Spell,Conjur Agressor,Hechizo Agresor,
 AGGRESSION_SPELL_DESCRIPTION,"Deal double damage when you are at full health, but at the cost of half a heart.","Fas el doble de dany quan tens la salut al màxim, però a costa de mig cor.","Haces el doble de daño cuando tienes la salud al máximo, pero al precio de medio corazón.",
 ,,,,
+PIERCING_ARROW_MODIFIER,Piercing Arrows,Fletxes Penetrants,Flechas Penetrantes,
+PIERCING_ARROW_MODIFIER_DESCRIPTION,Arrows will pierce an additional enemy.,Les fletxes penetraran un enemic més.,Las flechas penetrarán un enemigo adicional.,
+,,,,
 ADDITIONAL_HEART,Additional Heart,Cor Addicional,Corazón Adicional,
 ADDITIONAL_HEART_DESCRIPTION,Adds an additional heart.,Afegeix un cor addicional.,Añade un corazón adicional.,
 ADDITIONAL_MAX_STAMINA,Additional Max Stamina,Vigor Màxim Addicional,Vigor Máximo Adicional,
@@ -160,12 +163,16 @@ TIMES_PICKED_UP,Times picked up,Vegades equipat,Veces equipado,
 KILLS,Kills,Morts,Muertes,
 TIMES_KILLED,Times killed,Nombre de morts,Numero de muertes,
 PLAYER_KILLS,Player kills,Morts del jugador,Muertes del jugador,
+BIOMES,Biomes,Biomes,Biomas,
 ,,,,
 ,,,,
 MAP,Map,Mapa,Mapa,地図
 EQUIPMENT,Equipment,Equipament,Equipamiento,
 WEAPONS,Weapons,Armes,Armas,兵器
 ITEMS,Items,Ítems,Ítems,
+CONSUMABLES,Consumables,Consumibles,Consumibles,
+PASSIVE,Passive,Passius,Pasivos,
+WEAPON_MODIFIERS,Weapon Modifiers,Modificadors d'Arma,Modificadores de Arma,
 UPGRADES,Upgrades,Millores,Mejoras,アップグレード
 ENCYCLOPEDIA,Encyclopedia,Enciclopèdia,Enciclopedia,事典
 OPTIONS,Options,Opcions,Opciones,オプションメニュー

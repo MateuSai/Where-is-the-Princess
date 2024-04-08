@@ -83,7 +83,7 @@ func _set_category(new_category: int) -> void:
 			var vbox: VBoxContainer = VBoxContainer.new()
 
 			var consumable_items_label: Label = Label.new()
-			consumable_items_label.text = "CONSUMABLE"
+			consumable_items_label.text = "CONSUMABLES"
 			vbox.add_child(consumable_items_label)
 
 			vbox.add_child(_create_items_flow_container(Data.ALL_VANILLA_CONSUMABLE_ITEMS))
