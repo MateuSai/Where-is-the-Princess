@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=62 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -266,17 +266,6 @@ _data = {
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ivaog"]
 light_mode = 1
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ydjud"]
-particle_flag_disable_z = true
-emission_shape = 3
-emission_box_extents = Vector3(250, 1, 1)
-angle_min = 20.0
-angle_max = 90.0
-direction = Vector3(1, 1, 0)
-initial_velocity_min = 10.0
-initial_velocity_max = 15.0
-gravity = Vector3(5, 25, 0)
-
 [sub_resource type="Animation" id="Animation_hk3pe"]
 length = 0.001
 tracks/0/type = "value"
@@ -508,14 +497,6 @@ z_index = 10
 material = SubResource("CanvasItemMaterial_ivaog")
 scale = Vector2(134.552, 184.996)
 texture = ExtResource("10_w3xli")
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Camera2D" index="1"]
-position = Vector2(0, -121)
-amount = 80
-process_material = SubResource("ParticleProcessMaterial_ydjud")
-lifetime = 4.0
-preprocess = 5.0
-randomness = 1.0
 
 [node name="JumpAnimationPlayer" type="AnimationPlayer" parent="." index="9"]
 libraries = {

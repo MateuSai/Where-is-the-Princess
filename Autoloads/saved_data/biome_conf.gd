@@ -38,6 +38,9 @@ var music_volume_db: float = 0.0
 
 var encyclopedia_background: String = ""
 
+var weather_modificators: Array[WeatherModificator] = []
+var temperature: float = 20.0
+
 static func from_dic(dic: Dictionary) -> BiomeConf:
 	var data: BiomeConf = BiomeConf.new()
 
@@ -52,6 +55,9 @@ static func from_dic(dic: Dictionary) -> BiomeConf:
 					data.corridor_floor_tiles_coor = []
 					var a: Array = dic[key]
 					data.corridor_floor_tiles_coor.assign(a)
+				"weather_modificators":
+					for weather_modificator_path: String in dic.weather_modificators:
+						data.weather_modificators.push_back(load(weather_modificator_path).new())
 				_:
 					data.set(key, dic[key])
 		else:
@@ -71,7 +77,6 @@ static func from_dic(dic: Dictionary) -> BiomeConf:
 #
 	#return dic
 
-
 static func _load_levels(biome_dic: Dictionary, levels_dic: Dictionary) -> Array[Level]:
 	var arr: Array[Level] = []
 
@@ -86,7 +91,6 @@ static func _load_levels(biome_dic: Dictionary, levels_dic: Dictionary) -> Array
 		arr.push_back(Level.from_dic(biome_dic, level_dic))
 
 	return arr
-
 
 class Level:
 	## Area in which the rooms will be spawned. It can be "circle" or "rectangle"
@@ -126,12 +130,12 @@ class Level:
 			else:
 				printerr("Level: Invalid property: " + key)
 
-		if level.num_combat_rooms == -1:
+		if level.num_combat_rooms == - 1:
 			if biome_dic.has("default_num_combat_rooms"):
 				level.num_combat_rooms = biome_dic.default_num_combat_rooms
 			else:
 				level.num_combat_rooms = BiomeConf.DEFAULT_NUM_COMBAT_ROOMS
-		if level.num_special_rooms == -1:
+		if level.num_special_rooms == - 1:
 			if biome_dic.has("default_num_special_rooms"):
 				level.num_special_rooms = biome_dic.default_num_combat_rooms
 			else:
@@ -145,7 +149,6 @@ class Level:
 			return PackedStringArray(overwrite_end_rooms[to])
 		else:
 			return PackedStringArray([""])
-
 
 	func get_exit_names() -> Array:
 		return overwrite_end_rooms.keys()

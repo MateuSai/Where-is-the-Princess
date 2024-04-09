@@ -350,7 +350,7 @@ func _show_enemy_details(id: String, data: EnemyData, statistics: EnemyStatistic
 	description_label.theme = load("res://SmallFontTheme.tres")
 	description_label.custom_minimum_size.x = details_vbox.size.x - 16
 	description_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	description_label.text = "Enemy description blab sdfds fsdf fgsdfk sf dsf dsbfjdsf jjaf khdsf dsfk sfsdk fgsdnfk dshfkdsg fuiodslfihsdkfdsgj"
+	description_label.text = id.to_upper() + "_DESCRIPTION"
 	details_vbox.add_child(description_label)
 
 	var killed_label: Label = Label.new()
