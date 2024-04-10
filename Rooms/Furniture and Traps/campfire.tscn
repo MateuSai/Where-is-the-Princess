@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cq825lguwrtg7"]
+[gd_scene load_steps=18 format=3 uid="uid://cq825lguwrtg7"]
 
 [ext_resource type="Script" path="res://Rooms/Furniture and Traps/campfire.gd" id="1_j8u5f"]
 [ext_resource type="Texture2D" uid="uid://dbhadmkl0mfsc" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest.png" id="1_ye3oo"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png" id="3_yv535"]
 [ext_resource type="AudioStream" uid="uid://b1tftw38lyigm" path="res://Audio/Sounds/624425__foleyhaven__fire_burning_03.wav" id="4_san58"]
 [ext_resource type="PackedScene" uid="uid://d3fawn28rueao" path="res://effects/steam/steam_spawner.tscn" id="5_5o0md"]
+[ext_resource type="PackedScene" uid="uid://dupduedq1kpo8" path="res://Components/temperature_area/temperature_area.tscn" id="7_nltut"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uraaf"]
 atlas = ExtResource("1_ye3oo")
@@ -64,6 +65,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_hi07k"]
 radius = 6.08276
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_6erxa"]
+radius = 36.0
+
 [node name="Campfire" type="StaticBody2D"]
 collision_layer = 16
 collision_mask = 0
@@ -104,3 +108,9 @@ volume_db = -5.0
 autoplay = true
 max_distance = 150.0
 bus = &"Sounds"
+
+[node name="TemperatureArea" parent="." instance=ExtResource("7_nltut")]
+temperature = 30.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TemperatureArea"]
+shape = SubResource("CircleShape2D_6erxa")

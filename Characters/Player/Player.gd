@@ -81,6 +81,7 @@ enum {
 const COLD_TEMPERATURE: float = 0.0
 var temperature_state: int = WARM
 var temperature_change_per_second: float = 2.0
+var close_temperatures: Array[float] = []
 var temperature: float = 20: set = _set_temperature
 
 # @onready var armor_sprite: Sprite2D = get_node("ArmorSprite")
@@ -226,8 +227,9 @@ func _physics_process(delta: float) -> void:
 	if stamina_regen_cooldown_timer.is_stopped() and stamina < max_stamina:
 		stamina += stamina_regeneration_per_second * delta
 
-	var target_temperature: float = SavedData.get_biome_conf().temperature
-	var change: float = temperature_change_per_second if (target_temperature - temperature) < 0 else - temperature_change_per_second
+	var target_temperature: float = SavedData.get_biome_conf().temperature if close_temperatures.is_empty() else close_temperatures.max()
+	#print_debug(target_temperature)
+	var change: float = temperature_change_per_second if (target_temperature - temperature) > 0 else - temperature_change_per_second
 	temperature = clamp(temperature + change * delta, -50.0, 50.0)
 
 func _controller_aim() -> void:

@@ -13,14 +13,13 @@ static var start_time: int
 @onready var time_label: Label = $TimeLabel
 @onready var nodes_label: Label = $NodesLabel
 @onready var orphan_label: Label = $OrphanLabel
-
+@onready var player_temperature_label: Label = $PlayerTemperatureLabel
 
 func _ready() -> void:
 	if is_visible:
 		show()
 	else:
 		hide()
-
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
@@ -33,7 +32,6 @@ func _input(event: InputEvent) -> void:
 				is_visible = true
 				show()
 				set_process(true)
-
 
 func _process(_delta: float) -> void:
 	run_time_label.text = "Run time: " + str((Time.get_ticks_msec() - start_time) / 1000.0)
@@ -52,3 +50,6 @@ func _process(_delta: float) -> void:
 	else:
 		orphan_label.modulate = Color.GREEN
 	orphan_label.text = "Num orphans: " + str(num_orphans)
+
+	if Globals.player:
+		player_temperature_label.text = "Player temperature: " + str(snappedf(Globals.player.temperature, 0.1)) + "ºC"
