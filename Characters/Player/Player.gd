@@ -73,9 +73,15 @@ var current_room: DungeonRoom = null
 
 var position_before_jumping: Vector2
 
-const FREEZE_TEMPERATURE: float = 0.0
+enum {
+	FREEZING,
+	COLD,
+	WARM,
+}
+const COLD_TEMPERATURE: float = 0.0
+var temperature_state: int = WARM
 var temperature_change_per_second: float = 2.0
-var temperature: float = 20
+var temperature: float = 20: set = _set_temperature
 
 # @onready var armor_sprite: Sprite2D = get_node("ArmorSprite")
 
@@ -222,7 +228,7 @@ func _physics_process(delta: float) -> void:
 
 	var target_temperature: float = SavedData.get_biome_conf().temperature
 	var change: float = temperature_change_per_second if (target_temperature - temperature) < 0 else - temperature_change_per_second
-	temperature = clamp(temperature + change, -50.0, 50.0)
+	temperature = clamp(temperature + change * delta, -50.0, 50.0)
 
 func _controller_aim() -> void:
 	var window_size: Vector2 = get_viewport().size
@@ -543,7 +549,24 @@ func start_dialogue(text: String) -> void:
 
 func _set_temperature(new_value: float) -> void:
 	temperature = new_value
-	if temperature <= FREEZE_TEMPERATURE:
-		var ice_status: IceStatusComponent = IceStatusComponent.new( - 1)
-		add_child(ice_status)
-		ice_status.add()
+	match temperature_state:
+		COLD:
+			if temperature > COLD_TEMPERATURE:
+				_set_temperature_state(WARM)
+				data.max_speed += 50
+		WARM:
+			if temperature <= COLD_TEMPERATURE:
+				_set_temperature_state(COLD)
+				data.max_speed -= 50
+				#var ice_status: IceStatusComponent = IceStatusComponent.new( - 1)
+				#add_child(ice_status)
+				#ice_status.add()
+
+func _set_temperature_state(new_value: int) -> void:
+	assert(temperature_state != new_value)
+	temperature_state = new_value
+	match temperature_state:
+		COLD:
+			modulate = Color.DEEP_SKY_BLUE
+		WARM:
+			modulate = Color.WHITE

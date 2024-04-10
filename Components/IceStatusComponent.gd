@@ -2,29 +2,34 @@ class_name IceStatusComponent extends StatusComponent
 
 var status_timer: Timer
 
-var effect_time: float
-
-func _init(effect_time: float=1.5) -> void:
-	self.effect_time = effect_time
+const ATTACKS_TO_BREAK_ICE: int = 3
+var player_attacks_when_frozen: int = 0
 
 func _ready() -> void:
-	if effect_time != - 1:
-		status_timer = Timer.new()
-		status_timer.one_shot = true
-		status_timer.wait_time = effect_time
-		status_timer.timeout.connect(remove)
-		add_child(status_timer)
+	super()
+
+	var ice_cube_sprite: Sprite2D = Sprite2D.new()
+	ice_cube_sprite.texture = load("res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/archeleton_icon.png")
+	add_child(ice_cube_sprite)
+
+	set_process_unhandled_input(false)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_attack"):
+		player_attacks_when_frozen += 1
+		if player_attacks_when_frozen >= ATTACKS_TO_BREAK_ICE:
+			set_process_unhandled_input(false)
+			remove()
 
 func add() -> void:
 	character.modulate = Color.DEEP_SKY_BLUE
 
-	if status_timer.is_stopped() or effect_time == - 1:
-		character.max_speed -= 30
-	status_timer.start()
+	player_attacks_when_frozen = 0
+
+	set_process_unhandled_input(true)
 
 	super()
 
 func remove() -> void:
 	character.modulate = Color.WHITE
-	character.max_speed += 30
 	super()
