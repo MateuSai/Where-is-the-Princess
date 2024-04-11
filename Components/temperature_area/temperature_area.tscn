@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dupduedq1kpo8"]
+
+[ext_resource type="Script" path="res://Components/temperature_area/temperature_area.gd" id="1_hfiwa"]
+
+[node name="TemperatureArea" type="Area2D"]
+collision_layer = 0
+collision_mask = 256
+script = ExtResource("1_hfiwa")

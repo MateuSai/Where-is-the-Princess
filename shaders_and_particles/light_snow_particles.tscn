@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://i4waglaekj1n"]
+
+[sub_resource type="Curve" id="Curve_yxg6y"]
+max_value = 20.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 20), 71.0977, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_lrb8o"]
+curve = SubResource("Curve_yxg6y")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ydjud"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(500, 100, 1)
+angle_min = 20.0
+angle_max = 90.0
+direction = Vector3(1, 1, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 15.0
+gravity = Vector3(5, 25, 0)
+damping_min = 20.0
+damping_max = 20.0
+damping_curve = SubResource("CurveTexture_lrb8o")
+
+[node name="LightSnowParticles" type="GPUParticles2D"]
+position = Vector2(-24, -200)
+amount = 150
+process_material = SubResource("ParticleProcessMaterial_ydjud")
+lifetime = 6.0
+preprocess = 5.0
+visibility_rect = Rect2(-200, 75, 450, 250)

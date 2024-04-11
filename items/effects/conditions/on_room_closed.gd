@@ -1,24 +1,18 @@
-class_name RecoverHpOnRoomClosed extends ItemEffect
-
-var player: Player
-
-var hp_amount: int
-
-@warning_ignore("shadowed_variable")
-func _init(hp_amount: int) -> void:
-	self.hp_amount = hp_amount
+class_name OnRoomClosed extends ItemEffectsCondition
 
 @warning_ignore("shadowed_variable")
 func enable(player: Player) -> void:
-	self.player = player
+	super(player)
 
 	for room: DungeonRoom in (player.get_tree().current_scene as Game).rooms.rooms:
 		room.closed.connect(_on_room_closed)
 
 @warning_ignore("shadowed_variable")
 func disable(player: Player) -> void:
+	super(player)
+
 	for room: DungeonRoom in (player.get_tree().current_scene as Game).rooms.rooms:
 		room.closed.disconnect(_on_room_closed)
 
 func _on_room_closed() -> void:
-	player.life_component.hp += hp_amount
+	_enable_effects()

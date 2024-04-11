@@ -18,7 +18,7 @@ func _spawn_shrapnel() -> void:
 	var initial_rot: float = randf_range(0, 2*PI / (num - 1))
 	var shrapnels: Array[Sprite2D] = []
 	for i: int in num:
-		var shrapnel: Sprite2D = (load("res://Characters/Enemies/BombTribal/Shrapnel.tscn") as PackedScene).instantiate()
+		var shrapnel: Sprite2D = (load("res://Weapons/projectiles/bombs/Shrapnel.tscn") as PackedScene).instantiate()
 		shrapnel.rotation = initial_rot + (2*PI / (num - 1)) * i + randf_range(-0.2, 0.2)
 		add_child(shrapnel)
 		move_child(shrapnel, 0)

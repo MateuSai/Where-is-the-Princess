@@ -3,7 +3,7 @@ class_name HeartRock extends PermanentPassiveItem
 var player: Player = null
 
 func _init() -> void:
-	effects = [RecoverHpOnRoomClosed.new(2), RecoverHpOnRoomCleared.new(2)]
+	effects = [OnRoomCleared.new([HealPlayer.new(2)]), OnRoomClosed.new([HealPlayer.new(2)])]
 
 func get_icon() -> Texture2D:
 	return load("res://Art/items/Hearth_Stone-Complete.png")

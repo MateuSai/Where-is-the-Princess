@@ -6,17 +6,16 @@ static var last_command: String = ""
 
 @onready var debug_info: VBoxContainer = $"../DebugInfo"
 
-
 func _ready() -> void:
 	draw.connect(func() -> void:
-		get_tree().paused = true
+		get_tree().paused=true
 		#show()
 		#set_process_input(true)
 		#get_tree().current_scene.get_node("%UI").is_external_thing_opened = true
 		grab_focus()
 	)
 	hidden.connect(func() -> void:
-		get_tree().paused = false
+		get_tree().paused=false
 		#hide()
 		#set_process_input(false)
 		ui.set_process_unhandled_input(true)
@@ -24,7 +23,6 @@ func _ready() -> void:
 	)
 	hide()
 	#set_process_input(false)
-
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_toggle_terminal") and debug_info.visible:
@@ -54,7 +52,6 @@ func _input(event: InputEvent) -> void:
 
 				text = ""
 
-
 func _process_command(command: String) -> void:
 	# tiene que haber un nombre par de comillas
 	if command.count("\"") % 2:
@@ -77,7 +74,7 @@ func _process_command(command: String) -> void:
 					if splitted_by_spaces[i] in ["", " "]:
 						splitted_by_spaces.remove_at(j)
 					else:
-						splitted_command_by_quotation_marks.insert(i+1, splitted_by_spaces[j])
+						splitted_command_by_quotation_marks.insert(i + 1, splitted_by_spaces[j])
 				# eliminamos el elemento que acabamos de dividir en subelementos
 				splitted_command_by_quotation_marks.remove_at(i)
 
@@ -216,6 +213,8 @@ func _process_command(command: String) -> void:
 				match splitted_command[1]:
 					"items":
 						_discover_all_items()
+					"armors":
+						_discover_all_armors()
 					_:
 						printerr("discover has no " + splitted_command[1] + " option")
 			else:
@@ -224,7 +223,6 @@ func _process_command(command: String) -> void:
 			_print_current_room_name()
 		_:
 			printerr("Invalid command")
-
 
 func _set_player_hp(hp_string: String) -> void:
 	if not hp_string.is_valid_float():
@@ -235,7 +233,6 @@ func _set_player_hp(hp_string: String) -> void:
 	Globals.player.life_component.hp = int(hp_string)
 #	var new_hp: int = int(clamp(int(hp_string), 0.0, 100.0))
 #	Globals.player.hp = new_hp
-
 
 func _set_armor(armor_string: String) -> void:
 	var armor_path: String
@@ -268,7 +265,6 @@ func _set_armor(armor_string: String) -> void:
 
 	hide()
 
-
 func _set_armor_condition(condition_string: String) -> void:
 	if not condition_string.is_valid_int():
 		printerr("Invalid value for armor condition")
@@ -276,7 +272,6 @@ func _set_armor_condition(condition_string: String) -> void:
 
 	hide()
 	Globals.player.armor.condition = int(condition_string)
-
 
 func _set_current_weapon_condition(condition_string: String) -> void:
 	if not condition_string.is_valid_int():
@@ -286,7 +281,6 @@ func _set_current_weapon_condition(condition_string: String) -> void:
 	hide()
 	Globals.player.weapons.current_weapon.stats.condition = int(condition_string)
 
-
 func _set_player_worldcol(worldcol: String) -> void:
 	if _get_bool_from_string(worldcol):
 		hide()
@@ -295,12 +289,10 @@ func _set_player_worldcol(worldcol: String) -> void:
 		hide()
 		Globals.player.set_collision_mask_value(1, false)
 
-
 func _start_player_dialogue(dialogue_text: String) -> void:
 	Globals.player.start_dialogue(dialogue_text)
 
 	hide()
-
 
 func _set_player_invincible(value: String) -> void:
 	if _get_bool_from_string(value):
@@ -309,7 +301,6 @@ func _set_player_invincible(value: String) -> void:
 	else:
 		hide()
 		Globals.player.life_component.invincible = false
-
 
 func _set_time_scale(time_scale_string: String) -> void:
 	if not time_scale_string.is_valid_float():
@@ -320,7 +311,6 @@ func _set_time_scale(time_scale_string: String) -> void:
 	var new_time_scale: float = clamp(float(time_scale_string), 0.0, 10.0)
 	Engine.time_scale = new_time_scale
 
-
 func _set_souls(souls_string: String) -> void:
 	if not souls_string.is_valid_float():
 		push_error("Invalid value for weapon souls")
@@ -328,7 +318,6 @@ func _set_souls(souls_string: String) -> void:
 
 	hide()
 	Globals.player.weapons.current_weapon.stats.souls = int(souls_string)
-
 
 func _set_dark_souls(souls_string: String) -> void:
 	if not souls_string.is_valid_float():
@@ -338,12 +327,10 @@ func _set_dark_souls(souls_string: String) -> void:
 	hide()
 	SavedData.set_dark_souls(int(souls_string))
 
-
 func _set_biome(biome: String) -> void:
 	hide()
 
 	Globals.exit_level(biome)
-
 
 func _set_time(time_string: String) -> void:
 	if not time_string.is_valid_float():
@@ -354,7 +341,6 @@ func _set_time(time_string: String) -> void:
 
 	hide()
 
-
 func _get_bool_from_string(s: String) -> bool:
 	if s in ["true", "t", "tr", "1"]:
 		return true
@@ -363,7 +349,6 @@ func _get_bool_from_string(s: String) -> bool:
 	else:
 		printerr("Can't convert string to bool, returning false")
 		return false
-
 
 func _spawn_weapon(weapon_string: String) -> void:
 	var weapon_path: String
@@ -386,7 +371,6 @@ func _spawn_weapon(weapon_string: String) -> void:
 	#weapon.on_floor = true
 	get_tree().current_scene.add_child(weapon)
 
-
 func _spawn_item(item_string: String) -> void:
 	if Globals.player.current_room == null:
 		printerr("You must be inside a room to spawn items")
@@ -407,8 +391,7 @@ func _spawn_item(item_string: String) -> void:
 
 	hide()
 
-
-func _spawn_enemy(enemy_string: String, amount_strign: String = "1") -> void:
+func _spawn_enemy(enemy_string: String, amount_strign: String="1") -> void:
 	var enemy: Enemy
 	var amount: int
 
@@ -433,21 +416,19 @@ func _spawn_enemy(enemy_string: String, amount_strign: String = "1") -> void:
 			if enemy_scene:
 				enemy = enemy_scene.instantiate()
 				(get_tree().current_scene.get_node("Rooms") as Rooms).rooms[0].add_child(enemy)
-				enemy.global_position = Globals.player.position + Vector2.RIGHT * 16 + Vector2(randf_range(-8, 8), randf_range(-8, 8))
+				enemy.global_position = Globals.player.position + Vector2.RIGHT * 16 + Vector2(randf_range( - 8, 8), randf_range( - 8, 8))
 			else:
 				printerr("Error: no registered enemy with this name")
 				return
 
 	hide()
 
-
 func _spawn_chest() -> void:
-	var chest: Chest = preload("res://Rooms/Chest.tscn").instantiate()
+	var chest: Chest = preload ("res://Rooms/Chest.tscn").instantiate()
 	(get_tree().current_scene.get_node("Rooms") as Rooms).rooms[0].add_child(chest)
 	chest.global_position = Globals.player.position + Vector2.RIGHT * 16
 
 	hide()
-
 
 func _reload() -> void:
 	print_debug("Reloading scene...")
@@ -457,12 +438,10 @@ func _reload() -> void:
 
 	print_debug("Scene reloaded")
 
-
 func _save() -> void:
 	SavedData.save_run_stats()
 
 	hide()
-
 
 func _clear_room() -> void:
 	if Globals.player.current_room == null:
@@ -475,7 +454,6 @@ func _clear_room() -> void:
 
 	hide()
 
-
 func _react(face_string: String) -> void:
 	if not face_string.is_valid_int():
 		printerr("You must indicate the reaction face using his index")
@@ -484,7 +462,6 @@ func _react(face_string: String) -> void:
 	Globals.player.react(int(face_string))
 
 	hide()
-
 
 func _test_room(path: String) -> void:
 	if not FileAccess.file_exists(path):
@@ -504,7 +481,6 @@ func _test_room(path: String) -> void:
 
 	hide()
 
-
 func _discover_all_items() -> void:
 	for item_path: String in SavedData.data.AVAILABLE_PERMANENT_ITEMS_FROM_START:
 		SavedData.discover_permanent_item_if_not_already(item_path)
@@ -514,6 +490,11 @@ func _discover_all_items() -> void:
 
 	hide()
 
+func _discover_all_armors() -> void:
+	for armor_path: String in Data.AVAILABLE_ARMORS_FROM_START:
+		SavedData.discover_armor_if_not_already(armor_path)
+
+	hide()
 
 func _print_current_room_name() -> void:
 	if Globals.player.current_room:

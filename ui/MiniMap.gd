@@ -29,7 +29,6 @@ var fog_sprite: Sprite2D
 #@onready var update_fog_timer: Timer = $UpdateFogTimer
 #@onready var tilemap: TileMap = $TileMap
 
-
 func _ready() -> void:
 	set_process(false)
 
@@ -45,7 +44,6 @@ func _ready() -> void:
 
 	#update_fog_timer.timeout.connect(_update_fog)
 
-
 func set_up() -> void:
 	rooms.room_visited.connect(_discover_room)
 
@@ -54,9 +52,9 @@ func set_up() -> void:
 	atlas.texture = load(SavedData.get_biome_conf().minimap_texture)
 	atlas.texture_region_size = Vector2i(TILE_SIZE, TILE_SIZE)
 	@warning_ignore("integer_division")
-	var width_tiles: int = atlas.texture.get_width()/TILE_SIZE
+	var width_tiles: int = atlas.texture.get_width() / TILE_SIZE
 	@warning_ignore("integer_division")
-	var height_tiles: int = atlas.texture.get_height()/TILE_SIZE
+	var height_tiles: int = atlas.texture.get_height() / TILE_SIZE
 	for i: int in width_tiles:
 		for j: int in height_tiles:
 			atlas.create_tile(Vector2i(i, j))
@@ -84,7 +82,7 @@ func set_up() -> void:
 	fog_sprite.centered = false
 	fog_sprite.z_index = 10
 	#fog_sprite.offset = Vector2.ONE * rooms.FOG_PADDING
-	fog_sprite.position.y += -TOP_MARGIN
+	fog_sprite.position.y += - TOP_MARGIN
 	#fog_sprite.scale /= content_scale_factor
 	map_rect = Rect2(0, 0, 0, 0)
 	for room: DungeonRoom in rooms.rooms:
@@ -93,11 +91,11 @@ func set_up() -> void:
 		room_rect.size /= 4
 		map_rect = map_rect.merge(room_rect)
 	map_rect.position.y += TOP_MARGIN
-	map_rect.size.y += -TOP_MARGIN
+	map_rect.size.y += - TOP_MARGIN
 
 	#fog_image = Image.create(map_rect.size.x, map_rect.size.y, false, Image.FORMAT_RGBH)
 
-	minimap_corridors_tilemap.position = -map_rect.position# + Vector2(size.x / 2.0, 0)
+	minimap_corridors_tilemap.position = -map_rect.position # + Vector2(size.x / 2.0, 0)
 	#container.position = map_rect.position / content_scale_factor
 #	size = (map_rect.size + Vector2(80, 0)).clamp(Vector2.ZERO, Vector2(330, 200))
 #	$MinimapScrollContainer.custom_minimum_size = size
@@ -126,7 +124,6 @@ func set_up() -> void:
 			#_on_hide()
 	#)
 
-
 func _on_draw() -> void:
 	_update_fog()
 	#update_fog_timer.start()
@@ -134,17 +131,16 @@ func _on_draw() -> void:
 	for i: int in rooms_items_ui.size():
 		var items_ui: ItemsUI = rooms_items_ui[i]
 		if items_ui != null:
+			items_ui.clear()
 			items_ui.update_items(rooms.rooms[i].get_items())
+			items_ui.update_weapons(rooms.rooms[i].get_weapons())
 
 	set_process_input(true)
-
 
 func _on_hide() -> void:
 	#update_fog_timer.stop()
 
 	set_process_input(false)
-
-
 
 func _update_fog() -> void:
 	if not is_instance_valid(Globals.player):
@@ -163,15 +159,12 @@ func _update_fog() -> void:
 #		fog_image.blend_rect(light, Rect2(Vector2.ZERO, light.get_size()), Globals.player.position - entire_map_rect.position - light.get_size()/2.0)
 #		fog_sprite.texture = ImageTexture.create_from_image(fog_image)
 
-
 func _input(event: InputEvent) -> void:
 	if room_selected != null:
 		if event is InputEventMouseButton:
 			if event.is_pressed() and (event as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT:
 				Globals.player.position = room_selected.position + (room_selected.get_node("TeleportPosition") as Marker2D).position
 				ui.hide_tab_container()
-
-
 
 func _process(_delta: float) -> void:
 	if room_selected == null:
@@ -194,7 +187,6 @@ func _process(_delta: float) -> void:
 
 	player_icon.position = Globals.player.position / 4 - map_rect.position + Vector2.ONE * 4 * TILE_SIZE
 
-
 func scroll_to_player() -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
@@ -202,7 +194,6 @@ func scroll_to_player() -> void:
 	scroll_container.scroll_horizontal = player_icon.position.x - size.x / 2.0
 	@warning_ignore("narrowing_conversion")
 	scroll_container.scroll_vertical = player_icon.position.y - size.y / 2.0
-
 
 func _discover_room(room: DungeonRoom) -> void:
 	var world_room_tilemap: TileMap = room.tilemap
@@ -219,7 +210,7 @@ func _discover_room(room: DungeonRoom) -> void:
 	# I substract 1 because the first tilemap is the corridors tilemap, not a room
 	room_tilemaps[int(room.name.right(1))] = minimap_room_tilemap
 
-	minimap_room_tilemap.position = room.position/4 -map_rect.position# + Vector2(size.x / 2.0, 0)
+	minimap_room_tilemap.position = room.position / 4 - map_rect.position # + Vector2(size.x / 2.0, 0)
 
 	var items_ui_container: Node2D = Node2D.new() # Otherwise the HBox will adapt to the MarginContainer
 	var items_ui: ItemsUI = ItemsUI.new()
@@ -228,14 +219,12 @@ func _discover_room(room: DungeonRoom) -> void:
 	items_ui_container.add_child(items_ui)
 	container.add_child(items_ui_container)
 
-	items_ui.position = room.position/4 + Vector2(room.tilemap_offset)/4 -map_rect.position
-
+	items_ui.position = room.position / 4 + Vector2(room.tilemap_offset) / 4 - map_rect.position
 
 func _copy_tiles(from: TileMap, to: TileMap) -> void:
 	for layer: int in from.get_layers_count():
 		for cell: Vector2i in from.get_used_cells(layer):
 			to.set_cell(layer, cell, 0, from.get_cell_atlas_coords(layer, cell))
-
 
 class ItemsUI extends MarginContainer:
 	var hflow: HFlowContainer
@@ -253,17 +242,26 @@ class ItemsUI extends MarginContainer:
 		hflow.size_flags_vertical = Control.SIZE_SHRINK_CENTER
 		add_child(hflow)
 
-	func update_items(items: Array[ItemOnFloor]) -> void:
+	func clear() -> void:
 		for i: int in range(hflow.get_child_count() - 1, -1, -1):
 			hflow.get_child(i).free()
-#		for child in get_children():
-#			child.queue_free()
 
-#		await get_tree().process_frame
-
+	func update_items(items: Array[ItemOnFloor]) -> void:
 		for item: ItemOnFloor in items:
 			var icon: TextureRect = TextureRect.new()
-			icon.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
+			icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 			icon.size_flags_vertical = Control.SIZE_EXPAND_FILL
 			icon.texture = item.item.get_icon()
+			hflow.add_child(icon)
+
+	func update_weapons(weapons: Array[Weapon]) -> void:
+		#for weapon: Weapon in weapons:
+		if not weapons.is_empty():
+			var icon: TextureRect = TextureRect.new()
+			icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			icon.size_flags_vertical = Control.SIZE_EXPAND_FILL
+			#icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			#icon.expand_mode = TextureRect.EXPAND_FIT_HEIGHT
+			#icon.size_flags_vertical = Control.SIZE_EXPAND_FILL
+			icon.texture = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/sword_icon.png")
 			hflow.add_child(icon)

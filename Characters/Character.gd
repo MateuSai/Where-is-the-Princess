@@ -127,7 +127,7 @@ func add_status_condition(status: StatusComponent.Status) -> void:
 	var status_key: String = StatusComponent.Status.keys()[status]
 	var status_component: StatusComponent = get_node_or_null(status_key)
 	if status_component == null:
-		status_component = [FireStatusComponent.new(), IceStatusComponent.new(), LightningStatusComponent.new()][status]
+		status_component = [FireStatusComponent.new(), IceStatusComponent.new(), LightningStatusComponent.new(), AcidStatusComponent.new()][status]
 		add_child(status_component)
 		status_component.name = StatusComponent.Status.keys()[status]
 	status_component.add()

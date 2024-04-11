@@ -1,6 +1,6 @@
 class_name Game extends Node2D
 
-const PLAYER_SCENE: PackedScene = preload("res://Characters/Player/Player.tscn")
+const PLAYER_SCENE: PackedScene = preload ("res://Characters/Player/Player.tscn")
 
 @export var debug: bool = true
 @export var reload_on_generation_eror: bool = true
@@ -27,29 +27,11 @@ var scroll_vertical_at_start_of_drag: float = 0
 @onready var notification_container: NotificationContainer = %NotificationContainer
 @onready var music: AudioStreamPlayer = $Music
 
-
 func _init() -> void:
 	seed(SavedData.run_stats.get_level_seed())
 
-
 func _ready() -> void:
-	if SavedData.get_biome_conf().day_night_cycle:
-		canvas_modulate.color = Color.BLACK
-
-		if DayNightSystem.is_day():
-			RenderingServer.set_default_clear_color(SavedData.get_biome_conf().background_color)
-		else:
-			RenderingServer.set_default_clear_color((SavedData.get_biome_conf().background_color as Color).darkened(0.5))
-		day_night_system.day_started.connect(func() -> void:
-			RenderingServer.set_default_clear_color(SavedData.get_biome_conf().background_color)
-		)
-		day_night_system.night_started.connect(func() -> void:
-			RenderingServer.set_default_clear_color((SavedData.get_biome_conf().background_color as Color).darkened(0.5))
-		)
-	else:
-		canvas_modulate.color = SavedData.get_biome_conf().light_color
-
-		RenderingServer.set_default_clear_color(SavedData.get_biome_conf().background_color)
+	_init_biome(SavedData.get_biome_conf())
 
 	set_process(false)
 
@@ -72,7 +54,7 @@ func _ready() -> void:
 	if execute_procedural_generation_on_thread:
 		rooms.generation_completed.connect(func() -> void:
 			generation_thread.wait_to_finish()
-			generation_thread = null
+			generation_thread=null
 #			generating_dungeon_canvas_layer.hide()
 		)
 		generation_thread = Thread.new()
@@ -81,6 +63,29 @@ func _ready() -> void:
 		rooms.spawn_rooms()
 #		generating_dungeon_canvas_layer.hide()
 
+func _init_biome(conf: BiomeConf) -> void:
+	if conf.day_night_cycle:
+		canvas_modulate.color = Color.BLACK
+
+		if DayNightSystem.is_day():
+			RenderingServer.set_default_clear_color(SavedData.get_biome_conf().background_color)
+		else:
+			RenderingServer.set_default_clear_color((SavedData.get_biome_conf().background_color as Color).darkened(0.5))
+		day_night_system.day_started.connect(func() -> void:
+			RenderingServer.set_default_clear_color(SavedData.get_biome_conf().background_color)
+		)
+		day_night_system.night_started.connect(func() -> void:
+			RenderingServer.set_default_clear_color((SavedData.get_biome_conf().background_color as Color).darkened(0.5))
+		)
+	else:
+		canvas_modulate.color = SavedData.get_biome_conf().light_color
+
+		RenderingServer.set_default_clear_color(SavedData.get_biome_conf().background_color)
+
+	player_added.connect(func() -> void:
+		for weather_modificator: WeatherModificator in conf.weather_modificators:
+			weather_modificator.enable(Globals.player)
+	)
 
 func _on_rooms_generation_completed() -> void:
 	#print_debug("Generation completed")
@@ -113,7 +118,6 @@ func _on_rooms_generation_completed() -> void:
 
 	#print_debug("_on_rooms_generation_completed finished executing")
 
-
 func _input(event: InputEvent) -> void:
 #	if event.is_action_pressed("ui_focus_next"):
 #		get_tree().paused = true
@@ -134,7 +138,6 @@ func _input(event: InputEvent) -> void:
 		drag_enabled = false
 		set_process(false)
 
-
 func _process(_delta: float) -> void:
 	if drag_enabled:
 		@warning_ignore("narrowing_conversion")
@@ -142,11 +145,9 @@ func _process(_delta: float) -> void:
 		@warning_ignore("narrowing_conversion")
 		camera.position.y = scroll_vertical_at_start_of_drag - get_local_mouse_position().y + mouse_pos_at_start_of_drag.y
 
-
 func _exit_tree() -> void:
 	if generation_thread:
 		generation_thread.wait_to_finish()
-
 
 func reload_generation(msg: String) -> void:
 	#print_debug("Reloading scene...")
@@ -155,7 +156,7 @@ func reload_generation(msg: String) -> void:
 		generation_thread = null
 	print_rich("[color=purple]%s. Reloading level generation...[/color]" % msg)
 
-	for i: int in range(rooms.get_child_count()-1, 0, -1):
+	for i: int in range(rooms.get_child_count() - 1, 0, -1):
 		rooms.get_child(i).free()
 	($Rooms/CorridorTileMap as TileMap).clear()
 
@@ -168,7 +169,6 @@ func reload_generation(msg: String) -> void:
 	#get_tree().reload_current_scene()
 
 	#print_debug("Scene reloaded")
-
 
 func show_notification(notification_scene: PackedScene, arguments: Dictionary) -> void:
 	notification_container.add_notification_to_queue(notification_scene, arguments)

@@ -15,10 +15,20 @@ signal souls_changed(new_souls: int, souls_to_activate_ability: int)
 
 @export var modifiers: Array[WeaponModifier] = []
 
-
 func set_condition(new_condition: float) -> void:
 	if new_condition == condition:
 		return
 
 	condition = clamp(new_condition, 0, 100)
 	condition_changed.emit(condition)
+
+func get_amount_of_modifiers() -> int:
+	var amount: int = 0
+
+	for modifier: WeaponModifier in modifiers:
+		if modifier is StatusWeaponModifier:
+			amount += modifier.amount
+		else:
+			amount += 1
+
+	return amount

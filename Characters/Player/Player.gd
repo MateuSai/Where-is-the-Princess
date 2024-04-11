@@ -6,7 +6,7 @@ class_name Player extends Character
 #signal weapon_condition_changed(weapon: Weapon, new_value: float)
 #signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
 
-const DIALOGUE_BOX_SCENE: PackedScene = preload("res://ui/dialogue_system/dialogue_box.tscn")
+const DIALOGUE_BOX_SCENE: PackedScene = preload ("res://ui/dialogue_system/dialogue_box.tscn")
 var dialogue_box: DialogueBox
 var dialogue_tween: Tween = null
 
@@ -37,7 +37,7 @@ signal permanent_passive_item_picked_up(item: PermanentPassiveItem)
 signal permanent_passive_item_unequiped(item: PermanentPassiveItem)
 signal player_upgrade_item_picked_up(item: PlayerUpgrade)
 
-var armor: Armor = Underpants.new() : set = set_armor
+var armor: Armor = Underpants.new(): set = set_armor
 signal armor_changed(new_armor: Armor)
 
 var mouse_direction: Vector2
@@ -53,7 +53,7 @@ var armor_ability_recharge_time_reduction: float = 0.0:
 	set(new_value):
 		armor_ability_recharge_time_reduction = clamp(new_value, 0.0, 0.95)
 signal shop_discount_changed(new_value: float)
-var shop_discount: float = 0.0: ## 0 = no discount, 1 = free
+var shop_discount: float = 0.0: # # 0 = no discount, 1 = free
 	set(new_value):
 		shop_discount = new_value
 		shop_discount_changed.emit(shop_discount)
@@ -72,6 +72,17 @@ var rotating_items: Array[Node2D] = []
 var current_room: DungeonRoom = null
 
 var position_before_jumping: Vector2
+
+enum {
+	FREEZING,
+	COLD,
+	WARM,
+}
+const COLD_TEMPERATURE: float = 0.0
+var temperature_state: int = WARM
+var temperature_change_per_second: float = 2.0
+var close_temperatures: Array[float] = []
+var temperature: float = 20: set = _set_temperature
 
 # @onready var armor_sprite: Sprite2D = get_node("ArmorSprite")
 
@@ -101,7 +112,6 @@ var position_before_jumping: Vector2
 
 @onready var acid_bar: TextureProgressBar = $AcidBar
 
-
 func _ready() -> void:
 	super()
 
@@ -127,7 +137,7 @@ func _ready() -> void:
 		armor.is_able_to_use_ability = true
 
 	life_component.hp_changed.connect(func(new_hp: int) -> void:
-		SavedData.run_stats.hp = new_hp
+		SavedData.run_stats.hp=new_hp
 		if new_hp == 0:
 			SavedData.reset_run_stats()
 			SavedData.change_biome_by_id_or_path("basecamp")
@@ -151,11 +161,11 @@ func _ready() -> void:
 	jump_animation_player.animation_finished.connect(func(anim_name: String) -> void:
 		if anim_name == "jump":
 			if is_on_water():
-				var splash: Sprite2D = load("res://effects/water_splash/water_splash.tscn").instantiate()
-				splash.position = global_position
+				var splash: Sprite2D=load("res://effects/water_splash/water_splash.tscn").instantiate()
+				splash.position=global_position
 				get_tree().current_scene.add_child(splash)
 				life_component.take_damage(1, Vector2.ZERO, 0, null, null, "water")
-				position = position_before_jumping
+				position=position_before_jumping
 	)
 
 	if DayNightSystem.is_day():
@@ -163,16 +173,15 @@ func _ready() -> void:
 	else:
 		light.enabled = true
 	day_night_system.day_started.connect(func() -> void:
-		light.enabled = false
+		light.enabled=false
 	)
 	day_night_system.night_started.connect(func() -> void:
-		light.enabled = true
+		light.enabled=true
 	)
 
 	#await get_tree().create_timer(1).timeout
 	#StoneHeart.new().pick_up(self)
 	#HeartStone.new().pick_up(self)
-
 
 func _restore_previous_state() -> void:
 	for player_upgrade: PlayerUpgrade in SavedData.data.player_upgrades:
@@ -185,10 +194,8 @@ func _restore_previous_state() -> void:
 	for temporal_passive_item: TemporalPassiveItem in SavedData.run_stats.temporal_passive_items:
 		pick_up_passive_item(temporal_passive_item)
 
-
 func _exit_tree() -> void:
 	Globals.player = null
-
 
 func _process(_delta: float) -> void:
 	#camera.position = camera.position.lerp(position, 0.08)
@@ -214,13 +221,16 @@ func _process(_delta: float) -> void:
 
 	weapons.move(mouse_direction)
 
-
 func _physics_process(delta: float) -> void:
 	super(delta)
 
 	if stamina_regen_cooldown_timer.is_stopped() and stamina < max_stamina:
 		stamina += stamina_regeneration_per_second * delta
 
+	var target_temperature: float = SavedData.get_biome_conf().temperature if close_temperatures.is_empty() else close_temperatures.max()
+	#print_debug(target_temperature)
+	var change: float = temperature_change_per_second if (target_temperature - temperature) > 0 else - temperature_change_per_second
+	temperature = clamp(temperature + change * delta, -50.0, 50.0)
 
 func _controller_aim() -> void:
 	var window_size: Vector2 = get_viewport().size
@@ -244,7 +254,6 @@ func _controller_aim() -> void:
 	previous_aim_pos = aim_pos
 
 #	return Input.get_vector("ui_aim_left", "ui_aim_right", "ui_aim_up", "ui_aim_down").normalized()
-
 
 func get_input() -> void:
 	mov_direction = Vector2.ZERO
@@ -275,10 +284,8 @@ func get_input() -> void:
 	if Input.is_action_just_pressed("ui_armor_ability") and armor.is_able_to_use_ability:
 		_use_armor_ability()
 
-
 func add_coin() -> void:
 	SavedData.run_stats.coins += 1
-
 
 func pick_up_passive_item(item: PassiveItem) -> void:
 	if item is PermanentPassiveItem:
@@ -310,7 +317,6 @@ func pick_up_passive_item(item: PassiveItem) -> void:
 				_unite_items(item, passive_item, load(item.get_unite_dictionary()[other_item_path]).new())
 				break
 
-
 func unequip_passive_item(item: PassiveItem) -> void:
 	if item is TemporalPassiveItem:
 		var temporal_passive_item: TemporalPassiveItem = item
@@ -325,7 +331,6 @@ func unequip_passive_item(item: PassiveItem) -> void:
 	else:
 		assert(false, "Invalid item type")
 
-
 func _unite_items(item_1: PassiveItem, item_2: PassiveItem, result: PassiveItem) -> void:
 	unequip_passive_item(item_1)
 	unequip_passive_item(item_2)
@@ -335,7 +340,7 @@ func _unite_items(item_1: PassiveItem, item_2: PassiveItem, result: PassiveItem)
 
 	var left_sprite: Sprite2D = Sprite2D.new()
 	left_sprite.texture = item_1.get_icon()
-	left_sprite.position = Vector2(unite_x * -1, unite_y)
+	left_sprite.position = Vector2(unite_x * - 1, unite_y)
 	left_sprite.scale = Vector2(0.1, 0.1)
 	add_child(left_sprite)
 
@@ -374,13 +379,11 @@ func _unite_items(item_1: PassiveItem, item_2: PassiveItem, result: PassiveItem)
 
 	result.pick_up(self)
 
-
 #func switch_camera() -> void:
 	#var main_scene_camera: Camera2D = get_parent().get_node("Camera2D")
 	#main_scene_camera.position = position
 	#main_scene_camera.current = true
 	#camera.current = false
-
 
 func set_armor(new_armor: Armor) -> void:
 	assert(new_armor != null)
@@ -408,11 +411,9 @@ func set_armor(new_armor: Armor) -> void:
 
 	armor_changed.emit(armor)
 
-
 func jump() -> void:
 	position_before_jumping = position
 	jump_animation_player.play("jump")
-
 
 func _dash() -> void:
 	dash_cooldown_timer.start()
@@ -432,41 +433,35 @@ func _dash() -> void:
 
 	dashed.emit(dash_time)
 
-
 func _on_dash_timer_timeout() -> void:
 	data.max_speed = previous_max_speed
 	await get_tree().create_timer(0.04).timeout
 	_stop_shadow_effect()
 
-
 func add_rotating_item(node: Node2D) -> void:
 	add_child(node)
 	rotating_items.push_back(node)
 
-	var rot: float = 2*PI / rotating_items.size()
+	var rot: float = 2 * PI / rotating_items.size()
 	for i: int in rotating_items.size():
 		rotating_items[i].rotation = rot * i
 
 	if node is PhysicsBody2D and weapons.current_weapon is MeleeWeapon:
 		(weapons.current_weapon as MeleeWeapon).hitbox.exclude.push_back(node)
 
-
 func remove_rotating_item(node: Node2D) -> void:
 	rotating_items.erase(node)
 	node.queue_free()
 
-	var rot: float = 2*PI / rotating_items.size()
+	var rot: float = 2 * PI / rotating_items.size()
 	for i: int in rotating_items.size():
 		rotating_items[i].rotation = rot * i
-
 
 func can_pick_up_weapon(weapon: Weapon) -> bool:
 	return weapons.can_pick_up_weapon(weapon)
 
-
 func _on_died() -> void:
 	SavedData.add_enemy_player_kill((life_component as PlayerLifeComponent).last_damage_dealer_id)
-
 
 func enable_mirage() -> void:
 	(mirage.material as ShaderMaterial).shader = load("res://shaders_and_particles/Mirage.gdshader")
@@ -474,11 +469,9 @@ func enable_mirage() -> void:
 
 	mirage_timer.start()
 
-
 func disable_mirage() -> void:
 	mirage.hide()
 	(mirage.material as ShaderMaterial).shader = null
-
 
 func _use_armor_ability() -> void:
 	assert(armor)
@@ -498,10 +491,8 @@ func _use_armor_ability() -> void:
 
 	armor.is_able_to_use_ability = true
 
-
 func get_armor_recharge_time() -> float:
 	return armor.recharge_time * (1.0 - armor_ability_recharge_time_reduction)
-
 
 func set_acid_progress(new_value: float) -> void:
 	super(new_value)
@@ -511,19 +502,16 @@ func set_acid_progress(new_value: float) -> void:
 	if acid_progress == 0.0:
 		acid_bar.hide()
 
-
 func start_progressing_acid() -> void:
 	super()
 
 	acid_bar.show()
-
 
 func is_on_water() -> bool:
 	if current_room:
 		return current_room.is_on_water(position - current_room.position)
 	else:
 		return false
-
 
 func get_exclude_bodies() -> Array[Node2D]:
 	var arr: Array[Node2D] = [self]
@@ -534,7 +522,6 @@ func get_exclude_bodies() -> Array[Node2D]:
 			arr.push_back(body)
 
 	return arr
-
 
 func start_dialogue(text: String) -> void:
 	dialogue_box = DIALOGUE_BOX_SCENE.instantiate()
@@ -553,11 +540,35 @@ func start_dialogue(text: String) -> void:
 	#used_dialogue_texts.push_back(random_dialogue_text)
 
 	dialogue_box.finished_displaying_text.connect(func() -> void:
-		dialogue_tween = create_tween()
+		dialogue_tween=create_tween()
 		dialogue_tween.tween_property(dialogue_box, "modulate:a", 0.0, 1).set_delay(3)
 		await dialogue_tween.finished
-		dialogue_tween = null
+		dialogue_tween=null
 		dialogue_box.queue_free()
-		dialogue_box = null
+		dialogue_box=null
 		#dialogue_finished.emit()
 	)
+
+func _set_temperature(new_value: float) -> void:
+	temperature = new_value
+	match temperature_state:
+		COLD:
+			if temperature > COLD_TEMPERATURE:
+				_set_temperature_state(WARM)
+				data.max_speed += 50
+		WARM:
+			if temperature <= COLD_TEMPERATURE:
+				_set_temperature_state(COLD)
+				data.max_speed -= 50
+				#var ice_status: IceStatusComponent = IceStatusComponent.new( - 1)
+				#add_child(ice_status)
+				#ice_status.add()
+
+func _set_temperature_state(new_value: int) -> void:
+	assert(temperature_state != new_value)
+	temperature_state = new_value
+	match temperature_state:
+		COLD:
+			modulate = Color.DEEP_SKY_BLUE
+		WARM:
+			modulate = Color.WHITE
