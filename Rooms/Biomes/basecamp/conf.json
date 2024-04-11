@@ -37,12 +37,13 @@
 			"num_special_rooms": 0,
 			"overwrite_start_rooms": [
 				"res://Rooms/Biomes/basecamp/BaseCamp.tscn"
-			],
-		},
+			]
+		}
 	},
 	"music": "",
-	"music_volume_db": -4.0,
+	"music_volume_db": -4,
 	"weather_modificators": [
 		"res://Rooms/weather_modificators/light_snow.gd"
-	]
+	],
+	"temperature": -10
 }
