@@ -255,11 +255,13 @@ class ItemsUI extends MarginContainer:
 			hflow.add_child(icon)
 
 	func update_weapons(weapons: Array[Weapon]) -> void:
-		for weapon: Weapon in weapons:
+		#for weapon: Weapon in weapons:
+		if not weapons.is_empty():
 			var icon: TextureRect = TextureRect.new()
-			icon.custom_minimum_size.x = 10
 			icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-			icon.expand_mode = TextureRect.EXPAND_FIT_HEIGHT
 			icon.size_flags_vertical = Control.SIZE_EXPAND_FILL
-			icon.texture = weapon.data.prop
+			#icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			#icon.expand_mode = TextureRect.EXPAND_FIT_HEIGHT
+			#icon.size_flags_vertical = Control.SIZE_EXPAND_FILL
+			icon.texture = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/sword_icon.png")
 			hflow.add_child(icon)
