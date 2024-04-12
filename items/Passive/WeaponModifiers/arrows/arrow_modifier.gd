@@ -3,12 +3,12 @@ class_name ArrowModifier extends WeaponModifier
 var type: Arrow.Type
 
 
-func equip(weapon: Weapon) -> void:
+func equip_to_weapon(weapon: Weapon) -> void:
 	assert(weapon is BowOrCrossbowWeapon)
 	weapon.arrow_type = type
 
 
-func unequip(weapon: Weapon) -> void:
+func unequip_from_weapon(weapon: Weapon) -> void:
 	assert(weapon is BowOrCrossbowWeapon)
 #	weapon.arrow_type = type
 

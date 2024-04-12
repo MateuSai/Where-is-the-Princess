@@ -96,7 +96,7 @@ func _ready() -> void:
 func load_modifiers() -> void:
 	for modifier: WeaponModifier in stats.modifiers:
 		# modifier.equip(get_parent().get_parent())
-		modifier.equip(self)
+		modifier.equip_to_weapon(self)
 
 
 func _unhandled_input(event: InputEvent) -> void:

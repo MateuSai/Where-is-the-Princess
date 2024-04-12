@@ -176,6 +176,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_qcjm2")
 
 [node name="Settings" type="StaticBody2D" parent="."]
+visible = false
 position = Vector2(107, 112)
 
 [node name="Sprite2D" type="Sprite2D" parent="Settings"]
@@ -230,8 +231,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = -8.0
-offset_bottom = -8.0
+offset_right = 192.0
+offset_bottom = 142.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_nybk1")

@@ -16,14 +16,14 @@ collision_mask = 0
 script = ExtResource("1_02ruk")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-6, -8)
+position = Vector2(8, -8)
 texture = ExtResource("2_ld4he")
 hframes = 10
 vframes = 2
 frame = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -8)
+position = Vector2(14.5, -8)
 shape = SubResource("RectangleShape2D_jnsij")
 
 [node name="LifeComponent" type="Node" parent="."]
@@ -31,7 +31,8 @@ script = ExtResource("3_d0db3")
 body_type = 3
 hp = 4
 
-[node name="SpawnFragmentsOnDied" type="Node" parent="."]
+[node name="SpawnFragmentsOnDied" type="Node2D" parent="."]
+position = Vector2(14.5, -8)
 script = ExtResource("4_mlcta")
 min_fragments = 2
 max_fragments = 4

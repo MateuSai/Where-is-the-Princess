@@ -34,7 +34,7 @@ hp = 4
 [node name="ShakeComponent" type="Node" parent="."]
 script = ExtResource("4_opbo7")
 
-[node name="SpawnFragmentsOnDied" type="Node" parent="."]
+[node name="SpawnFragmentsOnDied" type="Node2D" parent="."]
 script = ExtResource("5_h0e34")
 
 [node name="RemoveCollisionsOnDied" type="Node" parent="."]
