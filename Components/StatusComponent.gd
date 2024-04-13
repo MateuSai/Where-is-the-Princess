@@ -1,4 +1,4 @@
-class_name StatusComponent extends Node
+class_name StatusComponent extends Node2D
 
 var life_component: LifeComponent
 

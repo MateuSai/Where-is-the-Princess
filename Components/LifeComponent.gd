@@ -44,7 +44,7 @@ signal hp_changed(new_hp: int)
 signal damage_taken(dam: int, dir: Vector2, force: int)
 signal died()
 
-@onready var parent: Node2D = get_parent()
+@onready var parent: Node = get_parent()
 
 
 func _ready() -> void:

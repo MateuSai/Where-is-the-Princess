@@ -568,22 +568,22 @@ func _create_corridors() -> bool:
 
 	for room: DungeonRoom in rooms:
 		#FIXME we have to duplicate the room, otherwise the oclidders are messed up
-		var room_path: String = room.scene_file_path
-		var room_substitute: DungeonRoom = load(room_path).instantiate()
-		room_substitute.position = room.position
-		room_substitute.name = room.name
-		rooms.erase(room)
-		room.queue_free()
-		await get_tree().process_frame
-		room = room_substitute
-		rooms.push_back(room)
-		add_child(room)
+		#var room_path: String = room.scene_file_path
+		#var room_substitute: DungeonRoom = load(room_path).instantiate()
+		#room_substitute.position = room.position
+		#room_substitute.name = room.name
+		#rooms.erase(room)
+		#room.queue_free()
+		#await get_tree().process_frame
+		#room = room_substitute
+		#rooms.push_back(room)
+		#add_child(room)
 
 		room.add_doors_and_walls(corridor_tile_map)
 		room.generate_room_white_image()
 		room.setup_navigation()
 
-	start_room = rooms[0]
+	#start_room = rooms[0]
 
 	if debug:
 		await get_tree().process_frame
@@ -603,12 +603,12 @@ func _create_corridors() -> bool:
 		await get_tree().create_timer(pause_between_steps * 2).timeout
 
 	# FIXME This spaghetti makes the occluders appear on the right position. Without this, it seems like they don't move alongside the rooms, that's why I have to recreate the tilemap after it is on the final position
-	#for room: DungeonRoom in rooms:
-	#	var tilemap_clone: TileMap = TileMap.new()
-	#	tilemap_clone.y_sort_enabled = true
+	for room: DungeonRoom in rooms:
+		var tilemap_clone: TileMap = TileMap.new()
+		tilemap_clone.y_sort_enabled = true
 
-	#	for group: String in room.tilemap.get_groups():
-	#		tilemap_clone.add_to_group(group)
+		for group: String in room.tilemap.get_groups():
+			tilemap_clone.add_to_group(group)
 
 		#var tileset: TileSet = TileSet.new()
 		#tileset.tile_size = Vector2i(TILE_SIZE, TILE_SIZE)
@@ -624,22 +624,22 @@ func _create_corridors() -> bool:
 				#atlas.create_tile(Vector2i(i, j))
 		#tileset.add_source(atlas)
 
-	#	for layer_i: int in room.tilemap.get_layers_count():
-	#		tilemap_clone.add_layer(layer_i)
-	#		tilemap_clone.set_layer_z_index(layer_i, room.tilemap.get_layer_z_index(layer_i))
-	#		tilemap_clone.set_layer_navigation_enabled(layer_i, room.tilemap.is_layer_navigation_enabled(layer_i))
-	#		tilemap_clone.set_layer_y_sort_enabled(layer_i, room.tilemap.is_layer_y_sort_enabled(layer_i))
+		for layer_i: int in room.tilemap.get_layers_count():
+			tilemap_clone.add_layer(layer_i)
+			tilemap_clone.set_layer_z_index(layer_i, room.tilemap.get_layer_z_index(layer_i))
+			tilemap_clone.set_layer_navigation_enabled(layer_i, room.tilemap.is_layer_navigation_enabled(layer_i))
+			tilemap_clone.set_layer_y_sort_enabled(layer_i, room.tilemap.is_layer_y_sort_enabled(layer_i))
 
 		#tileset.add_navigation_layer()
 		#tileset.add_navigation_layer()
-	#	tilemap_clone.tile_set = room.tilemap.tile_set
+		tilemap_clone.tile_set = room.tilemap.tile_set
 
-	#	for layer: int in room.tilemap.get_layers_count():
-	#		for cell: Vector2i in room.tilemap.get_used_cells(layer):
-	#			tilemap_clone.set_cell(layer, cell, room.tilemap.get_cell_source_id(layer, cell), room.tilemap.get_cell_atlas_coords(layer, cell))
-	#	room.tilemap.queue_free()
-	#	room.add_child(tilemap_clone)
-	#	room.tilemap = tilemap_clone
+		for layer: int in room.tilemap.get_layers_count():
+			for cell: Vector2i in room.tilemap.get_used_cells(layer):
+				tilemap_clone.set_cell(layer, cell, room.tilemap.get_cell_source_id(layer, cell), room.tilemap.get_cell_atlas_coords(layer, cell))
+		room.tilemap.queue_free()
+		room.add_child(tilemap_clone)
+		room.tilemap = tilemap_clone
 
 	generation_completed.emit()
 

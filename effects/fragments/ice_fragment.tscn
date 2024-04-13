@@ -1,0 +1,24 @@
+[gd_scene load_steps=8 format=3 uid="uid://d2ed58n3vlt5l"]
+
+[ext_resource type="Texture2D" uid="uid://dlsp0gf2w0gcl" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/ice_schrapnel_01.png" id="1_6wi6e"]
+[ext_resource type="Script" path="res://effects/fragments/fragment.gd" id="2_20ehr"]
+[ext_resource type="Texture2D" uid="uid://dmw3ik62ll8it" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/ice_schrapnel_02.png" id="3_ut35f"]
+[ext_resource type="Texture2D" uid="uid://b4gqx3tdq211q" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/ice_schrapnel_03.png" id="4_ewyep"]
+[ext_resource type="Texture2D" uid="uid://djguw17nj2mt5" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/ice_schrapnel_04.png" id="5_uas8n"]
+[ext_resource type="Texture2D" uid="uid://d3nmtp8s6w2v1" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/ice_schrapnel_05.png" id="6_ef8qj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_57ojh"]
+radius = 7.0
+
+[node name="IceFragment" type="Sprite2D"]
+z_index = -1
+texture = ExtResource("1_6wi6e")
+script = ExtResource("2_20ehr")
+textures = Array[Texture2D]([ExtResource("1_6wi6e"), ExtResource("3_ut35f"), ExtResource("4_ewyep"), ExtResource("5_uas8n"), ExtResource("6_ef8qj")])
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_57ojh")

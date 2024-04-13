@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bt5pqsktalfbb"]
 
 [ext_resource type="Texture2D" uid="uid://bx67lkqm0a2hq" path="res://Art/crate/wood-particle_01.png" id="1_225js"]
-[ext_resource type="Script" path="res://Rooms/Furniture and Traps/fragment.gd" id="1_j2dps"]
+[ext_resource type="Script" path="res://effects/fragments/fragment.gd" id="1_j2dps"]
 [ext_resource type="Texture2D" uid="uid://cnsrd3rx7f7nm" path="res://Art/crate/wood-particle_02.png" id="3_mstfx"]
 [ext_resource type="Texture2D" uid="uid://cyplr817xw0a7" path="res://Art/crate/wood-particle_03.png" id="4_3un2m"]
 [ext_resource type="Texture2D" uid="uid://c8j6xq1lbyx5h" path="res://Art/crate/wood-particle_04.png" id="5_uvsxo"]

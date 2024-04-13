@@ -8,11 +8,11 @@ class_name DungeonRoom extends NavigationRegion2D
 const GROUND_UNITS_NAVIGATION_GROUP: StringName = "navigation_polygon_source_group"
 const FLYING_UNITS_NAVIGATION_GROUP: StringName = "flying_units_navigation_polygon_source_group"
 
-const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/SpawnExplosion.tscn")
+const SPAWN_EXPLOSION_SCENE: PackedScene = preload ("res://Characters/Enemies/SpawnExplosion.tscn")
 
-const HORIZONTAL_UP_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/HorizontalUpDoor.tscn")
-const HORIZONTAL_DOWN_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/HorizontalDownDoor.tscn")
-const VERTICAL_DOOR: PackedScene = preload("res://Rooms/Furniture and Traps/VerticalDoor.tscn")
+const HORIZONTAL_UP_DOOR: PackedScene = preload ("res://Rooms/Furniture and Traps/HorizontalUpDoor.tscn")
+const HORIZONTAL_DOWN_DOOR: PackedScene = preload ("res://Rooms/Furniture and Traps/HorizontalDownDoor.tscn")
+const VERTICAL_DOOR: PackedScene = preload ("res://Rooms/Furniture and Traps/VerticalDoor.tscn")
 
 const WATER_LAYER_ID: int = 4
 var ATLAS_ID: int
@@ -29,6 +29,9 @@ enum EntryDirection {
 	DOWN,
 }
 var used_entries: Array[Node] = []
+
+var baking_navigation: bool = false
+var baking_pending: bool = false
 
 var agent_radius: int = 5
 var navigation_map_flying_units: RID
@@ -58,7 +61,7 @@ signal last_enemy_died(enemy: Enemy)
 var room_white_image: Image
 @onready var room_white_image_offset: Vector2i = tilemap_offset
 
-@onready var vector_to_center: Vector2 = ((tilemap.get_used_rect().size/2) + tilemap.get_used_rect().position) * Rooms.TILE_SIZE
+@onready var vector_to_center: Vector2 = ((tilemap.get_used_rect().size / 2) + tilemap.get_used_rect().position) * Rooms.TILE_SIZE
 @onready var radius: float = (tilemap.get_used_rect().size.length() * Rooms.TILE_SIZE) / 2.0
 @onready var room_rect_margin: int = SavedData.get_biome_conf().room_rect_margin
 @onready var room_rect: Rect2 = Rect2(tilemap.get_used_rect().position * Rooms.TILE_SIZE, tilemap.get_used_rect().size * Rooms.TILE_SIZE).grow(room_rect_margin)
@@ -67,7 +70,6 @@ var room_white_image: Image
 @onready var enemy_positions_container: Node2D = get_node("EnemyPositions")
 @onready var items_container: Node2D = $Items
 @onready var weapons_container: Node2D = $Weapons
-
 
 func _ready() -> void:
 	assert(tilemap.position == Vector2.ZERO, "The tilemap must be at the position (0, 0)")
@@ -103,10 +105,15 @@ func _ready() -> void:
 	navigation_region_to_debug_flying_units_navigation.name = "FlyingUnitsNavigationDebug"
 	navigation_region_to_debug_flying_units_navigation.navigation_polygon = NavigationPolygon.new()
 
+	bake_finished.connect(func() -> void:
+		baking_navigation=false
+		if baking_pending:
+			baking_pending=false
+			update_navigation()
+	)
 
 func _exit_tree() -> void:
 	_free_navigation()
-
 
 func _draw() -> void:
 	pass
@@ -114,7 +121,6 @@ func _draw() -> void:
 #		draw_rect(room_rect, Color.RED)
 #		draw_circle(vector_to_center, radius, Color.RED)
 #		draw_circle(vector_to_center, (vector_to_center - Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE)).length(), Color.RED)
-
 
 func generate_room_white_image() -> void:
 	var size: Vector2 = tilemap.get_used_rect().size * Rooms.TILE_SIZE
@@ -186,7 +192,7 @@ func generate_room_white_image() -> void:
 		rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset), Vector2.ONE * Rooms.TILE_SIZE)
 
 		for layer: int in layers_to_check:
-			if tilemap.get_cell_atlas_coords(layer, tile_cell) == Vector2i(-1, -1):
+			if tilemap.get_cell_atlas_coords(layer, tile_cell) == Vector2i( - 1, -1):
 				continue
 
 			var tile_image: Image = tileset_image.get_region(Rect2(tilemap.get_cell_atlas_coords(layer, tile_cell) * Rooms.TILE_SIZE, Vector2(16, 16)))
@@ -202,7 +208,6 @@ func generate_room_white_image() -> void:
 			var image_size: Vector2 = tile_image.get_size()
 			room_white_image.blend_rect(tile_image, Rect2(Vector2.ZERO, image_size), rect.position)
 
-
 func get_separation_steering_dir(rooms_array: Array[DungeonRoom], delta: float) -> Vector2:
 	var dir: Vector2 = Vector2.ZERO
 	var this_room_rect: Rect2 = room_rect
@@ -217,7 +222,7 @@ func get_separation_steering_dir(rooms_array: Array[DungeonRoom], delta: float) 
 #		if vector_to_room.length() < (radius + room.radius):
 			# vector_to_room is a vector to the other room, but we don't want to move in that direction, bhut in the other. We will only add the direction if the room areas are colliding. If they are colliding just at the limit (vector_to_room.length() - radius - room.radius) will be 0, so that room won't affect this room movement. As the rooms glow closer (vector_to_room.length() - radius - room.radius) will increase negatively, so if the rooms are on the same position it will be equal to vector_to_room.length(). The fact that this value is negative makes the rooms separate instead of coming closer
 			#dir += vector_to_room * (vector_to_room.length() - radius - room.radius)
-			dir += -vector_to_room# * (vector_to_room.length() - radius - room.radius)
+			dir += - vector_to_room # * (vector_to_room.length() - radius - room.radius)
 			#dir -= 1 - (vector_to_room)
 
 	if disable_horizontal_separation_steering:
@@ -225,28 +230,30 @@ func get_separation_steering_dir(rooms_array: Array[DungeonRoom], delta: float) 
 
 	float_position += dir.normalized() * 500 * randf_range(0.9, 1.1) * delta
 	#float_position += dir * randf_range(0.9, 1.1) * delta
-	position = round(float_position/Rooms.TILE_SIZE) * Rooms.TILE_SIZE
+	position = round(float_position / Rooms.TILE_SIZE) * Rooms.TILE_SIZE
 
 	return dir
-
 
 func setup_navigation() -> void:
 	navigation_polygon.agent_radius = agent_radius
 
 	update_navigation()
 
-
 func update_navigation() -> void:
-	#print("Updating navigation of room " + name)
-	bake_navigation_polygon(true)
-	#NavigationServer2D.region_set_transform(get_region_rid(), get_global_transform())
+	if baking_navigation:
+		baking_pending = true
+	else:
+		baking_navigation = true
 
-	_free_navigation()
-	_generate_flying_units_navigation()
-	NavigationServer2D.region_set_transform(navigation_region_flying_units, get_global_transform())
+		#print("Updating navigation of room " + name)
+		bake_navigation_polygon(true)
+		#NavigationServer2D.region_set_transform(get_region_rid(), get_global_transform())
 
-	navigation_updated.emit()
+		_free_navigation()
+		_generate_flying_units_navigation()
+		NavigationServer2D.region_set_transform(navigation_region_flying_units, get_global_transform())
 
+		navigation_updated.emit()
 
 func _has_entry(dir: EntryDirection) -> bool:
 	var direction_entries: Array[Node] = entries[dir].get_children()
@@ -256,18 +263,15 @@ func _has_entry(dir: EntryDirection) -> bool:
 
 	return direction_entries.size() > 0
 
-
 #func get_entry_position(dir: EntryDirection) -> Vector2:
 #	return entries[dir].get_children()[0].global_position
-
 
 func get_entries(dir: EntryDirection) -> Array[EntryPositions]:
 	var arr: Array[EntryPositions] = []
 	arr.assign(entries[dir].get_children())
 	return arr
 
-
-func get_random_entry(dir: EntryDirection, to_connect_to: Node2D = null) -> Node:
+func get_random_entry(dir: EntryDirection, to_connect_to: Node2D=null) -> Node:
 	var direction_entries: Array[EntryPositions] = get_entries(dir)
 #	for entry in used_entries:
 #		if direction_entries.has(entry):
@@ -299,7 +303,6 @@ func get_random_entry(dir: EntryDirection, to_connect_to: Node2D = null) -> Node
 	#used_entries.push_back(rand_entry)
 	return rand_entry
 
-
 func is_connection_between_entries_possible(this_room_entry: Node2D, this_room_entry_dir: EntryDirection, other_room_entry: Node2D) -> bool:
 	match this_room_entry_dir:
 		EntryDirection.LEFT:
@@ -313,11 +316,9 @@ func is_connection_between_entries_possible(this_room_entry: Node2D, this_room_e
 
 	return false
 
-
 func mark_entry_as_used(entry: Node) -> void:
 	if not used_entries.has(entry):
 		used_entries.push_back(entry)
-
 
 func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 	for dir: EntryDirection in [EntryDirection.LEFT, EntryDirection.RIGHT]:
@@ -333,7 +334,7 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 				if dir == EntryDirection.LEFT:
 					vertical_door.position += Vector2(18, 6)
 				else:
-					vertical_door.position += Vector2(-2, 4)
+					vertical_door.position += Vector2( - 2, 4)
 					vertical_door.scale.x = -1
 				vertical_door.open_after_combat = entry.open_after_combat
 				door_container.add_child(vertical_door)
@@ -387,20 +388,19 @@ func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
 					tilemap.set_cell(0, tile_positions[0] + Vector2i.DOWN, ATLAS_ID, Rooms.FULL_WALL_COORDS[randi() % Rooms.FULL_WALL_COORDS.size()])
 					tilemap.set_cell(0, tile_positions[1] + Vector2i.DOWN, ATLAS_ID, Rooms.FULL_WALL_COORDS[randi() % Rooms.FULL_WALL_COORDS.size()])
 				else:
-					if tilemap.get_cell_atlas_coords(0, tile_positions[0] + Vector2i.LEFT) == Vector2i(-1, -1):
+					if tilemap.get_cell_atlas_coords(0, tile_positions[0] + Vector2i.LEFT) == Vector2i( - 1, -1):
 						tilemap.set_cell(1, tile_positions[0] + Vector2i.LEFT, ATLAS_ID, Rooms.LAST_LEFT_WALL_COOR)
 					else:
 						tilemap.set_cell(1, tile_positions[0] + Vector2i.LEFT, ATLAS_ID, Rooms.BOTTOM_WALL_COOR)
 					tilemap.set_cell(1, tile_positions[0], ATLAS_ID, Rooms.BOTTOM_WALL_COOR)
 					tilemap.set_cell(1, tile_positions[1], ATLAS_ID, Rooms.BOTTOM_WALL_COOR)
-					if tilemap.get_cell_atlas_coords(0, tile_positions[1] + Vector2i.RIGHT) == Vector2i(-1, -1):
+					if tilemap.get_cell_atlas_coords(0, tile_positions[1] + Vector2i.RIGHT) == Vector2i( - 1, -1):
 						tilemap.set_cell(1, tile_positions[1] + Vector2i.RIGHT, ATLAS_ID, Rooms.LAST_RIGHT_WALL_COOR)
 					else:
 						tilemap.set_cell(1, tile_positions[1] + Vector2i.RIGHT, ATLAS_ID, Rooms.BOTTOM_WALL_COOR)
 
 	for door: Door in door_container.get_children():
 		door.player_entered_room.connect(_on_player_entered_room)
-
 
 func _on_enemy_killed(enemy: Enemy) -> void:
 	num_enemies -= 1
@@ -412,12 +412,10 @@ func _on_enemy_killed(enemy: Enemy) -> void:
 		Globals.room_cleared.emit()
 		_open_doors()
 
-
 func _open_doors() -> void:
 	for door: Door in door_container.get_children():
 		if door.open_after_combat:
 			door.open()
-
 
 func _close_entrance() -> void:
 	for door: Door in door_container.get_children():
@@ -426,7 +424,6 @@ func _close_entrance() -> void:
 #		tilemap.set_cell(1, tilemap.local_to_map(entry_position.position), 1, Vector2i.ZERO)
 #		tilemap.set_cell(1, tilemap.local_to_map(entry_position.position) + Vector2i.DOWN, 2, Vector2i.ZERO)
 
-
 func remove_enemies_and_open_doors() -> void:
 	for i: int in range(enemy_positions_container.get_child_count() - 1, -1, -1):
 		enemy_positions_container.get_child(i).free()
@@ -434,7 +431,6 @@ func remove_enemies_and_open_doors() -> void:
 
 	_close_entrance()
 	_open_doors()
-
 
 func _spawn_enemies() -> void:
 	#var enemy_paths: Array[String] = Globals.get_enemy_paths(SavedData.run_stats.biome)
@@ -456,8 +452,6 @@ func _spawn_enemies() -> void:
 		var spawn_explosion: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()
 		spawn_explosion.position = enemy_marker.position
 		call_deferred("add_child", spawn_explosion)
-
-
 
 func _on_player_entered_room() -> void:
 	player_entered.emit()
@@ -486,7 +480,6 @@ func _on_player_entered_room() -> void:
 			#_close_entrance()
 			#_open_doors()
 
-
 func get_random_spawn_point(spawn_shape: Rooms.SpawnShape) -> Vector2:
 	#if name.begins_with("Boss"):
 		#pass
@@ -499,7 +492,7 @@ func get_random_spawn_point(spawn_shape: Rooms.SpawnShape) -> Vector2:
 	var entries_dir: Vector2 = Vector2.ZERO
 	for dir: EntryDirection in directions_with_entry:
 		entries_dir += [Vector2.LEFT, Vector2.UP, Vector2.RIGHT, Vector2.DOWN][dir]
-	entries_dir *= -1
+	entries_dir *= - 1
 
 	if directions_with_entry.size() == 4 or entries_dir == Vector2.ZERO:
 		if spawn_shape is Rooms.CircleSpawnShape:
@@ -512,7 +505,7 @@ func get_random_spawn_point(spawn_shape: Rooms.SpawnShape) -> Vector2:
 		#print(name + " " + str(en tries_dir) + " " + str(directions_with_entry))
 		if spawn_shape is Rooms.CircleSpawnShape:
 			var circle_spawn_shape: Rooms.CircleSpawnShape = spawn_shape
-			return Vector2.RIGHT.rotated(randf_range(entries_dir.angle() - PI/8, entries_dir.angle() + PI/8)) * circle_spawn_shape.radius
+			return Vector2.RIGHT.rotated(randf_range(entries_dir.angle() - PI / 8, entries_dir.angle() + PI / 8)) * circle_spawn_shape.radius
 		else: # Rectangle
 			var rectangle_spawn_shape: Rooms.RectangleSpawnShape = spawn_shape
 			entries_dir = ((entries_dir + Vector2.ONE) / 2.0).normalized()
@@ -520,11 +513,9 @@ func get_random_spawn_point(spawn_shape: Rooms.SpawnShape) -> Vector2:
 #			entries_dir.y = clamp(entries_dir.y, 0, 1)
 			return rectangle_spawn_shape.size * entries_dir
 
-
 func get_rect() -> Rect2i:
 #	return Rect2i(tilemap.get_used_rect().position * Rooms.TILE_SIZE, tilemap.get_used_rect().size * Rooms.TILE_SIZE)
 	return Rect2(Vector2i(position) + (tilemap.get_used_rect().position * 16), (tilemap.get_used_rect().size * 16))
-
 
 ## Increase num_enemies by 1 and adds the enemy to the scene tree
 func add_enemy(enemy: Enemy) -> void:
@@ -534,7 +525,6 @@ func add_enemy(enemy: Enemy) -> void:
 	var spawn_explosion: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()
 	spawn_explosion.position = enemy.position
 	call_deferred("add_child", spawn_explosion)
-
 
 func add_item_on_floor(item_on_floor: ItemOnFloor, at_pos: Vector2) -> void:
 	if is_on_water(at_pos):
@@ -546,12 +536,10 @@ func add_item_on_floor(item_on_floor: ItemOnFloor, at_pos: Vector2) -> void:
 		item_on_floor.position = at_pos
 		items_container.add_child(item_on_floor)
 
-
 func get_items() -> Array[ItemOnFloor]:
 	var array: Array[ItemOnFloor] = []
 	array.assign(items_container.get_children())
 	return array
-
 
 func add_weapon_on_floor(weapon: Weapon, at_pos: Vector2) -> void:
 	if is_on_water(at_pos):
@@ -563,16 +551,13 @@ func add_weapon_on_floor(weapon: Weapon, at_pos: Vector2) -> void:
 		weapon.position = at_pos
 		weapons_container.add_child(weapon)
 
-
 func get_weapons() -> Array[Weapon]:
 	var array: Array[Weapon] = []
 	array.assign(weapons_container.get_children())
 	return array
 
-
 func is_on_water(pos_relative_to_room: Vector2) -> bool:
-	return tilemap.get_cell_atlas_coords(WATER_LAYER_ID, tilemap.local_to_map(pos_relative_to_room)) != Vector2i(-1, -1)
-
+	return tilemap.get_cell_atlas_coords(WATER_LAYER_ID, tilemap.local_to_map(pos_relative_to_room)) != Vector2i( - 1, -1)
 
 func _generate_flying_units_navigation() -> void:
 	# Create a navigation mesh resource.
@@ -640,7 +625,6 @@ func _generate_flying_units_navigation() -> void:
 	NavigationServer2D.region_set_navigation_polygon(navigation_region_flying_units, navigation_mesh_flying_units)
 
 	#(get_node("FlyingUnitsNavigationDebug") as NavigationRegion2D).navigation_polygon = navigation_mesh_flying_units
-
 
 func _free_navigation() -> void:
 	if navigation_map_flying_units.is_valid():
