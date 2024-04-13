@@ -298,7 +298,7 @@ func pick_up_passive_item(item: PassiveItem) -> void:
 		permanent_passive_item_picked_up.emit(permanent_passive_item)
 	elif item is WeaponModifier:
 		var weapon_modifier_item: WeaponModifier = item
-		weapon_modifier_item.equip(weapons.current_weapon)
+		weapon_modifier_item.equip_to_weapon(weapons.current_weapon)
 		weapons.current_weapon.add_weapon_modifier(weapon_modifier_item)
 	else: # TemporalPassiveItem
 		assert(item is TemporalPassiveItem)
@@ -569,6 +569,6 @@ func _set_temperature_state(new_value: int) -> void:
 	temperature_state = new_value
 	match temperature_state:
 		COLD:
-			modulate = Color.DEEP_SKY_BLUE
+			sprite.modulate = Color.DEEP_SKY_BLUE
 		WARM:
-			modulate = Color.WHITE
+			sprite.modulate = Color.WHITE

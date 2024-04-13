@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://bc3jnn13by1bc"]
+
+[ext_resource type="Script" path="res://Rooms/Furniture and Traps/wooden_fence/horizontal_wooden_fence.gd" id="1_lj25s"]
+[ext_resource type="Script" path="res://Components/LifeComponent.gd" id="1_p8tve"]
+[ext_resource type="Texture2D" uid="uid://b2k5pdh228x5t" path="res://Art/wooden_fence.tres" id="1_qt2y4"]
+[ext_resource type="Script" path="res://Components/spawn_fragments_on_died.gd" id="4_b8vef"]
+[ext_resource type="Script" path="res://Components/explosion_on_died.gd" id="5_yypus"]
+[ext_resource type="Script" path="res://Components/remove_collisions_on_died.gd" id="6_aalf0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ur2me"]
+size = Vector2(16, 1)
+
+[node name="HorizontalWoodenFence" type="StaticBody2D"]
+collision_layer = 144
+collision_mask = 0
+script = ExtResource("1_lj25s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8, -8)
+texture = ExtResource("1_qt2y4")
+hframes = 10
+vframes = 2
+frame = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, -0.5)
+shape = SubResource("RectangleShape2D_ur2me")
+
+[node name="LifeComponent" type="Node" parent="."]
+script = ExtResource("1_p8tve")
+body_type = 3
+hp = 4
+
+[node name="SpawnFragmentsOnDied" type="Node2D" parent="."]
+position = Vector2(8, -1)
+script = ExtResource("4_b8vef")
+min_fragments = 2
+max_fragments = 4
+
+[node name="ExplosionOndied" type="Node" parent="."]
+script = ExtResource("5_yypus")
+
+[node name="RemoveCollisionsOnDied" type="Node" parent="."]
+script = ExtResource("6_aalf0")

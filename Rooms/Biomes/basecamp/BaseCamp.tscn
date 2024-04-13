@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=52 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="Script" path="res://Rooms/Biomes/basecamp/BaseCamp.gd" id="1_tpf7m"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="2_ipa5f"]
@@ -29,11 +29,17 @@
 [ext_resource type="PackedScene" uid="uid://d3qmv5odokhfh" path="res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn" id="31_pmolu"]
 [ext_resource type="PackedScene" uid="uid://dwiop8wuc7ah8" path="res://Rooms/cursed_idol/cursed_idol.tscn" id="34_0d44n"]
 [ext_resource type="PackedScene" uid="uid://cpyqtlqtdkuiq" path="res://Weapons/Ranged/scepters/lightning_stick/lightning_stick.tscn" id="34_nl6xg"]
+[ext_resource type="PackedScene" uid="uid://bphrmf6n5s7be" path="res://Rooms/Furniture and Traps/crate.tscn" id="35_epmjj"]
 [ext_resource type="PackedScene" uid="uid://bp2oo4273j0dc" path="res://Weapons/Melee/spear/Spear.tscn" id="35_gq7sc"]
+[ext_resource type="PackedScene" uid="uid://bc3jnn13by1bc" path="res://Rooms/Furniture and Traps/wooden_fence/horizontal_wooden_fence.tscn" id="36_ra5xu"]
 [ext_resource type="PackedScene" uid="uid://dkpyvq2xuuytm" path="res://Weapons/Ranged/crossbows/wooden_crossbow/wooden_crossbow.tscn" id="37_gon7g"]
 [ext_resource type="PackedScene" uid="uid://cpcdmduiwspc4" path="res://Rooms/Biomes/basecamp/base_camp_items_shop.tscn" id="37_qhx6q"]
+[ext_resource type="PackedScene" uid="uid://bvyids8lijklc" path="res://Rooms/Furniture and Traps/wooden_fence/left_bottom_vertical_wooden_fence.tscn" id="37_uty1x"]
+[ext_resource type="PackedScene" uid="uid://c3v57eiyj5m18" path="res://Rooms/Furniture and Traps/wooden_fence/left_top_vertical_wooden_fence.tscn" id="38_esjfg"]
 [ext_resource type="PackedScene" uid="uid://brjtvw0ivw80o" path="res://Characters/npcs/cats/black_cat/black_cat.tscn" id="38_vpu83"]
+[ext_resource type="PackedScene" uid="uid://b8gsakalplp52" path="res://Rooms/Furniture and Traps/wooden_fence/right_bottom_vertical_wooden_fence.tscn" id="39_ouwiq"]
 [ext_resource type="PackedScene" uid="uid://geovcmu2q826" path="res://Rooms/Furniture and Traps/sleeping_bag.tscn" id="39_sleg1"]
+[ext_resource type="PackedScene" uid="uid://cxx3eqxb68h25" path="res://Rooms/Furniture and Traps/wooden_fence/right_top_vertical_wooden_fence.tscn" id="40_u0ngm"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_s6u7b"]
 source_geometry_group_name = &"navigation_polygon_source_group"
@@ -170,6 +176,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_qcjm2")
 
 [node name="Settings" type="StaticBody2D" parent="."]
+visible = false
 position = Vector2(107, 112)
 
 [node name="Sprite2D" type="Sprite2D" parent="Settings"]
@@ -426,3 +433,30 @@ position = Vector2(169, 156)
 
 [node name="CursedIdol" parent="." instance=ExtResource("34_0d44n")]
 position = Vector2(139, 76)
+
+[node name="Crate" parent="." instance=ExtResource("35_epmjj")]
+position = Vector2(99, 89)
+
+[node name="HorizontalWoodenFence" parent="." instance=ExtResource("36_ra5xu")]
+position = Vector2(85, 128)
+
+[node name="HorizontalWoodenFence2" parent="." instance=ExtResource("36_ra5xu")]
+position = Vector2(101, 128)
+
+[node name="HorizontalWoodenFence3" parent="." instance=ExtResource("36_ra5xu")]
+position = Vector2(85, 111)
+
+[node name="HorizontalWoodenFence4" parent="." instance=ExtResource("36_ra5xu")]
+position = Vector2(101, 111)
+
+[node name="LeftBottomVerticalWoodenFence" parent="." instance=ExtResource("37_uty1x")]
+position = Vector2(75, 128)
+
+[node name="LeftTopVerticalWoodenFence" parent="." instance=ExtResource("38_esjfg")]
+position = Vector2(75, 112)
+
+[node name="RightBottomVerticalWoodenFence" parent="." instance=ExtResource("39_ouwiq")]
+position = Vector2(110, 128)
+
+[node name="RightTopVerticalWoodenFence" parent="." instance=ExtResource("40_u0ngm")]
+position = Vector2(110, 112)

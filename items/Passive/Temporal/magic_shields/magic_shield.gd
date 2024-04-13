@@ -8,14 +8,11 @@ var max_hp: int
 
 var spritesheet: Texture2D
 
-
 func _init() -> void:
 	first_time_pickup = false
 
-
 #func _init() -> void:
 #	_initialize(load("res://Art/items/ShieldAnimation.tres"))
-
 
 func equip(player: Player) -> void:
 	assert(max_hp)
@@ -26,10 +23,11 @@ func equip(player: Player) -> void:
 	magic_shield_node.life_component.max_hp = max_hp
 	magic_shield_node.life_component.hp = hp
 	magic_shield_node.sprite.texture = spritesheet
-	magic_shield_node.hp_changed.connect(func(new_hp: int) -> void: hp = new_hp)
+	magic_shield_node.hp_changed.connect(func(new_hp: int) -> void: hp=new_hp)
 	magic_shield_node.destroyed.connect(func() -> void: player.unequip_passive_item(self))
 	player.add_rotating_item(magic_shield_node)
 
+	super(player)
 
 func unequip(player: Player) -> void:
 	var particles: GPUParticles2D = (load("res://shaders_and_particles/DestroyParticles.tscn") as PackedScene).instantiate()
@@ -37,6 +35,7 @@ func unequip(player: Player) -> void:
 	magic_shield_node.get_tree().current_scene.add_child(particles)
 	player.remove_rotating_item(magic_shield_node)
 
+	super(player)
 
 class MagicShieldNode extends StaticBody2D:
 	var prev_rot: float = 0
@@ -75,15 +74,14 @@ class MagicShieldNode extends StaticBody2D:
 		life_component.died.connect(func() -> void: destroyed.emit())
 		add_child(life_component)
 
-
 	func _physics_process(delta: float) -> void:
 		prev_rot = rotation
-		rotation = wrapf(rotation - 3 * delta, 0, 2*PI)
+		rotation = wrapf(rotation - 3 * delta, 0, 2 * PI)
 		#print(rotation)
-		if rotation < 3*PI/2 and prev_rot > 3*PI/2:
+		if rotation < 3 * PI / 2 and prev_rot > 3 * PI / 2:
 			get_parent().move_child(self, 0)
-		elif rotation < PI/2 and prev_rot > PI/2:
-			get_parent().move_child(self, get_parent().get_child_count()-1)
+		elif rotation < PI / 2 and prev_rot > PI / 2:
+			get_parent().move_child(self, get_parent().get_child_count() - 1)
 
 		sprite.global_rotation = 0
-		sprite.frame = floor(((2*PI - rotation) / (2*PI)) * sprite.hframes)
+		sprite.frame = floor(((2 * PI - rotation) / (2 * PI)) * sprite.hframes)

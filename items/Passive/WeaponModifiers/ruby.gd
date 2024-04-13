@@ -13,9 +13,9 @@ func get_big_icon() -> Texture2D:
 #func reequip(weapon: Weapon) -> void:
 #	weapon.add_status_inflicter(StatusComponent.Status.FIRE)
 
-func equip(weapon: Weapon) -> void:
+func equip_to_weapon(weapon: Weapon) -> void:
 	_add_status_inflicter(weapon, StatusComponent.Status.FIRE)
 	#weapon.add_status_inflicter(StatusComponent.Status.FIRE, amount)
 
-func unequip(_weapon: Weapon) -> void:
+func unequip_from_weapon(_weapon: Weapon) -> void:
 	pass

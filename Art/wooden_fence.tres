@@ -1,0 +1,8 @@
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://b2k5pdh228x5t"]
+
+[ext_resource type="Texture2D" uid="uid://s7ubt3vhjr02" path="res://Art/wooden_fence_albedo.png" id="1_nytfk"]
+[ext_resource type="Texture2D" uid="uid://chj6ftmgeob2d" path="res://Art/wooden_fence_normal.png" id="2_a4hfe"]
+
+[resource]
+diffuse_texture = ExtResource("1_nytfk")
+normal_texture = ExtResource("2_a4hfe")
