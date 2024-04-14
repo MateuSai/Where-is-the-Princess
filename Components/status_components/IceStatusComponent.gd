@@ -27,7 +27,7 @@ func _ready() -> void:
 	spawn_fragments_component = SpawnFragmentsOnDied.new()
 	add_child(spawn_fragments_component)
 	spawn_fragments_component.fragment_scene = load("res://effects/fragments/ice_fragment.tscn")
-	spawn_fragments_component.min_fragments = 2
+	spawn_fragments_component.min_fragments = 3
 	spawn_fragments_component.max_fragments = 4
 
 	set_process_unhandled_input(false)

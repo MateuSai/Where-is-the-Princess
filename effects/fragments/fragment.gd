@@ -4,12 +4,13 @@ class_name Fragment extends Sprite2D
 
 @onready var area: Area2D = $Area2D
 
-
 func _ready() -> void:
 	assert(not textures.is_empty())
 
-
 func throw(thrower_body: Node, dir: Vector2) -> void:
+	if dir == Vector2.ZERO:
+		dir = Vector2.RIGHT.rotated(randf_range(0, 2 * PI))
+
 	texture = textures[randi() % textures.size()]
 	var tween: Tween = create_tween()
 	tween.set_parallel(true)
