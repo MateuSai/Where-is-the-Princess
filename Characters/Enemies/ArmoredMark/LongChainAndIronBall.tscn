@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://c603n6gdstyml"]
 
-[ext_resource type="Script" path="res://Characters/Enemies/aggressor_mark/WeaponWithRope.gd" id="1_8c181"]
+[ext_resource type="Script" path="res://Characters/Enemies/toasted_mark/WeaponWithRope.gd" id="1_8c181"]
 [ext_resource type="Texture2D" uid="uid://co8qs2inyx147" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/reptiles/chain-link.png" id="2_uedwe"]
 [ext_resource type="Texture2D" uid="uid://darmns08iyc2t" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/reptiles/chain-end.png" id="3_v8cnt"]
 [ext_resource type="Script" path="res://Characters/Hitbox.gd" id="4_e1y0t"]

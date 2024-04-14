@@ -39,6 +39,8 @@ var acid_progress: float = 0.0: set = set_acid_progress # # Value between 0 and 
 
 var spawn_shadow_timer: Timer
 
+var behavior_tree: BeehaveTree
+
 ## The name of the scene file after removing .tscn and converting it to snake_case
 @onready var id: String = scene_file_path.get_file().trim_suffix(".tscn").to_snake_case()
 
@@ -93,6 +95,11 @@ func _ready() -> void:
 	)
 	state_machine.start()
 
+	for child: Node in get_children():
+		if child is BeehaveTree:
+			behavior_tree = child
+			break
+
 func _load_data() -> void:
 	data = Character.get_data(id)
 
@@ -127,7 +134,7 @@ func add_status_condition(status: StatusComponent.Status) -> void:
 	var status_key: String = StatusComponent.Status.keys()[status]
 	var status_component: StatusComponent = get_node_or_null(status_key)
 	if status_component == null:
-		status_component = [FireStatusComponent.new(), IceStatusComponent.new(), LightningStatusComponent.new(), AcidStatusComponent.new()][status]
+		status_component = load(["res://Components/status_components/FireStatusComponent.gd", "res://Components/status_components/IceStatusComponent.gd", "res://Components/status_components/LightningStatusComponent.gd", "res://Components/status_components/acid_status_component.gd"][status]).new()
 		add_child(status_component)
 		status_component.name = StatusComponent.Status.keys()[status]
 	status_component.add()
@@ -144,9 +151,12 @@ func _on_damage_taken(_dam: int, dir: Vector2, force: int) -> void:
 	if data.can_be_knocked_back:
 		velocity += dir * force / (data.mass / 3)
 	if life_component.hp == 0:
-		assert(state_machine.get("DEAD") != null)
-		@warning_ignore("unsafe_property_access", "unsafe_call_argument")
-		state_machine.set_state(state_machine.DEAD)
+		if behavior_tree:
+			behavior_tree.queue_free()
+		else:
+			assert(state_machine.get("DEAD") != null)
+			@warning_ignore("unsafe_property_access", "unsafe_call_argument")
+			state_machine.set_state(state_machine.DEAD)
 		if data.can_be_knocked_back:
 			velocity += dir * force / (data.mass / 3)
 

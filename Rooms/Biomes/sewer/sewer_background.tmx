@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.0" orientation="orthogonal" renderorder="right-down" width="9" height="6" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.8" tiledversion="1.8.0" orientation="orthogonal" renderorder="right-down" width="9" height="6" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="1">
  <tileset firstgid="1" source="sewer.tsx"/>
  <layer id="1" name="Tile Layer 1" width="9" height="6">
   <data encoding="csv">
-152,153,125,154,152,124,153,154,125,
-89,61,60,61,90,64,59,59,88,
-60,90,89,89,61,64,59,59,59,
-90,89,90,61,90,89,34,34,34,
-61,60,89,89,61,89,90,89,60,
-89,61,60,90,89,61,60,89,61
+152,153,125,125,154,263,264,265,154,
+89,61,60,60,61,237,234,235,59,
+60,90,89,61,89,237,234,235,59,
+90,89,90,63,61,237,234,235,34,
+61,60,89,60,89,267,268,269,89,
+89,61,60,89,90,237,234,235,89
+</data>
+ </layer>
+ <layer id="2" name="water walls" width="9" height="6">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,241,0,0,0,214,
+0,0,0,0,212,0,0,0,214,
+0,0,0,0,241,0,0,0,214,
+0,0,0,0,266,0,0,0,270,
+0,0,0,0,212,0,0,0,214
 </data>
  </layer>
 </map>

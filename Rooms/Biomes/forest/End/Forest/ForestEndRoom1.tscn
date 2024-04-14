@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_e01ab"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="3_eode6"]
 [ext_resource type="PackedScene" uid="uid://b2gbblx0gk0fu" path="res://Characters/npcs/el_barquero/ElBarquero.tscn" id="4_wvenh"]
-[ext_resource type="PackedScene" uid="uid://ctxt5ksnwkaw1" path="res://shaders_and_particles/RiverParticles.tscn" id="5_qdah3"]
+[ext_resource type="PackedScene" uid="uid://ctxt5ksnwkaw1" path="res://shaders_and_particles/particles/RiverParticles.tscn" id="5_qdah3"]
 [ext_resource type="PackedScene" uid="uid://dpmpcvnbhfml6" path="res://Audio/Sounds/RiverAudioStreamPlayer2D.tscn" id="6_klrcr"]
 [ext_resource type="PackedScene" uid="uid://c7jjeymooar8e" path="res://Rooms/Furniture and Traps/shop_sign.tscn" id="7_6rp4o"]
 [ext_resource type="PackedScene" uid="uid://dni71yi8jy772" path="res://Rooms/Furniture and Traps/boss_sign.tscn" id="8_edy43"]

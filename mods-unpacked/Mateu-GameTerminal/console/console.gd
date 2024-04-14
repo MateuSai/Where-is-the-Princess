@@ -145,6 +145,18 @@ func _process_command(command: String) -> void:
 						printerr("Invalid argument for set")
 			else:
 				printerr("Invalid number of arguments, you must specify what to set")
+		"add":
+			if splitted_command.size() > 1: # tiene otro argumento
+				match splitted_command[1].to_lower():
+					"status":
+						if splitted_command.size() > 2:
+							_add_status(splitted_command[2])
+						else:
+							printerr("You must specify a status")
+					_:
+						printerr("Invalid add option")
+			else:
+				printerr("Invalid number of arguments, you must specify what to add")
 		"spawn":
 			if splitted_command.size() > 1: # tiene otro argumento
 				match splitted_command[1].to_lower():
@@ -349,6 +361,22 @@ func _get_bool_from_string(s: String) -> bool:
 	else:
 		printerr("Can't convert string to bool, returning false")
 		return false
+
+func _add_status(status_string: String) -> void:
+	match status_string:
+		"ice":
+			Globals.player.add_status_condition(StatusComponent.Status.ICE)
+		"acid":
+			Globals.player.add_status_condition(StatusComponent.Status.ACID)
+		"fire":
+			Globals.player.add_status_condition(StatusComponent.Status.FIRE)
+		"lightning":
+			Globals.player.add_status_condition(StatusComponent.Status.LIGHTNING)
+		_:
+			printerr("invalid stauts")
+			return
+
+	hide()
 
 func _spawn_weapon(weapon_string: String) -> void:
 	var weapon_path: String

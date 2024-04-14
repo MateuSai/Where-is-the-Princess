@@ -29,12 +29,10 @@ var disabled: bool = false:
 @onready var pick_up_weapon_cooldown_timer: Timer = $"../Timers/PickUpWeaponCooldownTimer"
 @onready var equip_weapon_sound: AudioStreamPlayer = $"../EquipWeaponSound"
 
-
 func _ready() -> void:
 	super()
 
 	player.oh_shit_im_out_of_stamina.connect(_on_oh_shit_im_out_of_stamina)
-
 
 func load_previous_weapons() -> void:
 	var dagger: MeleeWeapon = get_child(0)
@@ -63,7 +61,6 @@ func load_previous_weapons() -> void:
 
 	weapon_switched.emit(get_child_count() - 1, SavedData.run_stats.equipped_weapon_index)
 
-
 func _unhandled_input(event: InputEvent) -> void:
 	if not current_weapon.is_busy():
 		if event.is_action_released("ui_previous_weapon"):
@@ -73,13 +70,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.is_action_pressed("ui_throw_weapon") and current_weapon.get_index() != 0:
 			_drop_weapon()
 
-
 func move(direction: Vector2) -> void:
 	if disabled:
 		return
 
 	super(direction)
-
 
 func _switch_weapon(direction: int) -> void:
 	var prev_index: int = current_weapon.get_index()
@@ -100,7 +95,6 @@ func _switch_weapon(direction: int) -> void:
 	SavedData.run_stats.equipped_weapon_index = index
 
 	weapon_switched.emit(prev_index, index)
-
 
 func pick_up_weapon(weapon: Weapon) -> void:
 	assert(can_pick_up_weapon(weapon))
@@ -137,7 +131,6 @@ func pick_up_weapon(weapon: Weapon) -> void:
 
 	equip_weapon_sound.play()
 
-
 func _drop_weapon() -> void:
 	pick_up_weapon_cooldown_timer.start()
 
@@ -163,6 +156,20 @@ func _drop_weapon() -> void:
 	var throw_dir: Vector2 = (get_global_mouse_position() - character_position).normalized()
 	weapon_to_drop.interpolate_pos(weapon_to_drop.position, weapon_to_drop.position + throw_dir * 50)
 
+func steal_weapon() -> Weapon:
+	assert(get_child_count() > 1)
+
+	SavedData.run_stats.weapon_stats.remove_at(current_weapon.get_index() - 1)
+	var weapon_to_steal: Weapon = current_weapon
+	weapon_to_steal.condition_changed.disconnect(_on_weapon_condition_changed)
+	weapon_to_steal.status_inflicter_added.disconnect(_on_weapon_status_inflicter_added)
+	_switch_weapon(UP)
+
+	weapon_droped.emit(weapon_to_steal.get_index())
+
+	remove_child(weapon_to_steal)
+
+	return weapon_to_steal
 
 func throw_weapon() -> void:
 	assert(current_weapon is MeleeWeapon)
@@ -187,7 +194,6 @@ func throw_weapon() -> void:
 	#get_tree().current_scene.add_child(weapon_to_drop)
 	weapon_to_drop.show()
 
-
 func _destroy_weapon() -> void:
 	SavedData.run_stats.weapon_stats.remove_at(current_weapon.get_index() - 1)
 	var weapon_to_drop: Weapon = current_weapon
@@ -205,18 +211,14 @@ func _destroy_weapon() -> void:
 	#print(str(weapon_to_drop.position) + "   " + str(weapon_to_drop.global_position))
 	weapon_to_drop.destroy()
 
-
 func cancel_attack() -> void:
 	current_weapon.cancel_attack()
-
 
 func can_current_weapon_pick_up_soul() -> bool:
 	return current_weapon.can_pick_up_soul()
 
-
 func add_soul_to_current_weapon() -> void:
 	current_weapon.stats.souls += 1
-
 
 func _on_weapon_condition_changed(weapon: Weapon, new_condition: float) -> void:
 	#assert(weapon == current_weapon)
@@ -228,10 +230,8 @@ func _on_weapon_condition_changed(weapon: Weapon, new_condition: float) -> void:
 	else:
 		weapon_condition_changed.emit(weapon, new_condition)
 
-
 func _on_weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status) -> void:
 	weapon_status_inflicter_added.emit(weapon, status)
-
 
 func set_current_weapon(new_weapon: Weapon) -> void:
 	if current_weapon != null:
@@ -247,24 +247,19 @@ func set_current_weapon(new_weapon: Weapon) -> void:
 	current_weapon.used_active_ability.connect(_on_active_ability)
 	current_weapon.charge_animation_still_executing.connect(_on_charge_animation_still_executing)
 
-
 func can_pick_up_weapon(weapon_to_pick: Weapon) -> bool:
 	return get_child_count() < max_weapons and weapon_to_pick != null and is_instance_valid(weapon_to_pick) and not weapon_to_pick.is_queued_for_deletion() and pick_up_weapon_cooldown_timer.is_stopped() and not current_weapon.is_busy()
-
 
 func _on_normal_attack() -> void:
 	player.stamina -= current_weapon.data.stamina_cost_per_normal_attack
 
 	normal_attacked.emit()
 
-
 func _on_active_ability() -> void:
 	player.stamina -= current_weapon.data.stamina_to_activate_active_ability
 
-
 func _on_charge_animation_still_executing() -> void:
 	player.stamina -= 0.7
-
 
 func _on_oh_shit_im_out_of_stamina() -> void:
 	if current_weapon.is_charging():

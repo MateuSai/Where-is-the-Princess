@@ -2,17 +2,22 @@ class_name PathfindingComponent extends Node
 
 var mode: Mode: set = set_mode
 
+enum ModeEnum {
+	APPROACH,
+	FLEE,
+	CIRCLE,
+	WANDER,
+}
+
 @onready var target: Character = Globals.player
 
 @onready var character: Character = get_parent()
 @onready var navigation_agent: NavigationAgent2D = character.get_node_or_null("NavigationAgent2D")
 
-
 func _ready() -> void:
 	assert(navigation_agent)
 
 	mode = Approach.new()
-
 
 func set_mode(new_mode: Mode) -> void:
 	if mode:
@@ -20,7 +25,6 @@ func set_mode(new_mode: Mode) -> void:
 	mode = new_mode
 	mode.initialize(character, navigation_agent, target)
 	add_child(mode)
-
 
 class Mode extends Node:
 	var character: Character
@@ -38,7 +42,7 @@ class Mode extends Node:
 		self.navigation_agent = navigation_agent
 		self.target = target
 
-	func _spawn_timer(wait_time: float = 0.2) -> void:
+	func _spawn_timer(wait_time: float=0.2) -> void:
 		timer = Timer.new()
 		timer.wait_time = wait_time
 		timer.timeout.connect(_on_timer_timeout)
@@ -47,7 +51,6 @@ class Mode extends Node:
 
 	func _on_timer_timeout() -> void:
 		pass
-
 
 class Approach extends Mode:
 	const ZIG_ZAG_FLAG: int = 1
@@ -69,13 +72,12 @@ class Approach extends Mode:
 		var vector_to_target: Vector2 = (target.global_position - character.global_position)
 		#if (character as Enemy).room:
 			#print_debug(NavigationServer2D.map_get_path((character as Enemy).room.navigation_map_flying_units, character.global_position, character.global_position + vector_to_target, false))
-		if flags & ZIG_ZAG_FLAG and vector_to_target.length() > 24:
-			var rot_dirs: Array[int] = [1, -1]
-			navigation_agent.target_position = character.global_position + vector_to_target.rotated(rot_dirs[randi() % 2] * PI/4)
+		if flags&ZIG_ZAG_FLAG and vector_to_target.length() > 24:
+			var rot_dirs: Array[int] = [1, - 1]
+			navigation_agent.target_position = character.global_position + vector_to_target.rotated(rot_dirs[randi() % 2] * PI / 4)
 		else:
 			#print(target.global_position)
 			navigation_agent.target_position = target.global_position
-
 
 class Flee extends Mode:
 	func _ready() -> void:
@@ -94,9 +96,8 @@ class Flee extends Mode:
 		var dir: Vector2 = (character.global_position - target.global_position).normalized()
 		navigation_agent.target_position = character.global_position + dir * 100
 
-
 class Circle extends Mode:
-	var rot_around_character_dir: int = [1, -1][randi() % 2]
+	var rot_around_character_dir: int = [1, - 1][randi() % 2]
 #	var distance_to_character_when_rotating_around_it: int = 20
 
 	func _ready() -> void:
@@ -121,7 +122,7 @@ class Circle extends Mode:
 #			navigation_agent.target_position = _get_closer_position_to_circle_target()
 
 	func _get_closer_position_to_circle_target() -> Vector2:
-		var new_target_position: Vector2 = target.global_position + (character.global_position - target.global_position).rotated(rot_around_character_dir * PI/4)
+		var new_target_position: Vector2 = target.global_position + (character.global_position - target.global_position).rotated(rot_around_character_dir * PI / 4)
 		#print(new_target_position)
 #		var tile_position = character.room.tilemap.local_to_map(new_target_position - character.room.tilemap.global_position)
 #		var tile_id = character.room.tilemap.get_cell_atlas_coords(0, tile_position)
@@ -140,12 +141,11 @@ class Circle extends Mode:
 		var result: Dictionary = space_state.intersect_ray(query)
 #		if not tile_data or tile_data.get_navigation_polygon(0) == null:
 		if not result.is_empty():
-			rot_around_character_dir *= -1
-			new_target_position = target.global_position + (character.global_position - target.global_position).rotated(rot_around_character_dir * PI/4)
+			rot_around_character_dir *= - 1
+			new_target_position = target.global_position + (character.global_position - target.global_position).rotated(rot_around_character_dir * PI / 4)
 #		else:
 #			print(tile_data.get_navigation_polygon(0))
 		return new_target_position
-
 
 class Wander extends Mode:
 	func _ready() -> void:
@@ -165,7 +165,7 @@ class Wander extends Mode:
 		var iterations: int = 0
 
 		while iterations < max_iterations:
-			navigation_agent.target_position = character.global_position + Vector2(randf_range(-64, 64), randf_range(-64, 64))
+			navigation_agent.target_position = character.global_position + Vector2(randf_range( - 64, 64), randf_range( - 64, 64))
 			if navigation_agent.is_target_reachable():
 				return
 

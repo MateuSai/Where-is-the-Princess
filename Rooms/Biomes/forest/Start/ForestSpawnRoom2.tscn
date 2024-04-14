@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_tj5eg"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="2_77vv7"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="2_824uq"]
-[ext_resource type="PackedScene" uid="uid://ctxt5ksnwkaw1" path="res://shaders_and_particles/RiverParticles.tscn" id="4_71qyw"]
+[ext_resource type="PackedScene" uid="uid://ctxt5ksnwkaw1" path="res://shaders_and_particles/particles/RiverParticles.tscn" id="4_71qyw"]
 [ext_resource type="PackedScene" uid="uid://b2gbblx0gk0fu" path="res://Characters/npcs/el_barquero/ElBarquero.tscn" id="5_js8gs"]
 [ext_resource type="PackedScene" uid="uid://dpmpcvnbhfml6" path="res://Audio/Sounds/RiverAudioStreamPlayer2D.tscn" id="6_44uxx"]
 [ext_resource type="PackedScene" uid="uid://dt58rwqk2borq" path="res://Rooms/game_shops/GameShopLevel1.tscn" id="7_o76v0"]

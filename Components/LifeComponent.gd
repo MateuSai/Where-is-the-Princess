@@ -14,8 +14,11 @@ signal thorn_damage_used()
 var damage_taken_multiplier: int = 1
 var extra_damage_taken: int = 0
 
-const BONES_HIT_SOUNDS: Array[AudioStream] = [preload("res://Audio/Sounds/impact/420252__redroxpeterpepper__step-skeleton.wav"), preload("res://Audio/Sounds/impact/420253__redroxpeterpepper__step-skeleton-2.wav")]
-const WOOD_HIT_SOUNDS: Array[AudioStream] = [preload("res://Audio/Sounds/impact/547414__ian_g__wood-hit.wav")]
+const CUT_FLESH_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Sword/MetalSlash1.wav"), preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Sword/MetalSlash2.wav"), preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Sword/MetalSlash3.wav")]
+const IMPACT_FLESH_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hit(Impact)/HitGore1.wav"), preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hit(Impact)/HitGore2.wav"), preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hit(Impact)/HitGore3.wav"), preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hit(Impact)/HitGore4.wav")]
+const BONES_HIT_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/impact/420252__redroxpeterpepper__step-skeleton.wav"), preload ("res://Audio/Sounds/impact/420253__redroxpeterpepper__step-skeleton-2.wav")]
+const WOOD_HIT_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/impact/547414__ian_g__wood-hit.wav")]
+const ICE_HIT_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/ice/ice_crack_1.wav"), preload ("res://Audio/Sounds/ice/ice_crack_2.wav"), preload ("res://Audio/Sounds/ice/ice_crack_3.wav"), preload ("res://Audio/Sounds/ice/ice_crack_4.wav"), preload ("res://Audio/Sounds/ice/ice_crack_5.wav"), preload ("res://Audio/Sounds/ice/ice_crack_6.wav")]
 
 var last_weapon: Weapon
 var last_damage_dealer_id: String
@@ -26,6 +29,7 @@ enum BodyType {
 	SLIME,
 	BONES,
 	WOOD,
+	ICE,
 }
 @export var body_type: BodyType = BodyType.FLESH
 
@@ -44,17 +48,15 @@ signal hp_changed(new_hp: int)
 signal damage_taken(dam: int, dir: Vector2, force: int)
 signal died()
 
-@onready var parent: Node2D = get_parent()
-
+@onready var parent: Node = get_parent()
 
 func _ready() -> void:
 	invincible_after_being_hitted_timer = Timer.new()
 	invincible_after_being_hitted_timer.one_shot = true
-	invincible_after_being_hitted_timer.timeout.connect(func() -> void: invincible_after_being_hitted = false)
+	invincible_after_being_hitted_timer.timeout.connect(func() -> void: invincible_after_being_hitted=false)
 	add_child(invincible_after_being_hitted_timer)
 
-
-func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer: Node, damage_dealer_id: String, is_ranged: bool = false) -> void:
+func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer: Node, damage_dealer_id: String, is_ranged: bool=false) -> void:
 	if _must_ignore_damage():
 		return
 
@@ -75,7 +77,6 @@ func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_deal
 	if not is_ranged and damage_dealer and damage_dealer.has_node("LifeComponent") and thorn_damage:
 		_apply_thorn_damage(damage_dealer)
 
-
 func _must_ignore_damage() -> bool:
 	if invincible or invincible_after_being_hitted or hp == 0:
 		return true
@@ -92,23 +93,25 @@ func _must_ignore_damage() -> bool:
 
 	return false
 
-
 func _play_hit_sound(weapon: Weapon) -> void:
-	if weapon == null:
-		return
-
 	var stream: AudioStream = null
 	match body_type:
+		BodyType.FLESH:
+			if weapon and weapon.data.type in [WeaponData.Type.HAMMER, WeaponData.Type.BOW, WeaponData.Type.CROSSBOW]:
+				stream = IMPACT_FLESH_SOUNDS[randi() % IMPACT_FLESH_SOUNDS.size()]
+			else:
+				stream = CUT_FLESH_SOUNDS[randi() % CUT_FLESH_SOUNDS.size()]
 		BodyType.BONES:
 			stream = BONES_HIT_SOUNDS[randi() % BONES_HIT_SOUNDS.size()]
 		BodyType.WOOD:
 			stream = WOOD_HIT_SOUNDS[randi() % WOOD_HIT_SOUNDS.size()]
+		BodyType.ICE:
+			stream = ICE_HIT_SOUNDS[randi() % ICE_HIT_SOUNDS.size()]
 
 	if stream:
 		var sound: AutoFreeSound = AutoFreeSound.new()
 		get_tree().current_scene.add_child(sound)
 		sound.start(stream, parent.global_position)
-
 
 func _apply_thorn_damage(to: Node) -> void:
 	(to.get_node("LifeComponent") as LifeComponent).take_damage(thorn_damage, (to.global_position - get_parent().global_position).normalized(), 300, null, null, "thorn")

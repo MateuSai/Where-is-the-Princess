@@ -39,7 +39,7 @@ IRON_SKIN_DESCRIPTION,Your skin is so tough that some attacks might not damage y
 WOODEN_MAGIC_SHIELD,Wooden Magic Shield,Escut Màgic de Fusta,Escudo Mágico de Madera,
 WOODEN_MAGIC_SHIELD_DESCRIPTION,A shield that orbits around the player.,Un escut que orbita al voltant del jugador.,Un escudo que orbita alrededor del jugador.,
 REINFORCED_MAGIC_SHIELD,Reinforced Magic Shield,Escut Màgic Reforçat,Escudo mágico Reforzado,
-REINFORCED_MAGIC_SHIELD_DESCRIPTION,A reinforced shield that orbits around the player.,Un escut reforçat que orbita al voltant del jugador.,Un escudo reforzado que orbita alrededor del jugador.,
+REINFORCED_MAGIC_SHIELD_DESCRIPTION,A shield that orbits around the player and resists a little more than his wooden counterpart.,Un escut que orbita al voltant del jugador i resisteix una mica més que la seva contrapart de fusta.,Un escudo que orbita alrededor de jugador y resiste un poco más que su contraparte de madera.,
 MAGIC_SWORD,Magic Sword,Espasa Màgica,Espada Mágico,
 MAGIC_SWORD_DESCRIPTION,A sword that orbits around the player,Una espasa que orbita al voltant del jugador,Una espada que orbita alrededor del jugador,
 AXE_RUNE,Axe Rune,Runa de Destral,Runa de Hacha,
@@ -162,7 +162,7 @@ TEXT_CURRENT_PROFILE,%s (Current Profile),%s (Perfil Actual),%s (Perfil Actual),
 ,,,,
 ,,,,
 OK,Ok,Sí,Sí,
-CANCEL,Cancel,Cancel·lar,Cancelar,
+CANCEL,Cancel,Cancel·lar,Cancelar,中止
 SAVE_AND_RETURN_TO_MENU,Do you want to save the game and return to the menu?,Vols guardar la partida i tornar al menú?,¿Quieres guardar la partida y volver al menú?,
 DONT_ASK_AGAIN,Don’t ask again.,No m'ho tornis a preguntar.,No me lo vuelvas a preguntar.,
 ,,,,
@@ -217,6 +217,7 @@ ROYAL_CROSSBOW,Royal Crossbow,Ballesta Reial,Ballesta Real,王立のクロスボ
 BASE_CAMP,Base Camp,Campament,Campamento,バースキャンプ
 FOREST,Forest,Bosc,Bosque,森
 SEWER,Sewer,Claveguera,Cloaca,下水道
+CRATES,Crates,Crates,Crates,クラテス
 ,,,,
 ,,,,
 GOBLIN,Goblin,Follet,Duende,ゴブリン
@@ -233,7 +234,8 @@ BIG_SLIME,Big Slime,Bava Gran,Baba Grande,
 INSECTON_MUSK,Insecton Musk,Insecton Musk,Insecton Musk,
 NAKED_MARK,Naked Mark,Mark Despullat,Mark Desnudo,
 ARMORED_MARK,Armored Mark,Mark Blindat,Mark Blindado,
-AGGRESSOR_MARK,Aggressor Mark,Mark Agressor,Mark Agresor,
+TOASTED_MARK,Toasted Mark,Mark Torrat,Mark Tostado,
+TOASTED_MARK_DESCRIPTION,A Mark that usually lives on caverns. The shortage of light made his skin darker than the rest of his family.,Un Mark que normalment viu a les cavernes. La falta de llum ha fet la seva pell més fosca que la resta de la seva família.,Un Mark que normalmente vive en las cavernas. La falta de luz ha hecho su piel más oscura que la del resto de su familia.,
 SPEAR_TRIBAL,Spear Tribal,Tribal amb Llança,Tribal con Lanza,
 BOMB_TRIBAL,Bomb Tribal,Tribal amb Bomba,Tribal con Bomba,
 BLOWPIPE_TRIBAL,Blowpipe Tribal,Tribal amb Sarbatana,Tribal con Cerbatana,
@@ -246,5 +248,5 @@ SKELEBROMANCER,Skelebromancer,Skelebromant,Skelebromante,
 BODEN_THE_DRUID,Boden the Druid,El Druida Boden,El Druida Boden,
 BODEN_THE_BEAR,Boden the Bear,L’Ós Boden,El Oso Boden,
 NECRO_TROMP,Necro Tromp,Nigro Tromp,Nigro Tromp,
-NECRO_TROMP_DESCRIPTION,He wants to make the kingdom GREAT AGAIN. He likes walls.,,,
+NECRO_TROMP_DESCRIPTION,"After an unsuccessful political career, Tromp sought alternative ways to obtain power.","Després d'una carrera política infructuosa, en Tromp va buscar maneres alternatives d'obtenir el poder.","Después de una carrera política infructuosa, Tromp busco maneras alternativas de obtener el poder.",
 CROCODILE_JOE,Crocodile Joe,Joe el Cocodril,Joe el Cocodrilo,

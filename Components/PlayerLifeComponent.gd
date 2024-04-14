@@ -3,8 +3,7 @@ class_name PlayerLifeComponent extends LifeComponent
 @onready var player: Player = get_parent()
 @onready var hit_border_effect: HitBorderEffect = $"../UI/HitBorderEffect"
 
-
-func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer: Node, damage_dealer_id: String, is_ranged: bool = false) -> void:
+func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer: Node, damage_dealer_id: String, is_ranged: bool=false) -> void:
 	if _must_ignore_damage():
 		return
 
@@ -35,9 +34,7 @@ func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_deal
 	if not is_ranged and damage_dealer and damage_dealer.has_node("LifeComponent") and thorn_damage:
 		_apply_thorn_damage(damage_dealer)
 
-
-
-func take_damage_ignoring_armor(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer: Node, damage_dealer_id: String, is_ranged: bool = false) -> void:
+func take_damage_ignoring_armor(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer: Node, damage_dealer_id: String, is_ranged: bool=false) -> void:
 	if _must_ignore_damage():
 		return
 

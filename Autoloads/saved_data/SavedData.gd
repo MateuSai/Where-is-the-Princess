@@ -374,7 +374,7 @@ func get_random_available_item_path(quality: Item.Quality=Item.Quality.COMMON) -
 
 	for item_path_array: PackedStringArray in [get_available_temporal_item_paths(), get_available_permanent_item_paths()]:
 		for item_path: String in item_path_array:
-			if run_stats.get_permanent_passive_items_names().has(load(item_path).new().get_item_name()):
+			if run_stats.get_permanent_passive_items_ids().has((load(item_path).new() as PassiveItem).get_id()):
 				continue
 			if load(item_path).new().get_quality() == quality:
 				possible_results.push_back(item_path)
