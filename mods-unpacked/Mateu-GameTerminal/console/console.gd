@@ -231,6 +231,15 @@ func _process_command(command: String) -> void:
 						printerr("discover has no " + splitted_command[1] + " option")
 			else:
 				printerr("discover cannot be used by itself")
+		"print", "p":
+			if splitted_command.size() > 1: # tiene otro argumento
+				match splitted_command[1]:
+					"orphans", "or":
+						_print_orpahans()
+					_:
+						printerr("discover has no " + splitted_command[1] + " option")
+			else:
+				printerr("print cannot be used by itself")
 		"where am i", "where the fuck am i", "pr", "print room":
 			_print_current_room_name()
 		_:
@@ -521,6 +530,11 @@ func _discover_all_items() -> void:
 func _discover_all_armors() -> void:
 	for armor_path: String in Data.AVAILABLE_ARMORS_FROM_START:
 		SavedData.discover_armor_if_not_already(armor_path)
+
+	hide()
+
+func _print_orpahans() -> void:
+	LineEdit.print_orphan_nodes()
 
 	hide()
 
