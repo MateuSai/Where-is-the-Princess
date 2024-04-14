@@ -23,6 +23,7 @@ func _ready() -> void:
 	ice_life_component.max_hp = ATTACKS_TO_BREAK_ICE
 	ice_life_component.hp = ATTACKS_TO_BREAK_ICE
 	add_child(ice_life_component)
+	ice_life_component.body_type = LifeComponent.BodyType.ICE
 
 	spawn_fragments_component = SpawnFragmentsOnDied.new()
 	add_child(spawn_fragments_component)
