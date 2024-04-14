@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c0svu27blkowr"
-path="res://.godot/imported/full tilemap forest_Saturated.png-047dabc2cb80e96921dedf144c0c2e09.ctex"
+uid="uid://b5kuqly0x4e"
+path="res://.godot/imported/full tilemap village.png-7de3e54422a2cc5179ca251c94c951f5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/16x16 Pixel Art Roguelike (Village) Pack/tilesets/full tilemap forest_Saturated.png"
-dest_files=["res://.godot/imported/full tilemap forest_Saturated.png-047dabc2cb80e96921dedf144c0c2e09.ctex"]
+source_file="res://Art/16x16 Pixel Art Roguelike (Village) Pack/tilesets/full tilemap village.png"
+dest_files=["res://.godot/imported/full tilemap village.png-7de3e54422a2cc5179ca251c94c951f5.ctex"]
 
 [params]
 

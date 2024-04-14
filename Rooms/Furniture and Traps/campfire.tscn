@@ -110,6 +110,7 @@ max_distance = 150.0
 bus = &"Sounds"
 
 [node name="TemperatureArea" parent="." instance=ExtResource("7_nltut")]
+visible = false
 temperature = 30.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TemperatureArea"]

@@ -1,6 +1,6 @@
 [gd_resource type="CanvasTexture" load_steps=2 format=3 uid="uid://dwvybyln2rbsu"]
 
-[ext_resource type="Texture2D" uid="uid://c0svu27blkowr" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/tilesets/full tilemap forest_Saturated.png" id="1_ogxvj"]
+[ext_resource type="Texture2D" uid="uid://b5kuqly0x4e" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/tilesets/full tilemap village.png" id="1_agddi"]
 
 [resource]
-diffuse_texture = ExtResource("1_ogxvj")
+diffuse_texture = ExtResource("1_agddi")
