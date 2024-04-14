@@ -1,6 +1,6 @@
 class_name IceStatusComponent extends StatusComponent
 
-const ATTACKS_TO_BREAK_ICE: int = 3
+const ATTACKS_TO_BREAK_ICE: int = 4
 
 var ice_cube: Sprite2D
 var shake_component: ShakeComponent
@@ -15,6 +15,7 @@ func _ready() -> void:
 
 	ice_cube = Sprite2D.new()
 	ice_cube.texture = load("res://Art/16x16 Pixel Art Roguelike (Village) Pack/ice_block.png")
+	ice_cube.hframes = 4
 	ice_cube.position.y = -7
 	character.add_child(ice_cube)
 
@@ -24,6 +25,14 @@ func _ready() -> void:
 	ice_life_component.hp = ATTACKS_TO_BREAK_ICE
 	add_child(ice_life_component)
 	ice_life_component.body_type = LifeComponent.BodyType.ICE
+	ice_life_component.hp_changed.connect(func(new_hp: int) -> void:
+		ice_cube.frame=clamp(ATTACKS_TO_BREAK_ICE - new_hp, 0, ice_cube.hframes - 1)
+	)
+	ice_life_component.died.connect(func() -> void:
+		var particles: GPUParticles2D=load("res://shaders_and_particles/particles/ice_break_particles.tscn").instantiate()
+		particles.position=ice_cube.global_position
+		get_tree().current_scene.add_child(particles)
+	)
 
 	spawn_fragments_component = SpawnFragmentsOnDied.new()
 	add_child(spawn_fragments_component)
