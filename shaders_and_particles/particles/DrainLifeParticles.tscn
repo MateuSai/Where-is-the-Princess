@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c3xkq2ebdpytr"]
 
-[ext_resource type="Script" path="res://shaders_and_particles/DrainLifeParticles.gd" id="1_ys06g"]
+[ext_resource type="Script" path="res://shaders_and_particles/particles/DrainLifeParticles.gd" id="1_ys06g"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vncow"]
 light_mode = 1

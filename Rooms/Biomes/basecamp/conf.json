@@ -45,5 +45,6 @@
 	"weather_modificators": [
 		"res://Rooms/weather_modificators/light_snow.gd"
 	],
-	"temperature": -10
+	"temperature": -10,
+	"encyclopedia_background": "res://Rooms/Biomes/basecamp/basecamp_background.png",
 }
