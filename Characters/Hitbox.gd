@@ -19,13 +19,8 @@ enum CollisionMaterial {
 	FLESH,
 	STONE,
 }
-# Overwrite from weapon
-# var stone_sounds: Array[AudioStream] = []
-var flesh_sounds: Array[AudioStream] = []
-
 # personajes a los quales hemos hecho daño. Se va a vaciar cada vez que el timer termine
 var entities_inside: Array = []
-
 
 func _ready() -> void:
 	assert(collision_shape != null)
@@ -40,27 +35,17 @@ func _ready() -> void:
 	if owner and not owner is Weapon:
 		owner.ready.connect(func() -> void:
 			if owner.get("id") != null:
-				damage_dealer_id = owner.id
-			damage_dealer = owner
+				damage_dealer_id=owner.id
+			damage_dealer=owner
 		)
-
-	collided_with_something.connect(func(node: Node2D) -> void:
-		if node is Character and not flesh_sounds.is_empty():
-			var audio: AutoFreeSound = AutoFreeSound.new()
-			get_tree().current_scene.add_child(audio)
-			audio.start(flesh_sounds[randi() % flesh_sounds.size()], global_position, -8)
-	)
-
 
 func _add_entity(entity: Node2D) -> void:
 	assert(not entity in entities_inside)
 	entities_inside.push_back(entity)
 
-
 func _remove_entity(entity: Node2D) -> void:
 	assert(entity in entities_inside)
 	entities_inside.erase(entity)
-
 
 func _add_entity_if_node_has_one(node: Node2D) -> void:
 	var entity_target: Node2D = _get_entity(node)
@@ -78,7 +63,6 @@ func _add_entity_if_node_has_one(node: Node2D) -> void:
 			# ya estamos haciendo daño a este personaje
 			return
 
-
 # las señales body_exited y area_exited estan conectadas a esta función. Si node forma parte de un personaje, lo eliminamos del array de los personajes que hay dentro
 func _remove_entity_if_it_is_inside(node: Node2D) -> void:
 	var entity_target: Node2D = _get_entity(node)
@@ -86,7 +70,6 @@ func _remove_entity_if_it_is_inside(node: Node2D) -> void:
 		if entities_inside.has(entity_target):
 			_remove_entity(entity_target)
 			#characters_inside.erase(character_target)
-
 
 func _loop_and_collide(entity_target: Node2D) -> void:
 	#incluso aca, se podria hacer que los ataques cuerpo a cuerpo tuvieran un animacion de tiempo similar
@@ -101,16 +84,13 @@ func _loop_and_collide(entity_target: Node2D) -> void:
 
 	timer.stop()
 
-
 func _on_body_entered(body: Node2D) -> void:
 	_add_entity_if_node_has_one(body)
-
 
 func _on_area_entered(area: Area2D) -> void:
 	_add_entity_if_node_has_one(area)
 
-
-func _collide(node: Node2D, dam: int = damage) -> void:
+func _collide(node: Node2D, dam: int=damage) -> void:
 	collided_with_something.emit(node)
 
 	#print(body.name)
@@ -124,7 +104,6 @@ func _collide(node: Node2D, dam: int = damage) -> void:
 		(node as Projectile).destroy()
 	else:
 		print_debug("Unhandled collision!")
-
 
 func _get_entity(node: Node2D) -> Node2D:
 	var entity: Node2D = null

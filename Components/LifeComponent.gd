@@ -14,6 +14,8 @@ signal thorn_damage_used()
 var damage_taken_multiplier: int = 1
 var extra_damage_taken: int = 0
 
+const CUT_FLESH_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Sword/MetalSlash1.wav"), preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Sword/MetalSlash2.wav"), preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Sword/MetalSlash3.wav")]
+const IMPACT_FLESH_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hit(Impact)/HitGore1.wav"), preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hit(Impact)/HitGore2.wav"), preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hit(Impact)/HitGore3.wav"), preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hit(Impact)/HitGore4.wav")]
 const BONES_HIT_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/impact/420252__redroxpeterpepper__step-skeleton.wav"), preload ("res://Audio/Sounds/impact/420253__redroxpeterpepper__step-skeleton-2.wav")]
 const WOOD_HIT_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/impact/547414__ian_g__wood-hit.wav")]
 const ICE_HIT_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/ice/ice_crack_1.wav"), preload ("res://Audio/Sounds/ice/ice_crack_2.wav"), preload ("res://Audio/Sounds/ice/ice_crack_3.wav"), preload ("res://Audio/Sounds/ice/ice_crack_4.wav"), preload ("res://Audio/Sounds/ice/ice_crack_5.wav"), preload ("res://Audio/Sounds/ice/ice_crack_6.wav")]
@@ -64,7 +66,7 @@ func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_deal
 
 	dam = dam * damage_taken_multiplier + extra_damage_taken
 	self.hp -= dam
-	_play_hit_sound()
+	_play_hit_sound(weapon)
 
 	damage_taken.emit(dam, dir, force)
 	Globals.character_received_damage.emit(parent, damage_dealer)
@@ -91,9 +93,14 @@ func _must_ignore_damage() -> bool:
 
 	return false
 
-func _play_hit_sound() -> void:
+func _play_hit_sound(weapon: Weapon) -> void:
 	var stream: AudioStream = null
 	match body_type:
+		BodyType.FLESH:
+			if weapon and weapon.data.type in [WeaponData.Type.HAMMER, WeaponData.Type.BOW, WeaponData.Type.CROSSBOW]:
+				stream = IMPACT_FLESH_SOUNDS[randi() % IMPACT_FLESH_SOUNDS.size()]
+			else:
+				stream = CUT_FLESH_SOUNDS[randi() % CUT_FLESH_SOUNDS.size()]
 		BodyType.BONES:
 			stream = BONES_HIT_SOUNDS[randi() % BONES_HIT_SOUNDS.size()]
 		BodyType.WOOD:

@@ -450,13 +450,13 @@ position = Vector2(85, 111)
 position = Vector2(101, 111)
 
 [node name="LeftBottomVerticalWoodenFence" parent="." instance=ExtResource("37_uty1x")]
-position = Vector2(75, 128)
+position = Vector2(69, 128)
 
 [node name="LeftTopVerticalWoodenFence" parent="." instance=ExtResource("38_esjfg")]
-position = Vector2(75, 112)
+position = Vector2(69, 112)
 
 [node name="RightBottomVerticalWoodenFence" parent="." instance=ExtResource("39_ouwiq")]
-position = Vector2(110, 128)
+position = Vector2(117, 128)
 
 [node name="RightTopVerticalWoodenFence" parent="." instance=ExtResource("40_u0ngm")]
-position = Vector2(110, 112)
+position = Vector2(117, 112)

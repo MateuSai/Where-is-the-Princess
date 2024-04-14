@@ -1,9 +1,8 @@
 class_name ArrowOrBolt extends Projectile
 
-
-const WORLD_IMPACT_SOUNDS: Array[AudioStreamWAV] = [preload("res://Audio/Sounds/impact/521242__cyoung510__arrow_hits_target_1.wav"), preload("res://Audio/Sounds/impact/521242__cyoung510__arrow_hits_target_2.wav"), preload("res://Audio/Sounds/impact/521242__cyoung510__arrow_hits_target_3.wav")]
+const WORLD_IMPACT_SOUNDS: Array[AudioStreamWAV] = [ preload ("res://Audio/Sounds/impact/521242__cyoung510__arrow_hits_target_1.wav"), preload ("res://Audio/Sounds/impact/521242__cyoung510__arrow_hits_target_2.wav"), preload ("res://Audio/Sounds/impact/521242__cyoung510__arrow_hits_target_3.wav")]
 var textures: Array[Texture2D] = []
-const MODIFIER_TEXTURES: Array[Texture] = [preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/default_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/homing_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/piercing_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/bouncing_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/explosive_arrow_icon.png"), preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/icon_map.png")]
+const MODIFIER_TEXTURES: Array[Texture] = [ preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/default_arrow_icon.png"), preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/homing_arrow_icon.png"), preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/piercing_arrow_icon.png"), preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/bouncing_arrow_icon.png"), preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/weapon icons/explosive_arrow_icon.png"), preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/icon_map.png")]
 
 enum Type {
 	NORMAL,
@@ -15,14 +14,10 @@ enum Type {
 }
 var type: Type = Type.NORMAL: set = _set_type
 
-
 func _ready() -> void:
 	super()
 
-	flesh_sounds = MeleeWeapon.IMPACT_FLESH_SOUNDS
-
-
-func _collide(node: Node2D, dam: int = damage) -> void:
+func _collide(node: Node2D, dam: int=damage) -> void:
 	collided_with_something.emit(node)
 
 	if type == Type.EXPLOSIVE:
@@ -47,7 +42,6 @@ func _collide(node: Node2D, dam: int = damage) -> void:
 		else:
 			_attach_projectile(node)
 
-
 func _attach_projectile(body: Node2D) -> void:
 	var sprite_clone: Sprite2D = $Sprite2D.duplicate()
 
@@ -65,10 +59,8 @@ func _attach_projectile(body: Node2D) -> void:
 
 	destroy()
 
-
 func destroy() -> void:
 	super()
-
 
 func _set_type(new_type: Type) -> void:
 	type = new_type
