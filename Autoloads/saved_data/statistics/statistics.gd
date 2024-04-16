@@ -2,6 +2,7 @@ class_name Statistics
 
 const SAVE_NAME: String = "statistics.json"
 
+var _player_statistics: PlayerStatistics = PlayerStatistics.new()
 var _enemies_statistics: Dictionary = {}
 var _weapons_statistics: Dictionary = {}
 var _items_statistics: Dictionary = {}
@@ -30,6 +31,14 @@ static func _load() -> Statistics:
 	else:
 		print("No statistics file found, using default value...")
 		return Statistics.new()
+
+func get_player_statistics() -> PlayerStatistics:
+	return _player_statistics
+
+func add_player_times_killed() -> void:
+	_player_statistics.times_killed += 1
+
+	save()
 
 func get_enemies_statistics() -> Dictionary:
 	return _enemies_statistics
@@ -120,7 +129,9 @@ static func from_dic(dic: Dictionary) -> Statistics:
 
 	for key: String in dic.keys():
 		if statistics.get(key) != null:
-			if key == "_enemies_statistics":
+			if key == "_player_statistics":
+				statistics._player_statistics = PlayerStatistics.from_dic(dic._player_statistics)
+			elif key == "_enemies_statistics":
 				for enemy_id: String in dic._enemies_statistics.keys():
 					statistics._enemies_statistics[enemy_id] = EnemyStatistics.from_dic(dic._enemies_statistics[enemy_id])
 			elif key == "_weapons_statistics":
@@ -148,6 +159,8 @@ func to_dic() -> Dictionary:
 		if property_name in ["RefCounted", "script", "Built-in script", "statistics.gd"]:
 			continue
 		match property_name:
+			"_player_statistics":
+				dic["_player_statistics"] = get_player_statistics().to_dic()
 			"_enemies_statistics":
 				dic["_enemies_statistics"] = {}
 				for enemy_id: String in _enemies_statistics.keys():

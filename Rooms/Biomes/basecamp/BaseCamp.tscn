@@ -460,3 +460,6 @@ position = Vector2(117, 128)
 
 [node name="RightTopVerticalWoodenFence" parent="." instance=ExtResource("40_u0ngm")]
 position = Vector2(117, 112)
+
+[node name="WakeUpDialogueTimer" type="Timer" parent="."]
+one_shot = true

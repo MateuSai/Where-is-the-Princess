@@ -46,4 +46,4 @@ bbcode_enabled = true
 fit_content = true
 
 [node name="AddLetterTimer" type="Timer" parent="."]
-wait_time = 0.07
+wait_time = 0.04

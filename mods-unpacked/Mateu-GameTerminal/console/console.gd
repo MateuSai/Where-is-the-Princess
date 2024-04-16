@@ -141,6 +141,14 @@ func _process_command(command: String) -> void:
 							_set_time(splitted_command[2])
 						else:
 							printerr("You must specify the new time")
+					"player statistics", "ps":
+						if splitted_command.size() > 2:
+							if splitted_command.size() > 3:
+								_set_player_statistics_property(splitted_command[2], splitted_command[3])
+							else:
+								printerr("You must specify the new value")
+						else:
+							printerr("You must specify the property to set")
 					_:
 						printerr("Invalid argument for set")
 			else:
@@ -359,6 +367,23 @@ func _set_time(time_string: String) -> void:
 		return
 
 	DayNightSystem.time = time_string.to_float()
+
+	hide()
+
+func _set_player_statistics_property(property: String, new_value: String) -> void:
+	var player_statistics: PlayerStatistics = SavedData.statistics.get_player_statistics()
+
+	var player_statistics_property = player_statistics.get(property)
+	if player_statistics_property == null:
+		printerr("Invalid property")
+		return
+
+	if player_statistics_property is int:
+		player_statistics.set(property, new_value.to_int())
+	else:
+		player_statistics.set(property, new_value)
+
+	SavedData.statistics.save()
 
 	hide()
 
