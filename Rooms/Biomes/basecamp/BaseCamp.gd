@@ -62,7 +62,7 @@ func _ready() -> void:
 			var dialogue_key: String="PLAYER_WAKE_UP_DIALOGUE_" + str(SavedData.statistics.get_player_statistics().times_killed)
 			#print(tr(dialogue_key))
 			if dialogue_key != tr(dialogue_key): # Dialogue available
-				Globals.player.start_dialogue("PLAYER_WAKE_UP_DIALOGUE_1")
+				Globals.player.start_dialogue(dialogue_key)
 		)
 		wake_up_dialogue_timer.start()
 	)
