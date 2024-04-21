@@ -83,10 +83,10 @@ STONE_HEART_DESCRIPTION,Restores a quarter of a heart when you clear a room.,Res
 AGGRESSION_SPELL,Aggression Spell,Conjur Agressor,Hechizo Agresor,
 AGGRESSION_SPELL_DESCRIPTION,"Deal double damage when you are at full health, but at the cost of half a heart.","Fas el doble de dany quan tens la salut al màxim, però a costa de mig cor.","Haces el doble de daño cuando tienes la salud al máximo, pero al precio de medio corazón.",
 ,,,,
-RUBY,Ruby,Rubí,Rubi,
-SAPPHIRE,Sapphire,Safir,Zafiro,
-TOPAZ,Topaz,Topazi,Topacio,
-EMERALD,Emerald,Maragda,Esmeralda,
+RUBY,Ruby,Rubí,Rubi,紅玉
+SAPPHIRE,Sapphire,Safir,Zafiro,青玉
+TOPAZ,Topaz,Topazi,Topacio,黄玉
+EMERALD,Emerald,Maragda,Esmeralda,緑玉
 BOUNCING_ARROW_MODIFIER,Bouncing Arrows,Fletxes Rebotants,Flechas Rebotantes,
 BOUNCING_ARROW_MODIFIER_DESCRIPTION,Make the arrows bounce 1 time on walls.,Fa rebotar les fletxes una vegada quan xoquen contra els murs.,Hace rebotar las flechas una vez cuando colisionan contra los muros.,
 EXPLOSIVE_ARROW_MODIFIER,Explosive Arrows,Fletxes Explosives,Flechas Explosivas,
@@ -108,7 +108,7 @@ PLAY,Play,Juga,Jugar,遊び
 CONTINUE,Continue,Continuar,Continuar, コンティニュー 
 NEW_GAME,New Game,Nova Partida,Nueva Partida,ニューゲーム
 RESUME,Resume,Resumir,Resumir,レジューム
-RESTART,Restart,Reiniciar,Reiniciar,
+RESTART,Restart,Reiniciar,Reiniciar,レスタート
 MODS,Mods,Mods,Mods,MODS
 SETTINGS,Settings,Configuració,Configuración,設定
 QUIT,Quit,Surt,Salir,退く
@@ -161,7 +161,7 @@ TEXT_MOD_CURRENT_CONFIG_CHANGE_ERROR,There was an error changing the config - ch
 TEXT_CURRENT_PROFILE,%s (Current Profile),%s (Perfil Actual),%s (Perfil Actual),
 ,,,,
 ,,,,
-OK,Ok,Sí,Sí,
+OK,Ok,Sí,Sí,はい
 CANCEL,Cancel,Cancel·lar,Cancelar,中止
 SAVE_AND_RETURN_TO_MENU,Do you want to save the game and return to the menu?,Vols guardar la partida i tornar al menú?,¿Quieres guardar la partida y volver al menú?,
 DONT_ASK_AGAIN,Don’t ask again.,No m'ho tornis a preguntar.,No me lo vuelvas a preguntar.,
@@ -175,14 +175,14 @@ TIMES_PICKED_UP,Times picked up,Vegades equipat,Veces equipado,
 KILLS,Kills,Morts,Muertes,
 TIMES_KILLED,Times killed,Nombre de morts,Numero de muertes,
 PLAYER_KILLS,Player kills,Morts del jugador,Muertes del jugador,
-BIOMES,Biomes,Biomes,Biomas,
+BIOMES,Biomes,Biomes,Biomas,生物群系
 ,,,,
 ,,,,
 MAP,Map,Mapa,Mapa,地図
 EQUIPMENT,Equipment,Equipament,Equipamiento,
 WEAPONS,Weapons,Armes,Armas,兵器
-ITEMS,Items,Ítems,Ítems,
-CONSUMABLES,Consumables,Consumibles,Consumibles,
+ITEMS,Items,Ítems,Ítems,アイテム
+CONSUMABLES,Consumables,Consumibles,Consumibles,消耗品
 PASSIVE,Passive,Passius,Pasivos,
 WEAPON_MODIFIERS,Weapon Modifiers,Modificadors d'Arma,Modificadores de Arma,
 UPGRADES,Upgrades,Millores,Mejoras,アップグレード
