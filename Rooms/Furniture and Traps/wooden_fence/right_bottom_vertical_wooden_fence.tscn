@@ -23,6 +23,7 @@ vframes = 2
 frame = 14
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(1.5, -8)
 shape = SubResource("RectangleShape2D_2it08")
 
@@ -32,6 +33,7 @@ body_type = 3
 hp = 4
 
 [node name="SpawnFragmentsOnDied" type="Node2D" parent="."]
+visible = false
 position = Vector2(1.5, -8)
 script = ExtResource("4_4c4in")
 min_fragments = 2

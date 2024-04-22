@@ -23,6 +23,7 @@ vframes = 2
 frame = 10
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(14.5, -8)
 shape = SubResource("RectangleShape2D_jnsij")
 
