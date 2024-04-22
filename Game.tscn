@@ -176,6 +176,7 @@ color = Color(0, 0, 0, 1)
 unique_name_in_owner = true
 rotation = 1.37706
 energy = 1.3
+range_item_cull_mask = 0
 height = 0.51
 max_distance = 500.0
 script = ExtResource("4_83i0d")
