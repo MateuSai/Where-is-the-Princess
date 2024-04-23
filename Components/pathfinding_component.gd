@@ -7,6 +7,7 @@ enum ModeEnum {
 	FLEE,
 	CIRCLE,
 	WANDER,
+	DODGE,
 }
 
 @onready var target: Character = Globals.player
@@ -172,3 +173,18 @@ class Wander extends Mode:
 			iterations += 1
 
 		push_error("To many iterations to determine new close random position")
+
+class Dodge extends Mode:
+	@onready var projectile_detector: ProjectileDetector = character.get_node("ProjectileDetector")
+
+	func _ready() -> void:
+		_spawn_timer(0.7)
+
+		super()
+
+	func _on_timer_timeout() -> void:
+		if is_instance_valid(target):
+			navigation_agent.target_position = character.global_position + projectile_detector.get_dodge_direction() * 16
+		else:
+			timer.stop()
+			character.mov_direction = Vector2.ZERO
