@@ -1,13 +1,15 @@
-[gd_scene load_steps=20 format=3 uid="uid://cwetk15igqjeg"]
+[gd_scene load_steps=22 format=3 uid="uid://cwetk15igqjeg"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_kiof0"]
-[ext_resource type="Script" path="res://Characters/Enemies/skelebro/skelebro.gd" id="2_o66ct"]
+[ext_resource type="Script" path="res://Characters/Enemies/footman/footman.gd" id="2_x8087"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="3_w5juk"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="4_udbox"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/point_weapon_to_target.gd" id="5_7o3at"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="5_22gsl"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_projectile_coming_for_me.gd" id="7_5iklm"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/set_pathfinding_mode.gd" id="8_78wmf"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/move_to_target.gd" id="9_rgu2f"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/weapon_normal_attack.gd" id="10_ndt78"]
 [ext_resource type="Texture2D" uid="uid://jfehaj24kmy2" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_warrior.png" id="11_npab5"]
 [ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="12_2em5x"]
 [ext_resource type="PackedScene" uid="uid://mh1705nhovp2" path="res://Weapons/Melee/rusty_sword/rusty_sword.tscn" id="13_fuc0c"]
@@ -109,11 +111,11 @@ _data = {
 }
 
 [node name="Footman" instance=ExtResource("1_kiof0")]
-script = ExtResource("2_o66ct")
+script = ExtResource("2_x8087")
 
 [node name="FootmanBeehaveTree" type="Node" parent="." index="1" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("3_w5juk")
-blackboard = NodePath("@Node@18549")
+blackboard = NodePath("@Node@19183")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="FootmanBeehaveTree" index="0"]
@@ -138,8 +140,14 @@ script = ExtResource("5_22gsl")
 [node name="SetPathfindingMode" type="Node" parent="FootmanBeehaveTree/SelectorComposite/SequenceComposite" index="0"]
 script = ExtResource("8_78wmf")
 
-[node name="MoveToTarget" type="Node" parent="FootmanBeehaveTree/SelectorComposite/SequenceComposite" index="1"]
+[node name="PointWeaponToTarget" type="Node" parent="FootmanBeehaveTree/SelectorComposite/SequenceComposite" index="1"]
+script = ExtResource("5_7o3at")
+
+[node name="MoveToTarget" type="Node" parent="FootmanBeehaveTree/SelectorComposite/SequenceComposite" index="2"]
 script = ExtResource("9_rgu2f")
+
+[node name="WeaponNormalAttack" type="Node" parent="FootmanBeehaveTree/SelectorComposite/SequenceComposite" index="3"]
+script = ExtResource("10_ndt78")
 
 [node name="Sprite2D" parent="." index="3"]
 position = Vector2(0, -5)
