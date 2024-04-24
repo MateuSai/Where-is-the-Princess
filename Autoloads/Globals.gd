@@ -12,7 +12,6 @@ var player: Player = null
 
 var debug: bool = false
 
-const ENEMIES_FOLDER_PATH: String = "res://Characters/Enemies/"
 var ENEMIES: Dictionary = {}
 
 const INPUT_IMAGE_RECTS: Dictionary = {
@@ -75,7 +74,6 @@ const INPUT_IMAGE_RECTS: Dictionary = {
 	mouse_wheel_down = Rect2(208, 32, 16, 16),
 	mouse_wheel_up = Rect2(192, 32, 16, 16),
 
-
 	# JOYPAD
 	xbox_joypad_button_0 = Rect2(208, 16, 16, 16), # xbox A
 	xbox_joypad_button_1 = Rect2(224, 16, 16, 16), # xbox B
@@ -127,34 +125,20 @@ const CONTROLLER_TYPES: Dictionary = {
 	XBOX = "xbox",
 }
 
-
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-
 
 func _ready() -> void:
 	debug = OS.get_cmdline_user_args().has("--debug")
 
-	var enemies_folder: DirAccess = DirAccess.open(ENEMIES_FOLDER_PATH)
+	var enemies_folder: DirAccess = DirAccess.open(Enemy.ENEMIES_FOLDER_PATH)
 	assert(enemies_folder != null)
 	for enemy_folder: String in enemies_folder.get_directories():
-		if not enemies_folder.file_exists(enemy_folder + "/" + enemy_folder + (".tscn" if OS.has_feature("editor") else ".tscn.remap")):
-			push_error(enemy_folder + "/" + enemy_folder + ".tscn" + " not found on " + ENEMIES_FOLDER_PATH)
-			continue
-		var info: Dictionary = {}
-		if FileAccess.file_exists(ENEMIES_FOLDER_PATH + enemy_folder + "/" + "unlock_weapon_on_kills.tres"):
-			info["unlock_weapon_on_kills"] = load(ENEMIES_FOLDER_PATH + enemy_folder + "/" + "unlock_weapon_on_kills.tres")
-		if FileAccess.file_exists(ENEMIES_FOLDER_PATH + enemy_folder + "/" + "data.tres"):
-			info["data"] = load(ENEMIES_FOLDER_PATH + enemy_folder + "/" + "data.tres")
-		ENEMIES[enemy_folder.to_snake_case()] = {
-			"path": ENEMIES_FOLDER_PATH + enemy_folder + "/" + enemy_folder + ".tscn",
-			"info": info,
-		}
+		ENEMIES[enemy_folder.to_snake_case()] = Enemy.get_path_and_info(enemy_folder, enemies_folder)
 
 	SceneTransistor.scene_changed.connect(_on_scene_changed)
 
 	#print(ENEMIES)
-
 
 func _input(event: InputEvent) -> void:
 	# Fix for godot 4.2
@@ -167,7 +151,6 @@ func _input(event: InputEvent) -> void:
 		_change_to_mouse_mode()
 	elif ((event is InputEventJoypadMotion and abs((event as InputEventJoypadMotion).axis_value) > 0.15) or event is InputEventJoypadButton) and mode == Mode.MOUSE:
 		_change_to_controller_mode(event.device)
-
 
 ## @deprecated
 func get_enemy_paths(biome: String) -> Array[String]:
@@ -182,7 +165,6 @@ func get_enemy_paths(biome: String) -> Array[String]:
 
 	return enemy_paths
 
-
 ## Returns the [PackedScene] of the enemy if it finds it, otherwise returns [code]null[/code]
 func get_enemy_scene(id: String) -> PackedScene:
 	if ENEMIES.has(id.to_snake_case()):
@@ -191,7 +173,6 @@ func get_enemy_scene(id: String) -> PackedScene:
 
 	return null
 
-
 func get_enemy_unlock_weapon_on_kills(id: String) -> UnlockWeaponOnKills:
 	id = id.to_snake_case()
 
@@ -199,7 +180,6 @@ func get_enemy_unlock_weapon_on_kills(id: String) -> UnlockWeaponOnKills:
 		return ENEMIES[id].info.unlock_weapon_on_kills
 
 	return null
-
 
 func _change_to_mouse_mode() -> void:
 	mode = Mode.MOUSE
@@ -210,7 +190,6 @@ func _change_to_mouse_mode() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 	mode_changed.emit(mode)
-
 
 func _change_to_controller_mode(device: int) -> void:
 	controller_device = device
@@ -231,12 +210,10 @@ func _change_to_controller_mode(device: int) -> void:
 
 	mode_changed.emit(mode)
 
-
 func get_joypad_event_image_id(event: InputEvent) -> String:
 	return Globals.controller_type + "_joypad_button_" + (str((event as InputEventJoypadButton).button_index) if event is InputEventJoypadButton else str((event as InputEventJoypadMotion).axis))
 
-
-func exit_level(biome: String = "", backwards: bool = false) -> void:
+func exit_level(biome: String="", backwards: bool=false) -> void:
 	biome = biome.to_lower()
 	if biome.is_empty() or biome == SavedData.run_stats.biome:
 		if backwards:
@@ -250,14 +227,12 @@ func exit_level(biome: String = "", backwards: bool = false) -> void:
 
 	SceneTransistor.start_transition_to("res://Game.tscn")
 
-
 func add_weapon_damage_modifier_by_type(type: WeaponData.Type, dam: int) -> void:
 	Weapon._add_damage_modifier_by_type(type, dam)
 	var weapon_type_string: String = WeaponData.Type.keys()[type]
 	var weapons_of_this_type: Array[Node] = get_tree().get_nodes_in_group(weapon_type_string)
 	for weapon: Weapon in weapons_of_this_type:
 		weapon.set_damage(weapon.data.damage + dam)
-
 
 func remove_weapon_damage_modifier_by_type(type: WeaponData.Type, dam: int) -> void:
 	Weapon._remove_damage_modifier_by_type(type, dam)
@@ -266,7 +241,6 @@ func remove_weapon_damage_modifier_by_type(type: WeaponData.Type, dam: int) -> v
 	for weapon: Weapon in weapons_of_this_type:
 		weapon.set_damage(weapon.data.damage - dam)
 
-
 func add_weapon_damage_modifier_by_subtype(subtype: WeaponData.Subtype, dam: int) -> void:
 	Weapon._add_damage_modifier_by_subtype(subtype, dam)
 	var weapon_type_string: String = WeaponData.Subtype.keys()[subtype]
@@ -274,14 +248,12 @@ func add_weapon_damage_modifier_by_subtype(subtype: WeaponData.Subtype, dam: int
 	for weapon: Weapon in weapons_of_this_type:
 		weapon.set_damage(weapon.data.damage + dam)
 
-
 func remove_weapon_damage_modifier_by_subtype(subtype: WeaponData.Subtype, dam: int) -> void:
 	Weapon._remove_damage_modifier_by_subtype(subtype, dam)
 	var weapon_type_string: String = WeaponData.Subtype.keys()[subtype]
 	var weapons_of_this_type: Array[Node] = get_tree().get_nodes_in_group(weapon_type_string)
 	for weapon: Weapon in weapons_of_this_type:
 		weapon.set_damage(weapon.data.damage - dam)
-
 
 ## This function will be called every time we change scene
 func _on_scene_changed(new_scene: String) -> void:
@@ -295,7 +267,6 @@ func _on_scene_changed(new_scene: String) -> void:
 	else:
 		if mode == Mode.CONTROLLER:
 			Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-
 
 func get_atlas_frame(texture: Texture2D, region: Rect2) -> AtlasTexture:
 	var atlas: AtlasTexture = AtlasTexture.new()

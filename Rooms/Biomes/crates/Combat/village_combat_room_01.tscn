@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6g63rib832ia"]
+[gd_scene load_steps=7 format=3 uid="uid://b6g63rib832ia"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_husy3"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_rurw8"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_mc23v"]
+[ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_ao3nc"]
 [ext_resource type="PackedScene" uid="uid://cq825lguwrtg7" path="res://Rooms/Furniture and Traps/campfire.tscn" id="4_kyson"]
 [ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="5_gxofm"]
 
@@ -28,6 +29,11 @@ position = Vector2(393, 198)
 
 [node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("3_mc23v")]
 position = Vector2(326, 250)
+
+[node name="EnemyMarker" type="Marker2D" parent="EnemyPositions" index="0"]
+position = Vector2(231, 186)
+script = ExtResource("4_ao3nc")
+enemy_name = "spider"
 
 [node name="TeleportPosition" parent="." index="8"]
 position = Vector2(218, 158)
