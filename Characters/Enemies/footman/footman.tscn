@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cwetk15igqjeg"]
+[gd_scene load_steps=27 format=3 uid="uid://cwetk15igqjeg"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_kiof0"]
 [ext_resource type="Script" path="res://Characters/Enemies/footman/footman.gd" id="2_x8087"]
@@ -15,6 +15,8 @@
 [ext_resource type="Texture2D" uid="uid://jfehaj24kmy2" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_warrior.png" id="11_npab5"]
 [ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="12_2em5x"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/update_animation_according_to_mov_direction.gd" id="12_yg6rt"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_random.gd" id="13_bqeqv"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_weapon_busy.gd" id="13_e8c7h"]
 [ext_resource type="PackedScene" uid="uid://mh1705nhovp2" path="res://Weapons/Melee/rusty_sword/rusty_sword.tscn" id="13_fuc0c"]
 [ext_resource type="Script" path="res://Components/projectile_detector/projectile_detector.gd" id="14_kdjp6"]
 
@@ -153,16 +155,47 @@ script = ExtResource("5_22gsl")
 script = ExtResource("10_b58hh")
 closer_than = 20
 
-[node name="WeaponNormalAttack" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite/SelectorComposite/SequenceComposite" index="1"]
+[node name="IsWeaponBusy" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite/SelectorComposite/SequenceComposite" index="1"]
+script = ExtResource("13_e8c7h")
+
+[node name="WeaponNormalAttack" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite/SelectorComposite/SequenceComposite" index="2"]
 script = ExtResource("10_ndt78")
+
+[node name="SelectorRandomComposite" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite/SelectorComposite/SequenceComposite" index="3"]
+script = ExtResource("13_bqeqv")
+
+[node name="SequenceComposite" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite/SelectorComposite/SequenceComposite/SelectorRandomComposite" index="0"]
+script = ExtResource("5_22gsl")
+
+[node name="SetPathfindingMode" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite/SelectorComposite/SequenceComposite/SelectorRandomComposite/SequenceComposite" index="0"]
+script = ExtResource("8_78wmf")
+mode = 1
+
+[node name="MoveToTarget" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite/SelectorComposite/SequenceComposite/SelectorRandomComposite/SequenceComposite" index="1"]
+script = ExtResource("9_rgu2f")
+time_limit = 0.9
+
+[node name="SequenceComposite2" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite/SelectorComposite/SequenceComposite/SelectorRandomComposite" index="1"]
+script = ExtResource("5_22gsl")
+
+[node name="SetPathfindingMode" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite/SelectorComposite/SequenceComposite/SelectorRandomComposite/SequenceComposite2" index="0"]
+script = ExtResource("8_78wmf")
+mode = 2
+
+[node name="MoveToTarget" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite/SelectorComposite/SequenceComposite/SelectorRandomComposite/SequenceComposite2" index="1"]
+script = ExtResource("9_rgu2f")
+time_limit = 0.9
 
 [node name="SequenceComposite2" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite/SelectorComposite" index="1"]
 script = ExtResource("5_22gsl")
 
-[node name="SetPathfindingMode" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite/SelectorComposite/SequenceComposite2" index="0"]
+[node name="IsWeaponBusy" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite/SelectorComposite/SequenceComposite2" index="0"]
+script = ExtResource("13_e8c7h")
+
+[node name="SetPathfindingMode" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite/SelectorComposite/SequenceComposite2" index="1"]
 script = ExtResource("8_78wmf")
 
-[node name="MoveToTarget" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite/SelectorComposite/SequenceComposite2" index="1"]
+[node name="MoveToTarget" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite/SelectorComposite/SequenceComposite2" index="2"]
 script = ExtResource("9_rgu2f")
 closer_than = 18
 
