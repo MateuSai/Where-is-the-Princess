@@ -1,21 +1,21 @@
-[gd_scene load_steps=22 format=3 uid="uid://cwetk15igqjeg"]
+[gd_scene load_steps=22 format=3 uid="uid://dodyybgnnyjah"]
 
-[ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_kiof0"]
-[ext_resource type="Script" path="res://Characters/Enemies/footman/footman.gd" id="2_x8087"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="3_w5juk"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="4_udbox"]
-[ext_resource type="Script" path="res://Characters/ai/leafs/actions/point_weapon_to_target.gd" id="5_7o3at"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="5_22gsl"]
-[ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_projectile_coming_for_me.gd" id="7_5iklm"]
-[ext_resource type="Script" path="res://Characters/ai/leafs/actions/set_pathfinding_mode.gd" id="8_78wmf"]
-[ext_resource type="Script" path="res://Characters/ai/leafs/actions/move_to_target.gd" id="9_rgu2f"]
-[ext_resource type="Script" path="res://Characters/ai/leafs/actions/weapon_normal_attack.gd" id="10_ndt78"]
-[ext_resource type="Texture2D" uid="uid://jfehaj24kmy2" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_warrior.png" id="11_npab5"]
-[ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="12_2em5x"]
-[ext_resource type="PackedScene" uid="uid://mh1705nhovp2" path="res://Weapons/Melee/rusty_sword/rusty_sword.tscn" id="13_fuc0c"]
-[ext_resource type="Script" path="res://Components/projectile_detector/projectile_detector.gd" id="14_kdjp6"]
+[ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_xn4ik"]
+[ext_resource type="Script" path="res://Characters/Enemies/crossbowman/crossbowman.gd" id="2_8pcxu"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="3_e2h85"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="4_w81st"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="5_7ki1g"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_projectile_coming_for_me.gd" id="6_14y2r"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/set_pathfinding_mode.gd" id="7_6jmms"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/move_to_target.gd" id="8_4lp7y"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/point_weapon_to_target.gd" id="9_7yqix"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/weapon_normal_attack.gd" id="10_i5lik"]
+[ext_resource type="Texture2D" uid="uid://jfehaj24kmy2" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_warrior.png" id="11_736xf"]
+[ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="12_y8twa"]
+[ext_resource type="PackedScene" uid="uid://dkpyvq2xuuytm" path="res://Weapons/Ranged/crossbows/wooden_crossbow/wooden_crossbow.tscn" id="13_8mxi0"]
+[ext_resource type="Script" path="res://Components/projectile_detector/projectile_detector.gd" id="14_ht524"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_lyapg"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_i8c27"]
 radius = 3.0
 
 [sub_resource type="Animation" id="Animation_kcdck"]
@@ -110,53 +110,54 @@ _data = {
 "move_up": SubResource("Animation_6osfq")
 }
 
-[node name="Footman" instance=ExtResource("1_kiof0")]
-script = ExtResource("2_x8087")
+[node name="Crossbowman" instance=ExtResource("1_xn4ik")]
+script = ExtResource("2_8pcxu")
 
 [node name="FootmanBeehaveTree" type="Node" parent="." index="1" node_paths=PackedStringArray("blackboard", "actor")]
-script = ExtResource("3_w5juk")
-blackboard = NodePath("@Node@19165")
+script = ExtResource("3_e2h85")
+blackboard = NodePath("@Node@19863")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="FootmanBeehaveTree" index="0"]
-script = ExtResource("4_udbox")
+script = ExtResource("4_w81st")
 
 [node name="SequenceComposite2" type="Node" parent="FootmanBeehaveTree/SelectorComposite" index="0"]
-script = ExtResource("5_22gsl")
+script = ExtResource("5_7ki1g")
 
 [node name="IsProjectileComingForMe" type="Node" parent="FootmanBeehaveTree/SelectorComposite/SequenceComposite2" index="0"]
-script = ExtResource("7_5iklm")
+script = ExtResource("6_14y2r")
 
 [node name="SetPathfindingMode" type="Node" parent="FootmanBeehaveTree/SelectorComposite/SequenceComposite2" index="1"]
-script = ExtResource("8_78wmf")
+script = ExtResource("7_6jmms")
 mode = 4
 
 [node name="MoveToTarget" type="Node" parent="FootmanBeehaveTree/SelectorComposite/SequenceComposite2" index="2"]
-script = ExtResource("9_rgu2f")
+script = ExtResource("8_4lp7y")
 
 [node name="SequenceComposite" type="Node" parent="FootmanBeehaveTree/SelectorComposite" index="1"]
-script = ExtResource("5_22gsl")
+script = ExtResource("5_7ki1g")
 
 [node name="SetPathfindingMode" type="Node" parent="FootmanBeehaveTree/SelectorComposite/SequenceComposite" index="0"]
-script = ExtResource("8_78wmf")
+script = ExtResource("7_6jmms")
 
 [node name="PointWeaponToTarget" type="Node" parent="FootmanBeehaveTree/SelectorComposite/SequenceComposite" index="1"]
-script = ExtResource("5_7o3at")
+script = ExtResource("9_7yqix")
 
 [node name="MoveToTarget" type="Node" parent="FootmanBeehaveTree/SelectorComposite/SequenceComposite" index="2"]
-script = ExtResource("9_rgu2f")
+script = ExtResource("8_4lp7y")
+closer_than = 96
 
 [node name="WeaponNormalAttack" type="Node" parent="FootmanBeehaveTree/SelectorComposite/SequenceComposite" index="3"]
-script = ExtResource("10_ndt78")
+script = ExtResource("10_i5lik")
 
 [node name="Sprite2D" parent="." index="3"]
 position = Vector2(0, -5)
-texture = ExtResource("11_npab5")
+texture = ExtResource("11_736xf")
 hframes = 6
 vframes = 4
 
 [node name="CollisionShape2D" parent="." index="4"]
-shape = SubResource("CircleShape2D_lyapg")
+shape = SubResource("CircleShape2D_i8c27")
 
 [node name="AnimationPlayer" parent="." index="5"]
 libraries = {
@@ -165,12 +166,12 @@ libraries = {
 
 [node name="EnemyWeapons" type="Node2D" parent="." index="12"]
 position = Vector2(0, -3)
-script = ExtResource("12_2em5x")
+script = ExtResource("12_y8twa")
 
-[node name="RusticSword" parent="EnemyWeapons" index="0" instance=ExtResource("13_fuc0c")]
+[node name="WoodenCrossbow" parent="EnemyWeapons" index="0" instance=ExtResource("13_8mxi0")]
 
 [node name="ProjectileDetector" type="Area2D" parent="." index="15"]
 collision_layer = 0
 collision_mask = 8
-script = ExtResource("14_kdjp6")
+script = ExtResource("14_ht524")
 radius = 128

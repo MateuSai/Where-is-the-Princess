@@ -570,6 +570,6 @@ func _set_temperature_state(new_value: int) -> void:
 	temperature_state = new_value
 	match temperature_state:
 		COLD:
-			sprite.modulate = Color.DEEP_SKY_BLUE
+			sprite.modulate = Color("88ccef")
 		WARM:
 			sprite.modulate = Color.WHITE
