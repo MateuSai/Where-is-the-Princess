@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dodyybgnnyjah"]
+[gd_scene load_steps=27 format=3 uid="uid://dodyybgnnyjah"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_xn4ik"]
 [ext_resource type="Script" path="res://Characters/Enemies/crossbowman/crossbowman.gd" id="2_8pcxu"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/simple_parallel.gd" id="4_24i2g"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="4_w81st"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="5_7ki1g"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/weapon_reload.gd" id="6_sj7gf"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/set_pathfinding_mode.gd" id="7_6jmms"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/move_to_target.gd" id="8_4lp7y"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/point_weapon_to_target.gd" id="9_7yqix"]
@@ -17,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://dkpyvq2xuuytm" path="res://Weapons/Ranged/crossbows/wooden_crossbow/wooden_crossbow.tscn" id="13_8mxi0"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_weapon_busy.gd" id="13_jj16k"]
 [ext_resource type="Script" path="res://Components/projectile_detector/projectile_detector.gd" id="14_ht524"]
+[ext_resource type="Script" path="res://Components/character_detector/aim_component.gd" id="18_qam54"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i8c27"]
 radius = 3.0
@@ -118,7 +120,7 @@ script = ExtResource("2_8pcxu")
 
 [node name="FootmanBeehaveTree" type="Node" parent="." index="1" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("3_e2h85")
-blackboard = NodePath("@Node@21453")
+blackboard = NodePath("@Node@58913")
 actor = NodePath("..")
 
 [node name="SimpleParallelComposite2" type="Node" parent="FootmanBeehaveTree" index="0"]
@@ -130,7 +132,10 @@ script = ExtResource("4_24i2g")
 [node name="SelectorComposite2" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite" index="0"]
 script = ExtResource("4_w81st")
 
-[node name="SequenceComposite" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2" index="0"]
+[node name="WeaponReload" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2" index="0"]
+script = ExtResource("6_sj7gf")
+
+[node name="SequenceComposite" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2" index="1"]
 script = ExtResource("5_7ki1g")
 
 [node name="IsCloseToTarget" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite" index="0"]
@@ -143,7 +148,7 @@ script = ExtResource("13_jj16k")
 [node name="WeaponNormalAttack" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite" index="2"]
 script = ExtResource("10_i5lik")
 
-[node name="SequenceComposite2" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2" index="1"]
+[node name="SequenceComposite2" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2" index="2"]
 script = ExtResource("5_7ki1g")
 
 [node name="IsWeaponBusy" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite2" index="0"]
@@ -187,3 +192,7 @@ collision_layer = 0
 collision_mask = 8
 script = ExtResource("14_ht524")
 radius = 128
+
+[node name="AimComponent" type="Node" parent="." index="16"]
+script = ExtResource("18_qam54")
+flags = 1

@@ -42,9 +42,7 @@
 	},
 	"music": "",
 	"music_volume_db": -4,
-	"weather_modificators": [
-		"res://Rooms/weather_modificators/light_snow.gd"
-	],
-	"temperature": -10,
+	"weather_modificators": [],
+	"temperature": 14,
 	"encyclopedia_background": "res://Rooms/Biomes/basecamp/basecamp_background.png",
 }

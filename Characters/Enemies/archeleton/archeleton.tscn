@@ -188,4 +188,4 @@ libraries = {
 
 [node name="AimComponent" type="Node" parent="." index="12"]
 script = ExtResource("6_nkjaj")
-flags = 1
+flags = 2
