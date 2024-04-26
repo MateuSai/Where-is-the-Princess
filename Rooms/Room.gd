@@ -517,6 +517,9 @@ func get_rect() -> Rect2i:
 #	return Rect2i(tilemap.get_used_rect().position * Rooms.TILE_SIZE, tilemap.get_used_rect().size * Rooms.TILE_SIZE)
 	return Rect2(Vector2i(position) + (tilemap.get_used_rect().position * 16), (tilemap.get_used_rect().size * 16))
 
+func is_cleared() -> bool:
+	return num_enemies == 0
+
 ## Increase num_enemies by 1 and adds the enemy to the scene tree
 func add_enemy(enemy: Enemy) -> void:
 	num_enemies += 1
