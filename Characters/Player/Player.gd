@@ -12,8 +12,6 @@ var dialogue_tween: Tween = null
 
 #const DASH_IMPULSE: int = 22000000
 const DASH_STAMINA_COST: int = 30
-var previous_max_speed: int
-var dash_time: float = 0.06
 signal dashed(dash_time: float)
 
 var stamina_regeneration_per_second: float = 15
@@ -101,8 +99,6 @@ var temperature: float = 20: set = _set_temperature
 @onready var armor_recharge_timer: Timer = $Timers/ArmorRechargeTimer
 @onready var mirage_timer: Timer = $Timers/MirageTimer
 @onready var stamina_regen_cooldown_timer: Timer = $Timers/StaminaRegenCooldownTimer
-@onready var dash_timer: Timer = $Timers/DashTimer
-@onready var dash_cooldown_timer: Timer = $Timers/DashCooldownTimer
 
 @onready var mirage: TextureRect = $UI/Mirage
 
@@ -120,7 +116,6 @@ func _ready() -> void:
 	acid_bar.hide()
 
 	mirage_timer.timeout.connect(disable_mirage)
-	dash_timer.timeout.connect(_on_dash_timer_timeout)
 
 	weapons.weapon_picked_up.emit(weapons.get_child(0))
 	weapons.load_previous_weapons()
@@ -279,7 +274,7 @@ func get_input() -> void:
 		mov_direction.y -= Input.get_action_strength("ui_move_up")
 
 	if Input.is_action_just_pressed("ui_dash") and stamina >= DASH_STAMINA_COST and dash_cooldown_timer.is_stopped() and not (mov_direction.is_equal_approx(Vector2.ZERO) and not armor is Underpants):
-		_dash()
+		_dash_or_jump()
 
 	if Input.is_action_just_pressed("ui_armor_ability") and armor.is_able_to_use_ability:
 		_use_armor_ability()
@@ -415,28 +410,16 @@ func jump() -> void:
 	position_before_jumping = position
 	jump_animation_player.play("jump")
 
-func _dash() -> void:
-	dash_cooldown_timer.start()
-
+func _dash_or_jump() -> void:
 	stamina -= DASH_STAMINA_COST
 
 	if armor is Underpants:
+		dash_cooldown_timer.start()
 		jump()
 	else:
-		#velocity += mov_direction.limit_length(1) * DASH_IMPULSE
-		#mov_direction = Vector2.ZERO
-		#friction /= 10
-		previous_max_speed = data.max_speed
-		data.max_speed = 1000
-		dash_timer.start(dash_time)
-		_start_shadow_effect()
-
+		_dash()
+	
 	dashed.emit(dash_time)
-
-func _on_dash_timer_timeout() -> void:
-	data.max_speed = previous_max_speed
-	await get_tree().create_timer(0.04).timeout
-	_stop_shadow_effect()
 
 func add_rotating_item(node: Node2D) -> void:
 	add_child(node)

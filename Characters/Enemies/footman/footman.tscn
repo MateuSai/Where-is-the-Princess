@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/set_pathfinding_mode.gd" id="8_78wmf"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/move_to_target.gd" id="9_rgu2f"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_close_to_target.gd" id="10_b58hh"]
-[ext_resource type="Script" path="res://Characters/ai/leafs/actions/weapon_normal_attack.gd" id="10_ndt78"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/weapon_attack.gd" id="10_ndt78"]
 [ext_resource type="Texture2D" uid="uid://jfehaj24kmy2" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_warrior.png" id="11_npab5"]
 [ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="12_2em5x"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/update_animation_according_to_mov_direction.gd" id="12_yg6rt"]

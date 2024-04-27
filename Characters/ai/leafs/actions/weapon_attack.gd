@@ -1,4 +1,11 @@
-class_name WeaponNormalAttack extends ActionLeaf
+class_name WeaponAttack extends ActionLeaf
+
+enum AttackType {
+    NORMAL,
+    ACTIVE_ABILITY,
+}
+
+@export var attack_type: AttackType = AttackType.NORMAL
 
 @onready var enemy_weapons: EnemyWeapons = owner.get_node("EnemyWeapons")
 
@@ -13,7 +20,10 @@ func tick(_actor: Node, _blackboard: Blackboard) -> int:
     if not attacking:
         attacking = true
         enemy_weapons.current_weapon.animation_player.animation_finished.connect(_on_attack_animation_ended)
-        enemy_weapons.attack()
+        if attack_type == AttackType.NORMAL:
+            enemy_weapons.attack()
+        else:
+            enemy_weapons.active_ability()
 
     return RUNNING
 

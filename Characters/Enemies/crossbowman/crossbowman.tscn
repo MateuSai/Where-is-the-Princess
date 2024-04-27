@@ -11,7 +11,7 @@
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/move_to_target.gd" id="8_4lp7y"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/point_weapon_to_target.gd" id="9_7yqix"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_close_to_target.gd" id="10_hncrv"]
-[ext_resource type="Script" path="res://Characters/ai/leafs/actions/weapon_normal_attack.gd" id="10_i5lik"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/weapon_attack.gd" id="10_i5lik"]
 [ext_resource type="Texture2D" uid="uid://jfehaj24kmy2" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_warrior.png" id="11_736xf"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/update_animation_according_to_mov_direction.gd" id="12_n52r4"]
 [ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="12_y8twa"]
@@ -120,7 +120,7 @@ script = ExtResource("2_8pcxu")
 
 [node name="FootmanBeehaveTree" type="Node" parent="." index="1" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("3_e2h85")
-blackboard = NodePath("@Node@58913")
+blackboard = NodePath("@Node@23697")
 actor = NodePath("..")
 
 [node name="SimpleParallelComposite2" type="Node" parent="FootmanBeehaveTree" index="0"]
@@ -132,10 +132,25 @@ script = ExtResource("4_24i2g")
 [node name="SelectorComposite2" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite" index="0"]
 script = ExtResource("4_w81st")
 
-[node name="WeaponReload" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2" index="0"]
+[node name="SequenceComposite3" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2" index="0"]
+script = ExtResource("5_7ki1g")
+
+[node name="IsCloseToTarget" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite3" index="0"]
+script = ExtResource("10_hncrv")
+closer_than = 32
+
+[node name="SetPathfindingMode" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite3" index="1"]
+script = ExtResource("7_6jmms")
+mode = 1
+
+[node name="MoveToTarget" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite3" index="2"]
+script = ExtResource("8_4lp7y")
+time_limit = 1.0
+
+[node name="WeaponReload" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2" index="1"]
 script = ExtResource("6_sj7gf")
 
-[node name="SequenceComposite" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2" index="1"]
+[node name="SequenceComposite" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2" index="2"]
 script = ExtResource("5_7ki1g")
 
 [node name="IsCloseToTarget" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite" index="0"]
@@ -148,7 +163,7 @@ script = ExtResource("13_jj16k")
 [node name="WeaponNormalAttack" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite" index="2"]
 script = ExtResource("10_i5lik")
 
-[node name="SequenceComposite2" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2" index="2"]
+[node name="SequenceComposite2" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2" index="3"]
 script = ExtResource("5_7ki1g")
 
 [node name="IsWeaponBusy" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite2" index="0"]

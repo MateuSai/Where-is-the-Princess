@@ -6,7 +6,8 @@ const DB: Dictionary = preload ("res://Characters/data.csv").records
 const DUST_SCENE: PackedScene = preload ("res://Characters/Player/Dust.tscn")
 const HIT_EFFECT_SCENE: PackedScene = preload ("res://Characters/HitEffect.tscn")
 
-var friction: float = 0.15
+const FRICTION: float = 0.15
+var friction: float = FRICTION
 
 #var invincible: bool = false
 #@export var max_hp: int = 2
@@ -26,6 +27,11 @@ enum Resistance {
 	ELECTRICITY = 8,
 }
 var resistances: int = 0
+
+var previous_max_speed: int
+var dash_time: float = 0.06
+var dash_timer: Timer
+var dash_cooldown_timer: Timer
 
 var mov_direction: Vector2 = Vector2.ZERO
 
@@ -77,6 +83,14 @@ func _ready() -> void:
 	spawn_shadow_timer.one_shot = false
 	spawn_shadow_timer.timeout.connect(_spawn_shadow_effect)
 	add_child(spawn_shadow_timer)
+
+	dash_timer = Timer.new()
+	dash_timer.one_shot = true
+	add_child(dash_timer)
+	dash_cooldown_timer = Timer.new()
+	dash_cooldown_timer.one_shot = true
+	dash_timer.timeout.connect(_on_dash_timer_timeout)
+	add_child(dash_cooldown_timer)
 
 	set_flying(data.flying)
 
@@ -241,6 +255,23 @@ func _spawn_shadow_effect() -> void:
 	shadow_sprite.offset = sprite.offset
 	get_tree().current_scene.add_child(shadow_sprite)
 	shadow_sprite.start(sprite.texture)
+
+func _dash() -> void:
+	dash_cooldown_timer.start()
+
+	velocity += mov_direction.limit_length(1) * 2000
+	#mov_direction = Vector2.ZERO
+	friction = 0
+	#previous_max_speed = data.max_speed
+	#data.max_speed = 1000
+	dash_timer.start(dash_time)
+	_start_shadow_effect()
+
+func _on_dash_timer_timeout() -> void:
+	#data.max_speed = previous_max_speed
+	friction = FRICTION
+	await get_tree().create_timer(0.06).timeout
+	_stop_shadow_effect()
 
 func _update_state_label(new_state: int) -> void:
 	state_label.text = str(new_state)
