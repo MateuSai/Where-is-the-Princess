@@ -34,7 +34,7 @@ var biome_conf: BiomeConf
 signal dark_souls_changed(new_value: int)
 
 func _ready() -> void:
-	print("--- SavedData ---")
+	print_rich("\n[b]--- SavedData ---[/b]")
 	# save_data()
 	data = Data._load()
 	data_loaded.emit()
@@ -49,7 +49,12 @@ func _ready() -> void:
 	var user_dir: DirAccess = DirAccess.open(USER_FOLDER)
 	assert(user_dir) # Siempre deberiamos poder abrir el directorio del usuario
 
-	print("\t")
+	print("")
+
+	if OS.has_feature("editor"):
+		_print_info_that_may_be_useful()
+
+	print("")
 
 func save_run_stats() -> void:
 	ResourceSaver.save(run_stats, USER_FOLDER.path_join(RUN_STATS_SAVE_NAME))
@@ -391,3 +396,21 @@ func get_limit_entrance_connections_to_one() -> bool:
 
 func add_completed_dialogue(dialogue: String) -> void:
 	data.add_completed_dialogue(dialogue)
+
+func _print_info_that_may_be_useful() -> void:
+	var data_dic: Dictionary = {
+		"Armors": [Data.ALL_VANILLA_ARMORS, Data.AVAILABLE_ARMORS_FROM_START],
+		"Weapons": [Data.ALL_VANILLA_WEAPONS, Data.AVAILABLE_WEAPONS_FROM_START],
+		"Permanent items": [Data.ALL_VANILLA_PERMANENT_ITEMS, Data.AVAILABLE_PERMANENT_ITEMS_FROM_START],
+		"Temporal items": [Data.ALL_VANILLA_TEMPORAL_ITEMS, Data.AVAILABLE_TEMPORAL_ITEMS_FROM_START],
+	}
+	for key: String in data_dic.keys():
+		print("\n" + key + ":")
+		print("\tAll vanilla: " + str(Globals.array_of_paths_to_filenames(Array(data_dic[key][0]))))
+		print("\tAvailable from start: " + str(Globals.array_of_paths_to_filenames(Array(data_dic[key][1]))))
+		print("\tNot available from start: " + str(Globals.array_of_paths_to_filenames(
+			Globals.get_missing_elements(
+				Array(data_dic[key][0]),
+				Array(data_dic[key][1])
+			)
+		)))

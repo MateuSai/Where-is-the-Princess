@@ -273,3 +273,18 @@ func get_atlas_frame(texture: Texture2D, region: Rect2) -> AtlasTexture:
 	atlas.atlas = texture
 	atlas.region = region
 	return atlas
+
+func get_missing_elements(complete_array: Array, partial_array: Array) -> Array:
+	var missing_elements: Array = []
+
+	for element in complete_array:
+		if not partial_array.has(element):
+			missing_elements.push_back(element)
+
+	return missing_elements
+
+func array_of_paths_to_filenames(array: Array) -> Array:
+	return array.duplicate().map(
+		func(element: String) -> String:
+			return element.get_basename().get_file()
+	)
