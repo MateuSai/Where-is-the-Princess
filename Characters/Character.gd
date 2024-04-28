@@ -132,11 +132,14 @@ func _physics_process(delta: float) -> void:
 		acid_progress -= 0.7 * delta
 
 	state_machine.physics_process(delta)
+
+	_move()
+
 	if not data.motionless:
 		move_and_slide()
 	velocity = lerp(velocity, Vector2.ZERO, friction)
 
-func move() -> void:
+func _move() -> void:
 	mov_direction = mov_direction.limit_length(1.0)
 	#velocity += mov_direction * acceleration
 	if not mov_direction.is_equal_approx(Vector2.ZERO) and can_move:
@@ -256,20 +259,23 @@ func _spawn_shadow_effect() -> void:
 	get_tree().current_scene.add_child(shadow_sprite)
 	shadow_sprite.start(sprite.texture)
 
-func _dash() -> void:
+func _dash(dash_time: float=dash_time) -> void:
+	print_debug("dash " + str(mov_direction))
 	dash_cooldown_timer.start()
 
-	velocity += mov_direction.limit_length(1) * 2000
+	#velocity += mov_direction.normalized() * 1000
+	#print_debug("Velocity after applying dash: " + str(velocity))
 	#mov_direction = Vector2.ZERO
-	friction = 0
-	#previous_max_speed = data.max_speed
-	#data.max_speed = 1000
+	#friction = 0
+	previous_max_speed = data.max_speed
+	data.max_speed = 1000
 	dash_timer.start(dash_time)
 	_start_shadow_effect()
 
 func _on_dash_timer_timeout() -> void:
-	#data.max_speed = previous_max_speed
-	friction = FRICTION
+	print_debug(mov_direction)
+	data.max_speed = previous_max_speed
+	#friction = FRICTION
 	await get_tree().create_timer(0.06).timeout
 	_stop_shadow_effect()
 

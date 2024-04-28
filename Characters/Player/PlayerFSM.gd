@@ -26,7 +26,7 @@ func _state_logic(_delta: float) -> void:
 	match state:
 		IDLE:
 			player.get_input()
-			player.move()
+			#player.move()
 			#var mouse_direction: Vector2 = (player.get_global_mouse_position() - player.global_position).normalized()
 			if player.mouse_direction.y >= 0:
 				animation_player.play("idle")
@@ -34,7 +34,7 @@ func _state_logic(_delta: float) -> void:
 				animation_player.play("idle_up")
 		MOVE:
 			player.get_input()
-			player.move()
+			#player.move()
 			#var mouse_direction: Vector2 = (player.get_global_mouse_position() - player.global_position).normalized()
 			if player.mouse_direction.y >= 0:
 				#print(player.mouse_direction)

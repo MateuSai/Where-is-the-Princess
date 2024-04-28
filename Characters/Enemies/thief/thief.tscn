@@ -121,7 +121,7 @@ script = ExtResource("2_w4yoh")
 
 [node name="ThiefBeehaveTree" type="Node" parent="." index="1" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("3_0dhdd")
-blackboard = NodePath("@Node@26022")
+blackboard = NodePath("@Node@37517")
 actor = NodePath("..")
 
 [node name="SimpleParallelComposite2" type="Node" parent="ThiefBeehaveTree" index="0"]
@@ -157,7 +157,7 @@ script = ExtResource("9_he30m")
 
 [node name="CooldownDecorator" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite2" index="1"]
 script = ExtResource("11_4sn0n")
-wait_time = 0.1
+wait_time = 0.05
 
 [node name="SequenceComposite2" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite2/CooldownDecorator" index="0"]
 script = ExtResource("6_od35r")
@@ -177,43 +177,49 @@ script = ExtResource("8_prro6")
 script = ExtResource("9_he30m")
 attack_type = 1
 
-[node name="SelectorRandomComposite" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite" index="1"]
-script = ExtResource("10_eakdo")
-
-[node name="SequenceComposite" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite" index="0"]
+[node name="SequenceComposite" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite" index="1"]
 script = ExtResource("6_od35r")
 
-[node name="SetPathfindingMode" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite/SequenceComposite" index="0"]
+[node name="IsCloseToTarget" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SequenceComposite" index="0"]
+script = ExtResource("7_fkyd4")
+closer_than = 16
+
+[node name="SelectorRandomComposite" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SequenceComposite" index="1"]
+script = ExtResource("10_eakdo")
+
+[node name="SequenceComposite" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SequenceComposite/SelectorRandomComposite" index="0"]
+script = ExtResource("6_od35r")
+
+[node name="SetPathfindingMode" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SequenceComposite/SelectorRandomComposite/SequenceComposite" index="0"]
 script = ExtResource("11_iv1jr")
 mode = 1
 
-[node name="MoveToTarget" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite/SequenceComposite" index="1"]
+[node name="MoveToTarget" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SequenceComposite/SelectorRandomComposite/SequenceComposite" index="1"]
 script = ExtResource("12_wmvlk")
+closer_than = 2
 time_limit = 0.6
 
-[node name="SequenceComposite2" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite" index="1"]
+[node name="SequenceComposite2" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SequenceComposite/SelectorRandomComposite" index="1"]
 script = ExtResource("6_od35r")
 
-[node name="SetPathfindingMode" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite/SequenceComposite2" index="0"]
+[node name="SetPathfindingMode" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SequenceComposite/SelectorRandomComposite/SequenceComposite2" index="0"]
 script = ExtResource("11_iv1jr")
 mode = 2
 
-[node name="MoveToTarget" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite/SequenceComposite2" index="1"]
+[node name="MoveToTarget" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SequenceComposite/SelectorRandomComposite/SequenceComposite2" index="1"]
 script = ExtResource("12_wmvlk")
+closer_than = 2
 time_limit = 0.8
 
 [node name="SequenceComposite2" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2" index="1"]
 script = ExtResource("6_od35r")
 
-[node name="IsWeaponBusy" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite2" index="0"]
-script = ExtResource("8_prro6")
-
-[node name="SetPathfindingMode" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite2" index="1"]
+[node name="SetPathfindingMode" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite2" index="0"]
 script = ExtResource("11_iv1jr")
 
-[node name="MoveToTarget" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite2" index="2"]
+[node name="MoveToTarget" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite2" index="1"]
 script = ExtResource("12_wmvlk")
-closer_than = 18
+closer_than = 4
 time_limit = 1.0
 
 [node name="PointWeaponToTarget" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite" index="1"]
