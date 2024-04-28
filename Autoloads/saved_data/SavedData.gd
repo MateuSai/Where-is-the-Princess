@@ -33,6 +33,8 @@ var biome_conf: BiomeConf
 
 signal dark_souls_changed(new_value: int)
 
+var last_time_killed_by: String = ""
+
 func _ready() -> void:
 	print_rich("\n[b]--- SavedData ---[/b]")
 	# save_data()
@@ -396,6 +398,10 @@ func get_limit_entrance_connections_to_one() -> bool:
 
 func add_completed_dialogue(dialogue: String) -> void:
 	data.add_completed_dialogue(dialogue)
+
+func add_player_times_killed(killed_by: String) -> void:
+	last_time_killed_by = killed_by
+	statistics.add_player_times_killed()
 
 func _print_info_that_may_be_useful() -> void:
 	var data_dic: Dictionary = {

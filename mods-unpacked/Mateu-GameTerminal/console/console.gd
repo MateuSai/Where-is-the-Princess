@@ -259,6 +259,7 @@ func _set_player_hp(hp_string: String) -> void:
 		return
 
 	hide()
+	Globals.player.life_component.last_damage_dealer_id = "console"
 	Globals.player.life_component.hp = int(hp_string)
 #	var new_hp: int = int(clamp(int(hp_string), 0.0, 100.0))
 #	Globals.player.hp = new_hp

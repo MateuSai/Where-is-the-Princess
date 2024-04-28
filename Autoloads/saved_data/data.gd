@@ -25,6 +25,8 @@ const AVAILABLE_PLAYER_UPGRADES_FROM_START: PackedStringArray = ["res://items/pl
 const ALL_VANILLA_BIOMES: PackedStringArray = ["basecamp", "forest", "sewer", "crates"]
 #endregion
 
+var _last_time_killed_by: String = ""
+
 var dark_souls: int = 0
 
 var ignored_rooms: PackedStringArray = []
@@ -75,6 +77,11 @@ static func _load() -> Data:
 		print("No save data found, using default value...")
 
 	return Data.new()
+
+#func set_last_time_killed_by(new_value: String) -> void:
+#	_last_time_killed_by = new_value
+#
+#	save()
 
 func get_extra_max_hp() -> int:
 	var extra_hp: int = 0

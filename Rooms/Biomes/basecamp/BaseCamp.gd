@@ -63,6 +63,9 @@ func _ready() -> void:
 			#print(tr(dialogue_key))
 			if dialogue_key != tr(dialogue_key): # Dialogue available
 				Globals.player.start_dialogue(dialogue_key)
+			elif not SavedData.last_time_killed_by.is_empty():
+				var options: PackedStringArray=["PLAYER_WAKE_UP_DIALOGUE_KILLED_BY_ENEMY_1"]
+				Globals.player.start_dialogue(tr(options[randi() % options.size()]) % tr(SavedData.last_time_killed_by.to_upper()))
 		)
 		wake_up_dialogue_timer.start()
 	)

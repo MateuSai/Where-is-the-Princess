@@ -219,7 +219,7 @@ script = ExtResource("11_iv1jr")
 
 [node name="MoveToTarget" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite2" index="1"]
 script = ExtResource("12_wmvlk")
-closer_than = 4
+closer_than = 16
 time_limit = 1.0
 
 [node name="PointWeaponToTarget" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite" index="1"]
@@ -241,6 +241,9 @@ shape = SubResource("CircleShape2D_4fmsw")
 libraries = {
 "": SubResource("AnimationLibrary_wst10")
 }
+
+[node name="NavigationAgent2D" parent="." index="6"]
+debug_enabled = true
 
 [node name="EnemyWeapons" type="Node2D" parent="." index="12"]
 position = Vector2(0, -3)
