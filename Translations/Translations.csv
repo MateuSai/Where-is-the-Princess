@@ -262,3 +262,5 @@ PLAYER_WAKE_UP_DIALOGUE_6,Hmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm...,Mmmmmmmmmmmmmmmm
 PLAYER_WAKE_UP_DIALOGUE_7,Who cares?! I have more important things to do than wonder about my dreams!,Què importa?! Tinc coses més importants a fer que pensar en els meus somnis!,¡¿Qué importa?! ¡Tengo cosas más importantes que hacer antes que pensar en mis sueños!,
 ,,,,
 PLAYER_WAKE_UP_DIALOGUE_KILLED_BY_ENEMY_1,Damn %s!,"Ves-te'n a fer punyetes, %s!",%s de mierda!,
+,,,,
+PLAYER_TROMP_ROOM_DOOR_CLOSED,"The door is closed, I must find another way in.","La porta està tancada, he de trobar una altre manera d'entrar.","La puerta está cerrada, tengo que encontrar otra manera de entrar.",
