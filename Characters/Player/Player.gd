@@ -67,7 +67,11 @@ var armor_shard_break_probability: float = 0.0:
 var rotating_items: Array[Node2D] = []
 
 ## Room where the player is at this moment. Contains [code]null[/code] if the player is on a corridor
-var current_room: DungeonRoom = null
+var current_room: DungeonRoom = null:
+	set(new_room):
+		current_room = new_room
+		on_current_room_changed.emit(current_room)
+signal on_current_room_changed(new_room: DungeonRoom)
 
 var position_before_jumping: Vector2
 

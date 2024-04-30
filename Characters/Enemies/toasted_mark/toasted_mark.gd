@@ -1,6 +1,5 @@
 extends Enemy
 
-
 var spear_and_rope: WeaponWithRope
 
 signal spear_picked_up()
@@ -16,7 +15,6 @@ signal spear_picked_up()
 @onready var attack_timer: Timer = $AttackTimer
 @onready var pull_back_timer: Timer = $PullBackTimer
 
-
 func _ready() -> void:
 	super()
 	#weapon_body.process_mode = Node.PROCESS_MODE_DISABLED
@@ -24,13 +22,11 @@ func _ready() -> void:
 #	weapon_body.can_move = false
 #	rope.hide()
 
-	attack_timer.timeout.connect(func():
+	attack_timer.timeout.connect(func() -> void:
 		_throw()
 		pull_back_timer.start(randf_range(0.8, 1.4))
 	)
 	pull_back_timer.timeout.connect(_pull_back_weapon)
-
-
 
 func point_to_player() -> void:
 	var vector_to_target: Vector2 = (player.position - global_position)
@@ -46,7 +42,6 @@ func point_to_player() -> void:
 		spear_pivot.scale.y = 1
 
 	#weapon.rotation = (player.position - global_position).angle()
-
 
 func attack() -> void:
 	pick_up_spear_area_collision_shape.set_deferred("disabled", true)
@@ -73,18 +68,16 @@ func attack() -> void:
 #
 #	_pull_back_weapon()
 
-
 func _throw() -> void:
 	spear_sprite.hide()
 
-	spear_and_rope = load("res://Characters/Enemies/MarkTheReptilian/SpearAndRope.tscn").instantiate()
+	spear_and_rope = load("res://Characters/Enemies/toasted_mark/SpearAndRope.tscn").instantiate()
 	get_tree().current_scene.add_child(spear_and_rope)
 	spear_and_rope.position = global_position
 	var vector_to_player: Vector2 = (player.position - global_position)
 	if vector_to_player.x < 0:
 		spear_and_rope.scale.y = -1
 	spear_and_rope.attach(get_path(), vector_to_player.normalized())
-
 
 func _pull_back_weapon() -> void:
 	pick_up_spear_area_collision_shape.set_deferred("disabled", false)
@@ -100,13 +93,11 @@ func _pull_back_weapon() -> void:
 	#weapon_body.position = Vector2.DOWN * 8
 	#weapon_body.global_position = global_position + Vector2.DOWN * 8
 
-
 func _on_pick_up_spear_area_body_entered(body: Node2D) -> void:
 	if is_instance_valid(spear_and_rope) and body == spear_and_rope.weapon_body:
 		spear_and_rope.queue_free()
 		spear_sprite.show()
 		spear_picked_up.emit()
-
 
 func _on_died() -> void:
 	attack_timer.stop()

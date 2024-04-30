@@ -25,7 +25,7 @@ const AVAILABLE_PLAYER_UPGRADES_FROM_START: PackedStringArray = ["res://items/pl
 const ALL_VANILLA_BIOMES: PackedStringArray = ["basecamp", "forest", "sewer", "crates"]
 #endregion
 
-var _last_time_killed_by: String = ""
+#var _last_time_killed_by: String = ""
 
 var dark_souls: int = 0
 

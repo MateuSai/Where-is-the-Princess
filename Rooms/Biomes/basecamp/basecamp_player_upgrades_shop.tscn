@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://5orvhxdckhxm" path="res://Rooms/Shop.tscn" id="1_ei562"]
 [ext_resource type="Script" path="res://Rooms/ShopItemMarker.gd" id="2_xgo3v"]
-[ext_resource type="PackedScene" uid="uid://1dog8g4x0l0a" path="res://Characters/npcs/shop_manager/ShopManager.tscn" id="3_birxu"]
+[ext_resource type="PackedScene" uid="uid://1dog8g4x0l0a" path="res://Characters/npcs/richard_stallwizard/richard_stallwizard.tscn" id="3_birxu"]
 
 [node name="BaseCampPlayerUpgradesShop" type="Node2D"]
 
