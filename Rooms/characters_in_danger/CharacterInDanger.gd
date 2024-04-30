@@ -1,7 +1,7 @@
 class_name CharacterInDanger extends Node2D
 
-@export var dialogues_asking_for_help: PackedStringArray = ["HELP ME!", "Help, these creatures want to eat me", "The coolest asset pack out there"]
-@export var dialogues_after_saving: PackedStringArray = ["Thanks", "I was about to get free by myself, but thanks anyway", "I'm free, hahahaah. Now I can continue with my reptilian genocide"]
+var dialogues_asking_for_help: PackedStringArray = []
+var dialogues_after_saving: PackedStringArray = []
 
 var room_cleared: bool = false
 var say_something_timer: Timer
@@ -13,38 +13,53 @@ var say_something_timer: Timer
 @onready var jail_interact_area: InteractArea = $StaticBody2D/InteractArea
 
 func _ready() -> void:
+	var upper_case_id: String = character.id.to_upper()
+	var i: int = 1
+	while true:
+		var dialogue_id: String = "%s_ASKING_FOR_HELP_%d" % [upper_case_id, i]
+		if tr(dialogue_id) != dialogue_id: # Translation available
+			dialogues_asking_for_help.push_back(dialogue_id)
+		else:
+			break
+		i += 1
+	Log.debug(character.id + " dialogues asking for help: " + str(dialogues_asking_for_help))
+	i = 0
+	while true:
+		var dialogue_id: String = "%s_AFTER_SAVING_%d" % [upper_case_id, i]
+		if tr(dialogue_id) != dialogue_id: # Translation available
+			dialogues_after_saving.push_back(dialogue_id)
+		else:
+			break
+		i += 1
+	Log.dbg(character.id + " dialogues after saving: " + str(dialogues_after_saving))
+
 	character.dialogues_in_order = true
 
 	character.used_all_dialogues.connect(func() -> void:
-		if room_cleared:
-			if is_instance_valid(say_something_timer):
-				say_something_timer.queue_free()
-
-			character.interact_area.queue_free() # So the player can't interact with the nppc anymore
-			
-			Globals.player.on_current_room_changed.connect(func(new_room: DungeonRoom) -> void:
-				if new_room != null and new_room != room:
-					print_debug("Freeing " + name)
-					queue_free()
-			)
-		else:
+		if is_instance_valid(say_something_timer):
 			say_something_timer.queue_free()
+		
+		if room_cleared:
+			character.interact_area.queue_free() # So the player can't interact with the nppc anymore
+#		else:
+#			say_something_timer.queue_free()
 	)
 
-	say_something_timer = Timer.new()
-	say_something_timer.one_shot = true
-	say_something_timer.timeout.connect(_on_say_something_timer_timeout)
-	add_child(say_something_timer)
+	if not dialogues_asking_for_help.is_empty():
+		say_something_timer = Timer.new()
+		say_something_timer.one_shot = true
+		say_something_timer.timeout.connect(_on_say_something_timer_timeout)
+		add_child(say_something_timer)
+		
+		room.player_entered.connect(func() -> void:
+			_on_say_something_timer_timeout()
+		)
 
 	room.cleared.connect(func() -> void:
 		room_cleared=true
 	)
 
 	character.dialogue_texts = dialogues_asking_for_help
-
-	room.player_entered.connect(func() -> void:
-		_on_say_something_timer_timeout()
-	)
 
 	character.interact_area.player_interacted.disconnect(character._on_player_interacted)
 
@@ -57,6 +72,12 @@ func _ready() -> void:
 		get_tree().current_scene.call_deferred("add_child", key)
 		await get_tree().process_frame
 		key.go_to_player()
+
+		Globals.player.on_current_room_changed.connect(func(new_room: DungeonRoom) -> void:
+			if new_room != null and new_room != room:
+				Log.debug("Freeing " + name)
+				queue_free()
+		)
 	)
 
 func _on_say_something_timer_timeout() -> void:

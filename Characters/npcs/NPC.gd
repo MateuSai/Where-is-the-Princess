@@ -16,6 +16,7 @@ signal used_all_dialogues()
 		used_dialogue_texts = []
 var used_dialogue_texts: PackedStringArray = []
 
+@onready var id: String = scene_file_path.get_file().trim_suffix(".tscn").to_snake_case()
 @onready var interact_area: InteractArea = $InteractArea
 
 func _ready() -> void:
@@ -35,7 +36,7 @@ func start_dialogue() -> void:
 	if dialogues_in_order:
 		var dialogue_text: String = dialogue_texts[used_dialogue_texts.size()]
 
-		dialogue_box.start_displaying_text(dialogue_text)
+		dialogue_box.start_displaying_text(tr(dialogue_text))
 		used_dialogue_texts.push_back(dialogue_text)
 
 		if dialogue_texts.size() == used_dialogue_texts.size():

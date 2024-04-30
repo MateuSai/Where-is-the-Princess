@@ -9,16 +9,14 @@ signal projectiles_spawned(projectiles: Array[Projectile])
 @onready var spawn_projectile_pos: Marker2D = %SpawnProjectilePos
 @onready var shoot_sound: AudioStreamPlayer = $ShootSound
 
-
 func _ready() -> void:
 	super()
 
 	if not data.shoot_sound_path.is_empty():
 		shoot_sound.stream = load(data.shoot_sound_path)
 
-
 ## rot_offset is in radians. Returns an array containing the spawned projectiles
-func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> Array[Projectile]:
+func _spawn_projectile(angle: float=0.0, amount: int=1) -> Array[Projectile]:
 	if shoot_sound.stream:
 		shoot_sound.play()
 
@@ -42,8 +40,8 @@ func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> Array[Projectile]
 		if damage_dealer is Player:
 			projectile.damage *= damage_dealer.damage_multiplier
 
-		if get_parent() is PlayerWeapons and (get_parent() as PlayerWeapons).double_damage_when_weapon_breaks and stats.condition - data.condition_cost_per_normal_attack <= 0:
-			projectile.damage *= 2
+		if get_parent() is PlayerWeapons and stats.condition - data.condition_cost_per_normal_attack <= 0:
+			projectile.damage += (get_parent() as PlayerWeapons).extra_damage_when_weapon_breaks
 
 		for body: PhysicsBody2D in (get_parent().get_parent() as Character).get_exclude_bodies():
 			projectile.exclude.push_back(body)
@@ -63,7 +61,6 @@ func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> Array[Projectile]
 
 	return spawned_projectiles
 
-
 func _on_animation_started(anim_name: StringName) -> void:
 	super(anim_name)
 
@@ -71,7 +68,6 @@ func _on_animation_started(anim_name: StringName) -> void:
 		projectile_speed = ability_projectile_speed
 	else:
 		projectile_speed = normal_attack_projectile_speed
-
 
 static func get_data(path: String) -> WeaponData:
 	var id: String = get_id_from_path(path)

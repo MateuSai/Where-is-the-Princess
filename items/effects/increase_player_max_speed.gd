@@ -1,4 +1,4 @@
-class_name PlayerMaxSpeed extends ItemEffect
+class_name IncreasePlayerMaxSpeed extends ItemEffect
 
 var amount: int
 

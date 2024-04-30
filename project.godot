@@ -28,6 +28,7 @@ Globals="*res://Autoloads/Globals.gd"
 InfoPanel="*res://Autoloads/info_panel/info_panel.tscn"
 BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
 BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
+Log="*res://addons/logger/logger.gd"
 
 [debug]
 
@@ -52,11 +53,11 @@ project/assembly_name="Godot4RoguelikeProject"
 
 [editor]
 
-run/main_run_args="-- --debug"
+run/main_run_args="-- --debug --log-level debug"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/beehave/plugin.cfg", "res://addons/csv-data-importer/plugin.cfg", "res://addons/script-ide/plugin.cfg", "res://addons/gdUnit4/plugin.cfg")
+enabled=PackedStringArray("res://addons/beehave/plugin.cfg", "res://addons/csv-data-importer/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/logger/plugin.cfg", "res://addons/script-ide/plugin.cfg")
 
 [file_customization]
 

@@ -411,10 +411,10 @@ func _print_info_that_may_be_useful() -> void:
 		"Temporal items": [Data.ALL_VANILLA_TEMPORAL_ITEMS, Data.AVAILABLE_TEMPORAL_ITEMS_FROM_START],
 	}
 	for key: String in data_dic.keys():
-		print("\n" + key + ":")
-		print("\tAll vanilla: " + str(Globals.array_of_paths_to_filenames(Array(data_dic[key][0]))))
-		print("\tAvailable from start: " + str(Globals.array_of_paths_to_filenames(Array(data_dic[key][1]))))
-		print("\tNot available from start: " + str(Globals.array_of_paths_to_filenames(
+		Log.info(key + ":")
+		Log.info("\tAll vanilla: " + str(Globals.array_of_paths_to_filenames(Array(data_dic[key][0]))))
+		Log.info("\tAvailable from start: " + str(Globals.array_of_paths_to_filenames(Array(data_dic[key][1]))))
+		Log.info("\tNot available from start: " + str(Globals.array_of_paths_to_filenames(
 			Globals.get_missing_elements(
 				Array(data_dic[key][0]),
 				Array(data_dic[key][1])

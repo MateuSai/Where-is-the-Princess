@@ -10,7 +10,7 @@ signal normal_attacked()
 
 var max_weapons: int = 3
 
-var double_damage_when_weapon_breaks: bool = true
+var extra_damage_when_weapon_breaks: int = 0
 
 enum {UP, DOWN}
 
