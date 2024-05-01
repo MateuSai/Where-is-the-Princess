@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://d2bms735opqbs"]
+
+[ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_mgc3k"]
+[ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="2_cne22"]
+[ext_resource type="Texture2D" uid="uid://dsluspdkijyfh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_02_spear.png" id="3_gpkl1"]
+[ext_resource type="AnimationLibrary" uid="uid://cuiguj5gwq0ht" path="res://Weapons/animation_libraries/vertical_spear_animation_library.tres" id="4_y0ikp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5lvt3"]
+resource_local_to_scene = true
+shader = ExtResource("2_cne22")
+shader_parameter/active = false
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dxoy3"]
+radius = 1.41421
+height = 18.3847
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u6osg"]
+radius = 2.12132
+height = 19.799
+
+[node name="TribalSpear" instance=ExtResource("1_mgc3k")]
+
+[node name="Node2D" parent="." index="0"]
+rotation = 1.5708
+
+[node name="WeaponSprite" parent="Node2D" index="0"]
+material = SubResource("ShaderMaterial_5lvt3")
+rotation = 0.0
+texture = ExtResource("3_gpkl1")
+offset = Vector2(0, -2)
+
+[node name="CollisionShape2D" parent="Node2D/WeaponSprite/Hitbox" index="0"]
+position = Vector2(0.707099, -2.12132)
+shape = SubResource("CapsuleShape2D_dxoy3")
+
+[node name="CollisionShape2D" parent="Node2D/WeaponSprite/PlayerDetector" index="0"]
+position = Vector2(0.707099, -2.12132)
+shape = SubResource("CapsuleShape2D_u6osg")
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {
+"horizontal_spear_animation_library": ExtResource("4_y0ikp")
+}

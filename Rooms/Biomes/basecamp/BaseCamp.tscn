@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=53 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="Script" path="res://Rooms/Biomes/basecamp/BaseCamp.gd" id="1_tpf7m"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="2_ipa5f"]
@@ -27,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://c8pix6j8t15oo" path="res://Weapons/Melee/SmallAxe/SmallAxe.tscn" id="29_5p8c5"]
 [ext_resource type="PackedScene" uid="uid://bau1jfwsnyo2o" path="res://Characters/practice_dummy.tscn" id="31_1hy67"]
 [ext_resource type="PackedScene" uid="uid://d3qmv5odokhfh" path="res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn" id="31_pmolu"]
+[ext_resource type="PackedScene" uid="uid://b885ot2dse5g6" path="res://Weapons/Melee/reptilian_spear/reptilian_spear.tscn" id="32_egvrd"]
 [ext_resource type="PackedScene" uid="uid://dwiop8wuc7ah8" path="res://Rooms/cursed_idol/cursed_idol.tscn" id="34_0d44n"]
 [ext_resource type="PackedScene" uid="uid://cpyqtlqtdkuiq" path="res://Weapons/Ranged/scepters/lightning_stick/lightning_stick.tscn" id="34_nl6xg"]
 [ext_resource type="PackedScene" uid="uid://bphrmf6n5s7be" path="res://Rooms/Furniture and Traps/crate.tscn" id="35_epmjj"]
@@ -231,8 +232,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = -8.0
-offset_bottom = -8.0
+offset_right = 192.0
+offset_bottom = 142.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_nybk1")
@@ -414,6 +415,9 @@ position = Vector2(183, 158)
 [node name="Items" type="Node2D" parent="."]
 
 [node name="Weapons" type="Node2D" parent="."]
+
+[node name="ReptilianSpear" parent="Weapons" instance=ExtResource("32_egvrd")]
+position = Vector2(269, 79)
 
 [node name="DebugRoomId" type="Label" parent="."]
 z_index = 4

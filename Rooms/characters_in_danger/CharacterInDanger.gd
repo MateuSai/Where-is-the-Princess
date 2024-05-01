@@ -14,6 +14,7 @@ var say_something_timer: Timer
 
 func _ready() -> void:
 	var upper_case_id: String = character.id.to_upper()
+	Log.debug(upper_case_id)
 	var i: int = 1
 	while true:
 		var dialogue_id: String = "%s_ASKING_FOR_HELP_%d" % [upper_case_id, i]
@@ -23,7 +24,7 @@ func _ready() -> void:
 			break
 		i += 1
 	Log.debug(character.id + " dialogues asking for help: " + str(dialogues_asking_for_help))
-	i = 0
+	i = 1
 	while true:
 		var dialogue_id: String = "%s_AFTER_SAVING_%d" % [upper_case_id, i]
 		if tr(dialogue_id) != dialogue_id: # Translation available

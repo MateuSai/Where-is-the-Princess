@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://b885ot2dse5g6"]
+
+[ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_3wwxg"]
+[ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="2_86rjl"]
+[ext_resource type="Script" path="res://Weapons/Melee/reptilian_spear/reptilian_spear.gd" id="2_a3nr1"]
+[ext_resource type="Texture2D" uid="uid://hovi8qetgs0q" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/reptiles/spear-end.png" id="3_gxaow"]
+[ext_resource type="AnimationLibrary" uid="uid://b0phcsitft3as" path="res://Weapons/animation_libraries/horizontal_spear_animation_library.tres" id="4_ro1tk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rwn1f"]
+resource_local_to_scene = true
+shader = ExtResource("2_86rjl")
+shader_parameter/active = false
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gb4d2"]
+radius = 3.53555
+height = 15.5563
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tcqj6"]
+radius = 4.24265
+height = 25.4558
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e1njl"]
+radius = 9.0
+
+[node name="ReptilianSpear" instance=ExtResource("1_3wwxg")]
+script = ExtResource("2_a3nr1")
+throw_speed = 200
+
+[node name="Node2D" parent="." index="0"]
+rotation = 1.5708
+
+[node name="WeaponSprite" parent="Node2D" index="0"]
+material = SubResource("ShaderMaterial_rwn1f")
+rotation = -1.5708
+texture = ExtResource("3_gxaow")
+offset = Vector2(2, 0)
+
+[node name="CollisionShape2D" parent="Node2D/WeaponSprite/Hitbox" index="0"]
+position = Vector2(6, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_gb4d2")
+
+[node name="CollisionShape2D" parent="Node2D/WeaponSprite/PlayerDetector" index="0"]
+position = Vector2(1.41421, 5.06639e-06)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_tcqj6")
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {
+"horizontal_spear_animation_library": ExtResource("4_ro1tk")
+}
+
+[node name="PickUpSpearArea" type="Area2D" parent="." index="4"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpSpearArea" index="0"]
+shape = SubResource("CircleShape2D_e1njl")
+disabled = true
+
+[node name="PullBackTimer" type="Timer" parent="." index="5"]
+one_shot = true
