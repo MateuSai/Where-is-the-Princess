@@ -43,5 +43,7 @@ func _on_pick_up_spear_area_body_entered(body: Node2D) -> void:
 	Log.debug("body entered pickup spear area")
 	if is_instance_valid(spear_and_rope) and body == spear_and_rope.weapon_body:
 		Log.debug("Picking up spear")
+		animation_player.play("RESET")
+		pick_up_spear_area_col.set_deferred("disabled", true)
 		spear_and_rope.queue_free()
 		weapon_sprite.show()

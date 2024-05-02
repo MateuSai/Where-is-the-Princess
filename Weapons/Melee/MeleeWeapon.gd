@@ -82,6 +82,8 @@ func _active_ability(_animation_name: String="active_ability") -> void:
 	used_active_ability.emit()
 
 func throw() -> void:
+	Log.debug("Thrown " + weapon_id)
+	
 	throw_dir = (get_parent().get_parent() as Player).mouse_direction
 	bodies_pierced = 0
 	piercing = (get_parent().get_parent() as Player).throw_piercing

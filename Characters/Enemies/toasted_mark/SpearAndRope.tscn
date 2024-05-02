@@ -39,7 +39,7 @@ shape = SubResource("CapsuleShape2D_lqs2w")
 [node name="Hitbox" type="Area2D" parent="RigidBody2D"]
 unique_name_in_owner = true
 collision_layer = 0
-collision_mask = 10
+collision_mask = 158
 script = ExtResource("4_ygmyx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/Hitbox"]
