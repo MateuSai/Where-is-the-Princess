@@ -513,6 +513,31 @@ func get_random_spawn_point(spawn_shape: Rooms.SpawnShape) -> Vector2:
 #			entries_dir.y = clamp(entries_dir.y, 0, 1)
 			return rectangle_spawn_shape.size * entries_dir
 
+func spawn_weapons_on_floor(weapon_paths: Array) -> void:
+	assert(not weapon_paths.is_empty())
+
+	var cells: Array[Vector2i] = tilemap.get_used_cells(0)
+
+	var weapons_spawned: int = 0
+
+	var par: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
+	par.collide_with_areas = false
+	par.collide_with_bodies = true
+	par.collision_mask = 1 + 16
+	
+	while weapons_spawned < 3 and not cells.is_empty():
+		cells.shuffle()
+		var random_cell: Vector2 = cells.pop_back()
+		
+		par.position = global_position + Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE) + (random_cell - Vector2(tilemap.get_used_rect().position)) * Rooms.TILE_SIZE + Vector2.ONE * Rooms.TILE_SIZE * 0.5
+		var result: Array[Dictionary] = get_world_2d().direct_space_state.intersect_point(par)
+		if result.is_empty():
+			Log.debug("Spawning weapon on floor on cell " + str(random_cell))
+			var weapon: Weapon = load(weapon_paths[randi() % weapon_paths.size()]).instantiate()
+			weapon.rotation = randf_range(0.0, 2 * PI)
+			add_weapon_on_floor(weapon, Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE) + (random_cell - Vector2(tilemap.get_used_rect().position)) * Rooms.TILE_SIZE + Vector2.ONE * Rooms.TILE_SIZE * 0.5)
+			weapons_spawned += 1
+
 func get_rect() -> Rect2i:
 #	return Rect2i(tilemap.get_used_rect().position * Rooms.TILE_SIZE, tilemap.get_used_rect().size * Rooms.TILE_SIZE)
 	return Rect2(Vector2i(position) + (tilemap.get_used_rect().position * 16), (tilemap.get_used_rect().size * 16))

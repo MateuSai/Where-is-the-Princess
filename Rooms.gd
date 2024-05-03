@@ -580,6 +580,11 @@ func _create_corridors() -> bool:
 		#add_child(room)
 
 		room.add_doors_and_walls(corridor_tile_map)
+		var weapons_on_floor_paths: Array = biome_conf.levels[SavedData.run_stats.level - 1].overwrite_weapons_on_floor
+		if weapons_on_floor_paths.is_empty():
+			Log.debug("Not spawning weapons on floor because there aren't specified in the biome configuration file.")
+		else:
+			room.spawn_weapons_on_floor(weapons_on_floor_paths)
 		room.generate_room_white_image()
 		room.setup_navigation()
 
