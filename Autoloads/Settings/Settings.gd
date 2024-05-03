@@ -38,14 +38,12 @@ var aim_help: float:
 		set_aim_help(new_value)
 signal aim_help_changed(new_value: float)
 
-var MAPPEABLE_ACTIONS: PackedStringArray = PackedStringArray(["ui_attack", "ui_previous_weapon", "ui_next_weapon", "ui_throw_weapon", "ui_weapon_ability", "ui_armor_ability", "ui_minimap", "ui_interact"])
+var MAPPEABLE_ACTIONS: PackedStringArray = PackedStringArray(["ui_attack", "ui_previous_weapon", "ui_next_weapon", "ui_drop_weapon", "ui_weapon_ability", "ui_armor_ability", "ui_minimap", "ui_interact"])
 
 @onready var tab_container: TabContainer = $TabContainer
 
-
 func _init() -> void:
 	_load_settings()
-
 
 func _ready() -> void:
 	hide()
@@ -66,15 +64,14 @@ func _ready() -> void:
 #			var real_size: Vector2 = Vector2(size) * screen_size / Vector2(set_width, set_height)
 #			position = Vector2(get_tree().root.size)/2 - real_size/2
 #			print(Vector2(get_tree().root.size)/2 - real_size/2)
-			var t: Transform2D = get_tree().root.get_final_transform()
-			var scale: Vector2 = t.get_scale()
-			position = -t.origin / scale + Vector2(get_tree().root.size) / scale / 2 - Vector2(size) / 2
+			var t: Transform2D=get_tree().root.get_final_transform()
+			var scale: Vector2=t.get_scale()
+			position=- t.origin / scale + Vector2(get_tree().root.size) / scale / 2 - Vector2(size) / 2
 
 		# To save window size
 		settings.set_value(GENERAL_SECTION, "window_size", DisplayServer.window_get_size())
 		settings.save(SETTINGS_PATH)
 	)
-
 
 func _save_settings() -> void:
 	settings.set_value(GENERAL_SECTION, "language", TranslationServer.get_locale())
@@ -114,7 +111,6 @@ func _save_settings() -> void:
 	settings.set_value(AUDIO_SECTION, "sounds_volume", AudioServer.get_bus_volume_db(AudioServer.get_bus_index("Sounds")))
 
 	settings.save(SETTINGS_PATH)
-
 
 func _load_settings() -> void:
 	settings = ConfigFile.new()
@@ -169,11 +165,9 @@ func _load_settings() -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), settings.get_value(AUDIO_SECTION, "music_volume", 0) as float)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sounds"), settings.get_value(AUDIO_SECTION, "sounds_volume", 0) as float)
 
-
 func set_auto_aim(new_value: bool) -> void:
 	settings.set_value(ACCESSIBILITY_SECTION, "auto_aim", new_value)
 	auto_aim_changed.emit(new_value)
-
 
 func set_aim_help(new_value: float) -> void:
 	settings.set_value(ACCESSIBILITY_SECTION, "aim_help", new_value)

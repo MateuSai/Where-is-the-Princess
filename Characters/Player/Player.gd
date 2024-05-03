@@ -511,6 +511,7 @@ func get_exclude_bodies() -> Array[Node2D]:
 
 	return arr
 
+## @deprecated
 func start_dialogue(text: String) -> void:
 	dialogue_box = DIALOGUE_BOX_SCENE.instantiate()
 	dialogue_box.position = Vector2(5, -26)
@@ -536,6 +537,26 @@ func start_dialogue(text: String) -> void:
 		dialogue_box=null
 		#dialogue_finished.emit()
 	)
+
+func start_dialogues(dialogues: Array[String]) -> void:
+	dialogue_box = DIALOGUE_BOX_SCENE.instantiate()
+	dialogue_box.position = Vector2(5, -26)
+	add_child(dialogue_box)
+
+	while not dialogues.is_empty():
+		var dialogue_text: String = dialogues.pop_front()
+		dialogue_box.start_displaying_text(dialogue_text)
+
+		await dialogue_box.finished_displaying_text
+		await get_tree().create_timer(2.5, false).timeout
+	
+	dialogue_tween = create_tween()
+	dialogue_tween.tween_property(dialogue_box, "modulate:a", 0.0, 1).set_delay(3)
+	await dialogue_tween.finished
+	dialogue_tween = null
+	dialogue_box.queue_free()
+	dialogue_box = null
+	#dialogue_finished.emit()
 
 func _set_temperature(new_value: float) -> void:
 	temperature = new_value
