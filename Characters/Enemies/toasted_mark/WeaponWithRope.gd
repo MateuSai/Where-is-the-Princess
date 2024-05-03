@@ -5,7 +5,7 @@ var character: Node2D
 @export var character_joint: PinJoint2D
 @export var weapon_body: RigidBody2D
 
-@onready var hitbox: WeaponHitbox = $"%Hitbox"
+@onready var hitbox: Hitbox = $"%Hitbox"
 
 func _ready() -> void:
 	set_physics_process(false)

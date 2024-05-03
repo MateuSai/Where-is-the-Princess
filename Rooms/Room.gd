@@ -533,7 +533,10 @@ func spawn_weapons_on_floor(weapon_paths: Array) -> void:
 		var result: Array[Dictionary] = get_world_2d().direct_space_state.intersect_point(par)
 		if result.is_empty():
 			Log.debug("Spawning weapon on floor on cell " + str(random_cell))
-			var weapon: Weapon = load(weapon_paths[randi() % weapon_paths.size()]).instantiate()
+			var weapon_path: String = weapon_paths[randi() % weapon_paths.size()]
+			var weapon: Weapon = load(weapon_path).instantiate()
+			if weapon.get_data(weapon_path).can_be_in_bad_state:
+				weapon.bad_state = true
 			weapon.rotation = randf_range(0.0, 2 * PI)
 			add_weapon_on_floor(weapon, Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE) + (random_cell - Vector2(tilemap.get_used_rect().position)) * Rooms.TILE_SIZE + Vector2.ONE * Rooms.TILE_SIZE * 0.5)
 			weapons_spawned += 1

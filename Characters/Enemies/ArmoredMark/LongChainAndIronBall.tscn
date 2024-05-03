@@ -205,6 +205,7 @@ texture = ExtResource("3_v8cnt")
 shape = SubResource("CircleShape2D_i2q7o")
 
 [node name="Hitbox" type="Area2D" parent="RigidBodyWeapon"]
+unique_name_in_owner = true
 collision_layer = 0
 collision_mask = 6
 script = ExtResource("4_e1y0t")
