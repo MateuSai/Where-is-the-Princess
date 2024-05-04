@@ -30,6 +30,7 @@ func initialize(weapon_path: String) -> void:
 
 	if weapon is BowOrCrossbowWeapon:
 		(weapon as BowOrCrossbowWeapon).arrow_type = ArrowOrBolt.Type.UI
+		
 	if weapon is Bow:
 		var bow: Bow = weapon
 		bow.projectiles_spawned.connect(func(projectiles: Array[Projectile]) -> void:
@@ -44,6 +45,14 @@ func initialize(weapon_path: String) -> void:
 			#for projectile in projectiles:
 				#projectile.queue_free()
 		#)
+	elif weapon is Crossbow:
+		var crossbow: Crossbow = weapon
+		crossbow.projectiles_spawned.connect(func(projectiles: Array[Projectile]) -> void:
+			for projectile: Projectile in projectiles:
+				projectile.get_parent().remove_child(projectile)
+				projectile.position -= global_position
+				add_child(projectile)
+		)
 
 	draw.connect(func() -> void:
 		set_process(true)
@@ -77,6 +86,10 @@ func _actually_attack() -> void:
 		var bow: Bow = weapon
 		bow._charge()
 		bow.animation_player.animation_finished.connect(_on_bow_animation_finished)
+	elif weapon is Crossbow:
+		var crossbow: Crossbow = weapon
+		reload()
+		crossbow.animation_player.animation_finished.connect(_on_crossbow_animation_finished)
 	else:
 		push_error("Unsupoorted weapon attack")
 
@@ -85,3 +98,8 @@ func _actually_attack() -> void:
 func _on_bow_animation_finished(_anim_name: String) -> void:
 	(weapon as Bow)._bow_attack(1.0)
 	weapon.animation_player.animation_finished.disconnect(_on_bow_animation_finished)
+
+func _on_crossbow_animation_finished(_anim_name: String) -> void:
+	await get_tree().create_timer(0.8).timeout
+	(weapon as Crossbow)._attack()
+	weapon.animation_player.animation_finished.disconnect(_on_crossbow_animation_finished)
