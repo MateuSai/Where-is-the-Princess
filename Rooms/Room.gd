@@ -3,6 +3,7 @@ class_name DungeonRoom extends NavigationRegion2D
 ## If empty, the room will appear on all the levels of the biome. If it has a number, the room will appear on the specified level. If it has a range, it will appear on all the levels inclusive. For example, [code]1-3[/code] will make the room appear on the levels 1, 2, and 3 of his biome.
 ## [br][br]
 ## If the value is invalid, an error will appear and the room will not be used
+## @deprecated
 @export var levels: String = ""
 
 const GROUND_UNITS_NAVIGATION_GROUP: StringName = "navigation_polygon_source_group"
@@ -47,6 +48,9 @@ signal last_enemy_died(enemy: Enemy)
 
 ## [member room_white_image] is used to clear the fog when you enter the room
 @export var include_water_in_room_white_image: bool = true
+
+## If this is true, the weapons specified on the biome configuration will be spawned randomly
+@export var _spawn_weapons_on_floor: bool = true
 
 @onready var rooms: Rooms = get_parent()
 
@@ -514,6 +518,10 @@ func get_random_spawn_point(spawn_shape: Rooms.SpawnShape) -> Vector2:
 			return rectangle_spawn_shape.size * entries_dir
 
 func spawn_weapons_on_floor(weapon_paths: Array) -> void:
+	if not _spawn_weapons_on_floor:
+		Log.debug("Not spawning weapons on floor on " + name + " because _spawn_weapons_on_floor is set to false for this room")
+		return
+
 	assert(not weapon_paths.is_empty())
 
 	var cells: Array[Vector2i] = tilemap.get_used_cells(0)

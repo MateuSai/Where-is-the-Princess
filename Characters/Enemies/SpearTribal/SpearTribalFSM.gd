@@ -28,7 +28,7 @@ func _state_logic(_delta: float) -> void:
 		MOVE:
 			parent.point_to_player()
 			parent.move_to_target()
-			parent.move()
+			#parent.move()
 			if parent.mov_direction.y >= 0 and animation_player.current_animation != "move":
 				animation_player.play("move")
 			elif parent.mov_direction.y < 0 and animation_player.current_animation != "move_up":
@@ -36,7 +36,7 @@ func _state_logic(_delta: float) -> void:
 		ATTACK:
 			parent.point_to_player()
 		CHARGE:
-			parent.move()
+			#parent.move()
 			if parent.mov_direction.y >= 0 and animation_player.current_animation != "move":
 				animation_player.play("move")
 			elif parent.mov_direction.y < 0 and animation_player.current_animation != "move_up":

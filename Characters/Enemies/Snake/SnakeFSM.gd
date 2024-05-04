@@ -59,7 +59,8 @@ func _state_logic(_delta: float) -> void:
 			elif parent.mov_direction.y < 0 and animation_player.current_animation != "move_up":
 				animation_player.play("move_up")
 		JUMP:
-			parent.move()
+			pass
+			#parent.move()
 		HUG:
 			parent.global_position = parent.player.position + Vector2.DOWN * 2
 #		states.attack:

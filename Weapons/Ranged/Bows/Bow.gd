@@ -27,7 +27,7 @@ func _bow_attack(charge: float) -> void:
 
 	_attack()
 
-	assert(animation_player.current_animation.begins_with("attack"))
+	assert(get_current_animation().begins_with("attack"))
 	await animation_player.animation_finished # We wait until attack animation is finished
 
 	if is_equal_approx(charge, 1.0):

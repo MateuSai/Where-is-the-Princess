@@ -32,7 +32,8 @@
 	"default_num_combat_rooms": 5,
 	"default_num_special_rooms": 1,
 	"default_weapons_on_floor": [
-		"res://Weapons/Melee/branch/branch.tscn"
+		"res://Weapons/Melee/branch/branch.tscn",
+		"res://Weapons/Melee/tribal_spear/tribal_spear.tscn"
 	],
 	"levels": {
 		"1": {

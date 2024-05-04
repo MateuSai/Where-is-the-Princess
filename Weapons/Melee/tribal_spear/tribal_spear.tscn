@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://d2bms735opqbs"]
+[gd_scene load_steps=11 format=3 uid="uid://d2bms735opqbs"]
 
 [ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_mgc3k"]
 [ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="2_cne22"]
+[ext_resource type="Script" path="res://Weapons/Melee/MeleeWeapon.gd" id="2_w066j"]
 [ext_resource type="Texture2D" uid="uid://dsluspdkijyfh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/tribal_02_spear.png" id="3_gpkl1"]
 [ext_resource type="AnimationLibrary" uid="uid://cuiguj5gwq0ht" path="res://Weapons/animation_libraries/vertical_spear_animation_library.tres" id="4_y0ikp"]
 
@@ -18,7 +19,30 @@ height = 18.3847
 radius = 2.12132
 height = 19.799
 
+[sub_resource type="Animation" id="Animation_uqgfq"]
+resource_name = "RESET"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/WeaponSprite:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p84vb"]
+_data = {
+"RESET": SubResource("Animation_uqgfq")
+}
+
 [node name="TribalSpear" instance=ExtResource("1_mgc3k")]
+script = ExtResource("2_w066j")
+throw_speed = 200
 
 [node name="Node2D" parent="." index="0"]
 rotation = 1.5708
@@ -27,17 +51,18 @@ rotation = 1.5708
 material = SubResource("ShaderMaterial_5lvt3")
 rotation = 0.0
 texture = ExtResource("3_gpkl1")
-offset = Vector2(0, -2)
+offset = Vector2(0, -3)
 
 [node name="CollisionShape2D" parent="Node2D/WeaponSprite/Hitbox" index="0"]
-position = Vector2(0.707099, -2.12132)
+position = Vector2(0.707, -3)
 shape = SubResource("CapsuleShape2D_dxoy3")
 
 [node name="CollisionShape2D" parent="Node2D/WeaponSprite/PlayerDetector" index="0"]
-position = Vector2(0.707099, -2.12132)
+position = Vector2(0.707, -3)
 shape = SubResource("CapsuleShape2D_u6osg")
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {
+"": SubResource("AnimationLibrary_p84vb"),
 "horizontal_spear_animation_library": ExtResource("4_y0ikp")
 }
