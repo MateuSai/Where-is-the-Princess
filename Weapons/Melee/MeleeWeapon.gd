@@ -31,6 +31,7 @@ func _ready() -> void:
 
 	hitbox.weapon = self
 	hitbox.damage = data.damage
+	hitbox.knockback_force = data.knockback
 
 func _physics_process(delta: float) -> void:
 	position += throw_dir * throw_speed * delta
@@ -159,24 +160,24 @@ func destroy() -> void:
 
 func set_damage(new_damage: int) -> void:
 	super(new_damage)
-	if animation_player and not animation_player.current_animation.begins_with("active_ability"):
+	if animation_player and not get_current_animation().begins_with("active_ability"):
 		hitbox.damage = data.damage
 
 func set_ability_damage(new_ability_damage: int) -> void:
 	super(new_ability_damage)
-	if animation_player and animation_player.current_animation.begins_with("active_ability"):
+	if animation_player and get_current_animation().begins_with("active_ability"):
 		hitbox.damage = data.ability_damage
 
 func set_knockback(new_knockback: int) -> void:
 	super(new_knockback)
 
-	if animation_player and not animation_player.current_animation.begins_with("active_ability"):
-			hitbox.knockback_force = data.knockback
+	if animation_player and not get_current_animation().begins_with("active_ability"):
+		hitbox.knockback_force = data.knockback
 
 func set_ability_knockback(new_ability_knockback: int) -> void:
 	super(new_ability_knockback)
 
-	if animation_player and animation_player.current_animation.begins_with("active_ability"):
+	if animation_player and get_current_animation().begins_with("active_ability"):
 		hitbox.knockback_force = data.ability_knockback
 
 func _on_animation_started(anim_name: StringName) -> void:
@@ -186,14 +187,14 @@ func _on_animation_started(anim_name: StringName) -> void:
 		#var a: Array[PhysicsBody2D] = (get_parent().get_parent() as Character).get_exclude_bodies()
 		#hitbox.exclude = a
 
-	if anim_name.begins_with("active_ability"):
+	if anim_name.contains("active_ability"):
 		hitbox.damage = data.ability_damage
 		hitbox.knockback_force = data.ability_knockback
 
 func _on_animation_finished(anim_name: String) -> void:
 	super(anim_name)
 
-	if anim_name.begins_with("active_ability"):
+	if anim_name.contains("active_ability"):
 		hitbox.damage = data.damage
 		hitbox.knockback_force = data.knockback
 

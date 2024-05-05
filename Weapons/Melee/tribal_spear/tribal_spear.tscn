@@ -45,11 +45,11 @@ script = ExtResource("2_w066j")
 throw_speed = 200
 
 [node name="Node2D" parent="." index="0"]
-rotation = 1.5708
+rotation = 1.39626
 
 [node name="WeaponSprite" parent="Node2D" index="0"]
 material = SubResource("ShaderMaterial_5lvt3")
-rotation = 0.0
+rotation = 0.169297
 texture = ExtResource("3_gpkl1")
 offset = Vector2(0, -3)
 

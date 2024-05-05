@@ -145,7 +145,7 @@ func _move() -> void:
 	if not mov_direction.is_equal_approx(Vector2.ZERO) and can_move:
 		velocity = lerp(velocity, mov_direction * data.max_speed, data.acceleration)
 	#print_debug(velocity)
-	velocity = velocity.limit_length(data.max_speed)
+	#velocity = velocity.limit_length(data.max_speed)
 
 func add_status_condition(status: StatusComponent.Status) -> void:
 	var status_key: String = StatusComponent.Status.keys()[status]
@@ -157,6 +157,7 @@ func add_status_condition(status: StatusComponent.Status) -> void:
 	status_component.add()
 
 func _on_damage_taken(_dam: int, dir: Vector2, force: int) -> void:
+	Log.debug(id + " has taken damage with a force of " + str(force) + " and a direction of " + str(dir))
 #	if invincible:
 #		return
 
@@ -168,6 +169,8 @@ func _on_damage_taken(_dam: int, dir: Vector2, force: int) -> void:
 	if data.can_be_knocked_back:
 		velocity += dir * force / (data.mass / 3)
 	if life_component.hp == 0:
+		mov_direction = Vector2.ZERO
+
 		if behavior_tree:
 			behavior_tree.queue_free()
 		else:

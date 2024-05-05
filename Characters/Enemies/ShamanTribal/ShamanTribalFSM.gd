@@ -20,7 +20,7 @@ func _state_logic(_delta: float) -> void:
 	match state:
 		FLEE:
 			parent.move_to_target()
-			parent.move()
+			#parent.move()
 			if parent.mov_direction.y >= 0 and animation_player.current_animation != "move":
 				animation_player.play("move")
 			elif parent.mov_direction.y < 0 and animation_player.current_animation != "move_up":
@@ -70,6 +70,8 @@ func _get_transition() -> int:
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
 		IDLE:
+			(parent as Enemy).mov_direction = Vector2.ZERO
+
 			if parent.mov_direction.y >= 0:
 				animation_player.play("idle")
 			else:
@@ -88,6 +90,8 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 #				animation_player.play("idle_up")
 #			spear_animation_player.play("attack")
 		RESURRECT_ALLY:
+			(parent as Enemy).mov_direction = Vector2.ZERO
+
 			scepter_animation_player.play("resurrect")
 
 			search_tribal_mask_timer.stop()
