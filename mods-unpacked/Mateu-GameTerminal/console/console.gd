@@ -536,6 +536,7 @@ func _test_room(path: String) -> void:
 	level.overwrite_start_rooms = ["res://Rooms/Biomes/forest/Start/ForestSpawnRoom0.tscn"]
 	level.num_combat_rooms = 1
 	level.overwrite_combat_rooms = [path]
+	level.overwrite_weapons_on_floor = []
 	biome_conf.levels.push_back(level)
 
 	SavedData._change_biome_by_conf(biome_conf)

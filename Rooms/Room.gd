@@ -532,11 +532,11 @@ func spawn_weapons_on_floor(weapon_paths: Array) -> void:
 	par.collide_with_areas = false
 	par.collide_with_bodies = true
 	par.collision_mask = 1 + 16
-	
+
 	while weapons_spawned < 3 and not cells.is_empty():
 		cells.shuffle()
 		var random_cell: Vector2 = cells.pop_back()
-		
+
 		par.position = global_position + Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE) + (random_cell - Vector2(tilemap.get_used_rect().position)) * Rooms.TILE_SIZE + Vector2.ONE * Rooms.TILE_SIZE * 0.5
 		var result: Array[Dictionary] = get_world_2d().direct_space_state.intersect_point(par)
 		if result.is_empty():

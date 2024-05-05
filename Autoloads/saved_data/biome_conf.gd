@@ -147,6 +147,7 @@ class Level:
 			if biome_dic.has("default_weapons_on_floor"):
 				level.overwrite_weapons_on_floor = biome_dic.default_weapons_on_floor
 			else:
+				Log.debug("Using default weapons on floor")
 				level.overwrite_weapons_on_floor = BiomeConf.DEFAULT_WEAPONS_ON_FLOOR
 
 		return level
