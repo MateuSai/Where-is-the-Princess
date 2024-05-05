@@ -99,17 +99,17 @@ func load_modifiers() -> void:
 		modifier.equip_to_weapon(self)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if has_strong_attack():
-		if event.is_action_pressed("ui_attack") and can_attack():
-			_charge()
-		elif event.is_action_released("ui_attack"):
-			if animation_player.is_playing() and get_current_animation().begins_with("charge"):
-				_attack()
-			elif is_charging():
-				_strong_attack()
-	else:
-		if event.is_action_pressed("ui_attack") and can_attack():
-			_attack()
+	#if has_strong_attack():
+	#	if event.is_action_pressed("ui_attack") and can_attack():
+	#		_charge()
+	#	elif event.is_action_released("ui_attack"):
+	#		if animation_player.is_playing() and get_current_animation().begins_with("charge"):
+	#			_attack()
+	#		elif is_charging():
+	#			_strong_attack()
+	#else:
+	if event.is_action_pressed("ui_attack") and can_attack():
+		_attack()
 
 	if event.is_action_pressed("ui_weapon_ability") and has_active_ability() and not is_busy() and can_active_ability():
 		_active_ability()

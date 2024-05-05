@@ -81,6 +81,11 @@ func _active_ability(_animation_name: String="active_ability") -> void:
 		attack_num += 1
 	used_active_ability.emit()
 
+func start_throw_animations() -> void:
+	Log.debug("start_throw_animations")
+	animation_player.play(get_animation_full_name("charge_" + str(attack_num + 1)))
+	animation_player.queue(get_animation_full_name("strong_attack_" + str(attack_num + 1)))
+
 func throw() -> void:
 	Log.debug("Thrown " + weapon_id)
 	
