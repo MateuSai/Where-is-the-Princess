@@ -56,7 +56,7 @@ func _state_logic(_delta: float) -> void:
 			tromp._on_change_dir()
 	elif state == ATTACK_FLEE:
 		tromp.move_to_target()
-		tromp.move()
+		#tromp.move()
 
 		_update_animation(vec_to_target.normalized())
 

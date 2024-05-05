@@ -34,7 +34,7 @@ func _state_logic(_delta: float) -> void:
 			parent.aim_bow()
 		APPROACH:
 			parent.move_to_target()
-			parent.move()
+			#parent.move()
 			var dir_to_player: Vector2 = (parent.player.position - parent.global_position).normalized()
 			if dir_to_player.y >= 0 and animation_player.current_animation != "move":
 				animation_player.play("move")
@@ -43,7 +43,7 @@ func _state_logic(_delta: float) -> void:
 			parent.aim_bow()
 		FLEE:
 			parent.move_to_target()
-			parent.move()
+			#parent.move()
 			var dir_to_player: Vector2 = (parent.player.position - parent.global_position).normalized()
 			if dir_to_player.y >= 0 and animation_player.current_animation != "move":
 				animation_player.play("move")

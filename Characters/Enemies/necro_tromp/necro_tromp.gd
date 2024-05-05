@@ -4,23 +4,19 @@ class_name NecroTromp extends Enemy
 
 var bald: bool = false
 
-
 @onready var weapons: EnemyWeapons = $EnemyWeapons
-
 
 func _ready() -> void:
 	super()
 
 	life_component.hp_changed.connect(func(new_hp: int) -> void:
-		if not bald and new_hp <= life_component.max_hp/2.0:
-			bald = true
+		if not bald and new_hp <= life_component.max_hp / 2.0:
+			bald=true
 			_change_to_bald_mode()
 	)
 
-
 func _process(_delta: float) -> void:
 	weapons.move((target.global_position - global_position).normalized())
-
 
 func _change_to_bald_mode() -> void:
 	react(Reaction.VERY_MAD)
@@ -29,6 +25,18 @@ func _change_to_bald_mode() -> void:
 	hair.position = global_position + Vector2.UP * 8
 	get_tree().current_scene.add_child(hair)
 
+func _on_died() -> void:
+	var statistics: EnemyStatistics = SavedData.statistics.get_enemy_statistics(id)
+
+	if statistics == null or statistics.times_killed == 0:
+		var armor_path: String = "res://Armors/NecromancerArmor.gd"
+		SavedData.discover_armor_if_not_already(armor_path)
+		(get_tree().current_scene as Game).show_notification(load("res://ui/notifications/armor_unlocked_notification.tscn"), {
+			"id": Armor.get_id_from_path(armor_path).to_upper(),
+			"icon": (load(armor_path).new() as Armor).get_icon(),
+		})
+	
+	super()
 
 #func _spawn_skeletons(amount: int = 1) -> void:
 	#for i: int in amount:

@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://81hvj0ia4tpy"]
+
+[ext_resource type="Theme" uid="uid://goou6c7yowv1" path="res://notification_theme.tres" id="1_4ubqt"]
+[ext_resource type="Script" path="res://ui/notifications/armor_unlocked_notification.gd" id="2_2kw6y"]
+[ext_resource type="Texture2D" uid="uid://cnu6qs5gu74lh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armors_icons.png" id="3_in7f6"]
+[ext_resource type="FontFile" uid="uid://c1qoupv8j6mt2" path="res://Fonts/Pixellari.ttf" id="4_inljv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7fcr"]
+atlas = ExtResource("3_in7f6")
+region = Rect2(0, 32, 16, 16)
+
+[node name="ArmorUnlockedNotification" type="PanelContainer"]
+offset_right = 100.0
+offset_bottom = 40.0
+theme = ExtResource("1_4ubqt")
+script = ExtResource("2_2kw6y")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_c7fcr")
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_inljv")
+text = "ARMOR_UNLOCKED_NOTIFICATION_TITLE"
+
+[node name="Description" type="Label" parent="HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "ARMOR_UNLOCKED_NOTIFICATION_DESCRIPTION"
+autowrap_mode = 3

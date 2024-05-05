@@ -169,6 +169,8 @@ DONT_ASK_AGAIN,Don’t ask again.,No m'ho tornis a preguntar.,No me lo vuelvas a
 ,,,,
 WEAPON_UNLOCKED_NOTIFICATION_TITLE,%s Unlocked,%s Desbloquejada,%s Desbloqueada,
 WEAPON_UNLOCKED_NOTIFICATION_DESCRIPTION,"From now on, %s will appear on chests and shops.","A partir d'ara, %s apareixerà en cofres i botigues.","A partir de ahora, %s aparecerá en cofres y tiendas.",
+ARMOR_UNLOCKED_NOTIFICATION_TITLE,%s Unlocked,%s Desbloquejada,%s Desbloqueada,
+ARMOR_UNLOCKED_NOTIFICATION_DESCRIPTION,"From now on, %s will appear on chests and shops.","A partir d'ara, %s apareixerà en cofres i botigues.","A partir de ahora, %s aparecerá en cofres y tiendas.",
 ,,,,
 ,,,,
 TIMES_PICKED_UP,Times picked up,Vegades equipat,Veces equipado,
