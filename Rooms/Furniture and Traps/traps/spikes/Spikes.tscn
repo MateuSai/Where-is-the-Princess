@@ -54,7 +54,7 @@ texture = ExtResource("2")
 hframes = 10
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "pierce"
 libraries = {
 "": SubResource("AnimationLibrary_y6x0y")
 }
+autoplay = "pierce"
