@@ -90,7 +90,7 @@ func start_throw_animations() -> void:
 func throw() -> void:
 	Log.debug("Thrown " + weapon_id)
 	
-	throw_dir = (get_parent().get_parent() as Player).mouse_direction
+	throw_dir = (get_parent().get_parent() as Player).mouse_direction.rotated(randf_range( - (get_parent() as Weapons).throw_spread, (get_parent() as Weapons).throw_spread))
 	bodies_pierced = 0
 	piercing = (get_parent().get_parent() as Player).throw_piercing
 	if data.type == WeaponData.Type.SWORD:

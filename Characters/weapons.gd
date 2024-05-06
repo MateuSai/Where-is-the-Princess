@@ -4,8 +4,9 @@ var current_weapon: Weapon: set = set_current_weapon
 
 var reflection_sprite: Sprite2D
 
-@onready var character: Character = get_parent()
+var throw_spread: float = 0.0
 
+@onready var character: Character = get_parent()
 
 func _ready() -> void:
 	var reflection_container: Node2D = Node2D.new()
@@ -15,7 +16,6 @@ func _ready() -> void:
 	reflection_sprite = Sprite2D.new()
 	reflection_container.add_child(reflection_sprite)
 	get_parent().call_deferred("add_child", reflection_container)
-
 
 func move(direction: Vector2) -> void:
 	var prev_current_weap_rot: float = current_weapon.rotation
@@ -29,7 +29,6 @@ func move(direction: Vector2) -> void:
 	reflection_sprite.rotation = current_weapon.weapon_sprite.rotation
 	reflection_sprite.position = current_weapon.weapon_sprite.position
 	reflection_sprite.scale = current_weapon.weapon_sprite.scale
-
 
 func set_current_weapon(new_weapon: Weapon) -> void:
 		if current_weapon != null and current_weapon is MeleeWeapon:
