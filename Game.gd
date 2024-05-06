@@ -26,6 +26,7 @@ var scroll_vertical_at_start_of_drag: float = 0
 @onready var generating_dungeon_canvas_layer: CanvasLayer = get_node("GeneratingDungeonCanvasLayer")
 @onready var notification_container: NotificationContainer = %NotificationContainer
 @onready var music: AudioStreamPlayer = $Music
+@onready var minimap: MiniMap = get_node("UI/MenuTabContainer/MAP")
 
 func _init() -> void:
 	seed(SavedData.run_stats.get_level_seed())
@@ -154,11 +155,14 @@ func reload_generation(msg: String) -> void:
 	if execute_procedural_generation_on_thread:
 		generation_thread.wait_to_finish()
 		generation_thread = null
-	print_rich("[color=purple]%s. Reloading level generation...[/color]" % msg)
+	Log.info("[color=purple]%s. Reloading level generation...[/color]" % msg)
 
-	for i: int in range(rooms.get_child_count() - 1, 0, -1):
+	rooms.generation_completed.disconnect(_on_rooms_generation_completed)
+
+	for i: int in range(rooms.get_child_count() - 1, 0, -1): # We remove all rooms except the first one, that is the corridors
 		rooms.get_child(i).free()
 	($Rooms/CorridorTileMap as TileMap).clear()
+	minimap.clear()
 
 	# To reset all variables
 	rooms.set_script(null)

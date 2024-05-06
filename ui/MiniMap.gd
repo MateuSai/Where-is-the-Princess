@@ -124,6 +124,10 @@ func set_up() -> void:
 			#_on_hide()
 	#)
 
+func clear() -> void:
+	for i: int in range(container.get_child_count() - 1, -1, -1):
+		container.get_child(i).free()
+
 func _on_draw() -> void:
 	_update_fog()
 	#update_fog_timer.start()
