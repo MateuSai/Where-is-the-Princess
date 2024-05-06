@@ -283,8 +283,11 @@ func get_input() -> void:
 	if Input.is_action_just_pressed("ui_armor_ability") and armor.is_able_to_use_ability:
 		_use_armor_ability()
 
-func add_coin() -> void:
-	SavedData.run_stats.coins += 1
+func add_coin(amount: int=1) -> void:
+	SavedData.run_stats.coins += amount
+
+func remove_coins(amount: int=1) -> void:
+	SavedData.run_stats.coins -= amount
 
 func pick_up_passive_item(item: PassiveItem) -> void:
 	if item is PermanentPassiveItem:
