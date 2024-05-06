@@ -2,6 +2,7 @@ class_name Bow extends BowOrCrossbowWeapon
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_attack") and not animation_player.is_playing():
+		Log.debug("Stating charge of bow")
 		_charge()
 	elif event.is_action_released("ui_attack"):
 		if animation_player.is_playing() and get_current_animation().begins_with("charge") and is_charging() and weapon_sprite.frame > 0:

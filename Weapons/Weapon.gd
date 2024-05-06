@@ -371,4 +371,5 @@ static func get_data(path: String) -> WeaponData:
 		if FileAccess.file_exists(data_path):
 			return load(data_path)
 
+	Log.warn("Could not get data for weapon with path " + path + " and id " + id + " db: " + str(DB))
 	return null

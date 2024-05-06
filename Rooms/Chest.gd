@@ -3,12 +3,12 @@ class_name Chest extends StaticBody2D
 
 const FRAMES: Array[Array] = [
 	[
-		[preload("res://Art/common_chest_closed.png"), preload("res://Art/common_chest_opened.png")],
-		[preload("res://Art/rare_chest_closed.png"), preload("res://Art/rare_chest_opened.png")]
+		[ preload ("res://Art/common_chest_closed.png"), preload ("res://Art/common_chest_opened.png")],
+		[ preload ("res://Art/rare_chest_closed.png"), preload ("res://Art/rare_chest_opened.png")]
 	],
 	[
-		[preload("res://Art/gear_chest_closed.png"), preload("res://Art/gear_chest_opened.png")],
-		[preload("res://Art/gear_chest_closed.png"), preload("res://Art/gear_chest_opened.png")],
+		[ preload ("res://Art/gear_chest_closed.png"), preload ("res://Art/gear_chest_opened.png")],
+		[ preload ("res://Art/gear_chest_closed.png"), preload ("res://Art/gear_chest_opened.png")],
 	]
 ]
 
@@ -22,7 +22,7 @@ enum GearType {
 }
 
 @export var item_path: String = ""
-@export var type: Type = Type.ITEM
+@export var type: Type = -1
 var gear_type: GearType
 
 @onready var room: DungeonRoom = get_parent()
@@ -30,12 +30,11 @@ var gear_type: GearType
 @onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
 @onready var interact_area: InteractArea = get_node("InteractArea")
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var item_quality: Item.Quality
 	if item_path.is_empty():
-		type = Type.values()[randi() % Type.values().size()]
+		type = Type.values()[randi() % Type.values().size()] if type == - 1 else type
 		item_quality = Item.Quality.CHINGON if randf_range(0, 100) < clamp(1, 90, 14 + SavedData.run_stats.luck * 2) else Item.Quality.COMMON
 #		var permanent_item_paths: PackedStringArray = SavedData.get_available_permanent_item_paths()
 		match type:
@@ -58,7 +57,6 @@ func _ready() -> void:
 	animated_sprite.sprite_frames.add_frame("default", FRAMES[type][item_quality][1])
 
 	interact_area.player_interacted.connect(_on_opened)
-
 
 func _on_opened() -> void:
 	interact_area.queue_free()
