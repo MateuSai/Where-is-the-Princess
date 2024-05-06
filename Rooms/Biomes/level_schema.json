@@ -1,0 +1,77 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema",
+    "title": "Level Configuration",
+    "description": "Configuration for a biome level",
+    "type": "object",
+    "properties": {
+        "spawn_shape_type": {
+            "type": "string"
+        },
+        "spawn_shape_width": {
+            "type": "integer",
+            "minimum": 10
+        },
+        "spawn_shape_height": {
+            "type": "integer",
+            "minimum": 10
+        },
+        "spawn_shape_radius": {
+            "type": "integer",
+            "minimum": 10
+        },
+        "disable_horizontal_separation_steering": {
+            "type": "boolean"
+        },
+        "limit_entrance_connections_to_one": {
+            "type": "boolean"
+        },
+        "num_combat_rooms": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "num_special_rooms": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "overwrite_start_rooms": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true
+        },
+        "overwrite_combat_rooms": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true
+        },
+        "overwrite_end_rooms": {
+            "type": "object"
+        },
+        "overwrite_weapons_on_floor": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true
+        },
+        "overwrite_num_weapons_on_floor_per_tile": {
+            "type": "number",
+            "minimum": 0
+        },
+        "overwrite_connections": {
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "integer"
+                },
+                "minItems": 2,
+                "maxItems": 2
+            },
+            "uniqueItems": true
+        }
+    }
+}

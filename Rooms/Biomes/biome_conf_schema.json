@@ -1,0 +1,115 @@
+{
+    "$schema": "https://json-schema.org/draft-07/schema",
+    "title": "Biome Configuration",
+    "description": "Configuration for a biome",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "day_night_cycle": {
+            "type": "boolean"
+        },
+        "background_color": {
+            "type": "string"
+        },
+        "light_color": {
+            "type": "string"
+        },
+        "corridor_atlas_id": {
+            "type": "integer"
+        },
+        "room_atlas_id": {
+            "type": "integer"
+        },
+        "room_rect_margin": {
+            "type": "integer"
+        },
+        "max_corridor_length": {
+            "type": "integer"
+        },
+        "restart_generation_if_extra_connections_exceed_max_corridor_length": {
+            "type": "boolean"
+        },
+        "extra_connections": {
+            "type": "number",
+            "minimum": 0
+        },
+        "minimap_texture": {
+            "type": "string"
+        },
+        "vertical_door_texture": {
+            "type": "string"
+        },
+        "horizontal_down_door_texture": {
+            "type": "string"
+        },
+        "horizontal_up_door_texture": {
+            "type": "string"
+        },
+        "vertical_corridor_symmetric_lights": {
+            "type": "boolean"
+        },
+        "corridor_floor_tiles_coor": {
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "integer"
+                },
+                "minItems": 2,
+                "maxItems": 2
+            },
+            "uniqueItems": true
+        },
+        "default_num_combat_rooms": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "default_num_special_rooms": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "default_weapons_on_floor": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true
+        },
+        "default_num_weapons_on_floor_per_tile": {
+            "type": "integer",
+            "minimum": 0
+        },
+        "levels": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "object",
+                "$ref": "./level_schema.json"
+            }
+        },
+        "music": {
+            "type": "string"
+        },
+        "music_volume_db": {
+            "type": "number"
+        },
+        "encyclopedia_background": {
+            "type": "string"
+        },
+        "weather_modificators": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            },
+            "uniqueItems": true
+        },
+        "temperature": {
+            "type": "number"
+        }
+    },
+    "required": [
+        "minimap_texture",
+        "encyclopedia_background"
+    ]
+}

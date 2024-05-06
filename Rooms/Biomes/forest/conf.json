@@ -1,4 +1,5 @@
 {
+	"$schema": "../../../Rooms/Biomes/biome_conf_schema.json",
 	"name": "FOREST",
 	"day_night_cycle": true,
 	"background_color": "1a1c00",
@@ -46,7 +47,7 @@
 			"overwrite_end_forest_rooms": [
 				"res://Rooms/Biomes/forest/End/Forest/ForestEndRoom1.tscn"
 			],
-			"overwrite_end_sewer_rooms": [],
+			"overwrite_end_sewer_rooms": []
 		},
 		"2": {
 			"spawn_shape_type": "rectangle",
@@ -79,5 +80,5 @@
 	},
 	"music": "res://Audio/Music/Incompetech/Shamanistic.mp3",
 	"music_volume_db": -4.0,
-	"encyclopedia_background": "res://Rooms/Biomes/forest/forest_background.png",
+	"encyclopedia_background": "res://Rooms/Biomes/forest/forest_background.png"
 }
