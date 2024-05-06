@@ -527,15 +527,25 @@ func spawn_weapons_on_floor(weapon_paths: Array) -> void:
 	var cells: Array[Vector2i] = tilemap.get_used_cells(0)
 
 	var weapons_spawned: int = 0
+	var num_weapons_to_spawn: int = round(cells.size() * SavedData.get_biome_conf().levels[SavedData.run_stats.level - 1].overwrite_num_weapons_on_floor_per_tile)
+	Log.debug("Room has " + str(cells.size()) + " tiles on the first layer. Weapons on floor to spawn: " + str(num_weapons_to_spawn))
 
 	var par: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
 	par.collide_with_areas = false
 	par.collide_with_bodies = true
 	par.collision_mask = 1 + 16
 
-	while weapons_spawned < 3 and not cells.is_empty():
+	while weapons_spawned < num_weapons_to_spawn and not cells.is_empty():
 		cells.shuffle()
 		var random_cell: Vector2 = cells.pop_back()
+
+		if [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT].any(func(dir: Vector2) -> bool:
+			return tilemap.get_cell_source_id(0, random_cell + dir) == - 1
+		):
+			continue
+
+		#if tilemap.get_cell_source_id(0, random_cell + Vector2.UP):
+		#	continue
 
 		par.position = global_position + Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE) + (random_cell - Vector2(tilemap.get_used_rect().position)) * Rooms.TILE_SIZE + Vector2.ONE * Rooms.TILE_SIZE * 0.5
 		var result: Array[Dictionary] = get_world_2d().direct_space_state.intersect_point(par)

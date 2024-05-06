@@ -3,6 +3,7 @@ class_name BiomeConf
 const DEFAULT_NUM_COMBAT_ROOMS: int = 5
 const DEFAULT_NUM_SPECIAL_ROOMS: int = 1
 const DEFAULT_WEAPONS_ON_FLOOR: Array[String] = []
+const DEFAULT_NUM_WEAPONS_ON_FLOOR_PER_TILE: float = 0.01
 
 var name: String = "BIOME_NAME_GOES_HERE"
 
@@ -33,6 +34,7 @@ var corridor_floor_tiles_coor: Array[Array] = []
 var default_num_combat_rooms: int = DEFAULT_NUM_COMBAT_ROOMS
 var default_num_special_rooms: int = DEFAULT_NUM_SPECIAL_ROOMS
 var default_weapons_on_floor: Array = DEFAULT_WEAPONS_ON_FLOOR
+var default_num_weapons_on_floor_per_tile: float = DEFAULT_NUM_WEAPONS_ON_FLOOR_PER_TILE
 var levels: Array[Level] = []
 
 var music: String = ""
@@ -117,7 +119,9 @@ class Level:
 	var overwrite_start_rooms: Array = [""]
 	var overwrite_combat_rooms: Array = [""]
 	var overwrite_end_rooms: Dictionary = {}
+
 	var overwrite_weapons_on_floor: Array = [""]
+	var overwrite_num_weapons_on_floor_per_tile: float = -1.0
 
 	var overwrite_connections: Array = []
 
@@ -143,12 +147,18 @@ class Level:
 				level.num_special_rooms = biome_dic.default_num_combat_rooms
 			else:
 				level.num_special_rooms = BiomeConf.DEFAULT_NUM_SPECIAL_ROOMS
+
 		if level.overwrite_weapons_on_floor.size() == 1 and level.overwrite_weapons_on_floor[0].is_empty():
 			if biome_dic.has("default_weapons_on_floor"):
 				level.overwrite_weapons_on_floor = biome_dic.default_weapons_on_floor
 			else:
 				Log.debug("Using default weapons on floor")
 				level.overwrite_weapons_on_floor = BiomeConf.DEFAULT_WEAPONS_ON_FLOOR
+		if level.overwrite_num_weapons_on_floor_per_tile == - 1:
+			if biome_dic.has("default_num_weapons_on_floor_per_tile"):
+				level.overwrite_num_weapons_on_floor_per_tile = biome_dic.default_num_weapons_on_floor_per_tile
+			else:
+				level.overwrite_num_weapons_on_floor_per_tile = BiomeConf.DEFAULT_NUM_WEAPONS_ON_FLOOR_PER_TILE
 
 		return level
 

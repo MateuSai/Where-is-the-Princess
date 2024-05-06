@@ -47,6 +47,9 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 				animation_player.play("idle")
 			else:
 				animation_player.play("idle_up")
+
+			(parent as Enemy).mov_direction = Vector2.ZERO
+
 			parent.attack()
 		DEAD:
 			pass
