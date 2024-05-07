@@ -162,12 +162,22 @@ func reload_generation(msg: String) -> void:
 	for i: int in range(rooms.get_child_count() - 1, 0, -1): # We remove all rooms except the first one, that is the corridors
 		rooms.get_child(i).free()
 	($Rooms/CorridorTileMap as TileMap).clear()
-	minimap.clear()
+	#minimap.clear()
+
+	var signals: Array[Dictionary] = get_signal_list();
+	for signal_dic: Dictionary in signals:
+		var connection_list: Array[Dictionary] = get_signal_connection_list(signal_dic.name)
+		for connection_dic: Dictionary in connection_list:
+			connection_dic["signal"].disconnect(connection_dic.callable)
+
+	minimap.set_script(null)
+	minimap.set_script(MiniMap)
 
 	# To reset all variables
 	rooms.set_script(null)
 	rooms.set_script(Rooms)
 
+	minimap._ready()
 	rooms._ready()
 	_ready()
 	#get_tree().reload_current_scene()

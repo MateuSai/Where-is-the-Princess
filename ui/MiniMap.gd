@@ -200,6 +200,8 @@ func scroll_to_player() -> void:
 	scroll_container.scroll_vertical = player_icon.position.y - size.y / 2.0
 
 func _discover_room(room: DungeonRoom) -> void:
+	Log.debug("MiniMap _discover_room " + room.name)
+
 	var world_room_tilemap: TileMap = room.tilemap
 	var minimap_room_tilemap: TileMap = TileMap.new()
 
@@ -211,7 +213,6 @@ func _discover_room(room: DungeonRoom) -> void:
 	_copy_tiles(world_room_tilemap, minimap_room_tilemap)
 	#minimap_room_tilemap.position = room.position/4
 	container.add_child(minimap_room_tilemap)
-	# I substract 1 because the first tilemap is the corridors tilemap, not a room
 	room_tilemaps[int(room.name.right(1))] = minimap_room_tilemap
 
 	minimap_room_tilemap.position = room.position / 4 - map_rect.position # + Vector2(size.x / 2.0, 0)

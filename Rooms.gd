@@ -253,8 +253,11 @@ func spawn_rooms() -> void:
 
 	#print_debug("Adding rooms to scene tree and other things")
 	for room: DungeonRoom in rooms:
+		Log.debug("Iterating over rooms... Room " + room.name)
 		room.name += "_" + str(rooms.find(room))
 		room.player_entered.connect(func() -> void:
+			Log.debug(room.name + " player_entered. Room id: " + str(room.get_instance_id()))
+			#Log.debug(str(room.get_signal_connection_list("player_entered")))
 			visited_rooms.push_back(room)
 			room_visited.emit(room)
 		)

@@ -458,6 +458,8 @@ func _spawn_enemies() -> void:
 		call_deferred("add_child", spawn_explosion)
 
 func _on_player_entered_room() -> void:
+	Log.debug("Room _on_player_entered")
+
 	player_entered.emit()
 	Globals.player.current_room = self
 

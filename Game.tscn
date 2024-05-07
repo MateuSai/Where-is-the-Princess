@@ -149,11 +149,17 @@ y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("3")
 debug = false
+reload_on_generation_eror = null
 execute_procedural_generation_on_thread = false
 
 [node name="Rooms" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("4")
+debug_check_entry_positions = null
+use_delaunay = null
+pause_between_steps = null
+add_tile_group_time = null
+add_light_pause = null
 num_levels = 3
 
 [node name="CorridorTileMap" type="TileMap" parent="Rooms"]
