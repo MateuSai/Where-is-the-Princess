@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=56 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="Script" path="res://Rooms/Biomes/basecamp/BaseCamp.gd" id="1_tpf7m"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="2_ipa5f"]
@@ -42,6 +42,7 @@
 [ext_resource type="PackedScene" uid="uid://geovcmu2q826" path="res://Rooms/Furniture and Traps/sleeping_bag.tscn" id="39_sleg1"]
 [ext_resource type="PackedScene" uid="uid://cxx3eqxb68h25" path="res://Rooms/Furniture and Traps/wooden_fence/right_top_vertical_wooden_fence.tscn" id="40_u0ngm"]
 [ext_resource type="Script" path="res://start_player_dialogue_area.gd" id="42_j6whg"]
+[ext_resource type="PackedScene" uid="uid://u6q2tn1xph6o" path="res://Weapons/Melee/branch/branch.tscn" id="43_nrg1g"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_s6u7b"]
 source_geometry_group_name = &"navigation_polygon_source_group"
@@ -480,3 +481,6 @@ one_time_dialogue = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartPlayerDialogueArea"]
 shape = SubResource("CircleShape2D_rxyxg")
+
+[node name="Branch" parent="." instance=ExtResource("43_nrg1g")]
+position = Vector2(154, 153)

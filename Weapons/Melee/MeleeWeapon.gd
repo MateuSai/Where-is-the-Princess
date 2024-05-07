@@ -5,7 +5,6 @@ var attack_num: int = 0:
 	set(new_attack_num):
 		attack_num = wrapi(new_attack_num, 0, data.num_normal_attacks)
 
-@export var throw_speed: int = 200
 var throw_dir: Vector2
 var throw_rot_speed: float = 0
 
@@ -34,7 +33,7 @@ func _ready() -> void:
 	hitbox.knockback_force = data.knockback
 
 func _physics_process(delta: float) -> void:
-	position += throw_dir * throw_speed * delta
+	position += throw_dir * data.throw_speed * delta
 	weapon_sprite.rotation += throw_rot_speed * delta
 
 func _on_collided_with_something(col_mat: Hitbox.CollisionMaterial=Hitbox.CollisionMaterial.FLESH) -> void:

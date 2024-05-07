@@ -194,6 +194,29 @@ func _on_condition_changed(new_condition: float) -> void:
 			destroy()
 
 func destroy() -> void:
+	var sprite_rect: Rect2 = weapon_sprite.get_rect()
+	var points: Array[Vector2] = []
+	var triangles: Array[Array] = []
+
+	points.push_back(sprite_rect.position)
+	points.push_back(sprite_rect.position + Vector2(sprite_rect.size.x, 0))
+	points.push_back(sprite_rect.position + Vector2(0, sprite_rect.size.y))
+	points.push_back(sprite_rect.end)
+
+	for i: int in 0:
+		var p: Vector2 = sprite_rect.position + Vector2(randf_range(2, sprite_rect.size.x - 2), randf_range(2, sprite_rect.size.y - 2))
+		points.push_back(p)
+
+	var delaunay: PackedInt32Array = Geometry2D.triangulate_delaunay(points)
+	for i: int in range(0, delaunay.size(), 3):
+		triangles.append([points[delaunay[i + 2]], points[delaunay[i + 1]], points[delaunay[i]]])
+
+	for t: Array[Vector2] in triangles:
+		var fragment: WeaponFragment = load("res://effects/fragments/weapon_fragment.tscn").instantiate()
+		fragment.position = weapon_sprite.global_position
+		get_tree().current_scene.add_child(fragment)
+		fragment.throw(get_parent().get_parent(), Vector2.RIGHT.rotated(rotation), weapon_sprite.texture, t)
+
 	animation_player.stop(true)
 
 	player_detector.queue_free()

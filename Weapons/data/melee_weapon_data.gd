@@ -4,7 +4,7 @@ class_name MeleeWeaponData extends WeaponData
 @export var num_normal_attacks: int = 1
 @export var increase_num_normal_attacks_on_ability: bool = false
 @export var invert_scale_when_looking_left: bool = false
-
+@export var throw_speed: int = 200
 
 static func from_dic(dic: Dictionary) -> MeleeWeaponData:
 	var weapon_data: MeleeWeaponData = MeleeWeaponData.new()
@@ -13,10 +13,10 @@ static func from_dic(dic: Dictionary) -> MeleeWeaponData:
 
 	return weapon_data
 
-
 static func _load_dic(weapon_data: WeaponData, dic: Dictionary) -> void:
 	super(weapon_data, dic)
 
 	weapon_data.num_normal_attacks = dic.num_normal_attacks
 	weapon_data.increase_num_normal_attacks_on_ability = bool(dic.increase_num_normal_attacks_on_ability)
 	weapon_data.invert_scale_when_looking_left = bool(dic.invert_scale_when_looking_left)
+	weapon_data.throw_speed = dic.throw_speed
