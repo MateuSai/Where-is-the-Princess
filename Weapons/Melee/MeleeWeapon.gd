@@ -92,7 +92,7 @@ func throw() -> void:
 	throw_dir = (get_parent().get_parent() as Player).mouse_direction.rotated(randf_range( - (get_parent() as Weapons).throw_spread, (get_parent() as Weapons).throw_spread))
 	bodies_pierced = 0
 	piercing = (get_parent().get_parent() as Player).throw_piercing
-	if data.type == WeaponData.Type.SWORD:
+	if data.type in [WeaponData.Type.SWORD, WeaponData.Type.HAMMER, WeaponData.Type.AXE, WeaponData.Type.OTHER]:
 		throw_rot_speed = 25 if attack_num == 0 else - 25
 	(get_parent() as PlayerWeapons).throw_weapon()
 	(hitbox.get_node("CollisionShape2D") as CollisionShape2D).disabled = false

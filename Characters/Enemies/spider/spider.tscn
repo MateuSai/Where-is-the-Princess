@@ -194,8 +194,6 @@ radius = 4.0
 
 [node name="Spider" instance=ExtResource("1_bow3n")]
 script = ExtResource("2_ftttc")
-mass = 0.5
-max_speed = 80
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("3_cr4ur")
@@ -214,9 +212,6 @@ shape = SubResource("CircleShape2D_eptuy")
 libraries = {
 "": SubResource("AnimationLibrary_np2yq")
 }
-
-[node name="NavigationAgent2D" parent="." index="5"]
-debug_enabled = true
 
 [node name="LifeComponent" parent="." index="6"]
 max_hp = 2

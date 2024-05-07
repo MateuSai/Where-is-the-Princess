@@ -437,6 +437,7 @@ func remove_enemies_and_open_doors() -> void:
 	_open_doors()
 
 func _spawn_enemies() -> void:
+	#await get_tree().create_timer(0.4, false).timeout
 	#var enemy_paths: Array[String] = Globals.get_enemy_paths(SavedData.run_stats.biome)
 
 	for enemy_marker: EnemyMarker in enemy_positions_container.get_children():
