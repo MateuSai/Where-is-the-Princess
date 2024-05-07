@@ -22,6 +22,14 @@ func before() -> void:
 		SavedData.change_biome_by_id_or_path(biome)
 		biomes.push_back(SavedData.get_biome_conf())
 
+@warning_ignore("unused_parameter")
+func test_schema(do_skip: bool=true, skip_reason: String="Schema validator does not have support for $ref") -> void:
+	for biome: String in Data.ALL_VANILLA_BIOMES:
+		var validator: JSONSchema = JSONSchema.new()
+		var schema_file: FileAccess = FileAccess.open(BiomeConf.SCHEMA_PATH, FileAccess.READ)
+		assert_object(schema_file).is_not_null()
+		print(validator.validate(SavedData.get_biome_json_string_by_id_or_path(biome), schema_file.get_as_text()))
+
 func test_minimap_texture() -> void:
 	for biome_conf: BiomeConf in biomes:
 		assert_bool(FileAccess.file_exists(biome_conf.minimap_texture))
@@ -67,6 +75,23 @@ func test_get_overwrite_end_rooms() -> void:
 	assert_array(other_biome_conf.levels).has_size(2)
 	assert_array(other_biome_conf.levels[1].get_overwrite_end_rooms("forest")).contains_exactly(["path/to/room1", "path/to/room2"])
 	assert_array(other_biome_conf.levels[1].get_overwrite_end_rooms("sewer")).contains_exactly(["path/to/room3", "path/to/room4"])
+
+func test_default_weapons_on_floor() -> void:
+	for biome: BiomeConf in biomes:
+		for weapon_on_floor_path: String in biome.default_weapons_on_floor:
+			_test_weapon_path(weapon_on_floor_path)
+
+func test_override_weapons_on_floor() -> void:
+	for biome: BiomeConf in biomes:
+		for level: BiomeConf.Level in biome.levels:
+			for weapon_on_floor_path: String in level.overwrite_weapons_on_floor:
+				_test_weapon_path(weapon_on_floor_path)
+
+func _test_weapon_path(weapon_path: String) -> void:
+	assert_bool(FileAccess.file_exists(weapon_path))
+	assert_bool(weapon_path.get_extension() == "tscn")
+	assert_object(auto_free(load(weapon_path).instantiate())).is_instanceof(Weapon)
+	assert_object(Weapon.get_data(Weapon.get_id_from_path(weapon_path))).is_not_null()
 
 func test_get_exit_names() -> void:
 	assert_array(other_biome_conf.levels[1].get_exit_names()).has_size(2).contains_exactly(["forest", "sewer"])

@@ -1,5 +1,7 @@
 class_name BiomeConf
 
+const SCHEMA_PATH: String = "res://Rooms/Biomes/biome_conf_schema.json"
+
 const DEFAULT_NUM_COMBAT_ROOMS: int = 5
 const DEFAULT_NUM_SPECIAL_ROOMS: int = 1
 const DEFAULT_WEAPONS_ON_FLOOR: Array[String] = []

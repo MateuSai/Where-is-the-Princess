@@ -180,16 +180,27 @@ func change_biome_by_id_or_path(new_biome: String, level: int=1) -> void:
 
 	SavedData.statistics.add_biome_times_entered(biome_conf.name)
 
-func get_biome_by_id_or_path(biome: String) -> BiomeConf:
+func get_biome_json_string_by_id_or_path(biome: String) -> String:
 	if not biome.is_absolute_path():
 		biome = BIOMES_FOLDER_PATH + biome + "/conf.json"
 
-	var ret_biome_conf: BiomeConf = null
+	var biome_json_string: String = ""
 
 	var file: FileAccess = FileAccess.open(biome, FileAccess.READ)
 	if file:
+		biome_json_string = file.get_as_text()
+	else:
+		push_error("There is not file at " + biome)
+
+	return biome_json_string
+
+func get_biome_by_id_or_path(biome: String) -> BiomeConf:
+	var ret_biome_conf: BiomeConf = null
+
+	var biome_json_string: String = get_biome_json_string_by_id_or_path(biome)
+	if not biome_json_string.is_empty():
 		var json: JSON = JSON.new()
-		if json.parse(FileAccess.open(biome, FileAccess.READ).get_as_text()):
+		if json.parse(biome_json_string):
 			push_error("Error reading " + biome + "! Loading default biome conf...")
 		else:
 			if json.data is Dictionary:
@@ -197,7 +208,7 @@ func get_biome_by_id_or_path(biome: String) -> BiomeConf:
 			else:
 				push_error("Could not load file biome data as json, using default values...")
 	else:
-		push_error("There is not file at " + biome)
+		Log.err("json string is empty")
 
 	return ret_biome_conf
 
