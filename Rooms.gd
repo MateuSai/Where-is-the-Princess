@@ -201,6 +201,7 @@ func spawn_rooms() -> void:
 
 	var start_room_paths: PackedStringArray = _get_rooms("Start")
 	var combat_room_paths: PackedStringArray = _get_rooms("Combat")
+	var chest_room_paths: PackedStringArray = _get_rooms("Chest")
 	var special_room_paths: PackedStringArray = _get_rooms("Special")
 	var end_room_paths: Array[PackedStringArray] = _get_end_rooms()
 
@@ -236,6 +237,17 @@ func spawn_rooms() -> void:
 		if special_room_paths.is_empty() and (i + 1) < num_special_rooms:
 			if debug:
 				print_rich("[color=yellow]" + str(num_special_rooms) + " special rooms should have spawned, but only " + str(i + 1) + " did, since there are not enough special rooms[/color]")
+			break
+
+	var num_chest_rooms: int = SavedData.get_num_rooms("chest")
+	for i: int in num_chest_rooms:
+		var random_chest_room_path: String = chest_room_paths[randi() % chest_room_paths.size()]
+		var random_chest_room_scene: PackedScene = load(random_chest_room_path)
+		rooms.push_back(random_chest_room_scene.instantiate())
+		chest_room_paths.remove_at(chest_room_paths.find(random_chest_room_path))
+
+		if chest_room_paths.is_empty() and (i + 1) < num_chest_rooms:
+			Log.warn(str(num_special_rooms) + " chest rooms should have spawned, but only " + str(i + 1) + " did, since there are not enough chest rooms")
 			break
 
 	var num_combat_rooms: int = SavedData.get_num_rooms("combat")

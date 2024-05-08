@@ -3,6 +3,7 @@ class_name BiomeConf
 const SCHEMA_PATH: String = "res://Rooms/Biomes/biome_conf_schema.json"
 
 const DEFAULT_NUM_COMBAT_ROOMS: int = 5
+const DEFAULT_NUM_CHEST_ROOMS: int = 2
 const DEFAULT_NUM_SPECIAL_ROOMS: int = 1
 const DEFAULT_WEAPONS_ON_FLOOR: Array[String] = []
 const DEFAULT_NUM_WEAPONS_ON_FLOOR_PER_TILE: float = 0.01
@@ -34,6 +35,7 @@ var vertical_corridor_symmetric_lights: bool = false
 var corridor_floor_tiles_coor: Array[Array] = []
 
 var default_num_combat_rooms: int = DEFAULT_NUM_COMBAT_ROOMS
+var default_num_chest_rooms: int = DEFAULT_NUM_CHEST_ROOMS
 var default_num_special_rooms: int = DEFAULT_NUM_SPECIAL_ROOMS
 var default_weapons_on_floor: Array = DEFAULT_WEAPONS_ON_FLOOR
 var default_num_weapons_on_floor_per_tile: float = DEFAULT_NUM_WEAPONS_ON_FLOOR_PER_TILE
@@ -115,11 +117,14 @@ class Level:
 
 	## If not specified, it will take [member BiomeConf.default_num_combat_rooms]
 	var num_combat_rooms: int = -1
+	## If not specified, it will take [member BiomeConf.default_num_chest_rooms]
+	var num_chest_rooms: int = -1
 	## If not specified, it will take [member BiomeConf.default_num_special_rooms]
 	var num_special_rooms: int = -1
 
 	var overwrite_start_rooms: Array = [""]
 	var overwrite_combat_rooms: Array = [""]
+	var overwrite_chest_rooms: Array = [""]
 	var overwrite_end_rooms: Dictionary = {}
 
 	var overwrite_weapons_on_floor: Array = [""]
@@ -144,9 +149,14 @@ class Level:
 				level.num_combat_rooms = biome_dic.default_num_combat_rooms
 			else:
 				level.num_combat_rooms = BiomeConf.DEFAULT_NUM_COMBAT_ROOMS
+		if level.num_chest_rooms == - 1:
+			if biome_dic.has("default_num_chest_rooms"):
+				level.num_chest_rooms = biome_dic.default_num_chest_rooms
+			else:
+				level.num_chest_rooms = BiomeConf.DEFAULT_NUM_CHEST_ROOMS
 		if level.num_special_rooms == - 1:
 			if biome_dic.has("default_num_special_rooms"):
-				level.num_special_rooms = biome_dic.default_num_combat_rooms
+				level.num_special_rooms = biome_dic.default_num_special_rooms
 			else:
 				level.num_special_rooms = BiomeConf.DEFAULT_NUM_SPECIAL_ROOMS
 

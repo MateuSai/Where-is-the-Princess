@@ -1,4 +1,5 @@
 {
+	"$schema": "../../../Rooms/Biomes/biome_conf_schema.json",
 	"name": "CRATES",
 	"day_night_cycle": true,
 	"background_color": "042333",

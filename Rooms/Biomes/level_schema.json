@@ -29,6 +29,10 @@
             "type": "integer",
             "minimum": 0
         },
+        "num_chest_rooms": {
+            "type": "integer",
+            "minimum": 0
+        },
         "num_special_rooms": {
             "type": "integer",
             "minimum": 0

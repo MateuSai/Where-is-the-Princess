@@ -38,8 +38,6 @@
 	],
 	"levels": {
 		"1": {
-			"num_combat_rooms": 5,
-			"num_special_rooms": 2,
 			"overwrite_start_rooms": [
 				"res://Rooms/Biomes/forest/Start/ForestSpawnRoom0.tscn",
 				"res://Rooms/Biomes/forest/Start/forest_spawn_room_2.tscn"
@@ -55,6 +53,7 @@
 			"spawn_shape_height": 400,
 			"disable_horizontal_separation_steering": true,
 			"num_combat_rooms": 1,
+			"num_chest_rooms": 0,
 			"num_special_rooms": 0,
 			"overwrite_start_rooms": [
 				"res://Rooms/Biomes/forest/Start/ForestSpawnRoom2.tscn"
