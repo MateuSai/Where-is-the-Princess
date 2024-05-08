@@ -227,38 +227,38 @@ func exit_level(biome: String="", backwards: bool=false) -> void:
 
 	SceneTransistor.start_transition_to("res://Game.tscn")
 
-func add_weapon_damage_modifier_by_type(type: WeaponData.Type, dam: int) -> void:
-	Weapon._add_damage_modifier_by_type(type, dam)
-	var weapon_type_string: String = WeaponData.Type.keys()[type]
-	var weapons_of_this_type: Array[Node] = get_tree().get_nodes_in_group(weapon_type_string)
-	for weapon: Weapon in weapons_of_this_type:
-		weapon.set_damage(weapon.data.damage + dam)
+#func add_weapon_damage_modifier_by_type(type: WeaponData.Type, dam: int) -> void:
+#	Weapon._add_damage_modifier_by_type(type, dam)
+#	var weapon_type_string: String = WeaponData.Type.keys()[type]
+#	var weapons_of_this_type: Array[Node] = get_tree().get_nodes_in_group(weapon_type_string)
+#	for weapon: Weapon in weapons_of_this_type:
+#		weapon.set_damage(weapon.data.damage + dam)
 
-func remove_weapon_damage_modifier_by_type(type: WeaponData.Type, dam: int) -> void:
-	Weapon._remove_damage_modifier_by_type(type, dam)
-	var weapon_type_string: String = WeaponData.Type.keys()[type]
-	var weapons_of_this_type: Array[Node] = get_tree().get_nodes_in_group(weapon_type_string)
-	for weapon: Weapon in weapons_of_this_type:
-		weapon.set_damage(weapon.data.damage - dam)
+#func remove_weapon_damage_modifier_by_type(type: WeaponData.Type, dam: int) -> void:
+#	Weapon._remove_damage_modifier_by_type(type, dam)
+#	var weapon_type_string: String = WeaponData.Type.keys()[type]
+#	var weapons_of_this_type: Array[Node] = get_tree().get_nodes_in_group(weapon_type_string)
+#	for weapon: Weapon in weapons_of_this_type:
+#		weapon.set_damage(weapon.data.damage - dam)
 
-func add_weapon_damage_modifier_by_subtype(subtype: WeaponData.Subtype, dam: int) -> void:
-	Weapon._add_damage_modifier_by_subtype(subtype, dam)
-	var weapon_type_string: String = WeaponData.Subtype.keys()[subtype]
-	var weapons_of_this_type: Array[Node] = get_tree().get_nodes_in_group(weapon_type_string)
-	for weapon: Weapon in weapons_of_this_type:
-		weapon.set_damage(weapon.data.damage + dam)
+#func add_weapon_damage_modifier_by_subtype(subtype: WeaponData.Subtype, dam: int) -> void:
+#	Weapon._add_damage_modifier_by_subtype(subtype, dam)
+#	var weapon_type_string: String = WeaponData.Subtype.keys()[subtype]
+#	var weapons_of_this_type: Array[Node] = get_tree().get_nodes_in_group(weapon_type_string)
+#	for weapon: Weapon in weapons_of_this_type:
+#		weapon.set_damage(weapon.data.damage + dam)
 
-func remove_weapon_damage_modifier_by_subtype(subtype: WeaponData.Subtype, dam: int) -> void:
-	Weapon._remove_damage_modifier_by_subtype(subtype, dam)
-	var weapon_type_string: String = WeaponData.Subtype.keys()[subtype]
-	var weapons_of_this_type: Array[Node] = get_tree().get_nodes_in_group(weapon_type_string)
-	for weapon: Weapon in weapons_of_this_type:
-		weapon.set_damage(weapon.data.damage - dam)
+#func remove_weapon_damage_modifier_by_subtype(subtype: WeaponData.Subtype, dam: int) -> void:
+#	Weapon._remove_damage_modifier_by_subtype(subtype, dam)
+#	var weapon_type_string: String = WeaponData.Subtype.keys()[subtype]
+#	var weapons_of_this_type: Array[Node] = get_tree().get_nodes_in_group(weapon_type_string)
+#	for weapon: Weapon in weapons_of_this_type:
+#		weapon.set_damage(weapon.data.damage - dam)
 
 ## This function will be called every time we change scene
 func _on_scene_changed(new_scene: String) -> void:
-	Weapon.damage_modifiers_by_type = {} # Reset damage modifiers so they don't acummulate
-	Weapon.damage_modifiers_by_subtype = {}
+	#Weapon.damage_modifiers_by_type = {} # Reset damage modifiers so they don't acummulate
+	#Weapon.damage_modifiers_by_subtype = {}
 	AcidPuddle.characters_inside = []
 	Snake.there_is_a_snake_hugging_the_player = false
 

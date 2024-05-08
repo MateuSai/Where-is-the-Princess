@@ -7,8 +7,8 @@ func _init(type: WeaponData.Type, amount: int) -> void:
 	self.type = type
 	self.amount = amount
 
-func enable(_player: Player) -> void:
-	Globals.add_weapon_damage_modifier_by_type(type, amount)
+func enable(player: Player) -> void:
+	player.weapons.add_damage_modifier_by_type(type, amount)
 
-func disable(_player: Player) -> void:
-	Globals.remove_weapon_damage_modifier_by_type(type, amount)
+func disable(player: Player) -> void:
+	player.weapons.remove_damage_modifier_by_type(type, amount)

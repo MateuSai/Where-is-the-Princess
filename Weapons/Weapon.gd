@@ -11,11 +11,6 @@ const DB: Dictionary = preload ("res://Weapons/data/data.csv").records
 var damage_dealer: Node = null: set = _set_damage_dealer
 var damage_dealer_id: String: set = _set_damage_dealer_id
 
-## This variable is resetted after each scene change on the _on_scene_changed of Globals
-static var damage_modifiers_by_type: Dictionary = {}
-## This variable is resetted after each scene change on the _on_scene_changed of Globals
-static var damage_modifiers_by_subtype: Dictionary = {}
-
 static var attack_animation_speed_modifier: float = 1.0
 
 var data: WeaponData = null
@@ -30,6 +25,8 @@ signal charge_animation_still_executing()
 var tween: Tween = null
 
 var charge_timer: Timer
+
+var weapons: Weapons = null
 
 ## The name of the scene file (after removing .tscn)
 @onready var weapon_id: String = Weapon.get_id_from_path(scene_file_path)
@@ -81,10 +78,10 @@ func _ready() -> void:
 	animation_player.animation_started.connect(_on_animation_started)
 	animation_player.animation_finished.connect(_on_animation_finished)
 
-	if damage_modifiers_by_type.has(data.type):
-		data.damage += damage_modifiers_by_type[data.type]
-	if damage_modifiers_by_subtype.has(data.subtype):
-		data.damage += damage_modifiers_by_subtype[data.subtype]
+	#if damage_modifiers_by_type.has(data.type):
+	#	data.damage += damage_modifiers_by_type[data.type]
+	#if damage_modifiers_by_subtype.has(data.subtype):
+	#	data.damage += damage_modifiers_by_subtype[data.subtype]
 
 	charge_timer = Timer.new()
 	charge_timer.wait_time = 0.05
@@ -187,6 +184,7 @@ func _on_Tween_tween_completed() -> void:
 		player_detector.set_collision_mask_value(2, true)
 
 func _on_condition_changed(new_condition: float) -> void:
+	Log.debug("Contidion of weapon " + weapon_id + " changed to " + str(new_condition))
 	if get_parent() is Weapons:
 		condition_changed.emit(self, new_condition)
 	else:
@@ -310,24 +308,6 @@ func get_animation_full_name(anim: String) -> String:
 		#printerr(str(weapon_id) + " animation player does not have animation " + anim)
 		return ""
 
-static func _add_damage_modifier_by_type(type: WeaponData.Type, dam: int) -> void:
-	if damage_modifiers_by_type.has(type):
-		damage_modifiers_by_type[type] += dam
-	else:
-		damage_modifiers_by_type[type] = dam
-
-static func _remove_damage_modifier_by_type(type: WeaponData.Type, dam: int) -> void:
-	damage_modifiers_by_type[type] -= dam
-
-static func _add_damage_modifier_by_subtype(subtype: WeaponData.Subtype, dam: int) -> void:
-	if damage_modifiers_by_subtype.has(subtype):
-		damage_modifiers_by_subtype[subtype] += dam
-	else:
-		damage_modifiers_by_subtype[subtype] = dam
-
-static func _remove_damage_modifier_by_subtype(subtype: WeaponData.Subtype, dam: int) -> void:
-	damage_modifiers_by_subtype[subtype] -= dam
-
 func set_damage(new_damage: int) -> void:
 	data.damage = new_damage
 
@@ -341,7 +321,9 @@ func set_ability_knockback(new_ability_knockback: int) -> void:
 	data.ability_knockback = new_ability_knockback
 
 func _decrease_weapon_condition(by: float) -> void:
-	stats.condition -= (by + 0.5 * stats.modifiers.size()) * (1 - Globals.player.weapon_degradation_reduction)
+	Log.debug("Condition before: " + str(stats.condition))
+	stats.condition -= (by + 0.5 * stats.modifiers.size()) * (1 - Globals.player.weapon_degradation_reduction) * (weapons.get_condition_cost_multiplier_by_type(data) if weapons else 1.0)
+	Log.debug("Condition after: " + str(stats.condition))
 
 func _set_damage_dealer(new_damage_dealer: Node) -> void:
 	damage_dealer = new_damage_dealer
