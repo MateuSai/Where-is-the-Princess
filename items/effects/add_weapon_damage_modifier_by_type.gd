@@ -3,6 +3,7 @@ class_name AddWeaponDamageModifierByType extends ItemEffect
 var type: WeaponData.Type
 var amount: int
 
+@warning_ignore("shadowed_variable")
 func _init(type: WeaponData.Type, amount: int) -> void:
 	self.type = type
 	self.amount = amount

@@ -49,6 +49,11 @@ func _ready() -> void:
 			_set_seed()
 		)
 
+		var random_start_weapon_path: String=SavedData.get_random_available_weapon_path()
+		var random_start_weapon: Weapon=load(random_start_weapon_path).instantiate()
+		add_child(random_start_weapon)
+		random_start_weapon._on_PlayerDetector_body_entered(Globals.player)
+
 		wardrobe_interact_area.player_interacted.connect(func() -> void:
 			wardrobe_popup.popup_centered()
 			($WardrobeOpenSound as AudioStreamPlayer).play()
