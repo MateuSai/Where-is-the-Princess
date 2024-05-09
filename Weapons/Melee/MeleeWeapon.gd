@@ -19,7 +19,7 @@ func _ready() -> void:
 	super()
 
 	spawn_weapon_shadow_timer = Timer.new()
-	spawn_weapon_shadow_timer.wait_time = 0.02
+	spawn_weapon_shadow_timer.wait_time = 0.005
 	spawn_weapon_shadow_timer.timeout.connect(_spawn_shadow_effect)
 	add_child(spawn_weapon_shadow_timer)
 

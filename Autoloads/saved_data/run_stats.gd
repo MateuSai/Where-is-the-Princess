@@ -62,12 +62,12 @@ func get_permanent_passive_items_ids() -> PackedStringArray:
 	return _permanent_passive_items_ids
 
 func get_amount_of_temporl_passive_items_of_type(item: TemporalPassiveItem) -> int:
-	Log.debug(item.get_id())
+	#Log.debug(item.get_id())
 
 	var amount: int = 0
 
 	for temporal_item: TemporalPassiveItem in temporal_passive_items:
-		Log.debug(temporal_item.get_id())
+		#Log.debug(temporal_item.get_id())
 		if temporal_item.get_id() == item.get_id():
 			amount += 1
 

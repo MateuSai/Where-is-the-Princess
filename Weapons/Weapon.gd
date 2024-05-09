@@ -184,7 +184,7 @@ func _on_Tween_tween_completed() -> void:
 		player_detector.set_collision_mask_value(2, true)
 
 func _on_condition_changed(new_condition: float) -> void:
-	Log.debug("Contidion of weapon " + weapon_id + " changed to " + str(new_condition))
+	#Log.debug("Contidion of weapon " + weapon_id + " changed to " + str(new_condition))
 	if get_parent() is Weapons:
 		condition_changed.emit(self, new_condition)
 	else:
@@ -321,9 +321,9 @@ func set_ability_knockback(new_ability_knockback: int) -> void:
 	data.ability_knockback = new_ability_knockback
 
 func _decrease_weapon_condition(by: float) -> void:
-	Log.debug("Condition before: " + str(stats.condition))
+	#Log.debug("Condition before: " + str(stats.condition))
 	stats.condition -= (by + 0.5 * stats.modifiers.size()) * (1 - Globals.player.weapon_degradation_reduction) * (weapons.get_condition_cost_multiplier_by_type(data) if weapons else 1.0)
-	Log.debug("Condition after: " + str(stats.condition))
+	#Log.debug("Condition after: " + str(stats.condition))
 
 func _set_damage_dealer(new_damage_dealer: Node) -> void:
 	damage_dealer = new_damage_dealer

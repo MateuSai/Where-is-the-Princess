@@ -11,8 +11,6 @@ const RELOAD_SOUNDS: Array[AudioStream] = [preload("res://Audio/Sounds/crossbow_
 func _ready() -> void:
 	super()
 
-	normal_attack_projectile_speed = 500
-
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_attack") and not is_busy():

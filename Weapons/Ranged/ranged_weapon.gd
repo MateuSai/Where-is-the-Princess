@@ -1,8 +1,6 @@
 class_name RangedWeapon extends Weapon
 
 var projectile_speed: int
-var normal_attack_projectile_speed: int = 200
-var ability_projectile_speed: int = 300
 
 signal projectiles_spawned(projectiles: Array[Projectile])
 
@@ -51,6 +49,7 @@ func _spawn_projectile(angle: float=0.0, amount: int=1) -> Array[Projectile]:
 			projectile.exclude.push_back(other_projectile)
 		spawned_projectiles.push_back(projectile)
 
+		Log.debug("Spawning projectile with speed " + str(projectile_speed))
 		get_tree().current_scene.add_child(projectile)
 		projectile.launch(spawn_projectile_pos.global_position, Vector2.RIGHT.rotated(rotation + initial_offset + i * angle_step), projectile_speed, true)
 
@@ -65,9 +64,9 @@ func _on_animation_started(anim_name: StringName) -> void:
 	super(anim_name)
 
 	if anim_name.begins_with("active_ability"):
-		projectile_speed = ability_projectile_speed
+		projectile_speed = data.ability_projectile_speed
 	else:
-		projectile_speed = normal_attack_projectile_speed
+		projectile_speed = data.normal_attack_projectile_speed
 
 static func get_data(path: String) -> WeaponData:
 	var id: String = get_id_from_path(path)
