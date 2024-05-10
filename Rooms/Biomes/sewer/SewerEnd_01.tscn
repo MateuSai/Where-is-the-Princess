@@ -160,7 +160,7 @@ polygon = PackedVector2Array(-19, 16, -5, 16, 2, 10, 11, 10, 16, 4, 18, -5, 19, 
 
 [node name="StartPlayerDialogueArea" type="Area2D" parent="." index="17"]
 script = ExtResource("9_ws84t")
-dialogue = "PLAYER_TROMP_ROOM_DOOR_CLOSED"
+dialogues = Array[String](["PLAYER_TROMP_ROOM_DOOR_CLOSED"])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartPlayerDialogueArea" index="0"]
 position = Vector2(161, 378)

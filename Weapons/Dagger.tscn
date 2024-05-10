@@ -126,7 +126,6 @@ _data = {
 
 [node name="Dagger" instance=ExtResource("1_bl8c5")]
 script = ExtResource("2_2s05r")
-throw_speed = 200
 
 [node name="WeaponSprite" parent="Node2D" index="0"]
 material = SubResource("ShaderMaterial_8mvig")

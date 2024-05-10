@@ -13,10 +13,8 @@ const MIN_DISTANCE_TO_PLAYER: int = 40
 @onready var pathfinding_component: PathfindingComponent = $"../PathfindingComponent"
 @onready var bow_animation_player: AnimationPlayer = $"../BowContainer/AnimationPlayer"
 
-
 func start() -> void:
 	set_state(APPROACH)
-
 
 func _state_logic(_delta: float) -> void:
 	match state:
@@ -50,7 +48,6 @@ func _state_logic(_delta: float) -> void:
 			elif dir_to_player.y < 0 and animation_player.current_animation != "move_up":
 				animation_player.play("move_up")
 
-
 func _get_transition() -> int:
 	var distance_to_player: float = (parent.player.position - parent.global_position).length()
 	match state:
@@ -65,12 +62,13 @@ func _get_transition() -> int:
 		FLEE:
 			if distance_to_player > MIN_DISTANCE_TO_PLAYER:
 				return IDLE
-	return -1
-
+	return - 1
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
 		IDLE:
+			(parent as Enemy).mov_direction = Vector2.ZERO
+
 			if not bow_animation_player.is_playing():
 				bow_animation_player.play("attack")
 			#animation_player.play("idle")
@@ -86,4 +84,3 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			bow_animation_player.play("RESET")
 #			# parent.spawn_loot()
 #			animation_player.play("dead")
-

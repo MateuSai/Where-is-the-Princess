@@ -20,7 +20,7 @@ func _ready() -> void:
 			pile_of_bones.erase(bones)
 			if pile_of_bones.is_empty():
 				spawn_skelebro_timer.stop()
-				life_component.take_damage(1000, Vector2.ZERO, 0, null, "player")
+				life_component.take_damage(1000, Vector2.ZERO, 0, null, null, "player")
 		)
 
 	spawn_skelebro_timer.timeout.connect(func() -> void:

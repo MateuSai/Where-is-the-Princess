@@ -632,8 +632,6 @@ radius = 8.0
 
 [node name="BodenTheDruid" instance=ExtResource("1_vhffd")]
 script = ExtResource("2_uu817")
-mass = 60.0
-max_speed = 50
 
 [node name="StaffPivot" type="Node2D" parent="." index="0"]
 position = Vector2(0, -4)

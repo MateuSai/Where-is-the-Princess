@@ -5,13 +5,14 @@ func _init() -> void:
 	initialize(2)
 
 
-func equip(_player: Player) -> void:
-	Globals.add_weapon_damage_modifier_by_type(WeaponData.Type.DAGGER, 1)
+func equip(player: Player) -> void:
+	player.weapons.add_damage_modifier_by_type(WeaponData.Type.DAGGER, 1)
+	#Globals.add_weapon_damage_modifier_by_type(WeaponData.Type.DAGGER, 1)
 #	player.weapons.get_child(0).damage += 1
 
 
-func unequip(_player: Player) -> void:
-	Globals.remove_weapon_damage_modifier_by_type(WeaponData.Type.DAGGER, 1)
+func unequip(player: Player) -> void:
+	player.weapons.remove_damage_modifier_by_type(WeaponData.Type.DAGGER, 1)
 #	player.weapons.get_child(0).damage -= 1
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bt5qobtk3rxyp"]
+[gd_scene load_steps=9 format=3 uid="uid://bt5qobtk3rxyp"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_cfqik"]
 [ext_resource type="PackedScene" uid="uid://bdh7v0gjqelqq" path="res://Rooms/Furniture and Traps/traps/arrow_pillar/arrow_pillar.tscn" id="2_ndmxt"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://byeyhke0jfjrb" path="res://Rooms/Furniture and Traps/traps/floor_button.tscn" id="3_q5qea"]
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_7fvaq"]
 [ext_resource type="PackedScene" uid="uid://bphrmf6n5s7be" path="res://Rooms/Furniture and Traps/crate.tscn" id="6_wfisp"]
+[ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="8_8se3x"]
 
 [node name="SewerCombatRoom07" instance=ExtResource("1_cfqik")]
 
@@ -93,7 +94,7 @@ id = 1
 position = Vector2(160, 149)
 id = 1
 
-[node name="TeleportPosition" parent="." index="7"]
+[node name="TeleportPosition" parent="." index="8"]
 position = Vector2(117, 109)
 
 [node name="Crate" parent="." index="9" instance=ExtResource("6_wfisp")]
@@ -104,3 +105,12 @@ position = Vector2(43, 41)
 
 [node name="Crate3" parent="." index="11" instance=ExtResource("6_wfisp")]
 position = Vector2(33, 48)
+
+[node name="Torch" parent="." index="13" instance=ExtResource("8_8se3x")]
+position = Vector2(104, 24)
+
+[node name="Torch2" parent="." index="14" instance=ExtResource("8_8se3x")]
+position = Vector2(167, 215)
+
+[node name="Torch3" parent="." index="15" instance=ExtResource("8_8se3x")]
+position = Vector2(42, 215)

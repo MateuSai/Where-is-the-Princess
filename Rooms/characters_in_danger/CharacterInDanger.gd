@@ -37,9 +37,10 @@ func _ready() -> void:
 	character.dialogues_in_order = true
 
 	character.used_all_dialogues.connect(func() -> void:
+		Log.debug(character.id + " used all dialogues")
 		if is_instance_valid(say_something_timer):
 			say_something_timer.queue_free()
-		
+
 		if room_cleared:
 			character.interact_area.queue_free() # So the player can't interact with the nppc anymore
 #		else:
@@ -51,7 +52,7 @@ func _ready() -> void:
 		say_something_timer.one_shot = true
 		say_something_timer.timeout.connect(_on_say_something_timer_timeout)
 		add_child(say_something_timer)
-		
+
 		room.player_entered.connect(func() -> void:
 			_on_say_something_timer_timeout()
 		)

@@ -1,10 +1,10 @@
 [gd_scene load_steps=14 format=3 uid="uid://bmidensi0l77d"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_64o4r"]
-[ext_resource type="Script" path="res://Characters/Enemies/MediumSlime/MediumSlime.gd" id="2_74gab"]
-[ext_resource type="PackedScene" uid="uid://badc6cg8wlsfg" path="res://Characters/Enemies/BigSlime/big_acid_puddle.tscn" id="3_havo4"]
-[ext_resource type="PackedScene" uid="uid://d0aeanhr1oo7b" path="res://Characters/Enemies/MediumSlime/MediumSlime.tscn" id="4_sih7s"]
-[ext_resource type="Script" path="res://Characters/Enemies/MediumSlime/SlimeFSM.gd" id="5_g0ud0"]
+[ext_resource type="Script" path="res://Characters/Enemies/medium_slime/medium_slime.gd" id="2_74gab"]
+[ext_resource type="PackedScene" uid="uid://badc6cg8wlsfg" path="res://Characters/Enemies/big_slime/big_acid_puddle.tscn" id="3_havo4"]
+[ext_resource type="PackedScene" uid="uid://d0aeanhr1oo7b" path="res://Characters/Enemies/medium_slime/medium_slime.tscn" id="4_sih7s"]
+[ext_resource type="Script" path="res://Characters/Enemies/medium_slime/SlimeFSM.gd" id="5_g0ud0"]
 [ext_resource type="Texture2D" uid="uid://yc6vn2r5dtdl" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/slime/slime_big.png" id="6_8f1ha"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_po1vs"]

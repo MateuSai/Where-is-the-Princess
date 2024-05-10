@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c77lyvid7rdqu"]
+[gd_scene load_steps=8 format=3 uid="uid://c77lyvid7rdqu"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_y3w7p"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_ol41j"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_hkh8b"]
 [ext_resource type="PackedScene" uid="uid://k0b7jt7bd1nh" path="res://Rooms/Furniture and Traps/traps/crocodile_trap/crocodile_trap_left.tscn" id="4_mubv1"]
 [ext_resource type="PackedScene" uid="uid://daocnji5c2t4i" path="res://Rooms/Furniture and Traps/traps/crocodile_trap/crocodile_trap_right.tscn" id="5_du75e"]
+[ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="7_w8au6"]
 
 [node name="SewerCombatRoom08" instance=ExtResource("1_y3w7p")]
 
@@ -82,5 +83,17 @@ position = Vector2(123, 210)
 [node name="CrocodileTrapUp4" parent="Traps" index="3" instance=ExtResource("5_du75e")]
 position = Vector2(69, 228)
 
-[node name="TeleportPosition" parent="." index="7"]
+[node name="TeleportPosition" parent="." index="8"]
 position = Vector2(95, 169)
+
+[node name="Torch" parent="." index="10" instance=ExtResource("7_w8au6")]
+position = Vector2(72, 24)
+
+[node name="Torch2" parent="." index="11" instance=ExtResource("7_w8au6")]
+position = Vector2(120, 24)
+
+[node name="Torch3" parent="." index="12" instance=ExtResource("7_w8au6")]
+position = Vector2(17, 197)
+
+[node name="Torch4" parent="." index="13" instance=ExtResource("7_w8au6")]
+position = Vector2(174, 197)
