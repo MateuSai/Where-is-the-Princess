@@ -11,6 +11,7 @@
 	"vertical_door_texture": "res://Art/16x16 Pixel Art Roguellike Sewer Pack/doors/sewer_vertical_door_canvas_texture.tres",
 	"horizontal_down_door_texture": "res://Art/16x16 Pixel Art Roguellike Sewer Pack/doors/sewer_horizontal_door_canvas_texture.tres",
 	"horizontal_up_door_texture": "res://Art/16x16 Pixel Art Roguellike Sewer Pack/doors/sewer_horizontal_door_canvas_texture.tres",
+	"corridor_lights_type": "torch",
 	"vertical_corridor_symmetric_lights": false,
 	"corridor_floor_tiles_coor": [
 		[
