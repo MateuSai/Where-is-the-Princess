@@ -31,6 +31,7 @@ position = Vector2(393, 198)
 position = Vector2(326, 250)
 
 [node name="EnemyMarker" type="Marker2D" parent="EnemyPositions" index="0"]
+visible = false
 position = Vector2(231, 186)
 script = ExtResource("4_ao3nc")
 enemy_name = "crossbowman"
