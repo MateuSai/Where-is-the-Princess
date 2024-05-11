@@ -55,7 +55,7 @@ func _state_logic(_delta: float) -> void:
 				joe._on_change_dir()
 			elif aim_dir.x < 0 and not joe.sprite.flip_h:
 				joe._on_change_dir()
-			joe.move()
+			#joe.move()
 
 			_update_animation(aim_dir)
 		CLOSE_RANGE:

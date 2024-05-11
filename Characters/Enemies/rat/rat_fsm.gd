@@ -29,7 +29,7 @@ func _state_logic(_delta: float) -> void:
 	match state:
 		CHASE, WANDER:
 			enemy.move_to_target()
-			parent.move()
+			#parent.move()
 			if parent.mov_direction.y >= 0 and animation_player.current_animation != "move":
 				animation_player.play("move")
 			elif parent.mov_direction.y < 0 and animation_player.current_animation != "move_up":
@@ -61,6 +61,7 @@ func _get_transition() -> int:
 			elif wander_timer.is_stopped():
 				return IDLE
 		IDLE:
+			(parent as Enemy).mov_direction = Vector2.ZERO
 			if idle_timer.is_stopped():
 				return WANDER
 		CHASE:
@@ -71,6 +72,8 @@ func _get_transition() -> int:
 			elif true:
 				pass
 		ATTACK:
+			(parent as Enemy).mov_direction = Vector2.ZERO
+
 			if not attack_animation_player.is_playing():
 				return CHASE
 		FOLLOW:

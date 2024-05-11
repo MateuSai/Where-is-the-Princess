@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://csok64vgnmkjo"]
+[gd_scene load_steps=9 format=3 uid="uid://csok64vgnmkjo"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_6rrbs"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_e00oh"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="4_qsa4x"]
 [ext_resource type="PackedScene" uid="uid://dg8c6o1msojno" path="res://Rooms/Furniture and Traps/traps/crocodile_trap/crocodile_trap_up.tscn" id="5_jojc5"]
 [ext_resource type="PackedScene" uid="uid://k0b7jt7bd1nh" path="res://Rooms/Furniture and Traps/traps/crocodile_trap/crocodile_trap_left.tscn" id="6_2cwv7"]
+[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="8_upwh8"]
 
 [node name="SewerCombatRoom10" instance=ExtResource("1_6rrbs")]
 
@@ -78,7 +79,7 @@ position = Vector2(91, 178)
 [node name="CrocodileTrapUp3" parent="Traps" index="2" instance=ExtResource("6_2cwv7")]
 position = Vector2(379, 183)
 
-[node name="TeleportPosition" parent="." index="7"]
+[node name="TeleportPosition" parent="." index="8"]
 position = Vector2(339, 308)
 
 [node name="Torch" parent="." index="9" instance=ExtResource("4_qsa4x")]
@@ -107,3 +108,9 @@ position = Vector2(326, 409)
 
 [node name="Torch9" parent="." index="17" instance=ExtResource("4_qsa4x")]
 position = Vector2(377, 409)
+
+[node name="TikiTorch" parent="." index="19" instance=ExtResource("8_upwh8")]
+position = Vector2(252, 236)
+
+[node name="TikiTorch2" parent="." index="20" instance=ExtResource("8_upwh8")]
+position = Vector2(450, 236)

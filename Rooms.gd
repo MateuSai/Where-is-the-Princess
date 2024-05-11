@@ -666,29 +666,35 @@ func _create_corridors() -> bool:
 	return true
 
 func _add_lights() -> void:
-	var TIKI_TORCH_SCENE: PackedScene = load("res://Rooms/Biomes/forest/TikiTorch.tscn")
+	const DISTANCE_BETWEEN_LIGHTS: int = 4
+	var corridor_light: CorridorLight
+	match biome_conf.corridor_lights_type:
+		"tiki":
+			corridor_light = load("res://Autoloads/saved_data/corridor_lights/tiki.gd").new()
+		_:
+			Log.fatal("Invalid corridor light type")
 
 	for cell: Vector2i in corridor_tile_map.get_used_cells(0):
 		if corridor_tile_map.get_cell_atlas_coords(0, cell) == UPPER_WALL_COOR:
-			if cell.x % 8 == 0:
-				var light: Node2D = TIKI_TORCH_SCENE.instantiate()
-				light.position = corridor_tile_map.map_to_local(cell) + Vector2.DOWN * 27
+			if cell.x % DISTANCE_BETWEEN_LIGHTS == 0:
+				var light: Node2D = corridor_light.light_scene.instantiate()
+				light.position = corridor_tile_map.map_to_local(cell) + Vector2.DOWN * corridor_light.top_margin_on_horizontal_corridor
 				add_child(light)
 				if debug:
 					await get_tree().create_timer(add_light_pause).timeout
 		elif corridor_tile_map.get_cell_atlas_coords(1, cell) == LEFT_WALL_COOR:
 			@warning_ignore("integer_division")
-			if cell.y % 8 == 0 if SavedData.get_vertical_corridor_symmetric_lights() else (cell.y % 14) == 7:
-				var light: Node2D = TIKI_TORCH_SCENE.instantiate()
-				light.position = corridor_tile_map.map_to_local(cell) + Vector2.RIGHT * 10
+			if ((cell.y % DISTANCE_BETWEEN_LIGHTS == 0) if SavedData.get_vertical_corridor_symmetric_lights() else ((cell.y % DISTANCE_BETWEEN_LIGHTS) == 0)):
+				var light: Node2D = corridor_light.light_scene.instantiate()
+				light.position = corridor_tile_map.map_to_local(cell) + Vector2.RIGHT * corridor_light.lateral_margin_on_vertical_corridor
 				add_child(light)
 				if debug:
 					await get_tree().create_timer(add_light_pause).timeout
 		elif corridor_tile_map.get_cell_atlas_coords(1, cell) == RIGHT_WALL_COOR:
 			@warning_ignore("integer_division")
-			if cell.y % 8 == 0 if SavedData.get_vertical_corridor_symmetric_lights() else (cell.y % 14) == 0:
-				var light: Node2D = TIKI_TORCH_SCENE.instantiate()
-				light.position = corridor_tile_map.map_to_local(cell) + Vector2.LEFT * 10
+			if ((cell.y % DISTANCE_BETWEEN_LIGHTS == 0) if SavedData.get_vertical_corridor_symmetric_lights() else (cell.y % DISTANCE_BETWEEN_LIGHTS) == (DISTANCE_BETWEEN_LIGHTS / 2)):
+				var light: Node2D = corridor_light.light_scene.instantiate()
+				light.position = corridor_tile_map.map_to_local(cell) + Vector2.LEFT * corridor_light.lateral_margin_on_vertical_corridor
 				add_child(light)
 				if debug:
 					await get_tree().create_timer(add_light_pause).timeout

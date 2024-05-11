@@ -30,6 +30,7 @@ var vertical_door_texture: String = "res://Art/16x16 Pixel Art Roguelike (Forest
 var horizontal_down_door_texture: String = "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/doors/forest_horizontal_door_canvas_texture.tres"
 var horizontal_up_door_texture: String = "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/doors/forest_horizontal_door_canvas_texture.tres"
 
+var corridor_lights_type: String = "tiki"
 var vertical_corridor_symmetric_lights: bool = false
 
 var corridor_floor_tiles_coor: Array[Array] = []
