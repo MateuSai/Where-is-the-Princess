@@ -1,6 +1,6 @@
 class_name BodenTheDruid extends Enemy
 
-const BEAR_HP: int = 25
+const BEAR_HP: int = 22
 
 var is_bear: bool = false
 
@@ -14,7 +14,6 @@ var is_bear: bool = false
 @onready var rock_sprite: Sprite2D = $RockContainer/Rock
 @onready var rock_container: Node2D = $RockContainer
 
-
 func _ready() -> void:
 	super()
 	bird_attack_timer.timeout.connect(func() -> void:
@@ -27,13 +26,11 @@ func _ready() -> void:
 		lightning_attack_timer.start(randf_range(2.5, 3.5))
 	)
 
-
 func _on_died() -> void:
 	if not is_bear:
 		_transform()
 	else:
 		super()
-
 
 func _transform() -> void:
 	is_bear = true
@@ -42,7 +39,6 @@ func _transform() -> void:
 	name = "BodenTheBear"
 	$BossHpBar.name_label.text = name
 	state_machine.set_state(BodenTheDruidFSM.TRANSFORM)
-
 
 func move_staff() -> void:
 	if can_move:
@@ -55,18 +51,15 @@ func move_staff() -> void:
 		else:
 			staff_pivot_2.scale.x = -1
 			staff.scale.x = -1
-			staff_pivot_2.rotation = PI/2
-
+			staff_pivot_2.rotation = PI / 2
 
 func _get_path_to_move_away_from_player() -> void:
 	var dir: Vector2 = (global_position - player.position).normalized()
 	navigation_agent.target_position = global_position + dir * 100
 
-
 func _on_change_dir() -> void:
 	super()
-	rock_container.scale.x *= -1
-
+	rock_container.scale.x *= - 1
 
 func _lightning_attack() -> void:
 	staff_animation_player.play("lighting_attack")
@@ -91,11 +84,10 @@ func _lightning_attack() -> void:
 		await staff_animation_player.animation_finished
 	can_move = true
 
-
 func _bird_attack() -> void:
 	for i: int in randi_range(5, 8):
 		var bird: Bird = Bird.new()
-		var bird_pos: Vector2 = player.position + Vector2(randf_range(110, 150), 0).rotated(randf_range(0, 2*PI))
+		var bird_pos: Vector2 = player.position + Vector2(randf_range(110, 150), 0).rotated(randf_range(0, 2 * PI))
 		get_tree().current_scene.add_child(bird)
 
 		var spawn_effect: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()
@@ -105,19 +97,17 @@ func _bird_attack() -> void:
 
 		bird.launch(bird_pos, (player.position - bird_pos).normalized(), 50)
 
-
 func interrupt_lightning_attack() -> void:
 	if is_instance_valid(staff):
 		staff_animation_player.stop()
 		staff_animation_player.play("RESET")
 		lightning_attack_timer.start(randf_range(2.5, 3.5))
 
-
 func throw_rock() -> void:
 	var rock: Projectile = load("res://Weapons/projectiles/BigRock.tscn").instantiate()
 	rock.exclude = [self]
 	get_tree().current_scene.add_child(rock)
-	var dir: Vector2 = (target.global_position - rock_sprite.global_position).normalized().rotated(randf_range(-0.1, 0.1))
+	var dir: Vector2 = (target.global_position - rock_sprite.global_position).normalized().rotated(randf_range( - 0.1, 0.1))
 	rock.launch(rock_sprite.global_position + Vector2.DOWN * 33, dir, 250)
 	for child: Node in rock.get_children():
 		if child is Node2D:

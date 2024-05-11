@@ -18,7 +18,7 @@ func _state_logic(_delta: float) -> void:
 	match state:
 		CHASE:
 			parent.move_to_target()
-			parent.move()
+			#parent.move()
 			if parent.mov_direction.y >= 0 and animation_player.current_animation != "walk":
 				animation_player.play("walk")
 			elif parent.mov_direction.y < 0 and animation_player.current_animation != "walk_up":

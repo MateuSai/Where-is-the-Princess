@@ -37,7 +37,7 @@ enemy_name = "NakedMark"
 [node name="Marker2D2" type="Marker2D" parent="EnemyPositions" index="2"]
 position = Vector2(295, 221)
 script = ExtResource("4_qt8fw")
-enemy_name = "aggressor_mark"
+enemy_name = "toasted_mark"
 
 [node name="Marker2D3" type="Marker2D" parent="EnemyPositions" index="3"]
 position = Vector2(321, 169)

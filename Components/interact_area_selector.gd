@@ -10,14 +10,13 @@ var closer_area: InteractArea = null:
 			closer_area = new_closer_area
 			if closer_area:
 				closer_area._on_player_entered(player)
-				if closer_area.get_parent() is ItemOnFloor:
+				if closer_area.get_parent() is ItemOnFloor and (player.current_room == null or player.current_room.is_cleared()):
 					InfoPanel.show_at(closer_area.global_position, (closer_area.get_parent() as ItemOnFloor).item)
 var interact_areas: Array[InteractArea] = []
 
 @onready var player: Player = get_parent()
 
 @onready var update_closer_area_timer: Timer = $UpdateCloserAreaTimer
-
 
 func _ready() -> void:
 	$CollisionShape2D.shape.radius = player.get_node("CollisionShape2D").shape.radius
@@ -27,7 +26,6 @@ func _ready() -> void:
 
 	update_closer_area_timer.timeout.connect(_on_update_closer_area_timer_timeout)
 
-
 func _on_interact_area_entered(area: Area2D) -> void:
 	assert(area is InteractArea)
 	interact_areas.push_back(area)
@@ -36,7 +34,6 @@ func _on_interact_area_entered(area: Area2D) -> void:
 		update_closer_area_timer.start()
 		_on_update_closer_area_timer_timeout()
 
-
 func _on_interact_area_exited(area: Area2D) -> void:
 	assert(area is InteractArea)
 	interact_areas.erase(area)
@@ -44,7 +41,6 @@ func _on_interact_area_exited(area: Area2D) -> void:
 		self.closer_area = null
 	if interact_areas.is_empty():
 		update_closer_area_timer.stop()
-
 
 func _on_update_closer_area_timer_timeout() -> void:
 	var new_closer_area: InteractArea = null

@@ -5,6 +5,7 @@
 [ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="2_lmpvs"]
 [ext_resource type="Texture2D" uid="uid://dv23ariebhak2" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/dagger.png" id="3_vxd16"]
 [ext_resource type="Texture2D" uid="uid://evihltxw1ud3" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/effects (new)/slash_effect_anim_spritesheet.png" id="4_enpbj"]
+[ext_resource type="AnimationLibrary" uid="uid://bmpljq3ceuumj" path="res://Weapons/animation_libraries/dagger_animation_library.tres" id="6_gdxy1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8mvig"]
 resource_local_to_scene = true
@@ -118,107 +119,28 @@ tracks/7/keys = {
 "values": [Vector2(-4.99999, -4.00002)]
 }
 
-[sub_resource type="Animation" id="Animation_ict7v"]
-resource_name = "attack_1"
-length = 0.4
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node2D/WeaponSprite/Hitbox/CollisionShape2D:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Node2D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [-1.5708]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Node2D/WeaponSprite/ChargeParticles:emitting")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Node2D/WeaponSprite:material:shader_parameter/active")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Node2D/WeaponSprite:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [1.78722, 2.35619, 1.78722]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Node2D/WeaponSprite:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(-5, -4), Vector2(-2.00002, 6.99999), Vector2(-5, -4)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ypj85"]
 _data = {
-"RESET": SubResource("Animation_8hb7s"),
-"attack_1": SubResource("Animation_ict7v")
+"RESET": SubResource("Animation_8hb7s")
 }
 
 [node name="Dagger" instance=ExtResource("1_bl8c5")]
 script = ExtResource("2_2s05r")
-throw_speed = 200
 
 [node name="WeaponSprite" parent="Node2D" index="0"]
 material = SubResource("ShaderMaterial_8mvig")
 position = Vector2(-4.99999, -4.00002)
 rotation = 1.78722
 texture = ExtResource("3_vxd16")
-offset = Vector2(4.5, -7.5)
+offset = Vector2(5, -8)
 
 [node name="CollisionShape2D" parent="Node2D/WeaponSprite/Hitbox" index="0"]
-position = Vector2(4.57163, -7.14845)
+position = Vector2(5.33354, -8.33986)
 rotation = 0.785398
 shape = SubResource("CapsuleShape2D_jeila")
 
 [node name="CollisionShape2D" parent="Node2D/WeaponSprite/PlayerDetector" index="0"]
-position = Vector2(4.57163, -7.14845)
+position = Vector2(5.33354, -8.33986)
 rotation = 0.785398
 shape = SubResource("CapsuleShape2D_7aumr")
 
@@ -231,5 +153,6 @@ hframes = 3
 
 [node name="AnimationPlayer" parent="." index="2"]
 libraries = {
-"": SubResource("AnimationLibrary_ypj85")
+"": SubResource("AnimationLibrary_ypj85"),
+"dagger_animation_library": ExtResource("6_gdxy1")
 }

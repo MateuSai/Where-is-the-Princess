@@ -17,7 +17,7 @@ func _state_logic(_delta: float) -> void:
 	match state:
 		CHASE:
 			parent.move_to_target()
-			parent.move()
+			#parent.move()
 			if parent.mov_direction.y >= 0 and animation_player.current_animation != "move":
 				animation_player.play("move")
 			elif parent.mov_direction.y < 0 and animation_player.current_animation != "move_up":
@@ -48,6 +48,8 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 		CHASE:
 			pass
 #			animation_player.play("fly")
+		ATTACK:
+			(parent as Enemy).mov_direction = Vector2.ZERO
 		DEAD:
 			pass
 			# parent.spawn_loot()

@@ -1,15 +1,10 @@
 @icon("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/boss_druid/druid_scepter.png")
 class_name Scepter extends RangedWeapon
 
-
 @onready var pivot: Node2D = $Pivot
-
 
 func _ready() -> void:
 	super()
-
-	normal_attack_projectile_speed = 100
-
 
 func move(mouse_direction: Vector2) -> void:
 	super(mouse_direction)
@@ -22,7 +17,6 @@ func move(mouse_direction: Vector2) -> void:
 		#pivot_2.scale.x = -1
 		pivot.scale.y = -1
 		#pivot_2.rotation = PI/2
-
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_weapon_ability") and has_active_ability() and not is_busy() and can_active_ability():

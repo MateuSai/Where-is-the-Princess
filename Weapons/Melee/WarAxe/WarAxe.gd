@@ -3,9 +3,14 @@ extends MeleeWeapon
 var throwed_using_active_ability: bool
 var active_ability_dir_weight: float = 0.005
 
-@onready var initial_throw_speed: int = throw_speed
+var initial_throw_speed: int
 
 @onready var trail_animation_player: AnimationPlayer = $Node2D/WeaponSprite/TrailSpriteAnimationPlayer
+
+func _ready() -> void:
+	super()
+
+	initial_throw_speed = (data as MeleeWeaponData).throw_speed
 
 
 func _physics_process(delta: float) -> void:
@@ -17,7 +22,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _throw_using_active_ability(dir: int) -> void:
-	throw_speed = initial_throw_speed * 2
+	data.throw_speed = initial_throw_speed * 2
 	throw_rot_speed = dir * 50
 	throwed_using_active_ability = true
 	trail_animation_player.animation_finished.connect(_on_trail_animation_ended)
@@ -49,7 +54,7 @@ func _go_back_to_before_throw_state() -> void:
 	super()
 
 	if throwed_using_active_ability:
-		throw_speed = initial_throw_speed
+		data.throw_speed = initial_throw_speed
 
 		hitbox.set_collision_mask_value(2, false) # So it can't detect collisions with player
 		trail_animation_player.play_backwards("appear")

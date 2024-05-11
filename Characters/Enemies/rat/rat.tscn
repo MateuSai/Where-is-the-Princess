@@ -265,12 +265,14 @@ shape = SubResource("CircleShape2D_2tfiq")
 disabled = true
 
 [node name="EnemyDetector" parent="." index="15" instance=ExtResource("6_3xswd")]
+visible = false
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector" index="1"]
 shape = SubResource("CircleShape2D_xwl1s")
 
 [node name="FlockSteering" parent="." index="16" instance=ExtResource("6_3xswd")]
+visible = false
 script = ExtResource("7_l5tsk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FlockSteering" index="1"]

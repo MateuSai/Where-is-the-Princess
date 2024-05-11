@@ -3,6 +3,7 @@ class_name DungeonRoom extends NavigationRegion2D
 ## If empty, the room will appear on all the levels of the biome. If it has a number, the room will appear on the specified level. If it has a range, it will appear on all the levels inclusive. For example, [code]1-3[/code] will make the room appear on the levels 1, 2, and 3 of his biome.
 ## [br][br]
 ## If the value is invalid, an error will appear and the room will not be used
+## @deprecated
 @export var levels: String = ""
 
 const GROUND_UNITS_NAVIGATION_GROUP: StringName = "navigation_polygon_source_group"
@@ -47,6 +48,9 @@ signal last_enemy_died(enemy: Enemy)
 
 ## [member room_white_image] is used to clear the fog when you enter the room
 @export var include_water_in_room_white_image: bool = true
+
+## If this is true, the weapons specified on the biome configuration will be spawned randomly
+@export var _spawn_weapons_on_floor: bool = true
 
 @onready var rooms: Rooms = get_parent()
 
@@ -433,6 +437,7 @@ func remove_enemies_and_open_doors() -> void:
 	_open_doors()
 
 func _spawn_enemies() -> void:
+	#await get_tree().create_timer(0.4, false).timeout
 	#var enemy_paths: Array[String] = Globals.get_enemy_paths(SavedData.run_stats.biome)
 
 	for enemy_marker: EnemyMarker in enemy_positions_container.get_children():
@@ -454,6 +459,8 @@ func _spawn_enemies() -> void:
 		call_deferred("add_child", spawn_explosion)
 
 func _on_player_entered_room() -> void:
+	Log.debug("Room _on_player_entered")
+
 	player_entered.emit()
 	Globals.player.current_room = self
 
@@ -513,9 +520,54 @@ func get_random_spawn_point(spawn_shape: Rooms.SpawnShape) -> Vector2:
 #			entries_dir.y = clamp(entries_dir.y, 0, 1)
 			return rectangle_spawn_shape.size * entries_dir
 
+func spawn_weapons_on_floor(weapon_paths: Array) -> void:
+	if not _spawn_weapons_on_floor:
+		Log.debug("Not spawning weapons on floor on " + name + " because _spawn_weapons_on_floor is set to false for this room")
+		return
+
+	assert(not weapon_paths.is_empty())
+
+	var cells: Array[Vector2i] = tilemap.get_used_cells(0)
+
+	var weapons_spawned: int = 0
+	var num_weapons_to_spawn: int = round(cells.size() * SavedData.get_biome_conf().levels[SavedData.run_stats.level - 1].overwrite_num_weapons_on_floor_per_tile)
+	Log.debug("Room has " + str(cells.size()) + " tiles on the first layer. Weapons on floor to spawn: " + str(num_weapons_to_spawn))
+
+	var par: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new()
+	par.collide_with_areas = false
+	par.collide_with_bodies = true
+	par.collision_mask = 1 + 16
+
+	while weapons_spawned < num_weapons_to_spawn and not cells.is_empty():
+		cells.shuffle()
+		var random_cell: Vector2 = cells.pop_back()
+
+		if [Vector2.UP, Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT].any(func(dir: Vector2) -> bool:
+			return tilemap.get_cell_source_id(0, random_cell + dir) == - 1
+		):
+			continue
+
+		#if tilemap.get_cell_source_id(0, random_cell + Vector2.UP):
+		#	continue
+
+		par.position = global_position + Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE) + (random_cell - Vector2(tilemap.get_used_rect().position)) * Rooms.TILE_SIZE + Vector2.ONE * Rooms.TILE_SIZE * 0.5
+		var result: Array[Dictionary] = get_world_2d().direct_space_state.intersect_point(par)
+		if result.is_empty():
+			Log.debug("Spawning weapon on floor on cell " + str(random_cell))
+			var weapon_path: String = weapon_paths[randi() % weapon_paths.size()]
+			var weapon: Weapon = load(weapon_path).instantiate()
+			if weapon.get_data(weapon_path).can_be_in_bad_state:
+				weapon.bad_state = true
+			weapon.rotation = randf_range(0.0, 2 * PI)
+			add_weapon_on_floor(weapon, Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE) + (random_cell - Vector2(tilemap.get_used_rect().position)) * Rooms.TILE_SIZE + Vector2.ONE * Rooms.TILE_SIZE * 0.5)
+			weapons_spawned += 1
+
 func get_rect() -> Rect2i:
 #	return Rect2i(tilemap.get_used_rect().position * Rooms.TILE_SIZE, tilemap.get_used_rect().size * Rooms.TILE_SIZE)
 	return Rect2(Vector2i(position) + (tilemap.get_used_rect().position * 16), (tilemap.get_used_rect().size * 16))
+
+func is_cleared() -> bool:
+	return num_enemies == 0
 
 ## Increase num_enemies by 1 and adds the enemy to the scene tree
 func add_enemy(enemy: Enemy) -> void:

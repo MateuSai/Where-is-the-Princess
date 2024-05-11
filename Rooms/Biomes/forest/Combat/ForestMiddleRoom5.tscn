@@ -42,7 +42,7 @@ enemy_name = "FlyingCreature"
 [node name="Marker2D5" type="Marker2D" parent="EnemyPositions" index="4"]
 position = Vector2(270, 197)
 script = ExtResource("4_mi6po")
-enemy_name = "aggressor_mark"
+enemy_name = "toasted_mark"
 
 [node name="Branch" parent="Weapons" index="0" instance=ExtResource("4_yrsyk")]
 position = Vector2(126, 100)

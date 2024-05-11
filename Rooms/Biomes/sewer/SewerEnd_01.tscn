@@ -114,7 +114,7 @@ position = Vector2(266, 420)
 [node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("3_jmxxw")]
 position = Vector2(152, 523)
 
-[node name="TeleportPosition" parent="." index="7"]
+[node name="TeleportPosition" parent="." index="8"]
 position = Vector2(155, 458)
 
 [node name="Torch" parent="." index="9" instance=ExtResource("3_m2tfn")]
@@ -160,7 +160,7 @@ polygon = PackedVector2Array(-19, 16, -5, 16, 2, 10, 11, 10, 16, 4, 18, -5, 19, 
 
 [node name="StartPlayerDialogueArea" type="Area2D" parent="." index="17"]
 script = ExtResource("9_ws84t")
-dialogue = "Yare yare, I guess it's time to jump"
+dialogues = Array[String](["PLAYER_TROMP_ROOM_DOOR_CLOSED"])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartPlayerDialogueArea" index="0"]
 position = Vector2(161, 378)

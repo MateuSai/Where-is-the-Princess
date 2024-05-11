@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dojrgpj2clsno"]
+[gd_scene load_steps=8 format=3 uid="uid://dojrgpj2clsno"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_5qwok"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_hoyq2"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bphrmf6n5s7be" path="res://Rooms/Furniture and Traps/crate.tscn" id="4_sam87"]
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_wj26w"]
 [ext_resource type="PackedScene" uid="uid://k0b7jt7bd1nh" path="res://Rooms/Furniture and Traps/traps/crocodile_trap/crocodile_trap_left.tscn" id="5_3imha"]
+[ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="7_xnodv"]
 
 [node name="SewerCombatRoom13" instance=ExtResource("1_5qwok")]
 
@@ -68,7 +69,7 @@ enemy_name = "insecton_musk"
 [node name="CrocodileTrapUp" parent="Traps" index="0" instance=ExtResource("5_3imha")]
 position = Vector2(91, 130)
 
-[node name="TeleportPosition" parent="." index="7"]
+[node name="TeleportPosition" parent="." index="8"]
 position = Vector2(227, 136)
 
 [node name="Crate" parent="." index="9" instance=ExtResource("4_sam87")]
@@ -79,3 +80,12 @@ position = Vector2(184, 55)
 
 [node name="Crate3" parent="." index="11" instance=ExtResource("4_sam87")]
 position = Vector2(183, 42)
+
+[node name="Torch" parent="." index="13" instance=ExtResource("7_xnodv")]
+position = Vector2(55, 22)
+
+[node name="Torch2" parent="." index="14" instance=ExtResource("7_xnodv")]
+position = Vector2(248, 87)
+
+[node name="Torch3" parent="." index="15" instance=ExtResource("7_xnodv")]
+position = Vector2(246, 264)

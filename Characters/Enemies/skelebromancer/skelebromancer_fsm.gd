@@ -28,7 +28,7 @@ func _state_logic(_delta: float) -> void:
 #			parent.aim_bow()
 		APPROACH:
 			parent.move_to_target()
-			parent.move()
+			#parent.move()
 			var dir_to_player: Vector2 = (parent.player.position - parent.global_position).normalized()
 			if dir_to_player.y >= 0 and animation_player.current_animation != "move":
 				animation_player.play("move")
@@ -37,7 +37,7 @@ func _state_logic(_delta: float) -> void:
 #			parent.aim_bow()
 		FLEE:
 			parent.move_to_target()
-			parent.move()
+			#parent.move()
 			var dir_to_player: Vector2 = (parent.player.position - parent.global_position).normalized()
 			if dir_to_player.y >= 0 and animation_player.current_animation != "move":
 				animation_player.play("move")
@@ -64,7 +64,8 @@ func _get_transition() -> int:
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
-#		IDLE:
+		IDLE:
+			(parent as Enemy).mov_direction = Vector2.ZERO
 			#animation_player.play("idle")
 		APPROACH:
 #			if not bow_animation_player.is_playing():

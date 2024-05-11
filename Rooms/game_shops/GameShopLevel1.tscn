@@ -17,6 +17,7 @@ script = ExtResource("2_ha11h")
 [node name="ShopItemMarker2" type="Marker2D" parent="Positions" index="1"]
 position = Vector2(-4, -9)
 script = ExtResource("2_ha11h")
+item_type = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="." index="1"]
 position = Vector2(0, -16)

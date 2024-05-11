@@ -17,6 +17,9 @@ func _init() -> void:
 
 
 func _steal_life() -> void:
+	if not is_instance_valid(tromp):
+		return
+
 	if player:
-		player.life_component.take_damage_ignoring_armor(1, Vector2.ZERO, 0, null, tromp.id)
+		player.life_component.take_damage_ignoring_armor(1, Vector2.ZERO, 0, null, tromp, tromp.id)
 		tromp.life_component.hp += 1

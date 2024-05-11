@@ -12,8 +12,6 @@ var dialogue_tween: Tween = null
 
 #const DASH_IMPULSE: int = 22000000
 const DASH_STAMINA_COST: int = 30
-var previous_max_speed: int
-var dash_time: float = 0.06
 signal dashed(dash_time: float)
 
 var stamina_regeneration_per_second: float = 15
@@ -69,7 +67,11 @@ var armor_shard_break_probability: float = 0.0:
 var rotating_items: Array[Node2D] = []
 
 ## Room where the player is at this moment. Contains [code]null[/code] if the player is on a corridor
-var current_room: DungeonRoom = null
+var current_room: DungeonRoom = null:
+	set(new_room):
+		current_room = new_room
+		on_current_room_changed.emit(current_room)
+signal on_current_room_changed(new_room: DungeonRoom)
 
 var position_before_jumping: Vector2
 
@@ -101,8 +103,6 @@ var temperature: float = 20: set = _set_temperature
 @onready var armor_recharge_timer: Timer = $Timers/ArmorRechargeTimer
 @onready var mirage_timer: Timer = $Timers/MirageTimer
 @onready var stamina_regen_cooldown_timer: Timer = $Timers/StaminaRegenCooldownTimer
-@onready var dash_timer: Timer = $Timers/DashTimer
-@onready var dash_cooldown_timer: Timer = $Timers/DashCooldownTimer
 
 @onready var mirage: TextureRect = $UI/Mirage
 
@@ -120,7 +120,6 @@ func _ready() -> void:
 	acid_bar.hide()
 
 	mirage_timer.timeout.connect(disable_mirage)
-	dash_timer.timeout.connect(_on_dash_timer_timeout)
 
 	weapons.weapon_picked_up.emit(weapons.get_child(0))
 	weapons.load_previous_weapons()
@@ -279,13 +278,16 @@ func get_input() -> void:
 		mov_direction.y -= Input.get_action_strength("ui_move_up")
 
 	if Input.is_action_just_pressed("ui_dash") and stamina >= DASH_STAMINA_COST and dash_cooldown_timer.is_stopped() and not (mov_direction.is_equal_approx(Vector2.ZERO) and not armor is Underpants):
-		_dash()
+		_dash_or_jump()
 
 	if Input.is_action_just_pressed("ui_armor_ability") and armor.is_able_to_use_ability:
 		_use_armor_ability()
 
-func add_coin() -> void:
-	SavedData.run_stats.coins += 1
+func add_coin(amount: int=1) -> void:
+	SavedData.run_stats.coins += amount
+
+func remove_coins(amount: int=1) -> void:
+	SavedData.run_stats.coins -= amount
 
 func pick_up_passive_item(item: PassiveItem) -> void:
 	if item is PermanentPassiveItem:
@@ -415,28 +417,16 @@ func jump() -> void:
 	position_before_jumping = position
 	jump_animation_player.play("jump")
 
-func _dash() -> void:
-	dash_cooldown_timer.start()
-
+func _dash_or_jump() -> void:
 	stamina -= DASH_STAMINA_COST
 
 	if armor is Underpants:
+		dash_cooldown_timer.start()
 		jump()
 	else:
-		#velocity += mov_direction.limit_length(1) * DASH_IMPULSE
-		#mov_direction = Vector2.ZERO
-		#friction /= 10
-		previous_max_speed = data.max_speed
-		data.max_speed = 1000
-		dash_timer.start(dash_time)
-		_start_shadow_effect()
-
+		_dash()
+	
 	dashed.emit(dash_time)
-
-func _on_dash_timer_timeout() -> void:
-	data.max_speed = previous_max_speed
-	await get_tree().create_timer(0.04).timeout
-	_stop_shadow_effect()
 
 func add_rotating_item(node: Node2D) -> void:
 	add_child(node)
@@ -461,7 +451,7 @@ func can_pick_up_weapon(weapon: Weapon) -> bool:
 	return weapons.can_pick_up_weapon(weapon)
 
 func _on_died() -> void:
-	SavedData.statistics.add_player_times_killed()
+	SavedData.add_player_times_killed(life_component.last_damage_dealer_id)
 	SavedData.add_enemy_player_kill((life_component as PlayerLifeComponent).last_damage_dealer_id)
 
 func enable_mirage() -> void:
@@ -524,6 +514,7 @@ func get_exclude_bodies() -> Array[Node2D]:
 
 	return arr
 
+## @deprecated
 func start_dialogue(text: String) -> void:
 	dialogue_box = DIALOGUE_BOX_SCENE.instantiate()
 	dialogue_box.position = Vector2(5, -26)
@@ -550,6 +541,26 @@ func start_dialogue(text: String) -> void:
 		#dialogue_finished.emit()
 	)
 
+func start_dialogues(dialogues: Array[String]) -> void:
+	dialogue_box = DIALOGUE_BOX_SCENE.instantiate()
+	dialogue_box.position = Vector2(5, -26)
+	add_child(dialogue_box)
+
+	while not dialogues.is_empty():
+		var dialogue_text: String = dialogues.pop_front()
+		dialogue_box.start_displaying_text(dialogue_text)
+
+		await dialogue_box.finished_displaying_text
+		await get_tree().create_timer(2.5, false).timeout
+	
+	dialogue_tween = create_tween()
+	dialogue_tween.tween_property(dialogue_box, "modulate:a", 0.0, 1).set_delay(3)
+	await dialogue_tween.finished
+	dialogue_tween = null
+	dialogue_box.queue_free()
+	dialogue_box = null
+	#dialogue_finished.emit()
+
 func _set_temperature(new_value: float) -> void:
 	temperature = new_value
 	match temperature_state:
@@ -570,6 +581,6 @@ func _set_temperature_state(new_value: int) -> void:
 	temperature_state = new_value
 	match temperature_state:
 		COLD:
-			sprite.modulate = Color.DEEP_SKY_BLUE
+			sprite.modulate = Color("88ccef")
 		WARM:
 			sprite.modulate = Color.WHITE

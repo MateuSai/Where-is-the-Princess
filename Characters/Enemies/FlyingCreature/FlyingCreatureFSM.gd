@@ -19,7 +19,7 @@ func _state_logic(_delta: float) -> void:
 	match state:
 		CHASE:
 			enemy.move_to_target()
-			parent.move()
+			#parent.move()
 			if parent.mov_direction.y >= 0 and animation_player.current_animation != "fly":
 				animation_player.play("fly")
 			elif parent.mov_direction.y < 0 and animation_player.current_animation != "fly_up":

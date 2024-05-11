@@ -22,7 +22,7 @@ layer_2/tile_data = PackedInt32Array(196612, 0, 1, 196617, 393216, 0, 131081, 58
 [node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("2_rhjec")]
 position = Vector2(105, 106)
 
-[node name="TeleportPosition" parent="." index="7"]
+[node name="TeleportPosition" parent="." index="8"]
 position = Vector2(124, 90)
 
 [node name="SewerEntrance" parent="." index="9" instance=ExtResource("3_142rc")]

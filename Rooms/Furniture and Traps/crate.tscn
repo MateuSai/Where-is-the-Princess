@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bphrmf6n5s7be"]
+[gd_scene load_steps=10 format=3 uid="uid://bphrmf6n5s7be"]
 
 [ext_resource type="Script" path="res://Rooms/Furniture and Traps/crate.gd" id="1_57qlx"]
 [ext_resource type="Texture2D" uid="uid://b6spbsun5dowr" path="res://Art/crate/crate-full_broken.png" id="1_srv81"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Components/spawn_fragments_on_died.gd" id="5_h0e34"]
 [ext_resource type="Script" path="res://Components/remove_collisions_on_died.gd" id="6_s7l3u"]
 [ext_resource type="Script" path="res://Components/explosion_on_died.gd" id="7_xibuo"]
+[ext_resource type="Script" path="res://Components/flash_on_damage.gd" id="8_6xv3b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v35wa"]
 size = Vector2(16, 9)
@@ -42,3 +43,6 @@ script = ExtResource("6_s7l3u")
 
 [node name="ExplosionOndied" type="Node" parent="."]
 script = ExtResource("7_xibuo")
+
+[node name="FlashOnDamage" type="Node" parent="."]
+script = ExtResource("8_6xv3b")

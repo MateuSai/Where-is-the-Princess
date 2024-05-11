@@ -30,7 +30,7 @@ func equip(player: Player) -> void:
 	super(player)
 
 func unequip(player: Player) -> void:
-	var particles: GPUParticles2D = (load("res://shaders_and_particles/DestroyParticles.tscn") as PackedScene).instantiate()
+	var particles: GPUParticles2D = (load("res://shaders_and_particles/particles/DestroyParticles.tscn") as PackedScene).instantiate()
 	particles.position = magic_shield_node.sprite.global_position
 	magic_shield_node.get_tree().current_scene.add_child(particles)
 	player.remove_rotating_item(magic_shield_node)

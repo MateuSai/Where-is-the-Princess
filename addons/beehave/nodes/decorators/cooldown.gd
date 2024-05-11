@@ -8,10 +8,9 @@ class_name CooldownDecorator
 ## The timer resets the next time its child is executed and it is not `RUNNING`
 
 ## The wait time in seconds
-@export var wait_time: = 0.0
+@export var wait_time := 0.0
 
 @onready var cache_key = 'cooldown_%s' % self.get_instance_id()
-
 
 func tick(actor: Node, blackboard: Blackboard) -> int:
 	var c = get_child(0)
@@ -47,5 +46,3 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 			blackboard.set_value(cache_key, wait_time, str(actor.get_instance_id()))
 	
 	return response
-
-

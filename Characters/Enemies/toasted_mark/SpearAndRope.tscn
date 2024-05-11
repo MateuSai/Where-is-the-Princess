@@ -23,7 +23,7 @@ weapon_body = NodePath("RigidBody2D")
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 position = Vector2(-8, -7)
-collision_layer = 4
+collision_layer = 8
 collision_mask = 15
 mass = 3.0
 
@@ -37,10 +37,10 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_lqs2w")
 
 [node name="Hitbox" type="Area2D" parent="RigidBody2D"]
+unique_name_in_owner = true
 collision_layer = 0
-collision_mask = 10
+collision_mask = 158
 script = ExtResource("4_ygmyx")
-player_damage_multiplier = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/Hitbox"]
 position = Vector2(17, 0)

@@ -36,7 +36,7 @@ enemy_name = "mole"
 [node name="EnemyMarker3" type="Marker2D" parent="EnemyPositions" index="2"]
 position = Vector2(60, 180)
 script = ExtResource("4_5rvjh")
-enemy_name = "aggressor_mark"
+enemy_name = "toasted_mark"
 
 [node name="EnemyMarker4" type="Marker2D" parent="EnemyPositions" index="3"]
 position = Vector2(409, 193)

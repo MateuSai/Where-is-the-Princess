@@ -121,6 +121,11 @@ func _process_command(command: String) -> void:
 							_set_time_scale(splitted_command[2])
 						else:
 							printerr("You must specify the new value of time scale")
+					"coins":
+						if splitted_command.size() > 2:
+							_set_coins(splitted_command[2])
+						else:
+							printerr("You must specify the new value of the coins")
 					"souls":
 						if splitted_command.size() > 2:
 							_set_souls(splitted_command[2])
@@ -259,6 +264,7 @@ func _set_player_hp(hp_string: String) -> void:
 		return
 
 	hide()
+	Globals.player.life_component.last_damage_dealer_id = "console"
 	Globals.player.life_component.hp = int(hp_string)
 #	var new_hp: int = int(clamp(int(hp_string), 0.0, 100.0))
 #	Globals.player.hp = new_hp
@@ -339,6 +345,14 @@ func _set_time_scale(time_scale_string: String) -> void:
 	hide()
 	var new_time_scale: float = clamp(float(time_scale_string), 0.0, 10.0)
 	Engine.time_scale = new_time_scale
+
+func _set_coins(coins_string: String) -> void:
+	if not coins_string.is_valid_int():
+		push_error("Invalid value for coins")
+		return
+
+	hide()
+	SavedData.run_stats.coins = coins_string.to_int()
 
 func _set_souls(souls_string: String) -> void:
 	if not souls_string.is_valid_float():
@@ -535,6 +549,7 @@ func _test_room(path: String) -> void:
 	level.overwrite_start_rooms = ["res://Rooms/Biomes/forest/Start/ForestSpawnRoom0.tscn"]
 	level.num_combat_rooms = 1
 	level.overwrite_combat_rooms = [path]
+	level.overwrite_weapons_on_floor = []
 	biome_conf.levels.push_back(level)
 
 	SavedData._change_biome_by_conf(biome_conf)

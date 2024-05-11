@@ -3,12 +3,11 @@ class_name EnemyWeapons extends Weapons
 var pre_attack_cooldown_timer: Timer
 var attack_cooldown_timer: Timer
 
-
 func _ready() -> void:
 	super()
 
 	character.ready.connect(func() -> void:
-		current_weapon = get_child(0)
+		current_weapon=get_child(0)
 	)
 
 	pre_attack_cooldown_timer = Timer.new()
@@ -19,19 +18,15 @@ func _ready() -> void:
 
 	attack_cooldown_timer = Timer.new()
 	attack_cooldown_timer.one_shot = true
-	attack_cooldown_timer.wait_time = 0.75
 	add_child(attack_cooldown_timer)
-
 
 func is_busy() -> bool:
 	return current_weapon.is_busy() or not attack_cooldown_timer.is_stopped() or not pre_attack_cooldown_timer.is_stopped()
-
 
 func attack() -> void:
 	assert(not is_busy())
 
 	pre_attack_cooldown_timer.start()
-
 
 func reload() -> void:
 	assert(current_weapon is Crossbow)
@@ -39,20 +34,16 @@ func reload() -> void:
 
 	current_weapon._reload()
 
-
 func _actually_attack() -> void:
 	current_weapon._attack()
 
-	attack_cooldown_timer.start()
-
+	attack_cooldown_timer.start(randf_range(0.75, 1.3))
 
 func active_ability() -> void:
 	current_weapon._active_ability()
 
-
 func strong_attack() -> void:
 	current_weapon._strong_attack()
-
 
 func set_current_weapon(new_weapon: Weapon) -> void:
 	super(new_weapon)

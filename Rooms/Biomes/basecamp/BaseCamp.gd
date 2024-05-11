@@ -49,6 +49,11 @@ func _ready() -> void:
 			_set_seed()
 		)
 
+		var random_start_weapon_path: String=SavedData.get_random_available_weapon_path()
+		var random_start_weapon: Weapon=load(random_start_weapon_path).instantiate()
+		add_child(random_start_weapon)
+		random_start_weapon._on_PlayerDetector_body_entered(Globals.player)
+
 		wardrobe_interact_area.player_interacted.connect(func() -> void:
 			wardrobe_popup.popup_centered()
 			($WardrobeOpenSound as AudioStreamPlayer).play()
@@ -63,6 +68,9 @@ func _ready() -> void:
 			#print(tr(dialogue_key))
 			if dialogue_key != tr(dialogue_key): # Dialogue available
 				Globals.player.start_dialogue(dialogue_key)
+			elif not SavedData.last_time_killed_by.is_empty():
+				var options: PackedStringArray=["PLAYER_WAKE_UP_DIALOGUE_KILLED_BY_ENEMY_1"]
+				Globals.player.start_dialogue(tr(options[randi() % options.size()]) % tr(SavedData.last_time_killed_by.to_upper()))
 		)
 		wake_up_dialogue_timer.start()
 	)
@@ -79,7 +87,7 @@ func _set_seed() -> void:
 		run_seed = randi() % 100000000 # Eight digit number
 	else:
 		run_seed = int(seed_spin_box.value)
-	run_seed = 24359070
+	#run_seed = 93290013
 	print("Changed seed to  " + str(run_seed) + "\n")
 	#seed(run_seed)
 	SavedData.run_stats.run_seed = run_seed

@@ -10,7 +10,7 @@ signal normal_attacked()
 
 var max_weapons: int = 3
 
-var double_damage_when_weapon_breaks: bool = true
+var extra_damage_when_weapon_breaks: int = 0
 
 enum {UP, DOWN}
 
@@ -67,8 +67,8 @@ func _unhandled_input(event: InputEvent) -> void:
 			_switch_weapon(UP)
 		elif event.is_action_released("ui_next_weapon"):
 			_switch_weapon(DOWN)
-		elif event.is_action_pressed("ui_throw_weapon") and current_weapon.get_index() != 0:
-			_drop_weapon()
+		elif event.is_action_pressed("ui_drop_weapon") and current_weapon.get_index() != 0:
+			_throw_or_drop_weapon()
 
 func move(direction: Vector2) -> void:
 	if disabled:
@@ -130,6 +130,12 @@ func pick_up_weapon(weapon: Weapon) -> void:
 		weapon_switched.emit(prev_index, new_index)
 
 	equip_weapon_sound.play()
+
+func _throw_or_drop_weapon() -> void:
+	if current_weapon is MeleeWeapon:
+		current_weapon.start_throw_animations()
+	else:
+		_drop_weapon()
 
 func _drop_weapon() -> void:
 	pick_up_weapon_cooldown_timer.start()

@@ -33,8 +33,10 @@ var biome_conf: BiomeConf
 
 signal dark_souls_changed(new_value: int)
 
+var last_time_killed_by: String = ""
+
 func _ready() -> void:
-	print("--- SavedData ---")
+	print_rich("\n[b]--- SavedData ---[/b]")
 	# save_data()
 	data = Data._load()
 	data_loaded.emit()
@@ -49,7 +51,12 @@ func _ready() -> void:
 	var user_dir: DirAccess = DirAccess.open(USER_FOLDER)
 	assert(user_dir) # Siempre deberiamos poder abrir el directorio del usuario
 
-	print("\t")
+	print("")
+
+	if OS.has_feature("editor"):
+		_print_info_that_may_be_useful()
+
+	print("")
 
 func save_run_stats() -> void:
 	ResourceSaver.save(run_stats, USER_FOLDER.path_join(RUN_STATS_SAVE_NAME))
@@ -173,16 +180,27 @@ func change_biome_by_id_or_path(new_biome: String, level: int=1) -> void:
 
 	SavedData.statistics.add_biome_times_entered(biome_conf.name)
 
-func get_biome_by_id_or_path(biome: String) -> BiomeConf:
+func get_biome_json_string_by_id_or_path(biome: String) -> String:
 	if not biome.is_absolute_path():
 		biome = BIOMES_FOLDER_PATH + biome + "/conf.json"
 
-	var ret_biome_conf: BiomeConf = null
+	var biome_json_string: String = ""
 
 	var file: FileAccess = FileAccess.open(biome, FileAccess.READ)
 	if file:
+		biome_json_string = file.get_as_text()
+	else:
+		push_error("There is not file at " + biome)
+
+	return biome_json_string
+
+func get_biome_by_id_or_path(biome: String) -> BiomeConf:
+	var ret_biome_conf: BiomeConf = null
+
+	var biome_json_string: String = get_biome_json_string_by_id_or_path(biome)
+	if not biome_json_string.is_empty():
 		var json: JSON = JSON.new()
-		if json.parse(FileAccess.open(biome, FileAccess.READ).get_as_text()):
+		if json.parse(biome_json_string):
 			push_error("Error reading " + biome + "! Loading default biome conf...")
 		else:
 			if json.data is Dictionary:
@@ -190,7 +208,7 @@ func get_biome_by_id_or_path(biome: String) -> BiomeConf:
 			else:
 				push_error("Could not load file biome data as json, using default values...")
 	else:
-		push_error("There is not file at " + biome)
+		Log.err("json string is empty")
 
 	return ret_biome_conf
 
@@ -391,3 +409,25 @@ func get_limit_entrance_connections_to_one() -> bool:
 
 func add_completed_dialogue(dialogue: String) -> void:
 	data.add_completed_dialogue(dialogue)
+
+func add_player_times_killed(killed_by: String) -> void:
+	last_time_killed_by = killed_by
+	statistics.add_player_times_killed()
+
+func _print_info_that_may_be_useful() -> void:
+	var data_dic: Dictionary = {
+		"Armors": [Data.ALL_VANILLA_ARMORS, Data.AVAILABLE_ARMORS_FROM_START],
+		"Weapons": [Data.ALL_VANILLA_WEAPONS, Data.AVAILABLE_WEAPONS_FROM_START],
+		"Permanent items": [Data.ALL_VANILLA_PERMANENT_ITEMS, Data.AVAILABLE_PERMANENT_ITEMS_FROM_START],
+		"Temporal items": [Data.ALL_VANILLA_TEMPORAL_ITEMS, Data.AVAILABLE_TEMPORAL_ITEMS_FROM_START],
+	}
+	for key: String in data_dic.keys():
+		Log.info(key + ":")
+		Log.info("\tAll vanilla: " + str(Globals.array_of_paths_to_filenames(Array(data_dic[key][0]))))
+		Log.info("\tAvailable from start: " + str(Globals.array_of_paths_to_filenames(Array(data_dic[key][1]))))
+		Log.info("\tNot available from start: " + str(Globals.array_of_paths_to_filenames(
+			Globals.get_missing_elements(
+				Array(data_dic[key][0]),
+				Array(data_dic[key][1])
+			)
+		)))

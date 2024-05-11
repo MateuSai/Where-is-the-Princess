@@ -5,7 +5,6 @@ var attack_num: int = 0:
 	set(new_attack_num):
 		attack_num = wrapi(new_attack_num, 0, data.num_normal_attacks)
 
-@export var throw_speed: int = 200
 var throw_dir: Vector2
 var throw_rot_speed: float = 0
 
@@ -20,7 +19,7 @@ func _ready() -> void:
 	super()
 
 	spawn_weapon_shadow_timer = Timer.new()
-	spawn_weapon_shadow_timer.wait_time = 0.02
+	spawn_weapon_shadow_timer.wait_time = 0.005
 	spawn_weapon_shadow_timer.timeout.connect(_spawn_shadow_effect)
 	add_child(spawn_weapon_shadow_timer)
 
@@ -31,9 +30,10 @@ func _ready() -> void:
 
 	hitbox.weapon = self
 	hitbox.damage = data.damage
+	hitbox.knockback_force = data.knockback
 
 func _physics_process(delta: float) -> void:
-	position += throw_dir * throw_speed * delta
+	position += throw_dir * data.throw_speed * delta
 	weapon_sprite.rotation += throw_rot_speed * delta
 
 func _on_collided_with_something(col_mat: Hitbox.CollisionMaterial=Hitbox.CollisionMaterial.FLESH) -> void:
@@ -81,11 +81,18 @@ func _active_ability(_animation_name: String="active_ability") -> void:
 		attack_num += 1
 	used_active_ability.emit()
 
+func start_throw_animations() -> void:
+	Log.debug("start_throw_animations")
+	animation_player.play(get_animation_full_name("charge_" + str(attack_num + 1)))
+	animation_player.queue(get_animation_full_name("strong_attack_" + str(attack_num + 1)))
+
 func throw() -> void:
-	throw_dir = (get_parent().get_parent() as Player).mouse_direction
+	Log.debug("Thrown " + weapon_id)
+	
+	throw_dir = (get_parent().get_parent() as Player).mouse_direction.rotated(randf_range( - (get_parent() as Weapons).throw_spread, (get_parent() as Weapons).throw_spread))
 	bodies_pierced = 0
 	piercing = (get_parent().get_parent() as Player).throw_piercing
-	if data.type == WeaponData.Type.SWORD:
+	if data.type in [WeaponData.Type.SWORD, WeaponData.Type.HAMMER, WeaponData.Type.AXE, WeaponData.Type.OTHER]:
 		throw_rot_speed = 25 if attack_num == 0 else - 25
 	(get_parent() as PlayerWeapons).throw_weapon()
 	(hitbox.get_node("CollisionShape2D") as CollisionShape2D).disabled = false
@@ -152,24 +159,24 @@ func destroy() -> void:
 
 func set_damage(new_damage: int) -> void:
 	super(new_damage)
-	if animation_player and not animation_player.current_animation.begins_with("active_ability"):
+	if animation_player and not get_current_animation().begins_with("active_ability"):
 		hitbox.damage = data.damage
 
 func set_ability_damage(new_ability_damage: int) -> void:
 	super(new_ability_damage)
-	if animation_player and animation_player.current_animation.begins_with("active_ability"):
+	if animation_player and get_current_animation().begins_with("active_ability"):
 		hitbox.damage = data.ability_damage
 
 func set_knockback(new_knockback: int) -> void:
 	super(new_knockback)
 
-	if animation_player and not animation_player.current_animation.begins_with("active_ability"):
-			hitbox.knockback_force = data.knockback
+	if animation_player and not get_current_animation().begins_with("active_ability"):
+		hitbox.knockback_force = data.knockback
 
 func set_ability_knockback(new_ability_knockback: int) -> void:
 	super(new_ability_knockback)
 
-	if animation_player and animation_player.current_animation.begins_with("active_ability"):
+	if animation_player and get_current_animation().begins_with("active_ability"):
 		hitbox.knockback_force = data.ability_knockback
 
 func _on_animation_started(anim_name: StringName) -> void:
@@ -179,14 +186,14 @@ func _on_animation_started(anim_name: StringName) -> void:
 		#var a: Array[PhysicsBody2D] = (get_parent().get_parent() as Character).get_exclude_bodies()
 		#hitbox.exclude = a
 
-	if anim_name.begins_with("active_ability"):
+	if anim_name.contains("active_ability"):
 		hitbox.damage = data.ability_damage
 		hitbox.knockback_force = data.ability_knockback
 
 func _on_animation_finished(anim_name: String) -> void:
 	super(anim_name)
 
-	if anim_name.begins_with("active_ability"):
+	if anim_name.contains("active_ability"):
 		hitbox.damage = data.damage
 		hitbox.knockback_force = data.knockback
 

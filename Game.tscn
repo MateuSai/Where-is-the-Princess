@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=76 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -51,6 +51,7 @@
 [ext_resource type="Texture2D" uid="uid://cbj7lfujwbpfd" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/pause_menu_ui_9-patch.png" id="38_uvlqo"]
 [ext_resource type="Script" path="res://ui/notification_container.gd" id="43_c88jh"]
 [ext_resource type="Script" path="res://ui/biome_banner.gd" id="50_gojcj"]
+[ext_resource type="Texture2D" uid="uid://cdc7lhfsxohm6" path="res://icon.png" id="52_cslg2"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
 light_mode = 1
@@ -149,11 +150,17 @@ y_sort_enabled = true
 texture_filter = 1
 script = ExtResource("3")
 debug = false
+reload_on_generation_eror = null
 execute_procedural_generation_on_thread = false
 
 [node name="Rooms" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("4")
+debug_check_entry_positions = null
+use_delaunay = null
+pause_between_steps = null
+add_tile_group_time = null
+add_light_pause = null
 num_levels = 3
 
 [node name="CorridorTileMap" type="TileMap" parent="Rooms"]
@@ -600,3 +607,7 @@ centered = false
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 bus = &"Music"
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(601, 145)
+texture = ExtResource("52_cslg2")

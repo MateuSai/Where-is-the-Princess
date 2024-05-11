@@ -169,12 +169,12 @@ _data = {
 
 [node name="DragonKiller" instance=ExtResource("1_3tpi4")]
 script = ExtResource("2_1equw")
-throw_speed = 200
 
 [node name="WeaponSprite" parent="Node2D" index="0"]
 material = SubResource("ShaderMaterial_eav6s")
 position = Vector2(6, -2.09808e-05)
 rotation = 0.0
+scale = Vector2(-1, 1)
 texture = ExtResource("4_e2opm")
 offset = Vector2(0, -9)
 

@@ -1,6 +1,6 @@
 class_name SpitSplash extends Sprite2D
 
-const ACID_PUDDLE_SCENE: PackedScene = preload("res://Characters/Enemies/MediumSlime/acid_puddle.tscn")
+const ACID_PUDDLE_SCENE: PackedScene = preload("res://Characters/Enemies/medium_slime/acid_puddle.tscn")
 
 
 func _spawn_acid_puddle() -> void:

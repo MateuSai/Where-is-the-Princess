@@ -19,7 +19,7 @@ func _state_logic(_delta: float) -> void:
 #			if parent.navigation_agent.is_target_reached() or not parent.navigation_agent.is_target_reachable():
 #				parent.target_random_near_position()
 			parent.move_to_target()
-			parent.move()
+			#parent.move()
 			if parent.mov_direction.y >= 0 and animation_player.current_animation != "move":
 				animation_player.play("move")
 			elif parent.mov_direction.y < 0 and animation_player.current_animation != "move_up":

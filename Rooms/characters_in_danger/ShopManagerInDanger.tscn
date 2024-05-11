@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b14mh3jk8cuns" path="res://Rooms/characters_in_danger/CharacterInDanger.tscn" id="1_0nvl4"]
 [ext_resource type="Script" path="res://Rooms/characters_in_danger/ShopManagerInDanger.gd" id="2_t1uqx"]
-[ext_resource type="PackedScene" uid="uid://1dog8g4x0l0a" path="res://Characters/npcs/shop_manager/ShopManager.tscn" id="3_mn8uv"]
+[ext_resource type="PackedScene" uid="uid://1dog8g4x0l0a" path="res://Characters/npcs/richard_stallwizard/richard_stallwizard.tscn" id="3_mn8uv"]
 
 [node name="ShopManagerInDanger" instance=ExtResource("1_0nvl4")]
 script = ExtResource("2_t1uqx")

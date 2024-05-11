@@ -6,7 +6,8 @@ const DB: Dictionary = preload ("res://Characters/data.csv").records
 const DUST_SCENE: PackedScene = preload ("res://Characters/Player/Dust.tscn")
 const HIT_EFFECT_SCENE: PackedScene = preload ("res://Characters/HitEffect.tscn")
 
-var friction: float = 0.15
+const FRICTION: float = 0.15
+var friction: float = FRICTION
 
 #var invincible: bool = false
 #@export var max_hp: int = 2
@@ -26,6 +27,11 @@ enum Resistance {
 	ELECTRICITY = 8,
 }
 var resistances: int = 0
+
+var previous_max_speed: int
+var dash_time: float = 0.06
+var dash_timer: Timer
+var dash_cooldown_timer: Timer
 
 var mov_direction: Vector2 = Vector2.ZERO
 
@@ -78,6 +84,14 @@ func _ready() -> void:
 	spawn_shadow_timer.timeout.connect(_spawn_shadow_effect)
 	add_child(spawn_shadow_timer)
 
+	dash_timer = Timer.new()
+	dash_timer.one_shot = true
+	add_child(dash_timer)
+	dash_cooldown_timer = Timer.new()
+	dash_cooldown_timer.one_shot = true
+	dash_timer.timeout.connect(_on_dash_timer_timeout)
+	add_child(dash_cooldown_timer)
+
 	set_flying(data.flying)
 
 	if DebugInfo.is_visible:
@@ -118,17 +132,20 @@ func _physics_process(delta: float) -> void:
 		acid_progress -= 0.7 * delta
 
 	state_machine.physics_process(delta)
+
+	_move()
+
 	if not data.motionless:
 		move_and_slide()
 	velocity = lerp(velocity, Vector2.ZERO, friction)
 
-func move() -> void:
+func _move() -> void:
 	mov_direction = mov_direction.limit_length(1.0)
 	#velocity += mov_direction * acceleration
 	if not mov_direction.is_equal_approx(Vector2.ZERO) and can_move:
 		velocity = lerp(velocity, mov_direction * data.max_speed, data.acceleration)
 	#print_debug(velocity)
-	velocity = velocity.limit_length(data.max_speed)
+	#velocity = velocity.limit_length(data.max_speed)
 
 func add_status_condition(status: StatusComponent.Status) -> void:
 	var status_key: String = StatusComponent.Status.keys()[status]
@@ -140,6 +157,7 @@ func add_status_condition(status: StatusComponent.Status) -> void:
 	status_component.add()
 
 func _on_damage_taken(_dam: int, dir: Vector2, force: int) -> void:
+	Log.debug(id + " has taken damage with a force of " + str(force) + " and a direction of " + str(dir))
 #	if invincible:
 #		return
 
@@ -151,6 +169,8 @@ func _on_damage_taken(_dam: int, dir: Vector2, force: int) -> void:
 	if data.can_be_knocked_back:
 		velocity += dir * force / (data.mass / 3)
 	if life_component.hp == 0:
+		mov_direction = Vector2.ZERO
+
 		if behavior_tree:
 			behavior_tree.queue_free()
 		else:
@@ -241,6 +261,26 @@ func _spawn_shadow_effect() -> void:
 	shadow_sprite.offset = sprite.offset
 	get_tree().current_scene.add_child(shadow_sprite)
 	shadow_sprite.start(sprite.texture)
+
+func _dash(dash_time: float=dash_time) -> void:
+	print_debug("dash " + str(mov_direction))
+	dash_cooldown_timer.start()
+
+	#velocity += mov_direction.normalized() * 1000
+	#print_debug("Velocity after applying dash: " + str(velocity))
+	#mov_direction = Vector2.ZERO
+	#friction = 0
+	previous_max_speed = data.max_speed
+	data.max_speed = 1000
+	dash_timer.start(dash_time)
+	_start_shadow_effect()
+
+func _on_dash_timer_timeout() -> void:
+	print_debug(mov_direction)
+	data.max_speed = previous_max_speed
+	#friction = FRICTION
+	await get_tree().create_timer(0.06).timeout
+	_stop_shadow_effect()
 
 func _update_state_label(new_state: int) -> void:
 	state_label.text = str(new_state)

@@ -1,0 +1,144 @@
+[gd_scene load_steps=12 format=3 uid="uid://b885ot2dse5g6"]
+
+[ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_3wwxg"]
+[ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="2_86rjl"]
+[ext_resource type="Script" path="res://Weapons/Melee/reptilian_spear/reptilian_spear.gd" id="2_a3nr1"]
+[ext_resource type="Texture2D" uid="uid://hovi8qetgs0q" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/reptiles/spear-end.png" id="3_gxaow"]
+[ext_resource type="AnimationLibrary" uid="uid://b0phcsitft3as" path="res://Weapons/animation_libraries/horizontal_spear_animation_library.tres" id="4_ro1tk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rwn1f"]
+resource_local_to_scene = true
+shader = ExtResource("2_86rjl")
+shader_parameter/active = false
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gb4d2"]
+radius = 3.53555
+height = 15.5563
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tcqj6"]
+radius = 4.24265
+height = 25.4558
+
+[sub_resource type="Animation" id="Animation_trtog"]
+resource_name = "RESET"
+length = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/WeaponSprite/Hitbox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/WeaponSprite:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node2D/WeaponSprite:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5708]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Node2D/WeaponSprite:material:shader_parameter/active")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Node2D/WeaponSprite/ChargeParticles:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Node2D:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5708]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kcl83"]
+_data = {
+"RESET": SubResource("Animation_trtog")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e1njl"]
+radius = 9.0
+
+[node name="ReptilianSpear" instance=ExtResource("1_3wwxg")]
+script = ExtResource("2_a3nr1")
+throw_speed = 200
+
+[node name="Node2D" parent="." index="0"]
+rotation = 1.5708
+
+[node name="WeaponSprite" parent="Node2D" index="0"]
+material = SubResource("ShaderMaterial_rwn1f")
+rotation = -1.5708
+texture = ExtResource("3_gxaow")
+offset = Vector2(4, 0)
+
+[node name="CollisionShape2D" parent="Node2D/WeaponSprite/Hitbox" index="0"]
+position = Vector2(8, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_gb4d2")
+
+[node name="CollisionShape2D" parent="Node2D/WeaponSprite/PlayerDetector" index="0"]
+position = Vector2(4, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_tcqj6")
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_kcl83"),
+"horizontal_spear_animation_library": ExtResource("4_ro1tk")
+}
+
+[node name="PickUpSpearArea" type="Area2D" parent="." index="4"]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpSpearArea" index="0"]
+shape = SubResource("CircleShape2D_e1njl")
+disabled = true
+
+[node name="PullBackTimer" type="Timer" parent="." index="5"]
+one_shot = true

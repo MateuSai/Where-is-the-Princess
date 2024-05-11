@@ -1,9 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://d3qmv5odokhfh"]
+[gd_scene load_steps=13 format=3 uid="uid://d3qmv5odokhfh"]
 
 [ext_resource type="PackedScene" uid="uid://dfwr6ghpa5ecq" path="res://Weapons/Ranged/ranged_weapon.tscn" id="1_wh4io"]
 [ext_resource type="Script" path="res://Weapons/Ranged/Bows/Bow.gd" id="2_r4y4g"]
 [ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="3_jnuwf"]
 [ext_resource type="Texture2D" uid="uid://ban50bsyexwl3" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/wooden_bow.png" id="4_f3ix4"]
+[ext_resource type="Script" path="res://Weapons/Ranged/Bows/arrow_sprite.gd" id="5_8eklv"]
+[ext_resource type="Texture2D" uid="uid://bf4puqk00byo1" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/arrow.png" id="5_lsno5"]
+[ext_resource type="AnimationLibrary" uid="uid://b7ouk26klb4vt" path="res://Weapons/animation_libraries/bow_animation_library.tres" id="5_rlw0p"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c4kgo"]
 resource_local_to_scene = true
@@ -28,6 +31,42 @@ tracks/0/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/WeaponSprite/ArrowSprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5708]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node2D/WeaponSprite/ArrowSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(10, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Node2D/WeaponSprite/ArrowSprite:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_5ha7j"]
 resource_name = "active_ability"
@@ -47,59 +86,10 @@ tracks/0/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_qkpdb"]
-resource_name = "attack"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node2D/WeaponSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"_spawn_projectile"
-}]
-}
-
-[sub_resource type="Animation" id="Animation_7wog6"]
-resource_name = "charge"
-length = 0.8
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Node2D/WeaponSprite:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.5, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hgeu0"]
 _data = {
 "RESET": SubResource("Animation_b30ji"),
-"active_ability": SubResource("Animation_5ha7j"),
-"attack": SubResource("Animation_qkpdb"),
-"charge": SubResource("Animation_7wog6")
+"active_ability": SubResource("Animation_5ha7j")
 }
 
 [node name="WoodenBow" instance=ExtResource("1_wh4io")]
@@ -118,7 +108,15 @@ shape = SubResource("CapsuleShape2D_2rafl")
 [node name="SpawnProjectilePos" parent="Node2D/WeaponSprite" index="2"]
 position = Vector2(9, 0)
 
+[node name="ArrowSprite" type="Sprite2D" parent="Node2D/WeaponSprite" index="3"]
+visible = false
+position = Vector2(10, 0)
+rotation = 1.5708
+texture = ExtResource("5_lsno5")
+script = ExtResource("5_8eklv")
+
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {
-"": SubResource("AnimationLibrary_hgeu0")
+"": SubResource("AnimationLibrary_hgeu0"),
+"bow_animation_library": ExtResource("5_rlw0p")
 }

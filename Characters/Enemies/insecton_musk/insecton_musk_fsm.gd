@@ -17,16 +17,14 @@ var max_consecutive_spits: int
 @onready var hitbox: Hitbox = $"../Hitbox"
 @onready var throw_acid_spit_timer: Timer = $"../ThrowAcidSpitTimer"
 
-
 func start() -> void:
 	set_state(HIDDEN)
-
 
 func _state_logic(_delta: float) -> void:
 	match state:
 		APPROACH, FLEE:
 			parent.move_to_target()
-			parent.move()
+			#parent.move()
 			if parent.mov_direction.y >= 0 and animation_player.current_animation != "fly":
 				animation_player.play("fly")
 				parent.move_child(wings, 0)
@@ -47,7 +45,6 @@ func _state_logic(_delta: float) -> void:
 				parent._on_change_dir()
 			elif vector_to_target.x < 0 and not wings.flip_h:
 				parent._on_change_dir()
-
 
 func _get_transition() -> int:
 	var vector_to_target: Vector2 = parent.target.global_position - parent.global_position
@@ -70,8 +67,7 @@ func _get_transition() -> int:
 			if vector_to_target.length() < 24 or insector_musk.num_consecutive_spits >= max_consecutive_spits:
 				return APPROACH
 
-	return -1
-
+	return - 1
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
@@ -80,6 +76,7 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 		APPROACH:
 			pathfinding_component.set_mode(PathfindingComponent.Approach.new())
 		MELEE_ATTACK:
+			insector_musk.mov_direction = Vector2.ZERO
 			hitbox.rotation = (insector_musk.target.global_position - insector_musk.global_position).angle()
 			hitbox.knockback_direction = Vector2.RIGHT.rotated(hitbox.rotation)
 			if parent.mov_direction.y >= 0:
@@ -89,10 +86,10 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 		FLEE:
 			pathfinding_component.set_mode(PathfindingComponent.Flee.new())
 		RANGED_ATTACK:
+			insector_musk.mov_direction = Vector2.ZERO
 			max_consecutive_spits = randi_range(2, 6)
 			throw_acid_spit_timer.start()
 			insector_musk.spit()
-
 
 func _exit_state(state_exited: int) -> void:
 	match state_exited:

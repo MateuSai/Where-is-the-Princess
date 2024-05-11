@@ -4,8 +4,8 @@
 [ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="2_ur1xs"]
 [ext_resource type="Script" path="res://mods-unpacked/WekufuStudios-DemoMod/oriental_spear/oriental_spear.gd" id="2_xja4i"]
 [ext_resource type="Texture2D" uid="uid://bnu7n17js62sg" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Oriental Spear nailed.png" id="4_jt08g"]
-[ext_resource type="AnimationLibrary" uid="uid://cgf32qx2txraw" path="res://Weapons/animation_libraries/oriental_spear_animation_library.tres" id="4_rt1e5"]
 [ext_resource type="Texture2D" uid="uid://b5cyhg4uq1wfb" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Oriental Spear no blade.png" id="5_qb461"]
+[ext_resource type="AnimationLibrary" uid="uid://cuiguj5gwq0ht" path="res://Weapons/animation_libraries/vertical_spear_animation_library.tres" id="6_itarr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6p8i7"]
 resource_local_to_scene = true
@@ -145,14 +145,13 @@ _data = {
 
 [node name="OrientalSpear" instance=ExtResource("1_wj7tv")]
 script = ExtResource("2_xja4i")
-throw_speed = 200
 
 [node name="Node2D" parent="." index="0"]
 rotation = 1.5708
 
 [node name="WeaponSprite" parent="Node2D" index="0"]
 material = SubResource("ShaderMaterial_6p8i7")
-rotation = 0.0
+rotation = 0.436332
 texture = ExtResource("4_jt08g")
 offset = Vector2(0, -2)
 
@@ -174,5 +173,5 @@ position = Vector2(0.0681129, -12.9998)
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {
 "": SubResource("AnimationLibrary_l7x7i"),
-"oriental_spear_animation_library": ExtResource("4_rt1e5")
+"vertical_spear_animation_library": ExtResource("6_itarr")
 }

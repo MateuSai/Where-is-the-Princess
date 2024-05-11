@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=56 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="Script" path="res://Rooms/Biomes/basecamp/BaseCamp.gd" id="1_tpf7m"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="2_ipa5f"]
@@ -27,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://c8pix6j8t15oo" path="res://Weapons/Melee/SmallAxe/SmallAxe.tscn" id="29_5p8c5"]
 [ext_resource type="PackedScene" uid="uid://bau1jfwsnyo2o" path="res://Characters/practice_dummy.tscn" id="31_1hy67"]
 [ext_resource type="PackedScene" uid="uid://d3qmv5odokhfh" path="res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn" id="31_pmolu"]
+[ext_resource type="PackedScene" uid="uid://b885ot2dse5g6" path="res://Weapons/Melee/reptilian_spear/reptilian_spear.tscn" id="32_egvrd"]
 [ext_resource type="PackedScene" uid="uid://dwiop8wuc7ah8" path="res://Rooms/cursed_idol/cursed_idol.tscn" id="34_0d44n"]
 [ext_resource type="PackedScene" uid="uid://cpyqtlqtdkuiq" path="res://Weapons/Ranged/scepters/lightning_stick/lightning_stick.tscn" id="34_nl6xg"]
 [ext_resource type="PackedScene" uid="uid://bphrmf6n5s7be" path="res://Rooms/Furniture and Traps/crate.tscn" id="35_epmjj"]
@@ -40,6 +41,8 @@
 [ext_resource type="PackedScene" uid="uid://b8gsakalplp52" path="res://Rooms/Furniture and Traps/wooden_fence/right_bottom_vertical_wooden_fence.tscn" id="39_ouwiq"]
 [ext_resource type="PackedScene" uid="uid://geovcmu2q826" path="res://Rooms/Furniture and Traps/sleeping_bag.tscn" id="39_sleg1"]
 [ext_resource type="PackedScene" uid="uid://cxx3eqxb68h25" path="res://Rooms/Furniture and Traps/wooden_fence/right_top_vertical_wooden_fence.tscn" id="40_u0ngm"]
+[ext_resource type="Script" path="res://start_player_dialogue_area.gd" id="42_j6whg"]
+[ext_resource type="PackedScene" uid="uid://u6q2tn1xph6o" path="res://Weapons/Melee/branch/branch.tscn" id="43_nrg1g"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_s6u7b"]
 source_geometry_group_name = &"navigation_polygon_source_group"
@@ -81,6 +84,9 @@ height = 20.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xxlah"]
 light_mode = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rxyxg"]
+radius = 19.0263
 
 [node name="BaseCamp" type="NavigationRegion2D"]
 y_sort_enabled = true
@@ -231,8 +237,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = -8.0
-offset_bottom = -8.0
+offset_right = 192.0
+offset_bottom = 142.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_nybk1")
@@ -415,6 +421,9 @@ position = Vector2(183, 158)
 
 [node name="Weapons" type="Node2D" parent="."]
 
+[node name="ReptilianSpear" parent="Weapons" instance=ExtResource("32_egvrd")]
+position = Vector2(269, 79)
+
 [node name="DebugRoomId" type="Label" parent="."]
 z_index = 4
 material = SubResource("CanvasItemMaterial_xxlah")
@@ -463,3 +472,15 @@ position = Vector2(117, 112)
 
 [node name="WakeUpDialogueTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="StartPlayerDialogueArea" type="Area2D" parent="."]
+position = Vector2(299, 46)
+script = ExtResource("42_j6whg")
+dialogues = Array[String](["PLAYER_ABOUT_TO_JUMP_FROM_CLIFF_1", "PLAYER_ABOUT_TO_JUMP_FROM_CLIFF_2", "PLAYER_ABOUT_TO_JUMP_FROM_CLIFF_3", "PLAYER_ABOUT_TO_JUMP_FROM_CLIFF_4", "PLAYER_ABOUT_TO_JUMP_FROM_CLIFF_5"])
+one_time_dialogue = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StartPlayerDialogueArea"]
+shape = SubResource("CircleShape2D_rxyxg")
+
+[node name="Branch" parent="." instance=ExtResource("43_nrg1g")]
+position = Vector2(154, 153)

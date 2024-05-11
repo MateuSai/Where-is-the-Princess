@@ -201,6 +201,7 @@ func spawn_rooms() -> void:
 
 	var start_room_paths: PackedStringArray = _get_rooms("Start")
 	var combat_room_paths: PackedStringArray = _get_rooms("Combat")
+	var chest_room_paths: PackedStringArray = _get_rooms("Chest")
 	var special_room_paths: PackedStringArray = _get_rooms("Special")
 	var end_room_paths: Array[PackedStringArray] = _get_end_rooms()
 
@@ -238,6 +239,17 @@ func spawn_rooms() -> void:
 				print_rich("[color=yellow]" + str(num_special_rooms) + " special rooms should have spawned, but only " + str(i + 1) + " did, since there are not enough special rooms[/color]")
 			break
 
+	var num_chest_rooms: int = SavedData.get_num_rooms("chest")
+	for i: int in num_chest_rooms:
+		var random_chest_room_path: String = chest_room_paths[randi() % chest_room_paths.size()]
+		var random_chest_room_scene: PackedScene = load(random_chest_room_path)
+		rooms.push_back(random_chest_room_scene.instantiate())
+		chest_room_paths.remove_at(chest_room_paths.find(random_chest_room_path))
+
+		if chest_room_paths.is_empty() and (i + 1) < num_chest_rooms:
+			Log.warn(str(num_special_rooms) + " chest rooms should have spawned, but only " + str(i + 1) + " did, since there are not enough chest rooms")
+			break
+
 	var num_combat_rooms: int = SavedData.get_num_rooms("combat")
 	for i: int in num_combat_rooms:
 		#rooms.push_back(INTERMEDIATE_ROOMS[0].instantiate())
@@ -253,8 +265,11 @@ func spawn_rooms() -> void:
 
 	#print_debug("Adding rooms to scene tree and other things")
 	for room: DungeonRoom in rooms:
+		Log.debug("Iterating over rooms... Room " + room.name)
 		room.name += "_" + str(rooms.find(room))
 		room.player_entered.connect(func() -> void:
+			Log.debug(room.name + " player_entered. Room id: " + str(room.get_instance_id()))
+			#Log.debug(str(room.get_signal_connection_list("player_entered")))
 			visited_rooms.push_back(room)
 			room_visited.emit(room)
 		)
@@ -580,6 +595,11 @@ func _create_corridors() -> bool:
 		#add_child(room)
 
 		room.add_doors_and_walls(corridor_tile_map)
+		var weapons_on_floor_paths: Array = biome_conf.levels[SavedData.run_stats.level - 1].overwrite_weapons_on_floor
+		if weapons_on_floor_paths.is_empty():
+			Log.debug("Not spawning weapons on floor because there aren't specified in the biome configuration file.")
+		else:
+			room.spawn_weapons_on_floor(weapons_on_floor_paths)
 		room.generate_room_white_image()
 		room.setup_navigation()
 

@@ -1,14 +1,11 @@
 class_name RangedWeapon extends Weapon
 
 var projectile_speed: int
-var normal_attack_projectile_speed: int = 200
-var ability_projectile_speed: int = 300
 
 signal projectiles_spawned(projectiles: Array[Projectile])
 
 @onready var spawn_projectile_pos: Marker2D = %SpawnProjectilePos
 @onready var shoot_sound: AudioStreamPlayer = $ShootSound
-
 
 func _ready() -> void:
 	super()
@@ -16,9 +13,8 @@ func _ready() -> void:
 	if not data.shoot_sound_path.is_empty():
 		shoot_sound.stream = load(data.shoot_sound_path)
 
-
 ## rot_offset is in radians. Returns an array containing the spawned projectiles
-func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> Array[Projectile]:
+func _spawn_projectile(angle: float=0.0, amount: int=1) -> Array[Projectile]:
 	if shoot_sound.stream:
 		shoot_sound.play()
 
@@ -42,8 +38,8 @@ func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> Array[Projectile]
 		if damage_dealer is Player:
 			projectile.damage *= damage_dealer.damage_multiplier
 
-		if get_parent() is PlayerWeapons and (get_parent() as PlayerWeapons).double_damage_when_weapon_breaks and stats.condition - data.condition_cost_per_normal_attack <= 0:
-			projectile.damage *= 2
+		if get_parent() is PlayerWeapons and stats.condition - data.condition_cost_per_normal_attack <= 0:
+			projectile.damage += (get_parent() as PlayerWeapons).extra_damage_when_weapon_breaks
 
 		for body: PhysicsBody2D in (get_parent().get_parent() as Character).get_exclude_bodies():
 			projectile.exclude.push_back(body)
@@ -53,6 +49,7 @@ func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> Array[Projectile]
 			projectile.exclude.push_back(other_projectile)
 		spawned_projectiles.push_back(projectile)
 
+		Log.debug("Spawning projectile with speed " + str(projectile_speed))
 		get_tree().current_scene.add_child(projectile)
 		projectile.launch(spawn_projectile_pos.global_position, Vector2.RIGHT.rotated(rotation + initial_offset + i * angle_step), projectile_speed, true)
 
@@ -63,15 +60,13 @@ func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> Array[Projectile]
 
 	return spawned_projectiles
 
-
 func _on_animation_started(anim_name: StringName) -> void:
 	super(anim_name)
 
 	if anim_name.begins_with("active_ability"):
-		projectile_speed = ability_projectile_speed
+		projectile_speed = data.ability_projectile_speed
 	else:
-		projectile_speed = normal_attack_projectile_speed
-
+		projectile_speed = data.normal_attack_projectile_speed
 
 static func get_data(path: String) -> WeaponData:
 	var id: String = get_id_from_path(path)
