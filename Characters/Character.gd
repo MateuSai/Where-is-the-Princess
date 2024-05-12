@@ -95,17 +95,22 @@ func _ready() -> void:
 	set_flying(data.flying)
 
 	if DebugInfo.is_visible:
-		state_label.show()
-		state_machine.state_changed.connect(_update_state_label)
-	else:
-		state_label.hide()
-	(get_tree().current_scene.get_node("UI/DebugUI/DebugInfo") as DebugInfo).visibility_changed.connect(func() -> void:
-		if state_label.visible:
-			state_machine.state_changed.disconnect(_update_state_label)
-			state_label.hide()
-		else:
+		if state_machine:
 			state_label.show()
 			state_machine.state_changed.connect(_update_state_label)
+	else:
+		if state_machine:
+			state_label.hide()
+		(get_tree().current_scene.get_node("UI/DebugUI/DebugInfo") as DebugInfo).visibility_changed.connect(func() -> void:
+			if state_machine == null:
+				return
+
+			if state_label.visible:
+				state_machine.state_changed.disconnect(_update_state_label)
+				state_label.hide()
+			else:
+				state_label.show()
+				state_machine.state_changed.connect(_update_state_label)
 	)
 	state_machine.start()
 
