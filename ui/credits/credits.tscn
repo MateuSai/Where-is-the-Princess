@@ -1,0 +1,110 @@
+[gd_scene load_steps=4 format=3 uid="uid://ca0buhie127t4"]
+
+[ext_resource type="LabelSettings" uid="uid://cbc4642i2ox27" path="res://Fonts/credits_section_title_label_settings.tres" id="1_67ui2"]
+[ext_resource type="Script" path="res://ui/credits/credits.gd" id="1_kf250"]
+[ext_resource type="LabelSettings" uid="uid://gwgloxfvwiln" path="res://Fonts/credits_name_label_settings.tres" id="2_n1tb0"]
+
+[node name="Credits" type="ScrollContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+script = ExtResource("1_kf250")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 64
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 64
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer4"]
+layout_mode = 2
+text = "DESIGN"
+label_settings = ExtResource("1_67ui2")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer4"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer4/VBoxContainer"]
+layout_mode = 2
+text = "Hernaldo"
+label_settings = ExtResource("2_n1tb0")
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer4/VBoxContainer"]
+layout_mode = 2
+text = "Mateu"
+label_settings = ExtResource("2_n1tb0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "PROGRAMMING"
+label_settings = ExtResource("1_67ui2")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Mateu"
+label_settings = ExtResource("2_n1tb0")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "ART"
+label_settings = ExtResource("1_67ui2")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Hernaldo"
+label_settings = ExtResource("2_n1tb0")
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Kenney"
+label_settings = ExtResource("2_n1tb0")
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "o_lobster"
+label_settings = ExtResource("2_n1tb0")
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer3"]
+layout_mode = 2
+text = "VA"
+label_settings = ExtResource("1_67ui2")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer3/VBoxContainer"]
+layout_mode = 2
+text = "佐々木 小次郎"
+label_settings = ExtResource("2_n1tb0")

@@ -131,7 +131,8 @@ func _physics_process(delta: float) -> void:
 	elif acid_progress > 0.0 and not inside_acid:
 		acid_progress -= 0.7 * delta
 
-	state_machine.physics_process(delta)
+	if state_machine:
+		state_machine.physics_process(delta)
 
 	_move()
 
@@ -173,10 +174,11 @@ func _on_damage_taken(_dam: int, dir: Vector2, force: int) -> void:
 
 		if behavior_tree:
 			behavior_tree.queue_free()
-		else:
+		elif state_machine:
 			assert(state_machine.get("DEAD") != null)
 			@warning_ignore("unsafe_property_access", "unsafe_call_argument")
 			state_machine.set_state(state_machine.DEAD)
+
 		if data.can_be_knocked_back:
 			velocity += dir * force / (data.mass / 3)
 
