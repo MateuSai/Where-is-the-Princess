@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bxd7jq71h68cp"]
+[gd_scene load_steps=9 format=3 uid="uid://bxd7jq71h68cp"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_cvvga"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_i4efb"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_usd5x"]
 [ext_resource type="PackedScene" uid="uid://byeyhke0jfjrb" path="res://Rooms/Furniture and Traps/traps/floor_button.tscn" id="4_xpqsu"]
 [ext_resource type="PackedScene" uid="uid://cvoo5kbnataor" path="res://Rooms/Furniture and Traps/traps/bomb_dropper/bomb_dropper.tscn" id="5_ht4ls"]
+[ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="8_vfyju"]
 
 [node name="SewerCombatRoom11" instance=ExtResource("1_cvvga")]
 
@@ -225,7 +226,7 @@ position = Vector2(237, 131)
 [node name="BombDropper39" parent="Traps" index="44" groups=["enabler_6"] instance=ExtResource("5_ht4ls")]
 position = Vector2(236, 39)
 
-[node name="TeleportPosition" parent="." index="7"]
+[node name="TeleportPosition" parent="." index="8"]
 position = Vector2(153, 209)
 
 [node name="Crate" parent="." index="9" instance=ExtResource("4_l0xsw")]
@@ -245,3 +246,21 @@ position = Vector2(132, 150)
 
 [node name="Crate6" parent="." index="14" instance=ExtResource("4_l0xsw")]
 position = Vector2(155, 159)
+
+[node name="Torch" parent="." index="16" instance=ExtResource("8_vfyju")]
+position = Vector2(55, 22)
+
+[node name="Torch2" parent="." index="17" instance=ExtResource("8_vfyju")]
+position = Vector2(249, 23)
+
+[node name="Torch3" parent="." index="18" instance=ExtResource("8_vfyju")]
+position = Vector2(145, 23)
+
+[node name="Torch4" parent="." index="19" instance=ExtResource("8_vfyju")]
+position = Vector2(288, 152)
+
+[node name="Torch5" parent="." index="20" instance=ExtResource("8_vfyju")]
+position = Vector2(17, 149)
+
+[node name="Torch6" parent="." index="21" instance=ExtResource("8_vfyju")]
+position = Vector2(148, 250)

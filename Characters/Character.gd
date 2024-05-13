@@ -95,17 +95,22 @@ func _ready() -> void:
 	set_flying(data.flying)
 
 	if DebugInfo.is_visible:
-		state_label.show()
-		state_machine.state_changed.connect(_update_state_label)
-	else:
-		state_label.hide()
-	(get_tree().current_scene.get_node("UI/DebugUI/DebugInfo") as DebugInfo).visibility_changed.connect(func() -> void:
-		if state_label.visible:
-			state_machine.state_changed.disconnect(_update_state_label)
-			state_label.hide()
-		else:
+		if state_machine:
 			state_label.show()
 			state_machine.state_changed.connect(_update_state_label)
+	else:
+		if state_machine:
+			state_label.hide()
+		(get_tree().current_scene.get_node("UI/DebugUI/DebugInfo") as DebugInfo).visibility_changed.connect(func() -> void:
+			if state_machine == null:
+				return
+
+			if state_label.visible:
+				state_machine.state_changed.disconnect(_update_state_label)
+				state_label.hide()
+			else:
+				state_label.show()
+				state_machine.state_changed.connect(_update_state_label)
 	)
 	state_machine.start()
 
@@ -131,7 +136,8 @@ func _physics_process(delta: float) -> void:
 	elif acid_progress > 0.0 and not inside_acid:
 		acid_progress -= 0.7 * delta
 
-	state_machine.physics_process(delta)
+	if state_machine:
+		state_machine.physics_process(delta)
 
 	_move()
 
@@ -173,10 +179,11 @@ func _on_damage_taken(_dam: int, dir: Vector2, force: int) -> void:
 
 		if behavior_tree:
 			behavior_tree.queue_free()
-		else:
+		elif state_machine:
 			assert(state_machine.get("DEAD") != null)
 			@warning_ignore("unsafe_property_access", "unsafe_call_argument")
 			state_machine.set_state(state_machine.DEAD)
+
 		if data.can_be_knocked_back:
 			velocity += dir * force / (data.mass / 3)
 

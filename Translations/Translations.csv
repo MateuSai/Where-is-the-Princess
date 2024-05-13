@@ -110,6 +110,7 @@ NEW_GAME,New Game,Nova Partida,Nueva Partida,ニューゲーム
 RESUME,Resume,Resumir,Resumir,レジューム
 RESTART,Restart,Reiniciar,Reiniciar,レスタート
 MODS,Mods,Mods,Mods,MODS
+CREDITS,Credits,Crèdits,Créditos,クレジット
 SETTINGS,Settings,Configuració,Configuración,設定
 QUIT,Quit,Surt,Salir,退く
 ,,,,
@@ -290,3 +291,9 @@ BASECAMP_SHOP_MANAGER_ASKING_FOR_HELP_3,OH NO! THE TIP IS  ALREADY OUT!!!,,,
 BASECAMP_SHOP_MANAGER_AFTER_SAVING_1,I don’t have time to thank you.,,,
 BASECAMP_SHOP_MANAGER_AFTER_SAVING_2,"If I try to walk, I feel I won’t be able to hold it inside.",,,
 BASECAMP_SHOP_MANAGER_AFTER_SAVING_2,"Go away, give me some privacy, I will do it right here.",,,
+,,,,
+,,,,
+DESIGN,DESIGN,DISSENY,DISEÑO,
+PROGRAMMING,PROGRAMMING,PROGRAMACIÓ,PROGRAMACIÓN,
+ART,ART,ART,ARTE,
+VA,VA,VA,VA,

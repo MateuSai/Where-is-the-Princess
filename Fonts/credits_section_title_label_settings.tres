@@ -1,0 +1,6 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cbc4642i2ox27"]
+
+[ext_resource type="FontFile" uid="uid://drbvct1q4mkwc" path="res://Fonts/Alkhemikal.ttf" id="1_tyb67"]
+
+[resource]
+font = ExtResource("1_tyb67")

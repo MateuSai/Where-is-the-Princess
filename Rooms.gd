@@ -666,11 +666,15 @@ func _create_corridors() -> bool:
 	return true
 
 func _add_lights() -> void:
-	const DISTANCE_BETWEEN_LIGHTS: int = 4
+	Log.debug("_add_lights called")
+
+	const DISTANCE_BETWEEN_LIGHTS: int = 6
 	var corridor_light: CorridorLight
 	match biome_conf.corridor_lights_type:
 		"tiki":
 			corridor_light = load("res://Autoloads/saved_data/corridor_lights/tiki.gd").new()
+		"torch":
+			corridor_light = load("res://Autoloads/saved_data/corridor_lights/torch.gd").new()
 		_:
 			Log.fatal("Invalid corridor light type")
 
@@ -682,17 +686,22 @@ func _add_lights() -> void:
 				add_child(light)
 				if debug:
 					await get_tree().create_timer(add_light_pause).timeout
-		elif corridor_tile_map.get_cell_atlas_coords(1, cell) == LEFT_WALL_COOR:
-			@warning_ignore("integer_division")
-			if ((cell.y % DISTANCE_BETWEEN_LIGHTS == 0) if SavedData.get_vertical_corridor_symmetric_lights() else ((cell.y % DISTANCE_BETWEEN_LIGHTS) == 0)):
+
+	for cell: Vector2i in corridor_tile_map.get_used_cells(1):
+		if corridor_tile_map.get_cell_atlas_coords(1, cell) == LEFT_WALL_COOR:
+			Log.debug("Trying to place light on left wall")
+			var should_spawn: bool = ((cell.y % DISTANCE_BETWEEN_LIGHTS) == 0) if SavedData.get_vertical_corridor_symmetric_lights() else ((cell.y % DISTANCE_BETWEEN_LIGHTS) == 0)
+			if should_spawn:
 				var light: Node2D = corridor_light.light_scene.instantiate()
 				light.position = corridor_tile_map.map_to_local(cell) + Vector2.RIGHT * corridor_light.lateral_margin_on_vertical_corridor
 				add_child(light)
 				if debug:
 					await get_tree().create_timer(add_light_pause).timeout
 		elif corridor_tile_map.get_cell_atlas_coords(1, cell) == RIGHT_WALL_COOR:
+			Log.debug("Trying to place light on right wall")
 			@warning_ignore("integer_division")
-			if ((cell.y % DISTANCE_BETWEEN_LIGHTS == 0) if SavedData.get_vertical_corridor_symmetric_lights() else (cell.y % DISTANCE_BETWEEN_LIGHTS) == (DISTANCE_BETWEEN_LIGHTS / 2)):
+			var should_spawn: bool = ((cell.y % DISTANCE_BETWEEN_LIGHTS) == 0) if SavedData.get_vertical_corridor_symmetric_lights() else (cell.y % DISTANCE_BETWEEN_LIGHTS) == (DISTANCE_BETWEEN_LIGHTS / 2)
+			if should_spawn:
 				var light: Node2D = corridor_light.light_scene.instantiate()
 				light.position = corridor_tile_map.map_to_local(cell) + Vector2.LEFT * corridor_light.lateral_margin_on_vertical_corridor
 				add_child(light)
@@ -1271,6 +1280,7 @@ func _create_l_corridor(from: EntryPositions, to: EntryPositions, from_dir: Dung
 
 ## We have to use this aberration to divide the tilemap because if we don't do it, the lights turn on and off whenever thay please. Because the tilemap is 1 object, it can't have more than 16 lights at the same time, apparently
 func _divide_corridor_tile_map() -> void:
+	Log.debug("_divide_corridor_tile_map called")
 	var BLOCK_SIZE: int = 8
 	var rect: Rect2 = corridor_tile_map.get_used_rect()
 	var x_blocks: int = ceil(rect.size.x / BLOCK_SIZE)
