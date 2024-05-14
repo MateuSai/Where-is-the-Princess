@@ -431,3 +431,10 @@ func _print_info_that_may_be_useful() -> void:
 				Array(data_dic[key][1])
 			)
 		)))
+
+	var permanent_items_without_cursed_counterpart: Array[String] = []
+	for item_path: String in Data.ALL_VANILLA_PERMANENT_ITEMS:
+		var item: PermanentPassiveItem = load(item_path).new()
+		if item.get_cursed_version_path().is_empty():
+			permanent_items_without_cursed_counterpart.push_back(item.get_id())
+	Log.info("Permanent items without cursed counterpart: " + str(permanent_items_without_cursed_counterpart))

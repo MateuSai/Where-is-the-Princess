@@ -2,7 +2,6 @@ class_name PopupConfirmation extends PopupPanel
 
 signal confirmed()
 
-
 func _ready() -> void:
 	var hbox: HBoxContainer = HBoxContainer.new()
 	hbox.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -28,3 +27,11 @@ func _ready() -> void:
 	hbox.add_child(cancel_button)
 
 	get_child(0).add_child(hbox)
+
+	get_tree().paused = true
+	get_tree().current_scene.get_node("%UIColorRect").show()
+
+	visibility_changed.connect(func() -> void:
+		get_tree().paused=false
+		get_tree().current_scene.get_node("%UIColorRect").hide()
+	)

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bff3n07t6h2cm"]
+[gd_scene load_steps=7 format=3 uid="uid://bff3n07t6h2cm"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_p22qv"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_teugx"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_gmk5u"]
+[ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_rir5g"]
 [ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="4_s5fpo"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="5_fw1on"]
 
@@ -39,8 +40,16 @@ position = Vector2(250, 490)
 [node name="HorizontalEntry2" parent="Entries/Down" index="1" instance=ExtResource("3_gmk5u")]
 position = Vector2(584, 474)
 
+[node name="EnemyMarker" type="Marker2D" parent="EnemyPositions" index="0"]
+position = Vector2(390, 380)
+script = ExtResource("4_rir5g")
+enemy_name = "footman"
+
+[node name="TeleportPosition" parent="." index="8"]
+position = Vector2(461, 189)
+
 [node name="Torch" parent="." index="10" instance=ExtResource("4_s5fpo")]
-position = Vector2(414, 104)
+position = Vector2(414, 106)
 
 [node name="Torch3" parent="." index="11" instance=ExtResource("4_s5fpo")]
 position = Vector2(152, 377)

@@ -5,7 +5,7 @@ const TILE_SIZE: int = 4
 # Why is this thig negative? I have no idea but it works somehow
 const TOP_MARGIN: int = -16
 
-var tileset: TileSet = TileSet.new()
+var tileset: TileSet
 var room_tilemaps: Array[TileMap] = []
 var rooms_items_ui: Array[ItemsUI] = []
 
@@ -47,18 +47,19 @@ func _ready() -> void:
 func set_up() -> void:
 	rooms.room_visited.connect(_discover_room)
 
-	tileset.tile_size = Vector2i(TILE_SIZE, TILE_SIZE)
-	var atlas: TileSetAtlasSource = TileSetAtlasSource.new()
-	atlas.texture = load(SavedData.get_biome_conf().minimap_texture)
-	atlas.texture_region_size = Vector2i(TILE_SIZE, TILE_SIZE)
-	@warning_ignore("integer_division")
-	var width_tiles: int = atlas.texture.get_width() / TILE_SIZE
-	@warning_ignore("integer_division")
-	var height_tiles: int = atlas.texture.get_height() / TILE_SIZE
-	for i: int in width_tiles:
-		for j: int in height_tiles:
-			atlas.create_tile(Vector2i(i, j))
-	tileset.add_source(atlas)
+	tileset = load(SavedData.get_biome_conf().minimap_tileset)
+	#tileset.tile_size = Vector2i(TILE_SIZE, TILE_SIZE)
+	#var atlas: TileSetAtlasSource = TileSetAtlasSource.new()
+	#atlas.texture = load(SavedData.get_biome_conf().minimap_texture)
+	#atlas.texture_region_size = Vector2i(TILE_SIZE, TILE_SIZE)
+	#@warning_ignore("integer_division")
+	#var width_tiles: int = atlas.texture.get_width() / TILE_SIZE
+	#@warning_ignore("integer_division")
+	#var height_tiles: int = atlas.texture.get_height() / TILE_SIZE
+	#for i: int in width_tiles:
+	#	for j: int in height_tiles:
+	#		atlas.create_tile(Vector2i(i, j))
+	#tileset.add_source(atlas)
 
 	room_tilemaps.resize(rooms.rooms.size())
 	rooms_items_ui.resize(rooms.rooms.size())

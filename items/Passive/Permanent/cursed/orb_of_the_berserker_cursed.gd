@@ -1,9 +1,9 @@
-class_name OrbOfTheBerserker extends PermanentPassiveItem
+class_name OrbOfTheBerserkerCursed extends CursedPermanentPassiveItem
 
 var damage_increased: bool = false
 
 func _init() -> void:
-	effects = [OnHpLessThan.new(4, [WeaponDamageMultiplier.new(2)])]
+	effects = [OnHpLessThan.new(2, [WeaponDamageMultiplier.new(3)])]
 
 func get_icon() -> Texture2D:
 	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/beherit.png")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://yo81a2b0enbw"
-path="res://.godot/imported/full tilemap forest_minimap_sepia.png-c5aec4a956bc287769b445d0f4c3a961.ctex"
+uid="uid://4nf65bbj3hs"
+path="res://.godot/imported/lateral door.png-84e3258578dcc601f0456e117d5fb6ea.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest_minimap_sepia.png"
-dest_files=["res://.godot/imported/full tilemap forest_minimap_sepia.png-c5aec4a956bc287769b445d0f4c3a961.ctex"]
+source_file="res://Art/16x16 Pixel Art Roguelike (Village) Pack/doors/lateral door.png"
+dest_files=["res://.godot/imported/lateral door.png-84e3258578dcc601f0456e117d5fb6ea.ctex"]
 
 [params]
 

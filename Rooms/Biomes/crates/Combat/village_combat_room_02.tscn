@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://e0s845gcuvym"]
+[gd_scene load_steps=5 format=3 uid="uid://e0s845gcuvym"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_bcrso"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_6u6e5"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_frau0"]
+[ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_f5u3m"]
 
 [node name="VillageCombatRoom01" instance=ExtResource("1_bcrso")]
 
@@ -23,6 +24,11 @@ position = Vector2(460, 166)
 
 [node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("3_frau0")]
 position = Vector2(183, 267)
+
+[node name="EnemyMarker" type="Marker2D" parent="EnemyPositions" index="0"]
+position = Vector2(218, 132)
+script = ExtResource("4_f5u3m")
+enemy_name = "goose"
 
 [node name="TeleportPosition" parent="." index="8"]
 position = Vector2(218, 158)

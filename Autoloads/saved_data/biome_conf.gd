@@ -25,7 +25,8 @@ var max_corridor_length: int = 45
 ## By default, it will just stop adding extra connections when the corridor length exceeds [member max_corridor_length]. If changed to true, the generation will restart if we find a corridor that exceeds [member max_corridor_length] before the desired number of extra connections has been reached
 var restart_generation_if_extra_connections_exceed_max_corridor_length: bool = false
 var extra_connections: float = 0.5
-var minimap_texture: String = "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/triple tilemap forest_minimap_sepia.png"
+var minimap_tileset: String
+
 var vertical_door_texture: String = "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/doors/forest_vertical_door_canvas_texture.tres"
 var horizontal_down_door_texture: String = "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/doors/forest_horizontal_door_canvas_texture.tres"
 var horizontal_up_door_texture: String = "res://Art/16x16 Pixel Art Roguelike (Forest) Pack/doors/forest_horizontal_door_canvas_texture.tres"

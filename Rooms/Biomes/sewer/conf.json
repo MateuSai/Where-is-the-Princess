@@ -7,7 +7,7 @@
 	"corridor_atlas_id": 5,
 	"room_atlas_id": 5,
 	"extra_connections": 0.5,
-	"minimap_texture": "res://Art/16x16 Pixel Art Roguellike Sewer Pack/tileset/minimap tilemap sewers.png",
+	"minimap_tileset": "res://Art/16x16 Pixel Art Roguellike Sewer Pack/tileset/sewer_minimap_tileset.tres",
 	"vertical_door_texture": "res://Art/16x16 Pixel Art Roguellike Sewer Pack/doors/sewer_vertical_door_canvas_texture.tres",
 	"horizontal_down_door_texture": "res://Art/16x16 Pixel Art Roguellike Sewer Pack/doors/sewer_horizontal_door_canvas_texture.tres",
 	"horizontal_up_door_texture": "res://Art/16x16 Pixel Art Roguellike Sewer Pack/doors/sewer_horizontal_door_canvas_texture.tres",

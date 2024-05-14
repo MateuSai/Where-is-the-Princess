@@ -166,6 +166,8 @@ OK,Ok,Sí,Sí,はい
 CANCEL,Cancel,Cancel·lar,Cancelar,中止
 SAVE_AND_RETURN_TO_MENU,Do you want to save the game and return to the menu?,Vols guardar la partida i tornar al menú?,¿Quieres guardar la partida y volver al menú?,
 DONT_ASK_AGAIN,Don’t ask again.,No m'ho tornis a preguntar.,No me lo vuelvas a preguntar.,
+UPGRADE_SHOP,Do you want to pay %s coins to upgrade the shop?,Vols pagar %s monedes per millorar la botiga?,¿Quieres pagar %s monedas para mejorar la tienda?,
+UPGRADE_SHOP_NOTE,The upgrade will take effect starting the next time you visit the shop.,La millora tindrà efecte a partir de la següent vegada que visitis la botiga.,La mejora tendrá efecto a partir de la siguiente vez que visites la tienda.,
 ,,,,
 ,,,,
 WEAPON_UNLOCKED_NOTIFICATION_TITLE,%s Unlocked,%s Desbloquejada,%s Desbloqueada,

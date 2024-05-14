@@ -35,7 +35,7 @@
             "type": "number",
             "minimum": 0
         },
-        "minimap_texture": {
+        "minimap_tileset": {
             "type": "string"
         },
         "vertical_door_texture": {
@@ -113,7 +113,7 @@
         }
     },
     "required": [
-        "minimap_texture",
+        "minimap_tileset",
         "encyclopedia_background"
     ]
 }

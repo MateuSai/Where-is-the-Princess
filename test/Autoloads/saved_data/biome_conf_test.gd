@@ -30,9 +30,9 @@ func test_schema(do_skip: bool=true, skip_reason: String="Schema validator does 
 		assert_object(schema_file).is_not_null()
 		print(validator.validate(SavedData.get_biome_json_string_by_id_or_path(biome), schema_file.get_as_text()))
 
-func test_minimap_texture() -> void:
+func test_minimap_tileset() -> void:
 	for biome_conf: BiomeConf in biomes:
-		assert_bool(FileAccess.file_exists(biome_conf.minimap_texture))
+		assert_bool(FileAccess.file_exists(biome_conf.minimap_tileset))
 
 func test_door_textures() -> void:
 	for biome_conf: BiomeConf in biomes:

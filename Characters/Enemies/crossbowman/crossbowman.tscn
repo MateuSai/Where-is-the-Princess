@@ -120,7 +120,7 @@ script = ExtResource("2_8pcxu")
 
 [node name="FootmanBeehaveTree" type="Node" parent="." index="1" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("3_e2h85")
-blackboard = NodePath("@Node@23697")
+blackboard = NodePath("@Node@55613")
 actor = NodePath("..")
 
 [node name="SimpleParallelComposite2" type="Node" parent="FootmanBeehaveTree" index="0"]
@@ -203,6 +203,7 @@ script = ExtResource("12_y8twa")
 [node name="WoodenCrossbow" parent="EnemyWeapons" index="0" instance=ExtResource("13_8mxi0")]
 
 [node name="ProjectileDetector" type="Area2D" parent="." index="15"]
+visible = false
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("14_ht524")
