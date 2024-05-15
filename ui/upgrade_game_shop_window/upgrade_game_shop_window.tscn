@@ -5,6 +5,7 @@
 [ext_resource type="Theme" uid="uid://d0qfeecooxxpf" path="res://SmallFontTheme.tres" id="3_avehr"]
 
 [node name="UpgradeGameShopWindow" type="PopupPanel"]
+process_mode = 3
 size = Vector2i(216, 60)
 visible = true
 theme = ExtResource("1_g0jnw")

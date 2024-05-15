@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ctxt5ksnwkaw1" path="res://shaders_and_particles/particles/RiverParticles.tscn" id="4_71qyw"]
 [ext_resource type="PackedScene" uid="uid://b2gbblx0gk0fu" path="res://Characters/npcs/el_barquero/ElBarquero.tscn" id="5_js8gs"]
 [ext_resource type="PackedScene" uid="uid://dpmpcvnbhfml6" path="res://Audio/Sounds/RiverAudioStreamPlayer2D.tscn" id="6_44uxx"]
-[ext_resource type="PackedScene" uid="uid://dt58rwqk2borq" path="res://Rooms/game_shops/GameShopLevel1.tscn" id="7_o76v0"]
+[ext_resource type="Script" path="res://Rooms/game_shops/game_shop_spawner.gd" id="8_1rgh0"]
 [ext_resource type="PackedScene" uid="uid://dni71yi8jy772" path="res://Rooms/Furniture and Traps/boss_sign.tscn" id="8_nfu08"]
 [ext_resource type="PackedScene" uid="uid://dwiop8wuc7ah8" path="res://Rooms/cursed_idol/cursed_idol.tscn" id="9_dlb1n"]
 
@@ -46,8 +46,9 @@ position = Vector2(150, 132)
 [node name="RiverAudioStreamPlayer2D" parent="." index="13" instance=ExtResource("6_44uxx")]
 position = Vector2(145, 204)
 
-[node name="GameShopLevel1" parent="." index="14" instance=ExtResource("7_o76v0")]
+[node name="GameShopSpawner" type="Marker2D" parent="." index="14"]
 position = Vector2(111, 103)
+script = ExtResource("8_1rgh0")
 
 [node name="TeleportPosition" parent="." index="15"]
 position = Vector2(154, 74)

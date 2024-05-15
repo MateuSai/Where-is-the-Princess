@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="4_g7ic2"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="5_7ngjk"]
 [ext_resource type="PackedScene" uid="uid://bphrmf6n5s7be" path="res://Rooms/Furniture and Traps/crate.tscn" id="5_kfghx"]
-[ext_resource type="PackedScene" uid="uid://dt58rwqk2borq" path="res://Rooms/game_shops/GameShopLevel1.tscn" id="6_m5g0q"]
+[ext_resource type="PackedScene" uid="uid://dt58rwqk2borq" path="res://Rooms/game_shops/game_shop_level_1.tscn" id="6_m5g0q"]
 [ext_resource type="PackedScene" uid="uid://blxwnjqoky134" path="res://Characters/npcs/mercenary/mercenary_spawner.tscn" id="7_udgto"]
 
 [node name="MerchantRoom" instance=ExtResource("1_i5n1b")]

@@ -1,12 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://b6ja3nf05o23h"]
+[gd_scene load_steps=12 format=3 uid="uid://b6ja3nf05o23h"]
 
 [ext_resource type="PackedScene" uid="uid://xvaekjyf4uxl" path="res://Characters/npcs/NPC.tscn" id="1_ba6g5"]
 [ext_resource type="Texture2D" uid="uid://caolrdyik7o5f" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/new_mechant_idle_down_01.png" id="2_1vnnp"]
+[ext_resource type="Script" path="res://Characters/npcs/merchant/merchant.gd" id="2_riswt"]
 [ext_resource type="Texture2D" uid="uid://bm05fm5n2y1vj" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/new_mechant_idle_down_02.png" id="3_taun6"]
 [ext_resource type="Texture2D" uid="uid://dahwth0xa472d" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/new_mechant_idle_down_03.png" id="4_klrse"]
 [ext_resource type="Texture2D" uid="uid://bl51fpoc27rep" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/new_mechant_idle_down_04.png" id="5_o511y"]
 [ext_resource type="Texture2D" uid="uid://b3ovr8f26by8s" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/new_mechant_idle_down_05.png" id="6_ebphx"]
 [ext_resource type="Texture2D" uid="uid://tdweu1dahji" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/new_mechant_idle_down_06.png" id="7_a2gjc"]
+[ext_resource type="PackedScene" uid="uid://biarx0rmayotv" path="res://ui/cost_h_box.tscn" id="9_25hv1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_s467e"]
 animations = [{
@@ -38,6 +40,7 @@ animations = [{
 radius = 2.82843
 
 [node name="Merchant" instance=ExtResource("1_ba6g5")]
+script = ExtResource("2_riswt")
 
 [node name="AnimatedSprite" parent="." index="0"]
 position = Vector2(0, -5)
@@ -47,3 +50,7 @@ frame_progress = 0.614669
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CircleShape2D_uyeip")
+
+[node name="CostHBox" parent="." index="3" instance=ExtResource("9_25hv1")]
+offset_top = -23.0
+offset_bottom = -7.0

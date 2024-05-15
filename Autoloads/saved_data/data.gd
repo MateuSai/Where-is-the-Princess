@@ -23,6 +23,8 @@ const ALL_VANILLA_PLAYER_UPGRADES: PackedStringArray = ["res://items/player_upgr
 const AVAILABLE_PLAYER_UPGRADES_FROM_START: PackedStringArray = ["res://items/player_upgrades/additional_heart.gd", "res://items/player_upgrades/additional_movement_speed.gd", "res://items/player_upgrades/additional_weapon_carry_capacity.gd", "res://items/player_upgrades/additional_max_stamina.gd"]
 
 const ALL_VANILLA_BIOMES: PackedStringArray = ["basecamp", "forest", "sewer", "crates"]
+
+const GAME_SHOPS_PATH: String = "res://Rooms/game_shops/"
 #endregion
 
 #var _last_time_killed_by: String = ""
@@ -51,6 +53,11 @@ var _completed_dialogues: PackedStringArray = []
 
 var items_shop_unlocked: bool = false
 var player_upgrades_shop_unlocked: bool = false
+
+var game_shop_level: int = 1:
+	set(new_value):
+		game_shop_level = new_value
+		save()
 
 var show_save_and_return_window: bool = true: set = set_show_save_and_return_window
 
@@ -205,6 +212,12 @@ func has_completed_dialogue(dialogue: String) -> bool:
 func set_show_save_and_return_window(new_value: bool) -> void:
 	show_save_and_return_window = new_value
 	save()
+
+func game_shop_exists(level: int) -> bool:
+	return FileAccess.file_exists(GAME_SHOPS_PATH.path_join("game_shop_level_%d.tscn" % level))
+
+func get_game_shop() -> PackedScene:
+	return load(GAME_SHOPS_PATH.path_join("game_shop_level_%d.tscn" % game_shop_level))
 
 static func from_dic(dic: Dictionary) -> Data:
 	var data: Data = Data.new()

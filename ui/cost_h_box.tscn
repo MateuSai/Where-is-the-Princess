@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://biarx0rmayotv"]
+
+[ext_resource type="Theme" uid="uid://d0qfeecooxxpf" path="res://SmallFontTheme.tres" id="1_tj3ls"]
+[ext_resource type="Texture2D" uid="uid://bda8a38gqhymr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small_coin.tres" id="2_o4p7w"]
+
+[node name="CostHBox" type="HBoxContainer"]
+offset_left = -8.0
+offset_top = -35.0
+offset_right = 7.0
+offset_bottom = -19.0
+theme = ExtResource("1_tj3ls")
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_o4p7w")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "10"

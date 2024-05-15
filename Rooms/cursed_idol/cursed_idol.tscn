@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dwiop8wuc7ah8"]
+[gd_scene load_steps=7 format=3 uid="uid://dwiop8wuc7ah8"]
 
 [ext_resource type="Texture2D" uid="uid://bpx3tad7bw0w4" path="res://Art/Furniture and room elements/cursed_idol.tres" id="1_fikx7"]
 [ext_resource type="Script" path="res://Rooms/cursed_idol/cursed_idol.gd" id="1_fwwtv"]
 [ext_resource type="Script" path="res://interact_area.gd" id="2_l3p5h"]
-[ext_resource type="Theme" uid="uid://d0qfeecooxxpf" path="res://SmallFontTheme.tres" id="4_ho103"]
-[ext_resource type="Texture2D" uid="uid://bda8a38gqhymr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small_coin.tres" id="5_kpu3g"]
+[ext_resource type="PackedScene" uid="uid://biarx0rmayotv" path="res://ui/cost_h_box.tscn" id="4_0ugjy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_45kma"]
 radius = 5.0
@@ -34,19 +33,4 @@ position = Vector2(0, 7)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_fswc4")
 
-[node name="CostHBox" type="HBoxContainer" parent="."]
-offset_left = -8.0
-offset_top = -35.0
-offset_right = 7.0
-offset_bottom = -19.0
-theme = ExtResource("4_ho103")
-theme_override_constants/separation = 0
-
-[node name="TextureRect" type="TextureRect" parent="CostHBox"]
-layout_mode = 2
-texture = ExtResource("5_kpu3g")
-stretch_mode = 3
-
-[node name="Label" type="Label" parent="CostHBox"]
-layout_mode = 2
-text = "10"
+[node name="CostHBox" parent="." instance=ExtResource("4_0ugjy")]
