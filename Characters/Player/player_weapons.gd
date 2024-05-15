@@ -56,6 +56,7 @@ func load_previous_weapons() -> void:
 		weapon.load_modifiers()
 
 	assert(get_child(SavedData.run_stats.equipped_weapon_index) is Weapon)
+	Log.debug("equipped_weapon_index: " + str(SavedData.run_stats.equipped_weapon_index))
 	set_current_weapon(get_child(SavedData.run_stats.equipped_weapon_index) as Weapon)
 	current_weapon.show()
 
@@ -106,7 +107,6 @@ func pick_up_weapon(weapon: Weapon) -> void:
 	SavedData.run_stats.weapon_stats.append(weapon.stats)
 	var prev_index: int = SavedData.run_stats.equipped_weapon_index
 	var new_index: int = get_child_count()
-	SavedData.run_stats.equipped_weapon_index = new_index
 	weapon.get_parent().call_deferred("remove_child", weapon)
 	call_deferred("add_child", weapon)
 	# set_deferred("owner", self)
@@ -114,6 +114,7 @@ func pick_up_weapon(weapon: Weapon) -> void:
 		current_weapon.hide()
 		current_weapon.cancel_attack()
 		set_current_weapon(weapon)
+		SavedData.run_stats.equipped_weapon_index = new_index
 	else:
 		weapon.hide()
 
@@ -252,6 +253,9 @@ func set_current_weapon(new_weapon: Weapon) -> void:
 	current_weapon.used_normal_attack.connect(_on_normal_attack)
 	current_weapon.used_active_ability.connect(_on_active_ability)
 	current_weapon.charge_animation_still_executing.connect(_on_charge_animation_still_executing)
+
+	# This shit does not work
+	# SavedData.run_stats.equipped_weapon_index = current_weapon.get_index()
 
 func can_pick_up_weapon(weapon_to_pick: Weapon) -> bool:
 	return get_child_count() < max_weapons and weapon_to_pick != null and is_instance_valid(weapon_to_pick) and not weapon_to_pick.is_queued_for_deletion() and pick_up_weapon_cooldown_timer.is_stopped() and not current_weapon.is_busy()
