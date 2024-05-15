@@ -16,7 +16,7 @@ func _ready() -> void:
         _change_shop(preview_level)
 
 func _change_shop(level: int) -> void:
-    if get_child(0) != null:
+    if get_child_count() > 0:
         get_child(0).free()
 
     var shop_path: String = Data.GAME_SHOPS_PATH.path_join("game_shop_level_%d.tscn" % level)
