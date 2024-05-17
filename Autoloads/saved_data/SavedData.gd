@@ -343,6 +343,11 @@ func get_all_items_paths() -> PackedStringArray:
 	ret.append_array(mod_temporal_item_paths)
 	return ret
 
+func get_all_permanent_passive_item_paths() -> PackedStringArray:
+	var ret: PackedStringArray = data.ALL_VANILLA_PERMANENT_ITEMS.duplicate()
+	ret.append_array(mod_permanent_item_paths)
+	return ret
+
 func get_discovered_all_items_paths() -> PackedStringArray:
 	var ret: PackedStringArray = data.get_discovered_permanent_items()
 	ret.append_array(data.get_discovered_temporal_items())
@@ -383,6 +388,17 @@ func get_available_permanent_item_paths() -> PackedStringArray:
 	var permanent_item_paths: Array = data.get_available_permanent_items().duplicate()
 	permanent_item_paths.append_array(mod_permanent_item_paths)
 	return PackedStringArray(permanent_item_paths)
+
+func get_all_cursed_items_versions() -> PackedStringArray:
+	var ret: PackedStringArray = []
+
+	for permanent_passive_item_path: String in get_all_permanent_passive_item_paths():
+		var item: PermanentPassiveItem = load(permanent_passive_item_path).new()
+		var cursed_version_path: String = item.get_cursed_version_path()
+		if not cursed_version_path.is_empty():
+			ret.append(cursed_version_path)
+
+	return ret
 
 func get_available_player_upgrades_paths() -> PackedStringArray:
 	return data.get_available_player_upgrades()

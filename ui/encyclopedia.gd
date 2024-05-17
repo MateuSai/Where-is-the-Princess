@@ -91,8 +91,9 @@ func _set_category(new_category: int) -> void:
 			var passive_items_label: Label = Label.new()
 			passive_items_label.text = "PASSIVE"
 			vbox.add_child(passive_items_label)
-
-			vbox.add_child(_create_items_flow_container(SavedData.get_all_items_paths()))
+			var passive_items: PackedStringArray = SavedData.get_all_items_paths()
+			passive_items.append_array(SavedData.get_all_cursed_items_versions())
+			vbox.add_child(_create_items_flow_container(passive_items))
 
 			var weapon_modifiers_label: Label = Label.new()
 			weapon_modifiers_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART

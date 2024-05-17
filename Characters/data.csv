@@ -35,6 +35,8 @@ footman,6,60,0.1,110,0,1,0,0,FLESH,crates,,,0-2,1,0,0.05,0.02,0.01
 crossbowman,6,60,0.1,110,0,1,0,0,FLESH,crates,,,0-2,1,0,0.01,0.005,0.002
 thief,3,60,0.1,160,0,1,0,0,FLESH,crates,,,3-5,1,0,0.004,0.001,0.001
 ,,,,,,,,,,,,,,,,,,
+solon,11,55,0.1,120,0,1,0,0,FLESH,crates,,,4-9,1,1,0.05,0.1,0.2
+,,,,,,,,,,,,,,,,,,
 boden_the_druid,13,55,0.1,110,0,1,0,0,FLESH,forest,,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/boss_druid/boden_icon.png,5-8,5-7,1,1,1,1
 necro_tromp,15,65,0.1,65,0,1,0,0,FLESH,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Tromp the necromancer/tromp_icon.png,6-10,10-15,1,1,1,1
 crocodile_joe,25,90,0.1,35,0,1,0,0,FLESH,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Crocodile/joe_icon.png,6-10,5-8,1,1,1,1

@@ -250,12 +250,16 @@ ARCHELETON,Archeleton,Archeleton,Archeleton,
 DAGGER_SKELEBRO,Dagger Skelebro,Skelebro amb Daga,Skelebro con Daga,
 SKELEBROMMER,Skelebrommer,Skelebrommer,Skelebrommer,
 SKELEBROMANCER,Skelebromancer,Skelebromant,Skelebromante,
+FOOTMAN,Footman,Soldat d'Infanteria,Soldado de Infantería,徒卒
+CROSSBOWMAN,Crossbowman,Ballester,Ballestero,
+THIEF,Thief,Lladre,Ladrón,泥棒
+GOOSE,Goose,Oca,Ganso,ガチョウ
+,,,,
 BODEN_THE_DRUID,Boden the Druid,El Druida Boden,El Druida Boden,
 BODEN_THE_BEAR,Boden the Bear,L’Ós Boden,El Oso Boden,
 NECRO_TROMP,Necro Tromp,Nigro Tromp,Nigro Tromp,
 NECRO_TROMP_DESCRIPTION,"After an unsuccessful political career, Tromp sought alternative ways to obtain power.","Després d'una carrera política infructuosa, en Tromp va buscar maneres alternatives d'obtenir el poder.","Después de una carrera política infructuosa, Tromp busco maneras alternativas de obtener el poder.",
 CROCODILE_JOE,Crocodile Joe,Joe el Cocodril,Joe el Cocodrilo,
-THIEF,Thief,Lladre,Ladrón,泥棒
 ,,,,
 ,,,,
 PLAYER_WAKE_UP_DIALOGUE_1,I thought I had died? Was it all a dream?,Em pensava que m'havia mort. Ha estat tot un somni?,Pensé que había muerto. ¿Ha sido todo un sueño?,
