@@ -178,11 +178,14 @@ func _on_damage_taken(_dam: int, dir: Vector2, force: int) -> void:
 		mov_direction = Vector2.ZERO
 
 		if behavior_tree:
-			behavior_tree.queue_free()
+			Log.debug("Queing free behavior tree")
+			behavior_tree.free()
 		elif state_machine:
 			assert(state_machine.get("DEAD") != null)
 			@warning_ignore("unsafe_property_access", "unsafe_call_argument")
 			state_machine.set_state(state_machine.DEAD)
+
+		mov_direction = Vector2.ZERO
 
 		if data.can_be_knocked_back:
 			velocity += dir * force / (data.mass / 3)

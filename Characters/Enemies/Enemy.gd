@@ -24,6 +24,7 @@ var get_dir: Callable = func() -> Vector2:
 @onready var player: Player = get_tree().current_scene.get_node("Player")
 @onready var navigation_agent: NavigationAgent2D = get_node("NavigationAgent2D")
 @onready var parallize_timer: Timer = $ParallizeTimer
+@onready var enemy_weapons: EnemyWeapons = get_node_or_null("EnemyWeapons")
 
 func _ready() -> void:
 	super()
@@ -133,6 +134,9 @@ func _on_change_dir() -> void:
 
 func _on_died() -> void:
 	super()
+
+	if enemy_weapons:
+		enemy_weapons.free()
 
 	if life_component.last_weapon != null and life_component.last_damage_dealer_id == "player":
 		SavedData.statistics.add_weapon_kill(life_component.last_weapon.weapon_id)
