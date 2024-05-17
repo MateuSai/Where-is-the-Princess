@@ -273,7 +273,6 @@ _data = {
 
 [node name="OrcSword" instance=ExtResource("1_00n3o")]
 script = ExtResource("2_0h51k")
-throw_speed = 200
 
 [node name="WeaponSprite" parent="Node2D" index="0"]
 material = SubResource("ShaderMaterial_2m0l1")
