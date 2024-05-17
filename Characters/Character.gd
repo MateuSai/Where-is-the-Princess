@@ -173,7 +173,7 @@ func _on_damage_taken(_dam: int, dir: Vector2, force: int) -> void:
 #		if hp > 0:
 			#state_machine.set_state(state_machine.states.hurt)
 	if data.can_be_knocked_back:
-		velocity += dir * force / (data.mass / 3)
+		velocity += dir * force / (data.mass / 6)
 	if life_component.hp == 0:
 		mov_direction = Vector2.ZERO
 
@@ -188,7 +188,7 @@ func _on_damage_taken(_dam: int, dir: Vector2, force: int) -> void:
 		mov_direction = Vector2.ZERO
 
 		if data.can_be_knocked_back:
-			velocity += dir * force / (data.mass / 3)
+			velocity += dir * force / (data.mass / 6)
 
 #func set_hp(new_hp: int) -> void:
 #	hp = clamp(new_hp, 0, max_hp)

@@ -506,11 +506,11 @@ func _create_corridors() -> bool:
 	# MODIFY TILES BEFORE APPLYING THE AUTOTILE
 	# To fill 1 tile gaps
 	for cell_pos: Vector2i in corridor_tile_map.get_used_cells(0):
-		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) == Vector2i( - 1, -1) and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT * 2) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FLOOR_TILE_COORDS:
+		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) == Vector2i( - 1, -1) and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT * 2) in CORRIDOR_FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in CORRIDOR_FLOOR_TILE_COORDS:
 			corridor_tile_map.set_cell(0, cell_pos + Vector2i.LEFT, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 			if debug:
 				await get_tree().create_timer(add_tile_group_time).timeout
-		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN * 2) in FLOOR_TILE_COORDS:
+		if corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in CORRIDOR_FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN * 2) in CORRIDOR_FLOOR_TILE_COORDS:
 			corridor_tile_map.set_cell(0, cell_pos + Vector2i.DOWN, ATLAS_ID, _get_random_corridor_floor_tile_coor())
 			if debug:
 				await get_tree().create_timer(add_tile_group_time).timeout
@@ -547,10 +547,10 @@ func _create_corridors() -> bool:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_LEFT_COOR)
 			elif corridor_tile_map.get_cell_atlas_coords(1, cell_pos + Vector2i.UP) == LEFT_WALL_COOR:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_RIGHT_COOR)
-			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i(1, -1)) in FULL_WALL_COORDS:
+			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.RIGHT) in CORRIDOR_FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i(1, -1)) in FULL_WALL_COORDS:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_RIGHT_COOR)
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP * 2, ATLAS_ID, UPPER_WALL_LEFT_CORNER_COOR)
-			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) in FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i( - 1, -1)) in FULL_WALL_COORDS:
+			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) in CORRIDOR_FLOOR_TILE_COORDS and corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i( - 1, -1)) in FULL_WALL_COORDS:
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, UPPER_WALL_LEFT_COOR)
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP * 2, ATLAS_ID, UPPER_WALL_RIGHT_CORNER_COOR)
 			else:
@@ -562,7 +562,7 @@ func _create_corridors() -> bool:
 			elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.LEFT) == Vector2i( - 1, -1) and not entry_cells.has(cell_pos + Vector2i.LEFT + Vector2i.DOWN):
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.LEFT, ATLAS_ID, LEFT_WALL_COOR)
 				corridor_tile_map.set_cell(0, cell_pos + Vector2i.LEFT + Vector2i.UP, ATLAS_ID, UPPER_WALL_LEFT_CORNER_COOR)
-		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in FLOOR_TILE_COORDS and not corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) in FLOOR_TILE_COORDS:
+		elif corridor_tile_map.get_cell_atlas_coords(0, cell_pos) in CORRIDOR_FLOOR_TILE_COORDS and not corridor_tile_map.get_cell_atlas_coords(0, cell_pos + Vector2i.DOWN) in CORRIDOR_FLOOR_TILE_COORDS:
 			if corridor_tile_map.get_cell_atlas_coords(1, cell_pos + Vector2i.DOWN) == RIGHT_WALL_COOR:
 				corridor_tile_map.set_cell(1, cell_pos, ATLAS_ID, LEFT_BOTTOM_WALL_COOR)
 			elif corridor_tile_map.get_cell_atlas_coords(1, cell_pos + Vector2i.DOWN) == LEFT_WALL_COOR:
