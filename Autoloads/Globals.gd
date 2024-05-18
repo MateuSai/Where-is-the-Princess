@@ -296,4 +296,22 @@ func is_current_language_a_piece_of_shit_that_uses_gender_for_inanimate_objects(
 func is_word_feminine(word: String) -> bool:
 	assert(is_current_language_a_piece_of_shit_that_uses_gender_for_inanimate_objects())
 
-	return word.ends_with("a")
+	return word.to_lower().ends_with("a")
+
+func is_word_plural(word: String) -> bool:
+	assert(is_current_language_a_piece_of_shit_that_uses_gender_for_inanimate_objects())
+
+	return word.to_lower().ends_with("s")
+
+func tr_taking_in_mind_shitty_languages(id: String) -> String:
+	if is_current_language_a_piece_of_shit_that_uses_gender_for_inanimate_objects():
+		var new_id: String = id
+		if is_word_feminine(id):
+			new_id += "_FEMININE"
+		else:
+			new_id += "_MASCULINE"
+		if is_word_plural(id):
+			new_id += "_PLURAL"
+		return tr(new_id)
+	else:
+		return tr(id + "_FEMININE")

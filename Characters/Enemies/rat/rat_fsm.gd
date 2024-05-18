@@ -38,7 +38,7 @@ func _state_logic(_delta: float) -> void:
 			rat_with_smaller_index = flock_steering.get_character_with_smaller_index()
 			if rat_with_smaller_index.state_machine.state == WANDER:
 				enemy.move_to_leader(rat_with_smaller_index)
-				parent.move()
+				#parent.move()
 				if parent.mov_direction.y >= 0 and animation_player.current_animation != "move":
 					animation_player.play("move")
 				elif parent.mov_direction.y < 0 and animation_player.current_animation != "move_up":

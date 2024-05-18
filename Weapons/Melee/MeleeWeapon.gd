@@ -13,6 +13,8 @@ var bodies_pierced: int = 0
 
 var spawn_weapon_shadow_timer: Timer
 
+#var emission_point_texture: ImageTexture
+
 @onready var hitbox: WeaponHitbox = %Hitbox
 
 func _ready() -> void:
@@ -31,6 +33,14 @@ func _ready() -> void:
 	hitbox.weapon = self
 	hitbox.damage = data.damage
 	hitbox.knockback_force = data.knockback
+
+#	emission_point_texture = _generate_emission_point_texture()
+
+#func _generate_emission_point_texture() -> ImageTexture:
+#	var image: Image = Image.new()
+#	image.siz
+
+#	return null
 
 func _physics_process(delta: float) -> void:
 	position += throw_dir * data.throw_speed * delta

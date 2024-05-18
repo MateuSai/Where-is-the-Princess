@@ -22,10 +22,10 @@ small_slime,1,6,0.1,200,0,1,0,2,SLIME,sewer,,res://Art/16x16 Pixel Art Roguellik
 medium_slime,3,15,0.1,90,0,1,0,2,SLIME,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/slime/medium_slime_icon.png,0-1,1,0,0.1,0.05,0.05
 big_slime,6,70,0.1,40,0,1,0,2,SLIME,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/slime/big_slime_icon.png,1-2,1,0,0,0,0
 poop_slime,1,15,0.1,90,0,1,0,2,SLIME,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/slime/poop_slime_icon.png,1-2,0-1,0,0,0,0
-archeleton,3,20,0.1,70,0,1,0,10,BONES,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/archeleton_icon.png,1-2,1,0,0.05,0.03,0.02
-skelebro,4,20,0.1,70,0,1,0,10,BONES,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebrommer_icon.png,1-2,1,0,0.05,0.02,0.02
-dagger_skelebro,3,20,0.1,120,0,1,0,10,BONES,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_icon.png,0-1,0-1,0,0.01,0.005,0.005
-skelebrommer,5,25,0.1,100,0,1,0,10,BONES,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebrommer_icon.png,1-2,1,0,0.05,0.03,0.02
+archeleton,3,20,0.1,90,0,1,0,10,BONES,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/archeleton_icon.png,1-2,1,0,0.05,0.03,0.02
+skelebro,4,20,0.1,130,0,1,0,10,BONES,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebrommer_icon.png,1-2,1,0,0.05,0.02,0.02
+dagger_skelebro,3,20,0.1,150,0,1,0,10,BONES,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_icon.png,0-1,0-1,0,0.01,0.005,0.005
+skelebrommer,5,25,0.1,110,0,1,0,10,BONES,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebrommer_icon.png,1-2,1,0,0.05,0.03,0.02
 skelebromancer,3,20,0.1,80,0,1,0,10,BONES,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebromancer_icon.png,1-2,1,0,0.05,0.01,0.02
 pile_of_bones,8,130,0.1,0,0,0,1,10,BONES,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_bonepile.png,1-2,1,0,0,0,0
 insecton_musk,3,15,0.1,120,1,1,0,0,FLESH,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/insector/insector_musk_icon.png,1-2,1-2,0,0.1,0.05,0.05
