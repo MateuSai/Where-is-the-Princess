@@ -93,7 +93,12 @@ func _set_category(new_category: int) -> void:
 			vbox.add_child(passive_items_label)
 			var passive_items: PackedStringArray = SavedData.get_all_items_paths()
 			passive_items.append_array(SavedData.get_all_cursed_items_versions())
-			vbox.add_child(_create_items_flow_container(passive_items))
+			var passive_items_array: Array = Array(passive_items)
+			passive_items_array.sort_custom(
+				func(item_path_1: String, item_path_2: String) -> bool:
+					return item_path_1.get_file() < item_path_2.get_file()
+			)
+			vbox.add_child(_create_items_flow_container(PackedStringArray(passive_items_array)))
 
 			var weapon_modifiers_label: Label = Label.new()
 			weapon_modifiers_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART

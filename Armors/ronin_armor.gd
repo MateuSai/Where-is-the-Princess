@@ -5,12 +5,12 @@ func _init() -> void:
 	initialize(4, load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_ronin_icon.png") as Texture2D, 5, 2.5)
 
 
-func equip(_player: Player) -> void:
-	Globals.add_weapon_damage_modifier_by_subtype(WeaponData.Subtype.KATANA, 1)
+func equip(player: Player) -> void:
+	player.weapons.add_damage_modifier_by_subtype(WeaponData.Subtype.KATANA, 1)
 
 
-func unequip(_player: Player) -> void:
-	Globals.remove_weapon_damage_modifier_by_subtype(WeaponData.Subtype.KATANA, 1)
+func unequip(player: Player) -> void:
+	player.weapons.remove_damage_modifier_by_subtype(WeaponData.Subtype.KATANA, 1)
 
 
 func enable_ability_effect(_player: Player) -> void:

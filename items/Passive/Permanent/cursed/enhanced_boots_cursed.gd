@@ -1,4 +1,4 @@
-class_name EnhancedBootsCursed extends PermanentPassiveItem
+class_name EnhancedBootsCursed extends CursedPermanentPassiveItem
 
 func _init() -> void:
 	effects = [IncreasePlayerMaxSpeed.new(110), PlayerExtraDamageTaken.new(1)]

@@ -288,3 +288,12 @@ func array_of_paths_to_filenames(array: Array) -> Array:
 		func(element: String) -> String:
 			return element.get_basename().get_file()
 	)
+
+func is_current_language_a_piece_of_shit_that_uses_gender_for_inanimate_objects() -> bool:
+	var locale: String = Settings.settings.get_value(Settings.GENERAL_SECTION, "language", TranslationServer.get_locale())
+	return locale in ["es", "ca"]
+
+func is_word_feminine(word: String) -> bool:
+	assert(is_current_language_a_piece_of_shit_that_uses_gender_for_inanimate_objects())
+
+	return word.ends_with("a")

@@ -83,6 +83,9 @@ STONE_HEART_DESCRIPTION,Restores a quarter of a heart when you clear a room.,Res
 AGGRESSION_SPELL,Aggression Spell,Conjur Agressor,Hechizo Agresor,
 AGGRESSION_SPELL_DESCRIPTION,"Deal double damage when you are at full health, but at the cost of half a heart.","Fas el doble de dany quan tens la salut al màxim, però a costa de mig cor.","Haces el doble de daño cuando tienes la salud al máximo, pero al precio de medio corazón.",
 ,,,,
+CURSED_ITEM_NAME_MASCULINE,Cursed %s,%s Maleït,%s Maldito,
+CURSED_ITEM_NAME_FEMININE,Cursed %s,%s Maleïda,%s Maldita,
+,,,,
 RUBY,Ruby,Rubí,Rubi,紅玉
 SAPPHIRE,Sapphire,Safir,Zafiro,青玉
 TOPAZ,Topaz,Topazi,Topacio,黄玉
