@@ -20,10 +20,8 @@ var rat_with_smaller_index: Character
 @onready var character_detector: CharacterDetector = $"../EnemyDetector"
 @onready var flock_steering: FlockSteering = $"../FlockSteering"
 
-
 func start() -> void:
 	set_state(WANDER)
-
 
 func _state_logic(_delta: float) -> void:
 	match state:
@@ -44,11 +42,12 @@ func _state_logic(_delta: float) -> void:
 				elif parent.mov_direction.y < 0 and animation_player.current_animation != "move_up":
 					animation_player.play("move_up")
 			else:
+				(parent as Enemy).mov_direction = Vector2.ZERO
+				
 				if parent.mov_direction.y >= 0:
 					animation_player.play("idle")
 				else:
 					animation_player.play("idle_up")
-
 
 func _get_transition() -> int:
 	var dis: float = (enemy.target.position - parent.global_position).length()
@@ -61,7 +60,6 @@ func _get_transition() -> int:
 			elif wander_timer.is_stopped():
 				return IDLE
 		IDLE:
-			(parent as Enemy).mov_direction = Vector2.ZERO
 			if idle_timer.is_stopped():
 				return WANDER
 		CHASE:
@@ -72,8 +70,6 @@ func _get_transition() -> int:
 			elif true:
 				pass
 		ATTACK:
-			(parent as Enemy).mov_direction = Vector2.ZERO
-
 			if not attack_animation_player.is_playing():
 				return CHASE
 		FOLLOW:
@@ -83,8 +79,7 @@ func _get_transition() -> int:
 				rat_with_smaller_index = flock_steering.get_character_with_smaller_index()
 				if not is_instance_valid(rat_with_smaller_index) or flock_steering.characters_inside.is_empty() or rat_with_smaller_index == enemy:
 					return IDLE
-	return -1
-
+	return - 1
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
@@ -93,6 +88,8 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			pathfinding_component.set_mode(PathfindingComponent.Wander.new())
 			wander_timer.start(randf_range(3.0, 6.0))
 		IDLE:
+			(parent as Enemy).mov_direction = Vector2.ZERO
+
 			if parent.mov_direction.y >= 0:
 				animation_player.play("idle")
 			else:
@@ -103,6 +100,8 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			pathfinding_component.set_mode(PathfindingComponent.Approach.new())
 			#animation_player.play("fly")
 		ATTACK:
+			(parent as Enemy).mov_direction = Vector2.ZERO
+
 			hitbox.rotation = (enemy.target.position - parent.global_position).angle()
 			hitbox.knockback_direction = Vector2.RIGHT.rotated(hitbox.rotation)
 			attack_animation_player.play("attack")
@@ -110,7 +109,6 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 			pass
 			# parent.spawn_loot()
 #			animation_player.play("dead")
-
 
 func _exit_state(state_exited: int) -> void:
 	match state_exited:
