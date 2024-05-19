@@ -6,7 +6,7 @@ signal room_cleared()
 signal pause_menu_opened()
 signal pause_menu_closed()
 
-signal character_received_damage(character: Character, damage_dealer: Character)
+signal character_received_damage(character: Character, damage_dealer: Node)
 
 var player: Player = null
 
