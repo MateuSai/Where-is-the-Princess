@@ -28,6 +28,8 @@ var recharge_time: float # # Time the ability needs to recharge
 var effect_duration: float # # Time the ability is active. For example, if the armor grants immortality, the time the player will be immortal.
 signal ability_effect_ended()
 
+var effects: Array[ItemEffect] = []
+
 @warning_ignore("shadowed_variable")
 func initialize(condition: int, ability_icon: Texture2D=null, recharge_time: float=2, effect_duration: float=- 1) -> void:
 	self.max_condition = condition
@@ -36,11 +38,13 @@ func initialize(condition: int, ability_icon: Texture2D=null, recharge_time: flo
 	self.recharge_time = recharge_time
 	self.effect_duration = effect_duration
 
-func equip(_player: Player) -> void:
-	pass
+func equip(player: Player) -> void:
+	for effect: ItemEffect in effects:
+		effect.enable(player)
 
-func unequip(_player: Player) -> void:
-	pass
+func unequip(player: Player) -> void:
+	for effect: ItemEffect in effects:
+		effect.disable(player)
 
 func enable_ability_effect(_player: Player) -> void:
 	pass
