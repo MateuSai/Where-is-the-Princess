@@ -1,6 +1,6 @@
 class_name DayNightSystem extends DirectionalLight2D
 
-const TIME_SCALE: float = 0.04
+const TIME_SCALE: float = 4 # 0.04
 
 signal day_started()
 signal night_started()
@@ -10,7 +10,6 @@ static var time: float = 12
 @onready var game: Game = get_parent()
 @onready var fsm: FiniteStateMachine = $DayNightFSM
 @onready var update_timer: Timer = $UpdateTimer
-
 
 func _ready() -> void:
 	if not SavedData.get_biome_conf().day_night_cycle:
@@ -30,10 +29,8 @@ func _ready() -> void:
 		update_timer.start()
 	)
 
-
 func _process(delta: float) -> void:
 	time = wrapf(time + delta * TIME_SCALE, 0.0, 24.0)
-
 
 static func is_day() -> bool:
 	return time >= DayNightFSM.SUNRISE_START_TIME and time < DayNightFSM.SUNSET_FINAL_TIME

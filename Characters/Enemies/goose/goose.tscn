@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c6meq3lg81bmh"]
+[gd_scene load_steps=22 format=3 uid="uid://c6meq3lg81bmh"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_68l65"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="2_evsc4"]
@@ -7,20 +7,191 @@
 [ext_resource type="Script" path="res://addons/beehave/nodes/decorators/inverter.gd" id="4_6b7su"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="4_8rsbn"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/move_to_target.gd" id="4_jfxru"]
-[ext_resource type="Texture2D" uid="uid://bo5qp7hhwopks" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Banana_UI_desc.png" id="5_6j1gc"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/set_pathfinding_mode.gd" id="5_8gdry"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/conditions/goose_has_weapon.gd" id="6_p8i8o"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/steal_weapon.gd" id="8_gtlbv"]
+[ext_resource type="Texture2D" uid="uid://osjl7jxm8dhb" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Goose/Goose_1_wing.png" id="11_4dnsa"]
+[ext_resource type="Texture2D" uid="uid://c48u5ii2m7aqb" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Goose/Goose_1.png" id="11_l2gys"]
+[ext_resource type="Script" path="res://Characters/HurtBox.gd" id="12_ibsdd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nyora"]
-radius = 4.47214
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m5lfp"]
+radius = 5.0
+
+[sub_resource type="Animation" id="Animation_jd1ue"]
+resource_name = "idle"
+length = 1.2
+loop_mode = 1
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DownWing:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-1, -5), Vector2(-1, -4), Vector2(-1, -5), Vector2(-1, -4)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UpWing:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_aif2c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DownWing:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UpWing:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_62ivp"]
+resource_name = "idle_up"
+length = 1.2
+loop_mode = 1
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UpWing:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DownWing:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(0, -5), Vector2(0, -4), Vector2(0, -5), Vector2(0, -4)]
+}
+
+[sub_resource type="Animation" id="Animation_awfim"]
+resource_name = "move"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [8, 9, 10, 11]
+}
+
+[sub_resource type="Animation" id="Animation_1k3nh"]
+resource_name = "move_up"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a3s62"]
+_data = {
+"RESET": SubResource("Animation_aif2c"),
+"idle": SubResource("Animation_jd1ue"),
+"idle_up": SubResource("Animation_62ivp"),
+"move": SubResource("Animation_awfim"),
+"move_up": SubResource("Animation_1k3nh")
+}
 
 [node name="Goose" instance=ExtResource("1_68l65")]
 script = ExtResource("2_ws0l7")
 
 [node name="GooseBeehaveTree" type="Node" parent="." index="1" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("2_evsc4")
-blackboard = NodePath("@Node@24764")
+blackboard = NodePath("@Node@22135")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="GooseBeehaveTree" index="0"]
@@ -54,10 +225,41 @@ mode = 3
 [node name="MoveToTarget" type="Node" parent="GooseBeehaveTree/SelectorComposite/SequenceComposite2" index="1"]
 script = ExtResource("4_jfxru")
 
-[node name="Sprite2D" parent="." index="3"]
-texture = ExtResource("5_6j1gc")
+[node name="UpWing" type="Sprite2D" parent="." index="3"]
+visible = false
+position = Vector2(-1, -6)
+texture = ExtResource("11_4dnsa")
 
-[node name="CollisionShape2D" parent="." index="4"]
+[node name="Sprite2D" parent="." index="4"]
+position = Vector2(0, -7)
+texture = ExtResource("11_l2gys")
+hframes = 4
+vframes = 4
+
+[node name="DownWing" type="Sprite2D" parent="." index="5"]
+position = Vector2(0, -5)
+texture = ExtResource("11_4dnsa")
+
+[node name="CollisionShape2D" parent="." index="6"]
+visible = false
+position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_nyora")
 
-[node name="WeaponSprite" type="Sprite2D" parent="." index="14"]
+[node name="HurtBox" type="Area2D" parent="." index="7"]
+visible = false
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("12_ibsdd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_m5lfp")
+
+[node name="AnimationPlayer" parent="." index="8"]
+libraries = {
+"": SubResource("AnimationLibrary_a3s62")
+}
+
+[node name="Marker2D" type="Marker2D" parent="DustPositions" index="0"]
+
+[node name="WeaponSprite" type="Sprite2D" parent="." index="17"]
