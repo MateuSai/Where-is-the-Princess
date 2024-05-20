@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_03jll"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_oek6k"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_20ph7"]
-[ext_resource type="PackedScene" uid="uid://byeyhke0jfjrb" path="res://Rooms/Furniture and Traps/traps/floor_button.tscn" id="4_af2yk"]
+[ext_resource type="PackedScene" uid="uid://byeyhke0jfjrb" path="res://Rooms/Furniture and Traps/triggers/floor_button/floor_button.tscn" id="4_af2yk"]
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_o4yth"]
 [ext_resource type="PackedScene" uid="uid://bdh7v0gjqelqq" path="res://Rooms/Furniture and Traps/traps/arrow_pillar/arrow_pillar.tscn" id="5_ac1mv"]
 [ext_resource type="PackedScene" uid="uid://bphrmf6n5s7be" path="res://Rooms/Furniture and Traps/crate.tscn" id="7_myv7w"]

@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://k0b7jt7bd1nh" path="res://Rooms/Furniture and Traps/traps/crocodile_trap/crocodile_trap_left.tscn" id="5_huqid"]
 [ext_resource type="PackedScene" uid="uid://daocnji5c2t4i" path="res://Rooms/Furniture and Traps/traps/crocodile_trap/crocodile_trap_right.tscn" id="6_bfoyf"]
 [ext_resource type="PackedScene" uid="uid://cvoo5kbnataor" path="res://Rooms/Furniture and Traps/traps/bomb_dropper/bomb_dropper.tscn" id="7_mb0je"]
-[ext_resource type="PackedScene" uid="uid://byeyhke0jfjrb" path="res://Rooms/Furniture and Traps/traps/floor_button.tscn" id="8_wqwoa"]
+[ext_resource type="PackedScene" uid="uid://byeyhke0jfjrb" path="res://Rooms/Furniture and Traps/triggers/floor_button/floor_button.tscn" id="8_wqwoa"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_cbu43"]
 resource_local_to_scene = true

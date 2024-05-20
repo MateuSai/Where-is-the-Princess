@@ -17,6 +17,22 @@ var type: Type = Type.NORMAL: set = _set_type
 func _ready() -> void:
 	super()
 
+@warning_ignore("shadowed_variable")
+func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: bool=false) -> void:
+	super(initial_position, dir, speed, rotate_to_dir)
+	
+	var par: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.new()
+	par.collide_with_areas = false
+	par.collide_with_bodies = true
+	par.collision_mask = 1
+	par.hit_from_inside = true
+	par.to = initial_position
+	par.from = damage_dealer.global_position if damage_dealer else initial_position - dir * sprite.get_rect().size.x
+	var result: Dictionary = get_world_2d().direct_space_state.intersect_ray(par)
+	if not result.is_empty():
+		Log.debug("ArrowOrBolt collided at the start")
+		_attach_projectile(result.collider)
+
 func _collide(node: Node2D, dam: int=damage) -> void:
 	collided_with_something.emit(node)
 

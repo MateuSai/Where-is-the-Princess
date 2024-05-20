@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8mqy2xf7lyph"]
+
+[ext_resource type="Script" path="res://Rooms/Furniture and Traps/traps/sliding_wall/sliding_wall.gd" id="1_1k7gh"]
+[ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="1_d7lau"]
+[ext_resource type="Script" path="res://Rooms/Furniture and Traps/traps/remote_trap.gd" id="3_p0v5o"]
+
+[node name="SlidingWall" type="Node2D"]
+script = ExtResource("1_1k7gh")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_d7lau")
+format = 2
+layer_0/tile_data = PackedInt32Array(-131072, 131077, 7, -65536, 458757, 4)
+
+[node name="RemoteTrap" type="Node" parent="."]
+script = ExtResource("3_p0v5o")

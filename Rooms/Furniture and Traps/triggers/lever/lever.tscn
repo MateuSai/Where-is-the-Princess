@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dlxyf800kt6c2"]
+
+[ext_resource type="Script" path="res://Rooms/Furniture and Traps/triggers/lever/lever.gd" id="1_hguy1"]
+[ext_resource type="Texture2D" uid="uid://bv2o77amj222u" path="res://Art/cat_black_3.png" id="1_jhh7g"]
+[ext_resource type="Script" path="res://Components/LifeComponent.gd" id="2_4y7le"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1gh6l"]
+radius = 6.08276
+
+[node name="Lever" type="Area2D"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_hguy1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_jhh7g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_1gh6l")
+
+[node name="LifeComponent" type="Node" parent="."]
+script = ExtResource("2_4y7le")
+hp = 4

@@ -1,4 +1,4 @@
-class_name FloorButton extends Enabler
+class_name FloorButton extends Trigger
 
 var num_enemies_inside: int = 0:
 	set(new_amount):
@@ -13,7 +13,6 @@ var num_enemies_inside: int = 0:
 @onready var room: DungeonRoom = get_node("../..")
 @onready var sprite: Sprite2D = $Sprite2D
 
-
 func _init() -> void:
 	body_entered.connect(func(_body: Node2D) -> void:
 		num_enemies_inside += 1
@@ -21,10 +20,3 @@ func _init() -> void:
 	body_exited.connect(func(_body: Node2D) -> void:
 		num_enemies_inside -= 1
 	)
-
-
-func activate() -> void:
-	for child: Node in get_tree().get_nodes_in_group("enabler_" + str(id)):
-		assert(child.has_node("RemoteTrap"))
-		assert(child.get_node("RemoteTrap") is RemoteTrap)
-		(child.get_node("RemoteTrap") as RemoteTrap).activate()

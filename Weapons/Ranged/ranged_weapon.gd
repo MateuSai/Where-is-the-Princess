@@ -49,7 +49,7 @@ func _spawn_projectile(angle: float=0.0, amount: int=1) -> Array[Projectile]:
 			projectile.exclude.push_back(other_projectile)
 		spawned_projectiles.push_back(projectile)
 
-		Log.debug("Spawning projectile with speed " + str(projectile_speed))
+		#Log.debug("Spawning projectile with speed " + str(projectile_speed))
 		get_tree().current_scene.add_child(projectile)
 		projectile.launch(spawn_projectile_pos.global_position, Vector2.RIGHT.rotated(rotation + initial_offset + i * angle_step), projectile_speed, true)
 

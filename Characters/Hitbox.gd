@@ -94,10 +94,11 @@ func _collide(node: Node2D, dam: int=damage) -> void:
 	collided_with_something.emit(node)
 
 	#print(body.name)
-	if node is Bomb:
-		(node as Bomb).hit(knockback_direction, knockback_force)
-	elif node.has_node("LifeComponent"):
+	if node.has_node("LifeComponent"):
+		#Log.debug("hitbox damaging " + node.name)
 		(node.get_node("LifeComponent") as LifeComponent).take_damage(dam, knockback_direction, knockback_force, weapon, damage_dealer, damage_dealer_id)
+	elif node.has_method("hit"): # Bomb
+		node.hit(knockback_direction, knockback_force)
 	elif node is RigidBody2D:
 		(node as RigidBody2D).apply_impulse(knockback_direction * knockback_force * 5)
 	elif node is Projectile and (node as Projectile).can_be_destroyed:

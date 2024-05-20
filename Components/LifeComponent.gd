@@ -57,8 +57,12 @@ func _ready() -> void:
 	add_child(invincible_after_being_hitted_timer)
 
 func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer: Node, damage_dealer_id: String, is_ranged: bool=false) -> void:
+	Log.debug(parent.name + " about to take " + str(dam) + " damage")
+
 	if _must_ignore_damage():
 		return
+
+	Log.debug(parent.name + " taked " + str(dam) + " damage")
 
 	last_damage_dealer_id = damage_dealer_id
 	last_weapon = weapon

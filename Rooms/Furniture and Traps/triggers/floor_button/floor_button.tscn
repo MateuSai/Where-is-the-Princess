@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://byeyhke0jfjrb"]
 
-[ext_resource type="Script" path="res://Rooms/Furniture and Traps/traps/floor_button.gd" id="1_o5nrr"]
+[ext_resource type="Script" path="res://Rooms/Furniture and Traps/triggers/floor_button/floor_button.gd" id="1_o5nrr"]
 [ext_resource type="Texture2D" uid="uid://brshvo8k77fkd" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/traps/button_floor_2.png" id="2_yi6m8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6kfda"]

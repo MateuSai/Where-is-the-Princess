@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_or06j"]
 [ext_resource type="PackedScene" uid="uid://bphrmf6n5s7be" path="res://Rooms/Furniture and Traps/crate.tscn" id="4_l0xsw"]
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_usd5x"]
-[ext_resource type="PackedScene" uid="uid://byeyhke0jfjrb" path="res://Rooms/Furniture and Traps/traps/floor_button.tscn" id="4_xpqsu"]
+[ext_resource type="PackedScene" uid="uid://byeyhke0jfjrb" path="res://Rooms/Furniture and Traps/triggers/floor_button/floor_button.tscn" id="4_xpqsu"]
 [ext_resource type="PackedScene" uid="uid://cvoo5kbnataor" path="res://Rooms/Furniture and Traps/traps/bomb_dropper/bomb_dropper.tscn" id="5_ht4ls"]
 [ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="8_vfyju"]
 

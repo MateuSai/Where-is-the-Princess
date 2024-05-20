@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_4uj04"]
 [ext_resource type="PackedScene" uid="uid://bphrmf6n5s7be" path="res://Rooms/Furniture and Traps/crate.tscn" id="4_5de3v"]
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_fjewi"]
-[ext_resource type="PackedScene" uid="uid://byeyhke0jfjrb" path="res://Rooms/Furniture and Traps/traps/floor_button.tscn" id="4_kefe0"]
+[ext_resource type="PackedScene" uid="uid://byeyhke0jfjrb" path="res://Rooms/Furniture and Traps/triggers/floor_button/floor_button.tscn" id="4_kefe0"]
 [ext_resource type="PackedScene" uid="uid://bdh7v0gjqelqq" path="res://Rooms/Furniture and Traps/traps/arrow_pillar/arrow_pillar.tscn" id="5_xskjr"]
 
 [node name="SewerCombatRoom05" instance=ExtResource("1_6kie3")]
