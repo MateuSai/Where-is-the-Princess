@@ -51,6 +51,13 @@ var player_upgrades: Array[PlayerUpgrade] = []
 
 var _completed_dialogues: PackedStringArray = []
 
+enum AnimalsToRescue {
+	CAT_1 = 1,
+	CAT_2 = 2
+}
+
+var animals_rescued: int = 0
+
 var items_shop_unlocked: bool = false
 var player_upgrades_shop_unlocked: bool = false
 
@@ -218,6 +225,22 @@ func game_shop_exists(level: int) -> bool:
 
 func get_game_shop() -> PackedScene:
 	return load(GAME_SHOPS_PATH.path_join("game_shop_level_%d.tscn" % game_shop_level))
+
+func is_animal_rescued(animal: AnimalsToRescue) -> bool:
+	return animals_rescued&animal
+
+static func get_animal_scene(animal: AnimalsToRescue) -> PackedScene:
+	match animal:
+		AnimalsToRescue.CAT_1:
+			return load("res://Characters/npcs/animals/black_cat/black_cat.tscn")
+
+	return null
+
+func rescue_animal(animal: AnimalsToRescue) -> void:
+	assert(not is_animal_rescued(animal))
+
+	animals_rescued |= animal
+	save()
 
 static func from_dic(dic: Dictionary) -> Data:
 	var data: Data = Data.new()

@@ -37,7 +37,7 @@
 [ext_resource type="PackedScene" uid="uid://cpcdmduiwspc4" path="res://Rooms/Biomes/basecamp/base_camp_items_shop.tscn" id="37_qhx6q"]
 [ext_resource type="PackedScene" uid="uid://bvyids8lijklc" path="res://Rooms/Furniture and Traps/wooden_fence/left_bottom_vertical_wooden_fence.tscn" id="37_uty1x"]
 [ext_resource type="PackedScene" uid="uid://c3v57eiyj5m18" path="res://Rooms/Furniture and Traps/wooden_fence/left_top_vertical_wooden_fence.tscn" id="38_esjfg"]
-[ext_resource type="PackedScene" uid="uid://brjtvw0ivw80o" path="res://Characters/npcs/cats/black_cat/black_cat.tscn" id="38_vpu83"]
+[ext_resource type="PackedScene" uid="uid://brjtvw0ivw80o" path="res://Characters/npcs/animals/black_cat/black_cat.tscn" id="38_vpu83"]
 [ext_resource type="PackedScene" uid="uid://b8gsakalplp52" path="res://Rooms/Furniture and Traps/wooden_fence/right_bottom_vertical_wooden_fence.tscn" id="39_ouwiq"]
 [ext_resource type="PackedScene" uid="uid://geovcmu2q826" path="res://Rooms/Furniture and Traps/sleeping_bag.tscn" id="39_sleg1"]
 [ext_resource type="PackedScene" uid="uid://cxx3eqxb68h25" path="res://Rooms/Furniture and Traps/wooden_fence/right_top_vertical_wooden_fence.tscn" id="40_u0ngm"]

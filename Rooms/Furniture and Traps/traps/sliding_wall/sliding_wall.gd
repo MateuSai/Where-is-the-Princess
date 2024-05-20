@@ -17,7 +17,7 @@ func activate() -> void:
     tween = create_tween()
     if state == CLOSED:
         state = OPEN
-        tween.tween_property(tilemap, "position:x", Rooms.TILE_SIZE * dir, 0.8)
+        tween.tween_property(tilemap, "position:x", Rooms.TILE_SIZE * dir, 1.2).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
     else:
         state = CLOSED
-        tween.tween_property(tilemap, "position:x", 0, 0.8)
+        tween.tween_property(tilemap, "position:x", 0, 1.2).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)

@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=105 format=3 uid="uid://b6ahcd27jnf2v"]
+[gd_resource type="TileSet" load_steps=106 format=3 uid="uid://b6ahcd27jnf2v"]
 
 [ext_resource type="Texture2D" uid="uid://d2e6iidvt8eo3" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full tilemap.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://dbhadmkl0mfsc" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest.png" id="1_8t4wc"]
@@ -2748,8 +2748,8 @@ agent_radius = 0.0
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_j2jyt"]
 polygon = PackedVector2Array(-8, 2.125, 8, 1.875, 8, 8, -8, 8)
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_lscdw"]
-polygon = PackedVector2Array(-8, -0.25, 8, -0.5, 8, 2.875, -8, 3)
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_u6554"]
+polygon = PackedVector2Array(-8, 0, 8, 0, 8, 4, -8, 4)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_2fxxm"]
 polygon = PackedVector2Array(-8, 0.625, -5.125, 2.125, -4.25, 8, -8, 8)
@@ -2795,6 +2795,9 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -6, 8, -6, 8, 6, -8, 6)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 agent_radius = 0.0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ch3yn"]
+polygon = PackedVector2Array(-8, 0, 8, 0, 8, 4, -8, 4)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_kktfl"]
 vertices = PackedVector2Array(8, 6, -8, 6, -8, -6, 8, -6)
@@ -3128,11 +3131,13 @@ texture = ExtResource("5_d6jrl")
 5:6/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 5:6/0/physics_layer_1/angular_velocity = 0.0
 7:6/0 = 0
+7:6/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_ch3yn")
 7:6/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 7:6/0/physics_layer_0/angular_velocity = 0.0
 7:6/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 7:6/0/physics_layer_1/angular_velocity = 0.0
 8:6/0 = 0
+8:6/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_ch3yn")
 8:6/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 8:6/0/physics_layer_0/angular_velocity = 0.0
 8:6/0/physics_layer_1/linear_velocity = Vector2(0, 0)
@@ -3145,7 +3150,7 @@ texture = ExtResource("5_d6jrl")
 1:7/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 1:7/0/physics_layer_1/angular_velocity = 0.0
 2:7/0 = 0
-2:7/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_lscdw")
+2:7/0/occlusion_layer_0/polygon = SubResource("OccluderPolygon2D_u6554")
 2:7/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:7/0/physics_layer_0/angular_velocity = 0.0
 2:7/0/physics_layer_1/linear_velocity = Vector2(0, 0)
