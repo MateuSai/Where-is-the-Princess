@@ -9,11 +9,10 @@ var interacted_with: bool = false
 func _ready() -> void:
 	super()
 
-	assert(sounds.size() > 0)
-
 func _on_player_interacted() -> void:
-	audio_stream_player.stream = load(sounds[randi() % sounds.size()])
-	audio_stream_player.play()
+	if not sounds.is_empty():
+		audio_stream_player.stream = load(sounds[randi() % sounds.size()])
+		audio_stream_player.play()
 
 	if not interacted_with:
 		interacted_with = true
