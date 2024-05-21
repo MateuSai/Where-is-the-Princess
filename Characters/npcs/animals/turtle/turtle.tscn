@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://brp7w6xkbdtql"]
+
+[ext_resource type="PackedScene" uid="uid://xvaekjyf4uxl" path="res://Characters/npcs/NPC.tscn" id="1_6fobr"]
+[ext_resource type="Script" path="res://Characters/npcs/animals/turtle/turtle.gd" id="2_hasf4"]
+[ext_resource type="Texture2D" uid="uid://whh25fw1ep0o" path="res://Art/animals/turtle/turtle.png" id="3_ubumw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_asp0q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ubumw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Turtle" instance=ExtResource("1_6fobr")]
+script = ExtResource("2_hasf4")
+
+[node name="AnimatedSprite" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_asp0q")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="3"]
+max_distance = 200.0
+bus = &"Sounds"

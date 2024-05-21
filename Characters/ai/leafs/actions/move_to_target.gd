@@ -18,7 +18,7 @@ func tick(actor: Node, _blackboard: Blackboard) -> int:
 	actor.move_to_target()
 	#actor.move()
 
-	if ((actor as Enemy).target.global_position - (actor as Enemy).global_position).length() < closer_than:
+	if ((actor as Enemy).navigation_agent.target_position - (actor as Enemy).global_position).length() < closer_than:
 		if actor.mov_direction.y >= 0 and actor.animation_player.current_animation != "idle":
 			actor.animation_player.play("idle")
 		elif actor.mov_direction.y < 0 and actor.animation_player.current_animation != "idle_up":

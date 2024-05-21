@@ -19,6 +19,8 @@ const AVAILABLE_PERMANENT_ITEMS_FROM_START: PackedStringArray = ["res://items/Pa
 const ALL_VANILLA_TEMPORAL_ITEMS: PackedStringArray = ["res://items/Passive/Temporal/magic_shields/wooden_magic_shield.gd", "res://items/Passive/Temporal/magic_shields/reinforced_magic_shield.gd", "res://items/Passive/Temporal/MagicSword.gd", "res://items/Passive/Temporal/spike.gd", "res://items/Passive/Temporal/fairy.gd"]
 const AVAILABLE_TEMPORAL_ITEMS_FROM_START: PackedStringArray = ["res://items/Passive/Temporal/magic_shields/wooden_magic_shield.gd", "res://items/Passive/Temporal/magic_shields/reinforced_magic_shield.gd", "res://items/Passive/Temporal/MagicSword.gd", "res://items/Passive/Temporal/spike.gd", "res://items/Passive/Temporal/fairy.gd"]
 
+const AVAILABLE_CURSED_ITEMS_FROM_START: PackedStringArray = []
+
 const ALL_VANILLA_PLAYER_UPGRADES: PackedStringArray = ["res://items/player_upgrades/additional_heart.gd", "res://items/player_upgrades/additional_movement_speed.gd", "res://items/player_upgrades/additional_weapon_carry_capacity.gd", "res://items/player_upgrades/additional_max_stamina.gd"]
 const AVAILABLE_PLAYER_UPGRADES_FROM_START: PackedStringArray = ["res://items/player_upgrades/additional_heart.gd", "res://items/player_upgrades/additional_movement_speed.gd", "res://items/player_upgrades/additional_weapon_carry_capacity.gd", "res://items/player_upgrades/additional_max_stamina.gd"]
 
@@ -46,14 +48,15 @@ var _discovered_permanent_items: PackedStringArray = []
 var _extra_available_temporal_items: PackedStringArray = []
 ## @deprecated
 var _discovered_temporal_items: PackedStringArray = []
+var _extra_available_cursed_items: PackedStringArray = []
 
 var player_upgrades: Array[PlayerUpgrade] = []
 
 var _completed_dialogues: PackedStringArray = []
 
 enum AnimalsToRescue {
-	CAT_1 = 1,
-	CAT_2 = 2
+	BLACK_CAT = 1,
+	TURTLE = 2
 }
 
 var animals_rescued: int = 0
@@ -139,6 +142,18 @@ func discover_armor_if_not_already(armor_path: String) -> void:
 
 func get_discovered_armors() -> PackedStringArray:
 	return _discovered_armors.duplicate()
+
+func get_available_cursed_items() -> PackedStringArray:
+	var arr: Array = _extra_available_cursed_items.duplicate()
+
+	for permanent_passive_item_path: String in get_available_permanent_items():
+		var item: PermanentPassiveItem = load(permanent_passive_item_path).new()
+		var cursed_version_path: String = item.get_cursed_version_path()
+		if not cursed_version_path.is_empty():
+			arr.append(cursed_version_path)
+
+	arr.append_array(AVAILABLE_CURSED_ITEMS_FROM_START)
+	return PackedStringArray(arr)
 
 func get_available_permanent_items() -> PackedStringArray:
 	var arr: Array = _extra_available_permanent_items.duplicate()
@@ -231,8 +246,10 @@ func is_animal_rescued(animal: AnimalsToRescue) -> bool:
 
 static func get_animal_scene(animal: AnimalsToRescue) -> PackedScene:
 	match animal:
-		AnimalsToRescue.CAT_1:
+		AnimalsToRescue.BLACK_CAT:
 			return load("res://Characters/npcs/animals/black_cat/black_cat.tscn")
+		AnimalsToRescue.TURTLE:
+			return load("res://Characters/npcs/animals/turtle/turtle.tscn")
 
 	return null
 

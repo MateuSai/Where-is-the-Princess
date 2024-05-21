@@ -39,7 +39,11 @@ func _ready() -> void:
 #		var permanent_item_paths: PackedStringArray = SavedData.get_available_permanent_item_paths()
 		match type:
 			Type.ITEM:
-				item_path = SavedData.get_random_available_item_path(item_quality)
+				if randi() % 100 < 8:
+					# TODO Pass quality
+					item_path = SavedData.get_random_available_cursed_item_path()
+				else:
+					item_path = SavedData.get_random_available_item_path(item_quality)
 			Type.GEAR:
 				gear_type = GearType.values()[randi() % GearType.values().size()]
 				if gear_type == GearType.WEAPON: # Weapon
