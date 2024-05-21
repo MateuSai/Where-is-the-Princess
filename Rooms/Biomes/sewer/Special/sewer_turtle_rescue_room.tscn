@@ -41,11 +41,11 @@ dir = -1
 position = Vector2(128, 32)
 
 [node name="Lever" parent="Traps" index="2" instance=ExtResource("5_yj0jv")]
-position = Vector2(232, 51)
+position = Vector2(233, 56)
 id = 1
 
 [node name="Lever2" parent="Traps" index="3" instance=ExtResource("5_yj0jv")]
-position = Vector2(104, -35)
+position = Vector2(104, -26)
 id = 1
 
 [node name="TeleportPosition" parent="." index="8"]
