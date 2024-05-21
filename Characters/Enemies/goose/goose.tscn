@@ -40,7 +40,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("DownWing:position")
+tracks/1/path = NodePath("DownWingPivot/DownWing:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -52,7 +52,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("UpWing:visible")
+tracks/2/path = NodePath("UpWingPivot/UpWing:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -60,6 +60,42 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DownWingPivot/DownWing:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("UpWingPivot/UpWing:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -6)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("UpWingPivot/UpWing:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_jd1ue"]
@@ -82,19 +118,19 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("DownWing:position")
+tracks/1/path = NodePath("DownWingPivot/DownWing:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [Vector2(-1, -5), Vector2(-1, -4), Vector2(-1, -5), Vector2(-1, -4)]
+"values": [Vector2(1, -5), Vector2(1, -4), Vector2(1, -5), Vector2(1, -4)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("UpWing:visible")
+tracks/2/path = NodePath("UpWingPivot/UpWing:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -102,6 +138,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DownWingPivot/DownWing:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_62ivp"]
@@ -124,7 +172,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("UpWing:visible")
+tracks/1/path = NodePath("UpWingPivot/UpWing:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -136,20 +184,33 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("DownWing:position")
+tracks/2/path = NodePath("DownWingPivot/DownWing:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [Vector2(0, -5), Vector2(0, -4), Vector2(0, -5), Vector2(0, -4)]
+"values": [Vector2(2, -5), Vector2(2, -4), Vector2(2, -5), Vector2(2, -4)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DownWingPivot/DownWing:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_awfim"]
 resource_name = "move"
 length = 0.4
 loop_mode = 1
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -175,6 +236,66 @@ tracks/1/keys = {
 "args": [],
 "method": &"spawn_dust"
 }]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DownWingPivot/DownWing:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, -5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DownWingPivot/DownWing:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.3, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.872665, -0.872665, 0.872665, -0.872665]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("UpWingPivot/UpWing:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("UpWingPivot/UpWing:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -6)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("UpWingPivot/UpWing:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.3, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.872665, -0.872665, 0.872665, -0.872665]
 }
 
 [sub_resource type="Animation" id="Animation_1k3nh"]
@@ -207,6 +328,66 @@ tracks/1/keys = {
 "method": &"spawn_dust"
 }]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DownWingPivot/DownWing:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, -5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DownWingPivot/DownWing:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.3, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.872665, -0.872665, 0.872665, -0.872665]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("UpWingPivot/UpWing:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("UpWingPivot/UpWing:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, -6)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("UpWingPivot/UpWing:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.3, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.872665, -0.872665, 0.872665, -0.872665]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a3s62"]
 _data = {
@@ -222,7 +403,7 @@ script = ExtResource("2_ws0l7")
 
 [node name="GooseBeehaveTree" type="Node" parent="." index="1" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("2_evsc4")
-blackboard = NodePath("@Node@22506")
+blackboard = NodePath("@Node@29181")
 actor = NodePath("..")
 
 [node name="SimpleParallelComposite" type="Node" parent="GooseBeehaveTree" index="0"]
@@ -269,10 +450,13 @@ time_limit = 5.0
 [node name="UpdateAnimationAccordingToMovdirection" type="Node" parent="GooseBeehaveTree/SimpleParallelComposite" index="1"]
 script = ExtResource("12_fifso")
 
-[node name="UpWing" type="Sprite2D" parent="." index="3"]
+[node name="UpWingPivot" type="Node2D" parent="." index="3"]
+
+[node name="UpWing" type="Sprite2D" parent="UpWingPivot" index="0"]
 visible = false
-position = Vector2(-1, -6)
+position = Vector2(0, -6)
 texture = ExtResource("11_4dnsa")
+offset = Vector2(-2, 0)
 
 [node name="Sprite2D" parent="." index="4"]
 position = Vector2(0, -7)
@@ -280,9 +464,12 @@ texture = ExtResource("11_l2gys")
 hframes = 4
 vframes = 4
 
-[node name="DownWing" type="Sprite2D" parent="." index="5"]
+[node name="DownWingPivot" type="Node2D" parent="." index="5"]
+
+[node name="DownWing" type="Sprite2D" parent="DownWingPivot" index="0"]
 position = Vector2(0, -5)
 texture = ExtResource("11_4dnsa")
+offset = Vector2(-2, 0)
 
 [node name="CollisionShape2D" parent="." index="6"]
 visible = false
@@ -304,9 +491,7 @@ libraries = {
 "": SubResource("AnimationLibrary_a3s62")
 }
 
-[node name="NavigationAgent2D" parent="." index="9"]
-debug_enabled = true
-
 [node name="Marker2D" type="Marker2D" parent="DustPositions" index="0"]
 
 [node name="WeaponSprite" type="Sprite2D" parent="." index="17"]
+position = Vector2(4, -10)

@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=106 format=3 uid="uid://b6ahcd27jnf2v"]
+[gd_resource type="TileSet" load_steps=108 format=3 uid="uid://b6ahcd27jnf2v"]
 
 [ext_resource type="Texture2D" uid="uid://d2e6iidvt8eo3" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full tilemap.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://dbhadmkl0mfsc" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest.png" id="1_8t4wc"]
@@ -2806,6 +2806,20 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -6, 8, -6, 8, 6, -8
 source_geometry_group_name = &"navigation_polygon_source_group"
 agent_radius = 0.0
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_cw1im"]
+vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_lokxe"]
+vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k07mo"]
 resource_name = "Sewer"
 texture = ExtResource("5_d6jrl")
@@ -3642,6 +3656,24 @@ texture = ExtResource("5_d6jrl")
 25:4/0/physics_layer_1/angular_velocity = 0.0
 25:4/0/physics_layer_1/polygon_0/points = PackedVector2Array(8, -8, 8, 8, 6, 4, 6, -8)
 25:4/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_gjrb6")
+8:10/animation_columns = 2
+8:10/animation_frame_0/duration = 1.0
+8:10/animation_frame_1/duration = 1.0
+8:10/0 = 0
+8:10/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+8:10/0/physics_layer_0/angular_velocity = 0.0
+8:10/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+8:10/0/physics_layer_1/angular_velocity = 0.0
+8:10/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_cw1im")
+8:11/animation_columns = 2
+8:11/animation_frame_0/duration = 1.0
+8:11/animation_frame_1/duration = 1.0
+8:11/0 = 0
+8:11/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+8:11/0/physics_layer_0/angular_velocity = 0.0
+8:11/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+8:11/0/physics_layer_1/angular_velocity = 0.0
+8:11/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_lokxe")
 
 [resource]
 occlusion_layer_0/light_mask = 1
