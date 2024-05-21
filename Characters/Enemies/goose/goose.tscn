@@ -495,3 +495,7 @@ libraries = {
 
 [node name="WeaponSprite" type="Sprite2D" parent="." index="17"]
 position = Vector2(4, -10)
+
+[node name="SquawkSound" type="AudioStreamPlayer2D" parent="." index="18"]
+max_distance = 1000.0
+bus = &"Sounds"
