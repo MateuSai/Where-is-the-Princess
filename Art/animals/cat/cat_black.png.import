@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpo61641t3ks0"
-path="res://.godot/imported/cat_black_0.png-de6a1294a90b85ca376918f352c780ac.ctex"
+uid="uid://bnpptya7m6vjx"
+path="res://.godot/imported/cat_black.png-6555863048a611f8e84b8acff662a05e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/cat_black_0.png"
-dest_files=["res://.godot/imported/cat_black_0.png-de6a1294a90b85ca376918f352c780ac.ctex"]
+source_file="res://Art/animals/cat/cat_black.png"
+dest_files=["res://.godot/imported/cat_black.png-6555863048a611f8e84b8acff662a05e.ctex"]
 
 [params]
 

@@ -1,7 +1,7 @@
 @tool
 class_name AnimalSpawner extends Marker2D
 
-@export var animal: Data.AnimalsToRescue = Data.AnimalsToRescue.CAT_1:
+@export var animal: Data.AnimalsToRescue = Data.AnimalsToRescue.BLACK_CAT:
     set(new_animal):
         animal = new_animal
         _spawn_animal()

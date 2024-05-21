@@ -55,8 +55,8 @@ var player_upgrades: Array[PlayerUpgrade] = []
 var _completed_dialogues: PackedStringArray = []
 
 enum AnimalsToRescue {
-	CAT_1 = 1,
-	CAT_2 = 2
+	BLACK_CAT = 1,
+	TURTLE = 2
 }
 
 var animals_rescued: int = 0
@@ -246,8 +246,10 @@ func is_animal_rescued(animal: AnimalsToRescue) -> bool:
 
 static func get_animal_scene(animal: AnimalsToRescue) -> PackedScene:
 	match animal:
-		AnimalsToRescue.CAT_1:
+		AnimalsToRescue.BLACK_CAT:
 			return load("res://Characters/npcs/animals/black_cat/black_cat.tscn")
+		AnimalsToRescue.TURTLE:
+			return load("res://Characters/npcs/animals/turtle/turtle.tscn")
 
 	return null
 

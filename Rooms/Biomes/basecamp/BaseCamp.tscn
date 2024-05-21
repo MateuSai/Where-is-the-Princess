@@ -37,7 +37,6 @@
 [ext_resource type="PackedScene" uid="uid://cpcdmduiwspc4" path="res://Rooms/Biomes/basecamp/base_camp_items_shop.tscn" id="37_qhx6q"]
 [ext_resource type="PackedScene" uid="uid://bvyids8lijklc" path="res://Rooms/Furniture and Traps/wooden_fence/left_bottom_vertical_wooden_fence.tscn" id="37_uty1x"]
 [ext_resource type="PackedScene" uid="uid://c3v57eiyj5m18" path="res://Rooms/Furniture and Traps/wooden_fence/left_top_vertical_wooden_fence.tscn" id="38_esjfg"]
-[ext_resource type="PackedScene" uid="uid://brjtvw0ivw80o" path="res://Characters/npcs/animals/black_cat/black_cat.tscn" id="38_vpu83"]
 [ext_resource type="PackedScene" uid="uid://b8gsakalplp52" path="res://Rooms/Furniture and Traps/wooden_fence/right_bottom_vertical_wooden_fence.tscn" id="39_ouwiq"]
 [ext_resource type="PackedScene" uid="uid://geovcmu2q826" path="res://Rooms/Furniture and Traps/sleeping_bag.tscn" id="39_sleg1"]
 [ext_resource type="PackedScene" uid="uid://cxx3eqxb68h25" path="res://Rooms/Furniture and Traps/wooden_fence/right_top_vertical_wooden_fence.tscn" id="40_u0ngm"]
@@ -45,6 +44,7 @@
 [ext_resource type="PackedScene" uid="uid://u6q2tn1xph6o" path="res://Weapons/Melee/branch/branch.tscn" id="43_nrg1g"]
 [ext_resource type="PackedScene" uid="uid://c8mqy2xf7lyph" path="res://Rooms/Furniture and Traps/traps/sliding_wall/sliding_wall.tscn" id="45_l6cfy"]
 [ext_resource type="PackedScene" uid="uid://dlxyf800kt6c2" path="res://Rooms/Furniture and Traps/triggers/lever/lever.tscn" id="45_usb3b"]
+[ext_resource type="Script" path="res://Characters/npcs/animals/animal_spawner.gd" id="46_v21xh"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_s6u7b"]
 source_geometry_group_name = &"navigation_polygon_source_group"
@@ -436,9 +436,6 @@ theme_override_font_sizes/font_size = 64
 [node name="TikiTorch16" parent="." instance=ExtResource("26_61yb5")]
 position = Vector2(70, 34)
 
-[node name="CatBlack" parent="." instance=ExtResource("38_vpu83")]
-position = Vector2(195, 49)
-
 [node name="SleepingBag" parent="." instance=ExtResource("39_sleg1")]
 position = Vector2(169, 156)
 
@@ -497,3 +494,15 @@ position = Vector2(163, 102)
 [node name="SlidingWall2" parent="." groups=["enabler_1"] instance=ExtResource("45_l6cfy")]
 position = Vector2(147, 102)
 dir = -1
+
+[node name="Animals" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Turtle" type="Marker2D" parent="Animals"]
+position = Vector2(58, 119)
+script = ExtResource("46_v21xh")
+animal = 2
+
+[node name="BlackCat" type="Marker2D" parent="Animals"]
+position = Vector2(195, 49)
+script = ExtResource("46_v21xh")
