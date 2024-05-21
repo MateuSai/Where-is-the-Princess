@@ -1,6 +1,6 @@
 class_name DayNightSystem extends DirectionalLight2D
 
-const TIME_SCALE: float = 4 # 0.04
+const TIME_SCALE: float = 0.04
 
 signal day_started()
 signal night_started()
