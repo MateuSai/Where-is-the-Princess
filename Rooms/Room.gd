@@ -127,13 +127,19 @@ func _draw() -> void:
 #		draw_circle(vector_to_center, (vector_to_center - Vector2(tilemap.get_used_rect().position * Rooms.TILE_SIZE)).length(), Color.RED)
 
 func generate_room_white_image() -> void:
-	var size: Vector2 = tilemap.get_used_rect().size * Rooms.TILE_SIZE
+	var size: Vector2i = tilemap.get_used_rect().size * Rooms.TILE_SIZE
 
 	var layers_to_check: PackedInt32Array = [0, 1]
 	if include_water_in_room_white_image:
 		layers_to_check.push_back(WATER_LAYER_ID)
 
 	var tile_cells: Array[Vector2i] = []
+
+	var up_additional_cells: Array[Vector2i] = []
+	var left_additional_cells: Array[Vector2i] = []
+	var down_additional_cells: Array[Vector2i] = []
+	var right_additional_cells: Array[Vector2i] = []
+
 	for layer: int in layers_to_check:
 		var layer_used_cells: Array[Vector2i] = tilemap.get_used_cells(layer)
 		for cell: Vector2i in layer_used_cells:
@@ -142,35 +148,58 @@ func generate_room_white_image() -> void:
 	#tile_cells.append_array(tilemap.get_used_cells(1))
 
 	# We add one more tile in the direction of the entries so the entries of the room are more visible
-	var increased_left_size: bool = false
-	var increased_right_size: bool = false
-	var increased_up_size: bool = false
-	var increased_down_size: bool = false
+	#var increased_left_size: bool = false
+	#var increased_right_size: bool = false
+	#var increased_up_size: bool = false
+	#var increased_down_size: bool = false
 	for dir: EntryDirection in [EntryDirection.LEFT, EntryDirection.UP, EntryDirection.RIGHT, EntryDirection.DOWN]:
 		for entry: Node2D in entries[dir].get_children():
 			if entry in used_entries:
 				tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir])
 				if dir in [EntryDirection.LEFT, EntryDirection.RIGHT]:
+					tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.UP * 2)
 					tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.UP)
+					#tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir])
 					tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.DOWN)
-					if dir == EntryDirection.LEFT and not increased_left_size:
-						increased_left_size = true
-						room_white_image_offset.x -= Rooms.TILE_SIZE
-						size.x += Rooms.TILE_SIZE
-					elif dir == EntryDirection.RIGHT and not increased_right_size:
-						increased_right_size = true
-						size.x += Rooms.TILE_SIZE
+					if dir == EntryDirection.LEFT:
+						left_additional_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.UP * 2)
+						left_additional_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.UP)
+						left_additional_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir])
+						left_additional_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.DOWN)
+						if ((tilemap.local_to_map(entry.position) + Vector2i.LEFT) * Rooms.TILE_SIZE).x < room_white_image_offset.x:
+						#increased_left_size = true
+							room_white_image_offset.x -= Rooms.TILE_SIZE
+							size.x += Rooms.TILE_SIZE
+					elif dir == EntryDirection.RIGHT:
+						right_additional_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.UP * 2)
+						right_additional_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.UP)
+						right_additional_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir])
+						right_additional_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.DOWN)
+						#increased_right_size = true
+						if ((tilemap.local_to_map(entry.position) + Vector2i.RIGHT) * Rooms.TILE_SIZE).x >= (room_white_image_offset + size).x:
+							size.x += Rooms.TILE_SIZE
 				else: # UP, DOWN
-#					tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.LEFT)
+					tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.LEFT)
+					#tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir])
 					tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.RIGHT)
-#					tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.RIGHT * 2)
-					if dir == EntryDirection.UP and not increased_up_size:
-						increased_up_size = true
-						room_white_image_offset.y -= Rooms.TILE_SIZE
-						size.y += Rooms.TILE_SIZE
-					elif dir == EntryDirection.DOWN and not increased_down_size:
-						increased_down_size = true
-						size.y += Rooms.TILE_SIZE
+					tile_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.RIGHT * 2)
+					if dir == EntryDirection.UP:
+						up_additional_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.LEFT)
+						up_additional_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir])
+						up_additional_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.RIGHT)
+						up_additional_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.RIGHT * 2)
+						#increased_up_size = true
+						if ((tilemap.local_to_map(entry.position) + Vector2i.UP) * Rooms.TILE_SIZE).y < room_white_image_offset.y:
+							room_white_image_offset.y -= Rooms.TILE_SIZE
+							size.y += Rooms.TILE_SIZE
+					elif dir == EntryDirection.DOWN:
+						down_additional_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.LEFT)
+						down_additional_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir])
+						down_additional_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.RIGHT)
+						up_additional_cells.push_back(tilemap.local_to_map(entry.position) + [Vector2i.LEFT, Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN][dir] + Vector2i.RIGHT * 2)
+						#increased_down_size = true
+						if ((tilemap.local_to_map(entry.position) + Vector2i.DOWN) * Rooms.TILE_SIZE).y >= (room_white_image_offset + size).y:
+							size.y += Rooms.TILE_SIZE
 
 	@warning_ignore("narrowing_conversion")
 	room_white_image = Image.create(size.x, size.y, false, Image.FORMAT_RGBA8)
@@ -196,13 +225,55 @@ func generate_room_white_image() -> void:
 		rect = Rect2(Vector2(tile_cell * Rooms.TILE_SIZE - room_white_image_offset), Vector2.ONE * Rooms.TILE_SIZE)
 
 		for layer: int in layers_to_check:
-			if tilemap.get_cell_atlas_coords(layer, tile_cell) == Vector2i( - 1, -1):
-				continue
+			var tile_image: Image
+			if tile_cell in up_additional_cells or tile_cell in left_additional_cells or tile_cell in down_additional_cells or tile_cell in right_additional_cells:
+				Log.debug("Adding additional cell mask to room white image: " + str(tile_cell))
+				var gradient_tex: GradientTexture2D = GradientTexture2D.new()
+				gradient_tex.width = Rooms.TILE_SIZE
+				gradient_tex.height = Rooms.TILE_SIZE
+				gradient_tex.gradient = Gradient.new()
+				gradient_tex.gradient.offsets = [0, 1]
+				gradient_tex.gradient.colors = [Color.TRANSPARENT, Color.WHITE]
 
-			var tile_image: Image = tileset_image.get_region(Rect2(tilemap.get_cell_atlas_coords(layer, tile_cell) * Rooms.TILE_SIZE, Vector2(16, 16)))
-			for x: int in tile_image.get_width():
-				for y: int in tile_image.get_height():
-					tile_image.set_pixel(x, y, Color.WHITE * tile_image.get_pixel(x, y).a)
+				var tile_to_check_texture: Vector2i
+
+				if tile_cell in up_additional_cells:
+					gradient_tex.fill_from = Vector2.ZERO
+					gradient_tex.fill_to = Vector2.DOWN
+
+					tile_to_check_texture = tile_cell + Vector2i.DOWN
+				elif tile_cell in left_additional_cells:
+					gradient_tex.fill_from = Vector2.ZERO
+					gradient_tex.fill_to = Vector2.RIGHT
+
+					tile_to_check_texture = tile_cell + Vector2i.RIGHT
+				elif tile_cell in down_additional_cells:
+					gradient_tex.fill_from = Vector2.DOWN
+					gradient_tex.fill_to = Vector2.ZERO
+
+					tile_to_check_texture = tile_cell + Vector2i.UP
+				elif tile_cell in right_additional_cells:
+					gradient_tex.fill_from = Vector2.RIGHT
+					gradient_tex.fill_to = Vector2.ZERO
+
+					tile_to_check_texture = tile_cell + Vector2i.LEFT
+				else:
+					Log.err("Invalid tile_cell")
+				tile_image = gradient_tex.get_image()
+				#Log.debug("tile_image: " + str(tile_image))
+				var tile_texture: Image = tileset_image.get_region(Rect2(tilemap.get_cell_atlas_coords(layer, tile_to_check_texture) * Rooms.TILE_SIZE, Vector2(16, 16)))
+				for x: int in tile_texture.get_width():
+					for y: int in tile_texture.get_height():
+						#if tile_texture.get_pixel(x, y).a == 0.0:
+						tile_image.set_pixel(x, y, tile_image.get_pixel(x, y) * tile_texture.get_pixel(x, y).a)
+			else:
+				if tilemap.get_cell_atlas_coords(layer, tile_cell) == Vector2i( - 1, -1):
+					continue
+				tile_image = tileset_image.get_region(Rect2(tilemap.get_cell_atlas_coords(layer, tile_cell) * Rooms.TILE_SIZE, Vector2(16, 16)))
+				
+				for x: int in tile_image.get_width():
+					for y: int in tile_image.get_height():
+						tile_image.set_pixel(x, y, Color.WHITE * tile_image.get_pixel(x, y).a)
 
 			#@warning_ignore("narrowing_conversion")
 			#var image: Image = Image.create(rect.size.x, rect.size.y, false, Image.FORMAT_RGBAH)
@@ -211,6 +282,9 @@ func generate_room_white_image() -> void:
 			#image.blit_rect_mask(image, tile_image, Rect2(Vector2.ZERO, image_size), Vector2.ZERO)
 			var image_size: Vector2 = tile_image.get_size()
 			room_white_image.blend_rect(tile_image, Rect2(Vector2.ZERO, image_size), rect.position)
+
+	#room_white_image.save_png("user://cache/room_white_image/" + scene_file_path.get_file().get_basename() + ".png")
+	room_white_image.save_png("/home/mateus/Downloads/" + scene_file_path.get_file().get_basename() + ".png")
 
 func get_separation_steering_dir(rooms_array: Array[DungeonRoom], delta: float) -> Vector2:
 	var dir: Vector2 = Vector2.ZERO
