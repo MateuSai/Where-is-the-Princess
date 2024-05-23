@@ -10,7 +10,7 @@ class_name Campfire extends StaticBody2D
 
 func _ready() -> void:
 	if SavedData.get_biome_conf().day_night_cycle:
-		if DayNightSystem.is_day():
+		if day_night_system.is_day():
 			_disable()
 		else:
 			_enable()

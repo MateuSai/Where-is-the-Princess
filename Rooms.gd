@@ -689,7 +689,7 @@ func _add_lights() -> void:
 
 	for cell: Vector2i in corridor_tile_map.get_used_cells(1):
 		if corridor_tile_map.get_cell_atlas_coords(1, cell) == LEFT_WALL_COOR:
-			Log.debug("Trying to place light on left wall")
+			#Log.debug("Trying to place light on left wall")
 			var should_spawn: bool = ((cell.y % DISTANCE_BETWEEN_LIGHTS) == 0) if SavedData.get_vertical_corridor_symmetric_lights() else ((cell.y % DISTANCE_BETWEEN_LIGHTS) == 0)
 			if should_spawn:
 				var light: Node2D = corridor_light.light_scene.instantiate()
@@ -698,7 +698,7 @@ func _add_lights() -> void:
 				if debug:
 					await get_tree().create_timer(add_light_pause).timeout
 		elif corridor_tile_map.get_cell_atlas_coords(1, cell) == RIGHT_WALL_COOR:
-			Log.debug("Trying to place light on right wall")
+			#Log.debug("Trying to place light on right wall")
 			@warning_ignore("integer_division")
 			var should_spawn: bool = ((cell.y % DISTANCE_BETWEEN_LIGHTS) == 0) if SavedData.get_vertical_corridor_symmetric_lights() else (cell.y % DISTANCE_BETWEEN_LIGHTS) == (DISTANCE_BETWEEN_LIGHTS / 2)
 			if should_spawn:

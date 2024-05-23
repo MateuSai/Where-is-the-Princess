@@ -167,7 +167,7 @@ func _ready() -> void:
 				position=position_before_jumping
 	)
 
-	if DayNightSystem.is_day():
+	if (get_tree().current_scene as Game).day_night_system.is_day():
 		light.enabled = false
 	else:
 		light.enabled = true

@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlxyf800kt6c2"]
+[gd_scene load_steps=6 format=3 uid="uid://dlxyf800kt6c2"]
 
 [ext_resource type="Script" path="res://Rooms/Furniture and Traps/triggers/lever/lever.gd" id="1_hguy1"]
-[ext_resource type="Texture2D" uid="uid://bv2o77amj222u" path="res://Art/animals/cat/cat_black_3.png" id="1_jhh7g"]
 [ext_resource type="Script" path="res://Components/LifeComponent.gd" id="2_4y7le"]
+[ext_resource type="Texture2D" uid="uid://be0jkd303qccj" path="res://Art/Furniture and room elements/floor lever 16x16.png" id="2_oc6ur"]
+[ext_resource type="Script" path="res://Components/flash_on_damage.gd" id="4_dykxr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1gh6l"]
 radius = 6.08276
@@ -13,11 +14,18 @@ collision_mask = 0
 script = ExtResource("1_hguy1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_jhh7g")
+position = Vector2(0, -5)
+texture = ExtResource("2_oc6ur")
+hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_1gh6l")
 
 [node name="LifeComponent" type="Node" parent="."]
 script = ExtResource("2_4y7le")
+body_type = 3
 hp = 4
+
+[node name="FlashOnDamage" type="Node" parent="."]
+script = ExtResource("4_dykxr")

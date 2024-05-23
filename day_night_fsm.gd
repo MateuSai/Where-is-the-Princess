@@ -9,16 +9,16 @@ enum {
 	NIGHT,
 }
 
-const SUNRISE_START_TIME: float = 7.0
-const MORNING_START_TIME: float = 8.0
-const AFTERNOON_START_TIME: float = 14.0
-const SUNSET_START_TIME: float = 18.0
-const SUNSET_FINAL_TIME: float = 19.5
-const NIGHT_START_TIME: float = 21.0
+var sunrise_start_time: float
+var morning_start_time: float
+var afternoon_start_time: float
+var sunset_start_time: float
+var sunset_final_time: float
+var night_start_time: float
 
-const NIGHT_FIRST_HALF_TOTAL_TIME: float = 24.0 - NIGHT_START_TIME
-const NIGHT_SECOND_HALF_TOTAL_TIME: float = SUNRISE_START_TIME
-const NIGHT_TOTAL_TIME: float = NIGHT_FIRST_HALF_TOTAL_TIME + NIGHT_SECOND_HALF_TOTAL_TIME
+var night_first_half_total_time: float
+var night_second_half_total_time: float
+var night_total_time: float
 
 const NIGHT_COLOR: Color = Color(0.2, 0.2, 0.7, 1)
 const SUNRISE_COLOR: Color = Color(0.5, 0.5, 1.0)
@@ -27,78 +27,73 @@ const NOON_COLOR: Color = Color.WHITE
 
 var time: float = DayNightSystem.time
 
-
 @onready var day_night_system: DayNightSystem = get_parent()
 
-
 func start() -> void:
-	if time >= SUNRISE_START_TIME and time < MORNING_START_TIME:
+	if time >= sunrise_start_time and time < morning_start_time:
 		set_state(SUNRISE)
-	elif time >= MORNING_START_TIME and time < AFTERNOON_START_TIME:
+	elif time >= morning_start_time and time < afternoon_start_time:
 		set_state(MORNING)
-	elif time >= AFTERNOON_START_TIME and time < SUNSET_START_TIME:
+	elif time >= afternoon_start_time and time < sunset_start_time:
 		set_state(AFTERNOON)
-	elif time >= SUNSET_START_TIME and time < SUNSET_FINAL_TIME:
+	elif time >= sunset_start_time and time < sunset_final_time:
 		set_state(SUNSET)
-	elif time >= SUNSET_FINAL_TIME and time < NIGHT_START_TIME:
+	elif time >= sunset_final_time and time < night_start_time:
 		set_state(SUNSET_END)
 	else:
 		set_state(NIGHT)
-
 
 func _state_logic(_delta: float) -> void:
 	time = DayNightSystem.time
 
 	if state in [SUNRISE, MORNING, AFTERNOON, SUNSET, SUNSET_END]:
-		var normalized: float = (time - SUNRISE_START_TIME) / (NIGHT_START_TIME - SUNRISE_START_TIME)
-		day_night_system.rotation_degrees = 90 + normalized * -180
+		var normalized: float = (time - sunrise_start_time) / (night_start_time - sunrise_start_time)
+		day_night_system.rotation_degrees = 90 + normalized * - 180
 	else:
 		assert(state == NIGHT)
-		if time > NIGHT_START_TIME:
-			var normalized: float = ((time - NIGHT_START_TIME) / (24.0 - NIGHT_START_TIME)) * (NIGHT_FIRST_HALF_TOTAL_TIME / NIGHT_TOTAL_TIME)
-			day_night_system.rotation_degrees = 90 + normalized * -180
+		if time > night_start_time:
+			var normalized: float = ((time - night_start_time) / (24.0 - night_start_time)) * (night_first_half_total_time / night_total_time)
+			day_night_system.rotation_degrees = 90 + normalized * - 180
 		else:
-			var normalized: float = (NIGHT_FIRST_HALF_TOTAL_TIME / NIGHT_TOTAL_TIME) + (time / (SUNRISE_START_TIME)) * (NIGHT_SECOND_HALF_TOTAL_TIME / NIGHT_TOTAL_TIME)
-			day_night_system.rotation_degrees = 90 + normalized * -180
+			var normalized: float = (night_first_half_total_time / night_total_time) + (time / (sunrise_start_time)) * (night_second_half_total_time / night_total_time)
+			day_night_system.rotation_degrees = 90 + normalized * - 180
 
 	match state:
 		SUNRISE:
-			day_night_system.color = NIGHT_COLOR.lerp(SUNRISE_COLOR, (time - SUNRISE_START_TIME) / (MORNING_START_TIME - SUNRISE_START_TIME))
+			day_night_system.color = NIGHT_COLOR.lerp(SUNRISE_COLOR, (time - sunrise_start_time) / (morning_start_time - sunrise_start_time))
 		MORNING:
-			day_night_system.color = SUNRISE_COLOR.lerp(NOON_COLOR, (time - MORNING_START_TIME) / (AFTERNOON_START_TIME - MORNING_START_TIME))
+			day_night_system.color = SUNRISE_COLOR.lerp(NOON_COLOR, (time - morning_start_time) / (afternoon_start_time - morning_start_time))
 		#AFTERNOON:
 			#day_night_system.color = NOON_COLOR
 		SUNSET:
-			day_night_system.color = NOON_COLOR.lerp(SUNSET_COLOR, (time - SUNSET_START_TIME) / (SUNSET_FINAL_TIME - SUNSET_START_TIME))
+			day_night_system.color = NOON_COLOR.lerp(SUNSET_COLOR, (time - sunset_start_time) / (sunset_final_time - sunset_start_time))
 		SUNSET_END:
-			day_night_system.color = SUNSET_COLOR.lerp(NIGHT_COLOR, (time - SUNSET_FINAL_TIME) / (NIGHT_START_TIME - SUNSET_FINAL_TIME))
+			day_night_system.color = SUNSET_COLOR.lerp(NIGHT_COLOR, (time - sunset_final_time) / (night_start_time - sunset_final_time))
 		#NIGHT:
 			#day_night_system.color = NIGHT_COLOR
-
 
 func _get_transition() -> int:
 	match state:
 		NIGHT:
-			if time > SUNRISE_START_TIME and time < MORNING_START_TIME:
+			if time > sunrise_start_time and time < morning_start_time:
 				return SUNRISE
 		SUNRISE:
-			if time > MORNING_START_TIME:
+			if time > morning_start_time:
 				return MORNING
 		MORNING:
-			if time > AFTERNOON_START_TIME:
+			if time > afternoon_start_time:
 				return AFTERNOON
 		AFTERNOON:
-			if time > SUNSET_START_TIME:
+			if time > sunset_start_time:
 				return SUNSET
 		SUNSET:
-			if time > SUNSET_FINAL_TIME:
+			if time > sunset_final_time:
 				return SUNSET_END
 		SUNSET_END:
-			if time > NIGHT_START_TIME:
+			if time > night_start_time:
 				return NIGHT
 
-	return -1
-
+	return - 1
 
 func _enter_state(_previous_state: int, new_state: int) -> void:
 	match new_state:
