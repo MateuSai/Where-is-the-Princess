@@ -284,7 +284,7 @@ func generate_room_white_image() -> void:
 			room_white_image.blend_rect(tile_image, Rect2(Vector2.ZERO, image_size), rect.position)
 
 	#room_white_image.save_png("user://cache/room_white_image/" + scene_file_path.get_file().get_basename() + ".png")
-	room_white_image.save_png("/home/mateus/Downloads/" + scene_file_path.get_file().get_basename() + ".png")
+	#room_white_image.save_png("/home/mateus/Downloads/" + scene_file_path.get_file().get_basename() + ".png")
 
 func get_separation_steering_dir(rooms_array: Array[DungeonRoom], delta: float) -> Vector2:
 	var dir: Vector2 = Vector2.ZERO

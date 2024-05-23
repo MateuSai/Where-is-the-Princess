@@ -228,7 +228,7 @@ func _process_command(command: String) -> void:
 						if splitted_command.size() > 2: # tiene otro argumento
 							_test_room(splitted_command[2])
 						else:
-							printerr("Invalid number of arguments, you must specify the room path")
+							_test_room()
 					_:
 						printerr("test has no " + splitted_command[1] + " option")
 			else:
@@ -539,7 +539,7 @@ func _react(face_string: String) -> void:
 
 	hide()
 
-func _test_room(path: String) -> void:
+func _test_room(path: String="res://Rooms/test_room.tscn") -> void:
 	if not FileAccess.file_exists(path):
 		printerr("There is no file at " + path)
 		return

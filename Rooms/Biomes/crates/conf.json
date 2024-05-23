@@ -2,6 +2,8 @@
 	"$schema": "../../../Rooms/Biomes/biome_conf_schema.json",
 	"name": "CRATES",
 	"day_night_cycle": true,
+	"day_time_scale": 2,
+	"night_time_scale": 0.02,
 	"background_color": "042333",
 	"light_color": "878787",
 	"corridor_atlas_id": 1,
