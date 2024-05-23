@@ -11,8 +11,12 @@ const DEFAULT_NUM_WEAPONS_ON_FLOOR_PER_TILE: float = 0.01
 var name: String = "BIOME_NAME_GOES_HERE"
 
 var day_night_cycle: bool = true
-var day_time_scale: float = 0.03
-var night_time_scale: float = 0.03
+var sunrise_start_time: float = 7.0
+var morning_start_time: float = 8.0
+var afternoon_start_time: float = 14.0
+var sunset_start_time: float = 18.0
+var sunset_final_time: float = 19.5
+var night_start_time: float = 21.0
 
 ## [String] with hexadecimal values. 2 digits for each order in order red, green, blue. For example, [code]"ff0000"[/code] is red, [code]"ffff00"[/code] is yellow, and [code]"000000"[/code] is black.
 var background_color: String = "1a1c00"

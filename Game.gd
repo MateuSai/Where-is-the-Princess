@@ -68,7 +68,7 @@ func _init_biome(conf: BiomeConf) -> void:
 	if conf.day_night_cycle:
 		canvas_modulate.color = Color.BLACK
 
-		if DayNightSystem.is_day():
+		if day_night_system.is_day():
 			RenderingServer.set_default_clear_color(SavedData.get_biome_conf().background_color)
 		else:
 			RenderingServer.set_default_clear_color((SavedData.get_biome_conf().background_color as Color).darkened(0.5))
