@@ -97,12 +97,14 @@ func _ready() -> void:
 
 	set_flying(data.flying)
 
+	state_label.modulate.a = 0.0
+
 	if DebugInfo.is_visible:
-		if state_machine:
+		if not behavior_tree:
 			state_label.show()
 			state_machine.state_changed.connect(_update_state_label)
 	else:
-		if state_machine:
+		if not behavior_tree:
 			state_label.hide()
 		(get_tree().current_scene.get_node("UI/DebugUI/DebugInfo") as DebugInfo).visibility_changed.connect(func() -> void:
 			if state_machine == null:

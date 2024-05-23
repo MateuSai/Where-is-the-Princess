@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://Components/remove_collisions_on_died.gd" id="6_obypf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u77df"]
-size = Vector2(3, 8)
+size = Vector2(3, 6)
 
 [node name="RightTopVerticalWoodenFence" type="StaticBody2D"]
 collision_layer = 144
@@ -24,7 +24,7 @@ frame = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-position = Vector2(1.5, -4)
+position = Vector2(1.5, -3)
 shape = SubResource("RectangleShape2D_u77df")
 
 [node name="LifeComponent" type="Node" parent="."]

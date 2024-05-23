@@ -78,7 +78,8 @@ static func from_dic(dic: Dictionary) -> BiomeConf:
 				_:
 					data.set(key, dic[key])
 		else:
-			printerr("BiomeConf: Invalid property: " + key)
+			if not key in ["$schema"]:
+				printerr("BiomeConf: Invalid property: " + key)
 
 	return data
 

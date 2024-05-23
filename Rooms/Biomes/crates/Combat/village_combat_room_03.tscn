@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bff3n07t6h2cm"]
+[gd_scene load_steps=8 format=3 uid="uid://bff3n07t6h2cm"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_p22qv"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_teugx"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_rir5g"]
 [ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="4_s5fpo"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="5_fw1on"]
+[ext_resource type="PackedScene" uid="uid://55asonx0hhw2" path="res://Rooms/Furniture and Traps/traps/window_villagers/window_villager.tscn" id="5_yy56a"]
 
 [node name="VillageCombatRoom03" instance=ExtResource("1_p22qv")]
 
@@ -44,6 +45,9 @@ position = Vector2(584, 474)
 position = Vector2(390, 380)
 script = ExtResource("4_rir5g")
 enemy_name = "footman"
+
+[node name="WindowVillager" parent="Traps" index="0" instance=ExtResource("5_yy56a")]
+position = Vector2(392, 78)
 
 [node name="TeleportPosition" parent="." index="8"]
 position = Vector2(461, 189)

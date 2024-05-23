@@ -27,7 +27,7 @@ func _ready() -> void:
 	_squawk()
 
 func _on_change_dir() -> void:
-	sprite.flip_h = !sprite.flip_h
+	super()
 	up_wing_pivot.scale.x *= - 1
 	down_wing_pivot.scale.x *= - 1
 	#up_wing.scale.x *= - 1
