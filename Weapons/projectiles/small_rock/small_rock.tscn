@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0ysxsuvbnxal"]
+
+[ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/projectiles/projectile.tscn" id="1_wyd36"]
+[ext_resource type="Texture2D" uid="uid://bbxcvjicbtkhb" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Villagers/deafault_villager_proyectile.png" id="2_lfbjs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7c5g8"]
+radius = 2.23607
+
+[node name="SmallRock" instance=ExtResource("1_wyd36")]
+collision_mask = 6
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_lfbjs")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_7c5g8")
