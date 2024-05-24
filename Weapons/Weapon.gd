@@ -142,16 +142,19 @@ func is_busy() -> bool:
 	return animation_player.is_playing() or charge_particles.emitting
 
 func _on_PlayerDetector_body_entered(body: Node2D) -> void:
+	if tween:
+		tween.kill()
+
 	if body is Player and (body as Player).can_pick_up_weapon(self):
 		(body as Player).weapons.pick_up_weapon(self)
-		_pick_up()
+		call_deferred("_pick_up")
 	else:
-		if tween:
-			tween.kill()
+		#if tween:
+		#	tween.kill()
 		player_detector.set_collision_mask_value(2, true)
 
 func _pick_up() -> void:
-	player_detector_col.set_deferred("disabled", true)
+	player_detector_col.disabled = true # DO NOT USE SET DEFERRED
 
 	player_detector.set_collision_mask_value(1, false)
 	player_detector.set_collision_mask_value(2, false)
@@ -159,7 +162,9 @@ func _pick_up() -> void:
 	position = Vector2.ZERO
 
 func interpolate_pos(initial_pos: Vector2, final_pos: Vector2, collision_with_world_and_low_objects: bool=true) -> void:
-	player_detector_col.set_deferred("disabled", false)
+	player_detector_col.disabled = false # DO NOT USE SET DEFERRED
+
+	player_detector.set_collision_mask_value(2, false)
 
 	if collision_with_world_and_low_objects:
 		player_detector.set_collision_mask_value(1, true)

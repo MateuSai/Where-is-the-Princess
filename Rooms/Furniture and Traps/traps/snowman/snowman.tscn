@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://by14j4q6i0ycq"]
+
+[ext_resource type="Texture2D" uid="uid://b4xnkqlcv668f" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/traps/pillar.png" id="1_1mtee"]
+[ext_resource type="Script" path="res://Rooms/Furniture and Traps/traps/snowman/snowman.gd" id="2_n0c82"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p5drd"]
+radius = 4.47214
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xfv5m"]
+radius = 29.0
+
+[node name="Snowman" type="StaticBody2D"]
+collision_mask = 0
+script = ExtResource("2_n0c82")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+texture = ExtResource("1_1mtee")
+hframes = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_p5drd")
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("CircleShape2D_xfv5m")

@@ -47,7 +47,8 @@ script = ExtResource("4_rir5g")
 enemy_name = "footman"
 
 [node name="WindowVillager" parent="Traps" index="0" instance=ExtResource("5_yy56a")]
-position = Vector2(392, 78)
+position = Vector2(392, 79)
+row = 1
 
 [node name="TeleportPosition" parent="." index="8"]
 position = Vector2(461, 189)

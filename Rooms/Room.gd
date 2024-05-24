@@ -645,6 +645,11 @@ func is_cleared() -> bool:
 
 ## Increase num_enemies by 1 and adds the enemy to the scene tree
 func add_enemy(enemy: Enemy) -> void:
+	if num_enemies == 0:
+		_close_entrance()
+		closed.emit()
+		Globals.room_closed.emit()
+
 	num_enemies += 1
 	add_child(enemy)
 
