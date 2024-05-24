@@ -50,6 +50,10 @@ enemy_name = "footman"
 position = Vector2(392, 79)
 row = 1
 
+[node name="WindowVillager2" parent="Traps" index="1" instance=ExtResource("5_yy56a")]
+position = Vector2(72, 168)
+row = 0
+
 [node name="TeleportPosition" parent="." index="8"]
 position = Vector2(461, 189)
 
