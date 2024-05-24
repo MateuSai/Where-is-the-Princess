@@ -105,6 +105,9 @@ func throw() -> void:
 	if data.type in [WeaponData.Type.SWORD, WeaponData.Type.HAMMER, WeaponData.Type.AXE, WeaponData.Type.OTHER]:
 		throw_rot_speed = 25 if attack_num == 0 else - 25
 	(get_parent() as PlayerWeapons).throw_weapon()
+
+	player_detector.set_collision_mask_value(2, false)
+
 	(hitbox.get_node("CollisionShape2D") as CollisionShape2D).disabled = false
 	hitbox.set_collision_mask_value(1, true) # Para que pueda colisionar con paredes
 	hitbox.body_entered.disconnect(hitbox._on_body_entered)
