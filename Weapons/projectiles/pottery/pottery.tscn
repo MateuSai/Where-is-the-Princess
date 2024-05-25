@@ -1,0 +1,37 @@
+[gd_scene load_steps=11 format=3 uid="uid://b6nc302ixibgc"]
+
+[ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/projectiles/projectile.tscn" id="1_jsq7h"]
+[ext_resource type="Texture2D" uid="uid://duee6tsrcbfl3" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Villagers/potery_villager_proyectile.png" id="2_hqmwf"]
+[ext_resource type="Script" path="res://Components/spawn_fragments_on_projectile_destroy.gd" id="3_tfq1u"]
+[ext_resource type="PackedScene" uid="uid://c2htcd36nh7sj" path="res://effects/fragments/pottery_fragment.tscn" id="4_q41vm"]
+[ext_resource type="Script" path="res://Components/spawn_sound_on_projectile_destroy.gd" id="5_dpkxe"]
+[ext_resource type="AudioStream" uid="uid://jdo3tla2rvyn" path="res://Audio/Sounds/pottery_break/399080__kinoton__clay-pottery-drop-n-break_1.wav" id="6_epexk"]
+[ext_resource type="AudioStream" uid="uid://bxtc81beqd7w4" path="res://Audio/Sounds/pottery_break/399080__kinoton__clay-pottery-drop-n-break_2.wav" id="7_4052r"]
+[ext_resource type="AudioStream" uid="uid://ba44r6veegriy" path="res://Audio/Sounds/pottery_break/399080__kinoton__clay-pottery-drop-n-break_3.wav" id="8_167dj"]
+[ext_resource type="AudioStream" uid="uid://b0pdtl6rymudv" path="res://Audio/Sounds/pottery_break/399080__kinoton__clay-pottery-drop-n-break_4.wav" id="9_wta22"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n1lkb"]
+radius = 3.60555
+
+[node name="Pottery" instance=ExtResource("1_jsq7h")]
+collision_mask = 6
+random_rotate = true
+can_be_destroyed = true
+damage = 1
+knockback_force = 300
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_hqmwf")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_n1lkb")
+
+[node name="SpawnFragmentsOnProjectileDestroy" type="Node2D" parent="." index="2"]
+script = ExtResource("3_tfq1u")
+fragment_scene = ExtResource("4_q41vm")
+min_fragments = 2
+max_fragments = 3
+
+[node name="SpawnSoundOnProjectileDestroy" type="Node" parent="." index="3"]
+script = ExtResource("5_dpkxe")
+sounds = Array[AudioStream]([ExtResource("6_epexk"), ExtResource("7_4052r"), ExtResource("8_167dj"), ExtResource("9_wta22")])

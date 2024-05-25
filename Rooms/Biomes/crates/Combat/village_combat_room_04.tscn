@@ -32,17 +32,17 @@ position = Vector2(244, 202)
 [node name="TeleportPosition" parent="." index="8"]
 position = Vector2(264, 128)
 
-[node name="Torch" parent="." index="10" instance=ExtResource("2_u8fya")]
-position = Vector2(247, 38)
-
-[node name="Torch2" parent="." index="11" instance=ExtResource("2_u8fya")]
+[node name="Torch2" parent="." index="10" instance=ExtResource("2_u8fya")]
 position = Vector2(62, 73)
 
-[node name="TikiTorch" parent="." index="12" instance=ExtResource("3_taodq")]
+[node name="TikiTorch" parent="." index="11" instance=ExtResource("3_taodq")]
 position = Vector2(157, 152)
 
-[node name="Torch3" parent="." index="13" instance=ExtResource("2_u8fya")]
-position = Vector2(38, 150)
+[node name="TikiTorch2" parent="." index="12" instance=ExtResource("3_taodq")]
+position = Vector2(37, 167)
 
-[node name="Torch4" parent="." index="14" instance=ExtResource("2_u8fya")]
-position = Vector2(353, 86)
+[node name="TikiTorch3" parent="." index="13" instance=ExtResource("3_taodq")]
+position = Vector2(250, 55)
+
+[node name="TikiTorch4" parent="." index="14" instance=ExtResource("3_taodq")]
+position = Vector2(355, 101)

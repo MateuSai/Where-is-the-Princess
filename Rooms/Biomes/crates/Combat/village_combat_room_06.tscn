@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwvte5b44k85x"]
+[gd_scene load_steps=7 format=3 uid="uid://dwvte5b44k85x"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_wbyp8"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_7jhgp"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_0wshd"]
 [ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="4_h1dnw"]
+[ext_resource type="PackedScene" uid="uid://55asonx0hhw2" path="res://Rooms/Furniture and Traps/traps/window_villagers/window_villager.tscn" id="4_sani2"]
+[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="6_uhfvl"]
 
 [node name="VillageCombatRoom06" instance=ExtResource("1_wbyp8")]
 
@@ -31,14 +33,22 @@ position = Vector2(70, 220)
 [node name="HorizontalEntry2" parent="Entries/Down" index="1" instance=ExtResource("3_0wshd")]
 position = Vector2(246, 205)
 
+[node name="WindowVillager" parent="Traps" index="0" instance=ExtResource("4_sani2")]
+position = Vector2(200, 47)
+row = 1
+
+[node name="WindowVillager2" parent="Traps" index="1" instance=ExtResource("4_sani2")]
+position = Vector2(181, 66)
+row = 7
+
 [node name="TeleportPosition" parent="." index="8"]
 position = Vector2(172, 113)
 
 [node name="Torch" parent="." index="10" instance=ExtResource("4_h1dnw")]
 position = Vector2(221, 73)
 
-[node name="Torch2" parent="." index="11" instance=ExtResource("4_h1dnw")]
-position = Vector2(39, 56)
+[node name="TikiTorch" parent="." index="11" instance=ExtResource("6_uhfvl")]
+position = Vector2(39, 69)
 
-[node name="Torch3" parent="." index="12" instance=ExtResource("4_h1dnw")]
-position = Vector2(232, 200)
+[node name="TikiTorch2" parent="." index="12" instance=ExtResource("6_uhfvl")]
+position = Vector2(230, 200)

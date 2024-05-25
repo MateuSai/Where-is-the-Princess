@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://wr8yl3776qwq"]
+
+[ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/projectiles/projectile.tscn" id="1_aw82r"]
+[ext_resource type="Texture2D" uid="uid://bxjl6j3xpl7nu" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Villagers/cabbage_villager_proyectile.png" id="2_c7mxj"]
+[ext_resource type="Script" path="res://Components/spawn_fragments_on_projectile_destroy.gd" id="3_syw71"]
+[ext_resource type="PackedScene" uid="uid://dwjr4u14gqafl" path="res://effects/fragments/leaf_fragment.tscn" id="4_s073w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_greli"]
+radius = 2.82843
+
+[node name="Cabbage" instance=ExtResource("1_aw82r")]
+collision_mask = 6
+random_rotate = true
+can_be_destroyed = true
+damage = 1
+knockback_force = 300
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_c7mxj")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_greli")
+
+[node name="SpawnFragmentsOnProjectileDestroy" type="Node2D" parent="." index="2"]
+script = ExtResource("3_syw71")
+fragment_scene = ExtResource("4_s073w")
+min_fragments = 3
+max_fragments = 8

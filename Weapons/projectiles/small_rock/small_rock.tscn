@@ -8,6 +8,10 @@ radius = 2.23607
 
 [node name="SmallRock" instance=ExtResource("1_wyd36")]
 collision_mask = 6
+random_rotate = true
+can_be_destroyed = true
+damage = 1
+knockback_force = 300
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_lfbjs")
