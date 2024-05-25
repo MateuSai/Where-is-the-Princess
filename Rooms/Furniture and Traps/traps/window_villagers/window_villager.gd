@@ -2,7 +2,7 @@
 
 class_name WindowVillager extends Sprite2D
 
-const POSSIBLE_PROJECTILES: Array[PackedScene] = [ preload ("res://Weapons/projectiles/small_rock/small_rock.tscn"), preload ("res://Weapons/projectiles/potery/potery.tscn"), preload ("res://Weapons/projectiles/cabagge/cabagge.tscn")]
+const POSSIBLE_PROJECTILES: Array[PackedScene] = [ preload ("res://Weapons/projectiles/small_rock/small_rock.tscn"), preload ("res://Weapons/projectiles/pottery/pottery.tscn"), preload ("res://Weapons/projectiles/cabbage/cabbage.tscn")]
 
 const PROJECTILE_SPEED: int = 120
 

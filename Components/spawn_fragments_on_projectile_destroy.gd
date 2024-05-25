@@ -9,7 +9,7 @@ class_name SpawnFragmentsOnProjectileDestroy extends Node2D
 
 func _ready() -> void:
 	projectile.destroyed.connect(func() -> void:
-		call_deferred("_spawn_fragments", projectile.direction)
+		_spawn_fragments(projectile.direction)
 	)
 
 func _spawn_fragments(dir: Vector2) -> void:
