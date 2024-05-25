@@ -98,7 +98,7 @@ func start_throw_animations() -> void:
 
 func throw() -> void:
 	Log.debug("Thrown " + weapon_id)
-	
+
 	throw_dir = (get_parent().get_parent() as Player).mouse_direction.rotated(randf_range( - (get_parent() as Weapons).throw_spread, (get_parent() as Weapons).throw_spread))
 	bodies_pierced = 0
 	piercing = (get_parent().get_parent() as Player).throw_piercing
@@ -110,7 +110,7 @@ func throw() -> void:
 
 	(hitbox.get_node("CollisionShape2D") as CollisionShape2D).disabled = false
 	hitbox.set_collision_mask_value(1, true) # Para que pueda colisionar con paredes
-	hitbox.body_entered.disconnect(hitbox._on_body_entered)
+	hitbox.body_shape_entered.disconnect(hitbox._on_body_shape_entered)
 	hitbox.body_entered.connect(_throw_body_entered_hitbox)
 	hitbox.area_entered.disconnect(hitbox._on_area_entered)
 	hitbox.area_entered.connect(_throw_body_entered_hitbox)

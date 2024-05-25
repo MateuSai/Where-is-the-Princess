@@ -29,6 +29,8 @@ func _on_died() -> void:
 	var statistics: EnemyStatistics = SavedData.statistics.get_enemy_statistics(id)
 
 	if statistics == null or statistics.times_killed == 0:
+		SavedData.complete_achievement(Achievements.Achievement.defeat_necro_tromp)
+
 		var armor_path: String = "res://Armors/NecromancerArmor.gd"
 		SavedData.discover_armor_if_not_already(armor_path)
 		(get_tree().current_scene as Game).show_notification(load("res://ui/notifications/armor_unlocked_notification.tscn"), {

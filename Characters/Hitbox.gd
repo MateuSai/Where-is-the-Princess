@@ -27,8 +27,8 @@ func _ready() -> void:
 	timer.wait_time = 1
 	add_child(timer)
 
-	body_entered.connect(_on_body_entered)
-	body_exited.connect(_remove_entity_if_it_is_inside)
+	body_shape_entered.connect(_on_body_shape_entered)
+	body_shape_exited.connect(_on_body_shape_exited)
 	area_entered.connect(_on_area_entered)
 	area_exited.connect(_remove_entity_if_it_is_inside)
 
@@ -84,8 +84,12 @@ func _loop_and_collide(entity_target: Node2D) -> void:
 
 	timer.stop()
 
-func _on_body_entered(body: Node2D) -> void:
+func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	Log.debug("Hitbox collided with shape index: " + str(body_shape_index))
 	_add_entity_if_node_has_one(body)
+
+func _on_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	_remove_entity_if_it_is_inside(body)
 
 func _on_area_entered(area: Area2D) -> void:
 	_add_entity_if_node_has_one(area)

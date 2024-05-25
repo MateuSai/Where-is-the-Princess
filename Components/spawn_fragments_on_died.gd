@@ -37,4 +37,5 @@ func _spawn_fragments(dir: Vector2) -> void:
 		var fragment: Fragment = fragment_scene.instantiate()
 		fragment.position = get_parent().global_position + position
 		get_tree().current_scene.add_child(fragment)
-		fragment.throw(self, dir.rotated(randf_range( - 1.0, 1.0)))
+		var fragment_dir: Vector2 = (dir.rotated(randf_range( - 1.0, 1.0))) if dir.is_zero_approx() else Vector2.RIGHT.rotated(randf_range(0.0, 2 * PI))
+		fragment.throw(self, fragment_dir)

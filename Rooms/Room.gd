@@ -227,7 +227,7 @@ func generate_room_white_image() -> void:
 		for layer: int in layers_to_check:
 			var tile_image: Image
 			if tile_cell in up_additional_cells or tile_cell in left_additional_cells or tile_cell in down_additional_cells or tile_cell in right_additional_cells:
-				Log.debug("Adding additional cell mask to room white image: " + str(tile_cell))
+				#Log.debug("Adding additional cell mask to room white image: " + str(tile_cell))
 				var gradient_tex: GradientTexture2D = GradientTexture2D.new()
 				gradient_tex.width = Rooms.TILE_SIZE
 				gradient_tex.height = Rooms.TILE_SIZE

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsksly8bid5nk"]
+[gd_scene load_steps=7 format=3 uid="uid://dsksly8bid5nk"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_lgw5i"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="2_hrir3"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_rkowa"]
 [ext_resource type="PackedScene" uid="uid://cwb0heh4qdkh8" path="res://Rooms/Chest.tscn" id="3_65xq6"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_rx8tl"]
+[ext_resource type="PackedScene" uid="uid://by14j4q6i0ycq" path="res://Rooms/Furniture and Traps/traps/snowman/snowman.tscn" id="4_3xpek"]
 
 [node name="TestRoom" instance=ExtResource("1_lgw5i")]
 
@@ -19,6 +20,24 @@ position = Vector2(236, 77)
 
 [node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("3_rx8tl")]
 position = Vector2(64, 174)
+
+[node name="Snowman" parent="Traps" index="0" instance=ExtResource("4_3xpek")]
+position = Vector2(90, 87)
+
+[node name="Snowman2" parent="Traps" index="1" instance=ExtResource("4_3xpek")]
+position = Vector2(129, 81)
+
+[node name="Snowman3" parent="Traps" index="2" instance=ExtResource("4_3xpek")]
+position = Vector2(118, 110)
+
+[node name="Snowman4" parent="Traps" index="3" instance=ExtResource("4_3xpek")]
+position = Vector2(171, 107)
+
+[node name="Snowman5" parent="Traps" index="4" instance=ExtResource("4_3xpek")]
+position = Vector2(140, 140)
+
+[node name="Snowman6" parent="Traps" index="5" instance=ExtResource("4_3xpek")]
+position = Vector2(212, 141)
 
 [node name="TikiTorch" parent="." index="10" instance=ExtResource("2_hrir3")]
 position = Vector2(43, 43)
