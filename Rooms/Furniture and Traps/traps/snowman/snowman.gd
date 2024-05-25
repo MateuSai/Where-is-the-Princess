@@ -32,7 +32,7 @@ func _ready() -> void:
 			queue_free()
 		)
 
-		await get_tree().create_timer(randf_range(0.0, 3.0), false).timeout
+		await get_tree().create_timer(randf_range(0.0, 3.5), false).timeout
 		animation_player.play("breath")
 
 func _spawn_thief() -> Thief:

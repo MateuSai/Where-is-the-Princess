@@ -19,6 +19,7 @@ const IMPACT_FLESH_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/S
 const BONES_HIT_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/impact/420252__redroxpeterpepper__step-skeleton.wav"), preload ("res://Audio/Sounds/impact/420253__redroxpeterpepper__step-skeleton-2.wav")]
 const WOOD_HIT_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/impact/547414__ian_g__wood-hit.wav")]
 const ICE_HIT_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/ice/ice_crack_1.wav"), preload ("res://Audio/Sounds/ice/ice_crack_2.wav"), preload ("res://Audio/Sounds/ice/ice_crack_3.wav"), preload ("res://Audio/Sounds/ice/ice_crack_4.wav"), preload ("res://Audio/Sounds/ice/ice_crack_5.wav"), preload ("res://Audio/Sounds/ice/ice_crack_6.wav")]
+const SNOW_HIT_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/impact/snow/268858__philllchabbb__kicking-snow_1.wav"), preload ("res://Audio/Sounds/impact/snow/268858__philllchabbb__kicking-snow_2.wav"), preload ("res://Audio/Sounds/impact/snow/268858__philllchabbb__kicking-snow_3.wav")]
 
 var last_weapon: Weapon
 var last_damage_dealer_id: String
@@ -30,6 +31,7 @@ enum BodyType {
 	BONES,
 	WOOD,
 	ICE,
+	SNOW,
 }
 @export var body_type: BodyType = BodyType.FLESH
 
@@ -111,6 +113,8 @@ func _play_hit_sound(weapon: Weapon) -> void:
 			stream = WOOD_HIT_SOUNDS[randi() % WOOD_HIT_SOUNDS.size()]
 		BodyType.ICE:
 			stream = ICE_HIT_SOUNDS[randi() % ICE_HIT_SOUNDS.size()]
+		BodyType.SNOW:
+			stream = SNOW_HIT_SOUNDS[randi() % SNOW_HIT_SOUNDS.size()]
 
 	if stream:
 		var sound: AutoFreeSound = AutoFreeSound.new()
