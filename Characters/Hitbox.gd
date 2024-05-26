@@ -5,6 +5,7 @@ var knockback_direction: Vector2 = Vector2.ZERO
 @export var knockback_force: int = 300
 
 var exclude: Array[Node2D] = []
+var exclude_rid: Array[RID] = []
 
 var weapon: Weapon = null
 var damage_dealer: Node = null
@@ -85,10 +86,17 @@ func _loop_and_collide(entity_target: Node2D) -> void:
 	timer.stop()
 
 func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-	Log.debug("Hitbox collided with shape index: " + str(body_shape_index))
+	Log.debug("Hitbox collided with rid: " + str(body_rid) + "   exclude_rid: " + str(exclude_rid))
+
+	if exclude_rid.has(body_rid):
+		return
+
 	_add_entity_if_node_has_one(body)
 
 func _on_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	if exclude_rid.has(body_rid):
+		return
+	
 	_remove_entity_if_it_is_inside(body)
 
 func _on_area_entered(area: Area2D) -> void:

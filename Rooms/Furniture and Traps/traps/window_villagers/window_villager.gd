@@ -12,6 +12,8 @@ const PROJECTILE_SPEED: int = 120
 		row = new_row
 		frame_coords.y = row
 
+var house_rid: RID
+
 @onready var room: DungeonRoom = owner
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -25,7 +27,9 @@ func _ready() -> void:
 
 	house_shape_detector.body_shape_entered.connect(func(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 		#Log.debug()
-		Log.debug(name + ": " + "   Body name: " + body.name + "  shape index: " + str(body_shape_index))
+		Log.debug(name + ": " + "   Body name: " + body.name + "  rid: " + str(body_rid))
+		if body is TileMap:
+			house_rid=body_rid
 	)
 
 	room.player_entered.connect(func() -> void:
@@ -48,6 +52,7 @@ func _throw() -> void:
 	var dis: Vector2 = Globals.player.global_position - throw_position.global_position
 
 	var projectile: Projectile = POSSIBLE_PROJECTILES[randi() % POSSIBLE_PROJECTILES.size()].instantiate()
+	projectile.exclude_rid.push_back(house_rid)
 	projectile.z_index += 1
 	get_tree().current_scene.add_child(projectile)
 	projectile.launch(throw_position.global_position, dis.normalized(), PROJECTILE_SPEED)

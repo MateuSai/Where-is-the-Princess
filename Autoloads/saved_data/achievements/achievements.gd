@@ -7,6 +7,7 @@ enum Achievement {
 	defeat_necro_tromp,
 
 	drown,
+	eaten_by_crocodile,
 
 	rescue_all_animals,
 }
@@ -16,6 +17,7 @@ var achievements: Dictionary = {
 	achievent_int_to_string(Achievement.defeat_necro_tromp): false,
 
 	achievent_int_to_string(Achievement.drown): false,
+	achievent_int_to_string(Achievement.eaten_by_crocodile): false,
 
 	achievent_int_to_string(Achievement.rescue_all_animals): {
 		current = 0,

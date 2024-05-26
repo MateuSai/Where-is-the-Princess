@@ -1,7 +1,7 @@
 class_name CrocodileTrap extends Area2D
 
 const ATTACK_RANGE: int = 16
-const BITE_EFFECT_SCENE: PackedScene = preload("res://Characters/Enemies/BiteEffect.tscn")
+const BITE_EFFECT_SCENE: PackedScene = preload ("res://Characters/Enemies/BiteEffect.tscn")
 
 var player_inside: bool = false
 
@@ -14,7 +14,6 @@ var player_inside: bool = false
 @onready var hitbox: Hitbox = $Hitbox
 @onready var hitbox_col: CollisionShape2D = $Hitbox/CollisionShape2D
 
-
 func _ready() -> void:
 	#set_process(false)
 	sprite.frame = 0
@@ -26,7 +25,7 @@ func _ready() -> void:
 
 	body_entered.connect(func(body: Node2D) -> void:
 		if body is Player:
-			player_inside = true
+			player_inside=true
 			#set_process(true)
 			animation_player.clear_queue()
 			#animation_player.stop()
@@ -34,14 +33,14 @@ func _ready() -> void:
 	)
 	body_exited.connect(func(body: Node2D) -> void:
 		if body is Player:
-			player_inside = false
+			player_inside=false
 			#set_process(false)
 			animation_player.clear_queue()
 			animation_player.queue("crocodile_trap_animation_library/idle")
 	)
 
+	hitbox.damage_dealer_id = "crocodile"
 	hitbox.knockback_direction = knockback_dir
-
 
 #func _process(_delta: float) -> void:
 	#if animation_player.is_playing():
@@ -52,7 +51,6 @@ func _ready() -> void:
 		#animation_player.play("bite_up")
 	#else:
 		#sprite.frame = round((1 - ((distance_to_player - ATTACK_RANGE) / (range_radius - ATTACK_RANGE))) * 6)
-
 
 func _spawn_bite_effect() -> void:
 	var bite_effect: Sprite2D = BITE_EFFECT_SCENE.instantiate()

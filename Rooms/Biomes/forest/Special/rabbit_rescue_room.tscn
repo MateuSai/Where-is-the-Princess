@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://7b2s7tjstcqg"]
+[gd_scene load_steps=9 format=3 uid="uid://7b2s7tjstcqg"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_ikldy"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_ajptj"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dlxyf800kt6c2" path="res://Rooms/Furniture and Traps/triggers/lever/lever.tscn" id="3_xc3cl"]
 [ext_resource type="PackedScene" uid="uid://cwb0heh4qdkh8" path="res://Rooms/Chest.tscn" id="6_ecaoo"]
 [ext_resource type="Script" path="res://Characters/npcs/animals/animal_to_rescue.gd" id="7_hhsk5"]
+[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="8_v4qvy"]
 
 [node name="RabbitRescueRoom" instance=ExtResource("1_ikldy")]
 
@@ -71,3 +72,12 @@ position = Vector2(201, 34)
 position = Vector2(172, 32)
 script = ExtResource("7_hhsk5")
 animal = 1
+
+[node name="TikiTorch" parent="." index="12" instance=ExtResource("8_v4qvy")]
+position = Vector2(119, 208)
+
+[node name="TikiTorch2" parent="." index="13" instance=ExtResource("8_v4qvy")]
+position = Vector2(282, 208)
+
+[node name="TikiTorch3" parent="." index="14" instance=ExtResource("8_v4qvy")]
+position = Vector2(218, 37)
