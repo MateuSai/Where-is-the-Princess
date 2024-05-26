@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://xvaekjyf4uxl" path="res://Characters/npcs/NPC.tscn" id="1_y5y3s"]
 [ext_resource type="Texture2D" uid="uid://bpo61641t3ks0" path="res://Art/animals/cat/cat_black_0.png" id="2_8b26p"]
-[ext_resource type="Script" path="res://Characters/npcs/animals/cat.gd" id="2_x5xjj"]
+[ext_resource type="Script" path="res://Characters/npcs/animals/black_cat/cat.gd" id="2_x5xjj"]
 [ext_resource type="Texture2D" uid="uid://brebnmv5exfw2" path="res://Art/animals/cat/cat_black_1.png" id="3_yr7fj"]
 [ext_resource type="Texture2D" uid="uid://cxn81ihnj82be" path="res://Art/animals/cat/cat_black_2.png" id="4_dsdrf"]
 [ext_resource type="Texture2D" uid="uid://bv2o77amj222u" path="res://Art/animals/cat/cat_black_3.png" id="5_1c2p1"]

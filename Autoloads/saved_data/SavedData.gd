@@ -449,8 +449,15 @@ func add_player_times_killed(killed_by: String) -> void:
 	last_time_killed_by = killed_by
 	statistics.add_player_times_killed()
 
+func rescue_animal(animal: Data.AnimalsToRescue) -> void:
+	data.rescue_animal(animal)
+	add_progress_to_achievement(Achievements.Achievement.rescue_all_animals, 1)
+
 func complete_achievement(achievement: Achievements.Achievement) -> void:
 	achievements.complete_achievement(achievement)
+
+func add_progress_to_achievement(achievement: Achievements.Achievement, amount: int) -> void:
+	achievements.add_progress_to_achievement(achievement, amount)
 
 func _print_info_that_may_be_useful() -> void:
 	var data_dic: Dictionary = {

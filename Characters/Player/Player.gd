@@ -451,6 +451,8 @@ func can_pick_up_weapon(weapon: Weapon) -> bool:
 	return weapons.can_pick_up_weapon(weapon)
 
 func _on_died() -> void:
+	if life_component.last_damage_dealer_id == "water":
+		SavedData.complete_achievement(Achievements.Achievement.drown)
 	SavedData.add_player_times_killed(life_component.last_damage_dealer_id)
 	SavedData.add_enemy_player_kill((life_component as PlayerLifeComponent).last_damage_dealer_id)
 

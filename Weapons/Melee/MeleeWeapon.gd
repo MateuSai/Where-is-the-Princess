@@ -123,7 +123,7 @@ func _throw_body_entered_hitbox(body: Node2D) -> void:
 		return
 
 	if body.get_node_or_null("LifeComponent") != null:
-		hitbox._on_body_entered(body)
+		hitbox._on_body_shape_entered((body as PhysicsBody2D).get_rid(), body, 0, 0)
 		bodies_pierced += 1
 		if bodies_pierced < piercing:
 			return # We don't stop the weapon yet
@@ -137,7 +137,7 @@ func _go_back_to_before_throw_state() -> void:
 	hitbox.get_node("CollisionShape2D").set_deferred("disabled", true)
 	hitbox.set_collision_mask_value(1, false) # Para que NO pueda colisionar con paredes
 	hitbox.body_entered.disconnect(_throw_body_entered_hitbox)
-	hitbox.body_entered.connect(hitbox._on_body_entered)
+	hitbox.body_shape_entered.connect(hitbox._on_body_shape_entered)
 	hitbox.area_entered.disconnect(_throw_body_entered_hitbox)
 	hitbox.area_entered.connect(hitbox._on_area_entered)
 	set_physics_process(false)
