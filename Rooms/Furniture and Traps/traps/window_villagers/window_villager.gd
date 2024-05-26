@@ -26,7 +26,7 @@ func _ready() -> void:
 		frame_coords.x = 1
 
 	house_shape_detector.body_shape_entered.connect(func(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-		#Log.debug()
+		Log.debug("Body: " + str(body))
 		Log.debug(name + ": " + "   Body name: " + body.name + "  rid: " + str(body_rid))
 		if body is TileMap:
 			house_rid=body_rid
