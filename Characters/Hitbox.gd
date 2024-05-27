@@ -86,7 +86,7 @@ func _loop_and_collide(entity_target: Node2D) -> void:
 	timer.stop()
 
 func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
-	Log.debug("Hitbox collided with rid: " + str(body_rid) + "   exclude_rid: " + str(exclude_rid))
+	#Log.debug("Hitbox collided with rid: " + str(body_rid) + "   exclude_rid: " + str(exclude_rid))
 
 	if exclude_rid.has(body_rid):
 		return

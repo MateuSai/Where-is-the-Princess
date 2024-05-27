@@ -6,7 +6,7 @@ const TILE_SIZE: int = 16
 const MIN_SEPARATION_BETWEEN_ENTRIES: int = TILE_SIZE * 2
 static var ATLAS_ID: int
 
-const FLOOR_TILE_COORDS: Array[Vector2i] = [Vector2i(3, 1), Vector2i(5, 2), Vector2i(5, 3), Vector2i(0, 2), Vector2i(0, 3), Vector2i(7, 2), Vector2i(7, 3)]
+var FLOOR_TILE_COORDS: Array[Vector2i] = [Vector2i(3, 1), Vector2i(5, 2), Vector2i(5, 3), Vector2i(0, 2), Vector2i(0, 3), Vector2i(7, 2), Vector2i(7, 3)]
 var CORRIDOR_FLOOR_TILE_COORDS: Array[Vector2i]
 const FULL_WALL_COORDS: Array[Vector2i] = [Vector2i(6, 4), Vector2i(7, 4), Vector2i(8, 4), Vector2i(6, 5), Vector2i(7, 5), Vector2i(8, 5)]
 const UPPER_WALL_COOR: Vector2i = Vector2i(2, 7)
@@ -78,6 +78,8 @@ func _ready() -> void:
 	corridor_tile_map = get_node("CorridorTileMap")
 
 	ATLAS_ID = biome_conf.corridor_atlas_id
+	if not biome_conf.floor_tiles_coord.is_empty():
+		FLOOR_TILE_COORDS = int_arr_to_vec_array(biome_conf.floor_tiles_coord)
 	if not biome_conf.corridor_floor_tiles_coor.is_empty():
 		CORRIDOR_FLOOR_TILE_COORDS = int_arr_to_vec_array(biome_conf.corridor_floor_tiles_coor)
 	else:
@@ -527,6 +529,7 @@ func _create_corridors() -> bool:
 			corridor_tile_map.erase_cell(1, cell_pos + Vector2i.UP)
 			corridor_tile_map.set_cell(0, cell_pos + Vector2i.UP, ATLAS_ID, FULL_WALL_COORDS[randi() % FULL_WALL_COORDS.size()])
 
+	Log.debug("Floor tiles: " + str(FLOOR_TILE_COORDS))
 	var entry_cells: Array[Vector2i] = []
 	for room: DungeonRoom in rooms:
 		for dir: DungeonRoom.EntryDirection in [DungeonRoom.EntryDirection.LEFT, DungeonRoom.EntryDirection.UP, DungeonRoom.EntryDirection.RIGHT, DungeonRoom.EntryDirection.DOWN]:

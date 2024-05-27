@@ -399,6 +399,7 @@ func mark_entry_as_used(entry: Node) -> void:
 		used_entries.push_back(entry)
 
 func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
+	Log.debug(name + " adding doors and walls... Used entries: " + str(used_entries))
 	for dir: EntryDirection in [EntryDirection.LEFT, EntryDirection.RIGHT]:
 		for entry: Node2D in entries[dir].get_children():
 			if entry in used_entries:
