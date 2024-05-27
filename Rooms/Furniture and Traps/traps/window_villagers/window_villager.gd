@@ -12,7 +12,7 @@ const PROJECTILE_SPEED: int = 120
 		row = new_row
 		frame_coords.y = row
 
-var house_rid: RID
+var rids_to_avoid: Array[RID] = []
 
 @onready var room: DungeonRoom = owner
 
@@ -25,22 +25,26 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		frame_coords.x = 1
 
+	animation_player.animation_finished.connect(_on_animation_finished)
+	cooldown_timer.timeout.connect(func() -> void:
+		var dis: Vector2=Globals.player.global_position - throw_position.global_position
+		if dis.y > 0 and dis.length() <= RANGE:
+			animation_player.play("throw")
+		else:
+			cooldown_timer.start(randf_range(0.8, 3.0))
+	)
+
 	house_shape_detector.body_shape_entered.connect(func(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 		Log.debug("Body: " + str(body))
 		Log.debug(name + ": " + "   Body name: " + body.name + "  rid: " + str(body_rid))
 		if body is TileMap:
-			house_rid=body_rid
+			rids_to_avoid.push_back(body_rid)
 	)
 
-	room.player_entered.connect(func() -> void:
-		animation_player.animation_finished.connect(_on_animation_finished)
-		cooldown_timer.timeout.connect(func() -> void:
-			var dis: Vector2=Globals.player.global_position - throw_position.global_position
-			if dis.y > 0 and dis.length() <= RANGE:
-				animation_player.play("throw")
-			else:
-				cooldown_timer.start(randf_range(0.8, 3.0))
-		)
+	room.closed.connect(func() -> void:
+		#(house_shape_detector.get_node("CollisionShape2D")).disabled=true
+		#(house_shape_detector.get_node("CollisionShape2D")).disabled=false
+
 		cooldown_timer.start(randf_range(2.0, 4.0))
 	)
 	room.cleared.connect(queue_free)
@@ -52,7 +56,7 @@ func _throw() -> void:
 	var dis: Vector2 = Globals.player.global_position - throw_position.global_position
 
 	var projectile: Projectile = POSSIBLE_PROJECTILES[randi() % POSSIBLE_PROJECTILES.size()].instantiate()
-	projectile.exclude_rid.push_back(house_rid)
+	projectile.exclude_rid.append_array(rids_to_avoid)
 	projectile.z_index += 1
 	get_tree().current_scene.add_child(projectile)
 	projectile.launch(throw_position.global_position, dis.normalized(), PROJECTILE_SPEED)

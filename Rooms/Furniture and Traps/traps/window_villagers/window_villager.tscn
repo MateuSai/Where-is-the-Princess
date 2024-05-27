@@ -54,8 +54,9 @@ _data = {
 "throw": SubResource("Animation_7lmwm")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_glinj"]
-radius = 2.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bglxe"]
+radius = 6.0
+height = 14.0
 
 [node name="WindowVillager" type="Sprite2D"]
 z_index = 1
@@ -81,5 +82,5 @@ one_shot = true
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HouseShapeDetector"]
-position = Vector2(0, 5)
-shape = SubResource("CircleShape2D_glinj")
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_bglxe")
