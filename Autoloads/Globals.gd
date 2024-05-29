@@ -132,7 +132,7 @@ func _ready() -> void:
 	debug = OS.get_cmdline_user_args().has("--debug")
 
 	if OS.get_cmdline_user_args().has("--skip-splash-and-menu"):
-		get_tree().change_scene_to_file("res://Game.tscn")
+		get_tree().call_deferred("change_scene_to_file", "res://Game.tscn")
 		#SceneTransistor.start_transition_to("res://Game.tscn")
 
 	var enemies_folder: DirAccess = DirAccess.open(Enemy.ENEMIES_FOLDER_PATH)

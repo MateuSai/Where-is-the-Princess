@@ -943,15 +943,21 @@ func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_
 #				const MIN_TILES_TO_MAKE_DESVIATION: int = 2
 				var dis: float = id_entry_position.y - connection_with_entry_position.y
 				var center: int = floor((dis) / 2.0)
+				var straight_connection: bool = false
 
-				# print(dis)
-				if abs(dis) < TILE_SIZE * 5 or (directions[0] == DungeonRoom.EntryDirection.UP and id_entry_position.y < connection_with_entry_position.y) or (directions[0] == DungeonRoom.EntryDirection.DOWN and id_entry_position.y > connection_with_entry_position.y):
+				if floor(id_entry_position.x / TILE_SIZE) == floor(connection_with_entry_position.x / TILE_SIZE):
+					Log.debug("_check_entry_positions_vertical_corridor: both entries are at the same horizontal position")
+					straight_connection = true
+				if (abs(dis) < TILE_SIZE * 5 and not straight_connection) or (directions[0] == DungeonRoom.EntryDirection.UP and id_entry_position.y < connection_with_entry_position.y) or (directions[0] == DungeonRoom.EntryDirection.DOWN and id_entry_position.y > connection_with_entry_position.y):
 					continue
 
-				vertical_corridor_1_rect = Rect2(connection_with_entry_position, Vector2(TILE_SIZE * 4, center)).abs()
-				vertical_corridor_2_rect = Rect2(id_entry_position, Vector2(TILE_SIZE * 4, -center)).abs()
-				#vertical_corridor_2_rect = Rect2(id_entry_position, Vector2(TILE_SIZE * 4, dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1)).abs()
-				horizontal_corridor_rect = Rect2(connection_with_entry_position + Vector2.DOWN * center + Vector2.UP * TILE_SIZE * 2, Vector2(id_entry_position.x - connection_with_entry_position.x, TILE_SIZE * 3)).abs()
+				if straight_connection:
+					vertical_corridor_rect = Rect2(connection_with_entry_position, Vector2(TILE_SIZE * 4, dis)).abs()
+				else:
+					vertical_corridor_1_rect = Rect2(connection_with_entry_position, Vector2(TILE_SIZE * 4, center)).abs()
+					vertical_corridor_2_rect = Rect2(id_entry_position, Vector2(TILE_SIZE * 4, -center)).abs()
+					#vertical_corridor_2_rect = Rect2(id_entry_position, Vector2(TILE_SIZE * 4, dis - center - MIN_TILES_TO_MAKE_DESVIATION + 1)).abs()
+					horizontal_corridor_rect = Rect2(connection_with_entry_position + Vector2.DOWN * center + Vector2.UP * TILE_SIZE * 2, Vector2(id_entry_position.x - connection_with_entry_position.x, TILE_SIZE * 3)).abs()
 
 				for room: DungeonRoom in rooms:
 					#if room == rooms[ids[0]] or room == rooms[ids[1]]:
@@ -964,13 +970,21 @@ func _check_entry_positions_vertical_corridor(id: int, connection_with: int, id_
 						queue_redraw()
 						await get_tree().create_timer(0.6).timeout
 
-					if (room != rooms[ids[1]] and room_rect.intersects(vertical_corridor_1_rect)):
-						connection_possible = false
-					elif (room != rooms[ids[0]] and room_rect.intersects(vertical_corridor_2_rect)):
-						connection_possible = false
-					elif room_rect.intersects(horizontal_corridor_rect):
-					#if (room_rect.intersects(vertical_corridor_1_rect)) or (room_rect.intersects(vertical_corridor_2_rect)) or room_rect.intersects(horizontal_corridor_rect):
-						connection_possible = false
+					if straight_connection:
+						if room != rooms[ids[0]] and room != rooms[ids[1]] and room_rect.intersects(vertical_corridor_rect):
+							connection_possible = false
+							break
+					else:
+						if (room != rooms[ids[1]] and room_rect.intersects(vertical_corridor_1_rect)):
+							connection_possible = false
+							break
+						elif (room != rooms[ids[0]] and room_rect.intersects(vertical_corridor_2_rect)):
+							connection_possible = false
+							break
+						elif room_rect.intersects(horizontal_corridor_rect):
+						#if (room_rect.intersects(vertical_corridor_1_rect)) or (room_rect.intersects(vertical_corridor_2_rect)) or room_rect.intersects(horizontal_corridor_rect):
+							connection_possible = false
+							break
 
 				if connection_possible:
 					return Connection.new(entry, other_entry, Connection.Type.VERTICAL, (dis + abs(entry.global_position.x - other_entry.global_position.x)) / TILE_SIZE)
@@ -998,13 +1012,21 @@ func _check_entry_positions_horizontal_corridor(id: int, connection_with: int, i
 				const MIN_TILES_TO_MAKE_DESVIATION: int = 2
 				var dis: float = id_entry_position.x - connection_with_entry_position.x
 				var center: int = floor((dis) / 2.0)
+				var straight_connection: bool = false
 
-				if abs(dis) < TILE_SIZE * 4 or (directions[0] == DungeonRoom.EntryDirection.LEFT and id_entry_position.x < connection_with_entry_position.x) or (directions[0] == DungeonRoom.EntryDirection.RIGHT and id_entry_position.x > connection_with_entry_position.x):
+				# Is the the rooms are too close, connection is not possible. But we have an exception: if the rooms are at the same height, then the connection is possible since we don't need the extra space needed to make the turn
+				if floor(id_entry_position.y / TILE_SIZE) == floor(connection_with_entry_position.y / TILE_SIZE):
+					Log.debug("_check_entry_positions_horizontal_corridor: both entries are at the same vertical position")
+					straight_connection = true
+				if (abs(dis) < TILE_SIZE * 4 and not straight_connection) or (directions[0] == DungeonRoom.EntryDirection.LEFT and id_entry_position.x < connection_with_entry_position.x) or (directions[0] == DungeonRoom.EntryDirection.RIGHT and id_entry_position.x > connection_with_entry_position.x):
 					continue
 
-				horizontal_corridor_1_rect = Rect2(connection_with_entry_position + Vector2.UP * TILE_SIZE * 2, Vector2(center, TILE_SIZE * 4))
-				horizontal_corridor_2_rect = Rect2(connection_with_entry_position if connection_with_entry_position.x > id_entry_position.x else id_entry_position, Vector2((dis - center if connection_with_entry_position.x > id_entry_position.x else - dis + center) - (MIN_TILES_TO_MAKE_DESVIATION + 1) * TILE_SIZE, TILE_SIZE * 4))
-				vertical_corridor_rect = Rect2((connection_with_entry_position if connection_with_entry_position.x > id_entry_position.x else id_entry_position) + Vector2.LEFT * center, Vector2(TILE_SIZE * 4, (id_entry_position.y - connection_with_entry_position.y) if connection_with_entry_position.x > id_entry_position.x else (connection_with_entry_position.y - id_entry_position.y)))
+				if straight_connection:
+					horizontal_corridor_rect = Rect2(connection_with_entry_position + Vector2.UP * TILE_SIZE * 2, Vector2(dis, TILE_SIZE * 4))
+				else:
+					horizontal_corridor_1_rect = Rect2(connection_with_entry_position + Vector2.UP * TILE_SIZE * 2, Vector2(center, TILE_SIZE * 4))
+					horizontal_corridor_2_rect = Rect2(connection_with_entry_position if connection_with_entry_position.x > id_entry_position.x else id_entry_position, Vector2((dis - center if connection_with_entry_position.x > id_entry_position.x else - dis + center) - (MIN_TILES_TO_MAKE_DESVIATION + 1) * TILE_SIZE, TILE_SIZE * 4))
+					vertical_corridor_rect = Rect2((connection_with_entry_position if connection_with_entry_position.x > id_entry_position.x else id_entry_position) + Vector2.LEFT * center, Vector2(TILE_SIZE * 4, (id_entry_position.y - connection_with_entry_position.y) if connection_with_entry_position.x > id_entry_position.x else (connection_with_entry_position.y - id_entry_position.y)))
 
 				for room: DungeonRoom in rooms:
 #					if room == rooms[ids[0]] or room == rooms[ids[1]]:
@@ -1016,8 +1038,16 @@ func _check_entry_positions_horizontal_corridor(id: int, connection_with: int, i
 					if debug_check_entry_positions:
 						queue_redraw()
 						await get_tree().create_timer(0.6).timeout
-					if (room != rooms[ids[1]] and room_rect.intersects(horizontal_corridor_1_rect.abs())) or (room != rooms[ids[0]] and room_rect.intersects(horizontal_corridor_2_rect.abs())) or room_rect.intersects(vertical_corridor_rect.abs()):
-						connection_possible = false
+
+					if straight_connection:
+						if room != rooms[ids[0]] and room != rooms[ids[1]] and room_rect.intersects(horizontal_corridor_rect.abs()):
+							connection_possible = false
+							break
+					else:
+						if (room != rooms[ids[1]] and room_rect.intersects(horizontal_corridor_1_rect.abs())) or (room != rooms[ids[0]] and room_rect.intersects(horizontal_corridor_2_rect.abs())) or room_rect.intersects(vertical_corridor_rect.abs()):
+							Log.debug("_check_entry_positions_horizontal_corridor: connection not possible because room " + room.name + " obstructs the path")
+							connection_possible = false
+							break
 
 				if connection_possible:
 					return Connection.new(entry, other_entry, Connection.Type.HORIZONTAL, (dis + abs(entry.global_position.y - other_entry.global_position.y)) / TILE_SIZE)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=77 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -50,6 +50,7 @@
 [ext_resource type="Texture2D" uid="uid://dloouft4djv72" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_pestaña_enemies_ui_hover.png" id="30_xla5k"]
 [ext_resource type="Texture2D" uid="uid://cbj7lfujwbpfd" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/pause_menu_ui_9-patch.png" id="38_uvlqo"]
 [ext_resource type="Script" path="res://ui/notification_container.gd" id="43_c88jh"]
+[ext_resource type="Script" path="res://ui/menu_button.gd" id="44_la8xv"]
 [ext_resource type="Script" path="res://ui/biome_banner.gd" id="50_gojcj"]
 [ext_resource type="Texture2D" uid="uid://cdc7lhfsxohm6" path="res://icon.png" id="52_cslg2"]
 
@@ -247,7 +248,7 @@ grow_vertical = 2
 theme = ExtResource("4_usvbv")
 theme_override_constants/side_margin = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6orv6")
-current_tab = 2
+current_tab = 3
 script = ExtResource("6_y3275")
 
 [node name="MAP" type="MarginContainer" parent="UI/MenuTabContainer"]
@@ -377,6 +378,7 @@ script = ExtResource("16_tq616")
 
 [node name="ENCYCLOPEDIA" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 script = ExtResource("17_k4k0u")
 
@@ -491,7 +493,6 @@ size_flags_horizontal = 3
 [node name="OPTIONS" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
 process_mode = 2
-visible = false
 layout_mode = 2
 mouse_filter = 2
 script = ExtResource("11_7bikg")
@@ -517,6 +518,12 @@ script = ExtResource("15_2ikhu")
 layout_mode = 2
 text = "SETTINGS"
 script = ExtResource("16_gpdwi")
+
+[node name="MenuButton" type="Button" parent="UI/MenuTabContainer/OPTIONS/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "MENU"
+alignment = 0
+script = ExtResource("44_la8xv")
 
 [node name="QuitButton" type="Button" parent="UI/MenuTabContainer/OPTIONS/PanelContainer/VBoxContainer"]
 layout_mode = 2

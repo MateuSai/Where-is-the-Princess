@@ -53,8 +53,6 @@ func _ready() -> void:
 					item_path = SavedData.get_random_available_armor_path(item_quality)
 			_:
 				push_error("Invalid chest type")
-	else:
-		item_path = load(item_path).new().get_quality()
 
 	animated_sprite.sprite_frames.clear_all()
 	animated_sprite.sprite_frames.add_frame("default", FRAMES[type][item_quality][0])

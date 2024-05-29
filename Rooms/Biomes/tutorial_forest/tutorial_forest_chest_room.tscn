@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://kwd7c65m85ww"]
+
+[ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_k1jw3"]
+[ext_resource type="PackedScene" uid="uid://cwb0heh4qdkh8" path="res://Rooms/Chest.tscn" id="2_nqaos"]
+[ext_resource type="Script" path="res://Rooms/Biomes/tutorial_forest/tutorial_forest_chest_room.gd" id="2_yati5"]
+[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="3_uidh6"]
+[ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="3_vuq5k"]
+
+[node name="TutorialForestChestRoom" instance=ExtResource("1_k1jw3")]
+script = ExtResource("2_yati5")
+
+[node name="TileMap" parent="." index="0"]
+layer_0/tile_data = PackedInt32Array(196611, 524288, 2, 196612, 524288, 3, 196613, 196608, 2, 196614, 393216, 3, 196615, 393216, 2, 196616, 393216, 1, 196617, 458752, 1, 262153, 262144, 2, 262154, 131072, 2, 327690, 458752, 3, 393226, 327680, 2, 393225, 262144, 3, 393224, 262144, 3, 393223, 262144, 3, 393222, 262144, 3, 393221, 262144, 3, 393220, 262144, 3, 327683, 458752, 3, 262147, 0, 3, 262148, 262144, 2, 262149, 262144, 2, 262150, 262144, 2, 262151, 262144, 2, 262152, 262144, 2, 327688, 458752, 2, 327686, 327680, 2, 458761, 524288, 2, 458760, 524288, 1, 458759, 393216, 1, 458758, 524288, 1, 327687, 327680, 3, 327689, 458752, 3, 327684, 327680, 2, 327685, 458752, 3, 458756, 393216, 2, 458755, 458752, 1, 393218, 458752, 2, 524295, 393216, 1, 524294, 393216, 2, 524293, 458752, 1, 458757, 524288, 1, 393219, 262144, 3, 327682, 327680, 2, 327691, 327680, 2, 393227, 458752, 2, 262146, 524288, 5, 131075, 524288, 4, 131076, 524288, 4, 131077, 524288, 4, 131078, 524288, 5, 131079, 393216, 4, 131080, 524288, 5, 131081, 458752, 5, 196618, 458752, 5, 262155, 524288, 4, 196619, 65536, 7, 131082, 65536, 7, 196610, 327680, 7, 131083, 196608, 4, 65546, 196608, 4, 65538, 262144, 4, 65539, 131072, 7, 65540, 131072, 7, 65541, 131072, 7, 65542, 131072, 7, 65543, 131072, 7, 65544, 131072, 7, 65545, 131072, 7)
+layer_1/tile_data = PackedInt32Array(458762, 196608, 6, 524296, 196608, 6, 524292, 262144, 6, 458754, 262144, 6, 393226, 65536, 6, 458760, 65536, 6, 458756, 327680, 6, 458755, 131072, 6, 524293, 131072, 6, 524294, 131072, 6, 524295, 131072, 6, 458761, 131072, 6, 131074, 262144, 5)
+layer_2/tile_data = PackedInt32Array(196611, 589824, 3, 196612, 589824, 0, 262147, 393216, 8, 196613, 131072, 8, 196615, 0, 8, 196614, 655360, 6, 196616, 589824, 6, 196617, 589824, 6, 262154, 0, 8, 262153, 589824, 0, 458761, 262144, 8, 524295, 589824, 6, 524293, 655360, 6, 524294, 262144, 8, 458757, 589824, 6, 458756, 393216, 8, 458760, 393216, 8, 458755, 589824, 3)
+layer_3/tile_data = PackedInt32Array(393218, 327680, 6, 393227, 131072, 6)
+
+[node name="VerticalEntry" parent="Entries/Left" index="0" instance=ExtResource("3_vuq5k")]
+position = Vector2(39, 83)
+
+[node name="VerticalEntry" parent="Entries/Right" index="0" instance=ExtResource("3_vuq5k")]
+position = Vector2(185, 85)
+
+[node name="TeleportPosition" parent="." index="8"]
+position = Vector2(86, 88)
+
+[node name="Chest" parent="." index="10" instance=ExtResource("2_nqaos")]
+position = Vector2(108, 70)
+item_path = "res://Weapons/Melee/branch/branch.tscn"
+
+[node name="TikiTorch" parent="." index="11" instance=ExtResource("3_uidh6")]
+position = Vector2(83, 69)
+
+[node name="TikiTorch2" parent="." index="12" instance=ExtResource("3_uidh6")]
+position = Vector2(132, 68)
