@@ -26,7 +26,8 @@ position = Vector2(86, 88)
 
 [node name="Chest" parent="." index="10" instance=ExtResource("2_nqaos")]
 position = Vector2(108, 70)
-item_path = "res://Weapons/Melee/branch/branch.tscn"
+item_path = "res://Weapons/Melee/WarriorSword/WarriorSword.tscn"
+type = 1
 
 [node name="TikiTorch" parent="." index="11" instance=ExtResource("3_uidh6")]
 position = Vector2(83, 69)
