@@ -123,7 +123,7 @@ func _throw_body_entered_hitbox(body: Node2D) -> void:
 		return
 
 	if body.get_node_or_null("LifeComponent") != null:
-		hitbox._on_body_shape_entered((body as PhysicsBody2D).get_rid(), body, 0, 0)
+		hitbox._on_body_shape_entered((body as PhysicsBody2D).get_rid() if body is PhysicsBody2D else RID(), body, 0, 0)
 		bodies_pierced += 1
 		if bodies_pierced < piercing:
 			return # We don't stop the weapon yet

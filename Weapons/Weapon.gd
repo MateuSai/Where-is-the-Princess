@@ -194,7 +194,7 @@ func _on_condition_changed(new_condition: float) -> void:
 		condition_changed.emit(self, new_condition)
 	else:
 		if new_condition <= 0:
-			destroy()
+			call_deferred("destroy")
 
 func destroy() -> void:
 	var sprite_rect: Rect2 = weapon_sprite.get_rect()
