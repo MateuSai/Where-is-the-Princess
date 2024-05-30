@@ -453,6 +453,9 @@ func rescue_animal(animal: Data.AnimalsToRescue) -> void:
 	data.rescue_animal(animal)
 	add_progress_to_achievement(Achievements.Achievement.rescue_all_animals, 1)
 
+func rescue_npc(npc_id: String) -> void:
+	data.rescue_npc(npc_id)
+
 func complete_achievement(achievement: Achievements.Achievement) -> void:
 	achievements.complete_achievement(achievement)
 

@@ -15,6 +15,11 @@ var say_something_timer: Timer
 func _ready() -> void:
 	var upper_case_id: String = character.id.to_upper()
 	Log.debug(upper_case_id)
+
+	if SavedData.data.is_npc_rescued(character.id):
+		Log.info("Removing character in danger because it has already been rescued")
+		queue_free()
+
 	var i: int = 1
 	while true:
 		var dialogue_id: String = "%s_ASKING_FOR_HELP_%d" % [upper_case_id, i]
@@ -98,7 +103,8 @@ func _on_jail_interacted() -> void:
 		static_body.queue_free()
 		$JailBack.queue_free()
 		$JailFront.queue_free()
-		SavedData.add_ignored_room(room.scene_file_path)
+		SavedData.rescue_npc(character.id)
+		#SavedData.add_ignored_room(room.scene_file_path)
 		#character.interact_area.player_interacted.connect(_on_player_interacted)
 		character.dialogue_texts = dialogues_after_saving
 		character.interact_area.player_interacted.connect(character._on_player_interacted)
