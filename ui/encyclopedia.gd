@@ -6,6 +6,7 @@ enum {
 	ITEMS,
 	ENEMIES,
 	BIOMES,
+	ACHIEVEMENTS,
 }
 var last_category: int = -1
 
@@ -158,6 +159,25 @@ func _set_category(new_category: int) -> void:
 					button.disabled = true
 
 			list_container.add_child(vbox)
+		ACHIEVEMENTS:
+			var grid: GridContainer = GridContainer.new()
+			grid.columns = 3
+
+			for achievent_id: String in Achievements.Achievement.keys():
+				var button: Button = Button.new()
+				button.custom_minimum_size = Vector2.ONE * 32
+				#button.text = achievent_id.to_upper()
+				grid.add_child(button)
+				if SavedData.achievements.is_achievement_completed(achievent_id):
+					button.pressed.connect(func() -> void:
+						_clear_details()
+						_show_achievement_details(achievent_id)
+					)
+				else:
+					#button.modulate = Color.BLACK.lightened(0.3)
+					button.disabled = true
+
+			list_container.add_child(grid)
 
 func _clear_details() -> void:
 	for i: int in range(details_vbox.get_child_count() - 1, -1, -1):
@@ -403,6 +423,12 @@ func _show_biome_details(conf: BiomeConf) -> void:
 				#enemies_hflow.add_child(tex)
 				break
 	details_vbox.add_child(enemies_hflow)
+
+func _show_achievement_details(achievement_id: String) -> void:
+	var name_label: Label = Label.new()
+	name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	name_label.text = achievement_id.to_upper()
+	details_vbox.add_child(name_label)
 
 func _create_items_flow_container(items: PackedStringArray) -> HFlowContainer:
 	var flow_container: HFlowContainer = HFlowContainer.new()

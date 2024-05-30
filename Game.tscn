@@ -248,7 +248,7 @@ grow_vertical = 2
 theme = ExtResource("4_usvbv")
 theme_override_constants/side_margin = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6orv6")
-current_tab = 3
+current_tab = 2
 script = ExtResource("6_y3275")
 
 [node name="MAP" type="MarginContainer" parent="UI/MenuTabContainer"]
@@ -378,7 +378,6 @@ script = ExtResource("16_tq616")
 
 [node name="ENCYCLOPEDIA" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 script = ExtResource("17_k4k0u")
 
@@ -431,6 +430,15 @@ icon = ExtResource("28_7eh7l")
 icon_alignment = 2
 
 [node name="BiomesButton" type="Button" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_w6scg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_v8ysw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_hdbdv")
+toggle_mode = true
+icon = ExtResource("28_7eh7l")
+icon_alignment = 2
+
+[node name="AchievementsButton" type="Button" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_w6scg")
 theme_override_styles/hover = SubResource("StyleBoxTexture_v8ysw")
@@ -493,6 +501,7 @@ size_flags_horizontal = 3
 [node name="OPTIONS" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
 process_mode = 2
+visible = false
 layout_mode = 2
 mouse_filter = 2
 script = ExtResource("11_7bikg")

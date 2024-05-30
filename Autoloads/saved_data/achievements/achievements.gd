@@ -14,14 +14,25 @@ enum Achievement {
 }
 
 var achievements: Dictionary = {
-	achievent_int_to_string(Achievement.defeat_boden): false,
-	achievent_int_to_string(Achievement.defeat_necro_tromp): false,
+	achievent_int_to_string(Achievement.defeat_boden): {
+		completed = false
+	},
+	achievent_int_to_string(Achievement.defeat_necro_tromp): {
+		completed = false
+	},
 
-	achievent_int_to_string(Achievement.drown): false,
-	achievent_int_to_string(Achievement.eaten_by_crocodile): false,
-	achievent_int_to_string(Achievement.use_a_crocodile_to_kill_an_enemy): false,
+	achievent_int_to_string(Achievement.drown): {
+		completed = false
+	},
+	achievent_int_to_string(Achievement.eaten_by_crocodile): {
+		completed = false
+	},
+	achievent_int_to_string(Achievement.use_a_crocodile_to_kill_an_enemy): {
+		completed = false
+	},
 
 	achievent_int_to_string(Achievement.rescue_all_animals): {
+		completed = false,
 		current = 0,
 		goal = Data.AnimalsToRescue.size()
 	},
@@ -54,10 +65,13 @@ func save() -> void:
 	Log.err_cond_null(file, "Could not open achievements json save path for write!")
 	file.store_string(JSON.stringify(achievements, "\t"))
 
+func is_achievement_completed(achievement_id: String) -> bool:
+	return achievements[achievement_id].completed
+
 func complete_achievement(achievement: Achievement) -> void:
 	var achievement_id: String = achievent_int_to_string(achievement)
 
-	achievements[achievement_id] = true
+	achievements[achievement_id].completed = true
 	Log.info("Achievement " + achievement_id + " completed!")
 	save()
 
@@ -65,7 +79,7 @@ func add_progress_to_achievement(achievement: Achievement, amount: int) -> void:
 	var achievement_id: String = achievent_int_to_string(achievement)
 
 	achievements[achievement_id].current += amount
-	#if achievements[achievement_id].current >= achievements[achievement_id].goal:
-	#	complete_achievement(achievement)
+	if achievements[achievement_id].current >= achievements[achievement_id].goal:
+		complete_achievement(achievement)
 
 	save()
