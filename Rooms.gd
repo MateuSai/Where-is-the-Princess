@@ -196,6 +196,37 @@ func _get_end_rooms() -> Array[PackedStringArray]:
 
 	return end_rooms
 
+func spawn_rooms_from_disposition() -> void:
+	var disposition_scene: Node2D = load(biome_conf.levels[SavedData.run_stats.level - 1].rooms_disposition).instantiate()
+	add_child(disposition_scene)
+
+	for i: int in range(disposition_scene.get_child_count() - 1, -1, -1):
+		var room: DungeonRoom = disposition_scene.get_child(i)
+		disposition_scene.remove_child(room)
+		add_child(room)
+
+		rooms.push_back(room)
+
+		Log.debug("Iterating over rooms on disposition... Room " + room.name)
+		room.name += "_" + str(rooms.find(room))
+		room.player_entered.connect(func() -> void:
+			Log.debug(room.name + " player_entered. Room id: " + str(room.get_instance_id()))
+			#Log.debug(str(room.get_signal_connection_list("player_entered")))
+			visited_rooms.push_back(room)
+			room_visited.emit(room)
+
+			if debug:
+				(room.get_node("DebugRoomId") as Label).text=str(rooms.find(room))
+		)
+
+	start_room = rooms[0]
+
+	disposition_scene.queue_free()
+
+	var ok: bool = await _create_corridors()
+	if not ok:
+		return
+
 func spawn_rooms() -> void:
 	#print_debug("spawn_rooms started")
 

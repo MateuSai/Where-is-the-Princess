@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://bnlmogyl5d1em"]
+
+[ext_resource type="PackedScene" uid="uid://kwd7c65m85ww" path="res://Rooms/Biomes/tutorial_forest/tutorial_forest_chest_room.tscn" id="1_oharv"]
+[ext_resource type="PackedScene" uid="uid://hi1p1waagvvu" path="res://Rooms/Biomes/tutorial_forest/tutorial_forest_start_room.tscn" id="2_6ut7o"]
+[ext_resource type="PackedScene" uid="uid://dtrwrpv33j743" path="res://Rooms/Biomes/tutorial_forest/tutorial_forest_attack_practice_room.tscn" id="3_5iepb"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_2cl8w"]
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_uqb1a"]
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_obe1f"]
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="TutorialForestRoomsDisposition" type="Node2D"]
+
+[node name="TutorialForestAttackPracticeRoom" parent="." instance=ExtResource("3_5iepb")]
+position = Vector2(608, -192)
+navigation_polygon = SubResource("NavigationPolygon_2cl8w")
+
+[node name="TutorialForestChestRoom" parent="." instance=ExtResource("1_oharv")]
+position = Vector2(480, 64)
+navigation_polygon = SubResource("NavigationPolygon_uqb1a")
+
+[node name="TutorialForestStartRoom" parent="." instance=ExtResource("2_6ut7o")]
+position = Vector2(112, 96)
+navigation_polygon = SubResource("NavigationPolygon_obe1f")

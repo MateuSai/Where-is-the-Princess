@@ -142,6 +142,8 @@ class Level:
 	## If not specified, it will take [member BiomeConf.default_num_special_rooms]
 	var num_special_rooms: int = -1
 
+	var rooms_disposition: String = ""
+
 	var overwrite_start_rooms: Array = [""]
 	var overwrite_combat_rooms: Array = [""]
 	var overwrite_chest_rooms: Array = [""]

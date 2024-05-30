@@ -61,7 +61,10 @@ func _ready() -> void:
 		generation_thread = Thread.new()
 		generation_thread.start(rooms.spawn_rooms)
 	else:
-		rooms.spawn_rooms()
+		if SavedData.get_biome_conf().levels[SavedData.run_stats.level - 1].rooms_disposition.is_empty():
+			rooms.spawn_rooms()
+		else:
+			rooms.spawn_rooms_from_disposition()
 #		generating_dungeon_canvas_layer.hide()
 
 func _init_biome(conf: BiomeConf) -> void:

@@ -35,14 +35,7 @@
 	"default_num_special_rooms": 0,
 	"levels": {
 		"1": {
-			"num_combat_rooms": 1,
-			"num_special_rooms": 0,
-			"overwrite_start_rooms": [
-				"res://Rooms/Biomes/tutorial_forest/tutorial_forest_start_room.tscn"
-			],
-			"overwrite_combat_rooms": [
-				"res://Rooms/Biomes/tutorial_forest/tutorial_forest_chest_room.tscn"
-			]
+			"rooms_disposition": "res://Rooms/Biomes/tutorial_forest/tutorial_forest_rooms_disposition.tscn"
 		}
 	},
 	"music": "",

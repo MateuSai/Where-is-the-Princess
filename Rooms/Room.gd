@@ -52,7 +52,7 @@ signal last_enemy_died(enemy: Enemy)
 ## If this is true, the weapons specified on the biome configuration will be spawned randomly
 @export var _spawn_weapons_on_floor: bool = true
 
-@onready var rooms: Rooms = get_parent()
+@onready var rooms: Rooms = get_tree().current_scene.rooms
 
 @onready var disable_horizontal_separation_steering: bool = SavedData.get_disable_horizontal_separation_steering()
 
@@ -270,7 +270,7 @@ func generate_room_white_image() -> void:
 				if tilemap.get_cell_atlas_coords(layer, tile_cell) == Vector2i( - 1, -1):
 					continue
 				tile_image = tileset_image.get_region(Rect2(tilemap.get_cell_atlas_coords(layer, tile_cell) * Rooms.TILE_SIZE, Vector2(16, 16)))
-				
+
 				for x: int in tile_image.get_width():
 					for y: int in tile_image.get_height():
 						tile_image.set_pixel(x, y, Color.WHITE * tile_image.get_pixel(x, y).a)

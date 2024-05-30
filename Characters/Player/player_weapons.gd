@@ -7,6 +7,7 @@ signal weapon_condition_changed(weapon: Weapon, new_value: float)
 signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
 
 signal normal_attacked()
+signal active_ability_used()
 
 var max_weapons: int = 3
 
@@ -267,6 +268,8 @@ func _on_normal_attack() -> void:
 
 func _on_active_ability() -> void:
 	player.stamina -= current_weapon.data.stamina_to_activate_active_ability
+
+	active_ability_used.emit()
 
 func _on_charge_animation_still_executing() -> void:
 	player.stamina -= 0.7
