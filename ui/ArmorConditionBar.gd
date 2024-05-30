@@ -1,6 +1,6 @@
 class_name ArmorConditionBar extends TextureProgressBar
 
-const ARMOR_SHINE_EFFECT: PackedScene = preload("res://ui/ArmorAbilityShineEffect.tscn")
+const ARMOR_SHINE_EFFECT: PackedScene = preload ("res://ui/ArmorAbilityShineEffect.tscn")
 
 const START_AT_VALUE: int = 29
 
@@ -13,10 +13,8 @@ var current_armor: Armor
 
 @onready var armor_ability_bar: TextureProgressBar = $ArmorAbilityBar
 
-
 func _ready() -> void:
 	player.armor_changed.connect(_on_armor_changed)
-
 
 func _update_armor_condition(new_condition: int) -> void:
 	if is_instance_valid(armor_condition_tween) and armor_condition_tween.is_running():
@@ -25,8 +23,7 @@ func _update_armor_condition(new_condition: int) -> void:
 	armor_condition_tween = create_tween()
 	#print(str(START_AT_VALUE + (new_condition/float(current_armor.max_condition))))
 	#print(str(START_AT_VALUE + (new_condition/float(current_armor.max_condition)) * (100 - START_AT_VALUE)))
-	armor_condition_tween.tween_property(self, "value", START_AT_VALUE + (new_condition/float(current_armor.max_condition)) * (100 - START_AT_VALUE), 1)
-
+	armor_condition_tween.tween_property(self, "value", START_AT_VALUE + (new_condition / float(current_armor.max_condition)) * (100 - START_AT_VALUE), 0.8).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
 
 func _on_armor_changed(new_armor: Armor) -> void:
 	assert(new_armor)
@@ -52,14 +49,11 @@ func _on_armor_changed(new_armor: Armor) -> void:
 	new_armor.ability_used.connect(_on_armor_ability_used)
 	new_armor.ability_effect_ended.connect(_on_armor_ability_effect_ended)
 
-
 func _on_armor_condition_changed(new_condition: int) -> void:
 	_update_armor_condition(new_condition)
 
-
 func _on_armor_ability_used() -> void:
 	armor_ability_bar.value = 0
-
 
 func _on_armor_ability_effect_ended() -> void:
 	armor_ability_tween = create_tween()
