@@ -1,7 +1,5 @@
 class_name HeartRock extends PermanentPassiveItem
 
-var player: Player = null
-
 func _init() -> void:
 	effects = [OnRoomCleared.new([HealPlayer.new(2)]), OnRoomClosed.new([HealPlayer.new(2)])]
 

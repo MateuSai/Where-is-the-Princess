@@ -11,6 +11,10 @@ func _ready() -> void:
 
 	branch.hitbox.collided_with_something.connect(_on_branch_collided_with_something, CONNECT_ONE_SHOT)
 
+	player_entered.connect(func() -> void:
+		Globals.player.weapons.block_throw=false
+	, CONNECT_ONE_SHOT)
+
 func _on_branch_collided_with_something(_body: Node2D) -> void:
 	Log.debug("_on_branch_collided_with_something")
 

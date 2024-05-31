@@ -12,6 +12,7 @@ signal active_ability_used()
 var max_weapons: int = 3
 
 var extra_damage_when_weapon_breaks: int = 0
+var block_throw: bool = false
 
 enum {UP, DOWN}
 
@@ -69,7 +70,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			_switch_weapon(UP)
 		elif event.is_action_released("ui_next_weapon"):
 			_switch_weapon(DOWN)
-		elif event.is_action_pressed("ui_drop_weapon") and current_weapon.get_index() != 0:
+		elif event.is_action_pressed("ui_drop_weapon") and current_weapon.get_index() != 0 and not block_throw:
 			_throw_or_drop_weapon()
 
 func move(direction: Vector2) -> void:

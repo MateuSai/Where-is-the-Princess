@@ -44,6 +44,7 @@ const AIM_MIN_DISTANCE: int = 45
 const AIM_MULTIPLIER: int = 140
 var previous_aim_pos: Vector2 = Vector2.ZERO
 
+var extra_water_damage: int = 0
 var throw_piercing: int = 1
 var extra_fire_damage: int = 0
 var attract_souls_even_on_combat: bool = false
@@ -160,10 +161,12 @@ func _ready() -> void:
 	jump_animation_player.animation_finished.connect(func(anim_name: String) -> void:
 		if anim_name == "jump":
 			if is_on_water():
-				var splash: Sprite2D=load("res://effects/water_splash/water_splash.tscn").instantiate()
+				var splash: Node2D=load("res://effects/water_splash/water_splash.tscn").instantiate()
 				splash.position=global_position
 				get_tree().current_scene.add_child(splash)
-				life_component.take_damage(1, Vector2.ZERO, 0, null, null, "water")
+				var water_damage: int=1 + extra_water_damage
+				if water_damage:
+					life_component.take_damage(1 + extra_water_damage, Vector2.ZERO, 0, null, null, "water")
 				position=position_before_jumping
 	)
 
@@ -425,7 +428,7 @@ func _dash_or_jump() -> void:
 		jump()
 	else:
 		_dash()
-	
+
 	dashed.emit(dash_time)
 
 func add_rotating_item(node: Node2D) -> void:
@@ -557,7 +560,7 @@ func start_dialogues(dialogues: Array[String]) -> void:
 
 		await dialogue_box.finished_displaying_text
 		await get_tree().create_timer(2.5, false).timeout
-	
+
 	dialogue_tween = create_tween()
 	dialogue_tween.tween_property(dialogue_box, "modulate:a", 0.0, 1).set_delay(3)
 	await dialogue_tween.finished
