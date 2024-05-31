@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqrw86nt8xw8e"]
+
+[ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_yw3vq"]
+[ext_resource type="Script" path="res://Rooms/Biomes/tutorial_forest/tutorial_forest_armor_tutorial_room.gd" id="2_2ergv"]
+
+[node name="TutorialForestArmorTutorialRoom" instance=ExtResource("1_yw3vq")]
+script = ExtResource("2_2ergv")

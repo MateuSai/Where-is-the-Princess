@@ -166,7 +166,7 @@ func _ready() -> void:
 				get_tree().current_scene.add_child(splash)
 				var water_damage: int=1 + extra_water_damage
 				if water_damage:
-					life_component.take_damage(1 + extra_water_damage, Vector2.ZERO, 0, null, null, "water")
+					life_component.take_damage(water_damage, Vector2.ZERO, 0, null, null, "water")
 				position=position_before_jumping
 	)
 

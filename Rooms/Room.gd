@@ -487,8 +487,8 @@ func _on_enemy_killed(enemy: Enemy) -> void:
 	if num_enemies == 0:
 		last_enemy_died.emit(enemy)
 		await get_tree().process_frame
-		cleared.emit()
-		Globals.room_cleared.emit()
+		#cleared.emit()
+		#Globals.room_cleared.emit()
 		_open_doors()
 
 func _open_doors() -> void:
@@ -496,12 +496,17 @@ func _open_doors() -> void:
 		if door.open_after_combat:
 			door.open()
 
+	cleared.emit()
+	Globals.room_cleared.emit()
+
 func _close_entrance() -> void:
 	for door: Door in door_container.get_children():
 		door.close()
 #	for entry_position in entrance.get_children():
 #		tilemap.set_cell(1, tilemap.local_to_map(entry_position.position), 1, Vector2i.ZERO)
 #		tilemap.set_cell(1, tilemap.local_to_map(entry_position.position) + Vector2i.DOWN, 2, Vector2i.ZERO)
+	closed.emit()
+	Globals.room_closed.emit()
 
 func remove_enemies_and_open_doors() -> void:
 	for i: int in range(enemy_positions_container.get_child_count() - 1, -1, -1):
@@ -550,8 +555,8 @@ func _on_player_entered_room() -> void:
 		if num_enemies > 0:
 			_close_entrance()
 			_spawn_enemies()
-			closed.emit()
-			Globals.room_closed.emit()
+			#closed.emit()
+			#Globals.room_closed.emit()
 
 			#var tween: Tween = create_tween()
 			#tween.tween_property(black_tilemap, "modulate:a", 0.0, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
