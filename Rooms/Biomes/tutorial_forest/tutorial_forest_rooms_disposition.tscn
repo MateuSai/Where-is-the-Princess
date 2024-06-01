@@ -1,12 +1,19 @@
-[gd_scene load_steps=11 format=3 uid="uid://bnlmogyl5d1em"]
+[gd_scene load_steps=13 format=3 uid="uid://bnlmogyl5d1em"]
 
 [ext_resource type="PackedScene" uid="uid://kwd7c65m85ww" path="res://Rooms/Biomes/tutorial_forest/tutorial_forest_chest_room.tscn" id="1_oharv"]
 [ext_resource type="PackedScene" uid="uid://hi1p1waagvvu" path="res://Rooms/Biomes/tutorial_forest/tutorial_forest_start_room.tscn" id="2_6ut7o"]
+[ext_resource type="PackedScene" uid="uid://b5meuddfjnc1c" path="res://Rooms/Biomes/tutorial_forest/tutorial_forest_jump_tutorial_room.tscn" id="2_ki1vg"]
 [ext_resource type="PackedScene" uid="uid://dtrwrpv33j743" path="res://Rooms/Biomes/tutorial_forest/tutorial_forest_attack_practice_room.tscn" id="3_5iepb"]
 [ext_resource type="PackedScene" uid="uid://br2c58c30omn4" path="res://Rooms/Biomes/tutorial_forest/tutorial_forest_throw_practice_room.tscn" id="4_kfj7i"]
-[ext_resource type="PackedScene" uid="uid://b5meuddfjnc1c" path="res://Rooms/Biomes/tutorial_forest/tutorial_forest_jump_tutorial_room.tscn" id="5_n2c0a"]
+[ext_resource type="PackedScene" uid="uid://dqrw86nt8xw8e" path="res://Rooms/Biomes/tutorial_forest/tutorial_forest_armor_tutorial_room.tscn" id="5_n2c0a"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_w34e1"]
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_duq1u"]
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_u6grl"]
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_2cl8w"]
@@ -18,14 +25,19 @@ source_geometry_group_name = &"navigation_polygon_source_group"
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_obe1f"]
 source_geometry_group_name = &"navigation_polygon_source_group"
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_u6grl"]
-source_geometry_group_name = &"navigation_polygon_source_group"
-
 [node name="TutorialForestRoomsDisposition" type="Node2D"]
 
-[node name="TutorialForestJumpTutorialRoom" parent="." instance=ExtResource("5_n2c0a")]
+[node name="TutorialForestArmorTutorialRoom" parent="." instance=ExtResource("5_n2c0a")]
+position = Vector2(-176, -528)
+navigation_polygon = SubResource("NavigationPolygon_w34e1")
+
+[node name="TutorialForestJumpTutorialRoom" parent="." instance=ExtResource("2_ki1vg")]
 position = Vector2(224, -496)
 navigation_polygon = SubResource("NavigationPolygon_duq1u")
+
+[node name="TutorialForestThrowPracticeRoom" parent="." instance=ExtResource("4_kfj7i")]
+position = Vector2(240, -272)
+navigation_polygon = SubResource("NavigationPolygon_u6grl")
 
 [node name="TutorialForestAttackPracticeRoom" parent="." instance=ExtResource("3_5iepb")]
 position = Vector2(608, -192)
@@ -38,7 +50,3 @@ navigation_polygon = SubResource("NavigationPolygon_uqb1a")
 [node name="TutorialForestStartRoom" parent="." instance=ExtResource("2_6ut7o")]
 position = Vector2(112, 96)
 navigation_polygon = SubResource("NavigationPolygon_obe1f")
-
-[node name="TutorialForestThrowPracticeRoom" parent="." instance=ExtResource("4_kfj7i")]
-position = Vector2(240, -272)
-navigation_polygon = SubResource("NavigationPolygon_u6grl")

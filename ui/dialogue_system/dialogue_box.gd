@@ -9,8 +9,11 @@ func _ready() -> void:
 	add_letter_timer.timeout.connect(_on_add_letter_timeout)
 
 func start_displaying_text(text_to_display: String) -> void:
-	label.visible_characters = 0
 	label.text = tr(text_to_display)
+	start_displaying()
+
+func start_displaying() -> void:
+	label.visible_characters = 0
 	add_letter_timer.start()
 
 func show_all_text() -> void:

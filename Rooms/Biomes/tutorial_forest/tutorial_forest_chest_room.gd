@@ -1,4 +1,4 @@
-extends DungeonRoom
+class_name TutorialForestChestRoom extends DungeonRoom
 
 @onready var chest: Chest = $Chest
 
