@@ -13,10 +13,12 @@ class_name BaseCamp extends DungeonRoom
 
 @onready var wake_up_dialogue_timer: Timer = $WakeUpDialogueTimer
 
+func _init() -> void:
+	randomize()
+
 func _ready() -> void:
 	super()
 
-	randomize()
 	_set_seed()
 
 	game.player_added.connect(func() -> void:
