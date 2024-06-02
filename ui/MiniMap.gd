@@ -227,6 +227,12 @@ func _discover_room(room: DungeonRoom) -> void:
 
 	items_ui.position = room.position / 4 + Vector2(room.tilemap_offset) / 4 - map_rect.position
 
+	var teleport_position_indicator: Sprite2D = Sprite2D.new()
+	teleport_position_indicator.texture = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/map_flag.png")
+	teleport_position_indicator.position = room.teleport_position.position / 4 + Vector2.UP * 2
+	teleport_position_indicator.z_index = 21
+	minimap_room_tilemap.add_child(teleport_position_indicator)
+
 func _copy_tiles(from: TileMap, to: TileMap) -> void:
 	for layer: int in from.get_layers_count():
 		for cell: Vector2i in from.get_used_cells(layer):
