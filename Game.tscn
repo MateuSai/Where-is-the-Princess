@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=80 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -139,6 +139,12 @@ texture_margin_right = 16.0
 texture_margin_bottom = 12.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dosns"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gexvg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vjovk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mnaft"]
 
@@ -550,18 +556,24 @@ script = ExtResource("6_25qhk")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -30.0
+offset_left = -48.0
 offset_bottom = 20.0
 grow_horizontal = 0
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 
-[node name="SeedLabel" type="Label" parent="UI/MarginContainer"]
+[node name="SeedText" type="LineEdit" parent="UI/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("18_beacm")
 theme_override_font_sizes/font_size = 10
-text = "511232"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_dosns")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gexvg")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_vjovk")
+text = "seed_text"
+alignment = 2
+editable = false
+expand_to_text_length = true
 
 [node name="DebugUI" parent="UI" instance=ExtResource("22_luxu7")]
 process_mode = 3
@@ -577,6 +589,7 @@ offset_bottom = 40.0
 grow_horizontal = 0
 size_flags_horizontal = 0
 size_flags_vertical = 8
+mouse_filter = 2
 script = ExtResource("43_c88jh")
 
 [node name="BiomeBanner" type="PanelContainer" parent="UI"]
@@ -591,6 +604,7 @@ offset_right = 59.0
 offset_bottom = 0.0159988
 grow_horizontal = 2
 size_flags_horizontal = 4
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_mnaft")
 script = ExtResource("50_gojcj")
 

@@ -13,27 +13,25 @@ var cropped_viewport_texture: ImageTexture
 @onready var encyclopedia: MarginContainer = %ENCYCLOPEDIA
 @onready var menu: Control = %OPTIONS
 
-@onready var seed_label: Label = %SeedLabel
+@onready var seed_text: LineEdit = %SeedText
 @onready var color_rect: ColorRect = %UIColorRect
-
 
 func _ready() -> void:
 	Globals.room_closed.connect(func() -> void:
-		in_combat = true
+		in_combat=true
 		#minimap.hide()
 	)
 	Globals.room_cleared.connect(func() -> void:
-		in_combat = false
+		in_combat=false
 	)
 
 	color_rect.hide()
 	tab_container.hide()
 	#pause_menu.hide()
-	seed_label.hide()
-	seed_label.text = str(SavedData.run_stats.get_level_seed())
+	seed_text.hide()
+	seed_text.text = str(SavedData.run_stats.get_level_seed())
 
 	#minimap.popup_hide.connect(func(): minimap_visible = false)
-
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not in_combat:
@@ -66,7 +64,6 @@ func _unhandled_input(event: InputEvent) -> void:
 			#color_rect.show()
 			#get_tree().paused = true
 
-
 func show_tab_container() -> void:
 	Globals.player.get_node("UI").hide()
 
@@ -78,20 +75,19 @@ func show_tab_container() -> void:
 	var player_viewport_pos: Vector2 = Globals.player.get_global_transform_with_canvas().get_origin() * Vector2(scale_x, scale_y)
 	var size: Vector2 = Vector2(60 * scale_x, 32 * scale_y)
 	var image_fragment: Image = Image.create(size.x, size.y, image.has_mipmaps(), image.get_format())
-	image_fragment.blit_rect(image, Rect2(player_viewport_pos.x - size.x/2.0, player_viewport_pos.y - size.y/2.0, size.x, size.y), Vector2.ZERO)
+	image_fragment.blit_rect(image, Rect2(player_viewport_pos.x - size.x / 2.0, player_viewport_pos.y - size.y / 2.0, size.x, size.y), Vector2.ZERO)
 	#image.crop(size.x, size.y)
 	cropped_viewport_texture = ImageTexture.create_from_image(image_fragment)
 
 	color_rect.show()
 	tab_container.show()
-	seed_label.show()
+	seed_text.show()
 	get_tree().paused = true
-
 
 func hide_tab_container() -> void:
 	Globals.player.get_node("UI").show()
 
 	color_rect.hide()
 	tab_container.hide()
-	seed_label.hide()
+	seed_text.hide()
 	get_tree().paused = false

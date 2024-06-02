@@ -1,5 +1,6 @@
 class_name ModList extends MarginContainer
 
+const MODS_THAT_CANNOT_BE_DISABLED: PackedStringArray = ["GodotModding-UserProfile"]
 
 signal mod_is_active_changed(mod_id: String, is_active: bool)
 signal mod_current_config_changed(mod_id: String, current_config: ModConfig)
@@ -12,7 +13,6 @@ var grid_placeholder := Control
 
 @onready var grid: GridContainer = $"%Grid"
 
-
 func generate_grid(user_profile: ModUserProfile) -> void:
 	for mod_id: String in user_profile.mod_list.keys():
 		_generate_mod_name(mod_id)
@@ -21,7 +21,6 @@ func generate_grid(user_profile: ModUserProfile) -> void:
 			_generate_mod_current_config(mod_id, user_profile)
 		else:
 			grid.add_child(grid_placeholder.new())
-
 
 func _generate_mod_name(mod_id: String) -> void:
 	var label_mod_id: ModIdLabel = mod_id_label_scene.instantiate()
@@ -39,11 +38,11 @@ func _generate_mod_name(mod_id: String) -> void:
 		if not mod.is_loadable:
 			label_mod_id.set_error_color()
 
-
 func _generate_mod_active_state(mod_id: String, user_profile: ModUserProfile) -> void:
 	var is_active_toggle: IsActiveToggle = is_active_toggle_scene.instantiate()
 	grid.add_child(is_active_toggle)
 	is_active_toggle.mod_id = mod_id
+	is_active_toggle.disabled = MODS_THAT_CANNOT_BE_DISABLED.has(mod_id)
 	is_active_toggle.is_active = user_profile.mod_list[mod_id].is_active
 	is_active_toggle.is_active_toggled.connect(_on_mod_is_active_toggled)
 
@@ -54,7 +53,6 @@ func _generate_mod_active_state(mod_id: String, user_profile: ModUserProfile) ->
 			# Disable the checkbox if it is
 			is_active_toggle.disabled = true
 
-
 func _generate_mod_current_config(mod_id: String, user_profile: ModUserProfile) -> void:
 	var current_config_select: CurrentConfigSelect = current_config_select_scene.instantiate()
 	grid.add_child(current_config_select)
@@ -63,17 +61,14 @@ func _generate_mod_current_config(mod_id: String, user_profile: ModUserProfile) 
 	current_config_select.select_item(user_profile.mod_list[mod_id].current_config)
 	current_config_select.current_config_selected.connect(_on_current_config_selected)
 
-
 func clear_grid() -> void:
 	for child: Node in grid.get_children():
 		if not child is Label or child is ModIdLabel:
 			grid.remove_child(child)
 			child.queue_free()
 
-
 func _on_mod_is_active_toggled(mod_id: String, is_active: bool) -> void:
 	mod_is_active_changed.emit(mod_id, is_active)
-
 
 func _on_current_config_selected(mod_id: String, config_name: String) -> void:
 	mod_current_config_changed.emit(mod_id, config_name)
