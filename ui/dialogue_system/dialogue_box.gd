@@ -1,12 +1,16 @@
 class_name DialogueBox extends MarginContainer
 
 signal finished_displaying_text()
+var last_label_size: Vector2
+var expand_up: bool = false
 
 @onready var label: RichTextLabel = $MarginContainer/RichTextLabel
 @onready var add_letter_timer: Timer = $AddLetterTimer
 
 func _ready() -> void:
 	add_letter_timer.timeout.connect(_on_add_letter_timeout)
+	last_label_size = label.size
+	label.resized.connect(_on_label_resized)
 
 func start_displaying_text(text_to_display: String) -> void:
 	label.text = tr(text_to_display)
@@ -25,3 +29,8 @@ func _on_add_letter_timeout() -> void:
 	if label.visible_characters == label.text.length():
 		add_letter_timer.stop()
 		finished_displaying_text.emit()
+
+func _on_label_resized() -> void:
+	if expand_up:
+		position.y += last_label_size.y - label.size.y
+		last_label_size = label.size

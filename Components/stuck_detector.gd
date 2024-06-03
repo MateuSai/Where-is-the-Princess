@@ -3,6 +3,7 @@
 class_name StuckDetector extends Node2D
 
 var damage_timer: Timer
+var last_dir: Vector2
 
 @onready var life_component: LifeComponent = get_parent().get_node("LifeComponent")
 
@@ -18,6 +19,7 @@ func _ready() -> void:
 	damage_timer.wait_time = 1
 	damage_timer.timeout.connect(func() -> void:
 		life_component.take_damage(1, Vector2.ZERO, 0, null, null, "wall")
+		get_parent().position += last_dir * 8
 	)
 	get_parent().call_deferred("add_child", damage_timer)
 
@@ -25,14 +27,17 @@ func _physics_process(_delta: float) -> void:
 	var is_stuck: bool = true
 	for raycast: RayCast2D in get_children():
 		if not raycast.is_colliding():
-			Log.debug("Raycast " + str(raycast.get_index()) + " is NOT colliding")
+			#Log.debug("Raycast " + str(raycast.get_index()) + " is NOT colliding")
 			is_stuck = false
 			break
-		Log.debug("Raycast " + str(raycast.get_index()) + " is colliding")
+		#Log.debug("Raycast " + str(raycast.get_index()) + " is colliding")
 
 	if is_stuck and damage_timer.is_stopped():
-		Log.debug("Starting stuck damage timer...")
+		#Log.debug("Starting stuck damage timer...")
 		damage_timer.start()
 	elif not is_stuck and not damage_timer.is_stopped():
-		Log.debug("Stopping stuck damage timer...")
+		#Log.debug("Stopping stuck damage timer...")
 		damage_timer.stop()
+
+	if not is_stuck and not get_parent().mov_direction.is_zero_approx():
+		last_dir = get_parent().mov_direction

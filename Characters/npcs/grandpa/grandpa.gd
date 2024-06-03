@@ -27,6 +27,8 @@ func _ready() -> void:
 
 func display_tip() -> void:
 	dialogue_box = DIALOGUE_BOX_SCENE.instantiate()
+	dialogue_box.position += DIALOGUE_TOP_LEFT_POSITION_OFFSET
+	dialogue_box.expand_up = true
 	add_child(dialogue_box)
 
 	var key_open_tag: String = "[key]"

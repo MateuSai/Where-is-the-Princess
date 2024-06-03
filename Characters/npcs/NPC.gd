@@ -3,6 +3,8 @@ class_name NPC extends StaticBody2D
 
 const DIALOGUE_BOX_SCENE: PackedScene = preload ("res://ui/dialogue_system/dialogue_box.tscn")
 
+const DIALOGUE_TOP_LEFT_POSITION_OFFSET: Vector2 = Vector2( - 110, -50)
+
 var dialogue_box: DialogueBox
 var dialogue_tween: Tween = null
 
