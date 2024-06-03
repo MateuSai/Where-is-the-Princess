@@ -16,6 +16,9 @@ var last_category: int = -1
 @onready var details_vbox: VBoxContainer = %DetailsVBoxContainer
 
 func _ready() -> void:
+	if OS.has_feature("demo"):
+		category_buttons.get_node("AchievementsButton").free()
+
 	for button: Button in category_buttons.get_children():
 		assert(button is Button)
 		button.pressed.connect(func() -> void: _set_category(button.get_index()))
