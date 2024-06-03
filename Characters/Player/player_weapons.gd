@@ -7,10 +7,12 @@ signal weapon_condition_changed(weapon: Weapon, new_value: float)
 signal weapon_status_inflicter_added(weapon: Weapon, status: StatusComponent.Status)
 
 signal normal_attacked()
+signal active_ability_used()
 
 var max_weapons: int = 3
 
 var extra_damage_when_weapon_breaks: int = 0
+var block_throw: bool = false
 
 enum {UP, DOWN}
 
@@ -68,7 +70,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			_switch_weapon(UP)
 		elif event.is_action_released("ui_next_weapon"):
 			_switch_weapon(DOWN)
-		elif event.is_action_pressed("ui_drop_weapon") and current_weapon.get_index() != 0:
+		elif event.is_action_pressed("ui_drop_weapon") and current_weapon.get_index() != 0 and not block_throw:
 			_throw_or_drop_weapon()
 
 func move(direction: Vector2) -> void:
@@ -267,6 +269,8 @@ func _on_normal_attack() -> void:
 
 func _on_active_ability() -> void:
 	player.stamina -= current_weapon.data.stamina_to_activate_active_ability
+
+	active_ability_used.emit()
 
 func _on_charge_animation_still_executing() -> void:
 	player.stamina -= 0.7

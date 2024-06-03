@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=80 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -50,6 +50,7 @@
 [ext_resource type="Texture2D" uid="uid://dloouft4djv72" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_pestaña_enemies_ui_hover.png" id="30_xla5k"]
 [ext_resource type="Texture2D" uid="uid://cbj7lfujwbpfd" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/pause_menu_ui_9-patch.png" id="38_uvlqo"]
 [ext_resource type="Script" path="res://ui/notification_container.gd" id="43_c88jh"]
+[ext_resource type="Script" path="res://ui/menu_button.gd" id="44_la8xv"]
 [ext_resource type="Script" path="res://ui/biome_banner.gd" id="50_gojcj"]
 [ext_resource type="Texture2D" uid="uid://cdc7lhfsxohm6" path="res://icon.png" id="52_cslg2"]
 
@@ -139,6 +140,12 @@ texture_margin_bottom = 12.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dosns"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gexvg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vjovk"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mnaft"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nogqy"]
@@ -155,11 +162,6 @@ execute_procedural_generation_on_thread = false
 [node name="Rooms" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("4")
-debug_check_entry_positions = null
-use_delaunay = null
-pause_between_steps = null
-add_tile_group_time = null
-add_light_pause = null
 num_levels = 3
 
 [node name="CorridorTileMap" type="TileMap" parent="Rooms"]
@@ -442,6 +444,15 @@ toggle_mode = true
 icon = ExtResource("28_7eh7l")
 icon_alignment = 2
 
+[node name="AchievementsButton" type="Button" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxTexture_w6scg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_v8ysw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_hdbdv")
+toggle_mode = true
+icon = ExtResource("28_7eh7l")
+icon_alignment = 2
+
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -523,6 +534,12 @@ layout_mode = 2
 text = "SETTINGS"
 script = ExtResource("16_gpdwi")
 
+[node name="MenuButton" type="Button" parent="UI/MenuTabContainer/OPTIONS/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "MENU"
+alignment = 0
+script = ExtResource("44_la8xv")
+
 [node name="QuitButton" type="Button" parent="UI/MenuTabContainer/OPTIONS/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "QUIT"
@@ -539,18 +556,24 @@ script = ExtResource("6_25qhk")
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -30.0
+offset_left = -48.0
 offset_bottom = 20.0
 grow_horizontal = 0
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 
-[node name="SeedLabel" type="Label" parent="UI/MarginContainer"]
+[node name="SeedText" type="LineEdit" parent="UI/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("18_beacm")
 theme_override_font_sizes/font_size = 10
-text = "511232"
+theme_override_styles/normal = SubResource("StyleBoxEmpty_dosns")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gexvg")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_vjovk")
+text = "seed_text"
+alignment = 2
+editable = false
+expand_to_text_length = true
 
 [node name="DebugUI" parent="UI" instance=ExtResource("22_luxu7")]
 process_mode = 3
@@ -566,6 +589,7 @@ offset_bottom = 40.0
 grow_horizontal = 0
 size_flags_horizontal = 0
 size_flags_vertical = 8
+mouse_filter = 2
 script = ExtResource("43_c88jh")
 
 [node name="BiomeBanner" type="PanelContainer" parent="UI"]
@@ -580,6 +604,7 @@ offset_right = 59.0
 offset_bottom = 0.0159988
 grow_horizontal = 2
 size_flags_horizontal = 4
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_mnaft")
 script = ExtResource("50_gojcj")
 

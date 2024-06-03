@@ -41,7 +41,9 @@ var horizontal_up_door_texture: String = "res://Art/16x16 Pixel Art Roguelike (F
 var corridor_lights_type: String = "tiki"
 var vertical_corridor_symmetric_lights: bool = false
 
+var floor_tiles_coord: Array[Array] = []
 var corridor_floor_tiles_coor: Array[Array] = []
+#var water_tiles_coor: Array[Array] = []
 
 var default_num_combat_rooms: int = DEFAULT_NUM_COMBAT_ROOMS
 var default_num_chest_rooms: int = DEFAULT_NUM_CHEST_ROOMS
@@ -68,10 +70,18 @@ static func from_dic(dic: Dictionary) -> BiomeConf:
 					assert(dic[key] is Dictionary)
 					var levels_dic: Dictionary = dic[key]
 					data.set(key, _load_levels(dic, levels_dic))
+				"floor_tiles_coord":
+					data.floor_tiles_coord = []
+					var a: Array = dic[key]
+					data.floor_tiles_coord.assign(a)
 				"corridor_floor_tiles_coor":
 					data.corridor_floor_tiles_coor = []
 					var a: Array = dic[key]
 					data.corridor_floor_tiles_coor.assign(a)
+				#"water_tiles_coor":
+				#	data.water_tiles_coor = []
+				#	var a: Array = dic[key]
+				#	data.water_tiles_coor.assign(a)
 				"weather_modificators":
 					for weather_modificator_path: String in dic.weather_modificators:
 						data.weather_modificators.push_back(load(weather_modificator_path).new())
@@ -131,6 +141,8 @@ class Level:
 	var num_chest_rooms: int = -1
 	## If not specified, it will take [member BiomeConf.default_num_special_rooms]
 	var num_special_rooms: int = -1
+
+	var rooms_disposition: String = ""
 
 	var overwrite_start_rooms: Array = [""]
 	var overwrite_combat_rooms: Array = [""]

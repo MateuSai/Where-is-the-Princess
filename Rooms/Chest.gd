@@ -54,7 +54,7 @@ func _ready() -> void:
 			_:
 				push_error("Invalid chest type")
 	else:
-		item_path = load(item_path).new().get_quality()
+		gear_type = GearType.ARMOR if item_path.ends_with(".gd") else GearType.WEAPON
 
 	animated_sprite.sprite_frames.clear_all()
 	animated_sprite.sprite_frames.add_frame("default", FRAMES[type][item_quality][0])

@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://bx6a4l3enttgp"]
+
+[ext_resource type="PackedScene" uid="uid://xvaekjyf4uxl" path="res://Characters/npcs/NPC.tscn" id="1_1bskj"]
+[ext_resource type="Script" path="res://Characters/npcs/animals/animal.gd" id="2_51w86"]
+[ext_resource type="Texture2D" uid="uid://ncyayhfrb207" path="res://Art/animals/rabbit/rabbit.png" id="3_10311"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6s3sa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_10311")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5kj2g"]
+radius = 2.23607
+
+[node name="Rabbit" instance=ExtResource("1_1bskj")]
+script = ExtResource("2_51w86")
+
+[node name="AnimatedSprite" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_6s3sa")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_5kj2g")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="3"]
+max_distance = 200.0
+bus = &"Sounds"

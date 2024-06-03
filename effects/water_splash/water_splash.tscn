@@ -3,6 +3,33 @@
 [ext_resource type="Texture2D" uid="uid://c3m77ltfoq6t0" path="res://Art/effects/splas_water.png" id="1_sju08"]
 [ext_resource type="AudioStream" uid="uid://echsm82xo5ha" path="res://Audio/Sounds/280219__yurkobb__jump-into-water.wav" id="2_671qr"]
 
+[sub_resource type="Animation" id="Animation_xv4hy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="Animation" id="Animation_pe0j1"]
 resource_name = "splash"
 length = 4.7
@@ -35,7 +62,7 @@ tracks/1/keys = {
 tracks/2/type = "audio"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("AudioStreamPlayer2D")
+tracks/2/path = NodePath("../AudioStreamPlayer2D")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -60,45 +87,23 @@ tracks/3/keys = {
 "values": [true, false]
 }
 
-[sub_resource type="Animation" id="Animation_xv4hy"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wgdwk"]
 _data = {
 "RESET": SubResource("Animation_xv4hy"),
 "splash": SubResource("Animation_pe0j1")
 }
 
-[node name="WaterSplash" type="Sprite2D"]
-position = Vector2(0, -5)
+[node name="WaterSplash" type="Node2D"]
+y_sort_enabled = true
+
+[node name="WaterSplash" type="Sprite2D" parent="."]
+position = Vector2(0, 5)
 texture = ExtResource("1_sju08")
+offset = Vector2(0, -10)
 hframes = 10
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../WaterSplash")
 libraries = {
 "": SubResource("AnimationLibrary_wgdwk")
 }

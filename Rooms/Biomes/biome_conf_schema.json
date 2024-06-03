@@ -62,6 +62,18 @@
             },
             "uniqueItems": true
         },
+        "floor_tiles_coord": {
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "integer"
+                },
+                "minItems": 2,
+                "maxItems": 2
+            },
+            "uniqueItems": true
+        },
         "default_num_combat_rooms": {
             "type": "integer",
             "minimum": 0

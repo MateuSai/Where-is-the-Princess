@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bx1tdnv3j5v05"]
 
 [ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/projectiles/projectile.tscn" id="1_d4cld"]
-[ext_resource type="Script" path="res://Weapons/Saw.gd" id="2_jcfrd"]
+[ext_resource type="Script" path="res://Weapons/projectiles/Saw.gd" id="2_jcfrd"]
 [ext_resource type="Texture2D" uid="uid://c3hxdkgkro63c" path="res://Art/obstacles and dangers/saw.png" id="3_0y5w5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sww0i"]

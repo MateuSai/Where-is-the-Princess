@@ -13,8 +13,8 @@ const ALL_VANILLA_CONSUMABLE_ITEMS: PackedStringArray = ["res://items/food.gd", 
 
 const ALL_VANILLA_WEAPON_MODIFIERS: PackedStringArray = ["res://items/Passive/WeaponModifiers/ruby.gd", "res://items/Passive/WeaponModifiers/sapphire.gd", "res://items/Passive/WeaponModifiers/topaz.gd", "res://items/Passive/WeaponModifiers/emerald.gd", "res://items/Passive/WeaponModifiers/arrows/bouncing_arrow_modifier.gd", "res://items/Passive/WeaponModifiers/arrows/explosive_arrow_modifier.gd", "res://items/Passive/WeaponModifiers/arrows/homing_arrow_modifier.gd", "res://items/Passive/WeaponModifiers/arrows/piercing_arrow_modifier.gd"]
 
-const ALL_VANILLA_PERMANENT_ITEMS: PackedStringArray = ["res://items/Passive/Permanent/target.gd", "res://items/Passive/Permanent/iron_skin.gd", "res://items/Passive/Permanent/enhanced_boots.gd", "res://items/Passive/Permanent/meteor_stone.gd", "res://items/Passive/Permanent/SoulAmulet.gd", "res://items/Passive/Permanent/runes/axe_rune.gd", "res://items/Passive/Permanent/runes/hammer_rune.gd", "res://items/Passive/Permanent/runes/melee_rune.gd", "res://items/Passive/Permanent/runes/spear_rune.gd", "res://items/Passive/Permanent/runes/sword_rune.gd", "res://items/Passive/Permanent/acid_boots.gd", "res://items/Passive/Permanent/orb_of_the_berserker.gd", "res://items/Passive/Permanent/bigger_rations.gd", "res://items/Passive/Permanent/projectile_orb.gd", "res://items/Passive/Permanent/money_bag.gd", "res://items/Passive/Permanent/broken_sword.gd", "res://items/Passive/Permanent/heart_stone.gd", "res://items/Passive/Permanent/stone_heart.gd", "res://items/Passive/Permanent/aggression_spell.gd", "res://items/Passive/Permanent/heart_rock.gd"]
-const AVAILABLE_PERMANENT_ITEMS_FROM_START: PackedStringArray = ["res://items/Passive/Permanent/target.gd", "res://items/Passive/Permanent/iron_skin.gd", "res://items/Passive/Permanent/enhanced_boots.gd", "res://items/Passive/Permanent/meteor_stone.gd", "res://items/Passive/Permanent/SoulAmulet.gd", "res://items/Passive/Permanent/runes/axe_rune.gd", "res://items/Passive/Permanent/runes/hammer_rune.gd", "res://items/Passive/Permanent/runes/melee_rune.gd", "res://items/Passive/Permanent/runes/spear_rune.gd", "res://items/Passive/Permanent/runes/sword_rune.gd", "res://items/Passive/Permanent/acid_boots.gd", "res://items/Passive/Permanent/orb_of_the_berserker.gd", "res://items/Passive/Permanent/bigger_rations.gd", "res://items/Passive/Permanent/projectile_orb.gd", "res://items/Passive/Permanent/money_bag.gd", "res://items/Passive/Permanent/broken_sword.gd", "res://items/Passive/Permanent/heart_stone.gd", "res://items/Passive/Permanent/stone_heart.gd", "res://items/Passive/Permanent/aggression_spell.gd"]
+const ALL_VANILLA_PERMANENT_ITEMS: PackedStringArray = ["res://items/Passive/Permanent/target.gd", "res://items/Passive/Permanent/iron_skin.gd", "res://items/Passive/Permanent/enhanced_boots.gd", "res://items/Passive/Permanent/meteor_stone.gd", "res://items/Passive/Permanent/SoulAmulet.gd", "res://items/Passive/Permanent/runes/axe_rune.gd", "res://items/Passive/Permanent/runes/hammer_rune.gd", "res://items/Passive/Permanent/runes/melee_rune.gd", "res://items/Passive/Permanent/runes/spear_rune.gd", "res://items/Passive/Permanent/runes/sword_rune.gd", "res://items/Passive/Permanent/acid_boots.gd", "res://items/Passive/Permanent/orb_of_the_berserker.gd", "res://items/Passive/Permanent/bigger_rations.gd", "res://items/Passive/Permanent/projectile_orb.gd", "res://items/Passive/Permanent/money_bag.gd", "res://items/Passive/Permanent/broken_sword.gd", "res://items/Passive/Permanent/heart_stone.gd", "res://items/Passive/Permanent/stone_heart.gd", "res://items/Passive/Permanent/aggression_spell.gd", "res://items/Passive/Permanent/heart_rock.gd", "res://items/Passive/Permanent/float.gd"]
+const AVAILABLE_PERMANENT_ITEMS_FROM_START: PackedStringArray = ["res://items/Passive/Permanent/target.gd", "res://items/Passive/Permanent/iron_skin.gd", "res://items/Passive/Permanent/enhanced_boots.gd", "res://items/Passive/Permanent/meteor_stone.gd", "res://items/Passive/Permanent/SoulAmulet.gd", "res://items/Passive/Permanent/runes/axe_rune.gd", "res://items/Passive/Permanent/runes/hammer_rune.gd", "res://items/Passive/Permanent/runes/melee_rune.gd", "res://items/Passive/Permanent/runes/spear_rune.gd", "res://items/Passive/Permanent/runes/sword_rune.gd", "res://items/Passive/Permanent/acid_boots.gd", "res://items/Passive/Permanent/orb_of_the_berserker.gd", "res://items/Passive/Permanent/bigger_rations.gd", "res://items/Passive/Permanent/projectile_orb.gd", "res://items/Passive/Permanent/money_bag.gd", "res://items/Passive/Permanent/broken_sword.gd", "res://items/Passive/Permanent/heart_stone.gd", "res://items/Passive/Permanent/stone_heart.gd", "res://items/Passive/Permanent/aggression_spell.gd", "res://items/Passive/Permanent/float.gd"]
 
 const ALL_VANILLA_TEMPORAL_ITEMS: PackedStringArray = ["res://items/Passive/Temporal/magic_shields/wooden_magic_shield.gd", "res://items/Passive/Temporal/magic_shields/reinforced_magic_shield.gd", "res://items/Passive/Temporal/MagicSword.gd", "res://items/Passive/Temporal/spike.gd", "res://items/Passive/Temporal/fairy.gd"]
 const AVAILABLE_TEMPORAL_ITEMS_FROM_START: PackedStringArray = ["res://items/Passive/Temporal/magic_shields/wooden_magic_shield.gd", "res://items/Passive/Temporal/magic_shields/reinforced_magic_shield.gd", "res://items/Passive/Temporal/MagicSword.gd", "res://items/Passive/Temporal/spike.gd", "res://items/Passive/Temporal/fairy.gd"]
@@ -55,12 +55,14 @@ var player_upgrades: Array[PlayerUpgrade] = []
 var _completed_dialogues: PackedStringArray = []
 
 enum AnimalsToRescue {
-	BLACK_CAT = 1,
-	TURTLE = 2
+	RABBIT = 1,
+	TURTLE = 2,
+	BLACK_CAT = 4,
 }
 
 var animals_rescued: int = 0
 
+var _npcs_rescued: PackedStringArray = []
 var items_shop_unlocked: bool = false
 var player_upgrades_shop_unlocked: bool = false
 
@@ -246,10 +248,12 @@ func is_animal_rescued(animal: AnimalsToRescue) -> bool:
 
 static func get_animal_scene(animal: AnimalsToRescue) -> PackedScene:
 	match animal:
-		AnimalsToRescue.BLACK_CAT:
-			return load("res://Characters/npcs/animals/black_cat/black_cat.tscn")
+		AnimalsToRescue.RABBIT:
+			return load("res://Characters/npcs/animals/rabbit/rabbit.tscn")
 		AnimalsToRescue.TURTLE:
 			return load("res://Characters/npcs/animals/turtle/turtle.tscn")
+		AnimalsToRescue.BLACK_CAT:
+			return load("res://Characters/npcs/animals/black_cat/black_cat.tscn")
 
 	return null
 
@@ -257,6 +261,13 @@ func rescue_animal(animal: AnimalsToRescue) -> void:
 	assert(not is_animal_rescued(animal))
 
 	animals_rescued |= animal
+	save()
+
+func is_npc_rescued(npc_id: String) -> bool:
+	return _npcs_rescued.has(npc_id)
+
+func rescue_npc(npc_id: String) -> void:
+	_npcs_rescued.push_back(npc_id)
 	save()
 
 static func from_dic(dic: Dictionary) -> Data:

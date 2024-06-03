@@ -36,7 +36,9 @@ position = Vector2(208, 119)
 [node name="Spikes2" parent="Traps" index="1" instance=ExtResource("4_q8fnn")]
 position = Vector2(208, 133)
 
+[node name="TeleportPosition" parent="." index="8"]
+position = Vector2(164, 71)
+
 [node name="Chest" parent="." index="10" instance=ExtResource("2_mu4n8")]
 position = Vector2(124, 124)
-item_path = ""
 type = 0

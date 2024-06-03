@@ -13,10 +13,12 @@ class_name BaseCamp extends DungeonRoom
 
 @onready var wake_up_dialogue_timer: Timer = $WakeUpDialogueTimer
 
+func _init() -> void:
+	randomize()
+
 func _ready() -> void:
 	super()
 
-	randomize()
 	_set_seed()
 
 	game.player_added.connect(func() -> void:
@@ -87,7 +89,7 @@ func _set_seed() -> void:
 		run_seed = randi() % 100000000 # Eight digit number
 	else:
 		run_seed = int(seed_spin_box.value)
-	#run_seed = 93290013
+	#run_seed = 67922822
 	print("Changed seed to  " + str(run_seed) + "\n")
 	#seed(run_seed)
 	SavedData.run_stats.run_seed = run_seed

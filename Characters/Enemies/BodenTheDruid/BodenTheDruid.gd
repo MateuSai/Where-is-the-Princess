@@ -32,6 +32,10 @@ func _on_died() -> void:
 	else:
 		super()
 
+		var statistics: EnemyStatistics = SavedData.statistics.get_enemy_statistics(id)
+		if statistics == null or statistics.times_killed == 0:
+			SavedData.complete_achievement(Achievements.Achievement.defeat_boden)
+
 func _transform() -> void:
 	is_bear = true
 	life_component.max_hp = BEAR_HP

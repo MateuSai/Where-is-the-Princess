@@ -8,9 +8,10 @@ class_name SpawnFragmentsOnProjectileDestroy extends Node2D
 @onready var projectile: Projectile = get_parent()
 
 func _ready() -> void:
-	projectile.destroyed.connect(func() -> void:
-		_spawn_fragments(projectile.direction)
-	)
+	projectile.destroyed.connect(_on_projectile_destroyed)
+
+func _on_projectile_destroyed() -> void:
+	_spawn_fragments(projectile.direction)
 
 func _spawn_fragments(dir: Vector2) -> void:
 	var amount: int = randi_range(min_fragments, max_fragments)

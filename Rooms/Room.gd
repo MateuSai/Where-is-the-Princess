@@ -52,7 +52,7 @@ signal last_enemy_died(enemy: Enemy)
 ## If this is true, the weapons specified on the biome configuration will be spawned randomly
 @export var _spawn_weapons_on_floor: bool = true
 
-@onready var rooms: Rooms = get_parent()
+@onready var rooms: Rooms = get_tree().current_scene.rooms
 
 @onready var disable_horizontal_separation_steering: bool = SavedData.get_disable_horizontal_separation_steering()
 
@@ -227,7 +227,7 @@ func generate_room_white_image() -> void:
 		for layer: int in layers_to_check:
 			var tile_image: Image
 			if tile_cell in up_additional_cells or tile_cell in left_additional_cells or tile_cell in down_additional_cells or tile_cell in right_additional_cells:
-				Log.debug("Adding additional cell mask to room white image: " + str(tile_cell))
+				#Log.debug("Adding additional cell mask to room white image: " + str(tile_cell))
 				var gradient_tex: GradientTexture2D = GradientTexture2D.new()
 				gradient_tex.width = Rooms.TILE_SIZE
 				gradient_tex.height = Rooms.TILE_SIZE
@@ -270,7 +270,7 @@ func generate_room_white_image() -> void:
 				if tilemap.get_cell_atlas_coords(layer, tile_cell) == Vector2i( - 1, -1):
 					continue
 				tile_image = tileset_image.get_region(Rect2(tilemap.get_cell_atlas_coords(layer, tile_cell) * Rooms.TILE_SIZE, Vector2(16, 16)))
-				
+
 				for x: int in tile_image.get_width():
 					for y: int in tile_image.get_height():
 						tile_image.set_pixel(x, y, Color.WHITE * tile_image.get_pixel(x, y).a)
@@ -399,6 +399,7 @@ func mark_entry_as_used(entry: Node) -> void:
 		used_entries.push_back(entry)
 
 func add_doors_and_walls(corridor_tilemap: TileMap) -> void:
+	Log.debug(name + " adding doors and walls... Used entries: " + str(used_entries))
 	for dir: EntryDirection in [EntryDirection.LEFT, EntryDirection.RIGHT]:
 		for entry: Node2D in entries[dir].get_children():
 			if entry in used_entries:
@@ -486,8 +487,8 @@ func _on_enemy_killed(enemy: Enemy) -> void:
 	if num_enemies == 0:
 		last_enemy_died.emit(enemy)
 		await get_tree().process_frame
-		cleared.emit()
-		Globals.room_cleared.emit()
+		#cleared.emit()
+		#Globals.room_cleared.emit()
 		_open_doors()
 
 func _open_doors() -> void:
@@ -495,12 +496,17 @@ func _open_doors() -> void:
 		if door.open_after_combat:
 			door.open()
 
+	cleared.emit()
+	Globals.room_cleared.emit()
+
 func _close_entrance() -> void:
 	for door: Door in door_container.get_children():
 		door.close()
 #	for entry_position in entrance.get_children():
 #		tilemap.set_cell(1, tilemap.local_to_map(entry_position.position), 1, Vector2i.ZERO)
 #		tilemap.set_cell(1, tilemap.local_to_map(entry_position.position) + Vector2i.DOWN, 2, Vector2i.ZERO)
+	closed.emit()
+	Globals.room_closed.emit()
 
 func remove_enemies_and_open_doors() -> void:
 	for i: int in range(enemy_positions_container.get_child_count() - 1, -1, -1):
@@ -549,8 +555,8 @@ func _on_player_entered_room() -> void:
 		if num_enemies > 0:
 			_close_entrance()
 			_spawn_enemies()
-			closed.emit()
-			Globals.room_closed.emit()
+			#closed.emit()
+			#Globals.room_closed.emit()
 
 			#var tween: Tween = create_tween()
 			#tween.tween_property(black_tilemap, "modulate:a", 0.0, 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)

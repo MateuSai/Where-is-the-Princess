@@ -1,13 +1,12 @@
 class_name CharacterReflection extends Sprite2D
 
+var bottom_world_raycast: RayCast2D
 
 @onready var original_sprite: Sprite2D = get_node("../Sprite2D")
-
 
 func _init() -> void:
 	z_index = -3
 	modulate.a = 0.4
-
 
 func _ready() -> void:
 	#var duplicate_parent: Node2D = get_parent().duplicate(8)
@@ -19,18 +18,25 @@ func _ready() -> void:
 	hframes = original_sprite.hframes
 	vframes = original_sprite.vframes
 	original_sprite.texture_changed.connect(func() -> void:
-		texture = original_sprite.texture
+		texture=original_sprite.texture
 	)
 
 	scale.y = -1
 
+	bottom_world_raycast = RayCast2D.new()
+	bottom_world_raycast.target_position = Vector2.DOWN * 8
+	get_parent().call_deferred("add_child", bottom_world_raycast)
 
 func _process(_delta: float) -> void:
 	frame = original_sprite.frame
 	flip_h = original_sprite.flip_h
 	rotation = original_sprite.rotation
-	position.y = original_sprite.position.y * -1
+	position.y = original_sprite.position.y * - 1
 
+	if bottom_world_raycast.is_colliding() and visible:
+		hide()
+	elif not bottom_world_raycast.is_colliding() and not visible:
+		show()
 
 #func _analize_children(node: Node) -> void:
 	#for child: Node in node.get_children():

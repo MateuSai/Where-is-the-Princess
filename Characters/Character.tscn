@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bheousdjxqa14"]
+[gd_scene load_steps=8 format=3 uid="uid://bheousdjxqa14"]
 
 [ext_resource type="Script" path="res://Characters/Character.gd" id="1"]
 [ext_resource type="Script" path="res://Characters/FSM.gd" id="2"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Components/SpawnDamageLabel.gd" id="4_l103p"]
 [ext_resource type="Script" path="res://Components/flash_on_damage.gd" id="5_erjg1"]
 [ext_resource type="Theme" uid="uid://d0qfeecooxxpf" path="res://SmallFontTheme.tres" id="6_in4bq"]
+[ext_resource type="Script" path="res://Components/stuck_detector.gd" id="7_3xobk"]
 
 [node name="Character" type="CharacterBody2D"]
 texture_filter = 1
@@ -42,3 +43,6 @@ offset_right = 16.0
 offset_bottom = 15.0
 theme = ExtResource("6_in4bq")
 text = "IDLE"
+
+[node name="StuckDetector" type="Node2D" parent="."]
+script = ExtResource("7_3xobk")

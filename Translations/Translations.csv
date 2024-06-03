@@ -107,6 +107,8 @@ ADDITIONAL_WEAPON_CARRY_CAPACITY,Additional Weapon Capacity,Capacitat d'Armes Ad
 ADDITIONAL_WEAPON_CARRY_CAPACITY_DESCRIPTION,Increases your max amount of weapons by 1.,Augmenta la teva quantitat màxima d'armes en 1.,Aumenta tu capacidad máxima de armas en 1.,
 ,,,,
 ,,,,
+TUTORIAL,Tutorial,Tutorial,Tutorial, チュートリアル 
+MENU,Menu,Menú,Menú,メニュー
 PLAY,Play,Juga,Jugar,遊び
 CONTINUE,Continue,Continuar,Continuar, コンティニュー 
 NEW_GAME,New Game,Nova Partida,Nueva Partida,ニューゲーム
@@ -263,6 +265,9 @@ BODEN_THE_BEAR,Boden the Bear,L’Ós Boden,El Oso Boden,
 NECRO_TROMP,Necro Tromp,Nigro Tromp,Nigro Tromp,
 NECRO_TROMP_DESCRIPTION,"After an unsuccessful political career, Tromp sought alternative ways to obtain power.","Després d'una carrera política infructuosa, en Tromp va buscar maneres alternatives d'obtenir el poder.","Después de una carrera política infructuosa, Tromp busco maneras alternativas de obtener el poder.",
 CROCODILE_JOE,Crocodile Joe,Joe el Cocodril,Joe el Cocodrilo,
+,,,,
+,,,,
+GRANDPA_CHEST_ROOM_TUTORIAL,Open the chest with [key]ui_interact[/key] and pick the weapon up walking over it.,,,
 ,,,,
 ,,,,
 PLAYER_WAKE_UP_DIALOGUE_1,I thought I had died? Was it all a dream?,Em pensava que m'havia mort. Ha estat tot un somni?,Pensé que había muerto. ¿Ha sido todo un sueño?,

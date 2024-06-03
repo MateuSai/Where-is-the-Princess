@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cfpemp7x01fln"]
+[gd_scene load_steps=30 format=3 uid="uid://cfpemp7x01fln"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_rm7hw"]
 [ext_resource type="Script" path="res://Characters/Enemies/thief/thief.gd" id="2_w4yoh"]
@@ -16,13 +16,18 @@
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/move_to_target.gd" id="12_wmvlk"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/point_weapon_to_target.gd" id="13_1igmv"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/update_animation_according_to_mov_direction.gd" id="14_h8a1n"]
-[ext_resource type="Texture2D" uid="uid://jfehaj24kmy2" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_warrior.png" id="15_dyk5i"]
 [ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="16_cxjfx"]
 [ext_resource type="PackedScene" uid="uid://da0q2c1pqrqnp" path="res://Weapons/Melee/thief_dagger/thief_dagger.tscn" id="17_4ebvw"]
+[ext_resource type="Texture2D" uid="uid://iwxt41ixcte3" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Snowmen/bandit_01.png" id="17_t1i4n"]
+[ext_resource type="Script" path="res://Characters/HurtBox.gd" id="18_6xitn"]
 [ext_resource type="Script" path="res://Components/projectile_detector/projectile_detector.gd" id="18_yfnvm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4fmsw"]
 radius = 3.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ljvb6"]
+radius = 4.0
+height = 12.0
 
 [sub_resource type="Animation" id="Animation_kcdck"]
 length = 0.001
@@ -121,7 +126,7 @@ script = ExtResource("2_w4yoh")
 
 [node name="ThiefBeehaveTree" type="Node" parent="." index="1" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("3_0dhdd")
-blackboard = NodePath("@Node@37517")
+blackboard = NodePath("@Node@85594")
 actor = NodePath("..")
 
 [node name="SimpleParallelComposite2" type="Node" parent="ThiefBeehaveTree" index="0"]
@@ -230,28 +235,35 @@ script = ExtResource("14_h8a1n")
 
 [node name="Sprite2D" parent="." index="3"]
 position = Vector2(0, -5)
-texture = ExtResource("15_dyk5i")
+texture = ExtResource("17_t1i4n")
 hframes = 6
 vframes = 4
 
 [node name="CollisionShape2D" parent="." index="4"]
 shape = SubResource("CircleShape2D_4fmsw")
 
-[node name="AnimationPlayer" parent="." index="5"]
+[node name="HurtBox" type="Area2D" parent="." index="5"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("18_6xitn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_ljvb6")
+
+[node name="AnimationPlayer" parent="." index="6"]
 libraries = {
 "": SubResource("AnimationLibrary_wst10")
 }
 
-[node name="NavigationAgent2D" parent="." index="6"]
-debug_enabled = true
-
-[node name="EnemyWeapons" type="Node2D" parent="." index="12"]
+[node name="EnemyWeapons" type="Node2D" parent="." index="13"]
 position = Vector2(0, -3)
 script = ExtResource("16_cxjfx")
 
 [node name="ThiefDagger" parent="EnemyWeapons" index="0" instance=ExtResource("17_4ebvw")]
 
-[node name="ProjectileDetector" type="Area2D" parent="." index="15"]
+[node name="ProjectileDetector" type="Area2D" parent="." index="16"]
+visible = false
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("18_yfnvm")

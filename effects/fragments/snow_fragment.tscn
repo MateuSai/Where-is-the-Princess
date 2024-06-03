@@ -1,0 +1,34 @@
+[gd_scene load_steps=16 format=3 uid="uid://b77gqafq4ub1r"]
+
+[ext_resource type="Texture2D" uid="uid://bnmh6c8tybkfu" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Snowmen/Snow_particle_07.png" id="1_mbuu1"]
+[ext_resource type="Script" path="res://effects/fragments/fragment.gd" id="2_5niow"]
+[ext_resource type="Texture2D" uid="uid://c7b5cqfkbys8b" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Snowmen/Snow_particle_01.png" id="3_8xqfy"]
+[ext_resource type="Texture2D" uid="uid://b085i0c27pq1d" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Snowmen/Snow_particle_02.png" id="4_rbq7o"]
+[ext_resource type="Texture2D" uid="uid://d1x87cf1s4aaf" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Snowmen/Snow_particle_03.png" id="5_bkql8"]
+[ext_resource type="Texture2D" uid="uid://dey6msvs5l1j6" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Snowmen/Snow_particle_04.png" id="6_41hh5"]
+[ext_resource type="Texture2D" uid="uid://bhhb5i34ssfte" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Snowmen/Snow_particle_05.png" id="7_hwe12"]
+[ext_resource type="Texture2D" uid="uid://cmecv8fxgbhtx" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Snowmen/Snow_particle_06.png" id="8_iwey5"]
+[ext_resource type="Texture2D" uid="uid://71r0er42ixfx" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Snowmen/Snow_particle_08.png" id="9_q61vc"]
+[ext_resource type="Texture2D" uid="uid://dg06crlyd7jf0" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Snowmen/Snow_particle_09.png" id="10_v5i7b"]
+[ext_resource type="Texture2D" uid="uid://cw2wmhjbgtp4e" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Snowmen/Snow_particle_10.png" id="11_q6kag"]
+[ext_resource type="Texture2D" uid="uid://c3lkqxjsff3xb" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Snowmen/Snow_particle_11.png" id="12_wnq1f"]
+[ext_resource type="Texture2D" uid="uid://8ryxjne75g3g" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Snowmen/Snow_particle_12.png" id="13_buvda"]
+[ext_resource type="Texture2D" uid="uid://7gyi3wurbapk" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Snowmen/Snow_particle_13.png" id="14_viok8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u11wn"]
+radius = 3.0
+height = 6.0
+
+[node name="SnowFragment" type="Sprite2D"]
+z_index = -1
+texture = ExtResource("1_mbuu1")
+script = ExtResource("2_5niow")
+textures = Array[Texture2D]([ExtResource("3_8xqfy"), ExtResource("4_rbq7o"), ExtResource("5_bkql8"), ExtResource("6_41hh5"), ExtResource("7_hwe12"), ExtResource("8_iwey5"), ExtResource("1_mbuu1"), ExtResource("9_q61vc"), ExtResource("10_v5i7b"), ExtResource("11_q6kag"), ExtResource("12_wnq1f"), ExtResource("13_buvda"), ExtResource("14_viok8")])
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_u11wn")

@@ -45,7 +45,9 @@ func _ready() -> void:
 
 	var on_floor: bool = not get_parent() is Weapons
 
-	if not on_floor:
+	if on_floor:
+		z_index = -1
+	else:
 		player_detector_col.disabled = true
 		player_detector.set_collision_mask_value(1, false)
 		player_detector.set_collision_mask_value(2, false)
@@ -161,6 +163,8 @@ func _pick_up() -> void:
 	animation_player.play("RESET")
 	position = Vector2.ZERO
 
+	z_index = 0
+
 func interpolate_pos(initial_pos: Vector2, final_pos: Vector2, collision_with_world_and_low_objects: bool=true) -> void:
 	player_detector_col.disabled = false # DO NOT USE SET DEFERRED
 
@@ -187,6 +191,7 @@ func _on_Tween_tween_completed() -> void:
 	else:
 		player_detector_col.set_deferred("disabled", false)
 		player_detector.set_collision_mask_value(2, true)
+		z_index = -1
 
 func _on_condition_changed(new_condition: float) -> void:
 	#Log.debug("Contidion of weapon " + weapon_id + " changed to " + str(new_condition))
@@ -194,7 +199,7 @@ func _on_condition_changed(new_condition: float) -> void:
 		condition_changed.emit(self, new_condition)
 	else:
 		if new_condition <= 0:
-			destroy()
+			call_deferred("destroy")
 
 func destroy() -> void:
 	var sprite_rect: Rect2 = weapon_sprite.get_rect()

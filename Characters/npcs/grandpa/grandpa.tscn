@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://cu2w4d1vmvswo"]
+
+[ext_resource type="PackedScene" uid="uid://xvaekjyf4uxl" path="res://Characters/npcs/NPC.tscn" id="1_lq2b3"]
+[ext_resource type="Script" path="res://Characters/npcs/grandpa/grandpa.gd" id="2_0kh2x"]
+[ext_resource type="Texture2D" uid="uid://ib4rwtywvtg5" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/el_barquero_0.png" id="3_j6i1a"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sw0r6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_j6i1a")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8b5bp"]
+
+[node name="Grandpa" instance=ExtResource("1_lq2b3")]
+script = ExtResource("2_0kh2x")
+
+[node name="AnimatedSprite" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_sw0r6")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CircleShape2D_8b5bp")

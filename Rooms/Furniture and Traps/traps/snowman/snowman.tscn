@@ -1,9 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://by14j4q6i0ycq"]
+[gd_scene load_steps=16 format=3 uid="uid://by14j4q6i0ycq"]
 
 [ext_resource type="Texture2D" uid="uid://cj28s3r0fbmfy" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Snowmen/Snowmen_base_32x32_idleanim.png" id="2_4yt1h"]
 [ext_resource type="Script" path="res://Rooms/Furniture and Traps/traps/snowman/snowman.gd" id="2_n0c82"]
 [ext_resource type="Script" path="res://Components/LifeComponent.gd" id="3_w8cl1"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="4_vvgdj"]
+[ext_resource type="Script" path="res://Components/flash_on_damage.gd" id="5_sh5hi"]
+[ext_resource type="Script" path="res://Components/spawn_fragments_on_died.gd" id="6_w5iaq"]
+[ext_resource type="PackedScene" uid="uid://b77gqafq4ub1r" path="res://effects/fragments/snow_fragment.tscn" id="7_iniec"]
+[ext_resource type="PackedScene" uid="uid://dmg06nm0f56de" path="res://effects/fragments/branch_fragment.tscn" id="8_0y62k"]
+[ext_resource type="Script" path="res://Components/update_navigation_on_died.gd" id="8_ef5wx"]
+[ext_resource type="PackedScene" uid="uid://cg7ohsxeu01im" path="res://effects/fragments/carrot_fragment.tscn" id="9_4r6cd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p5drd"]
 radius = 3.0
@@ -70,10 +76,31 @@ shape = SubResource("CircleShape2D_xfv5m")
 [node name="LifeComponent" type="Node" parent="."]
 script = ExtResource("3_w8cl1")
 body_type = 5
-max_hp = 2
-hp = 2
+hp = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_8h0ba")
 }
+
+[node name="FlashOnDamage" type="Node" parent="."]
+script = ExtResource("5_sh5hi")
+
+[node name="SpawnFragmentsOnDied" type="Node2D" parent="."]
+script = ExtResource("6_w5iaq")
+fragment_scene = ExtResource("7_iniec")
+
+[node name="SpawnFragmentsOnDied2" type="Node2D" parent="."]
+script = ExtResource("6_w5iaq")
+fragment_scene = ExtResource("8_0y62k")
+min_fragments = 2
+max_fragments = 2
+
+[node name="SpawnFragmentsOnDied3" type="Node2D" parent="."]
+script = ExtResource("6_w5iaq")
+fragment_scene = ExtResource("9_4r6cd")
+min_fragments = 1
+max_fragments = 1
+
+[node name="UpdateNavigationOnDied" type="Node" parent="."]
+script = ExtResource("8_ef5wx")

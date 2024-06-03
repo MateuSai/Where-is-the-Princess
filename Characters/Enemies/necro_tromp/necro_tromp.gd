@@ -16,7 +16,8 @@ func _ready() -> void:
 	)
 
 func _process(_delta: float) -> void:
-	weapons.move((target.global_position - global_position).normalized())
+	if is_instance_valid(weapons):
+		weapons.move((target.global_position - global_position).normalized())
 
 func _change_to_bald_mode() -> void:
 	react(Reaction.VERY_MAD)
@@ -29,13 +30,15 @@ func _on_died() -> void:
 	var statistics: EnemyStatistics = SavedData.statistics.get_enemy_statistics(id)
 
 	if statistics == null or statistics.times_killed == 0:
+		SavedData.complete_achievement(Achievements.Achievement.defeat_necro_tromp)
+
 		var armor_path: String = "res://Armors/NecromancerArmor.gd"
 		SavedData.discover_armor_if_not_already(armor_path)
 		(get_tree().current_scene as Game).show_notification(load("res://ui/notifications/armor_unlocked_notification.tscn"), {
 			"id": Armor.get_id_from_path(armor_path).to_upper(),
 			"icon": (load(armor_path).new() as Armor).get_icon(),
 		})
-	
+
 	super()
 
 #func _spawn_skeletons(amount: int = 1) -> void:

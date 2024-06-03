@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cg7ohsxeu01im"]
+
+[ext_resource type="Texture2D" uid="uid://cms7fww5mfjsg" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Snowmen/Carrot_particle_01.png" id="1_ffcr5"]
+[ext_resource type="Script" path="res://effects/fragments/fragment.gd" id="2_2hwtu"]
+[ext_resource type="Texture2D" uid="uid://ciysmmq137kwh" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Snowmen/Carrot_particle_02.png" id="3_lnu3w"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kexeh"]
+radius = 4.0
+height = 8.0
+
+[node name="CarrotFragment" type="Sprite2D"]
+z_index = -1
+texture = ExtResource("1_ffcr5")
+script = ExtResource("2_2hwtu")
+textures = Array[Texture2D]([ExtResource("1_ffcr5"), ExtResource("3_lnu3w")])
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_kexeh")

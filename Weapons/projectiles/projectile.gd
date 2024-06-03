@@ -62,6 +62,8 @@ func _physics_process(delta: float) -> void:
 		rotation += rot_dir * delta
 
 func _collide(node: Node2D, dam: int=damage) -> void:
+	#Log.debug(name + " collided with: " + node.name)
+
 	collided_with_something.emit(node)
 
 	if damage_dealer is Player:

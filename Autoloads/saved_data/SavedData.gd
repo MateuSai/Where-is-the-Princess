@@ -9,6 +9,7 @@ const RUN_STATS_SAVE_NAME: String = "run_stats.res"
 var data: Data
 signal data_loaded()
 var statistics: Statistics
+var achievements: Achievements
 
 var mod_room_paths: Dictionary = {}
 
@@ -41,6 +42,8 @@ func _ready() -> void:
 	data = Data._load()
 	data_loaded.emit()
 	statistics = Statistics._load()
+	achievements = Achievements.load_from_file()
+	Log.info("Loaded achievements: " + str(achievements.achievements))
 	#print(data)
 
 	_load_run_stats()
@@ -445,6 +448,19 @@ func add_completed_dialogue(dialogue: String) -> void:
 func add_player_times_killed(killed_by: String) -> void:
 	last_time_killed_by = killed_by
 	statistics.add_player_times_killed()
+
+func rescue_animal(animal: Data.AnimalsToRescue) -> void:
+	data.rescue_animal(animal)
+	add_progress_to_achievement(Achievements.Achievement.rescue_all_animals, 1)
+
+func rescue_npc(npc_id: String) -> void:
+	data.rescue_npc(npc_id)
+
+func complete_achievement(achievement: Achievements.Achievement) -> void:
+	achievements.complete_achievement(achievement)
+
+func add_progress_to_achievement(achievement: Achievements.Achievement, amount: int) -> void:
+	achievements.add_progress_to_achievement(achievement, amount)
 
 func _print_info_that_may_be_useful() -> void:
 	var data_dic: Dictionary = {

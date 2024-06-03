@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://55asonx0hhw2"]
+[gd_scene load_steps=7 format=3 uid="uid://55asonx0hhw2"]
 
 [ext_resource type="Texture2D" uid="uid://ce5n365g6khja" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Villagers/villagers_window_base.png" id="1_4c6th"]
 [ext_resource type="Script" path="res://Rooms/Furniture and Traps/traps/window_villagers/window_villager.gd" id="1_fyecw"]
@@ -54,6 +54,10 @@ _data = {
 "throw": SubResource("Animation_7lmwm")
 }
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bglxe"]
+radius = 6.0
+height = 14.0
+
 [node name="WindowVillager" type="Sprite2D"]
 z_index = 1
 texture = ExtResource("1_4c6th")
@@ -68,8 +72,15 @@ libraries = {
 }
 
 [node name="ThrowPosition" type="Marker2D" parent="."]
-position = Vector2(5, 3)
+position = Vector2(5, -1)
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 2.35833
 one_shot = true
+
+[node name="HouseShapeDetector" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HouseShapeDetector"]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_bglxe")
