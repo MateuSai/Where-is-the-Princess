@@ -1,27 +1,86 @@
-[gd_scene load_steps=6 format=3 uid="uid://cu2w4d1vmvswo"]
+[gd_scene load_steps=14 format=3 uid="uid://cu2w4d1vmvswo"]
 
 [ext_resource type="PackedScene" uid="uid://xvaekjyf4uxl" path="res://Characters/npcs/NPC.tscn" id="1_lq2b3"]
 [ext_resource type="Script" path="res://Characters/npcs/grandpa/grandpa.gd" id="2_0kh2x"]
-[ext_resource type="Texture2D" uid="uid://ib4rwtywvtg5" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/el_barquero_0.png" id="3_j6i1a"]
+[ext_resource type="Texture2D" uid="uid://brapxpvsxpc44" path="res://Art/tutorial_ghost.png" id="3_j0wga"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_phidv"]
+atlas = ExtResource("3_j0wga")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hq22c"]
+atlas = ExtResource("3_j0wga")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uc0do"]
+atlas = ExtResource("3_j0wga")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m4gft"]
+atlas = ExtResource("3_j0wga")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xma3s"]
+atlas = ExtResource("3_j0wga")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_we4ym"]
+atlas = ExtResource("3_j0wga")
+region = Rect2(80, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_sw0r6"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_j6i1a")
+"texture": SubResource("AtlasTexture_phidv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hq22c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uc0do")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m4gft")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xma3s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_we4ym")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_8b5bp"]
+[sub_resource type="Gradient" id="Gradient_qwxtx"]
+offsets = PackedFloat32Array(0, 0.453125, 1)
+colors = PackedColorArray(0.176471, 0.27451, 0.901961, 1, 0.176471, 0.27451, 0.901961, 1, 0.176471, 0.27451, 0.901961, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4hdqb"]
+gradient = SubResource("Gradient_qwxtx")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_midbd"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(4, 1, 1)
+gravity = Vector3(0, -16, 0)
+color_ramp = SubResource("GradientTexture1D_4hdqb")
 
 [node name="Grandpa" instance=ExtResource("1_lq2b3")]
 script = ExtResource("2_0kh2x")
 
 [node name="AnimatedSprite" parent="." index="0"]
+position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_sw0r6")
+autoplay = "default"
+frame_progress = 0.951822
 
-[node name="CollisionShape2D" parent="." index="1"]
-shape = SubResource("CircleShape2D_8b5bp")
+[node name="InteractArea" parent="." index="2"]
+visible = false
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." index="3"]
+position = Vector2(-1, -11)
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_midbd")
