@@ -8,9 +8,9 @@ func _ready() -> void:
 	hide()
 
 	room.closed.connect(func() -> void:
-		var spawn_explosion: AnimatedSprite2D=DungeonRoom.SPAWN_EXPLOSION_SCENE.instantiate()
-		spawn_explosion.position=position
-		room.call_deferred("add_child", spawn_explosion)
+		Log.debug("Room with grandpa closed")
+
+		_spawn_explosion()
 
 		show()
 
@@ -21,14 +21,24 @@ func _ready() -> void:
 			Globals.character_received_damage.connect(func(_character: Character, _damage_dealer: Node) -> void:
 				display_tip("GRANDPA_WEAPON_ABILITY_TUTORIAL", DIALOGUE_BOTTOM_LEFT_POSITION_OFFSET)
 			, CONNECT_ONE_SHOT)
-	)
+		elif room is TutorialForestThrowPracticeRoom:
+			display_tip("GRANDPA_THROW_TUTORIAL", DIALOGUE_TOP_LEFT_POSITION_OFFSET, true)
+		elif room is TutorialForestJumpTutorial:
+			display_tip("GRANDPA_JUMP_TUTORIAL")
+			Globals.player.dashed.connect(func(_dash_time: float) -> void:
+				_spawn_explosion()
+				position=Vector2(51, 7)
+				_spawn_explosion()
+				display_tip("GRANDPA_EQUIP_ARMOR_TUTORIAL")
+			, CONNECT_ONE_SHOT)
+	, CONNECT_ONE_SHOT)
 	room.cleared.connect(func() -> void:
+		Log.debug("Removing grandpa...")
+
 		queue_free()
 
-		var spawn_explosion: AnimatedSprite2D=DungeonRoom.SPAWN_EXPLOSION_SCENE.instantiate()
-		spawn_explosion.position=position
-		room.call_deferred("add_child", spawn_explosion)
-	)
+		_spawn_explosion()
+	, CONNECT_ONE_SHOT)
 
 func display_tip(dialogue_id: String, offset: Vector2=Vector2.ZERO, expand_up: bool=false) -> void:
 	if dialogue_box:
@@ -52,9 +62,9 @@ func display_tip(dialogue_id: String, offset: Vector2=Vector2.ZERO, expand_up: b
 	var after_key_tag_portion: String = translated.substr(key_close_pos + key_close_tag.length(), -1)
 	var action_name: String = translated.substr(key_open_pos + key_open_tag.length(), key_close_pos - key_open_pos - key_open_tag.length())
 
-	Log.debug(before_key_tag_portion)
-	Log.debug(after_key_tag_portion)
-	Log.debug(action_name)
+	#Log.debug(before_key_tag_portion)
+	#Log.debug(after_key_tag_portion)
+	#Log.debug(action_name)
 
 	var key_id: String
 	if Globals.mode == Globals.Mode.MOUSE:
@@ -76,3 +86,8 @@ func display_tip(dialogue_id: String, offset: Vector2=Vector2.ZERO, expand_up: b
 	dialogue_box.start_displaying()
 
 	#return before_key_tag_portion + KeyIcon.get_key_region(ui_action) + after_key_tag_portion
+
+func _spawn_explosion() -> void:
+	var spawn_explosion: AnimatedSprite2D = DungeonRoom.SPAWN_EXPLOSION_SCENE.instantiate()
+	spawn_explosion.position = position
+	room.call_deferred("add_child", spawn_explosion)

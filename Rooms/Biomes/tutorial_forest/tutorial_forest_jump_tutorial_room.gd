@@ -1,4 +1,4 @@
-extends DungeonRoom
+class_name TutorialForestJumpTutorial extends DungeonRoom
 
 @onready var chest: Chest = $Chest
 
@@ -9,8 +9,8 @@ func _ready() -> void:
 
 	player_entered.connect(func() -> void:
 		_close_entrance()
-	, CONNECT_ONE_SHOT)
 
-	Globals.player.armor_changed.connect(func(_armor: Armor) -> void:
-		_open_doors()
+		Globals.player.armor_changed.connect(func(_armor: Armor) -> void:
+			_open_doors()
+		, CONNECT_ONE_SHOT)
 	, CONNECT_ONE_SHOT)

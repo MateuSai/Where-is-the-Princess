@@ -1,4 +1,4 @@
-extends DungeonRoom
+class_name TutorialForestThrowPracticeRoom extends DungeonRoom
 
 var spawn_branch_position: Vector2
 
@@ -11,12 +11,18 @@ func _ready() -> void:
 
 	branch.hitbox.collided_with_something.connect(_on_branch_collided_with_something, CONNECT_ONE_SHOT)
 
+	#await rooms.game.player_added
+
 	player_entered.connect(func() -> void:
+		_close_entrance()
 		Globals.player.weapons.block_throw=false
+		Globals.character_received_damage.connect(func(_character: Node2D, _damage_dealer: Node) -> void:
+			_open_doors()
+		, CONNECT_ONE_SHOT)
 	, CONNECT_ONE_SHOT)
 
 func _on_branch_collided_with_something(_body: Node2D) -> void:
-	Log.debug("_on_branch_collided_with_something")
+	#Log.debug("_on_branch_collided_with_something")
 
 	var spawn_explosion: AnimatedSprite2D = DungeonRoom.SPAWN_EXPLOSION_SCENE.instantiate()
 	spawn_explosion.position = branch.weapon_sprite.global_position + branch.weapon_sprite.offset.rotated(branch.global_rotation) - position

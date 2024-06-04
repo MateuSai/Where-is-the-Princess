@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://cu2w4d1vmvswo"]
+[gd_scene load_steps=15 format=3 uid="uid://cu2w4d1vmvswo"]
 
 [ext_resource type="PackedScene" uid="uid://xvaekjyf4uxl" path="res://Characters/npcs/NPC.tscn" id="1_lq2b3"]
 [ext_resource type="Script" path="res://Characters/npcs/grandpa/grandpa.gd" id="2_0kh2x"]
 [ext_resource type="Texture2D" uid="uid://brapxpvsxpc44" path="res://Art/tutorial_ghost.png" id="3_j0wga"]
+[ext_resource type="Material" uid="uid://cmyqibox7jjbf" path="res://unshaded.tres" id="3_xb31m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_phidv"]
 atlas = ExtResource("3_j0wga")
@@ -72,6 +73,7 @@ color_ramp = SubResource("GradientTexture1D_4hdqb")
 script = ExtResource("2_0kh2x")
 
 [node name="AnimatedSprite" parent="." index="0"]
+material = ExtResource("3_xb31m")
 position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_sw0r6")
 autoplay = "default"
