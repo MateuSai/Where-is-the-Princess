@@ -144,6 +144,13 @@ func _ready() -> void:
 
 	SceneTransistor.scene_changed.connect(_on_scene_changed)
 
+	# To save key tiles as separate images
+	#for key_id: String in INPUT_IMAGE_RECTS.keys():
+	#	var atlas_texture: AtlasTexture = AtlasTexture.new()
+	#	atlas_texture.atlas = load("res://Art/kenney_input-prompts-pixel-16/Tilemap/tilemap_packed.png")
+	#	atlas_texture.region = KeyIcon.get_key_region(key_id)
+	#	atlas_texture.get_image().save_png("res://Art/kenney_input-prompts-pixel-16/Tiles/".path_join(key_id) + ".png")
+
 	#print(ENEMIES)
 
 func _input(event: InputEvent) -> void:

@@ -219,7 +219,7 @@ offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_usvbv")
-text = "GENERATING_DUNGEON"
+text = "GENERATING_LEVEL"
 horizontal_alignment = 1
 vertical_alignment = 1
 

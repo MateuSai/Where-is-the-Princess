@@ -39,5 +39,5 @@ func _physics_process(_delta: float) -> void:
 		#Log.debug("Stopping stuck damage timer...")
 		damage_timer.stop()
 
-	if not is_stuck and not get_parent().mov_direction.is_zero_approx():
+	if not is_stuck and get_parent().get("mod_direction") != null and not get_parent().mov_direction.is_zero_approx():
 		last_dir = get_parent().mov_direction

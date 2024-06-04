@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dtrwrpv33j743"]
+[gd_scene load_steps=8 format=3 uid="uid://dtrwrpv33j743"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_fwyto"]
 [ext_resource type="Script" path="res://Rooms/Biomes/tutorial_forest/tutorial_forest_attack_practice_room.gd" id="2_l2bvd"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_qavqt"]
 [ext_resource type="PackedScene" uid="uid://bau1jfwsnyo2o" path="res://Characters/practice_dummy.tscn" id="4_olcsn"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="6_7u3xq"]
+[ext_resource type="PackedScene" uid="uid://cu2w4d1vmvswo" path="res://Characters/npcs/grandpa/grandpa.tscn" id="7_po43v"]
 
 [node name="TutorialForestAttackPracticeRoom" instance=ExtResource("1_fwyto")]
 script = ExtResource("2_l2bvd")
@@ -42,3 +43,6 @@ position = Vector2(75, 78)
 
 [node name="TikiTorch2" parent="." index="14" instance=ExtResource("6_7u3xq")]
 position = Vector2(161, 179)
+
+[node name="Grandpa" parent="." index="15" instance=ExtResource("7_po43v")]
+position = Vector2(121, 144)

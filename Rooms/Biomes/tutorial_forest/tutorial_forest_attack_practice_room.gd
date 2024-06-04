@@ -1,4 +1,4 @@
-extends DungeonRoom
+class_name TutorialForestAttackPracticeRoom extends DungeonRoom
 
 var attacked: bool = false
 var active_ability_used: bool = false

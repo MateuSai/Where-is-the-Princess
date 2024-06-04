@@ -1,5 +1,7 @@
 class_name KeyIcon extends TextureRect
 
+const TILE_ICONS_FOLDER: String = "res://Art/kenney_input-prompts-pixel-16/Tiles/"
+
 @export var action_name: String
 
 func _init() -> void:
