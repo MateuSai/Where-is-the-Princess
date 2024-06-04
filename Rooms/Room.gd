@@ -538,6 +538,18 @@ func _spawn_enemies() -> void:
 		spawn_explosion.position = enemy_marker.position
 		call_deferred("add_child", spawn_explosion)
 
+func kill_all_enemies() -> void:
+	for child: Node in get_children():
+		if child is Enemy:
+			child.life_component.take_damage(2000, Vector2.ZERO, 0, null, null, "player")
+
+func reset() -> void:
+	for child: Node in get_children():
+		if child is Enemy:
+			child.queue_free()
+	Globals.player.global_position = teleport_position.global_position
+	_spawn_enemies()
+
 func _on_player_entered_room() -> void:
 	Log.debug("Room _on_player_entered")
 

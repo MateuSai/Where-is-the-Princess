@@ -22,7 +22,8 @@ func _ready() -> void:
 				display_tip("GRANDPA_WEAPON_ABILITY_TUTORIAL", DIALOGUE_BOTTOM_LEFT_POSITION_OFFSET)
 			, CONNECT_ONE_SHOT)
 		elif room is TutorialForestThrowPracticeRoom:
-			display_tip("GRANDPA_THROW_TUTORIAL", DIALOGUE_TOP_LEFT_POSITION_OFFSET, true)
+			display_tip("GRANDPA_SWITCH_WEAPON_TUTORIAL", DIALOGUE_TOP_LEFT_POSITION_OFFSET, true)
+			Globals.player.weapons.weapon_switched.connect(_on_throw_tutorial_weapon_switched)
 		elif room is TutorialForestJumpTutorial:
 			display_tip("GRANDPA_JUMP_TUTORIAL")
 			Globals.player.dashed.connect(func(_dash_time: float) -> void:
@@ -39,14 +40,13 @@ func _ready() -> void:
 				_spawn_explosion()
 				display_tip("GRANDPA_ARMOR_ABILITY_TUTORIAL", DIALOGUE_TOP_RIGHT_POSITION_OFFSET, true)
 			)
+		elif room is TutorialForestCombatRoom:
+			display_tip("GRANDPA_COMBAT_ROOM", DIALOGUE_TOP_LEFT_POSITION_OFFSET, true)
+			await get_tree().create_timer(5, false).timeout
+			_remove()
 	, CONNECT_ONE_SHOT)
-	room.cleared.connect(func() -> void:
-		Log.debug("Removing grandpa...")
 
-		queue_free()
-
-		_spawn_explosion()
-	, CONNECT_ONE_SHOT)
+	room.cleared.connect(_remove, CONNECT_ONE_SHOT)
 
 func display_tip(dialogue_id: String, offset: Vector2=Vector2.ZERO, expand_up: bool=false) -> void:
 	if dialogue_box:
@@ -61,33 +61,38 @@ func display_tip(dialogue_id: String, offset: Vector2=Vector2.ZERO, expand_up: b
 	var key_open_tag: String = "[key]"
 	var key_close_tag: String = "[/key]"
 
-	var translated: String = tr(dialogue_id)
+	var remaining_text: String = tr(dialogue_id)
 
-	var key_open_pos: int = translated.find(key_open_tag)
-	var key_close_pos: int = translated.find(key_close_tag)
+	while remaining_text.contains(key_open_tag):
+		var key_open_pos: int = remaining_text.find(key_open_tag)
+		var key_close_pos: int = remaining_text.find(key_close_tag)
 
-	var before_key_tag_portion: String = translated.substr(0, key_open_pos)
-	var after_key_tag_portion: String = translated.substr(key_close_pos + key_close_tag.length(), -1)
-	var action_name: String = translated.substr(key_open_pos + key_open_tag.length(), key_close_pos - key_open_pos - key_open_tag.length())
+		var before_key_tag_portion: String = remaining_text.substr(0, key_open_pos)
+		var after_key_tag_portion: String = remaining_text.substr(key_close_pos + key_close_tag.length(), -1)
+		var action_name: String = remaining_text.substr(key_open_pos + key_open_tag.length(), key_close_pos - key_open_pos - key_open_tag.length())
 
-	#Log.debug(before_key_tag_portion)
-	#Log.debug(after_key_tag_portion)
-	#Log.debug(action_name)
+		#Log.debug(before_key_tag_portion)
+		#Log.debug(after_key_tag_portion)
+		#Log.debug(action_name)
 
-	var key_id: String
-	if Globals.mode == Globals.Mode.MOUSE:
-		key_id = InputMap.action_get_events(action_name)[0].as_text()
-	else:
-		key_id = Globals.get_joypad_event_image_id(InputMap.action_get_events(action_name)[1])
+		var key_id: String
+		if Globals.mode == Globals.Mode.MOUSE:
+			key_id = InputMap.action_get_events(action_name)[0].as_text()
+		else:
+			key_id = Globals.get_joypad_event_image_id(InputMap.action_get_events(action_name)[1])
 
-	dialogue_box.label.text = before_key_tag_portion
-	#var atlas_texture: AtlasTexture = AtlasTexture.new()
-	#atlas_texture.atlas = load("res://Art/kenney_input-prompts-pixel-16/Tilemap/tilemap_packed.png")
-	#atlas_texture.region = KeyIcon.get_key_region(key_id)
-	#Cache.get_key_image(key_id)
-	dialogue_box.label.text += "[img]" + KeyIcon.TILE_ICONS_FOLDER.path_join(key_id.to_lower().replace(" ", "_") + ".png") + "[/img]"
-	#dialogue_box.label.add_image(Cache.get_key_image(key_id))
-	dialogue_box.label.text += after_key_tag_portion
+		dialogue_box.label.text += before_key_tag_portion
+		#var atlas_texture: AtlasTexture = AtlasTexture.new()
+		#atlas_texture.atlas = load("res://Art/kenney_input-prompts-pixel-16/Tilemap/tilemap_packed.png")
+		#atlas_texture.region = KeyIcon.get_key_region(key_id)
+		#Cache.get_key_image(key_id)
+		dialogue_box.label.text += "[img]" + KeyIcon.TILE_ICONS_FOLDER.path_join(key_id.to_lower().replace(" ", "_") + ".png") + "[/img]"
+		#dialogue_box.label.add_image(Cache.get_key_image(key_id))
+		#dialogue_box.label.text += after_key_tag_portion
+
+		remaining_text = after_key_tag_portion
+
+	dialogue_box.label.text += remaining_text
 
 	Log.debug(dialogue_box.label.text)
 
@@ -99,3 +104,15 @@ func _spawn_explosion() -> void:
 	var spawn_explosion: AnimatedSprite2D = DungeonRoom.SPAWN_EXPLOSION_SCENE.instantiate()
 	spawn_explosion.position = position
 	room.call_deferred("add_child", spawn_explosion)
+
+func _on_throw_tutorial_weapon_switched(_previous_index: int, new_index: int) -> void:
+	if Globals.player.weapons.get_child(new_index) is Branch:
+		Globals.player.weapons.weapon_switched.disconnect(_on_throw_tutorial_weapon_switched)
+		display_tip("GRANDPA_THROW_TUTORIAL", DIALOGUE_TOP_LEFT_POSITION_OFFSET, true)
+
+func _remove() -> void:
+	Log.debug("Removing grandpa...")
+
+	queue_free()
+
+	_spawn_explosion()

@@ -524,9 +524,7 @@ func _clear_room() -> void:
 		printerr("You are on a corridor")
 		return
 
-	for child: Node in Globals.player.current_room.get_children():
-		if child is Enemy:
-			child.life_component.take_damage(2000, Vector2.ZERO, 0, null, null, "player")
+	Globals.player.current_room.kill_all_enemies()
 
 	hide()
 

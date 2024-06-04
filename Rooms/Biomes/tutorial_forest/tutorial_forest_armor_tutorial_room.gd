@@ -15,6 +15,7 @@ func _ready() -> void:
         second_part_area.body_entered.connect(func(_body: Node2D) -> void:
             second_part_area.queue_free()
             Globals.player.armor_ability_used.connect(func() -> void:
+                Globals.player.life_component.damage_taken.disconnect(_on_player_damage_taken)
                 _open_doors()
             , CONNECT_ONE_SHOT)
         )
