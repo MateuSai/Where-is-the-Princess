@@ -1,116 +1,74 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqrw86nt8xw8e"]
+[gd_scene load_steps=10 format=3 uid="uid://dqrw86nt8xw8e"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_yw3vq"]
 [ext_resource type="Script" path="res://Rooms/Biomes/tutorial_forest/tutorial_forest_armor_tutorial_room.gd" id="2_2ergv"]
-[ext_resource type="PackedScene" uid="uid://dmay3kb4dokgj" path="res://Rooms/Furniture and Traps/traps/spikes/Spikes.tscn" id="3_2i7s1"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="3_l2bth"]
+[ext_resource type="PackedScene" uid="uid://bdh7v0gjqelqq" path="res://Rooms/Furniture and Traps/traps/arrow_pillar/arrow_pillar.tscn" id="4_m0h8w"]
+[ext_resource type="Script" path="res://Rooms/Furniture and Traps/triggers/time_trigger/time_trigger.gd" id="5_of06u"]
+[ext_resource type="PackedScene" uid="uid://bau1jfwsnyo2o" path="res://Characters/practice_dummy.tscn" id="6_asg22"]
+[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="7_renjr"]
+[ext_resource type="PackedScene" uid="uid://cu2w4d1vmvswo" path="res://Characters/npcs/grandpa/grandpa.tscn" id="8_munfi"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dayly"]
+height = 64.0
 
 [node name="TutorialForestArmorTutorialRoom" instance=ExtResource("1_yw3vq")]
 script = ExtResource("2_2ergv")
 
 [node name="TileMap" parent="." index="0"]
-layer_0/tile_data = PackedInt32Array(131073, 65536, 3, 196610, 65536, 3, 196611, 65536, 3, 131075, 65536, 3, 131076, 65536, 3, 131077, 65536, 3, 131074, 65536, 3, 196612, 65536, 3, 131078, 65536, 3, 196615, 65536, 3, 196616, 327680, 2, 262151, 65536, 3, 327686, 65536, 3, 327685, 65536, 3, 327684, 65536, 3, 327683, 65536, 3, 262147, 65536, 3, 262148, 65536, 3, 196613, 65536, 3, 196614, 65536, 3, 262152, 327680, 3, 262149, 65536, 3, 262150, 65536, 3, 131079, 65536, 3, 131080, 327680, 2, 131081, 327680, 2, 131082, 327680, 3, 131083, 327680, 2, 131084, 327680, 3, 196620, 327680, 3, 262156, 327680, 2, 262155, 327680, 3, 262154, 327680, 3, 262153, 327680, 2, 196617, 327680, 2, 327689, 327680, 3, 196618, 327680, 3, 196619, 327680, 2, 327690, 327680, 3, 327691, 327680, 2, 196621, 327680, 3, 262157, 327680, 3, 131085, 327680, 2, 131086, 327680, 3, 196622, 327680, 2, 196623, 327680, 2, 262159, 327680, 3, 262158, 327680, 2, 196624, 327680, 2, 196625, 327680, 2, 262161, 327680, 3, 262160, 327680, 2, 131089, 327680, 3, 131090, 327680, 3, 196626, 327680, 2, 262162, 327680, 3, 327698, 327680, 2, 327699, 327680, 3, 327700, 327680, 3, 262163, 327680, 2, 196627, 327680, 2, 196628, 327680, 2, 196629, 327680, 3, 262164, 327680, 3, 262165, 327680, 3, 65537, 458752, 4, 65538, 458752, 4, 65539, 458752, 5, 65540, 393216, 4, 65541, 458752, 5, 65542, 393216, 5, 65543, 393216, 5, 65544, 524288, 5, 65545, 458752, 5, 65546, 393216, 5, 65547, 458752, 4, 65548, 524288, 5, 65549, 458752, 4, 65550, 524288, 4, 131087, 393216, 5, 131088, 393216, 5, 65553, 393216, 5, 65554, 524288, 4, 131091, 524288, 4, 131092, 393216, 5, 131093, 524288, 5, 65557, 131072, 7, 65556, 131072, 7, 65555, 65536, 7, 65551, 65536, 7, 17, 131072, 7, 18, 131072, 7, 14, 131072, 7, 15, 196608, 4, 19, 196608, 4, 16, 262144, 4, 65552, 327680, 7)
-layer_1/tile_data = PackedInt32Array(327701, 196608, 6, 327700, 131072, 6, 327699, 131072, 6, 327698, 131072, 6, 327697, 262144, 6, 262161, 327680, 6, 262160, 131072, 6, 262159, 131072, 6, 262158, 131072, 6, 262157, 131072, 6)
+layer_0/tile_data = PackedInt32Array(131073, 524288, 2, 196610, 524288, 2, 196611, 262144, 1, 131075, 0, 3, 131076, 262144, 2, 131077, 262144, 2, 131074, 393216, 1, 196612, 458752, 2, 131078, 262144, 2, 196615, 327680, 2, 196616, 327680, 2, 262151, 458752, 2, 327686, 458752, 1, 327685, 524288, 2, 327684, 524288, 1, 327683, 393216, 1, 262147, 524288, 3, 262148, 262144, 1, 196613, 327680, 2, 196614, 458752, 2, 262152, 327680, 3, 262149, 262144, 3, 262150, 262144, 3, 131079, 262144, 2, 131080, 262144, 2, 131081, 262144, 2, 131082, 262144, 2, 131083, 262144, 2, 131084, 262144, 2, 196620, 327680, 3, 262156, 458752, 2, 262155, 327680, 3, 262154, 327680, 3, 262153, 327680, 2, 196617, 458752, 2, 327689, 327680, 3, 196618, 458752, 2, 196619, 327680, 2, 327690, 458752, 2, 327691, 327680, 2, 196621, 327680, 3, 262157, 327680, 3, 131085, 131072, 2, 131086, 393216, 4, 196622, 327680, 2, 196623, 458752, 3, 262159, 327680, 3, 262158, 327680, 2, 196624, 327680, 2, 196625, 327680, 2, 262161, 327680, 3, 262160, 327680, 2, 131089, 262144, 2, 131090, 262144, 2, 196626, 458752, 2, 262162, 327680, 3, 327698, 262144, 1, 327699, 262144, 3, 327700, 0, 2, 262163, 458752, 2, 196627, 327680, 2, 196628, 327680, 2, 196629, 327680, 3, 262164, 327680, 3, 262165, 327680, 3, 65537, 458752, 4, 65538, 458752, 4, 65539, 458752, 5, 65540, 393216, 4, 65541, 458752, 5, 65542, 393216, 5, 65543, 393216, 5, 65544, 524288, 5, 65545, 458752, 5, 65546, 393216, 5, 65547, 458752, 4, 65548, 524288, 5, 65549, 458752, 4, 131087, 393216, 5, 131088, 0, 3, 65553, 524288, 1, 65554, 393216, 3, 131091, 524288, 4, 131092, 393216, 5, 131093, 524288, 5, 65557, 131072, 7, 65556, 131072, 7, 65555, 65536, 7, 65551, 327680, 7, 17, 524288, 3, 18, 458752, 1, 16, 524288, 2, 65552, 393216, 1, -65518, 393216, 2, -65519, 524288, 2, -131055, 196608, 2, -131054, 458752, 1, -196591, 393216, 1, -196590, 393216, 1, -262126, 393216, 1, -262127, 524288, 1, -327663, 524288, 3, -327662, 393216, 2, -393198, 393216, 1, -393199, 524288, 1, -262128, 524288, 3, -327664, 524288, 2, -393200, 393216, 2, -458735, 458752, 4, -458734, 393216, 5, -65520, 131072, 1, -131056, 524288, 3, -196592, 524288, 1, -327661, 458752, 1, -393197, 524288, 1, -262129, 393216, 2, -327665, 524288, 2, -393201, 524288, 5, -458736, 393216, 5, -458733, 393216, 5, 65550, 65536, 7, -458737, 327680, 7, -524273, 262144, 4, -458738, 262144, 4, -524268, 196608, 4, -524272, 131072, 7, -524271, 131072, 7, -524270, 131072, 7, -524269, 131072, 7, 1, 131072, 7, 2, 131072, 7, 3, 131072, 7, 4, 131072, 7, 5, 131072, 7, 6, 131072, 7, 7, 131072, 7, 8, 131072, 7, 9, 131072, 7, 10, 131072, 7, 11, 131072, 7, 12, 131072, 7, 13, 131072, 7, 14, 196608, 4, 0, 262144, 4, 327692, 327680, 3)
+layer_1/tile_data = PackedInt32Array(327701, 196608, 6, 327700, 131072, 6, 327699, 131072, 6, 327698, 131072, 6, 327697, 262144, 6, 262161, 327680, 6, 262160, 131072, 6, 262159, 131072, 6, 262158, 131072, 6, 262157, 65536, 6, -458732, 196608, 5, -393196, 196608, 5, -327660, 196608, 6, -262125, 196608, 6, -327661, 65536, 6, -196589, 196608, 5, -131053, 196608, 5, -65517, 196608, 5, 19, 196608, 5, -393202, 262144, 5, -327666, 262144, 5, -196593, 262144, 5, -131057, 262144, 5, -65521, 262144, 5, 15, 262144, 5, -262130, 262144, 6, -262129, 327680, 6, 65536, 262144, 5, 131072, 262144, 6, 196609, 262144, 6, 327682, 262144, 6, 327688, 262144, 6, 327689, 327680, 6, 327692, 65536, 6, 327693, 196608, 6, 327687, 196608, 6, 262152, 327680, 6, 262151, 65536, 6, 327686, 131072, 6, 327685, 131072, 6, 327684, 131072, 6, 327683, 131072, 6, 262146, 262144, 5, 196610, 327680, 6, 131073, 327680, 6)
+layer_2/tile_data = PackedInt32Array(-393197, 131072, 8, -327665, 0, 8, -262129, 589824, 3, -327661, 655360, 6, 131073, 589824, 0, 327683, 589824, 6, 131074, 589824, 3, 131085, 131072, 8, 262162, 458752, 0, 131082, 458752, 0, 262153, 524288, 0, 131079, 524288, 0, 196612, 458752, 0, 262152, 458752, 0, 262155, 458752, 0, 327700, 458752, 0, 131084, 458752, 0, 131080, 458752, 0, 131083, 327680, 0, 65552, 262144, 0, 65553, 393216, 0, 65554, 327680, 0)
 layer_3/tile_data = PackedInt32Array(262165, 65536, 6)
 
 [node name="VerticalEntry" parent="Entries/Right" index="0" instance=ExtResource("3_l2bth")]
 position = Vector2(343, 55)
 
-[node name="Spikes" parent="Traps" index="0" instance=ExtResource("3_2i7s1")]
-position = Vector2(311, 54)
+[node name="ArrowPillar" parent="Traps" index="0" groups=["enabler_1"] instance=ExtResource("4_m0h8w")]
+position = Vector2(281, -83)
+shoot_directions = 8
 
-[node name="Spikes2" parent="Traps" index="1" instance=ExtResource("3_2i7s1")]
-position = Vector2(311, 69)
+[node name="ArrowPillar2" parent="Traps" index="1" groups=["enabler_1"] instance=ExtResource("4_m0h8w")]
+position = Vector2(297, -83)
+shoot_directions = 8
 
-[node name="Spikes3" parent="Traps" index="2" instance=ExtResource("3_2i7s1")]
-position = Vector2(327, 87)
+[node name="ArrowPillar3" parent="Traps" index="2" groups=["enabler_1"] instance=ExtResource("4_m0h8w")]
+position = Vector2(265, -83)
+shoot_directions = 8
 
-[node name="Spikes4" parent="Traps" index="3" instance=ExtResource("3_2i7s1")]
-position = Vector2(311, 87)
-
-[node name="Spikes5" parent="Traps" index="4" instance=ExtResource("3_2i7s1")]
-position = Vector2(296, 87)
-
-[node name="Spikes6" parent="Traps" index="5" instance=ExtResource("3_2i7s1")]
-position = Vector2(295, 69)
-
-[node name="Spikes7" parent="Traps" index="6" instance=ExtResource("3_2i7s1")]
-position = Vector2(295, 54)
-
-[node name="Spikes8" parent="Traps" index="7" instance=ExtResource("3_2i7s1")]
-position = Vector2(295, 38)
-
-[node name="Spikes9" parent="Traps" index="8" instance=ExtResource("3_2i7s1")]
-position = Vector2(280, 38)
-
-[node name="Spikes10" parent="Traps" index="9" instance=ExtResource("3_2i7s1")]
-position = Vector2(280, 54)
-
-[node name="Spikes11" parent="Traps" index="10" instance=ExtResource("3_2i7s1")]
-position = Vector2(280, 69)
-
-[node name="Spikes12" parent="Traps" index="11" instance=ExtResource("3_2i7s1")]
-position = Vector2(264, 54)
-
-[node name="Spikes13" parent="Traps" index="12" instance=ExtResource("3_2i7s1")]
-position = Vector2(264, 69)
-
-[node name="Spikes14" parent="Traps" index="13" instance=ExtResource("3_2i7s1")]
-position = Vector2(248, 69)
-
-[node name="Spikes15" parent="Traps" index="14" instance=ExtResource("3_2i7s1")]
-position = Vector2(248, 54)
-
-[node name="Spikes16" parent="Traps" index="15" instance=ExtResource("3_2i7s1")]
-position = Vector2(233, 54)
-
-[node name="Spikes17" parent="Traps" index="16" instance=ExtResource("3_2i7s1")]
-position = Vector2(233, 69)
-
-[node name="Spikes18" parent="Traps" index="17" instance=ExtResource("3_2i7s1")]
-position = Vector2(233, 39)
-
-[node name="Spikes19" parent="Traps" index="18" instance=ExtResource("3_2i7s1")]
-position = Vector2(216, 54)
-
-[node name="Spikes20" parent="Traps" index="19" instance=ExtResource("3_2i7s1")]
-position = Vector2(216, 69)
-
-[node name="Spikes21" parent="Traps" index="20" instance=ExtResource("3_2i7s1")]
-position = Vector2(216, 39)
-
-[node name="Spikes22" parent="Traps" index="21" instance=ExtResource("3_2i7s1")]
-position = Vector2(200, 54)
-
-[node name="Spikes23" parent="Traps" index="22" instance=ExtResource("3_2i7s1")]
-position = Vector2(200, 69)
-
-[node name="Spikes24" parent="Traps" index="23" instance=ExtResource("3_2i7s1")]
-position = Vector2(200, 39)
-
-[node name="Spikes25" parent="Traps" index="24" instance=ExtResource("3_2i7s1")]
-position = Vector2(184, 54)
-
-[node name="Spikes26" parent="Traps" index="25" instance=ExtResource("3_2i7s1")]
-position = Vector2(184, 69)
-
-[node name="Spikes31" parent="Traps" index="26" instance=ExtResource("3_2i7s1")]
-position = Vector2(184, 85)
-
-[node name="Spikes32" parent="Traps" index="27" instance=ExtResource("3_2i7s1")]
-position = Vector2(168, 85)
-
-[node name="Spikes27" parent="Traps" index="28" instance=ExtResource("3_2i7s1")]
-position = Vector2(184, 39)
-
-[node name="Spikes28" parent="Traps" index="29" instance=ExtResource("3_2i7s1")]
-position = Vector2(168, 54)
-
-[node name="Spikes29" parent="Traps" index="30" instance=ExtResource("3_2i7s1")]
-position = Vector2(168, 69)
-
-[node name="Spikes30" parent="Traps" index="31" instance=ExtResource("3_2i7s1")]
-position = Vector2(168, 39)
+[node name="TimeTrigger" type="Area2D" parent="Traps" index="3"]
+script = ExtResource("5_of06u")
+interval = 0.45
+id = 1
 
 [node name="TeleportPosition" parent="." index="8"]
 position = Vector2(328, 63)
+
+[node name="PracticeDummy" parent="." index="10" instance=ExtResource("6_asg22")]
+position = Vector2(77, 68)
+
+[node name="TikiTorch" parent="." index="11" instance=ExtResource("7_renjr")]
+position = Vector2(48, 58)
+
+[node name="TikiTorch2" parent="." index="12" instance=ExtResource("7_renjr")]
+position = Vector2(100, 83)
+
+[node name="TikiTorch3" parent="." index="13" instance=ExtResource("7_renjr")]
+position = Vector2(200, 90)
+
+[node name="TikiTorch4" parent="." index="14" instance=ExtResource("7_renjr")]
+position = Vector2(151, 91)
+
+[node name="TikiTorch5" parent="." index="15" instance=ExtResource("7_renjr")]
+position = Vector2(330, 51)
+
+[node name="SecondPartArea" type="Area2D" parent="." index="16"]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SecondPartArea" index="0"]
+position = Vector2(201, 61)
+shape = SubResource("CapsuleShape2D_dayly")
+
+[node name="Grandpa" parent="." index="17" instance=ExtResource("8_munfi")]
+position = Vector2(296, 78)

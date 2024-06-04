@@ -276,6 +276,8 @@ GRANDPA_WEAPON_ABILITY_TUTORIAL,Collect souls and press [key]ui_weapon_ability[/
 GRANDPA_THROW_TUTORIAL,You can throw weapons with [key]ui_drop_weapon[/key]. Try to hit the lever.,Pots llançar armes amb la [key]ui_drop_weapon[/key]. Prova de tocar la palanca.,Puedes lanzar armas con la [key]ui_drop_weapon[/key]. Prueba de darle a la palanca.,
 GRANDPA_JUMP_TUTORIAL,Being almost  naked has its advantages. Press [key]ui_dash[/key] to jump.,Anar gairebé despullat té els seus avantatges. Pressiona [key]ui_dash[/key] per saltar.,Ir casi desnudo tiene sus ventajas. Presiona [key]ui_dash[/key] para saltar.,
 GRANDPA_EQUIP_ARMOR_TUTORIAL,Open the chest and equip the armor with [key]ui_interact[/key].,Obre el cofre i equipa l'armadura amb [key]ui_interact[/key].,Abre el cofre y equipa la armadura con [key]ui_interact[/key].,
+GRANDPA_DASH_TUTORIAL,"The armor is to heavy to jump, however you can dash with [key]ui_dash[/key].","L'armadura pesa massa per saltar; no obstant això, et permet esquivar amb [key]ui_dash[/key].","La armadura pesa demasiado como para saltar, no obstante, puedes hacer dash con [key]ui_dash[/key].",
+GRANDPA_ARMOR_ABILITY_TUTORIAL,Some armors have an active ability. Use it with [key]ui_armor_ability[/key].,Algunes armadures tenen una habilitat activa. Fes-la servir amb [key]ui_armor_ability[/key].,Algunas armaduras tienen una habilidad activa. Úsala presionando [key]ui_armor_ability[/key].,
 ,,,,
 ,,,,
 PLAYER_WAKE_UP_DIALOGUE_1,I thought I had died? Was it all a dream?,Em pensava que m'havia mort. Ha estat tot un somni?,Pensé que había muerto. ¿Ha sido todo un sueño?,

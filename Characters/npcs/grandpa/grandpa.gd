@@ -31,6 +31,14 @@ func _ready() -> void:
 				_spawn_explosion()
 				display_tip("GRANDPA_EQUIP_ARMOR_TUTORIAL")
 			, CONNECT_ONE_SHOT)
+		elif room is TutorialForestArmorTutorialRoom:
+			display_tip("GRANDPA_DASH_TUTORIAL")
+			room.get_node("SecondPartArea").body_entered.connect(func(_body: Node2D) -> void:
+				_spawn_explosion()
+				position=Vector2(63, 42)
+				_spawn_explosion()
+				display_tip("GRANDPA_ARMOR_ABILITY_TUTORIAL", DIALOGUE_TOP_RIGHT_POSITION_OFFSET, true)
+			)
 	, CONNECT_ONE_SHOT)
 	room.cleared.connect(func() -> void:
 		Log.debug("Removing grandpa...")

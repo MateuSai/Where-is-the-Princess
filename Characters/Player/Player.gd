@@ -37,6 +37,7 @@ signal player_upgrade_item_picked_up(item: PlayerUpgrade)
 
 var armor: Armor = Underpants.new(): set = set_armor
 signal armor_changed(new_armor: Armor)
+signal armor_ability_used()
 
 var mouse_direction: Vector2
 # Controller constants
@@ -476,6 +477,7 @@ func _use_armor_ability() -> void:
 	assert(armor)
 
 	armor.enable_ability_effect(self)
+	armor_ability_used.emit()
 
 	armor.is_able_to_use_ability = false
 
