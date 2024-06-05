@@ -43,8 +43,44 @@ func _ready() -> void:
 		elif room is TutorialForestCombatRoom:
 			display_tip("GRANDPA_COMBAT_ROOM", DIALOGUE_TOP_LEFT_POSITION_OFFSET, true)
 			await get_tree().create_timer(5, false).timeout
-			_remove()
+			_fade_dialogue_box()
+			room.resetted.connect(func() -> void:
+				display_tip("GRANDPA_COMBAT_ROOM_DEFEAT", DIALOGUE_TOP_LEFT_POSITION_OFFSET, true)
+				await get_tree().create_timer(5, false).timeout
+				_fade_dialogue_box()
+				room.resetted.connect(func() -> void:
+					display_tip("GRANDPA_COMBAT_ROOM_DEFEAT_2", DIALOGUE_TOP_LEFT_POSITION_OFFSET, true)
+					await get_tree().create_timer(5, false).timeout
+					_fade_dialogue_box()
+					room.resetted.connect(func() -> void:
+						display_tip("GRANDPA_COMBAT_ROOM_DEFEAT_3", DIALOGUE_TOP_LEFT_POSITION_OFFSET, true)
+						await get_tree().create_timer(5, false).timeout
+						_remove()
+					, CONNECT_ONE_SHOT)
+				, CONNECT_ONE_SHOT)
+			, CONNECT_ONE_SHOT)
 	, CONNECT_ONE_SHOT)
+
+	if room is TutorialForestEndRoom:
+		room.player_entered.connect(func() -> void:
+			_spawn_explosion()
+
+			show()
+
+			display_tip("GRANDPA_TELEPORT_TUTORIAL", DIALOGUE_TOP_LEFT_POSITION_OFFSET, true)
+			room.teleported.connect(func() -> void:
+				_spawn_explosion()
+				position=Vector2(39, 95)
+				_spawn_explosion()
+				display_tip("GRANDPA_TUTORIAL_END", DIALOGUE_BOTTOM_LEFT_POSITION_OFFSET)
+				dialogue_box.finished_displaying_text.connect(func() -> void:
+					_fade_dialogue_box()
+					dialogue_tween.finished.connect(func() -> void:
+						display_tip("GRANDPA_TUTORIAL_END_2", DIALOGUE_BOTTOM_LEFT_POSITION_OFFSET)
+					, CONNECT_ONE_SHOT)
+				, CONNECT_ONE_SHOT)
+			, CONNECT_ONE_SHOT)
+		, CONNECT_ONE_SHOT)
 
 	room.cleared.connect(_remove, CONNECT_ONE_SHOT)
 

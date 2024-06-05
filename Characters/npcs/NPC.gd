@@ -57,12 +57,13 @@ func start_dialogue() -> void:
 		dialogue_box.start_displaying_text(random_dialogue_text)
 		used_dialogue_texts.push_back(random_dialogue_text)
 
-	dialogue_box.finished_displaying_text.connect(func() -> void:
-		dialogue_tween=create_tween()
-		dialogue_tween.tween_property(dialogue_box, "modulate:a", 0.0, 1).set_delay(3)
-		await dialogue_tween.finished
-		dialogue_tween=null
-		dialogue_box.queue_free()
-		dialogue_box=null
-		dialogue_finished.emit()
-	)
+	dialogue_box.finished_displaying_text.connect(_fade_dialogue_box)
+
+func _fade_dialogue_box() -> void:
+	dialogue_tween = create_tween()
+	dialogue_tween.tween_property(dialogue_box, "modulate:a", 0.0, 1).set_delay(3)
+	await dialogue_tween.finished
+	dialogue_tween = null
+	dialogue_box.queue_free()
+	dialogue_box = null
+	dialogue_finished.emit()

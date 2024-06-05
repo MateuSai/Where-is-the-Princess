@@ -12,6 +12,7 @@ func _ready() -> void:
 		Globals.player.life_component._set_hp=_player_set_hp
 	)
 	cleared.connect(func() -> void:
+		Log.debug("Room cleared")
 		Globals.player.life_component._set_hp=default_set_hp_function
 	)
 
