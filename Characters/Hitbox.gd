@@ -96,7 +96,7 @@ func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, 
 func _on_body_shape_exited(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if exclude_rid.has(body_rid):
 		return
-	
+
 	_remove_entity_if_it_is_inside(body)
 
 func _on_area_entered(area: Area2D) -> void:

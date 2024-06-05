@@ -10,7 +10,7 @@ func _ready() -> void:
 	closed.connect(func() -> void:
 		default_set_hp_function=Globals.player.life_component._set_hp
 		Globals.player.life_component._set_hp=_player_set_hp
-	)
+	, CONNECT_ONE_SHOT)
 	cleared.connect(func() -> void:
 		Log.debug("Room cleared")
 		Globals.player.life_component._set_hp=default_set_hp_function

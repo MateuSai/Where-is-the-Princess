@@ -518,6 +518,7 @@ func remove_enemies_and_open_doors() -> void:
 	_open_doors()
 
 func _spawn_enemies() -> void:
+	#breakpoint
 	#await get_tree().create_timer(0.4, false).timeout
 	#var enemy_paths: Array[String] = Globals.get_enemy_paths(SavedData.run_stats.biome)
 
@@ -550,8 +551,11 @@ func reset() -> void:
 	for child: Node in get_children():
 		if child is Enemy:
 			child.queue_free()
-		elif child is EnemyMarker:
+	for child: Node in enemy_positions_container.get_children():
+		if child is EnemyMarker:
 			num_enemies += 1
+
+	Log.debug("num_enemies after reset: " + str(num_enemies))
 
 	Globals.player.global_position = teleport_position.global_position
 	_spawn_enemies()
