@@ -38,7 +38,7 @@ var aim_help: float:
 		set_aim_help(new_value)
 signal aim_help_changed(new_value: float)
 
-var MAPPEABLE_ACTIONS: PackedStringArray = PackedStringArray(["ui_attack", "ui_previous_weapon", "ui_next_weapon", "ui_drop_weapon", "ui_weapon_ability", "ui_armor_ability", "ui_minimap", "ui_interact"])
+var MAPPEABLE_ACTIONS: PackedStringArray = PackedStringArray(["ui_attack", "ui_previous_weapon", "ui_next_weapon", "ui_throw_weapon", "ui_weapon_ability", "ui_armor_ability", "ui_minimap", "ui_interact", "ui_dash"])
 
 @onready var tab_container: TabContainer = $TabContainer
 

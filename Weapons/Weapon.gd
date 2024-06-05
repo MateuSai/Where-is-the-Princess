@@ -184,7 +184,7 @@ func interpolate_pos(initial_pos: Vector2, final_pos: Vector2, collision_with_wo
 
 func _on_Tween_tween_completed() -> void:
 	if _is_on_water():
-		var splash: Sprite2D = load("res://effects/water_splash/water_splash.tscn").instantiate()
+		var splash: Node2D = load("res://effects/water_splash/water_splash.tscn").instantiate()
 		splash.position = weapon_sprite.global_position
 		get_tree().current_scene.add_child(splash)
 		queue_free()

@@ -8,7 +8,6 @@ var _splash_screens: Array[SplashScreen] = []
 
 @onready var _splash_screen_container: CenterContainer = $SplashScreenContainer
 
-
 func _ready() -> void:
 	assert(_move_to)
 
@@ -24,21 +23,19 @@ func _ready() -> void:
 
 	set_process_input(true)
 
-
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_skip"):
 		_skip()
 
-
 func _start_splash_screen() -> void:
 	if _splash_screens.size() == 0:
-		get_tree().change_scene_to_packed(_move_to)
-		SceneTransistor.scene_changed.emit(_move_to.resource_path)
+		SceneTransistor.start_transition_to("res://ui/menu.tscn", true)
+		#get_tree().change_scene_to_packed(_move_to)
+		#SceneTransistor.scene_changed.emit(_move_to.resource_path)
 	else:
 		var splash_screen: SplashScreen = _splash_screens.pop_front()
 		splash_screen.start()
 		splash_screen.finished.connect(_start_splash_screen)
-
 
 func _skip() -> void:
 	_splash_screen_container.get_child(0).queue_free()
