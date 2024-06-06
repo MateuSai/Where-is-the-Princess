@@ -312,7 +312,7 @@ ui_encyclopedia={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://Translations/Translations.en.translation", "res://Translations/Translations.ca.translation", "res://Translations/Translations.es.translation", "res://Translations/Translations.ja.translation")
+locale/translations=PackedStringArray("res://Translations/Translations.en.translation", "res://Translations/Translations.ca.translation", "res://Translations/Translations.es.translation", "res://Translations/Translations.ja.translation", "res://Translations/Translations.es_MX.translation")
 locale/translations_pot_files=PackedStringArray("res://Game.tscn", "res://Menus/Menu.tscn", "res://Menus/ModMenu.gd", "res://Autoloads/Settings/Settings.gd", "res://Autoloads/Settings/Settings.tscn", "res://Menus/DebugInfo.gd", "res://Armors/KnightArmor.gd", "res://Armors/MercenaryArmor.gd", "res://Armors/NoArmor.gd")
 
 [layer_names]

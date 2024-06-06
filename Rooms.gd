@@ -58,7 +58,7 @@ signal room_visited(room: DungeonRoom)
 
 var map_rect: Rect2 = Rect2(0, 0, 0, 0)
 var fog_image: Image = Image.new()
-const FOG_PADDING: int = 128
+const FOG_PADDING: int = 350
 
 var reload_on_eror: bool
 

@@ -26,9 +26,9 @@ func move(direction: Vector2) -> void:
 	var prev_current_weap_rot: float = current_weapon.rotation
 	current_weapon.move(direction)
 	#if (prev_current_weap_rot > 0 and current_weapon.rotation < 0) or (prev_current_weap_rot < 0 and current_weapon.rotation > 0):
-	if prev_current_weap_rot < 0 and current_weapon.rotation > 0:
+	if prev_current_weap_rot < 0 and current_weapon.rotation >= 0:
 		get_parent().move_child(self, -1)
-	elif prev_current_weap_rot > 0 and current_weapon.rotation < 0:
+	elif prev_current_weap_rot > 0 and current_weapon.rotation <= 0:
 		get_parent().move_child(self, 0)
 
 	#reflection_sprite.rotation = current_weapon.weapon_sprite.rotation
