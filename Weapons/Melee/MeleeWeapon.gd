@@ -162,8 +162,10 @@ func move(mouse_direction: Vector2) -> void:
 	hitbox.knockback_direction = mouse_direction
 	if data.invert_scale_when_looking_left:
 		if scale.y == 1 and mouse_direction.x < 0:
+			#Log.debug(weapon_id + ": scale y changed to -1")
 			scale.y = -1
-		elif scale.y == - 1 and mouse_direction.x > 0:
+		elif scale.y == - 1 and mouse_direction.x >= 0:
+			#Log.debug(weapon_id + ": scale y changed to 1")
 			scale.y = 1
 
 func destroy() -> void:

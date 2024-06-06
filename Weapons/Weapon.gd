@@ -161,6 +161,10 @@ func _pick_up() -> void:
 	player_detector.set_collision_mask_value(1, false)
 	player_detector.set_collision_mask_value(2, false)
 	animation_player.play("RESET")
+	#match data.type:
+	#	WeaponData.Type.DAGGER:
+	#		position = Vector2(0, 4)
+	#	_:
 	position = Vector2.ZERO
 
 	z_index = 0
