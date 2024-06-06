@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dth2ykbdys0cs"]
+
+[ext_resource type="Script" path="res://ui/cinematics/intro/royal_carriage.gd" id="1_gh1od"]
+[ext_resource type="Texture2D" uid="uid://mscxco051qeo" path="res://Art/royal_carriage_carriage.png" id="1_jak8t"]
+[ext_resource type="Texture2D" uid="uid://doiqk7ajmv4sh" path="res://Art/royal_carriage_weel.png" id="2_haic5"]
+
+[node name="RoyalCarriage" type="Node2D"]
+script = ExtResource("1_gh1od")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -7)
+texture = ExtResource("1_jak8t")
+
+[node name="Wheels" type="Node2D" parent="."]
+
+[node name="Wheel" type="Sprite2D" parent="Wheels"]
+z_index = 1
+position = Vector2(-13, 2)
+texture = ExtResource("2_haic5")
+
+[node name="Wheel2" type="Sprite2D" parent="Wheels"]
+z_index = 1
+position = Vector2(13, 2)
+texture = ExtResource("2_haic5")
