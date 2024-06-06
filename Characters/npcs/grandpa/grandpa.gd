@@ -82,6 +82,8 @@ func _ready() -> void:
 			, CONNECT_ONE_SHOT)
 		, CONNECT_ONE_SHOT)
 	elif room is TutorialForestStartRoom:
+		room.player_exited.connect(_remove, CONNECT_ONE_SHOT)
+
 		room.player_entered.connect(func() -> void:
 			_spawn_explosion()
 
@@ -91,11 +93,11 @@ func _ready() -> void:
 			dialogue_box.finished_displaying_text.connect(func() -> void:
 				_fade_dialogue_box()
 				dialogue_tween.finished.connect(func() -> void:
-					display_tip("GRANDPA_INTRODUCTION_2", DIALOGUE_BOTTOM_LEFT_POSITION_OFFSET)
+					display_tip("GRANDPA_INTRODUCTION_2", DIALOGUE_TOP_LEFT_POSITION_OFFSET, true)
 					dialogue_box.finished_displaying_text.connect(func() -> void:
 						_fade_dialogue_box()
 						dialogue_tween.finished.connect(func() -> void:
-							display_tip("GRANDPA_INTRODUCTION_3", DIALOGUE_BOTTOM_LEFT_POSITION_OFFSET)
+							display_tip("GRANDPA_INTRODUCTION_3", DIALOGUE_TOP_LEFT_POSITION_OFFSET, true)
 						, CONNECT_ONE_SHOT)
 					, CONNECT_ONE_SHOT)
 				, CONNECT_ONE_SHOT)

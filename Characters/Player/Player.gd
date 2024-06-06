@@ -281,7 +281,7 @@ func get_input() -> void:
 	if Input.is_action_pressed("ui_move_up"):
 		mov_direction.y -= Input.get_action_strength("ui_move_up")
 
-	if Input.is_action_just_pressed("ui_dash") and stamina >= DASH_STAMINA_COST and dash_cooldown_timer.is_stopped() and not (mov_direction.is_equal_approx(Vector2.ZERO) and not armor is Underpants):
+	if Input.is_action_just_pressed("ui_dash") and stamina >= DASH_STAMINA_COST and not jump_animation_player.is_playing() and dash_timer.is_stopped() and not (mov_direction.is_equal_approx(Vector2.ZERO) and not armor is Underpants):
 		_dash_or_jump()
 
 	if Input.is_action_just_pressed("ui_armor_ability") and armor.is_able_to_use_ability:

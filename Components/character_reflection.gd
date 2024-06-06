@@ -24,7 +24,7 @@ func _ready() -> void:
 	scale.y = -1
 
 	bottom_world_raycast = RayCast2D.new()
-	bottom_world_raycast.target_position = Vector2.DOWN * 8
+	bottom_world_raycast.target_position = Vector2.DOWN * 12
 	get_parent().call_deferred("add_child", bottom_world_raycast)
 
 func _process(_delta: float) -> void:
