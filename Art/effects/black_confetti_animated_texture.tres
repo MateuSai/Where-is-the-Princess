@@ -1,0 +1,23 @@
+[gd_resource type="AnimatedTexture" load_steps=7 format=3 uid="uid://dw7jogq2f2us0"]
+
+[ext_resource type="Texture2D" uid="uid://dntl66lbj5rvv" path="res://Art/effects/confetti_8x8_black_01.png" id="1_5famg"]
+[ext_resource type="Texture2D" uid="uid://dqxygivax85e4" path="res://Art/effects/confetti_8x8_black_02.png" id="2_2moxf"]
+[ext_resource type="Texture2D" uid="uid://b7xvmsxasj7f4" path="res://Art/effects/confetti_8x8_black_03.png" id="3_6xa6r"]
+[ext_resource type="Texture2D" uid="uid://bceyldaa7ab5t" path="res://Art/effects/confetti_8x8_black_04.png" id="4_kkdfc"]
+[ext_resource type="Texture2D" uid="uid://cmxh3l41e5xa8" path="res://Art/effects/confetti_8x8_black_05.png" id="5_eomsc"]
+[ext_resource type="Texture2D" uid="uid://cy5l6t3ckeox7" path="res://Art/effects/confetti_8x8_black_06.png" id="6_d4h4i"]
+
+[resource]
+frames = 6
+frame_0/texture = ExtResource("1_5famg")
+frame_0/duration = 0.15
+frame_1/texture = ExtResource("2_2moxf")
+frame_1/duration = 0.15
+frame_2/texture = ExtResource("3_6xa6r")
+frame_2/duration = 0.15
+frame_3/texture = ExtResource("4_kkdfc")
+frame_3/duration = 0.15
+frame_4/texture = ExtResource("5_eomsc")
+frame_4/duration = 0.15
+frame_5/texture = ExtResource("6_d4h4i")
+frame_5/duration = 0.15

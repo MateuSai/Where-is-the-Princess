@@ -1,10 +1,38 @@
-[gd_scene load_steps=12 format=3 uid="uid://b8ln1bli2cvfl"]
+[gd_scene load_steps=38 format=3 uid="uid://b8ln1bli2cvfl"]
 
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="1_0iek0"]
 [ext_resource type="PackedScene" uid="uid://dth2ykbdys0cs" path="res://ui/cinematics/intro/royal_carriage.tscn" id="2_o28vi"]
 [ext_resource type="PackedScene" uid="uid://b6d8ynsot6jxg" path="res://Characters/npcs/royal_horse/royal_horse.tscn" id="3_fy522"]
 [ext_resource type="Texture2D" uid="uid://hqa3x6qreifp" path="res://Art/princess.png" id="3_k8t4f"]
 [ext_resource type="Texture2D" uid="uid://dgfqy5s1m41oe" path="res://Art/king.png" id="4_hn1pr"]
+[ext_resource type="PackedScene" uid="uid://bc3jnn13by1bc" path="res://Rooms/Furniture and Traps/wooden_fence/horizontal_wooden_fence.tscn" id="6_8nc5d"]
+[ext_resource type="PackedScene" uid="uid://dvvese5gjahfs" path="res://ui/cinematics/elite_guard_walking.tscn" id="6_padrd"]
+[ext_resource type="Texture2D" uid="uid://c48u5ii2m7aqb" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Goose/Goose_1.png" id="7_d6o4v"]
+[ext_resource type="Texture2D" uid="uid://osjl7jxm8dhb" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Goose/Goose_1_wing.png" id="8_kbyhy"]
+[ext_resource type="PackedScene" uid="uid://do8m7ec4t3s5s" path="res://Characters/npcs/random_villager_idle.tscn" id="9_i0yh6"]
+[ext_resource type="Texture2D" uid="uid://bpo61641t3ks0" path="res://Art/animals/cat/cat_black_0.png" id="11_dubhk"]
+[ext_resource type="Texture2D" uid="uid://brebnmv5exfw2" path="res://Art/animals/cat/cat_black_1.png" id="12_scm46"]
+[ext_resource type="Texture2D" uid="uid://cxn81ihnj82be" path="res://Art/animals/cat/cat_black_2.png" id="13_i3x6x"]
+[ext_resource type="Texture2D" uid="uid://bv2o77amj222u" path="res://Art/animals/cat/cat_black_3.png" id="14_kvu3x"]
+[ext_resource type="Texture2D" uid="uid://dw7jogq2f2us0" path="res://Art/effects/black_confetti_animated_texture.tres" id="15_u8nrn"]
+[ext_resource type="Texture2D" uid="uid://tvmiq01tfq4i" path="res://Art/effects/yellow_confetti_animated_texture.tres" id="16_ibju4"]
+[ext_resource type="Texture2D" uid="uid://lvnlupbop6xj" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Tromp the necromancer/Tromp_01.png" id="17_p2l82"]
+[ext_resource type="Texture2D" uid="uid://cv78cp6yi27ad" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/boss_druid/Boden.png" id="18_qoer8"]
+
+[sub_resource type="Animation" id="Animation_jmdaj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_ah567"]
 resource_name = "idle"
@@ -24,7 +52,13 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3]
 }
 
-[sub_resource type="Animation" id="Animation_jmdaj"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kdnwu"]
+_data = {
+"RESET": SubResource("Animation_jmdaj"),
+"idle": SubResource("Animation_ah567")
+}
+
+[sub_resource type="Animation" id="Animation_byeir"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -37,12 +71,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_kdnwu"]
-_data = {
-"RESET": SubResource("Animation_jmdaj"),
-"idle": SubResource("Animation_ah567")
 }
 
 [sub_resource type="Animation" id="Animation_nw66c"]
@@ -63,12 +91,161 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3]
 }
 
-[sub_resource type="Animation" id="Animation_byeir"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5mytq"]
+_data = {
+"RESET": SubResource("Animation_byeir"),
+"idle": SubResource("Animation_nw66c")
+}
+
+[sub_resource type="Animation" id="Animation_minki"]
+resource_name = "animate"
+length = 7.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CompleteCarriage:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(228, 102), Vector2(100, 102)]
+}
+
+[sub_resource type="Animation" id="Animation_3ghbb"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("CompleteCarriage:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(228, 102)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wc7jy"]
+_data = {
+"RESET": SubResource("Animation_3ghbb"),
+"animate": SubResource("Animation_minki")
+}
+
+[sub_resource type="Animation" id="Animation_hwt6a"]
+resource_name = "idle_up"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UpWingPivot/UpWing:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DownWingPivot/DownWing:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(2, -5), Vector2(2, -4), Vector2(2, -5), Vector2(2, -4)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DownWingPivot/DownWing:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tl52r"]
+_data = {
+"idle_up": SubResource("Animation_hwt6a")
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_783qb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_dubhk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_scm46")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_i3x6x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_kvu3x")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hcm6r"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(200, 10, 1)
+direction = Vector3(0, 1, 0)
+spread = 30.0
+initial_velocity_min = 20.0
+initial_velocity_max = 25.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="Animation" id="Animation_qb3lf"]
+resource_name = "idle"
+length = 1.8
+loop_mode = 1
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_md1jo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -78,28 +255,73 @@ tracks/0/keys = {
 "values": [0]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_5mytq"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rtdc7"]
 _data = {
-"RESET": SubResource("Animation_byeir"),
-"idle": SubResource("Animation_nw66c")
+"RESET": SubResource("Animation_md1jo"),
+"idle": SubResource("Animation_qb3lf")
 }
 
-[node name="1" type="Node2D"]
+[sub_resource type="Animation" id="Animation_qlgq8"]
+resource_name = "idle_up"
+length = 1.2
+loop_mode = 1
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_ky668"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3b51c"]
+_data = {
+"RESET": SubResource("Animation_ky668"),
+"idle_up": SubResource("Animation_qlgq8")
+}
+
+[node name="1" type="Control"]
+y_sort_enabled = true
+custom_minimum_size = Vector2(432, 243)
+layout_mode = 3
+anchors_preset = 0
 
 [node name="TileMap" type="TileMap" parent="."]
+y_sort_enabled = true
 tile_set = ExtResource("1_0iek0")
 format = 2
 layer_0/name = "Ground"
 layer_0/z_index = -1
-layer_0/tile_data = PackedInt32Array(196608, 327681, 5, 262144, 327681, 4, 327680, 327681, 4, 393216, 327681, 4, 458752, 327681, 5, 524288, 327681, 5, 589824, 327681, 4, 196609, 327681, 5, 262145, 327681, 4, 327681, 327681, 5, 393217, 327681, 5, 458753, 327681, 5, 524289, 327681, 4, 589825, 327681, 5, 196610, 327681, 4, 262146, 327681, 5, 327682, 327681, 4, 393218, 327681, 5, 458754, 327681, 5, 524290, 327681, 4, 589826, 327681, 4, 196611, 327681, 4, 262147, 327681, 4, 327683, 327681, 4, 393219, 327681, 4, 458755, 327681, 5, 524291, 327681, 5, 589827, 327681, 4, 196612, 327681, 5, 262148, 327681, 4, 327684, 327681, 5, 393220, 327681, 4, 458756, 327681, 5, 524292, 327681, 5, 589828, 327681, 5, 196613, 327681, 4, 262149, 327681, 5, 327685, 327681, 4, 393221, 327681, 5, 458757, 327681, 4, 524293, 327681, 4, 589829, 327681, 4, 196614, 327681, 5, 262150, 327681, 4, 327686, 327681, 4, 393222, 327681, 5, 458758, 327681, 4, 524294, 327681, 4, 589830, 327681, 5, 196615, 327681, 5, 262151, 327681, 4, 327687, 327681, 4, 393223, 327681, 4, 458759, 327681, 5, 524295, 327681, 5, 589831, 327681, 5, 196616, 327681, 4, 262152, 327681, 4, 327688, 327681, 5, 393224, 327681, 4, 458760, 327681, 5, 524296, 327681, 5, 589832, 327681, 4, 196617, 327681, 5, 262153, 327681, 4, 327689, 327681, 5, 393225, 327681, 5, 458761, 327681, 4, 524297, 327681, 4, 589833, 327681, 5, 196618, 327681, 5, 262154, 327681, 5, 327690, 327681, 5, 393226, 327681, 5, 458762, 327681, 5, 524298, 327681, 4, 589834, 327681, 5, 196619, 327681, 5, 262155, 327681, 5, 327691, 327681, 5, 393227, 327681, 4, 458763, 327681, 4, 524299, 327681, 4, 589835, 327681, 4, 196620, 327681, 5, 262156, 327681, 4, 327692, 327681, 4, 393228, 327681, 4, 458764, 327681, 5, 524300, 327681, 5, 589836, 327681, 4, 196621, 327681, 4, 262157, 327681, 5, 327693, 327681, 4, 393229, 327681, 5, 458765, 327681, 4, 524301, 327681, 5, 589837, 327681, 4, 196622, 327681, 5, 262158, 327681, 5, 327694, 327681, 4, 393230, 327681, 4, 458766, 327681, 5, 524302, 327681, 4, 589838, 327681, 5, 196623, 327681, 5, 262159, 327681, 4, 327695, 327681, 5, 393231, 327681, 5, 458767, 327681, 5, 524303, 327681, 5, 589839, 327681, 4, 196624, 327681, 4, 262160, 327681, 4, 327696, 327681, 5, 393232, 327681, 4, 458768, 327681, 5, 524304, 327681, 5, 589840, 327681, 5, 196625, 327681, 4, 262161, 327681, 5, 327697, 327681, 5, 393233, 327681, 5, 458769, 327681, 5, 524305, 327681, 5, 589841, 327681, 4, 196626, 327681, 4, 262162, 327681, 4, 327698, 327681, 4, 393234, 327681, 4, 458770, 327681, 4, 524306, 327681, 5, 589842, 327681, 5, 196627, 327681, 4, 262163, 327681, 5, 327699, 327681, 4, 393235, 327681, 4, 458771, 327681, 4, 524307, 327681, 5, 589843, 327681, 5, 196628, 327681, 5, 262164, 327681, 5, 327700, 327681, 5, 393236, 327681, 5, 458772, 327681, 4, 524308, 327681, 5, 589844, 327681, 5, 196629, 327681, 4, 262165, 327681, 5, 327701, 327681, 5, 393237, 327681, 4, 458773, 327681, 5, 524309, 327681, 4, 589845, 327681, 4, 196630, 327681, 5, 262166, 327681, 4, 327702, 327681, 4, 393238, 327681, 5, 458774, 327681, 5, 524310, 327681, 5, 589846, 327681, 5, 196631, 327681, 5, 262167, 327681, 4, 327703, 327681, 4, 393239, 327681, 5, 458775, 327681, 4, 524311, 327681, 4, 589847, 327681, 5, 196632, 327681, 4, 262168, 327681, 5, 327704, 327681, 5, 393240, 327681, 4, 458776, 327681, 4, 524312, 327681, 4, 589848, 327681, 5, 196633, 327681, 5, 262169, 327681, 4, 327705, 327681, 4, 393241, 327681, 4, 458777, 327681, 4, 524313, 327681, 4, 589849, 327681, 4, 196634, 327681, 4, 262170, 327681, 5, 327706, 327681, 5, 393242, 327681, 4, 458778, 327681, 5, 524314, 327681, 4, 589850, 327681, 4, 655360, 327681, 4, 655361, 327681, 4, 655362, 327681, 5, 655363, 327681, 5, 655364, 327681, 4, 655365, 327681, 5, 655366, 327681, 5, 655367, 327681, 4, 655368, 327681, 4, 655369, 327681, 4, 655370, 327681, 4, 655371, 327681, 5, 655372, 327681, 4, 655373, 327681, 4, 655374, 327681, 4, 655375, 327681, 4, 655376, 327681, 4, 655377, 327681, 5, 655378, 327681, 4, 655379, 327681, 5, 655380, 327681, 4, 655381, 327681, 5, 655382, 327681, 4, 655383, 327681, 5, 655384, 327681, 4, 655385, 327681, 4, 655386, 327681, 4, 720922, 327681, 4, 720921, 327681, 5, 720920, 327681, 4, 720919, 327681, 5, 720918, 327681, 4, 720917, 327681, 4, 720916, 327681, 4, 720915, 327681, 5, 720898, 327681, 5, 720897, 327681, 5, 720896, 327681, 4, 720899, 327681, 5, 720900, 327681, 4, 720901, 327681, 4, 720902, 327681, 5, 720903, 327681, 4, 720904, 327681, 4, 720905, 327681, 5, 720906, 327681, 5, 720907, 327681, 4, 720908, 327681, 5, 720909, 327681, 5, 720910, 327681, 4, 720911, 327681, 5, 720912, 327681, 4, 720913, 327681, 4, 720914, 327681, 4)
+layer_0/tile_data = PackedInt32Array(458752, 327681, 4, 524288, 327681, 4, 589824, 327681, 4, 458753, 327681, 4, 524289, 327681, 5, 589825, 327681, 5, 458754, 327681, 5, 524290, 1703937, 14, 589826, 327681, 5, 458755, 327681, 4, 524291, 1835009, 13, 589827, 1835009, 15, 458756, 327681, 4, 524292, 1835009, 14, 589828, 327681, 4, 458757, 327681, 5, 524293, 1769473, 14, 589829, 327681, 5, 458758, 1703937, 14, 524294, 327681, 4, 589830, 327681, 5, 458759, 1900545, 14, 524295, 327681, 4, 589831, 327681, 4, 458760, 1769473, 14, 524296, 327681, 5, 589832, 327681, 4, 458761, 327681, 4, 524297, 327681, 5, 589833, 327681, 5, 458762, 327681, 5, 524298, 327681, 5, 589834, 327681, 5, 458763, 1703937, 14, 524299, 327681, 5, 589835, 327681, 4, 458764, 1900545, 13, 458765, 1769473, 14, 524301, 327681, 4, 589837, 327681, 5, 458766, 327681, 5, 524302, 327681, 4, 589838, 327681, 4, 458767, 327681, 4, 524303, 327681, 5, 589839, 327681, 5, 458768, 327681, 4, 524304, 1703937, 14, 589840, 327681, 4, 458769, 327681, 5, 524305, 1900545, 14, 589841, 327681, 5, 458770, 327681, 4, 524306, 1835009, 14, 589842, 327681, 4, 458771, 327681, 5, 524307, 1900545, 14, 589843, 327681, 4, 458772, 1703937, 14, 524308, 1900545, 14, 589844, 327681, 5, 458773, 1900545, 14, 524309, 1835009, 14, 589845, 327681, 4, 458774, 1835009, 14, 524310, 1769473, 14, 589846, 327681, 5, 458775, 1900545, 14, 524311, 327681, 4, 589847, 327681, 5, 458776, 1769473, 14, 524312, 327681, 5, 589848, 327681, 4, 458777, 327681, 4, 524313, 327681, 4, 589849, 327681, 4, 458778, 327681, 5, 524314, 327681, 5, 589850, 327681, 4, 655360, 327681, 4, 655361, 327681, 4, 655362, 327681, 5, 655363, 1900545, 15, 655364, 327681, 4, 655365, 327681, 5, 655366, 327681, 5, 655367, 327681, 4, 655368, 327681, 4, 655369, 327681, 4, 655370, 327681, 4, 655371, 327681, 5, 655372, 327681, 4, 655373, 327681, 4, 655374, 327681, 4, 655375, 327681, 4, 655376, 327681, 4, 655377, 327681, 5, 655378, 327681, 4, 655379, 327681, 5, 655380, 327681, 4, 655381, 327681, 5, 655382, 327681, 4, 655383, 327681, 5, 655384, 327681, 4, 655385, 327681, 4, 655386, 327681, 4, 720922, 327681, 4, 720921, 327681, 5, 720920, 327681, 4, 720919, 327681, 5, 720918, 327681, 4, 720917, 327681, 4, 720916, 327681, 4, 720915, 327681, 5, 720898, 327681, 5, 720897, 327681, 5, 720896, 327681, 4, 720899, 1900545, 15, 720900, 327681, 4, 720901, 327681, 4, 720902, 327681, 5, 720903, 327681, 4, 720904, 327681, 4, 720905, 327681, 5, 720906, 327681, 5, 720907, 327681, 4, 720908, 327681, 5, 720909, 327681, 5, 720910, 327681, 4, 720911, 327681, 5, 720912, 327681, 4, 720913, 327681, 4, 720914, 327681, 4, 196608, 327681, 5, 262144, 327681, 5, 327680, 327681, 4, 393216, 327681, 5, 196609, 327681, 4, 262145, 327681, 4, 327681, 327681, 5, 393217, 327681, 5, 196610, 327681, 5, 262146, 327681, 5, 327682, 327681, 4, 393218, 327681, 4, 196611, 327681, 4, 262147, 327681, 5, 327683, 327681, 4, 393219, 327681, 4, 196612, 327681, 5, 262148, 327681, 5, 327684, 327681, 5, 393220, 327681, 5, 196613, 327681, 5, 262149, 327681, 5, 327685, 327681, 4, 393221, 327681, 4, 196614, 327681, 5, 262150, 327681, 5, 327686, 327681, 5, 393222, 327681, 5, 196615, 327681, 4, 262151, 327681, 4, 327687, 327681, 5, 393223, 327681, 5, 196616, 327681, 4, 262152, 327681, 4, 327688, 327681, 5, 393224, 327681, 4, 196617, 327681, 5, 262153, 327681, 4, 327689, 327681, 4, 393225, 327681, 5, 196618, 327681, 5, 262154, 327681, 5, 327690, 327681, 5, 393226, 327681, 5, 196619, 327681, 5, 262155, 327681, 4, 327691, 327681, 5, 393227, 327681, 5, 196620, 1900545, 15, 262156, 1900545, 15, 327692, 1900545, 15, 393228, 1835009, 15, 196621, 327681, 5, 262157, 1769473, 15, 327693, 1900545, 15, 393229, 2031617, 15, 196622, 1835009, 15, 262158, 1900545, 15, 327694, 1835009, 15, 393230, 2097153, 15, 196623, 327681, 4, 262159, 327681, 5, 327695, 327681, 4, 393231, 327681, 5, 196624, 327681, 5, 262160, 327681, 5, 327696, 327681, 4, 393232, 327681, 4, 196625, 327681, 4, 262161, 327681, 4, 327697, 327681, 5, 393233, 327681, 4, 196626, 327681, 4, 262162, 327681, 5, 327698, 327681, 5, 393234, 327681, 4, 196627, 327681, 4, 262163, 327681, 4, 327699, 327681, 5, 393235, 327681, 4, 196628, 327681, 5, 262164, 327681, 4, 327700, 327681, 4, 393236, 327681, 5, 196629, 327681, 4, 262165, 327681, 4, 327701, 327681, 5, 393237, 327681, 4, 196630, 327681, 4, 262166, 327681, 5, 327702, 327681, 4, 393238, 327681, 5, 196631, 327681, 5, 262167, 327681, 5, 327703, 327681, 5, 393239, 327681, 5, 196632, 327681, 5, 262168, 327681, 5, 327704, 327681, 5, 393240, 327681, 4, 196633, 327681, 5, 262169, 327681, 5, 327705, 327681, 5, 393241, 327681, 5, 196634, 327681, 4, 262170, 327681, 5, 327706, 327681, 5, 393242, 327681, 4, 524300, 327681, 4, 589836, 327681, 4)
 layer_1/name = "Bottom and lateral walls"
 layer_1/z_index = 1
 layer_1/tile_data = PackedInt32Array()
 layer_2/name = "Decorations"
-layer_2/tile_data = PackedInt32Array()
+layer_2/y_sort_enabled = true
+layer_2/tile_data = PackedInt32Array(720904, 655364, 17, 720922, 393220, 8, 655385, 262148, 8, 720920, 655364, 6, 655383, 589828, 0, 720919, 589828, 6, 720918, 589828, 3, 196611, 589828, 12, 196617, 1376260, 9, 196625, 1703940, 9, 720901, 655364, 17, 720896, 1310724, 17, 720915, 1048580, 17, 196633, 1703940, 9, 196629, 1966084, 9, 720917, 458752, 0, 720921, 458752, 0, 655384, 524288, 0)
 
 [node name="CompleteCarriage" type="Node2D" parent="."]
-position = Vector2(134, 99)
+position = Vector2(228, 102)
 
 [node name="RoyalCarriage" parent="CompleteCarriage" instance=ExtResource("2_o28vi")]
 position = Vector2(91, 22)
@@ -143,3 +365,594 @@ position = Vector2(19, 25)
 
 [node name="RoyalHorse4" parent="CompleteCarriage" instance=ExtResource("3_fy522")]
 position = Vector2(18, 30)
+
+[node name="EliteGuards" type="Node2D" parent="CompleteCarriage"]
+y_sort_enabled = true
+
+[node name="EliteGuardWalking" parent="CompleteCarriage/EliteGuards" instance=ExtResource("6_padrd")]
+position = Vector2(-8, 23)
+
+[node name="EliteGuardWalking2" parent="CompleteCarriage/EliteGuards" instance=ExtResource("6_padrd")]
+position = Vector2(-8, 31)
+
+[node name="EliteGuardWalking3" parent="CompleteCarriage/EliteGuards" instance=ExtResource("6_padrd")]
+position = Vector2(-19, 23)
+
+[node name="EliteGuardWalking4" parent="CompleteCarriage/EliteGuards" instance=ExtResource("6_padrd")]
+position = Vector2(-19, 31)
+
+[node name="EliteGuardWalking5" parent="CompleteCarriage/EliteGuards" instance=ExtResource("6_padrd")]
+position = Vector2(-30, 31)
+
+[node name="EliteGuardWalking6" parent="CompleteCarriage/EliteGuards" instance=ExtResource("6_padrd")]
+position = Vector2(-30, 23)
+
+[node name="EliteGuardWalking7" parent="CompleteCarriage/EliteGuards" instance=ExtResource("6_padrd")]
+position = Vector2(150, 23)
+
+[node name="EliteGuardWalking8" parent="CompleteCarriage/EliteGuards" instance=ExtResource("6_padrd")]
+position = Vector2(150, 31)
+
+[node name="EliteGuardWalking9" parent="CompleteCarriage/EliteGuards" instance=ExtResource("6_padrd")]
+position = Vector2(139, 23)
+
+[node name="EliteGuardWalking10" parent="CompleteCarriage/EliteGuards" instance=ExtResource("6_padrd")]
+position = Vector2(139, 31)
+
+[node name="EliteGuardWalking11" parent="CompleteCarriage/EliteGuards" instance=ExtResource("6_padrd")]
+position = Vector2(128, 31)
+
+[node name="EliteGuardWalking12" parent="CompleteCarriage/EliteGuards" instance=ExtResource("6_padrd")]
+position = Vector2(128, 23)
+
+[node name="HorizontalWoodenFence" parent="." instance=ExtResource("6_8nc5d")]
+position = Vector2(160, 171)
+
+[node name="HorizontalWoodenFence2" parent="." instance=ExtResource("6_8nc5d")]
+position = Vector2(176, 171)
+
+[node name="HorizontalWoodenFence3" parent="." instance=ExtResource("6_8nc5d")]
+position = Vector2(192, 171)
+
+[node name="HorizontalWoodenFence4" parent="." instance=ExtResource("6_8nc5d")]
+position = Vector2(208, 171)
+
+[node name="HorizontalWoodenFence5" parent="." instance=ExtResource("6_8nc5d")]
+position = Vector2(224, 171)
+
+[node name="HorizontalWoodenFence6" parent="." instance=ExtResource("6_8nc5d")]
+position = Vector2(240, 171)
+
+[node name="HorizontalWoodenFence7" parent="." instance=ExtResource("6_8nc5d")]
+position = Vector2(256, 171)
+
+[node name="HorizontalWoodenFence8" parent="." instance=ExtResource("6_8nc5d")]
+position = Vector2(272, 171)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wc7jy")
+}
+
+[node name="Goose" type="Node2D" parent="."]
+position = Vector2(271, 181)
+
+[node name="Sprite2D" type="Sprite2D" parent="Goose"]
+position = Vector2(0, -7)
+texture = ExtResource("7_d6o4v")
+hframes = 4
+vframes = 4
+frame = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Goose"]
+libraries = {
+"": SubResource("AnimationLibrary_tl52r")
+}
+autoplay = "idle_up"
+
+[node name="UpWingPivot" type="Node2D" parent="Goose"]
+
+[node name="UpWing" type="Sprite2D" parent="Goose/UpWingPivot"]
+visible = false
+position = Vector2(0, -6)
+texture = ExtResource("8_kbyhy")
+offset = Vector2(-2, 0)
+
+[node name="DownWingPivot" type="Node2D" parent="Goose"]
+
+[node name="DownWing" type="Sprite2D" parent="Goose/DownWingPivot"]
+position = Vector2(2, -5)
+texture = ExtResource("8_kbyhy")
+offset = Vector2(-2, 0)
+
+[node name="Goose2" type="Node2D" parent="."]
+position = Vector2(241, 183)
+scale = Vector2(-1, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Goose2"]
+position = Vector2(0, -7)
+texture = ExtResource("7_d6o4v")
+hframes = 4
+vframes = 4
+frame = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Goose2"]
+libraries = {
+"": SubResource("AnimationLibrary_tl52r")
+}
+autoplay = "idle_up"
+
+[node name="UpWingPivot" type="Node2D" parent="Goose2"]
+
+[node name="UpWing" type="Sprite2D" parent="Goose2/UpWingPivot"]
+visible = false
+position = Vector2(0, -6)
+texture = ExtResource("8_kbyhy")
+offset = Vector2(-2, 0)
+
+[node name="DownWingPivot" type="Node2D" parent="Goose2"]
+
+[node name="DownWing" type="Sprite2D" parent="Goose2/DownWingPivot"]
+position = Vector2(2, -5)
+texture = ExtResource("8_kbyhy")
+offset = Vector2(-2, 0)
+
+[node name="Goose4" type="Node2D" parent="."]
+position = Vector2(205, 188)
+scale = Vector2(-1, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Goose4"]
+position = Vector2(0, -7)
+texture = ExtResource("7_d6o4v")
+hframes = 4
+vframes = 4
+frame = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Goose4"]
+libraries = {
+"": SubResource("AnimationLibrary_tl52r")
+}
+autoplay = "idle_up"
+
+[node name="UpWingPivot" type="Node2D" parent="Goose4"]
+
+[node name="UpWing" type="Sprite2D" parent="Goose4/UpWingPivot"]
+visible = false
+position = Vector2(0, -6)
+texture = ExtResource("8_kbyhy")
+offset = Vector2(-2, 0)
+
+[node name="DownWingPivot" type="Node2D" parent="Goose4"]
+
+[node name="DownWing" type="Sprite2D" parent="Goose4/DownWingPivot"]
+position = Vector2(2, -5)
+texture = ExtResource("8_kbyhy")
+offset = Vector2(-2, 0)
+
+[node name="Goose3" type="Node2D" parent="."]
+position = Vector2(179, 177)
+
+[node name="Sprite2D" type="Sprite2D" parent="Goose3"]
+position = Vector2(0, -7)
+texture = ExtResource("7_d6o4v")
+hframes = 4
+vframes = 4
+frame = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Goose3"]
+libraries = {
+"": SubResource("AnimationLibrary_tl52r")
+}
+autoplay = "idle_up"
+
+[node name="UpWingPivot" type="Node2D" parent="Goose3"]
+
+[node name="UpWing" type="Sprite2D" parent="Goose3/UpWingPivot"]
+visible = false
+position = Vector2(0, -6)
+texture = ExtResource("8_kbyhy")
+offset = Vector2(-2, 0)
+
+[node name="DownWingPivot" type="Node2D" parent="Goose3"]
+
+[node name="DownWing" type="Sprite2D" parent="Goose3/DownWingPivot"]
+position = Vector2(2, -5)
+texture = ExtResource("8_kbyhy")
+offset = Vector2(-2, 0)
+
+[node name="Villagers" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="RandomVillagerIdle" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(15, 80)
+
+[node name="RandomVillagerIdle2" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(28, 94)
+
+[node name="RandomVillagerIdle3" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(29, 80)
+
+[node name="RandomVillagerIdle4" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(34, 87)
+
+[node name="RandomVillagerIdle5" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(10, 91)
+
+[node name="RandomVillagerIdle6" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(42, 81)
+
+[node name="RandomVillagerIdle7" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(46, 90)
+
+[node name="RandomVillagerIdle8" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(59, 79)
+
+[node name="RandomVillagerIdle9" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(71, 86)
+
+[node name="RandomVillagerIdle10" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(57, 88)
+
+[node name="RandomVillagerIdle11" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(51, 82)
+
+[node name="RandomVillagerIdle12" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(67, 95)
+
+[node name="RandomVillagerIdle13" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(81, 83)
+
+[node name="RandomVillagerIdle14" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(74, 80)
+
+[node name="RandomVillagerIdle15" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(78, 93)
+
+[node name="RandomVillagerIdle16" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(65, 86)
+
+[node name="RandomVillagerIdle17" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(91, 80)
+
+[node name="RandomVillagerIdle18" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(88, 91)
+
+[node name="RandomVillagerIdle19" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(96, 88)
+
+[node name="RandomVillagerIdle20" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(101, 93)
+
+[node name="RandomVillagerIdle21" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(102, 81)
+
+[node name="RandomVillagerIdle22" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(112, 89)
+
+[node name="RandomVillagerIdle23" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(115, 81)
+
+[node name="RandomVillagerIdle24" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(123, 90)
+
+[node name="RandomVillagerIdle25" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(108, 76)
+
+[node name="RandomVillagerIdle26" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(125, 83)
+
+[node name="RandomVillagerIdle27" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(131, 91)
+
+[node name="RandomVillagerIdle28" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(134, 84)
+
+[node name="RandomVillagerIdle29" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(141, 80)
+
+[node name="RandomVillagerIdle30" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(141, 87)
+
+[node name="RandomVillagerIdle31" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(147, 92)
+
+[node name="RandomVillagerIdle32" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(151, 85)
+
+[node name="RandomVillagerIdle33" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(158, 80)
+
+[node name="RandomVillagerIdle34" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(162, 89)
+
+[node name="RandomVillagerIdle35" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(165, 79)
+
+[node name="RandomVillagerIdle36" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(173, 78)
+
+[node name="RandomVillagerIdle37" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(173, 84)
+
+[node name="RandomVillagerIdle38" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(181, 92)
+
+[node name="RandomVillagerIdle39" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(189, 82)
+
+[node name="RandomVillagerIdle40" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(181, 78)
+
+[node name="RandomVillagerIdle41" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(182, 86)
+
+[node name="RandomVillagerIdle42" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(192, 90)
+
+[node name="RandomVillagerIdle43" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(199, 79)
+
+[node name="RandomVillagerIdle44" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(201, 88)
+
+[node name="RandomVillagerIdle45" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(207, 79)
+
+[node name="RandomVillagerIdle46" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(209, 92)
+
+[node name="RandomVillagerIdle47" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(215, 87)
+
+[node name="RandomVillagerIdle48" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(219, 79)
+
+[node name="RandomVillagerIdle49" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(223, 91)
+
+[node name="RandomVillagerIdle50" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(228, 80)
+
+[node name="RandomVillagerIdle51" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(232, 88)
+
+[node name="RandomVillagerIdle52" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(242, 82)
+
+[node name="RandomVillagerIdle53" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(243, 91)
+
+[node name="RandomVillagerIdle54" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(235, 79)
+
+[node name="RandomVillagerIdle55" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(256, 92)
+
+[node name="RandomVillagerIdle56" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(253, 84)
+
+[node name="RandomVillagerIdle57" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(266, 81)
+
+[node name="RandomVillagerIdle58" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(249, 76)
+
+[node name="RandomVillagerIdle59" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(263, 86)
+
+[node name="RandomVillagerIdle60" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(271, 91)
+
+[node name="RandomVillagerIdle61" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(280, 83)
+
+[node name="RandomVillagerIdle62" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(288, 93)
+
+[node name="RandomVillagerIdle63" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(273, 80)
+
+[node name="RandomVillagerIdle64" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(281, 92)
+
+[node name="RandomVillagerIdle65" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(293, 77)
+
+[node name="RandomVillagerIdle66" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(290, 84)
+
+[node name="RandomVillagerIdle67" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(298, 90)
+
+[node name="RandomVillagerIdle68" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(305, 83)
+
+[node name="RandomVillagerIdle69" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(311, 96)
+
+[node name="RandomVillagerIdle70" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(306, 89)
+
+[node name="RandomVillagerIdle71" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(317, 82)
+
+[node name="RandomVillagerIdle72" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(324, 96)
+
+[node name="RandomVillagerIdle73" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(319, 90)
+
+[node name="RandomVillagerIdle74" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(329, 81)
+
+[node name="RandomVillagerIdle75" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(334, 93)
+
+[node name="RandomVillagerIdle76" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(343, 95)
+
+[node name="RandomVillagerIdle77" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(342, 84)
+
+[node name="RandomVillagerIdle78" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(335, 84)
+
+[node name="RandomVillagerIdle79" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(326, 88)
+
+[node name="RandomVillagerIdle80" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(352, 80)
+
+[node name="RandomVillagerIdle81" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(354, 90)
+
+[node name="RandomVillagerIdle82" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(364, 92)
+
+[node name="RandomVillagerIdle83" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(363, 82)
+
+[node name="RandomVillagerIdle84" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(375, 79)
+
+[node name="RandomVillagerIdle85" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(373, 88)
+
+[node name="RandomVillagerIdle86" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(356, 95)
+
+[node name="RandomVillagerIdle87" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(376, 96)
+
+[node name="RandomVillagerIdle88" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(385, 87)
+
+[node name="RandomVillagerIdle89" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(390, 93)
+
+[node name="RandomVillagerIdle90" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(393, 82)
+
+[node name="RandomVillagerIdle91" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(404, 81)
+
+[node name="RandomVillagerIdle92" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(417, 88)
+
+[node name="RandomVillagerIdle93" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(429, 81)
+
+[node name="RandomVillagerIdle94" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(429, 93)
+
+[node name="RandomVillagerIdle95" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(416, 78)
+
+[node name="RandomVillagerIdle96" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(401, 93)
+
+[node name="RandomVillagerIdle97" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(410, 92)
+
+[node name="RandomVillagerIdle98" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(420, 93)
+
+[node name="RandomVillagerIdle99" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(385, 77)
+
+[node name="RandomVillagerIdle100" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(373, 67)
+
+[node name="RandomVillagerIdle101" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(4, 79)
+
+[node name="RandomVillagerIdle102" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(19, 91)
+
+[node name="RandomVillagerIdle103" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(37, 93)
+
+[node name="RandomVillagerIdle104" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(54, 95)
+
+[node name="RandomVillagerIdle105" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(2, 86)
+
+[node name="RandomVillagerIdle106" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(91, 68)
+
+[node name="RandomVillagerIdle107" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(101, 65)
+
+[node name="RandomVillagerIdle108" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(117, 69)
+
+[node name="RandomVillagerIdle109" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(99, 74)
+
+[node name="RandomVillagerIdle110" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(23, 76)
+
+[node name="RandomVillagerIdle111" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(10, 74)
+
+[node name="RandomVillagerIdle112" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(18, 68)
+
+[node name="RandomVillagerIdle113" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(4, 68)
+
+[node name="RandomVillagerIdle114" parent="Villagers" instance=ExtResource("9_i0yh6")]
+position = Vector2(108, 69)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
+position = Vector2(298, 29)
+sprite_frames = SubResource("SpriteFrames_783qb")
+autoplay = "default"
+frame_progress = 0.263353
+
+[node name="BlackConfettiParticles" type="GPUParticles2D" parent="."]
+z_index = 1
+position = Vector2(200, 7)
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_hcm6r")
+texture = ExtResource("15_u8nrn")
+lifetime = 8.0
+preprocess = 8.0
+
+[node name="YellowConfettiParticles" type="GPUParticles2D" parent="."]
+z_index = 1
+position = Vector2(200, 7)
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_hcm6r")
+texture = ExtResource("16_ibju4")
+lifetime = 8.0
+preprocess = 8.0
+
+[node name="Tromp" type="Sprite2D" parent="."]
+position = Vector2(325, 71)
+texture = ExtResource("17_p2l82")
+flip_h = true
+hframes = 6
+vframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Tromp"]
+libraries = {
+"": SubResource("AnimationLibrary_rtdc7")
+}
+autoplay = "idle"
+
+[node name="Boden" type="Sprite2D" parent="."]
+position = Vector2(374, 184)
+texture = ExtResource("18_qoer8")
+flip_h = true
+hframes = 4
+vframes = 4
+frame = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Boden"]
+libraries = {
+"": SubResource("AnimationLibrary_3b51c")
+}
+autoplay = "idle_up"

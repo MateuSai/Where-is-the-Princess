@@ -1,0 +1,23 @@
+[gd_resource type="AnimatedTexture" load_steps=7 format=3 uid="uid://tvmiq01tfq4i"]
+
+[ext_resource type="Texture2D" uid="uid://djf1f4ida3adp" path="res://Art/effects/confetti_8x8_yellow_01.png" id="1_a563w"]
+[ext_resource type="Texture2D" uid="uid://c3jq6fapvkyp5" path="res://Art/effects/confetti_8x8_yellow_02.png" id="2_dtghx"]
+[ext_resource type="Texture2D" uid="uid://ddev4lxatilk8" path="res://Art/effects/confetti_8x8_yellow_03.png" id="3_rgpkh"]
+[ext_resource type="Texture2D" uid="uid://cl1ki7gjhiajl" path="res://Art/effects/confetti_8x8_yellow_04.png" id="4_agex7"]
+[ext_resource type="Texture2D" uid="uid://5y7xq3rdbyy5" path="res://Art/effects/confetti_8x8_yellow_05.png" id="5_fow4o"]
+[ext_resource type="Texture2D" uid="uid://c3st8jggguam1" path="res://Art/effects/confetti_8x8_yellow_06.png" id="6_ihv01"]
+
+[resource]
+frames = 6
+frame_0/texture = ExtResource("1_a563w")
+frame_0/duration = 0.15
+frame_1/texture = ExtResource("2_dtghx")
+frame_1/duration = 0.15
+frame_2/texture = ExtResource("3_rgpkh")
+frame_2/duration = 0.15
+frame_3/texture = ExtResource("4_agex7")
+frame_3/duration = 0.15
+frame_4/texture = ExtResource("5_fow4o")
+frame_4/duration = 0.15
+frame_5/texture = ExtResource("6_ihv01")
+frame_5/duration = 0.15

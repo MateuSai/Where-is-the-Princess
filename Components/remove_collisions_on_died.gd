@@ -8,6 +8,8 @@ func _ready() -> void:
 	var max_iter: int = 8
 	var i: int = 0
 	while room == null:
+		if current_parent is Control:
+			return
 		if current_parent is DungeonRoom:
 			room = current_parent
 			break
