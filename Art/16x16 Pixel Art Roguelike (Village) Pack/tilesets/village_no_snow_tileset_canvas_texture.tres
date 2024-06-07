@@ -1,0 +1,8 @@
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://ck2srd2amub1t"]
+
+[ext_resource type="Texture2D" uid="uid://dglud76ud6gs2" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/tilesets/full tilemap village nosnow albedo.png" id="1_n1el6"]
+[ext_resource type="Texture2D" uid="uid://ctr7ttbbccymd" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/tilesets/full tilemap village nosnow normal.png" id="2_2tgq2"]
+
+[resource]
+diffuse_texture = ExtResource("1_n1el6")
+normal_texture = ExtResource("2_2tgq2")
