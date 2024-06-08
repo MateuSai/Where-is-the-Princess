@@ -4,6 +4,8 @@ signal finished_displaying_text()
 var last_label_size: Vector2
 var expand_up: bool = false
 
+@export var auto_free_on_dialogue_end: bool = false
+
 @onready var label: RichTextLabel = $MarginContainer/RichTextLabel
 @onready var add_letter_timer: Timer = $AddLetterTimer
 
@@ -29,6 +31,9 @@ func _on_add_letter_timeout() -> void:
 	if label.visible_characters == label.text.length():
 		add_letter_timer.stop()
 		finished_displaying_text.emit()
+		if auto_free_on_dialogue_end:
+			await get_tree().create_timer(1.5, false).timeout
+			queue_free()
 
 func _on_label_resized() -> void:
 	if expand_up:

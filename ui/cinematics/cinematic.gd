@@ -20,6 +20,7 @@ func _show_next_slide() -> void:
 		slide = null
 
 	slide = load(cinematic_dir.path_join(str(slide_number) + ".tscn")).instantiate()
+	slide.clip_contents = true
 	add_child(slide)
 
 	(slide.get_node("AnimationPlayer") as AnimationPlayer).play("animate")
