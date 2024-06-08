@@ -9,6 +9,9 @@ class_name Campfire extends StaticBody2D
 @onready var temperature_area_collision: CollisionShape2D = $TemperatureArea/CollisionShape2D
 
 func _ready() -> void:
+	if get_parent() is Control:
+		return
+
 	if SavedData.get_biome_conf().day_night_cycle:
 		if day_night_system.is_day():
 			_disable()

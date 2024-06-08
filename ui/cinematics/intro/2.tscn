@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bay4q6hy68tkf"]
+
+[ext_resource type="LabelSettings" uid="uid://cbc4642i2ox27" path="res://Fonts/credits_section_title_label_settings.tres" id="1_f7suv"]
+
+[sub_resource type="Animation" id="Animation_g17sl"]
+resource_name = "animate"
+length = 3.0
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_etu5u"]
+_data = {
+"animate": SubResource("Animation_g17sl")
+}
+
+[node name="2" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "A_FEW_MONTHS_LATER"
+label_settings = ExtResource("1_f7suv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_etu5u")
+}
