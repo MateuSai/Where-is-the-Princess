@@ -1,7 +1,7 @@
 id,max_hp,mass,acceleration,max_speed,flying,can_be_knocked_back,motionless,resistances,body_type,biomes,,icon,coins,souls,dark_souls,food_prob,armor_shard_prob,whetstone_prob
 player,4,60,0.1,250,0,1,0,0,FLESH,"forest,sewer",,,,,,,,
 ,,,,,,,,,,,,,,,,,,
-practice_dummy,1,40,0.1,100,0,0,1,0,FLESH,forest,,,,,,,,
+practice_dummy,1,40,0.1,100,0,0,1,0,CLOTHES,forest,,,,,,,,
 ,,,,,,,,,,,,,,,,,,
 toasted_mark,5,60,0.1,100,0,1,0,0,FLESH,forest,,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/reptiles/mark_the_reptilian_icon.png,1-2,1,0,0.1,0.05,0.05
 naked_mark,4,55,0.1,100,0,1,0,0,FLESH,forest,,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/reptiles/naked_mark_icon.png,1-2,1,0,0.1,0.05,0.05
