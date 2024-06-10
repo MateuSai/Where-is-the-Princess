@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://b8ln1bli2cvfl"]
+[gd_scene load_steps=46 format=3 uid="uid://b8ln1bli2cvfl"]
 
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="1_0iek0"]
 [ext_resource type="PackedScene" uid="uid://dth2ykbdys0cs" path="res://ui/cinematics/intro/royal_carriage.tscn" id="2_o28vi"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://cv78cp6yi27ad" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/boss_druid/Boden.png" id="18_qoer8"]
 [ext_resource type="Texture2D" uid="uid://br7c70c5injos" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/no_armor.png" id="19_eq8s5"]
 [ext_resource type="LabelSettings" uid="uid://gwgloxfvwiln" path="res://Fonts/credits_name_label_settings.tres" id="20_ync52"]
+[ext_resource type="AudioStream" uid="uid://4no1u6h707se" path="res://Audio/Sounds/365132__soundsexciting__crowd-cheering.wav" id="23_wemj1"]
 
 [sub_resource type="Animation" id="Animation_jmdaj"]
 length = 0.001
@@ -245,6 +246,21 @@ tracks/6/keys = {
 "method": &"start_displaying_text"
 }]
 }
+tracks/7/type = "audio"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AudioStreamPlayer")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("23_wemj1")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/7/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wc7jy"]
 _data = {
@@ -418,6 +434,21 @@ _data = {
 "idle_up": SubResource("Animation_qlgq8")
 }
 
+[sub_resource type="Animation" id="Animation_uv6dn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_ps155"]
 resource_name = "idle"
 length = 1.2
@@ -434,21 +465,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
-}
-
-[sub_resource type="Animation" id="Animation_uv6dn"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_y8jgi"]
@@ -1219,3 +1235,6 @@ layout_mode = 2
 text = "CINEMATIC_INTRO_1"
 label_settings = ExtResource("20_ync52")
 autowrap_mode = 3
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Sounds"

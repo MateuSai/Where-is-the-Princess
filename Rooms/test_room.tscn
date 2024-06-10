@@ -51,22 +51,55 @@ position = Vector2(45, 140)
 [node name="TikiTorch4" parent="." index="13" instance=ExtResource("2_hrir3")]
 position = Vector2(177, 148)
 
-[node name="Chest" parent="." index="14" instance=ExtResource("3_65xq6")]
+[node name="TikiTorch5" parent="." index="14" instance=ExtResource("2_hrir3")]
+position = Vector2(147, 113)
+
+[node name="TikiTorch6" parent="." index="15" instance=ExtResource("2_hrir3")]
+position = Vector2(11, 12)
+
+[node name="TikiTorch7" parent="." index="16" instance=ExtResource("2_hrir3")]
+position = Vector2(195, 78)
+
+[node name="TikiTorch8" parent="." index="17" instance=ExtResource("2_hrir3")]
+position = Vector2(224, 167)
+
+[node name="TikiTorch9" parent="." index="18" instance=ExtResource("2_hrir3")]
+position = Vector2(101, 154)
+
+[node name="TikiTorch10" parent="." index="19" instance=ExtResource("2_hrir3")]
+position = Vector2(13, 165)
+
+[node name="TikiTorch11" parent="." index="20" instance=ExtResource("2_hrir3")]
+position = Vector2(21, 93)
+
+[node name="TikiTorch12" parent="." index="21" instance=ExtResource("2_hrir3")]
+position = Vector2(94, 66)
+
+[node name="TikiTorch13" parent="." index="22" instance=ExtResource("2_hrir3")]
+position = Vector2(213, 38)
+
+[node name="TikiTorch14" parent="." index="23" instance=ExtResource("2_hrir3")]
+position = Vector2(113, 46)
+
+[node name="TikiTorch15" parent="." index="24" instance=ExtResource("2_hrir3")]
+position = Vector2(60, 90)
+
+[node name="Chest" parent="." index="25" instance=ExtResource("3_65xq6")]
 position = Vector2(81, 20)
 type = 1
 
-[node name="Chest2" parent="." index="15" instance=ExtResource("3_65xq6")]
+[node name="Chest2" parent="." index="26" instance=ExtResource("3_65xq6")]
 position = Vector2(102, 20)
 type = 1
 
-[node name="Chest3" parent="." index="16" instance=ExtResource("3_65xq6")]
+[node name="Chest3" parent="." index="27" instance=ExtResource("3_65xq6")]
 position = Vector2(124, 20)
 type = 1
 
-[node name="Chest4" parent="." index="17" instance=ExtResource("3_65xq6")]
+[node name="Chest4" parent="." index="28" instance=ExtResource("3_65xq6")]
 position = Vector2(146, 20)
 type = 1
 
-[node name="Chest5" parent="." index="18" instance=ExtResource("3_65xq6")]
+[node name="Chest5" parent="." index="29" instance=ExtResource("3_65xq6")]
 position = Vector2(167, 20)
 type = 1

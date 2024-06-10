@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://e63ahn7ldumi"]
 
-[ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png" id="1_lk8e2"]
+[ext_resource type="Texture2D" uid="uid://b1fex6qjx4wy6" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire_cropped.png" id="1_3q6ri"]
 [ext_resource type="Texture2D" uid="uid://r7wtgfupv22u" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/props_itens/torch_spritesheet.png" id="2"]
 [ext_resource type="Script" path="res://Rooms/Furniture and Traps/torch.gd" id="2_mm5mb"]
 
@@ -61,7 +61,7 @@ shadow_enabled = true
 shadow_color = Color(0, 0, 0, 1)
 shadow_filter = 1
 shadow_filter_smooth = 8.0
-texture = ExtResource("1_lk8e2")
+texture = ExtResource("1_3q6ri")
 texture_scale = 1.3
 height = 50.0
 script = ExtResource("2_mm5mb")

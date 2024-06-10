@@ -40,6 +40,7 @@ var horizontal_up_door_texture: String = "res://Art/16x16 Pixel Art Roguelike (F
 
 var corridor_lights_type: String = "tiki"
 var vertical_corridor_symmetric_lights: bool = false
+var corridor_lights_separation: int = 8
 
 var floor_tiles_coord: Array[Array] = []
 var corridor_floor_tiles_coor: Array[Array] = []

@@ -20,6 +20,7 @@ const BONES_HIT_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/impa
 const WOOD_HIT_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/impact/547414__ian_g__wood-hit.wav")]
 const ICE_HIT_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/ice/ice_crack_1.wav"), preload ("res://Audio/Sounds/ice/ice_crack_2.wav"), preload ("res://Audio/Sounds/ice/ice_crack_3.wav"), preload ("res://Audio/Sounds/ice/ice_crack_4.wav"), preload ("res://Audio/Sounds/ice/ice_crack_5.wav"), preload ("res://Audio/Sounds/ice/ice_crack_6.wav")]
 const SNOW_HIT_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/impact/snow/268858__philllchabbb__kicking-snow_1.wav"), preload ("res://Audio/Sounds/impact/snow/268858__philllchabbb__kicking-snow_2.wav"), preload ("res://Audio/Sounds/impact/snow/268858__philllchabbb__kicking-snow_3.wav")]
+const CLOTHES_HIT_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/impact/clothes/591355__aapolo__hit-punch-golpes-fuertes_1.wav"), preload ("res://Audio/Sounds/impact/clothes/591355__aapolo__hit-punch-golpes-fuertes_2.wav"), preload ("res://Audio/Sounds/impact/clothes/591355__aapolo__hit-punch-golpes-fuertes_3.wav")]
 
 var last_weapon: Weapon
 var last_damage_dealer_id: String
@@ -32,6 +33,7 @@ enum BodyType {
 	WOOD,
 	ICE,
 	SNOW,
+	CLOTHES,
 }
 @export var body_type: BodyType = BodyType.FLESH
 
@@ -101,6 +103,8 @@ func _must_ignore_damage() -> bool:
 
 func _play_hit_sound(weapon: Weapon) -> void:
 	var stream: AudioStream = null
+	var volume: float = 0.0
+
 	match body_type:
 		BodyType.FLESH:
 			if weapon and weapon.data.type in [WeaponData.Type.HAMMER, WeaponData.Type.BOW, WeaponData.Type.CROSSBOW]:
@@ -115,11 +119,14 @@ func _play_hit_sound(weapon: Weapon) -> void:
 			stream = ICE_HIT_SOUNDS[randi() % ICE_HIT_SOUNDS.size()]
 		BodyType.SNOW:
 			stream = SNOW_HIT_SOUNDS[randi() % SNOW_HIT_SOUNDS.size()]
+		BodyType.CLOTHES:
+			stream = CLOTHES_HIT_SOUNDS[randi() % CLOTHES_HIT_SOUNDS.size()]
+			volume = 10
 
 	if stream:
 		var sound: AutoFreeSound = AutoFreeSound.new()
 		get_tree().current_scene.add_child(sound)
-		sound.start(stream, parent.global_position)
+		sound.start(stream, parent.global_position, volume)
 
 func _apply_thorn_damage(to: Node) -> void:
 	(to.get_node("LifeComponent") as LifeComponent).take_damage(thorn_damage, (to.global_position - get_parent().global_position).normalized(), 300, null, null, "thorn")

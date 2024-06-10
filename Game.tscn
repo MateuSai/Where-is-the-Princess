@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=86 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://Components/tab_container_controller_support.gd" id="6_25qhk"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="6_ml8df"]
 [ext_resource type="Script" path="res://ui/menu_tab_container.gd" id="6_y3275"]
+[ext_resource type="Texture2D" uid="uid://br7c70c5injos" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/no_armor.png" id="7_c7hxy"]
+[ext_resource type="Script" path="res://Autoloads/loading_icon.gd" id="8_l3b65"]
 [ext_resource type="Script" path="res://ui/PauseMenu.gd" id="11_7bikg"]
 [ext_resource type="Script" path="res://ui/MiniMap.gd" id="12_icbnv"]
 [ext_resource type="Script" path="res://ui/MinimapScrollContainer.gd" id="13_f54tc"]
@@ -56,6 +58,48 @@
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
 light_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yasnd"]
+atlas = ExtResource("7_c7hxy")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="Animation" id="Animation_ph2qa"]
+resource_name = "run"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 16, 16, 16), Rect2(16, 16, 16, 16), Rect2(32, 16, 16, 16), Rect2(48, 16, 16, 16), Rect2(64, 16, 16, 16), Rect2(80, 16, 16, 16)]
+}
+
+[sub_resource type="Animation" id="Animation_xm1lc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 16, 16, 16)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iqyje"]
+_data = {
+"RESET": SubResource("Animation_xm1lc"),
+"run": SubResource("Animation_ph2qa")
+}
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mnaft"]
 
@@ -222,6 +266,33 @@ theme = ExtResource("4_usvbv")
 text = "GENERATING_LEVEL"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="GeneratingDungeonCanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 8
+
+[node name="LoadingIcon" type="TextureRect" parent="GeneratingDungeonCanvasLayer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = SubResource("AtlasTexture_yasnd")
+stretch_mode = 2
+flip_h = true
+script = ExtResource("8_l3b65")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GeneratingDungeonCanvasLayer/MarginContainer/LoadingIcon"]
+libraries = {
+"": SubResource("AnimationLibrary_iqyje")
+}
+autoplay = "run"
 
 [node name="UI" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
