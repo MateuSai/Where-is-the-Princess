@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=66 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://bhpt1388lfjwl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/Dragon Killer UI icon.png" id="21_ohq06"]
 [ext_resource type="Texture2D" uid="uid://c16ltio6detb6" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/StaminaBar_UI_empty.png" id="23_l30wv"]
 [ext_resource type="Texture2D" uid="uid://dw08gv6o23kjh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/StaminaBar_UI_full_2.png" id="24_yneg1"]
+[ext_resource type="Texture2D" uid="uid://fpk5xougfcxn" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_flashy_effect_icon.png" id="25_2pwsl"]
 [ext_resource type="Script" path="res://Characters/Player/stamina_bar.gd" id="25_22fjy"]
 [ext_resource type="Script" path="res://Characters/Player/AutoAimArea.gd" id="28_r7ct4"]
 [ext_resource type="AudioStream" uid="uid://dhift2qs6kcl5" path="res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Equipement (menu)/ArmorLeatherMetal1.wav" id="33_3bfpk"]
@@ -453,6 +454,45 @@ shader = ExtResource("13_siyxg")
 shader_parameter/frequency = 100.0
 shader_parameter/depth = 0.01
 
+[sub_resource type="Animation" id="Animation_oic8s"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_qhjba"]
+resource_name = "flash"
+length = 0.5
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ir7fk"]
+_data = {
+"RESET": SubResource("Animation_oic8s"),
+"flash": SubResource("Animation_qhjba")
+}
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_cevl8"]
 radius = 114.28
 
@@ -612,6 +652,20 @@ fill_mode = 3
 texture_under = ExtResource("19_bc3n7")
 texture_progress = ExtResource("19_bc3n7")
 tint_under = Color(0.411765, 0.411765, 0.411765, 1)
+
+[node name="ArmorFlashEffect" type="TextureRect" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar/ArmorAbilityBar" index="0"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_right = 19.0
+offset_bottom = 19.0
+texture = ExtResource("25_2pwsl")
+stretch_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar/ArmorAbilityBar/ArmorFlashEffect" index="0"]
+libraries = {
+"": SubResource("AnimationLibrary_ir7fk")
+}
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox" index="1"]
 layout_mode = 2

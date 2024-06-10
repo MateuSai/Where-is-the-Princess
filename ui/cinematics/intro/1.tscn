@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://b8ln1bli2cvfl"]
+[gd_scene load_steps=48 format=3 uid="uid://b8ln1bli2cvfl"]
 
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="1_0iek0"]
 [ext_resource type="PackedScene" uid="uid://dth2ykbdys0cs" path="res://ui/cinematics/intro/royal_carriage.tscn" id="2_o28vi"]
@@ -23,6 +23,8 @@
 [ext_resource type="Texture2D" uid="uid://br7c70c5injos" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/no_armor.png" id="19_eq8s5"]
 [ext_resource type="LabelSettings" uid="uid://gwgloxfvwiln" path="res://Fonts/credits_name_label_settings.tres" id="20_ync52"]
 [ext_resource type="AudioStream" uid="uid://4no1u6h707se" path="res://Audio/Sounds/365132__soundsexciting__crowd-cheering.wav" id="23_wemj1"]
+[ext_resource type="PackedScene" uid="uid://d2j5lvnnjh64l" path="res://ui/cinematics/top_black_bar.tscn" id="24_prpyl"]
+[ext_resource type="PackedScene" uid="uid://dgsiobfohkyie" path="res://ui/cinematics/bottom_black_bar.tscn" id="25_6ysc7"]
 
 [sub_resource type="Animation" id="Animation_jmdaj"]
 length = 0.001
@@ -1220,7 +1222,19 @@ libraries = {
 }
 autoplay = "idle"
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -3.0
+bus = &"Sounds"
+
+[node name="TopBlackBar" parent="." instance=ExtResource("24_prpyl")]
+layout_mode = 0
+anchors_preset = 0
+
+[node name="BottomBlackBar" parent="." instance=ExtResource("25_6ysc7")]
+layout_mode = 0
+anchors_preset = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="BottomBlackBar"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -1230,11 +1244,8 @@ offset_top = -51.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="Label" type="Label" parent="MarginContainer"]
+[node name="Label" type="Label" parent="BottomBlackBar/MarginContainer"]
 layout_mode = 2
 text = "CINEMATIC_INTRO_1"
 label_settings = ExtResource("20_ync52")
 autowrap_mode = 3
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-bus = &"Sounds"

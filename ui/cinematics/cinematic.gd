@@ -7,7 +7,7 @@ var slide_number: int = 1
 @export_file() var end_transition: String
 
 func _init() -> void:
-	RenderingServer.set_default_clear_color(Color.BLACK)
+	RenderingServer.set_default_clear_color(Color("6d1e0a"))
 
 func _ready() -> void:
 	_show_next_slide()

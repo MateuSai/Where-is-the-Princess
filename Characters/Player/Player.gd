@@ -106,6 +106,7 @@ var temperature: float = 20: set = _set_temperature
 @onready var mirage_timer: Timer = $Timers/MirageTimer
 @onready var stamina_regen_cooldown_timer: Timer = $Timers/StaminaRegenCooldownTimer
 
+@onready var ui: MainUi = $UI
 @onready var mirage: TextureRect = $UI/Mirage
 
 @onready var equip_armor_sound: AudioStreamPlayer = $EquipArmorSound
@@ -400,9 +401,11 @@ func set_armor(new_armor: Armor) -> void:
 	if not armor_effect_timer.is_stopped():
 		armor_effect_timer.stop()
 		armor.disable_ability_effect(self)
+		ui.stop_armor_ability_flash_effect()
 	elif not armor_recharge_timer.is_stopped():
 		armor_recharge_timer.stop()
 		armor.disable_ability_effect(self)
+		ui.stop_armor_ability_flash_effect()
 	armor.unequip(self)
 
 	armor = new_armor
@@ -482,9 +485,11 @@ func _use_armor_ability() -> void:
 	armor.is_able_to_use_ability = false
 
 	if armor.effect_duration > 0:
+		ui.start_armor_ability_flash_effect()
 		armor_effect_timer.start(armor.effect_duration)
 		await armor_effect_timer.timeout
 		armor.disable_ability_effect(self)
+		ui.stop_armor_ability_flash_effect()
 	armor.ability_effect_ended.emit()
 
 	armor_recharge_timer.start(get_armor_recharge_time())

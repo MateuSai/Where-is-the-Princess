@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://d1q1spa3toyol"]
+[gd_scene load_steps=25 format=3 uid="uid://d1q1spa3toyol"]
 
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="1_g8xnh"]
 [ext_resource type="PackedScene" uid="uid://cq825lguwrtg7" path="res://Rooms/Furniture and Traps/campfire.tscn" id="2_8b1b0"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://spi7xutqgvj5" path="res://Art/sleeping_bag.png" id="9_wq7ih"]
 [ext_resource type="AudioStream" uid="uid://b1tftw38lyigm" path="res://Audio/Sounds/624425__foleyhaven__fire_burning_03.wav" id="11_qexgi"]
 [ext_resource type="AudioStream" uid="uid://cgqwqgl0ljct0" path="res://Audio/Sounds/614081__mateusboga__opening-a-book.wav" id="12_1p6no"]
+[ext_resource type="PackedScene" uid="uid://d2j5lvnnjh64l" path="res://ui/cinematics/top_black_bar.tscn" id="13_qqkyt"]
+[ext_resource type="PackedScene" uid="uid://dgsiobfohkyie" path="res://ui/cinematics/bottom_black_bar.tscn" id="14_hhwl7"]
 
 [sub_resource type="Animation" id="Animation_amdrc"]
 length = 0.001
@@ -360,6 +362,7 @@ texture = ExtResource("5_wrraj")
 stretch_mode = 2
 
 [node name="Label" type="Label" parent="Letter"]
+use_parent_material = true
 custom_minimum_size = Vector2(105, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -383,6 +386,7 @@ libraries = {
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+material = ExtResource("5_mcrb2")
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -393,6 +397,7 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="Label" type="Label" parent="MarginContainer"]
+use_parent_material = true
 layout_mode = 2
 text = "CINEMATIC_INTRO_2"
 label_settings = ExtResource("7_ktl0b")
@@ -423,3 +428,24 @@ bus = &"Sounds"
 
 [node name="OpenLetter" type="AudioStreamPlayer" parent="."]
 bus = &"Sounds"
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.215686, 0.290196, 0.788235, 1)
+
+[node name="TopBlackBar" parent="." instance=ExtResource("13_qqkyt")]
+layout_mode = 0
+anchors_preset = 0
+
+[node name="BottomBlackBar" parent="." instance=ExtResource("14_hhwl7")]
+layout_mode = 0
+anchors_preset = 0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
