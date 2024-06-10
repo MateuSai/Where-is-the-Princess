@@ -12,6 +12,9 @@ func aim_bow() -> void:
 
 
 func _spawn_arrow() -> void:
+	if not is_inside_tree():
+		return
+
 	var arrow: Arrow = load("res://Weapons/projectiles/arrow.tscn").instantiate()
 #	arrow.position = bow_sprite.global_position
 	get_tree().current_scene.add_child(arrow)

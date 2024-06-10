@@ -66,10 +66,13 @@ position = Vector2(282, 184)
 [node name="Torch5" parent="." index="14" instance=ExtResource("6_7yag5")]
 position = Vector2(104, -6)
 
-[node name="Chest" parent="." index="15" instance=ExtResource("7_q6xvv")]
+[node name="Torch6" parent="." index="15" instance=ExtResource("6_7yag5")]
+position = Vector2(253, 25)
+
+[node name="Chest" parent="." index="16" instance=ExtResource("7_q6xvv")]
 position = Vector2(136, -44)
 
-[node name="AnimalToRescue" type="Marker2D" parent="." index="16"]
+[node name="AnimalToRescue" type="Marker2D" parent="." index="17"]
 position = Vector2(166, -33)
 script = ExtResource("8_gm8x3")
 animal = 2

@@ -702,7 +702,7 @@ func _create_corridors() -> bool:
 func _add_lights() -> void:
 	Log.debug("_add_lights called")
 
-	const DISTANCE_BETWEEN_LIGHTS: int = 6
+	var DISTANCE_BETWEEN_LIGHTS: int = biome_conf.corridor_lights_separation
 	var corridor_light: CorridorLight
 	match biome_conf.corridor_lights_type:
 		"tiki":
