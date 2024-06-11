@@ -25,13 +25,13 @@ func _ready() -> void:
 		var armor_script: GDScript=load(SavedData.data.equipped_armor)
 		Globals.player.set_armor(armor_script.new() as Armor)
 
-		settings_interact_area.player_interacted.connect(func() -> void:
-			Settings.popup_centered()
-			Globals.player.can_move=false
-		)
-		Settings.popup_hide.connect(func() -> void:
-			Globals.player.can_move=true
-		)
+		#settings_interact_area.player_interacted.connect(func() -> void:
+		#	Settings.popup_centered()
+		#	Globals.player.can_move=false
+		#)
+		#Settings.popup_hide.connect(func() -> void:
+		#	Globals.player.can_move=true
+		#)
 
 	#	mods_interact_area.player_interacted.connect(func():
 	#		var mod_menu: ModMenu = ModMenu.new()
