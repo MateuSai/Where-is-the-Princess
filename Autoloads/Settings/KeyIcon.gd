@@ -34,6 +34,9 @@ func update_texture(mode: int) -> void:
 	else:
 		(texture as AtlasTexture).region = KeyIcon.get_key_region(Globals.get_joypad_event_image_id(InputMap.action_get_events(action_name)[1]))
 
+func change_action_name() -> void:
+	pass
+
 static func get_key_region(text: String) -> Rect2:
 	# print(text)
 	if text.begins_with("InputEventMouseButton : button_index=BUTTON_MIDDLE"):

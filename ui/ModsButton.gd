@@ -1,5 +1,4 @@
-extends ButtonWithSound
-
+extends TextureButtonWithSound
 
 func _ready() -> void:
 	super()
