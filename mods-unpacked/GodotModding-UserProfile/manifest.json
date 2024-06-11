@@ -8,7 +8,8 @@
 	"extra": {
 		"godot": {
 			"authors": [
-				"GodotModding"
+				"GodotModding",
+				"Mateu"
 			],
 			"optional_dependencies": [],
 			"compatible_game_version": [],
@@ -24,56 +25,14 @@
 				"description": "Config for this Mod",
 				"type": "object",
 				"properties": {
-					"select_profile_text": {
-						"title": "Select profile text:",
-						"type": "string",
-						"default": "Select Profile"
-					},
-					"material_settings": {
-						"title": "Material Settings",
-						"type": "object",
-						"properties": {
-							"square_scale": {
-								"type": "number",
-								"title": "Square Scale",
-								"minimum": 0.0,
-								"maximum": 0.3,
-								"multipleOf": 0.001,
-								"default": 0.1
-							},
-							"animate": {
-								"type": "boolean",
-								"title": "Animate",
-								"default": false
-							},
-							"blur_amount": {
-								"type": "number",
-								"title": "Blur Amount",
-								"minimum": 0.0,
-								"maximum": 10.0,
-								"multipleOf": 0.1,
-								"default": 5.1
-							},
-							"mix_amount": {
-								"type": "number",
-								"title": "Mix Amount",
-								"minimum": 0.0,
-								"maximum": 1.0,
-								"multipleOf": 0.01,
-								"default": 0.71
-							},
-							"color": {
-								"type": "string",
-								"title": "Color Over",
-								"format": "color",
-								"default": "#f7000000"
-							}
-						}
+					"profile_selector": {
+						"type": "boolean",
+						"default": true
 					}
 				}
-			},
-			"description_rich": "",
-			"image": null
-		}
+			}
+		},
+		"description_rich": "",
+		"image": null
 	}
 }

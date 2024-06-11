@@ -17,6 +17,7 @@ const TEXT_CURRENT_PROFILE: String = "TEXT_CURRENT_PROFILE"
 # and change it if it's different on your case
 #@onready var panel: Panel = $"@Panel@16"
 @onready var label_select_profile: Label = $"%LabelSelectProfile"
+@onready var profile_selection: HBoxContainer = $"%ProfileSelection"
 @onready var user_profile_sections: VBoxContainer = $"%UserProfileSections"
 @onready var profile_select: OptionButton = $"%ProfileSelect"
 @onready var popup_new_profile: PopupPanel = $"%PopupNewProfile"
@@ -48,8 +49,14 @@ func _ready() -> void:
 #		if event.pressed and event.keycode == KEY_U:
 #			popup_centered() if not visible else hide()
 
-func apply_config(_config: ModConfig) -> void:
-	return
+func apply_config(config: ModConfig) -> void:
+	if config.data.profile_selector and not label_select_profile.is_visible_in_tree():
+		label_select_profile.show()
+		profile_selection.show()
+	elif not config.data.profile_selector and label_select_profile.is_visible_in_tree():
+		label_select_profile.hide()
+		profile_selection.hide()
+
 #	label_select_profile.text = config.data.select_profile_text
 #
 #	var material_settings: Dictionary = config.data.material_settings
