@@ -38,6 +38,8 @@ func _ready() -> void:
 
 	ModLoader.current_config_changed.connect(_on_ModLoader_current_config_changed)
 
+	apply_config(ModLoaderConfig.get_current_config("GodotModding-UserProfile"))
+
 # In Godot 4 a popup does not receive input until it's visible,
 # so we can't use this anymore.
 #
@@ -50,10 +52,10 @@ func _ready() -> void:
 #			popup_centered() if not visible else hide()
 
 func apply_config(config: ModConfig) -> void:
-	if config.data.profile_selector and not label_select_profile.is_visible_in_tree():
+	if config.data.profile_selector:
 		label_select_profile.show()
 		profile_selection.show()
-	elif not config.data.profile_selector and label_select_profile.is_visible_in_tree():
+	elif not config.data.profile_selector:
 		label_select_profile.hide()
 		profile_selection.hide()
 

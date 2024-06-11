@@ -211,7 +211,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0, 6.6, 6.7, 16.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": ["CINEMATIC_INTRO_2", "CINEMATIC_INTRO_2", "CINEMATIC_INTRO_2_2", "CINEMATIC_INTRO_2_2"]
+"values": ["CINEMATIC_INTRO_3", "CINEMATIC_INTRO_3", "CINEMATIC_INTRO_3_2", "CINEMATIC_INTRO_3_2"]
 }
 tracks/7/type = "audio"
 tracks/7/imported = false
@@ -343,6 +343,7 @@ position = Vector2(-12, 50)
 texture = ExtResource("5_6dbt0")
 
 [node name="Letter" type="TextureRect" parent="."]
+z_index = 1
 material = ExtResource("5_mcrb2")
 layout_mode = 1
 anchors_preset = 8
@@ -376,7 +377,7 @@ offset_right = 48.0
 offset_bottom = 43.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "CINEMATIC_INTRO_2_LETTER"
+text = "CINEMATIC_INTRO_3_LETTER"
 label_settings = ExtResource("7_ktl0b")
 autowrap_mode = 3
 
@@ -395,6 +396,8 @@ anchor_bottom = 1.0
 offset_top = -51.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
 
 [node name="Label" type="Label" parent="MarginContainer"]
 use_parent_material = true
@@ -435,10 +438,22 @@ color = Color(0.215686, 0.290196, 0.788235, 1)
 [node name="TopBlackBar" parent="." instance=ExtResource("13_qqkyt")]
 layout_mode = 0
 anchors_preset = 0
+anchor_right = 0.0
+offset_right = 432.0
+offset_bottom = 51.0
+grow_horizontal = 1
 
 [node name="BottomBlackBar" parent="." instance=ExtResource("14_hhwl7")]
 layout_mode = 0
 anchors_preset = 0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_top = 0.0
+offset_right = 432.0
+offset_bottom = 50.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = -1

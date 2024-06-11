@@ -7,6 +7,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 gradient = SubResource("Gradient_dsyss")
 
 [node name="TopBlackBar" type="TextureRect"]
+custom_minimum_size = Vector2(432, 51)
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 50.0

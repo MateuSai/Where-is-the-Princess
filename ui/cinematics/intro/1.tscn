@@ -1229,10 +1229,13 @@ bus = &"Sounds"
 [node name="TopBlackBar" parent="." instance=ExtResource("24_prpyl")]
 layout_mode = 0
 anchors_preset = 0
+anchor_right = 0.0
+offset_right = 432.0
+offset_bottom = 51.0
+grow_horizontal = 1
 
 [node name="BottomBlackBar" parent="." instance=ExtResource("25_6ysc7")]
-layout_mode = 0
-anchors_preset = 0
+layout_mode = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="BottomBlackBar"]
 layout_mode = 1
@@ -1243,6 +1246,8 @@ anchor_bottom = 1.0
 offset_top = -51.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
 
 [node name="Label" type="Label" parent="BottomBlackBar/MarginContainer"]
 layout_mode = 2
