@@ -1,0 +1,264 @@
+[gd_scene load_steps=15 format=3 uid="uid://boibv8pedsyyd"]
+
+[ext_resource type="Texture2D" uid="uid://c352cww5wtvu" path="res://Art/intro_cinematic_slides_final_historyboard_2.png" id="1_xdnyk"]
+[ext_resource type="Texture2D" uid="uid://dq5ivm2b4ck6h" path="res://Art/intro_cinematic_slides_final_historyboard_3.png" id="2_dqhjv"]
+[ext_resource type="Texture2D" uid="uid://cr87wywjk7nuh" path="res://Art/intro_cinematic_slides_final_historyboard_4.png" id="3_ltlqi"]
+[ext_resource type="Texture2D" uid="uid://br7c70c5injos" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/no_armor.png" id="4_g3euk"]
+[ext_resource type="PackedScene" uid="uid://d2j5lvnnjh64l" path="res://ui/cinematics/top_black_bar.tscn" id="5_0x34m"]
+[ext_resource type="LabelSettings" uid="uid://gwgloxfvwiln" path="res://Fonts/credits_name_label_settings.tres" id="6_kqvsc"]
+[ext_resource type="PackedScene" uid="uid://dgsiobfohkyie" path="res://ui/cinematics/bottom_black_bar.tscn" id="6_spoex"]
+
+[sub_resource type="Animation" id="Animation_8vr60"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_m0m6n"]
+resource_name = "idle"
+length = 1.8
+loop_mode = 1
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_xx3o8"]
+resource_name = "idle_up"
+length = 1.2
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [12, 13, 14, 15, 16, 17]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_obcs0"]
+_data = {
+"RESET": SubResource("Animation_8vr60"),
+"idle": SubResource("Animation_m0m6n"),
+"idle_up": SubResource("Animation_xx3o8")
+}
+
+[sub_resource type="Animation" id="Animation_j8syx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect3:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-168, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(196, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TopBlackBar/MarginContainer/Label:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BottomBlackBar/MarginContainer/Label:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xjf33"]
+resource_name = "animate"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect3:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-168, 1), Vector2(0, 6)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(196, 0), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TopBlackBar/MarginContainer/Label:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.4, 1.2, 10),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("BottomBlackBar/MarginContainer/Label:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 4, 4.8, 10),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v1aou"]
+_data = {
+"RESET": SubResource("Animation_j8syx"),
+"animate": SubResource("Animation_xjf33")
+}
+
+[node name="4" type="Control"]
+custom_minimum_size = Vector2(432, 243)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = 1
+layout_mode = 0
+offset_left = 196.0
+offset_right = 628.007
+offset_bottom = 243.0
+texture = ExtResource("1_xdnyk")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_top = 5.0
+offset_right = 432.0
+offset_bottom = 248.0
+texture = ExtResource("2_dqhjv")
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+z_index = 1
+layout_mode = 0
+offset_left = -168.0
+offset_top = 1.0
+offset_right = 264.0
+offset_bottom = 244.0
+texture = ExtResource("3_ltlqi")
+
+[node name="Player" type="Sprite2D" parent="TextureRect3"]
+position = Vector2(122, 143)
+texture = ExtResource("4_g3euk")
+offset = Vector2(0, -5)
+hframes = 6
+vframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TextureRect3/Player"]
+libraries = {
+"": SubResource("AnimationLibrary_obcs0")
+}
+autoplay = "idle_up"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_v1aou")
+}
+
+[node name="TopBlackBar" parent="." instance=ExtResource("5_0x34m")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+offset_right = 432.0
+offset_bottom = 51.0
+grow_horizontal = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="TopBlackBar"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="Label" type="Label" parent="TopBlackBar/MarginContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "CINEMATIC_INTRO__4"
+label_settings = ExtResource("6_kqvsc")
+
+[node name="BottomBlackBar" parent="." instance=ExtResource("6_spoex")]
+layout_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="BottomBlackBar"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="Label" type="Label" parent="BottomBlackBar/MarginContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "CINEMATIC_INTRO_4_2"
+label_settings = ExtResource("6_kqvsc")

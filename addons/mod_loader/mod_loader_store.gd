@@ -1,10 +1,8 @@
 extends Node
 
-
 # ModLoaderStore
 # Singleton (autoload) for storing data. Should be added before ModLoader,
 # as an autoload called `ModLoaderStore`
-
 
 # Constants
 # =============================================================================
@@ -85,7 +83,7 @@ var logged_messages := {
 var current_user_profile: ModUserProfile
 
 # List of user profiles loaded from user://mod_user_profiles.json
-var user_profiles :=  {}
+var user_profiles := {}
 
 # ModLoader cache is stored in user://mod_loader_cache.json
 var cache := {}
@@ -117,7 +115,7 @@ var ml_options := {
 	# Only applied if custom settings are provided, either via the options.tres
 	# resource, or via CLI args. Note that CLI args can be tested in the editor
 	# via: Project Settings > Display> Editor > Main Run Args
-	override_path_to_mods = "",    # Default if unspecified: "res://mods"    -- get with _ModLoaderPath.get_path_to_mods()
+	override_path_to_mods = "", # Default if unspecified: "res://mods"    -- get with _ModLoaderPath.get_path_to_mods()
 	override_path_to_configs = "", # Default if unspecified: "res://configs" -- get with _ModLoaderPath.get_path_to_configs()
 
 	# Can be used in the editor to load mods from your Steam workshop directory
@@ -132,7 +130,6 @@ var ml_options := {
 	ignored_mod_names_in_log = [],
 }
 
-
 # Methods
 # =============================================================================
 
@@ -141,7 +138,6 @@ func _init():
 	_update_ml_options_from_cli_args()
 	# ModLoaderStore is passed as argument so the cache data can be loaded on _init()
 	_ModLoaderCache.init_cache(self)
-
 
 # Update ModLoader's options, via the custom options resource
 func _update_ml_options_from_options_resource() -> void:
@@ -199,7 +195,6 @@ func _update_ml_options_from_options_resource() -> void:
 		# Update from the options in the resource
 		for key in ml_options:
 			ml_options[key] = override_options[key]
-
 
 # Update ModLoader's options, via CLI args
 func _update_ml_options_from_cli_args() -> void:

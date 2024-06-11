@@ -7,10 +7,19 @@ var slide_number: int = 1
 @export_file() var end_transition: String
 
 func _init() -> void:
-	RenderingServer.set_default_clear_color(Color.BLACK)
+	RenderingServer.set_default_clear_color(Color("6d1e0a"))
 
 func _ready() -> void:
 	_show_next_slide()
+
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("ui_skip"):
+		_on_slide_animation_finished("skipped")
+	elif event.is_action_pressed("ui_page_up") and slide_number > 1:
+		slide_number -= 2
+		_on_slide_animation_finished("skipped")
+	elif event.is_action_pressed("ui_page_down"):
+		_on_slide_animation_finished("skipped")
 
 func _show_next_slide() -> void:
 	assert(ResourceLoader.exists(cinematic_dir.path_join(str(slide_number)) + ".tscn"))

@@ -1,7 +1,5 @@
 class_name ModList extends MarginContainer
 
-const MODS_THAT_CANNOT_BE_DISABLED: PackedStringArray = ["GodotModding-UserProfile"]
-
 signal mod_is_active_changed(mod_id: String, is_active: bool)
 signal mod_current_config_changed(mod_id: String, current_config: ModConfig)
 
@@ -42,7 +40,6 @@ func _generate_mod_active_state(mod_id: String, user_profile: ModUserProfile) ->
 	var is_active_toggle: IsActiveToggle = is_active_toggle_scene.instantiate()
 	grid.add_child(is_active_toggle)
 	is_active_toggle.mod_id = mod_id
-	is_active_toggle.disabled = MODS_THAT_CANNOT_BE_DISABLED.has(mod_id)
 	is_active_toggle.is_active = user_profile.mod_list[mod_id].is_active
 	is_active_toggle.is_active_toggled.connect(_on_mod_is_active_toggled)
 

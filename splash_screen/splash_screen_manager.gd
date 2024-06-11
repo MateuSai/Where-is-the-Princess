@@ -11,6 +11,12 @@ var _splash_screens: Array[SplashScreen] = []
 func _ready() -> void:
 	assert(_move_to)
 
+	if OS.get_cmdline_user_args().has("--skip-splash-and-menu"):
+		get_tree().call_deferred("change_scene_to_file", "res://Game.tscn")
+		#SceneTransistor.start_transition_to("res://Game.tscn")
+	elif OS.get_cmdline_user_args().has("--skip-splash"):
+		get_tree().call_deferred("change_scene_to_file", "res://ui/menu.tscn")
+
 	set_process_input(false)
 
 	for splash_screen: SplashScreen in _splash_screen_container.get_children():

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2j5lvnnjh64l"]
+
+[sub_resource type="Gradient" id="Gradient_dsyss"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_x8efd"]
+gradient = SubResource("Gradient_dsyss")
+
+[node name="TopBlackBar" type="TextureRect"]
+custom_minimum_size = Vector2(432, 51)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 50.0
+grow_horizontal = 2
+texture = SubResource("GradientTexture1D_x8efd")
