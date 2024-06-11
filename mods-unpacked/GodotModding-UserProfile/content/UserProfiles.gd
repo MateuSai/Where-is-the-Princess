@@ -24,8 +24,9 @@ const TEXT_CURRENT_PROFILE: String = "TEXT_CURRENT_PROFILE"
 @onready var input_profile_name: LineEdit = $"%InputProfileName"
 #@onready var button_profile_name_submit: Button = $"%ButtonProfileNameSubmit"
 #@onready var button_new_profile: Button = $"%ButtonNewProfile"
+@onready var info_container: HBoxContainer = get_node("%InfoContainer")
 @onready var info_text: Label = $"%InfoText"
-@onready var restart_button: Button = $VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/RestartButton
+@onready var restart_button: Button = get_node("%RestartButton")
 
 func _ready() -> void:
 #	panel.material = ShaderMaterial.new()
@@ -39,6 +40,8 @@ func _ready() -> void:
 	ModLoader.current_config_changed.connect(_on_ModLoader_current_config_changed)
 
 	apply_config(ModLoaderConfig.get_current_config("GodotModding-UserProfile"))
+
+	info_container.hide()
 
 # In Godot 4 a popup does not receive input until it's visible,
 # so we can't use this anymore.
@@ -161,6 +164,9 @@ func _on_ModLoader_current_config_changed(_config: ModConfig) -> void:
 	_update_ui()
 
 func _set_info_text(new_text: String) -> void:
+	if not new_text.is_empty():
+		info_container.show()
+
 	info_text.text = new_text
 	if new_text == TEXT_RESTART:
 		restart_button.show()
