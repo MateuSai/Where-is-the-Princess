@@ -130,7 +130,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id="Animation_pr3jj"]
 resource_name = "animate"
-length = 20.0
+length = 25.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -138,7 +138,7 @@ tracks/0/path = NodePath("Letter:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 9.7, 10, 15.3, 15.6),
+"times": PackedFloat32Array(0, 12.4, 12.7, 18, 18.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(1e-05, 1e-05), Vector2(1e-05, 1e-05), Vector2(1, 1), Vector2(1, 1), Vector2(1e-05, 1e-05)]
@@ -150,7 +150,7 @@ tracks/1/path = NodePath("Bird:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 6, 9),
+"times": PackedFloat32Array(0, 8.7, 11.7),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(-13, 122), Vector2(-13, 122), Vector2(446, 122)]
@@ -162,7 +162,7 @@ tracks/2/path = NodePath("LetterScroll:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 6, 8.4, 8.8),
+"times": PackedFloat32Array(0, 8.7, 11.1, 11.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(-12, 128), Vector2(-12, 128), Vector2(355, 128), Vector2(367, 164)]
@@ -174,7 +174,7 @@ tracks/3/path = NodePath("Player:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 9.1, 9.5),
+"times": PackedFloat32Array(0, 11.8, 12.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [-1.5708, -1.5708, 0.0]
@@ -187,7 +187,7 @@ tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "clips": PackedStringArray("idle", "idle_up"),
-"times": PackedFloat32Array(0, 9.6)
+"times": PackedFloat32Array(0, 12.3)
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -196,10 +196,10 @@ tracks/5/path = NodePath("MarginContainer/Label:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 6, 6.6, 15.6, 15.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 4.7, 5.3, 5.6, 6.2, 8, 8.7, 18.6, 18.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -208,10 +208,10 @@ tracks/6/path = NodePath("MarginContainer/Label:text")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PackedFloat32Array(0, 6.6, 6.7, 16.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 5.4, 5.5, 8.7, 8.8, 25),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": ["CINEMATIC_INTRO_3", "CINEMATIC_INTRO_3", "CINEMATIC_INTRO_3_2", "CINEMATIC_INTRO_3_2"]
+"values": ["CINEMATIC_INTRO_3", "CINEMATIC_INTRO_3", "CINEMATIC_INTRO_3_2", "CINEMATIC_INTRO_3_2", "CINEMATIC_INTRO_3_3", "CINEMATIC_INTRO_3_3"]
 }
 tracks/7/type = "audio"
 tracks/7/imported = false
@@ -229,7 +229,7 @@ tracks/7/keys = {
 "start_offset": 0.0,
 "stream": ExtResource("12_1p6no")
 }],
-"times": PackedFloat32Array(9.6, 15.2)
+"times": PackedFloat32Array(12.5, 18.1)
 }
 tracks/7/use_blend = true
 

@@ -35,6 +35,8 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "A_FEW_MONTHS_LATER"
 label_settings = ExtResource("1_f7suv")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Label")

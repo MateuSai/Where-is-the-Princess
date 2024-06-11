@@ -298,6 +298,17 @@ func _show_item_details(item: Item, statistics: ItemStatistics) -> void:
 	description_label.text = item.get_item_description()
 	details_vbox.add_child(description_label)
 
+	#print(TranslationServer.get_translation_object(TranslationServer.get_locale()).get_message_list())
+	#print(TranslationServer.get_translation_object(TranslationServer.get_locale()).get_message_list().has(item.get_item_description_more()))
+	#if TranslationServer.get_translation_object(TranslationServer.get_locale()).get_message_list().has(item.get_item_description_more()) and not tr(item.get_item_description_more()).is_empty():
+	if tr(item.get_item_description_more()) != item.get_item_description_more() and not tr(item.get_item_description_more()).is_empty():
+		var description_more_label: Label = Label.new()
+		description_more_label.theme = load("res://SmallFontTheme.tres")
+		description_more_label.custom_minimum_size.x = details_vbox.size.x - 16
+		description_more_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		description_more_label.text = item.get_item_description_more()
+		details_vbox.add_child(description_more_label)
+
 	var times_picked_up_label: Label = Label.new()
 	times_picked_up_label.theme = load("res://SmallFontTheme.tres")
 	times_picked_up_label.custom_minimum_size.x = details_vbox.size.x - 16
