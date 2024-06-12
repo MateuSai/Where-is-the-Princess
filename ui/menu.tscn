@@ -345,6 +345,10 @@ theme_override_constants/margin_bottom = 8
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2"]
 layout_mode = 2
 
+[node name="Button" type="Button" parent="MarginContainer2/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("21_kgltg")
+
 [node name="ModsButton" type="TextureButton" parent="MarginContainer2/HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("20_lk7oc")

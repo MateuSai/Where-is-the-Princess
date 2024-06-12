@@ -55,7 +55,7 @@ func _input(event: InputEvent) -> void:
 			InputMap.action_add_event(action_name, controller_event)
 			#Settings.settings.key_bindings[action_name]["keyboard"] = event
 
-			key_texture.change_key_texture(event.as_text())
+			key_texture.update_texture_with_event_text(event.as_text())
 		else: # Estamos usando mando
 			var keyboard_event: InputEvent = InputMap.action_get_events(action_name)[0]
 			InputMap.action_erase_events(action_name)
@@ -73,6 +73,9 @@ func _input(event: InputEvent) -> void:
 
 
 func _is_valid_event(e: InputEvent) -> bool:
+	if e.as_text().contains("(Double Click)"):
+		return false
+
 	if Globals.mode == Globals.Mode.MOUSE:
 		return (e is InputEventKey and Globals.INPUT_IMAGE_RECTS.has(e.as_text().to_lower())) or (e is InputEventMouseButton and ((e as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT or (e as InputEventMouseButton).button_index == MOUSE_BUTTON_RIGHT or (e as InputEventMouseButton).button_index == MOUSE_BUTTON_MIDDLE or (e as InputEventMouseButton).button_index == MOUSE_BUTTON_WHEEL_DOWN or (e as InputEventMouseButton).button_index == MOUSE_BUTTON_WHEEL_UP))
 	else: # estamos usando mando

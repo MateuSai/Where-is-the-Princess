@@ -34,8 +34,8 @@ func update_texture(mode: int) -> void:
 	else:
 		(texture as AtlasTexture).region = KeyIcon.get_key_region(Globals.get_joypad_event_image_id(InputMap.action_get_events(action_name)[1]))
 
-func change_action_name() -> void:
-	pass
+func update_texture_with_event_text(event_text: String) -> void:
+	(texture as AtlasTexture).region = KeyIcon.get_key_region(event_text)
 
 static func get_key_region(text: String) -> Rect2:
 	# print(text)
