@@ -1,11 +1,6 @@
-extends ButtonWithSound
+class_name TutorialButton extends ButtonWithSound
 
 func _ready() -> void:
 	super()
 
-	pressed.connect(func() -> void:
-		SavedData.reset_run_stats()
-		SavedData.run_stats.add_permanent_passive_item(CrystalDrop.new())
-		SavedData.change_biome_by_id_or_path("tutorial_forest")
-		SceneTransistor.start_transition_to("res://Game.tscn")
-	, CONNECT_ONE_SHOT)
+	pressed.connect(owner.start_tutorial, CONNECT_ONE_SHOT)

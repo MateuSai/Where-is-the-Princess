@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bnr0w37wgidyn"]
+[gd_scene load_steps=20 format=3 uid="uid://bnr0w37wgidyn"]
 
 [ext_resource type="Script" path="res://Autoloads/Settings/Settings.gd" id="1_4y760"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="2_fjhtw"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://Components/tab_container_controller_support.gd" id="12_kwxg6"]
 [ext_resource type="Script" path="res://Autoloads/Settings/AimHelpHSlider.gd" id="13_mrue3"]
 [ext_resource type="Script" path="res://input_method_checker.gd" id="17_d0wdj"]
+[ext_resource type="PackedScene" uid="uid://b32xaj072bk7h" path="res://ui/press_any_key_screen.tscn" id="18_qmw7n"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tgouq"]
 
@@ -25,7 +26,7 @@ process_mode = 3
 disable_3d = true
 transparent_bg = true
 canvas_item_default_texture_filter = 0
-position = Vector2i(0, 36)
+position = Vector2i(50, 36)
 size = Vector2i(300, 180)
 visible = true
 transparent = true
@@ -37,6 +38,8 @@ script = ExtResource("1_4y760")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 300.0
+offset_bottom = 180.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_fjhtw")
@@ -179,31 +182,6 @@ theme_override_constants/margin_bottom = 4
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PressAnyKeyScreen" type="CanvasLayer" parent="TabContainer/INPUT"]
-
-[node name="ColorRect" type="ColorRect" parent="TabContainer/INPUT/PressAnyKeyScreen"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.690196)
-
-[node name="Label" type="Label" parent="TabContainer/INPUT/PressAnyKeyScreen"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -63.5
-offset_top = -11.5
-offset_right = 63.5
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("2_fjhtw")
-text = "PRESS_ANY_KEY"
-
 [node name="AutoFocusOnController" type="Node" parent="TabContainer/INPUT"]
 script = ExtResource("8_tailv")
 
@@ -337,3 +315,5 @@ access = 2
 
 [node name="InputMethodChecker" type="Node" parent="."]
 script = ExtResource("17_d0wdj")
+
+[node name="PressAnyKeyScreen" parent="." instance=ExtResource("18_qmw7n")]

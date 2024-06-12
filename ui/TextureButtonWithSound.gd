@@ -1,4 +1,4 @@
-class_name ButtonWithSound extends Button
+class_name TextureButtonWithSound extends TextureButton
 
 func _ready() -> void:
 	pressed.connect(func() -> void:

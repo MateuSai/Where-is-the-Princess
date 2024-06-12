@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=47 format=3 uid="uid://b0askjdx1bs38"]
+[gd_resource type="Theme" load_steps=50 format=3 uid="uid://b0askjdx1bs38"]
 
 [ext_resource type="Texture2D" uid="uid://tmi2660xc1ma" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_hover.png" id="1_kevbw"]
 [ext_resource type="Texture2D" uid="uid://dplrcks0bjifj" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_normal.png" id="1_l11wo"]
@@ -25,13 +25,15 @@
 [ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="16_3qg6k"]
 [ext_resource type="Texture2D" uid="uid://c8nuwmhxuntfu" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/dialog_panel_9-patch.png" id="19_l343m"]
 [ext_resource type="FontFile" uid="uid://c1qoupv8j6mt2" path="res://Fonts/Pixellari.ttf" id="24_ko1rp"]
+[ext_resource type="Texture2D" uid="uid://d3ddpaogstpyn" path="res://Art/ui/close_button/close_button_normal.png" id="25_6awpv"]
+[ext_resource type="Texture2D" uid="uid://ctkyah0s5nu64" path="res://Art/ui/close_button/close_button_pressed.png" id="26_db3ct"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_psxgl"]
-texture = ExtResource("14_i3h1y")
-texture_margin_left = 8.0
-texture_margin_top = 8.0
-texture_margin_right = 8.0
-texture_margin_bottom = 8.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4u3aq"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.807843, 0.682353, 0.435294, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_65uj7"]
 texture = ExtResource("1_kevbw")
@@ -151,10 +153,26 @@ texture_margin_top = 3.0
 texture_margin_right = 3.0
 texture_margin_bottom = 3.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xxiec"]
+bg_color = Color(0.388235, 0.223529, 0.113725, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.709804, 0.541176, 0.25098, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+expand_margin_left = 4.0
+expand_margin_top = 32.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
 [resource]
 default_font = ExtResource("24_ko1rp")
 default_font_size = 16
-AcceptDialog/styles/panel = SubResource("StyleBoxTexture_psxgl")
+AcceptDialog/styles/panel = SubResource("StyleBoxFlat_4u3aq")
 Button/colors/font_color = Color(0.321569, 0.188235, 0.0980392, 1)
 Button/colors/font_hover_color = Color(0.372549, 0.219608, 0.117647, 1)
 Button/styles/hover = SubResource("StyleBoxTexture_65uj7")
@@ -194,3 +212,6 @@ VScrollBar/styles/grabber = SubResource("StyleBoxTexture_fnehf")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_00m7y")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_wcobi")
 VScrollBar/styles/scroll = SubResource("StyleBoxTexture_hgglp")
+Window/icons/close = ExtResource("25_6awpv")
+Window/icons/close_pressed = ExtResource("26_db3ct")
+Window/styles/embedded_border = SubResource("StyleBoxFlat_xxiec")
