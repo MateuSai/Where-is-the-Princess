@@ -31,6 +31,9 @@ const GAME_SHOPS_PATH: String = "res://Rooms/game_shops/"
 
 #var _last_time_killed_by: String = ""
 
+var played_tutorial: bool = false
+var went_to_basecamp: bool = false
+
 var dark_souls: int = 0
 
 var ignored_rooms: PackedStringArray = []

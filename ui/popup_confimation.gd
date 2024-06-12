@@ -1,3 +1,4 @@
+@tool
 class_name PopupConfirmation extends PopupPanel
 
 signal confirmed()
@@ -28,10 +29,13 @@ func _ready() -> void:
 
 	get_child(0).add_child(hbox)
 
-	get_tree().paused = true
-	get_tree().current_scene.get_node("%UIColorRect").show()
+	if not Engine.is_editor_hint():
+		get_tree().paused = true
+		get_tree().current_scene.get_node("%UIColorRect").show()
 
-	visibility_changed.connect(func() -> void:
-		get_tree().paused=false
-		get_tree().current_scene.get_node("%UIColorRect").hide()
-	)
+		visibility_changed.connect(func() -> void:
+			get_tree().paused=false
+			get_tree().current_scene.get_node("%UIColorRect").hide()
+		)
+
+		popup_centered()
