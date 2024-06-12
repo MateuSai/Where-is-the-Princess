@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://b8ln1bli2cvfl"]
+[gd_scene load_steps=49 format=3 uid="uid://b8ln1bli2cvfl"]
 
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="1_0iek0"]
 [ext_resource type="PackedScene" uid="uid://dth2ykbdys0cs" path="res://ui/cinematics/intro/royal_carriage.tscn" id="2_o28vi"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bc3jnn13by1bc" path="res://Rooms/Furniture and Traps/wooden_fence/horizontal_wooden_fence.tscn" id="6_8nc5d"]
 [ext_resource type="PackedScene" uid="uid://dvvese5gjahfs" path="res://ui/cinematics/elite_guard_walking.tscn" id="6_padrd"]
 [ext_resource type="Texture2D" uid="uid://c48u5ii2m7aqb" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Goose/Goose_1.png" id="7_d6o4v"]
+[ext_resource type="PackedScene" uid="uid://cts3fyy832biu" path="res://ui/cinematics/village_guard_walking.tscn" id="7_jtqgj"]
 [ext_resource type="Texture2D" uid="uid://osjl7jxm8dhb" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Goose/Goose_1_wing.png" id="8_kbyhy"]
 [ext_resource type="PackedScene" uid="uid://do8m7ec4t3s5s" path="res://Characters/npcs/random_villager_idle.tscn" id="9_i0yh6"]
 [ext_resource type="Texture2D" uid="uid://bpo61641t3ks0" path="res://Art/animals/cat/cat_black_0.png" id="11_dubhk"]
@@ -477,7 +478,6 @@ _data = {
 
 [node name="1" type="Control"]
 y_sort_enabled = true
-clip_contents = true
 custom_minimum_size = Vector2(432, 243)
 layout_mode = 3
 anchors_preset = 0
@@ -580,6 +580,116 @@ position = Vector2(128, 31)
 
 [node name="EliteGuardWalking12" parent="CompleteCarriage/EliteGuards" instance=ExtResource("6_padrd")]
 position = Vector2(128, 23)
+
+[node name="VillageGuards" type="Node2D" parent="CompleteCarriage"]
+
+[node name="VillageGuardWalking" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(168, 5)
+
+[node name="VillageGuardWalking2" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(168, 13)
+
+[node name="VillageGuardWalking3" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(168, 21)
+
+[node name="VillageGuardWalking4" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(168, 29)
+
+[node name="VillageGuardWalking5" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(168, 37)
+
+[node name="VillageGuardWalking6" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(168, 45)
+
+[node name="VillageGuardWalking7" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(181, 5)
+
+[node name="VillageGuardWalking8" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(181, 13)
+
+[node name="VillageGuardWalking9" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(181, 21)
+
+[node name="VillageGuardWalking10" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(181, 29)
+
+[node name="VillageGuardWalking11" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(181, 37)
+
+[node name="VillageGuardWalking12" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(181, 45)
+
+[node name="VillageGuardWalking13" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(194, 5)
+
+[node name="VillageGuardWalking14" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(194, 13)
+
+[node name="VillageGuardWalking15" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(194, 21)
+
+[node name="VillageGuardWalking16" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(194, 29)
+
+[node name="VillageGuardWalking17" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(194, 37)
+
+[node name="VillageGuardWalking18" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(194, 45)
+
+[node name="VillageGuardWalking19" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(207, 5)
+
+[node name="VillageGuardWalking20" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(207, 13)
+
+[node name="VillageGuardWalking21" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(207, 21)
+
+[node name="VillageGuardWalking22" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(207, 29)
+
+[node name="VillageGuardWalking23" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(207, 37)
+
+[node name="VillageGuardWalking24" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(207, 45)
+
+[node name="VillageGuardWalking25" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(220, 5)
+
+[node name="VillageGuardWalking26" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(220, 13)
+
+[node name="VillageGuardWalking27" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(220, 21)
+
+[node name="VillageGuardWalking28" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(220, 29)
+
+[node name="VillageGuardWalking29" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(220, 37)
+
+[node name="VillageGuardWalking30" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(220, 45)
+
+[node name="VillageGuardWalking31" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(233, 5)
+
+[node name="VillageGuardWalking32" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(233, 13)
+
+[node name="VillageGuardWalking33" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(233, 21)
+
+[node name="VillageGuardWalking34" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(271, 24)
+
+[node name="VillageGuardWalking35" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(233, 37)
+
+[node name="VillageGuardWalking36" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
+position = Vector2(233, 45)
 
 [node name="HorizontalWoodenFence" parent="." instance=ExtResource("6_8nc5d")]
 position = Vector2(160, 171)

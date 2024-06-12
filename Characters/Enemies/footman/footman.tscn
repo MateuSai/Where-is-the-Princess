@@ -11,13 +11,13 @@
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/move_to_target.gd" id="9_rgu2f"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_close_to_target.gd" id="10_b58hh"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/weapon_attack.gd" id="10_ndt78"]
-[ext_resource type="Texture2D" uid="uid://jfehaj24kmy2" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_warrior.png" id="11_npab5"]
 [ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="12_2em5x"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/update_animation_according_to_mov_direction.gd" id="12_yg6rt"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_random.gd" id="13_bqeqv"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_weapon_busy.gd" id="13_e8c7h"]
 [ext_resource type="PackedScene" uid="uid://mh1705nhovp2" path="res://Weapons/Melee/rusty_sword/rusty_sword.tscn" id="13_fuc0c"]
 [ext_resource type="Script" path="res://Components/projectile_detector/projectile_detector.gd" id="14_kdjp6"]
+[ext_resource type="Texture2D" uid="uid://cuytv7vxsdjnl" path="res://Art/16 x 16 Art Roguelike Castle Pack/Enemies/Village_guard.png" id="15_hnbeg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lyapg"]
 radius = 3.0
@@ -119,7 +119,7 @@ script = ExtResource("2_x8087")
 
 [node name="FootmanBeehaveTree" type="Node" parent="." index="1" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("3_w5juk")
-blackboard = NodePath("@Node@20676")
+blackboard = NodePath("@Node@66509")
 actor = NodePath("..")
 
 [node name="SimpleParallelComposite2" type="Node" parent="FootmanBeehaveTree" index="0"]
@@ -190,7 +190,7 @@ script = ExtResource("12_yg6rt")
 
 [node name="Sprite2D" parent="." index="3"]
 position = Vector2(0, -5)
-texture = ExtResource("11_npab5")
+texture = ExtResource("15_hnbeg")
 hframes = 6
 vframes = 4
 
