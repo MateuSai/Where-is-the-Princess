@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsksly8bid5nk"]
+[gd_scene load_steps=8 format=3 uid="uid://dsksly8bid5nk"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_lgw5i"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="2_hrir3"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cwb0heh4qdkh8" path="res://Rooms/Chest.tscn" id="3_65xq6"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_rx8tl"]
 [ext_resource type="PackedScene" uid="uid://by14j4q6i0ycq" path="res://Rooms/Furniture and Traps/traps/snowman/snowman.tscn" id="4_3xpek"]
+[ext_resource type="PackedScene" uid="uid://yhiokxu70rie" path="res://Rooms/Furniture and Traps/travesanos/small_travesano_1.tscn" id="7_xo4tc"]
 
 [node name="TestRoom" instance=ExtResource("1_lgw5i")]
 
@@ -103,3 +104,9 @@ type = 1
 [node name="Chest5" parent="." index="29" instance=ExtResource("3_65xq6")]
 position = Vector2(167, 20)
 type = 1
+
+[node name="SmallTravesano1" parent="." index="30" instance=ExtResource("7_xo4tc")]
+position = Vector2(23, 53)
+
+[node name="SmallTravesano2" parent="." index="31" instance=ExtResource("7_xo4tc")]
+position = Vector2(19, 135)
