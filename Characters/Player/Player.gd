@@ -29,6 +29,11 @@ var stamina: float = max_stamina:
 		if stamina == 0.0:
 			oh_shit_im_out_of_stamina.emit()
 
+		if stamina < 30 and not sweat.visible:
+			sweat.show()
+		elif stamina >= 30 and sweat.visible:
+			sweat.hide()
+
 signal temporal_passive_item_picked_up(item: TemporalPassiveItem)
 signal temporal_passive_item_unequiped(item: TemporalPassiveItem)
 signal permanent_passive_item_picked_up(item: PermanentPassiveItem)
@@ -109,6 +114,8 @@ var temperature: float = 20: set = _set_temperature
 @onready var ui: MainUi = $UI
 @onready var mirage: TextureRect = $UI/Mirage
 
+@onready var sweat: Sprite2D = $Sweat
+
 @onready var equip_armor_sound: AudioStreamPlayer = $EquipArmorSound
 @onready var eat_sound: AudioStreamPlayer = $EatSound
 @onready var burp_sound: AudioStreamPlayer = $BurpSound
@@ -121,6 +128,7 @@ func _ready() -> void:
 	disable_mirage()
 
 	acid_bar.hide()
+	sweat.hide()
 
 	mirage_timer.timeout.connect(disable_mirage)
 

@@ -9,6 +9,7 @@ func tick(actor: Node, _blackboard: Blackboard) -> int:
         PathfindingComponent.ModeEnum.FLEE:
             (actor.get_node("PathfindingComponent") as PathfindingComponent).mode = PathfindingComponent.Flee.new()
         PathfindingComponent.ModeEnum.CIRCLE:
+            assert(false, "Use CircleTarget instead")
             (actor.get_node("PathfindingComponent") as PathfindingComponent).mode = PathfindingComponent.Circle.new()
         PathfindingComponent.ModeEnum.WANDER:
             (actor.get_node("PathfindingComponent") as PathfindingComponent).mode = PathfindingComponent.Wander.new()
