@@ -1,0 +1,39 @@
+[gd_scene load_steps=9 format=3 uid="uid://v3jtev4p0oc1"]
+
+[ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_1vw2o"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="2_0esmo"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/simple_parallel.gd" id="3_oqmb4"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/update_animation_according_to_mov_direction.gd" id="4_2w8ej"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="4_dd6uh"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/set_pathfinding_mode.gd" id="5_8tjfy"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/move_to_target.gd" id="6_3jcwy"]
+[ext_resource type="Texture2D" uid="uid://d14sbldpxfgr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/bird/bird_anim_spritesheet.png" id="8_561xx"]
+
+[node name="Crow" instance=ExtResource("1_1vw2o")]
+metadata/_edit_lock_ = true
+
+[node name="Crow" type="Node" parent="." index="1" node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("2_0esmo")
+blackboard = NodePath("@Node@21308")
+actor = NodePath("..")
+
+[node name="SimpleParallelComposite" type="Node" parent="Crow" index="0"]
+script = ExtResource("3_oqmb4")
+
+[node name="SequenceComposite" type="Node" parent="Crow/SimpleParallelComposite" index="0"]
+script = ExtResource("4_dd6uh")
+
+[node name="SetPathfindingMode" type="Node" parent="Crow/SimpleParallelComposite/SequenceComposite" index="0"]
+script = ExtResource("5_8tjfy")
+
+[node name="MoveToTarget" type="Node" parent="Crow/SimpleParallelComposite/SequenceComposite" index="1"]
+script = ExtResource("6_3jcwy")
+closer_than = 18
+
+[node name="UpdateAnimationAccordingToMovdirection" type="Node" parent="Crow/SimpleParallelComposite" index="1"]
+script = ExtResource("4_2w8ej")
+
+[node name="Sprite2D" parent="." index="3"]
+texture = ExtResource("8_561xx")
+hframes = 4
+vframes = 2

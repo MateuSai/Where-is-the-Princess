@@ -54,14 +54,14 @@ static func _load_dic(weapon_data: WeaponData, dic: Dictionary) -> void:
 	weapon_data.weapon_name = dic["name"]
 	var prop_path: String = dic["prop"]
 	if prop_path.is_empty():
-		weapon_data.prop = null
-		Log.warn("Prop path for %s is empty" % weapon_data.weapon_name)
+		weapon_data.prop = load("res://Art/weapons/no_prop.png")
+		#Log.warn("Prop path for %s is empty" % weapon_data.weapon_name)
 	else:
 		weapon_data.prop = load(prop_path) as Texture2D
 	var icon_path: String = dic["icon"]
 	if icon_path.is_empty():
-		weapon_data.icon = null
-		Log.warn("Icon path for %s is empty" % weapon_data.weapon_name)
+		weapon_data.icon = load("res://Art/weapons/no_icon.png")
+		#Log.warn("Icon path for %s is empty" % weapon_data.weapon_name)
 	else:
 		weapon_data.icon = load(icon_path) as Texture2D
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bn21fhm5o3tep"
-path="res://.godot/imported/Crossbow.png-43d41d00a8ea33bb3f4101ef90633a67.ctex"
+uid="uid://d5brgtj8fqr6"
+path="res://.godot/imported/no_icon.png-91e7c3121e8a210fa6b7aae7f66cc4ef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/weapons/Crossbow.png"
-dest_files=["res://.godot/imported/Crossbow.png-43d41d00a8ea33bb3f4101ef90633a67.ctex"]
+source_file="res://Art/weapons/no_icon.png"
+dest_files=["res://.godot/imported/no_icon.png-91e7c3121e8a210fa6b7aae7f66cc4ef.ctex"]
 
 [params]
 

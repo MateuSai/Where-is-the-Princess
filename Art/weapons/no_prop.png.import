@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://s5t2yqaddhot"
-path="res://.godot/imported/Hammer.png-9ab1b7ea04523fdf9bf6d18260c702b2.ctex"
+uid="uid://cvb2j6lgnvr4k"
+path="res://.godot/imported/no_prop.png-4db9013bfb64d19fdc4c9739fb51cab5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/weapons/Hammer.png"
-dest_files=["res://.godot/imported/Hammer.png-9ab1b7ea04523fdf9bf6d18260c702b2.ctex"]
+source_file="res://Art/weapons/no_prop.png"
+dest_files=["res://.godot/imported/no_prop.png-4db9013bfb64d19fdc4c9739fb51cab5.ctex"]
 
 [params]
 

@@ -34,6 +34,7 @@ goose,2,7,0.1,170,0,1,0,0,FLESH,crates,,res://Art/16x16 Pixel Art Roguelike (Vil
 footman,6,60,0.1,110,0,1,0,0,FLESH,crates,,res://Art/16 x 16 Art Roguelike Castle Pack/Enemies/Village_guard_icon.png,0-2,1,0,0.05,0.02,0.01
 crossbowman,6,60,0.1,110,0,1,0,0,FLESH,crates,,,0-2,1,0,0.01,0.005,0.002
 thief,3,60,0.1,160,0,1,0,0,FLESH,crates,,res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Snowmen/thief_icon.png,3-5,1,0,0.004,0.001,0.001
+crow,1,2,0.1,200,1,1,0,0,FLESH,crates,,,0-1,1,0,0.01,0.001,0.001
 ,,,,,,,,,,,,,,,,,,
 solon,11,55,0.1,120,0,1,0,0,FLESH,crates,,,4-9,1,1,0.05,0.1,0.2
 ,,,,,,,,,,,,,,,,,,
