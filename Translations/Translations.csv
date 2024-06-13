@@ -19,6 +19,8 @@ PLAGUE_ARMOR,Plague Armor,Armadura de la Plaga,Armadura de la Plaga,,
 PLAGUE_ARMOR_DESCRIPTION,"It allows you to throw a cloud of toxic gas that damages the characters inside. Additionally, it increases the time it takes to fill your acid bar.","Et permet tirar un núvol de gas tòxic que danya els personatges a dintre seu. Addicionalment, augmenta el temps necessari per omplir la teva barra d'àcid.","Te permite tirar una nube de gas tóxico que daña a los enemigos que estén dentro. Adicionalmente, aumenta el tiempo necesario para llenar tu barra de ácido.",,
 RONIN_ARMOR,Ronin Armor,Armadura de Ronin,Armadura de Ronin,,
 RONIN_ARMOR_DESCRIPTION,Increases damage with katanas and allows you to attack very fast during a short interval.,Augmenta el dany de les katanes i et permet atacar molt ràpidament durant un petit interval de temps.,Aumenta el daño de las katanas y te permite atacar muy rápido durante un corto periodo de tiempo.,,
+FOOTMAN_ARMOR,Footman Armor,Armadura de Soldat d'Infanteria,Armadura de Soldado de Infantería,,
+FOOTMAN_ARMOR_DESCRIPTION,Restores a little condition of your current weapon each time you get hit.,Restaura una mica de condició de la teva arma actual cada vegada que prens mal.,Restaura un poco la condición del arma actual cada vez que recibes daño.,,
 ,,,,,
 ,,,,,
 FOOD,Food,Menjar,Comida,,食べ物

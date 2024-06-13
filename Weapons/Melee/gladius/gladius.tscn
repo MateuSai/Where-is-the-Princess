@@ -1,0 +1,43 @@
+[gd_scene load_steps=9 format=3 uid="uid://chd562kpbewqx"]
+
+[ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_c6w3b"]
+[ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="2_2ay8h"]
+[ext_resource type="Script" path="res://Weapons/Melee/MeleeWeapon.gd" id="2_alw8u"]
+[ext_resource type="Texture2D" uid="uid://ctglatidq1odu" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Gladius.png" id="4_qthbu"]
+[ext_resource type="AnimationLibrary" uid="uid://d177jeworynq6" path="res://Weapons/animation_libraries/quick_swing_animation_library.tres" id="5_6glot"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dqgey"]
+resource_local_to_scene = true
+shader = ExtResource("2_2ay8h")
+shader_parameter/active = false
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k3d70"]
+radius = 3.0
+height = 20.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nevrq"]
+radius = 2.0
+height = 22.0
+
+[node name="Gladius" instance=ExtResource("1_c6w3b")]
+script = ExtResource("2_alw8u")
+
+[node name="WeaponSprite" parent="Node2D" index="0"]
+material = SubResource("ShaderMaterial_dqgey")
+position = Vector2(7, 0)
+rotation = 0.0
+texture = ExtResource("4_qthbu")
+offset = Vector2(0, -7)
+
+[node name="CollisionShape2D" parent="Node2D/WeaponSprite/Hitbox" index="0"]
+position = Vector2(2.52724e-05, -6.99997)
+shape = SubResource("CapsuleShape2D_k3d70")
+
+[node name="CollisionShape2D" parent="Node2D/WeaponSprite/PlayerDetector" index="0"]
+position = Vector2(2.52724e-05, -6.99997)
+shape = SubResource("CapsuleShape2D_nevrq")
+
+[node name="AnimationPlayer" parent="." index="1"]
+libraries = {
+"quick_swing_animation_library": ExtResource("5_6glot")
+}

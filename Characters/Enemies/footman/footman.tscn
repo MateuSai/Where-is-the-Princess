@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cwetk15igqjeg"]
+[gd_scene load_steps=27 format=3 uid="uid://cwetk15igqjeg"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_kiof0"]
 [ext_resource type="Script" path="res://Characters/Enemies/footman/footman.gd" id="2_x8087"]
@@ -13,11 +13,12 @@
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/weapon_attack.gd" id="10_ndt78"]
 [ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="12_2em5x"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/update_animation_according_to_mov_direction.gd" id="12_yg6rt"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/circle_target.gd" id="13_3wehl"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_random.gd" id="13_bqeqv"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_weapon_busy.gd" id="13_e8c7h"]
-[ext_resource type="PackedScene" uid="uid://mh1705nhovp2" path="res://Weapons/Melee/rusty_sword/rusty_sword.tscn" id="13_fuc0c"]
 [ext_resource type="Script" path="res://Components/projectile_detector/projectile_detector.gd" id="14_kdjp6"]
 [ext_resource type="Texture2D" uid="uid://cuytv7vxsdjnl" path="res://Art/16 x 16 Art Roguelike Castle Pack/Enemies/Village_guard.png" id="15_hnbeg"]
+[ext_resource type="PackedScene" uid="uid://chd562kpbewqx" path="res://Weapons/Melee/gladius/gladius.tscn" id="18_grgk7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lyapg"]
 radius = 3.0
@@ -158,15 +159,9 @@ mode = 1
 script = ExtResource("9_rgu2f")
 time_limit = 0.9
 
-[node name="SequenceComposite2" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite" index="1"]
-script = ExtResource("5_22gsl")
-
-[node name="SetPathfindingMode" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite/SequenceComposite2" index="0"]
-script = ExtResource("8_78wmf")
-mode = 2
-
-[node name="MoveToTarget" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite/SequenceComposite2" index="1"]
-script = ExtResource("9_rgu2f")
+[node name="CircleTarget" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite" index="1"]
+script = ExtResource("13_3wehl")
+far_limit = 64.0
 time_limit = 0.9
 
 [node name="SequenceComposite2" type="Node" parent="FootmanBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2" index="1"]
@@ -206,7 +201,7 @@ libraries = {
 position = Vector2(0, -3)
 script = ExtResource("12_2em5x")
 
-[node name="RusticSword" parent="EnemyWeapons" index="0" instance=ExtResource("13_fuc0c")]
+[node name="Gladius" parent="EnemyWeapons" index="0" instance=ExtResource("18_grgk7")]
 
 [node name="ProjectileDetector" type="Area2D" parent="." index="15"]
 visible = false
