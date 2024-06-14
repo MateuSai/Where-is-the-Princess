@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsksly8bid5nk"]
+[gd_scene load_steps=11 format=3 uid="uid://dsksly8bid5nk"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_lgw5i"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="2_hrir3"]
@@ -6,7 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://cwb0heh4qdkh8" path="res://Rooms/Chest.tscn" id="3_65xq6"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_rx8tl"]
 [ext_resource type="PackedScene" uid="uid://by14j4q6i0ycq" path="res://Rooms/Furniture and Traps/traps/snowman/snowman.tscn" id="4_3xpek"]
-[ext_resource type="PackedScene" uid="uid://yhiokxu70rie" path="res://Rooms/Furniture and Traps/travesanos/small_travesano_1.tscn" id="7_xo4tc"]
+[ext_resource type="PackedScene" uid="uid://yhiokxu70rie" path="res://Rooms/Furniture and Traps/gallows/small_gallows_1.tscn" id="7_xo4tc"]
+[ext_resource type="PackedScene" uid="uid://dr7n2nbmat800" path="res://Rooms/Furniture and Traps/gallows/small_gallows_2.tscn" id="8_cojfx"]
+[ext_resource type="PackedScene" uid="uid://cyjnc2t3acljy" path="res://Rooms/Furniture and Traps/gallows/small_gallows_3.tscn" id="9_ue3ad"]
+[ext_resource type="PackedScene" uid="uid://dx080p6kwctpv" path="res://Rooms/Furniture and Traps/gallows/big_gallows.tscn" id="10_wdg86"]
 
 [node name="TestRoom" instance=ExtResource("1_lgw5i")]
 
@@ -110,3 +113,12 @@ position = Vector2(23, 53)
 
 [node name="SmallTravesano2" parent="." index="31" instance=ExtResource("7_xo4tc")]
 position = Vector2(19, 135)
+
+[node name="SmallGallows2" parent="." index="32" instance=ExtResource("8_cojfx")]
+position = Vector2(196, 16)
+
+[node name="SmallGallows3" parent="." index="33" instance=ExtResource("9_ue3ad")]
+position = Vector2(17, 81)
+
+[node name="BigGallows" parent="." index="34" instance=ExtResource("10_wdg86")]
+position = Vector2(45, 15)
