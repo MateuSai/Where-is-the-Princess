@@ -23,6 +23,7 @@ shape = SubResource("RectangleShape2D_mmrxw")
 
 [node name="HangedSkeleton" parent="." instance=ExtResource("2_dke2y")]
 position = Vector2(6, -16)
+frame = 0
 
 [node name="HangedSkeleton2" parent="." instance=ExtResource("2_dke2y")]
 position = Vector2(-6, -16)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=56 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="Script" path="res://Rooms/Biomes/basecamp/BaseCamp.gd" id="1_tpf7m"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="2_ipa5f"]
@@ -42,8 +42,6 @@
 [ext_resource type="PackedScene" uid="uid://cxx3eqxb68h25" path="res://Rooms/Furniture and Traps/wooden_fence/right_top_vertical_wooden_fence.tscn" id="40_u0ngm"]
 [ext_resource type="Script" path="res://start_player_dialogue_area.gd" id="42_j6whg"]
 [ext_resource type="PackedScene" uid="uid://u6q2tn1xph6o" path="res://Weapons/Melee/branch/branch.tscn" id="43_nrg1g"]
-[ext_resource type="PackedScene" uid="uid://c8mqy2xf7lyph" path="res://Rooms/Furniture and Traps/traps/sliding_wall/sliding_wall.tscn" id="45_l6cfy"]
-[ext_resource type="PackedScene" uid="uid://dlxyf800kt6c2" path="res://Rooms/Furniture and Traps/triggers/lever/lever.tscn" id="45_usb3b"]
 [ext_resource type="Script" path="res://Characters/npcs/animals/animal_spawner.gd" id="46_v21xh"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_s6u7b"]
@@ -444,17 +442,6 @@ shape = SubResource("CircleShape2D_rxyxg")
 
 [node name="Branch" parent="." instance=ExtResource("43_nrg1g")]
 position = Vector2(154, 153)
-
-[node name="Lever" parent="." instance=ExtResource("45_usb3b")]
-position = Vector2(248, 153)
-id = 1
-
-[node name="SlidingWall" parent="." groups=["enabler_1"] instance=ExtResource("45_l6cfy")]
-position = Vector2(163, 102)
-
-[node name="SlidingWall2" parent="." groups=["enabler_1"] instance=ExtResource("45_l6cfy")]
-position = Vector2(147, 102)
-dir = -1
 
 [node name="Animals" type="Node2D" parent="."]
 y_sort_enabled = true
