@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=68 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -36,6 +36,7 @@
 [ext_resource type="Texture2D" uid="uid://fpk5xougfcxn" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_flashy_effect_icon.png" id="25_2pwsl"]
 [ext_resource type="Script" path="res://Characters/Player/stamina_bar.gd" id="25_22fjy"]
 [ext_resource type="Script" path="res://Characters/Player/AutoAimArea.gd" id="28_r7ct4"]
+[ext_resource type="Texture2D" uid="uid://c4bb7gdek1j4d" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/stamina_icon_red.png" id="30_3leah"]
 [ext_resource type="AudioStream" uid="uid://dhift2qs6kcl5" path="res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Equipement (menu)/ArmorLeatherMetal1.wav" id="33_3bfpk"]
 [ext_resource type="PackedScene" uid="uid://8nmhwu5g4jap" path="res://ui/coin_indicator_h_box_container.tscn" id="33_ra0ly"]
 [ext_resource type="PackedScene" uid="uid://cyojcc0r4upob" path="res://ui/souls_indicatorh_box_container.tscn" id="34_cqcnu"]
@@ -694,6 +695,16 @@ script = ExtResource("25_22fjy")
 [node name="UpdateTimer" type="Timer" parent="UI/MarginContainer/ArmorAndStaminaVBox/MarginContainer/TextureRect/StaminaBar" index="0"]
 wait_time = 0.05
 autostart = true
+
+[node name="StaminaIconRed" type="TextureRect" parent="UI/MarginContainer/ArmorAndStaminaVBox/MarginContainer/TextureRect" index="1"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 9.0
+offset_bottom = 8.0
+texture = ExtResource("30_3leah")
+stretch_mode = 2
 
 [node name="Inventory" type="HBoxContainer" parent="UI" index="3"]
 anchors_preset = 12

@@ -1,6 +1,6 @@
 extends MeleeWeapon
 
-const QUAKE_PROJECTILE_SCENE: PackedScene = preload("res://Weapons/Melee/KombatHammer/KombatHammerQuake.tscn")
+const QUAKE_PROJECTILE_SCENE: PackedScene = preload("res://Weapons/Melee/sledgehammer/sledgehammer_quake.tscn")
 
 const SPREAD: float = 0.4
 const TOTAL_ROTATION: float = SPREAD * 2

@@ -263,17 +263,17 @@ func can_pick_up_weapon(weapon_to_pick: Weapon) -> bool:
 	return get_child_count() < max_weapons and weapon_to_pick != null and is_instance_valid(weapon_to_pick) and not weapon_to_pick.is_queued_for_deletion() and pick_up_weapon_cooldown_timer.is_stopped() and not current_weapon.is_busy()
 
 func _on_normal_attack() -> void:
-	player.stamina -= current_weapon.data.stamina_cost_per_normal_attack
+	player.consume_stamina(current_weapon.data.stamina_cost_per_normal_attack, current_weapon.animation_player.current_animation_length)
 
 	normal_attacked.emit()
 
 func _on_active_ability() -> void:
-	player.stamina -= current_weapon.data.stamina_to_activate_active_ability
+	player.consume_stamina(current_weapon.data.stamina_to_activate_active_ability, current_weapon.animation_player.current_animation_length)
 
 	active_ability_used.emit()
 
 func _on_charge_animation_still_executing() -> void:
-	player.stamina -= 0.7
+	player.consume_stamina(0.7)
 
 func _on_oh_shit_im_out_of_stamina() -> void:
 	if current_weapon.is_charging():

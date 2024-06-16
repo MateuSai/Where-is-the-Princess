@@ -1,14 +1,14 @@
 [gd_scene load_steps=13 format=3 uid="uid://ctt3utwk3p586"]
 
-[ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_kdv4y"]
-[ext_resource type="Script" path="res://Weapons/Melee/KombatHammer/KombatHammer.gd" id="2_7m2tt"]
-[ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="3_frb1o"]
-[ext_resource type="Texture2D" uid="uid://bqcbif8jca3t2" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Kombat hammer.png" id="4_plinb"]
-[ext_resource type="AnimationLibrary" uid="uid://byptxr6sfhkfy" path="res://Weapons/animation_libraries/heavy_melee_weapon_animation_library.tres" id="5_v8o6t"]
+[ext_resource type="PackedScene" uid="uid://jvc34qam0obx" path="res://Weapons/Weapon.tscn" id="1_5q6p3"]
+[ext_resource type="Script" path="res://Weapons/Melee/sledgehammer/sledgehammer.gd" id="2_35gfo"]
+[ext_resource type="Shader" path="res://shaders_and_particles/white.gdshader" id="3_8fiaj"]
+[ext_resource type="Texture2D" uid="uid://bqcbif8jca3t2" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Kombat hammer.png" id="4_8kfrw"]
+[ext_resource type="AnimationLibrary" uid="uid://byptxr6sfhkfy" path="res://Weapons/animation_libraries/heavy_melee_weapon_animation_library.tres" id="5_if5or"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ojcpn"]
 resource_local_to_scene = true
-shader = ExtResource("3_frb1o")
+shader = ExtResource("3_8fiaj")
 shader_parameter/active = false
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cpu16"]
@@ -246,15 +246,15 @@ _data = {
 "active_ability_2": SubResource("Animation_622pu")
 }
 
-[node name="KombatHammer" instance=ExtResource("1_kdv4y")]
-script = ExtResource("2_7m2tt")
+[node name="Sledgehammer" instance=ExtResource("1_5q6p3")]
+script = ExtResource("2_35gfo")
 
 [node name="WeaponSprite" parent="Node2D" index="0"]
 material = SubResource("ShaderMaterial_ojcpn")
 position = Vector2(6, 2.17199e-05)
 rotation = 0.0
 scale = Vector2(-1, 1)
-texture = ExtResource("4_plinb")
+texture = ExtResource("4_8kfrw")
 offset = Vector2(0, -8)
 
 [node name="CollisionShape2D" parent="Node2D/WeaponSprite/Hitbox" index="0"]
@@ -268,5 +268,5 @@ shape = SubResource("CapsuleShape2D_s147a")
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {
 "": SubResource("AnimationLibrary_ypj85"),
-"heavy_melee_weapon_animation_library": ExtResource("5_v8o6t")
+"heavy_melee_weapon_animation_library": ExtResource("5_if5or")
 }
