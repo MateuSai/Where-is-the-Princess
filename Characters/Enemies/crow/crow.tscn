@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://v3jtev4p0oc1"]
+[gd_scene load_steps=21 format=3 uid="uid://v3jtev4p0oc1"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_1vw2o"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="2_0esmo"]
@@ -10,15 +10,115 @@
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/set_pathfinding_mode.gd" id="5_8tjfy"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/move_to_target.gd" id="6_3jcwy"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_close_to_target.gd" id="6_p3kmq"]
-[ext_resource type="Texture2D" uid="uid://d14sbldpxfgr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/bird/bird_anim_spritesheet.png" id="8_561xx"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/decorators/inverter.gd" id="9_7qwsh"]
+[ext_resource type="Texture2D" uid="uid://clndft42swoqj" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Ravens/Raven.png" id="12_5c577"]
+[ext_resource type="Script" path="res://Characters/HurtBox.gd" id="13_70023"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_curjo"]
+radius = 7.0
+
+[sub_resource type="Animation" id="Animation_5hugm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+
+[sub_resource type="Animation" id="Animation_ahxmm"]
+resource_name = "move"
+length = 0.75
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_rvvov"]
+resource_name = "move_up"
+length = 0.75
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_eglf8"]
+resource_name = "idle"
+length = 1.5
+loop_mode = 1
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8, 9]
+}
+
+[sub_resource type="Animation" id="Animation_oqu04"]
+resource_name = "idle_up"
+length = 1.5
+loop_mode = 1
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 6, 7, 8, 9]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u4ime"]
+_data = {
+"RESET": SubResource("Animation_5hugm"),
+"idle": SubResource("Animation_eglf8"),
+"idle_up": SubResource("Animation_oqu04"),
+"move": SubResource("Animation_ahxmm"),
+"move_up": SubResource("Animation_rvvov")
+}
 
 [node name="Crow" instance=ExtResource("1_1vw2o")]
 metadata/_edit_lock_ = true
 
 [node name="Crow" type="Node" parent="." index="1" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("2_0esmo")
-blackboard = NodePath("@Node@21308")
+blackboard = NodePath("@Node@19269")
 actor = NodePath("..")
 
 [node name="SimpleParallelComposite" type="Node" parent="Crow" index="0"]
@@ -69,6 +169,22 @@ far_limit = 64.0
 script = ExtResource("4_2w8ej")
 
 [node name="Sprite2D" parent="." index="3"]
-texture = ExtResource("8_561xx")
-hframes = 4
+position = Vector2(0, -16)
+texture = ExtResource("12_5c577")
+hframes = 5
 vframes = 2
+frame = 5
+
+[node name="HurtBox" type="Area2D" parent="." index="5"]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("13_70023")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0, -15)
+shape = SubResource("CircleShape2D_curjo")
+
+[node name="AnimationPlayer" parent="." index="6"]
+libraries = {
+"": SubResource("AnimationLibrary_u4ime")
+}
