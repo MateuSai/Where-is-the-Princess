@@ -276,6 +276,8 @@ FOOTMAN,Footman,Soldat d'Infanteria,Soldado de Infantería,,徒卒
 CROSSBOWMAN,Crossbowman,Ballester,Ballestero,,
 THIEF,Thief,Lladre,Ladrón,,泥棒
 GOOSE,Goose,Oca,Ganso,,ガチョウ
+CROW,Crow,Corb,Cuervo,,
+CROW_DESCRIPTION,"It usually eats corpses, but if you get too close, it might start attacking you.","Normalment, menja cadàvers, però si t'hi acostes massa, et pot començar a atacar.","Normalmente, come cadáveres, pero si te acercas demasiado, puede que empiece a atacarte.",,
 ,,,,,
 BODEN_THE_DRUID,Boden the Druid,El Druida Boden,El Druida Boden,,
 BODEN_THE_BEAR,Boden the Bear,L’Ós Boden,El Oso Boden,,
