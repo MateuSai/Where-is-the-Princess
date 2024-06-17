@@ -1,11 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://v3jtev4p0oc1"]
+[gd_scene load_steps=13 format=3 uid="uid://v3jtev4p0oc1"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_1vw2o"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="2_0esmo"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/simple_parallel.gd" id="3_oqmb4"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/update_animation_according_to_mov_direction.gd" id="4_2w8ej"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="4_dd6uh"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="4_nrend"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/circle_target.gd" id="4_y5hms"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/set_pathfinding_mode.gd" id="5_8tjfy"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/move_to_target.gd" id="6_3jcwy"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_close_to_target.gd" id="6_p3kmq"]
 [ext_resource type="Texture2D" uid="uid://d14sbldpxfgr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/bird/bird_anim_spritesheet.png" id="8_561xx"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/inverter.gd" id="9_7qwsh"]
 
 [node name="Crow" instance=ExtResource("1_1vw2o")]
 metadata/_edit_lock_ = true
@@ -18,7 +24,43 @@ actor = NodePath("..")
 [node name="SimpleParallelComposite" type="Node" parent="Crow" index="0"]
 script = ExtResource("3_oqmb4")
 
-[node name="CircleTarget" type="Node" parent="Crow/SimpleParallelComposite" index="0"]
+[node name="SelectorComposite" type="Node" parent="Crow/SimpleParallelComposite" index="0"]
+script = ExtResource("4_nrend")
+
+[node name="SequenceComposite" type="Node" parent="Crow/SimpleParallelComposite/SelectorComposite" index="0"]
+script = ExtResource("4_dd6uh")
+
+[node name="IsCloseToTarget" type="Node" parent="Crow/SimpleParallelComposite/SelectorComposite/SequenceComposite" index="0"]
+script = ExtResource("6_p3kmq")
+closer_than = 16
+
+[node name="SetPathfindingMode" type="Node" parent="Crow/SimpleParallelComposite/SelectorComposite/SequenceComposite" index="1"]
+script = ExtResource("5_8tjfy")
+mode = 1
+
+[node name="MoveToTarget" type="Node" parent="Crow/SimpleParallelComposite/SelectorComposite/SequenceComposite" index="2"]
+script = ExtResource("6_3jcwy")
+closer_than = 64
+time_limit = 0.2
+
+[node name="SequenceComposite2" type="Node" parent="Crow/SimpleParallelComposite/SelectorComposite" index="1"]
+script = ExtResource("4_dd6uh")
+
+[node name="InverterDecorator" type="Node" parent="Crow/SimpleParallelComposite/SelectorComposite/SequenceComposite2" index="0"]
+script = ExtResource("9_7qwsh")
+
+[node name="IsCloseToTarget" type="Node" parent="Crow/SimpleParallelComposite/SelectorComposite/SequenceComposite2/InverterDecorator" index="0"]
+script = ExtResource("6_p3kmq")
+closer_than = 64
+
+[node name="SetPathfindingMode" type="Node" parent="Crow/SimpleParallelComposite/SelectorComposite/SequenceComposite2" index="1"]
+script = ExtResource("5_8tjfy")
+
+[node name="MoveToTarget" type="Node" parent="Crow/SimpleParallelComposite/SelectorComposite/SequenceComposite2" index="2"]
+script = ExtResource("6_3jcwy")
+time_limit = 0.2
+
+[node name="CircleTarget" type="Node" parent="Crow/SimpleParallelComposite/SelectorComposite" index="2"]
 script = ExtResource("4_y5hms")
 close_limit = 8.0
 far_limit = 64.0

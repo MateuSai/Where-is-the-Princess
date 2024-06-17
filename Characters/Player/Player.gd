@@ -15,24 +15,31 @@ const DASH_STAMINA_COST: int = 30
 signal dashed(dash_time: float)
 
 var stamina_regeneration_per_second: float = 15
+var stamina_regen_cooldown: float = 0.6
+var _stamina_exhausted_tween: Tween = null
 signal max_stamina_changed(new_value: float)
 var max_stamina: float = 100:
 	set(new_value):
 		max_stamina = new_value
 		max_stamina_changed.emit(max_stamina)
 signal oh_shit_im_out_of_stamina()
-var stamina: float = max_stamina:
+var _stamina: float = max_stamina:
 	set(new_value):
 		if new_value < stamina:
-			stamina_regen_cooldown_timer.start()
-		stamina = clamp(new_value, 0.0, max_stamina)
+			stamina_regen_cooldown_timer.start(stamina_regen_cooldown)
+		_stamina = clamp(new_value, 0.0, max_stamina)
 		if stamina == 0.0:
 			oh_shit_im_out_of_stamina.emit()
 
-		if stamina < 30 and not sweat.visible:
-			sweat.show()
-		elif stamina >= 30 and sweat.visible:
-			sweat.hide()
+		#if stamina < 30 and not _sweat.visible:
+		#	_sweat.show()
+		#elif stamina >= 30 and _sweat.visible:
+		#	_sweat.hide()
+var stamina: float:
+	get:
+		return _stamina
+	set(new_value):
+		Log.fatal("CANNOT SET STAMINA DIRECTLY! Call consume_stamina instead")
 
 signal temporal_passive_item_picked_up(item: TemporalPassiveItem)
 signal temporal_passive_item_unequiped(item: TemporalPassiveItem)
@@ -112,9 +119,10 @@ var temperature: float = 20: set = _set_temperature
 @onready var stamina_regen_cooldown_timer: Timer = $Timers/StaminaRegenCooldownTimer
 
 @onready var ui: MainUi = $UI
+@onready var _stamina_icon_red: TextureRect = get_node("%StaminaIconRed")
 @onready var mirage: TextureRect = $UI/Mirage
 
-@onready var sweat: Sprite2D = $Sweat
+@onready var _sweat: Sprite2D = $Sweat
 
 @onready var equip_armor_sound: AudioStreamPlayer = $EquipArmorSound
 @onready var eat_sound: AudioStreamPlayer = $EatSound
@@ -128,7 +136,8 @@ func _ready() -> void:
 	disable_mirage()
 
 	acid_bar.hide()
-	sweat.hide()
+	_sweat.hide()
+	_stamina_icon_red.modulate.a = 0.0
 
 	mirage_timer.timeout.connect(disable_mirage)
 
@@ -236,8 +245,8 @@ func _process(_delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	super(delta)
 
-	if stamina_regen_cooldown_timer.is_stopped() and stamina < max_stamina:
-		stamina += stamina_regeneration_per_second * delta
+	if stamina_regen_cooldown_timer.is_stopped() and _stamina < max_stamina:
+		_stamina += stamina_regeneration_per_second * delta
 
 	var target_temperature: float = SavedData.get_biome_conf().temperature if close_temperatures.is_empty() else close_temperatures.max()
 	#print_debug(target_temperature)
@@ -290,7 +299,7 @@ func get_input() -> void:
 	if Input.is_action_pressed("ui_move_up"):
 		mov_direction.y -= Input.get_action_strength("ui_move_up")
 
-	if Input.is_action_just_pressed("ui_dash") and stamina >= DASH_STAMINA_COST and not jump_animation_player.is_playing() and dash_timer.is_stopped() and not (mov_direction.is_equal_approx(Vector2.ZERO) and not armor is Underpants):
+	if Input.is_action_just_pressed("ui_dash") and stamina > 0 and not jump_animation_player.is_playing() and dash_timer.is_stopped() and not (mov_direction.is_equal_approx(Vector2.ZERO) and not armor is Underpants):
 		_dash_or_jump()
 
 	if Input.is_action_just_pressed("ui_armor_ability") and armor.is_able_to_use_ability:
@@ -433,7 +442,7 @@ func jump() -> void:
 	jump_animation_player.play("jump")
 
 func _dash_or_jump() -> void:
-	stamina -= DASH_STAMINA_COST
+	consume_stamina(DASH_STAMINA_COST)
 
 	if armor is Underpants:
 		dash_cooldown_timer.start()
@@ -607,3 +616,36 @@ func _set_temperature_state(new_value: int) -> void:
 			sprite.modulate = Color("88ccef")
 		WARM:
 			sprite.modulate = Color.WHITE
+
+## Returns false if can't consume stamina. Otherwise returns true
+func consume_stamina(amount: float, extra_cooldown: float=0.0) -> bool:
+	Log.debug("consume_stamina: " + str(amount))
+
+	if _stamina > 0:
+		var diff: float = _stamina - amount
+		_stamina -= amount
+		if diff < 0:
+			stamina_regen_cooldown_timer.start((stamina_regen_cooldown * 4.0 + abs(diff) * 0.1) + extra_cooldown)
+			_start_exhausted_effect()
+			stamina_regen_cooldown_timer.timeout.connect(_stop_exhausted_effect, CONNECT_ONE_SHOT)
+		else:
+			stamina_regen_cooldown_timer.start(stamina_regen_cooldown + extra_cooldown)
+		return true
+	else:
+		return false
+
+func _start_exhausted_effect() -> void:
+	_sweat.show()
+
+	_stamina_exhausted_tween = create_tween().set_loops()
+	_stamina_exhausted_tween.tween_property(_stamina_icon_red, "modulate:a", 1.0, 0.4).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN)
+	_stamina_exhausted_tween.tween_interval(0.6)
+	_stamina_exhausted_tween.tween_property(_stamina_icon_red, "modulate:a", 0.0, 0.4).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+
+func _stop_exhausted_effect() -> void:
+	_sweat.hide()
+
+	_stamina_icon_red.modulate.a = 0.0
+
+	_stamina_exhausted_tween.kill()
+	_stamina_exhausted_tween = null

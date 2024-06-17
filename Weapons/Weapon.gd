@@ -270,10 +270,10 @@ func add_weapon_modifier(item: WeaponModifier) -> void:
 	stats.modifiers.push_back(item)
 
 func can_attack() -> bool:
-	return not animation_player.is_playing() and (not get_parent().get_parent() is Player or (get_parent().get_parent() as Player).stamina >= data.stamina_to_activate_active_ability)
+	return not animation_player.is_playing() and (not get_parent().get_parent() is Player or (get_parent().get_parent() as Player).stamina > 0)
 
 func can_active_ability() -> bool:
-	return cool_down_timer.is_stopped() and stats.souls == data.souls_to_activate_ability and (not get_parent().get_parent() is Player or (get_parent().get_parent() as Player).stamina >= data.stamina_to_activate_active_ability)
+	return cool_down_timer.is_stopped() and stats.souls == data.souls_to_activate_ability and (not get_parent().get_parent() is Player or (get_parent().get_parent() as Player).stamina > 0)
 
 func get_texture() -> Texture2D:
 	return data.icon

@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://dx080p6kwctpv"]
+
+[ext_resource type="Texture2D" uid="uid://cle0qqyv4cg0x" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/travesano.png" id="1_vwpb3"]
+[ext_resource type="PackedScene" uid="uid://hieaksw87dko" path="res://Rooms/Furniture and Traps/gallows/hanged_skeleton.tscn" id="2_dke2y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mmrxw"]
+size = Vector2(3.4375, 3)
+
+[node name="BigGallows" type="StaticBody2D"]
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -14)
+texture = ExtResource("1_vwpb3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-17.4375, 0)
+shape = SubResource("RectangleShape2D_mmrxw")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(17.7188, 0)
+shape = SubResource("RectangleShape2D_mmrxw")
+
+[node name="HangedSkeleton" parent="." instance=ExtResource("2_dke2y")]
+position = Vector2(6, -16)
+frame = 0
+
+[node name="HangedSkeleton2" parent="." instance=ExtResource("2_dke2y")]
+position = Vector2(-6, -16)
