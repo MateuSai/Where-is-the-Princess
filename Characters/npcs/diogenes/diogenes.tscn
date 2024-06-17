@@ -1,5 +1,46 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhiaumiqj55kp"]
+[gd_scene load_steps=9 format=3 uid="uid://dhiaumiqj55kp"]
 
 [ext_resource type="PackedScene" uid="uid://xvaekjyf4uxl" path="res://Characters/npcs/NPC.tscn" id="1_rmsja"]
+[ext_resource type="Texture2D" uid="uid://ujw2bmqe0ou6" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/NPCs/diogenes_01.png" id="2_omrv2"]
+[ext_resource type="Texture2D" uid="uid://dg8es8l7fg00h" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/NPCs/diogenes_02.png" id="3_k2p0x"]
+[ext_resource type="Texture2D" uid="uid://cgd6g5abdldae" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/NPCs/diogenes_03.png" id="4_e31yv"]
+[ext_resource type="Texture2D" uid="uid://d3pbknmrxm0y2" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/NPCs/diogenes_04.png" id="5_2jie0"]
+[ext_resource type="Texture2D" uid="uid://cjrepf77er6hy" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/NPCs/diogenes_05.png" id="6_irbhl"]
+[ext_resource type="Texture2D" uid="uid://dehtts02ecuha" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/NPCs/diogenes_06.png" id="7_wi0wb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e5plk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_omrv2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_k2p0x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_e31yv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_2jie0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_irbhl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_wi0wb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
 
 [node name="Diogenes" instance=ExtResource("1_rmsja")]
+
+[node name="AnimatedSprite" parent="." index="0"]
+position = Vector2(0, -4)
+sprite_frames = SubResource("SpriteFrames_e5plk")
+autoplay = "default"
+frame_progress = 0.865655
+
+[node name="InteractArea" parent="." index="2"]
+visible = false

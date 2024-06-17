@@ -1,10 +1,11 @@
-[gd_scene load_steps=49 format=3 uid="uid://b8ln1bli2cvfl"]
+[gd_scene load_steps=52 format=3 uid="uid://b8ln1bli2cvfl"]
 
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="1_0iek0"]
 [ext_resource type="PackedScene" uid="uid://dth2ykbdys0cs" path="res://ui/cinematics/intro/royal_carriage.tscn" id="2_o28vi"]
 [ext_resource type="PackedScene" uid="uid://b6d8ynsot6jxg" path="res://Characters/npcs/royal_horse/royal_horse.tscn" id="3_fy522"]
 [ext_resource type="Texture2D" uid="uid://hqa3x6qreifp" path="res://Art/princess.png" id="3_k8t4f"]
 [ext_resource type="Texture2D" uid="uid://dgfqy5s1m41oe" path="res://Art/king.png" id="4_hn1pr"]
+[ext_resource type="Texture2D" uid="uid://cwqutg2dxkvjf" path="res://Art/royal_carriage_horse_strings.png" id="5_arj7s"]
 [ext_resource type="PackedScene" uid="uid://bc3jnn13by1bc" path="res://Rooms/Furniture and Traps/wooden_fence/horizontal_wooden_fence.tscn" id="6_8nc5d"]
 [ext_resource type="PackedScene" uid="uid://dvvese5gjahfs" path="res://ui/cinematics/elite_guard_walking.tscn" id="6_padrd"]
 [ext_resource type="Texture2D" uid="uid://c48u5ii2m7aqb" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Goose/Goose_1.png" id="7_d6o4v"]
@@ -26,6 +27,8 @@
 [ext_resource type="AudioStream" uid="uid://4no1u6h707se" path="res://Audio/Sounds/365132__soundsexciting__crowd-cheering.wav" id="23_wemj1"]
 [ext_resource type="PackedScene" uid="uid://d2j5lvnnjh64l" path="res://ui/cinematics/top_black_bar.tscn" id="24_prpyl"]
 [ext_resource type="PackedScene" uid="uid://dgsiobfohkyie" path="res://ui/cinematics/bottom_black_bar.tscn" id="25_6ysc7"]
+[ext_resource type="PackedScene" uid="uid://dhiaumiqj55kp" path="res://Characters/npcs/diogenes/diogenes.tscn" id="27_i048m"]
+[ext_resource type="Texture2D" uid="uid://dni17v3x3hj7t" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/NPCs/diogenes_barrel.png" id="28_1p3q6"]
 
 [sub_resource type="Animation" id="Animation_jmdaj"]
 length = 0.001
@@ -529,6 +532,11 @@ libraries = {
 "": SubResource("AnimationLibrary_5mytq")
 }
 autoplay = "idle"
+
+[node name="RoyalCarriageHorseStrings" type="Sprite2D" parent="CompleteCarriage/RoyalCarriage"]
+z_index = 1
+position = Vector2(-48.5, -3)
+texture = ExtResource("5_arj7s")
 
 [node name="RoyalHorse" parent="CompleteCarriage" instance=ExtResource("3_fy522")]
 position = Vector2(45, 25)
@@ -1364,3 +1372,10 @@ layout_mode = 2
 text = "CINEMATIC_INTRO_1"
 label_settings = ExtResource("20_ync52")
 autowrap_mode = 3
+
+[node name="Diogenes" parent="." instance=ExtResource("27_i048m")]
+position = Vector2(40, 189)
+
+[node name="DiogenesBarrel" type="Sprite2D" parent="."]
+position = Vector2(40, 178)
+texture = ExtResource("28_1p3q6")
