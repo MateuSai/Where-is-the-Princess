@@ -4,12 +4,14 @@ func _ready() -> void:
 	get_tree().current_scene.get_node("%UIColorRect").hide()
 
 func start_game() -> void:
-	SavedData.data.went_to_basecamp = true
-	SavedData.data.save()
+	if not SavedData.data.went_to_basecamp:
+		SavedData.data.went_to_basecamp = true
+		SavedData.data.save()
 
-	# SavedData.load_mods()
-	SceneTransistor.start_transition_to("res://Game.tscn")
-	#print_orphan_nodes()
+		SceneTransistor.start_transition_to("res://ui/cinematics/intro/intro.tscn")
+	else:
+		SceneTransistor.start_transition_to("res://Game.tscn")
+		#print_orphan_nodes()
 
 func start_tutorial() -> void:
 	SavedData.data.played_tutorial = true

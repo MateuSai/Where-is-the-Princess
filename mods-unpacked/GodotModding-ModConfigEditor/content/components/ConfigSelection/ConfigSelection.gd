@@ -1,12 +1,10 @@
 extends HBoxContainer
 
-
-signal config_selected(config)
+signal config_selected(config: ModConfig)
 signal add_config_pressed
 signal remove_config_pressed
 
 @onready var current_config_select: ModConfigCurrentConfigSelect = $"%CurrentConfigSelect"
-
 
 func populate(mod_data: ModData) -> void:
 	# Clear the Select Button
@@ -21,15 +19,12 @@ func populate(mod_data: ModData) -> void:
 	# Set it to the current_config
 	current_config_select.select_item(mod_data.current_config.name)
 
-
 func _on_CurrentConfigSelect_current_config_selected(mod_id: String, config_name: String) -> void:
-	var config := ModLoaderConfig.get_config(mod_id, config_name)
-	emit_signal("config_selected", config)
+	var config: ModConfig = ModLoaderConfig.get_config(mod_id, config_name)
+	config_selected.emit(config)
 
-
-func _on_ButtonNewConfig_pressed():
+func _on_ButtonNewConfig_pressed() -> void:
 	emit_signal("add_config_pressed")
 
-
-func _on_ButtonDeleteConfig_pressed():
+func _on_ButtonDeleteConfig_pressed() -> void:
 	emit_signal("remove_config_pressed")

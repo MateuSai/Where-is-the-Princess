@@ -26,6 +26,7 @@
 				"type": "object",
 				"properties": {
 					"profile_selector": {
+						"title": "Profile Selector",
 						"type": "boolean",
 						"default": true
 					}

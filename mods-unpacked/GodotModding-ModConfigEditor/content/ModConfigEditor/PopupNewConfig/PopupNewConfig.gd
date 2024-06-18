@@ -1,4 +1,4 @@
-extends PanelContainer
+extends PopupPanel
 
 
 signal pressed_submit(config_name)

@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://cmbd33mfmb24u"]
+[gd_scene load_steps=12 format=3 uid="uid://cmbd33mfmb24u"]
 
 [ext_resource type="PackedScene" uid="uid://coypyftyuf1sk" path="res://mods-unpacked/GodotModding-ModConfigEditor/content/ModConfigEditor/PopupNewConfig/PopupNewConfig.tscn" id="1"]
-[ext_resource type="Shader" uid="uid://c7pkqaollpey" path="res://mods-unpacked/GodotModding-ModConfigEditor/assets/shader/blur.tres" id="1_m2hb4"]
-[ext_resource type="PackedScene" path="res://mods-unpacked/GodotModding-ModConfigEditor/content/components/ConfigSelection/ConfigSelection.tscn" id="2"]
-[ext_resource type="FontFile" path="res://mods-unpacked/GodotModding-ModConfigEditor/assets/fonts/text.tres" id="3"]
-[ext_resource type="FontFile" path="res://mods-unpacked/GodotModding-ModConfigEditor/assets/fonts/Heading.tres" id="4"]
+[ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="1_kqfu5"]
+[ext_resource type="PackedScene" uid="uid://dhh04xjox40s7" path="res://mods-unpacked/GodotModding-ModConfigEditor/content/components/ConfigSelection/ConfigSelection.tscn" id="2"]
+[ext_resource type="Texture2D" uid="uid://dbbbvokfj8ogi" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/panel-tittle.png" id="3_wld13"]
 [ext_resource type="Script" path="res://mods-unpacked/GodotModding-ModConfigEditor/content/ModConfigEditor/ModConfigEditor.gd" id="5"]
 [ext_resource type="Script" path="res://mods-unpacked/GodotModding-ModConfigEditor/content/ModConfigEditor/ModConfigSections.gd" id="6"]
 [ext_resource type="PackedScene" uid="uid://1n6ixcgymnai" path="res://mods-unpacked/GodotModding-ModConfigEditor/content/components/ConfigGroup/ConfigGroup.tscn" id="8"]
@@ -13,86 +12,98 @@
 [ext_resource type="PackedScene" uid="uid://dilnigk53xbrd" path="res://mods-unpacked/GodotModding-ModConfigEditor/content/components/ConfigInputBoolean/ConfigInputBoolean.tscn" id="11"]
 [ext_resource type="PackedScene" uid="uid://bq2lbjkptbk5i" path="res://mods-unpacked/GodotModding-ModConfigEditor/content/components/ConfigInputString/ConfigInputString.tscn" id="12"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1e647"]
-shader = ExtResource("1_m2hb4")
-shader_parameter/radius = 0.1
-shader_parameter/animate = false
-shader_parameter/square_scale = 0.1
-shader_parameter/blur_amount = 5.773
-shader_parameter/mix_amount = 0.605
-shader_parameter/color_over = null
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vk0kf"]
-shader = ExtResource("1_m2hb4")
-shader_parameter/radius = 0.1
-shader_parameter/animate = false
-shader_parameter/square_scale = 0.1
-shader_parameter/blur_amount = 5.832
-shader_parameter/mix_amount = 0.735
-shader_parameter/color_over = null
-
-[node name="ModConfigEditor" type="PanelContainer"]
-visible = false
-material = SubResource("ShaderMaterial_1e647")
-custom_minimum_size = Vector2(600, 600)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -275.0
-offset_right = 300.0
-offset_bottom = 275.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="ModConfigEditor" type="Popup"]
+size = Vector2i(300, 220)
+visible = true
+theme = ExtResource("1_kqfu5")
 script = ExtResource("5")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -14
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+z_index = 1
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("3_wld13")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/MarginContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "MOD_CONFIG"
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="LabelConfigFor" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="LabelConfigFor" type="Label" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_fonts/font = ExtResource("4")
 text = "Configs for %MOD_ID%"
 
-[node name="ConfigSelection" parent="MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2")]
+[node name="ConfigSelection" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("2")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="ConfigSettings" type="MarginContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="ConfigSettings" type="MarginContainer" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_top = 25
 theme_override_constants/margin_bottom = 20
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/ConfigSettings"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ConfigSettings"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/ConfigSettings/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ConfigSettings/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="LabelConfigSettings" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer/ConfigSettings/ScrollContainer/VBoxContainer"]
+[node name="LabelConfigSettings" type="Label" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ConfigSettings/ScrollContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("4")
 text = "Config Settings"
 
-[node name="ConfigSections" type="VBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer/ConfigSettings/ScrollContainer/VBoxContainer"]
+[node name="ConfigSections" type="VBoxContainer" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ConfigSettings/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -104,46 +115,40 @@ color_input_component_scene = ExtResource("10")
 number_input_component_scene = ExtResource("9")
 boolean_input_component_scene = ExtResource("11")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ButtonBack" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="ButtonBack" type="Button" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Back"
 
-[node name="Spacer" type="Control" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="Spacer" type="Control" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 
-[node name="ButtonSave" type="Button" parent="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+[node name="ButtonSave" type="Button" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Save"
 
-[node name="InfoText" type="Label" parent="MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="InfoText" type="Label" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_fonts/font = ExtResource("3")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="PopupNewConfig" parent="." instance=ExtResource("1")]
 visible = false
-material = SubResource("ShaderMaterial_vk0kf")
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 
-[connection signal="add_config_pressed" from="MarginContainer/ScrollContainer/VBoxContainer/ConfigSelection" to="." method="_on_ConfigSelection_add_config_pressed"]
-[connection signal="config_selected" from="MarginContainer/ScrollContainer/VBoxContainer/ConfigSelection" to="." method="_on_ConfigSelection_config_selected"]
-[connection signal="remove_config_pressed" from="MarginContainer/ScrollContainer/VBoxContainer/ConfigSelection" to="." method="_on_ConfigSelection_remove_config_pressed"]
-[connection signal="config_data_changed" from="MarginContainer/ScrollContainer/VBoxContainer/ConfigSettings/ScrollContainer/VBoxContainer/ConfigSections" to="." method="_on_ConfigSections_config_data_changed"]
-[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/ButtonBack" to="." method="_on_ButtonBack_pressed"]
-[connection signal="pressed" from="MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/ButtonSave" to="." method="_on_ButtonSave_pressed"]
+[connection signal="add_config_pressed" from="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ConfigSelection" to="." method="_on_ConfigSelection_add_config_pressed"]
+[connection signal="config_selected" from="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ConfigSelection" to="." method="_on_ConfigSelection_config_selected"]
+[connection signal="remove_config_pressed" from="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ConfigSelection" to="." method="_on_ConfigSelection_remove_config_pressed"]
+[connection signal="config_data_changed" from="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ConfigSettings/ScrollContainer/VBoxContainer/ConfigSections" to="." method="_on_ConfigSections_config_data_changed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/ButtonBack" to="." method="_on_ButtonBack_pressed"]
+[connection signal="pressed" from="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/ButtonSave" to="." method="_on_ButtonSave_pressed"]
 [connection signal="pressed_submit" from="PopupNewConfig" to="." method="_on_PopupNewConfig_pressed_submit"]

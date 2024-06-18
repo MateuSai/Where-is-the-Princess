@@ -1,6 +1,5 @@
 extends VBoxContainer
 
-
 signal config_data_changed(input_component)
 
 @export var group_component_scene: PackedScene
@@ -11,14 +10,12 @@ signal config_data_changed(input_component)
 
 var config: ModConfig
 
-
 func update_ui() -> void:
 	_clear()
 	_populate()
 
-
-func _populate(data := config.data, parent_prop_key := "", parent_prop := {}, current_group_component: Node = null) -> void:
-	for key in data.keys():
+func _populate(data: Dictionary=config.data, parent_prop_key: String="", parent_prop: Dictionary={}, current_group_component: Node=null) -> void:
+	for key: String in data.keys():
 		# The current prop key plus all parent keys
 		var full_prop_key: String = "%s.%s" % [parent_prop_key, key] if parent_prop_key else key
 		var prop = data[key]
@@ -51,12 +48,10 @@ func _populate(data := config.data, parent_prop_key := "", parent_prop := {}, cu
 		if prop_schema.type == JSONSchema.JST_BOOLEAN:
 			_add_boolean_input(key, parent_prop, prop_schema.title, prop, current_group_component)
 
-
 func _clear() -> void:
-	for child in get_children():
+	for child: Node in get_children():
 		remove_child(child)
 		child.free()
-
 
 func _add_group(group_name: String, parent_node: Node) -> Node:
 	var group_component: ModConfigGroup = _add_component(group_component_scene, parent_node)
@@ -64,7 +59,6 @@ func _add_group(group_name: String, parent_node: Node) -> Node:
 	group_component.group_name = group_name
 
 	return group_component
-
 
 func _add_string_input(key: String, parent_data: Dictionary, title: String, value: String, parent_node: Node) -> void:
 	var string_input_component: ModConfigInputString = _add_component(string_input_component_scene, parent_node)
@@ -74,7 +68,6 @@ func _add_string_input(key: String, parent_data: Dictionary, title: String, valu
 	string_input_component.title = title
 	string_input_component.value = value
 
-
 func _add_color_input(key: String, parent_data: Dictionary, title: String, value: String, parent_node: Node) -> void:
 	var color_input_component: ModConfigInputColor = _add_component(color_input_component_scene, parent_node)
 
@@ -83,8 +76,7 @@ func _add_color_input(key: String, parent_data: Dictionary, title: String, value
 	color_input_component.title = title
 	color_input_component.value = value
 
-
-func _add_number_input(key: String, parent_data: Dictionary, title: String, value, min_value = null, max_value = null, step = null, parent_node: Node = null) -> void:
+func _add_number_input(key: String, parent_data: Dictionary, title: String, value, min_value=null, max_value=null, step=null, parent_node: Node=null) -> void:
 	var number_input_component: ModConfigInputNumber = _add_component(number_input_component_scene, parent_node)
 
 	number_input_component.key = key
@@ -96,7 +88,6 @@ func _add_number_input(key: String, parent_data: Dictionary, title: String, valu
 	# Update the value last so it takes the other properties into account
 	number_input_component.value = value
 
-
 func _add_boolean_input(key: String, parent_data: Dictionary, title: String, value: bool, parent_node: Node) -> void:
 	var boolean_input_component: ModConfigInputBoolean = _add_component(boolean_input_component_scene, parent_node)
 
@@ -104,7 +95,6 @@ func _add_boolean_input(key: String, parent_data: Dictionary, title: String, val
 	boolean_input_component.parent = parent_data
 	boolean_input_component.title = title
 	boolean_input_component.value = value
-
 
 func _add_component(component_scene: PackedScene, parent_node: Node) -> Node:
 	var component: Node = component_scene.instantiate()
@@ -116,7 +106,6 @@ func _add_component(component_scene: PackedScene, parent_node: Node) -> Node:
 		add_child(component)
 
 	return component
-
 
 func _on_ConfigInput_value_changed(input_component: ModConfigInput) -> void:
 	emit_signal("config_data_changed", input_component)
