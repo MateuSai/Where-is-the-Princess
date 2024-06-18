@@ -519,7 +519,7 @@ vframes = 4
 frame = 6
 
 [node name="Sweat" type="Sprite2D" parent="." index="3"]
-position = Vector2(-4, -6)
+position = Vector2(-4, 0)
 texture = ExtResource("6_dlvci")
 
 [node name="CharacterReflexion" type="Sprite2D" parent="." index="4"]

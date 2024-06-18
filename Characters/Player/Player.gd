@@ -17,6 +17,7 @@ signal dashed(dash_time: float)
 var stamina_regeneration_per_second: float = 15
 var stamina_regen_cooldown: float = 0.6
 var _stamina_exhausted_tween: Tween = null
+var _sweat_drop_tween: Tween = null
 signal max_stamina_changed(new_value: float)
 var max_stamina: float = 100:
 	set(new_value):
@@ -635,12 +636,23 @@ func consume_stamina(amount: float, extra_cooldown: float=0.0) -> bool:
 		return false
 
 func _start_exhausted_effect() -> void:
+	_sweat.position.y = -6
+	_sweat.modulate.a = 1.0
 	_sweat.show()
 
 	_stamina_exhausted_tween = create_tween().set_loops()
 	_stamina_exhausted_tween.tween_property(_stamina_icon_red, "modulate:a", 1.0, 0.4).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_IN)
 	_stamina_exhausted_tween.tween_interval(0.6)
 	_stamina_exhausted_tween.tween_property(_stamina_icon_red, "modulate:a", 0.0, 0.4).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
+
+	_sweat_drop_tween = create_tween().set_loops().set_parallel()
+	_sweat_drop_tween.tween_property(_sweat, "position:y", 2, 1.2).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	_sweat_drop_tween.tween_property(_sweat, "modulate:a", 0, 1.2).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+	_sweat_drop_tween.chain().tween_interval(0.3)
+	_sweat_drop_tween.chain().tween_callback(func() -> void:
+		_sweat.position.y=- 6
+		_sweat.modulate.a=1.0
+	)
 
 func _stop_exhausted_effect() -> void:
 	_sweat.hide()
@@ -649,3 +661,6 @@ func _stop_exhausted_effect() -> void:
 
 	_stamina_exhausted_tween.kill()
 	_stamina_exhausted_tween = null
+
+	_sweat_drop_tween.kill()
+	_sweat_drop_tween = null
