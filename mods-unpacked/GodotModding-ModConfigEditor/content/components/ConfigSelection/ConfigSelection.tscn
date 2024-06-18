@@ -1,18 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhh04xjox40s7"]
+[gd_scene load_steps=4 format=3 uid="uid://dhh04xjox40s7"]
 
 [ext_resource type="PackedScene" path="res://mods-unpacked/GodotModding-ModConfigEditor/content/components/CurrentConfigSelect/CurrentConfigSelect.tscn" id="1"]
 [ext_resource type="Script" path="res://mods-unpacked/GodotModding-ModConfigEditor/content/components/ConfigSelection/ConfigSelection.gd" id="3"]
+[ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="3_ky6bd"]
 
 [node name="ConfigSelection" type="HBoxContainer"]
 offset_top = 23.0
-offset_right = 460.0
-offset_bottom = 46.0
+offset_right = 290.0
+offset_bottom = 54.0
 script = ExtResource("3")
 
 [node name="CurrentConfigSelect" parent="." instance=ExtResource("1")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_ky6bd")
+theme_override_font_sizes/font_size = 10
 
 [node name="ButtonNewConfig" type="Button" parent="."]
 unique_name_in_owner = true

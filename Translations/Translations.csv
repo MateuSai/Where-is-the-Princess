@@ -124,6 +124,9 @@ CREDITS,Credits,Crèdits,Créditos,,クレジット
 SETTINGS,Settings,Configuració,Configuración,,設定
 QUIT,Quit,Surt,Salir,,退く
 ,,,,,
+CONFIGURE_MODS,Configure mods.,Configura els mods.,Configura los mods.,,
+OPEN_SAVE_DIRECTORY,Open save directory.,Obre la carpeta de guardat.,Abre la carpeta de guardado.,,
+,,,,,
 ,,,,,
 GENERAL,General,General,General,,
 INPUT,Input,Input,Mapeo de teclas,,入力

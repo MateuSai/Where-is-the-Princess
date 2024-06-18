@@ -98,7 +98,7 @@ func _add_boolean_input(key: String, parent_data: Dictionary, title: String, val
 
 func _add_component(component_scene: PackedScene, parent_node: Node) -> Node:
 	var component: Node = component_scene.instantiate()
-	component.connect("value_changed", Callable(self, "_on_ConfigInput_value_changed"))
+	component.value_changed.connect(_on_ConfigInput_value_changed)
 
 	if parent_node:
 		parent_node.add_component(component)
@@ -108,4 +108,4 @@ func _add_component(component_scene: PackedScene, parent_node: Node) -> Node:
 	return component
 
 func _on_ConfigInput_value_changed(input_component: ModConfigInput) -> void:
-	emit_signal("config_data_changed", input_component)
+	config_data_changed.emit(input_component)

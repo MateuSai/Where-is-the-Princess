@@ -1,24 +1,22 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=3 format=3 uid="uid://bht0nwo4dl0ua"]
 
 [ext_resource type="Script" path="res://mods-unpacked/GodotModding-ModConfigEditor/content/components/ConfigInput/ConfigInput.gd" id="1"]
-[ext_resource type="FontFile" path="res://mods-unpacked/GodotModding-ModConfigEditor/assets/fonts/text.tres" id="2"]
+[ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="2_xl3pd"]
 
 [node name="ConfigInput" type="HBoxContainer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="TitleLabel" type="Label" parent="."]
 unique_name_in_owner = true
-offset_top = 291.0
-offset_right = 510.0
-offset_bottom = 308.0
+layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource("2_xl3pd")
+theme_override_font_sizes/font_size = 10
 
 [node name="InputMargin" type="MarginContainer" parent="."]
-offset_left = 514.0
-offset_right = 1024.0
-offset_bottom = 600.0
+layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 15

@@ -51,6 +51,11 @@ func update_ui() -> void:
 	config_selection.populate(mod_data)
 	_populate_config_sections()
 
+	if info_text.text.is_empty():
+		info_text.hide()
+	else:
+		info_text.show()
+
 #func apply_config(config: ModConfig) -> void:
 #	var material_settings: Dictionary = config.data.material_settings
 

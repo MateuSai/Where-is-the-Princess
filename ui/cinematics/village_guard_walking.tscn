@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cts3fyy832biu"]
+[gd_scene load_steps=6 format=3 uid="uid://cts3fyy832biu"]
 
 [ext_resource type="Texture2D" uid="uid://cuytv7vxsdjnl" path="res://Art/16 x 16 Art Roguelike Castle Pack/Enemies/Village_guard.png" id="1_efwyd"]
+[ext_resource type="Texture2D" uid="uid://ctglatidq1odu" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Gladius.png" id="2_tjluj"]
 
 [sub_resource type="Animation" id="Animation_u7jpb"]
 resource_name = "walk"
 length = 1.2
 loop_mode = 1
+step = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -18,9 +20,37 @@ tracks/0/keys = {
 "update": 1,
 "values": [6, 7, 8, 9, 10, 11]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gladius:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2(-7, -6), Vector2(-7, -7), Vector2(-7, -6), Vector2(-7, -6)]
+}
+
+[sub_resource type="Animation" id="Animation_h8drd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Gladius:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-7, -6)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_daurv"]
 _data = {
+"RESET": SubResource("Animation_h8drd"),
 "walk": SubResource("Animation_u7jpb")
 }
 
@@ -31,10 +61,14 @@ texture = ExtResource("1_efwyd")
 flip_h = true
 hframes = 6
 vframes = 4
-frame = 7
+frame = 8
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_daurv")
 }
 autoplay = "walk"
+
+[node name="Gladius" type="Sprite2D" parent="."]
+position = Vector2(-7, -6)
+texture = ExtResource("2_tjluj")
