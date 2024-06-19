@@ -4,8 +4,11 @@ var scroll_float: float = 0.0
 
 @onready var credits_container: MarginContainer = get_node("MarginContainer")
 
+func _init() -> void:
+    RenderingServer.set_default_clear_color(Color.BLACK)
+
 func _ready() -> void:
-    scroll_vertical = 0.0
+    scroll_vertical = 0
 
 func _process(delta: float) -> void:
     if scroll_vertical + size.y < credits_container.size.y:
