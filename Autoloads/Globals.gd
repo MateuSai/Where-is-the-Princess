@@ -131,10 +131,6 @@ func _init() -> void:
 func _ready() -> void:
 	debug = OS.get_cmdline_user_args().has("--debug")
 
-	if OS.has_feature("demo"):
-		ModLoaderStore.queue_free()
-		ModLoader.queue_free()
-
 	var enemies_folder: DirAccess = DirAccess.open(Enemy.ENEMIES_FOLDER_PATH)
 	assert(enemies_folder != null)
 	for enemy_folder: String in enemies_folder.get_directories():
@@ -326,3 +322,14 @@ func tr_taking_in_mind_shitty_languages(id: String) -> String:
 		return tr(new_id)
 	else:
 		return tr(id + "_FEMININE")
+
+func get_unique_locales() -> Array[String]:
+	var unique_locales: Array[String] = []
+
+	var loaded_locales: PackedStringArray = TranslationServer.get_loaded_locales()
+	Log.debug("Loaded locales: " + str(loaded_locales))
+	for locale: String in loaded_locales:
+		if not unique_locales.has(locale):
+			unique_locales.push_back(locale)
+
+	return unique_locales

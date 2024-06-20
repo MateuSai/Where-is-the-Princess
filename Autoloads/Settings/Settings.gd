@@ -120,13 +120,7 @@ func _load_settings() -> void:
 	if not language.is_empty():
 		TranslationServer.set_locale(language)
 	else:
-		var os_locale: String = OS.get_locale()
-		if os_locale.begins_with("es"):
-			TranslationServer.set_locale("es")
-		elif os_locale.begins_with("ca"):
-			TranslationServer.set_locale("ca")
-		else:
-			TranslationServer.set_locale("en")
+		_set_language_by_os()
 	DisplayServer.window_set_mode(settings.get_value(GENERAL_SECTION, "window_mode", DisplayServer.WINDOW_MODE_WINDOWED) as DisplayServer.WindowMode)
 	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED:
 		var saved_window_size: Vector2 = settings.get_value(GENERAL_SECTION, "window_size", Vector2(ProjectSettings.get_setting("display/window/size/window_width_override") as float, ProjectSettings.get_setting("display/window/size/window_height_override") as float))
@@ -172,3 +166,14 @@ func set_auto_aim(new_value: bool) -> void:
 func set_aim_help(new_value: float) -> void:
 	settings.set_value(ACCESSIBILITY_SECTION, "aim_help", new_value)
 	aim_help_changed.emit(new_value)
+
+func _set_language_by_os() -> void:
+	var game_locales: Array[String] = Globals.get_unique_locales()
+	var os_locale: String = OS.get_locale()
+
+	if game_locales.has(os_locale):
+		TranslationServer.set_locale(os_locale)
+	elif game_locales.has(os_locale.split("_")[0]):
+		TranslationServer.set_locale(os_locale.split("_")[0])
+	else:
+		TranslationServer.set_locale("en")
