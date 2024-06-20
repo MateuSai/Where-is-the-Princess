@@ -4,8 +4,8 @@ func can_pick_up(player: Player) -> bool:
 	return not player.armor is Underpants and player.armor.condition < player.armor.max_condition
 
 func pick_up(player: Player) -> void:
-	if randf_range(0, 100) < player.armor_shard_break_probability:
-		return
+	#if randf_range(0, 100) < player.armor_shard_break_probability:
+	#	return
 
 	super(player)
 
