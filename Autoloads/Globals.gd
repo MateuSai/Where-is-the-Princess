@@ -131,6 +131,10 @@ func _init() -> void:
 func _ready() -> void:
 	debug = OS.get_cmdline_user_args().has("--debug")
 
+	if OS.has_feature("demo"):
+		ModLoaderStore.queue_free()
+		ModLoader.queue_free()
+
 	var enemies_folder: DirAccess = DirAccess.open(Enemy.ENEMIES_FOLDER_PATH)
 	assert(enemies_folder != null)
 	for enemy_folder: String in enemies_folder.get_directories():

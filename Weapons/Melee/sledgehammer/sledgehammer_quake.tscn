@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://gwe3pqdm131b" path="res://Weapons/projectiles/projectile.tscn" id="1_mt4di"]
 [ext_resource type="Texture2D" uid="uid://cqe0oeftfjiq6" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/Weapon effects/Kombat Hammer Directional Quake.png" id="2_0gqev"]
-[ext_resource type="Script" path="res://Weapons/Melee/KombatHammer/KombatHammerQuake.gd" id="2_etvkn"]
+[ext_resource type="Script" path="res://Weapons/Melee/sledgehammer/sledgehammer_quake.gd" id="2_etvkn"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_khato"]
 light_mode = 1

@@ -316,6 +316,7 @@ theme_override_constants/margin_bottom = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2"]
 layout_mode = 2
+alignment = 2
 
 [node name="ModsButton" type="Button" parent="MarginContainer2/HBoxContainer"]
 layout_mode = 2
