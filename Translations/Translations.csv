@@ -209,8 +209,9 @@ BIOMES,Biomes,Biomes,Biomas,,生物群系
 ,,,,,
 MAP,Map,Mapa,Mapa,,地図
 EQUIPMENT,Equipment,Equipament,Equipamiento,,
+ARMOR,Armor,Armadura,Armadura ,,
 WEAPONS,Weapons,Armes,Armas,,兵器
-ITEMS,Items,Ítems,Ítems,,アイテム
+ARTIFACTS,Artifacts,Artefactes,Artefactos,,アイテム
 CONSUMABLES,Consumables,Consumibles,Consumibles,,消耗品
 PASSIVE,Passive,Passius,Pasivos,,
 WEAPON_MODIFIERS,Weapon Modifiers,Modificadors d'Arma,Modificadores de Arma,,

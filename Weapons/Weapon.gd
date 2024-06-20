@@ -206,44 +206,58 @@ func _on_condition_changed(new_condition: float) -> void:
 			call_deferred("destroy")
 
 func destroy() -> void:
-	var sprite_rect: Rect2 = weapon_sprite.get_rect()
-	var points: Array[Vector2] = []
-	var triangles: Array[Array] = []
+	#var sprite_rect: Rect2 = weapon_sprite.get_rect()
+	#var points: Array[Vector2] = []
+	#var triangles: Array[Array] = []
 
-	points.push_back(sprite_rect.position)
-	points.push_back(sprite_rect.position + Vector2(sprite_rect.size.x, 0))
-	points.push_back(sprite_rect.position + Vector2(0, sprite_rect.size.y))
-	points.push_back(sprite_rect.end)
+	#points.push_back(sprite_rect.position)
+	#points.push_back(sprite_rect.position + Vector2(sprite_rect.size.x, 0))
+	#points.push_back(sprite_rect.position + Vector2(0, sprite_rect.size.y))
+	#points.push_back(sprite_rect.end)
 
-	for i: int in 0:
-		var p: Vector2 = sprite_rect.position + Vector2(randf_range(2, sprite_rect.size.x - 2), randf_range(2, sprite_rect.size.y - 2))
-		points.push_back(p)
+	#for i: int in 0:
+	#	var p: Vector2 = sprite_rect.position + Vector2(randf_range(2, sprite_rect.size.x - 2), randf_range(2, sprite_rect.size.y - 2))
+	#	points.push_back(p)
 
-	var delaunay: PackedInt32Array = Geometry2D.triangulate_delaunay(points)
-	for i: int in range(0, delaunay.size(), 3):
-		triangles.append([points[delaunay[i + 2]], points[delaunay[i + 1]], points[delaunay[i]]])
+	#var delaunay: PackedInt32Array = Geometry2D.triangulate_delaunay(points)
+	#for i: int in range(0, delaunay.size(), 3):
+	#	triangles.append([points[delaunay[i + 2]], points[delaunay[i + 1]], points[delaunay[i]]])
 
-	for t: Array[Vector2] in triangles:
-		var fragment: WeaponFragment = load("res://effects/fragments/weapon_fragment.tscn").instantiate()
-		fragment.position = weapon_sprite.global_position
-		get_tree().current_scene.add_child(fragment)
-		fragment.throw(get_parent().get_parent(), Vector2.RIGHT.rotated(rotation), weapon_sprite.texture, t)
+	#for t: Array[Vector2] in triangles:
+	#	var fragment: WeaponFragment = load("res://effects/fragments/weapon_fragment.tscn").instantiate()
+	#	fragment.position = weapon_sprite.global_position
+	#	get_tree().current_scene.add_child(fragment)
+	#	fragment.throw(get_parent().get_parent(), Vector2.RIGHT.rotated(rotation), weapon_sprite.texture, t)
+
+	var fragments_folder: DirAccess = DirAccess.open(scene_file_path.get_base_dir().path_join("fragments"))
+	if fragments_folder:
+		for file: String in fragments_folder.get_files():
+			if not file.get_extension() == "png":
+				continue
+
+			var fragment_texture: Texture2D = load(fragments_folder.get_current_dir().path_join(file))
+			var fragment: WeaponFragment = load("res://effects/fragments/weapon_fragment.tscn").instantiate()
+			fragment.position = weapon_sprite.global_position
+			get_tree().current_scene.add_child(fragment)
+			fragment.throw(get_parent().get_parent(), Vector2.RIGHT.rotated(rotation + randf_range( - 0.8, 0.8)), fragment_texture)
+	else:
+		Log.warn("Weapon " + data.weapon_name + " does not have fragments. Create a folder called fragments in the same directory as the weapon scene and add the fragments on that folder")
 
 	animation_player.stop(true)
 
 	player_detector.queue_free()
 
 	# Shader culiada, tengo que quitar el offset del sprite para que funcione bien
-	weapon_sprite.position += weapon_sprite.offset
-	weapon_sprite.offset = Vector2.ZERO
-	var particles: GPUParticles2D = (load("res://shaders_and_particles/particles/DestroyParticles.tscn") as PackedScene).instantiate()
-	particles.position = weapon_sprite.global_position
-	get_tree().current_scene.add_child(particles)
-	weapon_sprite.material = ResourceLoader.load("res://shaders_and_particles/PixelExplosionMaterial.tres", "ShaderMaterial", ResourceLoader.CACHE_MODE_IGNORE)
+	#weapon_sprite.position += weapon_sprite.offset
+	#weapon_sprite.offset = Vector2.ZERO
+	#var particles: GPUParticles2D = (load("res://shaders_and_particles/particles/DestroyParticles.tscn") as PackedScene).instantiate()
+	#particles.position = weapon_sprite.global_position
+	#get_tree().current_scene.add_child(particles)
+	#weapon_sprite.material = ResourceLoader.load("res://shaders_and_particles/PixelExplosionMaterial.tres", "ShaderMaterial", ResourceLoader.CACHE_MODE_IGNORE)
 	#weapon_sprite.material.resource_local_to_scene = true
 	#weapon_sprite.material.set("shader_parameter/progress", 0)
 	destroy_sound.play()
-	await create_tween().tween_property(weapon_sprite.material, "shader_parameter/progress", 1, 10).finished
+	#await create_tween().tween_property(weapon_sprite.material, "shader_parameter/progress", 1, 10).finished
 	#await get_tree().create_timer(1).timeout
 	queue_free()
 
