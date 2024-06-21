@@ -37,4 +37,4 @@ func show_at(pos: Vector2, item: Item) -> void:
 
 func stop_showing() -> void:
 	fade_tween = create_tween()
-	fade_tween.tween_property(self, "modulate:a", 0.0, 0.8)
+	fade_tween.tween_property(self, "modulate:a", 0.0, 0.2)

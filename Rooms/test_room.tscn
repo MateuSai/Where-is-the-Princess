@@ -121,17 +121,37 @@ type = 1
 position = Vector2(167, 20)
 type = 1
 
-[node name="SmallTravesano1" parent="." index="30" instance=ExtResource("7_xo4tc")]
+[node name="Chest6" parent="." index="30" instance=ExtResource("3_65xq6")]
+position = Vector2(294, 17)
+type = 0
+
+[node name="Chest7" parent="." index="31" instance=ExtResource("3_65xq6")]
+position = Vector2(315, 17)
+type = 0
+
+[node name="Chest8" parent="." index="32" instance=ExtResource("3_65xq6")]
+position = Vector2(337, 17)
+type = 0
+
+[node name="Chest9" parent="." index="33" instance=ExtResource("3_65xq6")]
+position = Vector2(359, 17)
+type = 0
+
+[node name="Chest10" parent="." index="34" instance=ExtResource("3_65xq6")]
+position = Vector2(380, 17)
+type = 0
+
+[node name="SmallTravesano1" parent="." index="35" instance=ExtResource("7_xo4tc")]
 position = Vector2(23, 53)
 
-[node name="SmallTravesano2" parent="." index="31" instance=ExtResource("7_xo4tc")]
+[node name="SmallTravesano2" parent="." index="36" instance=ExtResource("7_xo4tc")]
 position = Vector2(19, 135)
 
-[node name="SmallGallows2" parent="." index="32" instance=ExtResource("8_cojfx")]
+[node name="SmallGallows2" parent="." index="37" instance=ExtResource("8_cojfx")]
 position = Vector2(196, 16)
 
-[node name="SmallGallows3" parent="." index="33" instance=ExtResource("9_ue3ad")]
+[node name="SmallGallows3" parent="." index="38" instance=ExtResource("9_ue3ad")]
 position = Vector2(17, 81)
 
-[node name="BigGallows" parent="." index="34" instance=ExtResource("10_wdg86")]
+[node name="BigGallows" parent="." index="39" instance=ExtResource("10_wdg86")]
 position = Vector2(45, 15)

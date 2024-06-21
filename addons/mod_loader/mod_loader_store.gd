@@ -134,10 +134,17 @@ var ml_options := {
 # =============================================================================
 
 func _init():
+	if OS.has_feature("demo"):
+		return
+
 	_update_ml_options_from_options_resource()
 	_update_ml_options_from_cli_args()
 	# ModLoaderStore is passed as argument so the cache data can be loaded on _init()
 	_ModLoaderCache.init_cache(self)
+
+func _ready() -> void:
+	if OS.has_feature("demo"):
+		queue_free()
 
 # Update ModLoader's options, via the custom options resource
 func _update_ml_options_from_options_resource() -> void:

@@ -19,7 +19,6 @@
 
 extends Node
 
-
 signal logged(entry)
 signal current_config_changed(config)
 
@@ -39,6 +38,9 @@ var mod_data := {}: get = deprecated_direct_access_mod_data
 # =============================================================================
 
 func _init() -> void:
+	if OS.has_feature("demo"):
+		return
+
 	if not FileAccess.file_exists(SavedData.USER_FOLDER.path_join("mod_user_profiles.json")):
 		var file_content: Dictionary = {
 			"current_profile": "default",
@@ -87,8 +89,11 @@ func _init() -> void:
 
 	ModLoaderStore.is_initializing = false
 
-
 func _ready():
+	if OS.has_feature("demo"):
+		queue_free()
+		return
+
 	# Create the default user profile if it doesn't exist already
 	# This should always be present unless the JSON file was manually edited
 	if not ModLoaderStore.user_profiles.has("default"):
@@ -97,11 +102,9 @@ func _ready():
 	# Update the mod_list for each user profile
 	var _success_update_mod_lists := ModLoaderUserProfile._update_mod_lists()
 
-
 func _exit_tree() -> void:
 	# Save the cache stored in ModLoaderStore to the cache file.
 	_ModLoaderCache.save_to_file()
-
 
 func _load_mods() -> void:
 	# Loop over "res://mods" and add any mod zips to the unpacked virtual
@@ -152,7 +155,6 @@ func _load_mods() -> void:
 			continue
 		_ModLoaderDependency.check_load_before(mod)
 
-
 	# Run optional dependency checks after loading mod_manifest.
 	# If a mod depends on another mod that hasn't been loaded,
 	# that dependent mod will be loaded regardless.
@@ -161,7 +163,6 @@ func _load_mods() -> void:
 		if not mod.is_loadable:
 			continue
 		var _is_circular := _ModLoaderDependency.check_dependencies(mod, false)
-
 
 	# Run dependency checks after loading mod_manifest. If a mod depends on another
 	# mod that hasn't been loaded, that dependent mod won't be loaded.
@@ -202,12 +203,10 @@ func _load_mods() -> void:
 
 	ModLoaderStore.is_initializing = false
 
-
 # Internal call to reload mods
 func _reload_mods() -> void:
 	_reset_mods()
 	_load_mods()
-
 
 # Internal call that handles the resetting of all mod related data
 func _reset_mods() -> void:
@@ -217,19 +216,17 @@ func _reset_mods() -> void:
 	ModLoaderStore.mod_missing_dependencies.clear()
 	ModLoaderStore.script_extensions.clear()
 
-
 # Internal call that handles the disabling of all mods
 func _disable_mods() -> void:
 	for mod in ModLoaderStore.mod_data:
 		_disable_mod(ModLoaderStore.mod_data[mod])
-
 
 # Check autoload positions:
 # Ensure 1st autoload is `ModLoaderStore`, and 2nd is `ModLoader`.
 func _check_autoload_positions() -> void:
 	var ml_options: Object = load("res://addons/mod_loader/options/options.tres").current_options
 	var override_cfg_path := _ModLoaderPath.get_override_path()
-	var is_override_cfg_setup :=  _ModLoaderFile.file_exists(override_cfg_path)
+	var is_override_cfg_setup := _ModLoaderFile.file_exists(override_cfg_path)
 	# If the override file exists we assume the ModLoader was setup with the --setup-create-override-cfg cli arg
 	# In that case the ModLoader will be the last entry in the autoload array
 	if is_override_cfg_setup:
@@ -244,7 +241,6 @@ func _check_autoload_positions() -> void:
 	else:
 		var _pos_ml_store := _ModLoaderGodot.check_autoload_position("ModLoaderStore", 0, true)
 		var _pos_ml_core := _ModLoaderGodot.check_autoload_position("ModLoader", 1, true)
-
 
 # Loop over "res://mods" and add any mod zips to the unpacked virtual directory
 # (UNPACKED_DIR)
@@ -264,7 +260,6 @@ func _load_mod_zips() -> Dictionary:
 
 	return zip_data
 
-
 # Loop over UNPACKED_DIR and triggers `_init_mod_data` for each mod directory,
 # which adds their data to mod_data.
 func _setup_mods() -> int:
@@ -274,10 +269,10 @@ func _setup_mods() -> int:
 	var dir := DirAccess.open(unpacked_mods_path)
 	if dir == null:
 		ModLoaderLog.error("Can't open unpacked mods folder %s." % unpacked_mods_path, LOG_NAME)
-		return -1
-	if not dir.list_dir_begin() == OK:# TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+		return - 1
+	if not dir.list_dir_begin() == OK: # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		ModLoaderLog.error("Can't read unpacked mods folder %s." % unpacked_mods_path, LOG_NAME)
-		return -1
+		return - 1
 
 	var unpacked_mods_count := 0
 	# Get all unpacked mod dirs
@@ -311,11 +306,10 @@ func _setup_mods() -> int:
 	dir.list_dir_end()
 	return unpacked_mods_count
 
-
 # Add a mod's data to mod_data.
 # The mod_folder_path is just the folder name that was added to UNPACKED_DIR,
 # which depends on the name used in a given mod ZIP (eg "mods-unpacked/Folder-Name")
-func _init_mod_data(mod_id: String, zip_path := "") -> void:
+func _init_mod_data(mod_id: String, zip_path:="") -> void:
 		# Path to the mod in UNPACKED_DIR (eg "res://mods-unpacked/My-Mod")
 	var local_mod_path := _ModLoaderPath.get_unpacked_mods_dir_path().path_join(mod_id)
 
@@ -337,7 +331,6 @@ func _init_mod_data(mod_id: String, zip_path := "") -> void:
 	# which has ~1,000 files). That's why it's disabled by default
 	if ModLoaderStore.DEBUG_ENABLE_STORING_FILEPATHS:
 		mod.file_paths = _ModLoaderPath.get_flat_view_dict(local_mod_path)
-
 
 # Instance every mod and add it as a node to the Mod Loader.
 # Runs mods in the order stored in mod_load_order.
@@ -375,7 +368,6 @@ func _init_mod(mod: ModData) -> void:
 	ModLoaderLog.debug("Adding child -> %s" % mod_main_instance, LOG_NAME)
 	add_child(mod_main_instance, true)
 
-
 # Call the disable method in every mod if present.
 # This way developers can implement their own disable handling logic,
 # that is needed if there are actions that are not done through the Mod Loader.
@@ -400,44 +392,36 @@ func _disable_mod(mod: ModData) -> void:
 
 	remove_child(mod_main_instance)
 
-
 # Deprecated
 # =============================================================================
 
-func install_script_extension(child_script_path:String) -> void:
+func install_script_extension(child_script_path: String) -> void:
 	ModLoaderDeprecated.deprecated_changed("ModLoader.install_script_extension", "ModLoaderMod.install_script_extension", "6.0.0")
 	ModLoaderMod.install_script_extension(child_script_path)
-
 
 func register_global_classes_from_array(new_global_classes: Array) -> void:
 	ModLoaderDeprecated.deprecated_changed("ModLoader.register_global_classes_from_array", "ModLoaderMod.register_global_classes_from_array", "6.0.0")
 	ModLoaderMod.register_global_classes_from_array(new_global_classes)
 
-
 func add_translation_from_resource(resource_path: String) -> void:
 	ModLoaderDeprecated.deprecated_changed("ModLoader.add_translation_from_resource", "ModLoaderMod.add_translation", "6.0.0")
 	ModLoaderMod.add_translation(resource_path)
 
-
-func append_node_in_scene(modified_scene: Node, node_name: String = "", node_parent = null, instance_path: String = "", is_visible: bool = true) -> void:
+func append_node_in_scene(modified_scene: Node, node_name: String="", node_parent=null, instance_path: String="", is_visible: bool=true) -> void:
 	ModLoaderDeprecated.deprecated_changed("ModLoader.append_node_in_scene", "ModLoaderMod.append_node_in_scene", "6.0.0")
 	ModLoaderMod.append_node_in_scene(modified_scene, node_name, node_parent, instance_path, is_visible)
-
 
 func save_scene(modified_scene: Node, scene_path: String) -> void:
 	ModLoaderDeprecated.deprecated_changed("ModLoader.save_scene", "ModLoaderMod.save_scene", "6.0.0")
 	ModLoaderMod.save_scene(modified_scene, scene_path)
 
-
-func get_mod_config(mod_dir_name: String = "", key: String = "") -> ModConfig:
+func get_mod_config(mod_dir_name: String="", key: String="") -> ModConfig:
 	ModLoaderDeprecated.deprecated_changed("ModLoader.get_mod_config", "ModLoaderConfig.get_config", "6.0.0")
 	return ModLoaderConfig.get_config(mod_dir_name, ModLoaderConfig.DEFAULT_CONFIG_NAME)
-
 
 func deprecated_direct_access_UNPACKED_DIR() -> String:
 	ModLoaderDeprecated.deprecated_message("The const \"UNPACKED_DIR\" was removed, use \"ModLoaderMod.get_unpacked_dir()\" instead", "6.0.0")
 	return _ModLoaderPath.get_unpacked_mods_dir_path()
-
 
 func deprecated_direct_access_mod_data() -> Dictionary:
 	ModLoaderDeprecated.deprecated_message("The var \"mod_data\" was removed, use \"ModLoaderMod.get_mod_data_all()\" instead", "6.0.0")

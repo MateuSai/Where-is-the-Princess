@@ -12,6 +12,11 @@ const FRAMES: Array[Array] = [
 	]
 ]
 
+const CURSED_CHEST_FRAMES: Array[Texture2D] = [
+	preload ("res://Art/cursed_chest_closed.png"),
+	preload ("res://Art/cursed_chest_opened.png")
+]
+
 enum Type {
 	ITEM,
 	GEAR,
@@ -32,6 +37,8 @@ var gear_type: GearType
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var cursed: bool = false
+
 	var item_quality: Item.Quality
 	if item_path.is_empty():
 		type = Type.values()[randi() % Type.values().size()] if type == - 1 else type
@@ -41,6 +48,7 @@ func _ready() -> void:
 			Type.ITEM:
 				if randi() % 100 < 8:
 					# TODO Pass quality
+					cursed = true
 					item_path = SavedData.get_random_available_cursed_item_path()
 				else:
 					item_path = SavedData.get_random_available_item_path(item_quality)
@@ -57,8 +65,12 @@ func _ready() -> void:
 		gear_type = GearType.ARMOR if item_path.ends_with(".gd") else GearType.WEAPON
 
 	animated_sprite.sprite_frames.clear_all()
-	animated_sprite.sprite_frames.add_frame("default", FRAMES[type][item_quality][0])
-	animated_sprite.sprite_frames.add_frame("default", FRAMES[type][item_quality][1])
+	if cursed:
+		animated_sprite.sprite_frames.add_frame("default", CURSED_CHEST_FRAMES[0])
+		animated_sprite.sprite_frames.add_frame("default", CURSED_CHEST_FRAMES[1])
+	else:
+		animated_sprite.sprite_frames.add_frame("default", FRAMES[type][item_quality][0])
+		animated_sprite.sprite_frames.add_frame("default", FRAMES[type][item_quality][1])
 
 	interact_area.player_interacted.connect(_on_opened)
 

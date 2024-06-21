@@ -1,7 +1,7 @@
 class_name ItemOnFloor extends Sprite2D
 
-const SHINE_TEX: Texture = preload("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/item_shine_anim_5x5.png")
-const CURSED_PARTICLES_SCENE: PackedScene = preload("res://effects/cursed_particles.tscn")
+const SHINE_TEX: Texture = preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/item_shine_anim_5x5.png")
+const CURSED_PARTICLES_SCENE: PackedScene = preload ("res://effects/cursed_particles.tscn")
 
 var item: Item
 #var can_pick_up: bool = false
@@ -9,7 +9,6 @@ var item: Item
 @onready var interact_area: InteractArea = get_node("InteractArea")
 @onready var spawn_shine_effect_timer: Timer = $SpawnShineEffectTimer
 @onready var visible_on_screen_notifier: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
-
 
 func _ready() -> void:
 	interact_area.body_entered.connect(func(player: Player) -> void:
@@ -24,7 +23,6 @@ func _ready() -> void:
 		if not can_pick_up_item(player):
 			interact_area.sprite_material.set("shader_parameter/interior_color", Color.TRANSPARENT)
 	)
-
 
 func enable_pick_up() -> void:
 	if is_queued_for_deletion():
@@ -46,7 +44,6 @@ func enable_pick_up() -> void:
 		visible_on_screen_notifier.screen_entered.connect(spawn_shine_effect_timer.start)
 		visible_on_screen_notifier.screen_exited.connect(spawn_shine_effect_timer.stop)
 
-
 ## Call after _ready
 @warning_ignore("shadowed_variable")
 func initialize(item: Item) -> void:
@@ -60,10 +57,8 @@ func initialize(item: Item) -> void:
 	else:
 		texture = item.get_icon()
 
-
 func can_pick_up_item(player: Player) -> bool:
 	return item.can_pick_up(player)
-
 
 func _pick_item_and_free() -> void:
 	if item is ArrowModifier:
@@ -71,7 +66,7 @@ func _pick_item_and_free() -> void:
 		assert(Globals.player.weapons.current_weapon is BowOrCrossbowWeapon)
 
 		# Create a new item on floor wwith the current arrow type
-		var current_arrow_type_item_on_floor: ItemOnFloor = preload("res://items/item_on_floor.tscn").instantiate()
+		var current_arrow_type_item_on_floor: ItemOnFloor = preload ("res://items/item_on_floor.tscn").instantiate()
 		current_arrow_type_item_on_floor.position = position
 		get_tree().current_scene.add_child(current_arrow_type_item_on_floor)
 		current_arrow_type_item_on_floor.initialize([load("res://items/Passive/WeaponModifiers/arrows/normal_arrow_modifier.gd"), load("res://items/Passive/WeaponModifiers/arrows/homing_arrow_modifier.gd"), load("res://items/Passive/WeaponModifiers/arrows/piercing_arrow_modifier.gd"), load("res://items/Passive/WeaponModifiers/arrows/bouncing_arrow_modifier.gd"), load("res://items/Passive/WeaponModifiers/arrows/explosive_arrow_modifier.gd")][Globals.player.weapons.current_weapon.arrow_type].new())
@@ -87,21 +82,33 @@ func _pick_item_and_free() -> void:
 			get_parent().add_child(item_on_floor)
 			item_on_floor.enable_pick_up()
 
+	if item is ArmorShard or DoubleArmorShard:
+		if randf_range(0, 100) < Globals.player.armor_shard_break_probability:
+			var destroy_effect: Node2D
+			if item is ArmorShard:
+				destroy_effect = load("res://effects/armor_shard_destroy_effect.tscn").instantiate()
+			else:
+				destroy_effect = load("res://effects/double_armor_shard_destroy_effect.tscn").instantiate()
+			destroy_effect.position = position
+			get_parent().add_child(destroy_effect)
+
+			queue_free()
+			return
+
 	item.pick_up(interact_area.player)
 	queue_free()
-
 
 func _spawn_shine_effect() -> void:
 	var animated_sprite: AnimatedSprite2D = AnimatedSprite2D.new()
 	animated_sprite.z_index = 1
-	animated_sprite.position.x = randf_range(-2.5, 2.5)
-	animated_sprite.position.y = randf_range(-2.5, 2.5)
+	animated_sprite.position.x = randf_range( - 2.5, 2.5)
+	animated_sprite.position.y = randf_range( - 2.5, 2.5)
 	animated_sprite.material = load("res://unshaded.tres")
 	animated_sprite.sprite_frames = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/item_shine_spriteframes.tres")
 	animated_sprite.animation_finished.connect(animated_sprite.queue_free)
 	add_child(animated_sprite)
 
-	var time: float = (1/10.0) * animated_sprite.sprite_frames.get_frame_count("default")
+	var time: float = (1 / 10.0) * animated_sprite.sprite_frames.get_frame_count("default")
 	animated_sprite.play("default")
 	var t: Tween = create_tween()
 	t.set_parallel()

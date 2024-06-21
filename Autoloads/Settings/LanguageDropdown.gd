@@ -4,12 +4,7 @@ extends OptionButtonWithSound
 func _ready() -> void:
 	super()
 
-	var unique_locales: Array[String] = []
-	var loaded_locales: PackedStringArray = TranslationServer.get_loaded_locales()
-	Log.debug("Loaded locales: " + str(loaded_locales))
-	for locale: String in loaded_locales:
-		if not unique_locales.has(locale):
-			unique_locales.push_back(locale)
+	var unique_locales: Array[String] = Globals.get_unique_locales()
 
 	for locale: String in unique_locales:
 		add_item(locale)

@@ -312,6 +312,10 @@ func add_coin(amount: int=1) -> void:
 func remove_coins(amount: int=1) -> void:
 	SavedData.run_stats.coins -= amount
 
+	var coin_destroy_effect: Node2D = load("res://effects/coin_destroy_effect.tscn").instantiate()
+	coin_destroy_effect.position = position
+	get_tree().current_scene.add_child(coin_destroy_effect)
+
 func pick_up_passive_item(item: PassiveItem) -> void:
 	if item is PermanentPassiveItem:
 		var permanent_passive_item: PermanentPassiveItem = item
