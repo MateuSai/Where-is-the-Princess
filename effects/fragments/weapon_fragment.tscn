@@ -5,6 +5,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_pdy36"]
 
 [node name="WeaponFragment" type="Node2D"]
+z_index = -1
 script = ExtResource("1_juind")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

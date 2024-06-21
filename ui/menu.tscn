@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://886ogqps7117"]
+[gd_scene load_steps=37 format=3 uid="uid://886ogqps7117"]
 
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="1_5c4p0"]
 [ext_resource type="Script" path="res://ui/menu.gd" id="2_il0mi"]
@@ -29,6 +29,7 @@
 [ext_resource type="Script" path="res://ui/open_web_button.gd" id="24_g2vgg"]
 [ext_resource type="Script" path="res://ui/discord_button.gd" id="25_8g4f4"]
 [ext_resource type="Texture2D" uid="uid://cjcxyo6mesvf" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/discord_icon.png" id="25_8v2nf"]
+[ext_resource type="AudioStream" uid="uid://bdrd41sm8mhvu" path="res://Audio/Music/Shadows Guild/Dark Fantasy Studio- On the way (seamless).mp3" id="30_wvalu"]
 
 [sub_resource type="Animation" id="Animation_p6v7h"]
 length = 0.001
@@ -370,3 +371,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.796078)
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("30_wvalu")
+autoplay = true
+bus = &"Music"

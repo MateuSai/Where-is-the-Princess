@@ -25,7 +25,7 @@
 	],
 	"default_num_combat_rooms": 5,
 	"default_num_special_rooms": 1,
-	"music": "res://Audio/Music/Incompetech/Shamanistic.mp3",
+	"music": "res://Audio/Music/Music Loop Mini Set/Mystical  Loop #2-3.ogg",
 	"encyclopedia_background": "res://Rooms/Biomes/sewer/sewer_background.png",
 	"levels": {
 		"1": {

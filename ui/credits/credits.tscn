@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dcd2rcyujftob" path="res://ui/credits/addon_icons/log.png" id="8_kjbwc"]
 [ext_resource type="Texture2D" uid="uid://bucjnnslk1mm3" path="res://ui/credits/addon_icons/modloader.png" id="9_02bpy"]
 [ext_resource type="Texture2D" uid="uid://vkfppkl8nftn" path="res://ui/credits/software_icons/godot_icon.png" id="10_vdnif"]
-[ext_resource type="Texture2D" uid="uid://bkjfra5367cwd" path="res://ui/credits/software_icons/wilber-big.png" id="11_oi2o0"]
+[ext_resource type="Texture2D" uid="uid://dsjtd770cpd6b" path="res://ui/credits/software_icons/devicon--gimp-wordmark.png" id="11_fgk7k"]
 [ext_resource type="Texture2D" uid="uid://s8w2q8kawci" path="res://ui/credits/software_icons/aseprite-svgrepo-com.svg" id="12_j0wuo"]
 [ext_resource type="Texture2D" uid="uid://dk02qfcniu0pv" path="res://Art/Aseprite logo .png" id="13_k3u7r"]
 [ext_resource type="Texture2D" uid="uid://y5anfwhd8ccp" path="res://ui/credits/software_icons/Audacity_Logo.63b57726.svg" id="14_tmhd6"]
@@ -25,7 +25,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_onydd")
-scroll_vertical = 100
+scroll_vertical = 700
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 script = ExtResource("1_kf250")
@@ -316,7 +316,7 @@ stretch_mode = 5
 [node name="Gimp" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer8/HFlowContainer"]
 custom_minimum_size = Vector2(40, 50)
 layout_mode = 2
-texture = ExtResource("11_oi2o0")
+texture = ExtResource("11_fgk7k")
 expand_mode = 2
 stretch_mode = 5
 

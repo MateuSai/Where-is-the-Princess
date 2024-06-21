@@ -125,8 +125,21 @@ const CONTROLLER_TYPES: Dictionary = {
 	XBOX = "xbox",
 }
 
+enum Platform {
+	STEAM,
+	OTHER,
+}
+var platform: Platform
+
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+
+	if OS.has_feature("steam"): # and Steam.isSteamRunning():
+		assert(Engine.has_singleton("Steam"))
+		platform = Platform.STEAM
+	else:
+		platform = Platform.OTHER
+	print("Platform detected: " + Platform.keys()[platform])
 
 func _ready() -> void:
 	debug = OS.get_cmdline_user_args().has("--debug")
@@ -333,3 +346,6 @@ func get_unique_locales() -> Array[String]:
 			unique_locales.push_back(locale)
 
 	return unique_locales
+
+func is_steam_enabled() -> bool:
+	return platform == Platform.STEAM
