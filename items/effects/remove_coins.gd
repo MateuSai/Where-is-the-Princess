@@ -8,3 +8,6 @@ func _init(amount: int) -> void:
 
 func enable(player: Player) -> void:
     player.remove_coins(amount)
+
+func disable(_player: Player) -> void:
+    pass
