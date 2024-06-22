@@ -668,3 +668,15 @@ func _stop_exhausted_effect() -> void:
 
 	_sweat_drop_tween.kill()
 	_sweat_drop_tween = null
+
+func _get_tile_type() -> String:
+	var tilemap_to_check: TileMap
+
+	if current_room != null:
+		tilemap_to_check = current_room.tilemap
+	else: # Player is on corridor
+		tilemap_to_check = (get_tree().current_scene as Game).rooms.get_corridor_block_tilemap_with_cell(position / Rooms.TILE_SIZE)
+
+	assert(tilemap_to_check)
+	Log.debug("Player on tile: " + str(floor((position - tilemap_to_check.position) / Rooms.TILE_SIZE)))
+	return tilemap_to_check.get_cell_tile_data(0, floor((position - tilemap_to_check.position) / Rooms.TILE_SIZE)).get_custom_data_by_layer_id(0)

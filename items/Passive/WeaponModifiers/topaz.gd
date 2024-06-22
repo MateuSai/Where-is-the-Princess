@@ -3,6 +3,9 @@ class_name Topaz extends StatusWeaponModifier
 func get_icon() -> Texture2D:
 	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Topaz_item.png")
 
+func get_big_icon() -> Texture2D:
+	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Topaz_UI_desc.png")
+
 #func _init() -> void:
 #	_initialize(load("res://Art/Furniture and room elements/wardrobe.png"))
 
