@@ -53,6 +53,7 @@ func initialize(weapon_path: String) -> void:
 				projectile.position -= global_position
 				add_child(projectile)
 		)
+	weapon.z_index = 0
 
 	draw.connect(func() -> void:
 		set_process(true)

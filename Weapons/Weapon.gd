@@ -43,7 +43,7 @@ var weapons: Weapons = null
 func _ready() -> void:
 	data = get_data(scene_file_path)
 
-	var on_floor: bool = not get_parent() is Weapons
+	var on_floor: bool = not (get_parent() is Weapons or get_parent() is PlayerRepresentation)
 
 	if on_floor:
 		z_index = -1
