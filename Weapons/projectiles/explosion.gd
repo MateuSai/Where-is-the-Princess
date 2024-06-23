@@ -5,11 +5,15 @@ const SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/Starter Pack-R
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _ready() -> void:
+	super()
+
 	var sound: AutoFreeSound = AutoFreeSound.new()
 	get_tree().current_scene.add_child(sound)
 	sound.start(SOUNDS[randi() % SOUNDS.size()], global_position)
 
 func _collide(node: Node2D, dam: int=damage) -> void:
+	Log.debug("Explosion hitted " + node.name)
+
 	knockback_direction = (node.global_position - global_position).normalized()
 
 	super(node, dam)
