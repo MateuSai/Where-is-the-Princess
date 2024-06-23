@@ -221,7 +221,7 @@ func spawn_dust() -> void:
 			sounds_arr = STEP_SNOW_SOUNDS
 		_:
 			sounds_arr = STEP_GROUND_SOUNDS
-	sound.start(sounds_arr[randi() % sounds_arr.size()], global_position, -8)
+	sound.start(sounds_arr[randi() % sounds_arr.size()], global_position, -10)
 
 	for dust_position: Marker2D in dust_positions.get_children():
 		var dust: Sprite2D = DUST_SCENE.instantiate()

@@ -687,6 +687,6 @@ func _get_tile_type() -> String:
 	#	tilemap_to_check = (get_tree().current_scene as Game).rooms.get_corridor_block_tilemap_with_cell(global_cell)
 	#	assert(tilemap_to_check)
 
-	Log.debug("Tilemap global_position: " + str(tilemap_to_check.global_position))
-	Log.debug("Player on relative tile: " + str(global_cell - Vector2i(tilemap_to_check.global_position / Rooms.TILE_SIZE)))
+	#Log.debug("Tilemap global_position: " + str(tilemap_to_check.global_position))
+	#Log.debug("Player on relative tile: " + str(global_cell - Vector2i(tilemap_to_check.global_position / Rooms.TILE_SIZE)))
 	return tilemap_to_check.get_cell_tile_data(0, global_cell - Vector2i(tilemap_to_check.global_position / Rooms.TILE_SIZE)).get_custom_data_by_layer_id(0)

@@ -1469,7 +1469,7 @@ func get_tilemap_with_global_cell(cell: Vector2i) -> TileMap:
 	#Log.debug("get_corridor_block_tilemap_with_cell cell: " + str(cell))
 
 	for corridor_block: TileMap in corridor_block_tilemaps:
-		Log.debug(corridor_block.get_used_cells(0))
+		#Log.debug(corridor_block.get_used_cells(0))
 		if corridor_block.get_used_cells(0).has(cell):
 			return corridor_block
 
