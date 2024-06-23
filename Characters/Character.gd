@@ -8,6 +8,7 @@ const HIT_EFFECT_SCENE: PackedScene = preload ("res://Characters/HitEffect.tscn"
 
 const STEP_GROUND_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Footstep/FootGravel1.wav"), preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Footstep/FootGravel2.wav")]
 const STEP_GRASS_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Footstep/StepGrass1.wav"), preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Footstep/StepGrass2.wav")]
+const STEP_SNOW_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Footstep/FootSnow1.wav"), preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Footstep/FootSnow2.wav"), preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Footstep/FootSnow3.wav")]
 
 const FRICTION: float = 0.15
 var friction: float = FRICTION
@@ -216,9 +217,11 @@ func spawn_dust() -> void:
 	match _get_tile_type():
 		"grass":
 			sounds_arr = STEP_GRASS_SOUNDS
+		"snow":
+			sounds_arr = STEP_SNOW_SOUNDS
 		_:
 			sounds_arr = STEP_GROUND_SOUNDS
-	sound.start(sounds_arr[randi() % sounds_arr.size()], global_position)
+	sound.start(sounds_arr[randi() % sounds_arr.size()], global_position, -8)
 
 	for dust_position: Marker2D in dust_positions.get_children():
 		var dust: Sprite2D = DUST_SCENE.instantiate()

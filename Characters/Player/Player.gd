@@ -670,13 +670,23 @@ func _stop_exhausted_effect() -> void:
 	_sweat_drop_tween = null
 
 func _get_tile_type() -> String:
-	var tilemap_to_check: TileMap
+	var global_cell: Vector2i = floor(position / Rooms.TILE_SIZE)
+	
+	var tilemap_to_check: TileMap = (get_tree().current_scene as Game).rooms.get_tilemap_with_global_cell(global_cell)
 
-	if current_room != null:
-		tilemap_to_check = current_room.tilemap
-	else: # Player is on corridor
-		tilemap_to_check = (get_tree().current_scene as Game).rooms.get_corridor_block_tilemap_with_cell(position / Rooms.TILE_SIZE)
+	#if current_room != null:
+	#	Log.debug("Player on relative tile: " + str(global_cell - Vector2i(current_room.position / Rooms.TILE_SIZE)))
+	#	Log.debug("Tilemap used cells: " + str(current_room.tilemap.get_used_cells(0)))
 
-	assert(tilemap_to_check)
-	Log.debug("Player on tile: " + str(floor((position - tilemap_to_check.position) / Rooms.TILE_SIZE)))
-	return tilemap_to_check.get_cell_tile_data(0, floor((position - tilemap_to_check.position) / Rooms.TILE_SIZE)).get_custom_data_by_layer_id(0)
+	#if current_room != null and current_room.tilemap.get_used_cells(0).has(Vector2i(global_cell - Vector2i(current_room.position / Rooms.TILE_SIZE))):
+	#	Log.debug("Player on room")
+	#	tilemap_to_check = current_room.tilemap
+	#	assert(tilemap_to_check)
+	#else: # Player is on corridor
+	#	Log.debug("Player on corridor")
+	#	tilemap_to_check = (get_tree().current_scene as Game).rooms.get_corridor_block_tilemap_with_cell(global_cell)
+	#	assert(tilemap_to_check)
+
+	Log.debug("Tilemap global_position: " + str(tilemap_to_check.global_position))
+	Log.debug("Player on relative tile: " + str(global_cell - Vector2i(tilemap_to_check.global_position / Rooms.TILE_SIZE)))
+	return tilemap_to_check.get_cell_tile_data(0, global_cell - Vector2i(tilemap_to_check.global_position / Rooms.TILE_SIZE)).get_custom_data_by_layer_id(0)
