@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dsksly8bid5nk"]
+[gd_scene load_steps=15 format=3 uid="uid://dsksly8bid5nk"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_lgw5i"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="2_hrir3"]
@@ -12,6 +12,10 @@
 [ext_resource type="PackedScene" uid="uid://dr7n2nbmat800" path="res://Rooms/Furniture and Traps/gallows/small_gallows_2.tscn" id="8_cojfx"]
 [ext_resource type="PackedScene" uid="uid://cyjnc2t3acljy" path="res://Rooms/Furniture and Traps/gallows/small_gallows_3.tscn" id="9_ue3ad"]
 [ext_resource type="PackedScene" uid="uid://dx080p6kwctpv" path="res://Rooms/Furniture and Traps/gallows/big_gallows.tscn" id="10_wdg86"]
+[ext_resource type="Script" path="res://start_player_dialogue_area.gd" id="13_immuq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pqdbx"]
+radius = 19.0263
 
 [node name="TestRoom" instance=ExtResource("1_lgw5i")]
 
@@ -155,3 +159,12 @@ position = Vector2(17, 81)
 
 [node name="BigGallows" parent="." index="39" instance=ExtResource("10_wdg86")]
 position = Vector2(45, 15)
+
+[node name="StartPlayerDialogueArea" type="Area2D" parent="." index="40"]
+position = Vector2(242, -33)
+script = ExtResource("13_immuq")
+dialogues = Array[String](["PLAYER_ABOUT_TO_JUMP_FROM_CLIFF_1", "PLAYER_ABOUT_TO_JUMP_FROM_CLIFF_2", "PLAYER_ABOUT_TO_JUMP_FROM_CLIFF_3", "PLAYER_ABOUT_TO_JUMP_FROM_CLIFF_4", "PLAYER_ABOUT_TO_JUMP_FROM_CLIFF_5"])
+one_time_dialogue = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StartPlayerDialogueArea" index="0"]
+shape = SubResource("CircleShape2D_pqdbx")

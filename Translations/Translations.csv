@@ -24,7 +24,8 @@ FOOTMAN_ARMOR_DESCRIPTION,Restores a little condition of your current weapon eac
 ,,,,,
 ,,,,,
 FOOD,Food,Menjar,Comida,,食べ物
-FOOD_DESCRIPTION,"After all that combat, some food will help you restore your strength.","Després de tots aquests combats, una mica de menjar t'anirà bé per recuperar forces.","Después de todos estos combates, un poco de comida te irá bien para recuperar fuerzas.",,
+FOOD_DESCRIPTION,Restores a little health.,Recupera una mica de salut.,Restaura un poco de salud.,,
+FOOD_DESCRIPTION_MORE,"After all that combat, some food will help you restore your strength.","Després de tots aquests combats, una mica de menjar t'anirà bé per recuperar forces.","Después de todos estos combates, un poco de comida te irá bien para recuperar fuerzas.",,
 ARMOR_SHARD,Armor Shard,Estella d'Armadura,Esquirla de Armadura,,
 ARMOR_SHARD_DESCRIPTION,Repairs your armor by 1 point.,Repara la teva armadura en 1 punt.,Repara tu armadura en 1 punto.,,
 DOUBLE_ARMOR_SHARD,Double Armor Shard,Estella Doble d'Armadura,Esquirla Doble de Armadura,,

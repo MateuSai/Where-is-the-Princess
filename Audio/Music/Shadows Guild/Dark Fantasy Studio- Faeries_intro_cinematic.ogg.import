@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dbww87js50ubu"
+path="res://.godot/imported/Dark Fantasy Studio- Faeries_intro_cinematic.ogg-3ab71e89b38d596799e55cb9ffdd7904.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/Music/Shadows Guild/Dark Fantasy Studio- Faeries_intro_cinematic.ogg"
+dest_files=["res://.godot/imported/Dark Fantasy Studio- Faeries_intro_cinematic.ogg-3ab71e89b38d596799e55cb9ffdd7904.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
