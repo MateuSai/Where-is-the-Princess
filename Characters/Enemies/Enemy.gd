@@ -192,6 +192,9 @@ func set_flying(new_value: bool) -> void:
 func _on_flying_enemy_navigation_updated() -> void:
 	navigation_agent.set_navigation_map(room.navigation_map_flying_units)
 
+func _get_tile_type() -> String:
+	return room.tilemap.get_cell_tile_data(0, room.tilemap.local_to_map(position)).get_custom_data_by_layer_id(0)
+
 @warning_ignore("shadowed_variable")
 static func get_data(id: String) -> EnemyData:
 	if DB.has(id):

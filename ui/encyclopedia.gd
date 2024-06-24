@@ -1,5 +1,7 @@
 class_name Encyclopedia extends MarginContainer
 
+const TURN_PAGE_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Book/TurningPage1.wav"), preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Book/TurningPage2.wav")]
+
 enum {
 	WEAPONS,
 	ARMORS,
@@ -14,6 +16,7 @@ var last_category: int = -1
 @onready var list_container: MarginContainer = $HBoxContainer/HBoxContainer/PanelContainer/MarginContainer/ScrollContainer/MarginContainer
 @onready var details_scroll_container: ScrollContainer = %DetailsScrollContainer
 @onready var details_vbox: VBoxContainer = %DetailsVBoxContainer
+@onready var turn_page_audio_stream_player: AudioStreamPlayer = $TurnPageAudioStreamPlayer
 
 func _ready() -> void:
 	if OS.has_feature("demo"):
@@ -32,6 +35,11 @@ func _set_category(new_category: int) -> void:
 	if last_category != - 1:
 		(category_buttons.get_child(last_category) as Button).button_pressed = false
 		#(category_buttons.get_child(last_category) as Button).z_index = 0
+
+		if new_category != last_category: # Only play sound if we chage category
+			turn_page_audio_stream_player.stream = TURN_PAGE_SOUNDS[randi() % TURN_PAGE_SOUNDS.size()]
+			turn_page_audio_stream_player.play()
+
 	last_category = new_category
 	(category_buttons.get_child(last_category) as Button).button_pressed = true
 	#(category_buttons.get_child(last_category) as Button).z_index = 1

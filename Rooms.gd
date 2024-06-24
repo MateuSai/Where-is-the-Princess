@@ -66,6 +66,7 @@ var biome_conf: BiomeConf
 
 var fog_sprite: Sprite2D
 var corridor_tile_map: TileMap
+var corridor_block_tilemaps: Array[TileMap] = []
 
 func _ready() -> void:
 	set_physics_process(false)
@@ -1365,6 +1366,7 @@ func _divide_corridor_tile_map() -> void:
 						block_tilemap.set_cell(layer, Vector2i(x, y), ATLAS_ID, corridor_tile_map.get_cell_atlas_coords(layer, Vector2i(x, y)))
 
 			add_child(block_tilemap)
+			corridor_block_tilemaps.push_back(block_tilemap)
 
 	corridor_tile_map.queue_free()
 	corridor_tile_map = null # At this point this tilemap should not be accessed
@@ -1462,3 +1464,17 @@ class Connection:
 
 	func as_string() -> String:
 		return "room_1_id: " + str(room_1_id) + ", room_2_id: " + str(room_2_id) + ", cost: " + str(cost)
+
+func get_tilemap_with_global_cell(cell: Vector2i) -> TileMap:
+	#Log.debug("get_corridor_block_tilemap_with_cell cell: " + str(cell))
+
+	for corridor_block: TileMap in corridor_block_tilemaps:
+		#Log.debug(corridor_block.get_used_cells(0))
+		if corridor_block.get_used_cells(0).has(cell):
+			return corridor_block
+
+	for room: DungeonRoom in rooms:
+		if room.tilemap.get_used_cells(0).has(cell - Vector2i(room.position / TILE_SIZE)):
+			return room.tilemap
+
+	return null
