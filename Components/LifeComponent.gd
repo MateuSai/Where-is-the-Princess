@@ -26,6 +26,8 @@ var last_weapon: Weapon
 var last_damage_dealer_id: String
 var last_is_ranged: bool
 
+var _extra_damage_by_enemy_id: Dictionary = {}
+
 enum BodyType {
 	FLESH,
 	SLIME,
@@ -72,7 +74,7 @@ func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_deal
 	last_weapon = weapon
 	last_is_ranged = is_ranged
 
-	dam = dam * damage_taken_multiplier + extra_damage_taken
+	dam = dam * damage_taken_multiplier + extra_damage_taken + _get_extra_damage_by_enemy_id(damage_dealer_id)
 	self.hp -= dam
 	_play_hit_sound(weapon)
 
@@ -131,3 +133,18 @@ func _play_hit_sound(weapon: Weapon) -> void:
 func _apply_thorn_damage(to: Node) -> void:
 	(to.get_node("LifeComponent") as LifeComponent).take_damage(thorn_damage, (to.global_position - get_parent().global_position).normalized(), 300, null, null, "thorn")
 	thorn_damage_used.emit()
+
+func add_extra_damage_by_enemy_id(id: String, amount: int=1) -> void:
+	if not _extra_damage_by_enemy_id.has(id):
+		_extra_damage_by_enemy_id[id] = 0
+
+	_extra_damage_by_enemy_id[id] += amount
+
+func remove_extra_damage_by_enemy_id(id: String, amount: int=1) -> void:
+	if not _extra_damage_by_enemy_id.has(id):
+		_extra_damage_by_enemy_id[id] = 0
+
+	_extra_damage_by_enemy_id[id] -= amount
+
+func _get_extra_damage_by_enemy_id(id: String) -> int:
+	return _extra_damage_by_enemy_id[id] if _extra_damage_by_enemy_id.has(id) else 0

@@ -20,7 +20,7 @@ bomb_tribal,3,50,0.1,60,0,1,0,0,FLESH,forest,,res://Art/16x16 Pixel Art Roguelik
 shaman_tribal,2,50,0.1,100,0,1,0,0,FLESH,forest,,res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/tribals/shaman_tribal_icon.png,1-2,1,0,0.1,0.05,0.05
 small_slime,1,6,0.1,200,0,1,0,2,SLIME,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/slime/small_slime_icon.png,0-1,1,0,0.05,0.02,0.01
 medium_slime,3,15,0.1,90,0,1,0,2,SLIME,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/slime/medium_slime_icon.png,0-1,1,0,0.1,0.05,0.05
-big_slime,6,70,0.1,40,0,1,0,2,SLIME,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/slime/big_slime_icon.png,1-2,1,0,0,0,0
+big_slime,6,90,0.1,40,0,1,0,2,SLIME,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/slime/big_slime_icon.png,1-2,1,0,0,0,0
 poop_slime,1,15,0.1,90,0,1,0,2,SLIME,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/slime/poop_slime_icon.png,1-2,0-1,0,0,0,0
 archeleton,3,20,0.1,90,0,1,0,10,BONES,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/archeleton_icon.png,1-2,1,0,0.05,0.03,0.02
 skelebro,4,20,0.1,130,0,1,0,10,BONES,sewer,,res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebrommer_icon.png,1-2,1,0,0.05,0.02,0.02

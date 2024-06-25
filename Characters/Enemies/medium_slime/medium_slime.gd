@@ -1,6 +1,5 @@
 class_name Slime extends Enemy
 
-@export var acid_puddle_scene: PackedScene = load("res://Characters/Enemies/medium_slime/acid_puddle.tscn")
 @export var child_slime_scene: PackedScene = null
 
 @warning_ignore("int_as_enum_without_cast", "int_as_enum_without_match")
@@ -31,9 +30,9 @@ func _ready() -> void:
 #		mov_direction = Vector2.ZERO
 
 func _spawn_puddle() -> void:
-	var acid_puddle: AcidPuddle = acid_puddle_scene.instantiate()
+	var acid_puddle: AcidPuddle = _get_acid_puddle_scene().instantiate()
 	room.add_child(acid_puddle)
-	acid_puddle.position = position # - acid_puddle.sprite.position
+	acid_puddle.position = position
 
 func _duplicate_slime() -> void:
 	if child_slime_scene:
