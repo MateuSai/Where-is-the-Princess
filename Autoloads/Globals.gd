@@ -184,6 +184,11 @@ func _input(event: InputEvent) -> void:
 	# Fix for godot 4.2
 	if not get_tree().current_scene:
 		return
+
+	if event.is_action_pressed("ui_toggle_fullscreen"):
+		Log.info("F11 pressed, setting fullscreen")
+		Settings.toggle_fullscreen()
+
 #	print(event)
 #	if event is InputEventMouseMotion:
 #		print(event.as_text())
