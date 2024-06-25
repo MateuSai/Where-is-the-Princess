@@ -1,7 +1,11 @@
 class_name EnhancedBootsCursed extends CursedPermanentPassiveItem
 
 func _init() -> void:
-	effects = [IncreasePlayerMaxSpeed.new(110), PlayerExtraDamageTaken.new(1)]
+	effects = [
+		IncreasePlayerMaxSpeed.new(110),
+		IncreaseDashStaminaCost.new( - 12),
+		PlayerExtraDamageTaken.new(1)
+	]
 
 func get_icon() -> Texture2D:
 	return load("res://Art/items/boots_icon.png")

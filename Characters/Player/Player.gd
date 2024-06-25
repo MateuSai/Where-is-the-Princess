@@ -11,7 +11,7 @@ var dialogue_box: DialogueBox
 var dialogue_tween: Tween = null
 
 #const DASH_IMPULSE: int = 22000000
-const DASH_STAMINA_COST: int = 30
+var dash_stamina_cost: int = 30
 signal dashed(dash_time: float)
 
 var stamina_regeneration_per_second: float = 15
@@ -447,7 +447,7 @@ func jump() -> void:
 	jump_animation_player.play("jump")
 
 func _dash_or_jump() -> void:
-	consume_stamina(DASH_STAMINA_COST)
+	consume_stamina(dash_stamina_cost)
 
 	if armor is Underpants:
 		dash_cooldown_timer.start()
