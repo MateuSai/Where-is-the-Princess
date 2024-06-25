@@ -8,7 +8,13 @@ extends PermanentPassiveItem
 func _init() -> void:
 	effects = [OnPlayerDamaged.new(
 		[
-			NonPlayerProjectileSpeedMultiplier.new(0.5)
+			OnCooldown.new(
+				30,
+				[DisableAfter.new(5.04,
+					[NonPlayerProjectileSpeedMultiplier.new(0.5)]
+				)]
+			)
+
 		],
 			- 1,
 			true

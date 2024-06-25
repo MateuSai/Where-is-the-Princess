@@ -3,7 +3,16 @@ class_name ProjectileOrbCursed extends CursedPermanentPassiveItem
 func _init() -> void:
 	effects = [OnPlayerDamaged.new(
 		[
-			NonPlayerProjectileSpeedMultiplier.new(0.5)
+			OnCooldown.new(
+				30,
+				[DisableAfter.new(5.04,
+					[
+						NonPlayerProjectileSpeedMultiplier.new(0.75),
+						IncreaseProjectilesBounceCharges.new(1)
+					]
+				)]
+			)
+
 		],
 			- 1,
 			true

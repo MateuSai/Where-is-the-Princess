@@ -27,6 +27,7 @@ var bodies_pierced: int = 0
 
 signal destroyed()
 
+static var initial_extra_bounce_charges: int = 0
 var bounces_remaining: int = 0
 
 @export var can_be_destroyed: bool = true
@@ -38,6 +39,8 @@ var height: float: get = _get_height
 func _ready() -> void:
 	super()
 
+	add_to_group("projectiles")
+
 	collision_shape.disabled = true
 
 @warning_ignore("shadowed_variable")
@@ -47,6 +50,8 @@ func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: 
 	self.speed = speed
 	self.rotate_to_dir = rotate_to_dir
 	self.direction = dir
+
+	bounces_remaining += initial_extra_bounce_charges
 
 	collision_shape.disabled = false
 

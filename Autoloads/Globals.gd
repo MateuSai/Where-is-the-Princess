@@ -152,13 +152,33 @@ func _ready() -> void:
 	SceneTransistor.scene_changed.connect(_on_scene_changed)
 
 	# To save key tiles as separate images
-	#for key_id: String in INPUT_IMAGE_RECTS.keys():
-	#	var atlas_texture: AtlasTexture = AtlasTexture.new()
-	#	atlas_texture.atlas = load("res://Art/kenney_input-prompts-pixel-16/Tilemap/tilemap_packed.png")
-	#	atlas_texture.region = KeyIcon.get_key_region(key_id)
-	#	atlas_texture.get_image().save_png("res://Art/kenney_input-prompts-pixel-16/Tiles/".path_join(key_id) + ".png")
+	#_save_key_tiles_as_separate_images()
+
+	_duplicate_item_icons_with_red_outline()
 
 	#print(ENEMIES)
+
+func _save_key_tiles_as_separate_images() -> void:
+	for key_id: String in INPUT_IMAGE_RECTS.keys():
+		var atlas_texture: AtlasTexture = AtlasTexture.new()
+		atlas_texture.atlas = load("res://Art/kenney_input-prompts-pixel-16/Tilemap/tilemap_packed.png")
+		atlas_texture.region = KeyIcon.get_key_region(key_id)
+		atlas_texture.get_image().save_png("res://Art/kenney_input-prompts-pixel-16/Tiles/".path_join(key_id) + ".png")
+
+func _duplicate_item_icons_with_red_outline() -> void:
+	var red_outline_color: Color = Color.DARK_RED
+
+	for item_path: String in SavedData.get_all_items_paths():
+		var item: PassiveItem = load(item_path).new()
+		var icon_image: Image = item.get_icon().get_image().duplicate(true)
+
+		for x: int in icon_image.get_width():
+			for y: int in icon_image.get_height():
+				if icon_image.get_pixel(x, y).get_luminance() < 0.15 and icon_image.get_pixel(x, y).a > 0.0:
+					icon_image.set_pixel(x, y, red_outline_color)
+
+		var save_path: String = item.get_icon().resource_path.get_base_dir().path_join(item.get_icon().resource_path.get_basename().get_file() + "_cursed.png")
+		icon_image.save_png(save_path)
 
 func _input(event: InputEvent) -> void:
 	# Fix for godot 4.2

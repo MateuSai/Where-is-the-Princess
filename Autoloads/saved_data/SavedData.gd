@@ -339,6 +339,7 @@ func get_available_armor_paths() -> PackedStringArray:
 	#armor_paths.append_array(discovered_mod_armor_paths)
 	return PackedStringArray(armor_paths)
 
+## Permanent + temporal. Discovered + Undiscovered
 func get_all_items_paths() -> PackedStringArray:
 	var ret: PackedStringArray = data.ALL_VANILLA_PERMANENT_ITEMS.duplicate()
 	ret.append_array(data.ALL_VANILLA_TEMPORAL_ITEMS)
