@@ -11,7 +11,7 @@ var dialogue_box: DialogueBox
 var dialogue_tween: Tween = null
 
 #const DASH_IMPULSE: int = 22000000
-var dash_stamina_cost: int = 30
+var dash_stamina_cost: float = 30
 signal dashed(dash_time: float)
 
 var stamina_regeneration_per_second: float = 15
@@ -455,7 +455,7 @@ func _dash_or_jump() -> void:
 	else:
 		_dash()
 
-	dashed.emit(dash_time)
+	dashed.emit(DASH_TIME)
 
 func add_rotating_item(node: Node2D) -> void:
 	add_child(node)

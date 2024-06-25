@@ -36,7 +36,7 @@ enum Resistance {
 var resistances: int = 0
 
 var previous_max_speed: int
-var dash_time: float = 0.06
+const DASH_TIME: float = 0.06
 var dash_timer: Timer
 var dash_cooldown_timer: Timer
 
@@ -211,6 +211,9 @@ func _on_died() -> void:
 	pass
 
 func spawn_dust() -> void:
+	if not is_inside_tree() or not is_instance_valid(get_tree().current_scene):
+		return
+
 	var sound: AutoFreeSound = AutoFreeSound.new()
 	get_tree().current_scene.add_child(sound)
 	var sounds_arr: Array[AudioStream]
@@ -296,7 +299,7 @@ func _spawn_shadow_effect() -> void:
 	get_tree().current_scene.add_child(shadow_sprite)
 	shadow_sprite.start(sprite.texture)
 
-func _dash(dash_time: float=dash_time) -> void:
+func _dash(dash_time: float=DASH_TIME) -> void:
 	print_debug("dash " + str(mov_direction))
 	dash_cooldown_timer.start()
 
