@@ -7,4 +7,4 @@ func get_icon() -> Texture2D:
 	return load("res://Art/items/Bolt_icon.png")
 
 func get_big_icon() -> Texture2D:
-	return load("res://Art/items/Bolt_UI_desc.png")
+	return load("res://Art/items/Bolt_UI_cursed_desc.png")

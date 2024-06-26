@@ -14,37 +14,37 @@ signal effect_disabled()
 
 @warning_ignore("shadowed_variable")
 func _init(effects: Array[ItemEffect], enable_times_limit: int=- 1) -> void:
-    self.effects = effects
-    self.enable_times_limit = enable_times_limit
+	self.effects = effects
+	self.enable_times_limit = enable_times_limit
 
 @warning_ignore("shadowed_variable")
 func enable(player: Player) -> void:
-    self.player = player
+	self.player = player
 
 func disable(_player: Player) -> void:
-    if in_effect:
-        _disable_effects()
+	if in_effect:
+		_disable_effects()
 
 func _enable_effects() -> void:
-    if enable_times_limit != - 1 and times_enabled >= enable_times_limit:
-        return
+	if enable_times_limit != - 1 and times_enabled >= enable_times_limit:
+		return
 
-    in_effect = true
+	in_effect = true
 
-    times_enabled += 1
+	times_enabled += 1
 
-    for effect: ItemEffect in effects:
-        effect.enable(player)
+	for effect: ItemEffect in effects:
+		effect.enable(player)
 
-    effects_enabled.emit()
+	effects_enabled.emit()
 
 func _disable_effects() -> void:
-    if in_effect:
-        for effect: ItemEffect in effects:
-            for i: int in times_enabled:
-                effect.disable(player)
-    
-    in_effect = false
-    times_enabled = 0
+	if in_effect:
+		for effect: ItemEffect in effects:
+			for i: int in times_enabled:
+				effect.disable(player)
 
-    effect_disabled.emit()
+	in_effect = false
+	times_enabled = 0
+
+	effect_disabled.emit()

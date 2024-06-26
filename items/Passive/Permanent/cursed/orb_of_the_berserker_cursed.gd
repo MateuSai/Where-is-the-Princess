@@ -9,4 +9,4 @@ func get_icon() -> Texture2D:
 	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/beherit.png")
 
 func get_big_icon() -> Texture2D:
-	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Beherit_UI_desc.png")
+	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Beherit_cursed_UI_desc.png")

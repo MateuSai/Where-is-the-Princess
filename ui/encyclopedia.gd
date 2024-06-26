@@ -163,7 +163,7 @@ func _set_category(new_category: int) -> void:
 				if biome_statistics:
 					button.pressed.connect(func() -> void:
 						_clear_details()
-						_show_biome_details(biome_conf)
+						_show_biome_details(biome_conf, biome_statistics)
 					)
 				else:
 					button.modulate = Color.BLACK.lightened(0.3)
@@ -415,7 +415,7 @@ func _show_enemy_details(id: String, data: EnemyData, statistics: EnemyStatistic
 	player_kills_label.text = tr("PLAYER_KILLS") + ": " + str(statistics.player_kills)
 	details_vbox.add_child(player_kills_label)
 
-func _show_biome_details(conf: BiomeConf) -> void:
+func _show_biome_details(conf: BiomeConf, statistics: BiomeStatistics) -> void:
 	var name_label: Label = Label.new()
 	name_label.custom_minimum_size.x = details_vbox.size.x - 16
 	name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -429,6 +429,13 @@ func _show_biome_details(conf: BiomeConf) -> void:
 	biome_background.texture = load(conf.encyclopedia_background)
 	biome_background.custom_minimum_size.y = 64
 	details_vbox.add_child(biome_background)
+
+	var times_visited_label: Label = Label.new()
+	times_visited_label.theme = load("res://SmallFontTheme.tres")
+	times_visited_label.custom_minimum_size.x = details_vbox.size.x - 16
+	times_visited_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	times_visited_label.text = tr("TIMES_VISITED") + ": " + str(statistics.times_entered)
+	details_vbox.add_child(times_visited_label)
 
 	var enemies_hflow: HFlowContainer = HFlowContainer.new()
 	for enemy_id: String in Globals.ENEMIES.keys():

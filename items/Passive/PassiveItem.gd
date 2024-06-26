@@ -17,8 +17,20 @@ func unequip(player: Player) -> void:
 		effect.disable(player)
 
 ## Fucking Godot and his bad adress errors, GDScript is a joke of language. Because for some reason this crahses if I put it on a variable, override this function instead
-func get_description() -> String:
-	return "No description"
+#func get_description() -> String:
+#	return "No description"
 
 func get_unite_dictionary() -> Dictionary:
 	return {}
+
+func get_effects_description() -> String:
+	var des: String = ""
+
+	for effect: ItemEffect in effects:
+		des += effect.get_description()
+		if effect != effects[effects.size() - 1]:
+			des += "\n"
+
+	#des.trim_suffix("\n")
+	
+	return des

@@ -9,9 +9,15 @@ const SPAWN_EXPLOSION_SCENE: PackedScene = preload ("res://Characters/Enemies/Sp
 const COIN_SCENE: PackedScene = preload ("res://items/Coin.tscn")
 const SOUL_SCENE: PackedScene = preload ("res://items/Soul.tscn")
 
+const BIG_ACID_PUDDLE_SCENE: PackedScene = preload ("res://Characters/Enemies/big_slime/big_acid_puddle.tscn")
+const MEDIUM_ACID_PUDDLE_SCENE: PackedScene = preload ("res://Characters/Enemies/medium_slime/acid_puddle.tscn")
+const SMALL_ACID_PUDDLE_SCENE: PackedScene = preload ("res://Characters/Enemies/small_slime/small_acid_puddle.tscn")
+
 const FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE: int = 2
 
 var target: Character
+
+static var dead_acid_explosion: int = 0
 
 var enemy_data: EnemyData
 
@@ -152,6 +158,8 @@ func _on_died_0_5_seconds_later() -> void:
 	SavedData.add_enemy_times_killed(id)
 
 	spawn_loot()
+	if dead_acid_explosion:
+		_spawn_acid_explosion()
 
 	var spawn_explosion: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()
 	spawn_explosion.position = global_position
@@ -194,6 +202,20 @@ func _on_flying_enemy_navigation_updated() -> void:
 
 func _get_tile_type() -> String:
 	return room.tilemap.get_cell_tile_data(0, room.tilemap.local_to_map(position)).get_custom_data_by_layer_id(0)
+
+func _get_acid_puddle_scene() -> PackedScene:
+	if data.mass < 12:
+		return SMALL_ACID_PUDDLE_SCENE
+	elif data.mass < 70:
+		return MEDIUM_ACID_PUDDLE_SCENE
+	else:
+		return BIG_ACID_PUDDLE_SCENE
+
+func _spawn_acid_explosion() -> void:
+	for i: int in randi_range(3, 6):
+		var acid_puddle: AcidPuddle = _get_acid_puddle_scene().instantiate()
+		room.add_child(acid_puddle)
+		acid_puddle.position = position + Vector2(randf_range( - 8, 8), randf_range( - 8, 8))
 
 @warning_ignore("shadowed_variable")
 static func get_data(id: String) -> EnemyData:

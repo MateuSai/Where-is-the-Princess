@@ -1,7 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bdkxfc5h780xk"]
+[gd_scene load_steps=3 format=3 uid="uid://bdkxfc5h780xk"]
 
 [ext_resource type="PackedScene" uid="uid://cvw8gw6oglhvl" path="res://ui/cinematics/cinematic.tscn" id="1_vc7s5"]
+[ext_resource type="AudioStream" uid="uid://dbww87js50ubu" path="res://Audio/Music/Shadows Guild/Dark Fantasy Studio- Faeries_intro_cinematic.ogg" id="2_6clk7"]
 
 [node name="Intro" instance=ExtResource("1_vc7s5")]
 cinematic_dir = "res://ui/cinematics/intro"
 end_transition = "res://Game.tscn"
+
+[node name="Music" parent="." index="0"]
+stream = ExtResource("2_6clk7")

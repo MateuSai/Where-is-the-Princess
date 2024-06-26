@@ -10,6 +10,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_m3upk")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Music" type="AudioStreamPlayer" parent="."]
 autoplay = true
 bus = &"Music"

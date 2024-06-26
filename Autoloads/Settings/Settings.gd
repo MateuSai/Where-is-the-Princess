@@ -177,3 +177,11 @@ func _set_language_by_os() -> void:
 		TranslationServer.set_locale(os_locale.split("_")[0])
 	else:
 		TranslationServer.set_locale("en")
+
+func toggle_fullscreen() -> void:
+	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+
+	_save_settings()
