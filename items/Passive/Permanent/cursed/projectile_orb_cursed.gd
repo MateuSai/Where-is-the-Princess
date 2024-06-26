@@ -7,7 +7,7 @@ func _init() -> void:
 				30,
 				[DisableAfter.new(5.04,
 					[
-						NonPlayerProjectileSpeedMultiplier.new(0.75),
+						NonPlayerProjectileSpeedMultiplier.new(0.3),
 						IncreaseProjectilesBounceCharges.new(1)
 					]
 				)]

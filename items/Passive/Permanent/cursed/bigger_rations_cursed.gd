@@ -1,4 +1,4 @@
-extends PermanentPassiveItem
+extends CursedPermanentPassiveItem
 
 func _init() -> void:
 	effects = [IncreaseFoodExtraHp.new(2), IncreasePlayerMaxSpeed.new( - 30)]
