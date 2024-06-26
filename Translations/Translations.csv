@@ -121,6 +121,11 @@ ADDITIONAL_WEAPON_CARRY_CAPACITY,Additional Weapon Capacity,Capacitat d'Armes Ad
 ADDITIONAL_WEAPON_CARRY_CAPACITY_DESCRIPTION,Increases your max amount of weapons by 1.,Augmenta la teva quantitat màxima d'armes en 1.,Aumenta tu capacidad máxima de armas en 1.,,
 ,,,,,
 ,,,,,
+ENEMY_ACID_EXPLOSION_ON_DEAD,Enemy acid explosion on dead,Explosió d'àcid quan els enemics moren,Explosión de ácido cuando enemigos mueren,,
+EXTRA_DAMAGE_BY_ENEMY_TYPE,+%s Extra damage by %s,+%s Dany extra causat per %s,+%s Daño extra causado por %s,,
+INCREASE_TIME_BETWEEN_ACID_DAMAGES,+%s Seconds between acid damages,+%s Segons entre dany àcid,+%s Segundos entre daño ácido,,
+,,,,,
+,,,,,
 TUTORIAL,Tutorial,Tutorial,Tutorial,, チュートリアル 
 MENU,Menu,Menú,Menú,,メニュー
 PLAY,Play,Juga,Jugar,,遊び

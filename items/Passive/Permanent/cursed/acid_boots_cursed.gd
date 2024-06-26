@@ -14,7 +14,7 @@ func _init() -> void:
 				Player.DASH_TIME * 2.5,
 				0.008
 			),
-			OnChance.new(10, [
+			OnChance.new(15, [
 				DamagePlayer.new(1)
 			])
 		])

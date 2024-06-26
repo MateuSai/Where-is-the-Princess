@@ -11,7 +11,12 @@ func _init() -> void:
 			OnCooldown.new(
 				30,
 				[DisableAfter.new(5.04,
-					[NonPlayerProjectileSpeedMultiplier.new(0.5)]
+					[
+						NonPlayerProjectileSpeedMultiplier.new(0.5),
+						SpawnSceneAsPlayerChild.new(
+							load("res://items/Passive/Permanent/projectile_orb_effect.tscn")
+						)
+					]
 				)]
 			)
 

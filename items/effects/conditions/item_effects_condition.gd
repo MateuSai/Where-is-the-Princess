@@ -48,3 +48,15 @@ func _disable_effects() -> void:
 	times_enabled = 0
 
 	effect_disabled.emit()
+
+func get_description() -> String:
+	var des: String = ""
+
+	for effect: ItemEffect in effects:
+		des += effect.get_description()
+		if effect != effects[effects.size() - 1]:
+			des += "\n"
+
+	#des.trim_suffix("\n")
+	
+	return des
