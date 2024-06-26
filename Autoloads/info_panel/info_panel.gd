@@ -24,7 +24,10 @@ func show_at(pos: Vector2, item: Item) -> void:
 	if item is PassiveItem and not SavedData.data.is_item_discovered(item as PassiveItem):
 		description_label.text = "?"
 	else:
-		description_label.text = item.get_item_description()
+		if item is PassiveItem:
+			description_label.text = item.get_effects_description()
+		else:
+			description_label.text = item.get_item_description()
 	#size.y = 0
 
 	position = pos

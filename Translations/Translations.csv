@@ -63,6 +63,7 @@ ORB_OF_THE_BERSERKER,Orb of the Berserker,Orb del Berserker,Orbe del Berserker,,
 ORB_OF_THE_BERSERKER_DESCRIPTION,Doubles your damage when you have 1 heart or less.,Doble el teu dany quan tens 1 cor o menys.,Dobla tu daño cuando tienes 1 corazón o menos.,,
 ENHANCED_BOOTS,Enhanced Boots,Botes Millorades,Botas Mejoradas,,エンハンスドブーツ
 ENHANCED_BOOTS_DESCRIPTION,Run faster,Corre més ràpid,Corre más rápido,,早く走る
+ENHANCED_BOOTS_CURSED,Boots with Wire,Botes amb Filferro,Botas con Alambre,,
 ACID_BOOTS,Acid Boots,Botes Àcides,Botas Ácidas,,
 ACID_BOOTS_DESCRIPTION,Drop acid when you dash and it takes more time to fill your acid bar.,Deixar anar àcid quan esquives i augmenta el temps que tarda la teva barra d'àcid a omplir-se.,Suelta ácido cuando esquivas y aumenta el tiempo que tarda tu barra de ácido en llenarse.,,
 BIGGER_RATIONS,Bigger Rations,Racions Més Grans,Raciones Mayores,,
@@ -206,6 +207,7 @@ KILLS,Kills,Morts,Muertes,,
 TIMES_KILLED,Times killed,Nombre de morts,Numero de muertes,,
 PLAYER_KILLS,Player kills,Morts del jugador,Muertes del jugador,,
 BIOMES,Biomes,Biomes,Biomas,,生物群系
+TIMES_VISITED,Times visited,Vegades visitat,Veces visitado,,
 ,,,,,
 ,,,,,
 MAP,Map,Mapa,Mapa,,地図

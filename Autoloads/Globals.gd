@@ -154,7 +154,10 @@ func _ready() -> void:
 	# To save key tiles as separate images
 	#_save_key_tiles_as_separate_images()
 
-	_duplicate_item_icons_with_red_outline()
+	#_duplicate_item_icons_with_red_outline()
+
+	Log.debug(IncreaseTimeBetweenAcidDamages.new(0.5).get_description())
+	Log.debug(AntiAcidRingCursed.new().get_effects_description())
 
 	#print(ENEMIES)
 
