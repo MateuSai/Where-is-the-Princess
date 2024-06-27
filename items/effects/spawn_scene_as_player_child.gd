@@ -13,3 +13,6 @@ func enable(player: Player) -> void:
 func disable(_player: Player) -> void:
 	if is_instance_valid(_instance):
 		_instance.queue_free()
+
+func get_description() -> String:
+	return ""
