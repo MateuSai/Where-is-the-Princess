@@ -124,6 +124,12 @@ ADDITIONAL_WEAPON_CARRY_CAPACITY_DESCRIPTION,Increases your max amount of weapon
 ENEMY_ACID_EXPLOSION_ON_DEAD,Enemy acid explosion on dead,Explosió d'àcid quan els enemics moren,Explosión de ácido cuando enemigos mueren,,
 EXTRA_DAMAGE_BY_ENEMY_TYPE,+%s Extra damage by %s,+%s Dany extra causat per %s,+%s Daño extra causado por %s,,
 INCREASE_TIME_BETWEEN_ACID_DAMAGES,+%s Seconds between acid damages,+%s Segons entre dany àcid,+%s Segundos entre daño ácido,,
+NON_PLAYER_PROJECTILE_SPEED_MULTIPLIER,*%s%% Non player projectile speed,*%s%% velocitat projectils enemics,*%s%% Velocidad proyectiles enemigos,,
+INCREASE_PROJECTILES_BOUNCE_CHARGES,+%d Projectile bounce charges,+%d Rebots projectils,+%d Rebotes proyectiles,,
+,,,,,
+ON_PLAYER_DAMAGED,On damaged,Al rebre dany,Al recibir daño,,
+DISABLE_AFTER,For %s seconds,Durant %s segons,Durante %s segundos,,
+ON_COOLDOWN,%s Cooldown,Recarga %s,Recarga %s,,
 ,,,,,
 ,,,,,
 TUTORIAL,Tutorial,Tutorial,Tutorial,, チュートリアル 

@@ -53,7 +53,12 @@ func get_description() -> String:
 	var des: String = ""
 
 	for effect: ItemEffect in effects:
-		des += effect.get_description()
+		if effect.get_description().is_empty():
+			continue
+
+		#des += effect.get_description()
+		for effect_des: String in des.split("\n"):
+			des += "  %s" % effect_des
 		if effect != effects[effects.size() - 1]:
 			des += "\n"
 

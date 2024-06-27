@@ -20,3 +20,6 @@ func enable(player: Player) -> void:
 		await player.get_tree().create_timer(_time).timeout
 		_can_enable = true
 		_disable_effects()
+
+func get_description() -> String:
+	return "%s\n%s" % [tr("DISABLE_AFTER") % str(_time), super()]
