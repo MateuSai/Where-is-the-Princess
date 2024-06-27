@@ -21,4 +21,7 @@ func enable(player: Player) -> void:
 		_can_enable = true
 
 func get_description() -> String:
-	return "%s\n%s" % [tr("ON_COOLDOWN") % str(_time), super()]
+	return "%s\n%s" % [super(), _get_color_tag(PURPLE) % (tr("ON_COOLDOWN") % str(_time))]
+
+func _tab_child_effects_description() -> bool:
+	return false

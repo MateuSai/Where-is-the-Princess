@@ -21,10 +21,10 @@ func get_quality() -> Quality:
 	return Quality.CHINGON
 
 func get_icon() -> Texture2D:
-	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/rune_omega_icon.png") as Texture2D
+	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/rune_omega_icon_cursed.png") as Texture2D
 
 func get_symbol() -> Texture2D:
-	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/rune_omega.png") as Texture2D
+	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/rune_omega_cursed.png") as Texture2D
 
 func get_big_icon() -> Texture2D:
 	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/rune_omega_cursed_ui_desc.png")

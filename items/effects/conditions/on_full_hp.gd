@@ -19,3 +19,6 @@ func _on_hp_changed(new_hp: int) -> void:
         _enable_effects()
     elif in_effect:
         _disable_effects()
+
+func get_description() -> String:
+    return "%s\n%s" % [tr("ON_FULL_HP"), super()]

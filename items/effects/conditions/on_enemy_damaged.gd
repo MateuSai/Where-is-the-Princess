@@ -15,3 +15,6 @@ func disable(player: Player) -> void:
 func _on_character_received_damage(character: Character, damage_dealer: Character) -> void:
     if not character is Player and damage_dealer is Player:
         _enable_effects()
+
+func get_description() -> String:
+    return "%s\n%s" % [tr("ON_ENEMY_DAMAGED"), super()]

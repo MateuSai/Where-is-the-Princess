@@ -22,7 +22,7 @@ func enable(player: Player) -> void:
 		_disable_effects()
 
 func get_description() -> String:
-	return "%s\n%s" % [tr("DISABLE_AFTER") % str(_time), super()]
+	return "%s\n%s" % [tr("DISABLE_AFTER") % str(snapped(_time, 0.1)), super()]
 
 func _tab_child_effects_description() -> bool:
 	return false

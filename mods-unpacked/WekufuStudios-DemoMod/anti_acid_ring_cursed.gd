@@ -8,7 +8,7 @@ func _init() -> void:
 	]
 
 func get_icon() -> Texture2D:
-	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Acid_resist_ring.png")
+	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Acid_resist_ring_cursed.png")
 
 func get_big_icon() -> Texture2D:
 	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Acid_resist_ring_cursed_UI_desc.png")

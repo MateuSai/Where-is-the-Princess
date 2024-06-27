@@ -3,6 +3,7 @@ class_name ItemEffect
 const GREEN: String = "green"
 const YELLOW: String = "yellow"
 const RED: String = "red"
+const PURPLE: String = "purple"
 
 func enable(_player: Player) -> void:
 	push_warning("Overwrite this")
