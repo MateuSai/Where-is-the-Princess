@@ -48,3 +48,34 @@ func _disable_effects() -> void:
 	times_enabled = 0
 
 	effect_disabled.emit()
+
+func get_description() -> String:
+	var des: String = ""
+
+	#breakpoint
+
+	for i: int in effects.size():
+		var effect: ItemEffect = effects[i]
+		if effect.get_description().is_empty():
+			continue
+
+		if _tab_child_effects_description():
+			var child_effects_description: PackedStringArray = effect.get_description().split("\n")
+			for j: int in child_effects_description.size():
+				des += "  %s" % child_effects_description[j]
+				if j < (child_effects_description.size() - 1):
+					des += "\n"
+		else:
+			des += effect.get_description()
+
+		if effect != effects[effects.size() - 1] and not (i == effects.size() - 2 and effects[effects.size() - 1].get_description().is_empty()):
+			des += "\n"
+
+	#des.trim_suffix("\n")
+
+	#breakpoint
+
+	return des
+
+func _tab_child_effects_description() -> bool:
+	return true

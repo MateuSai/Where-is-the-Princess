@@ -18,7 +18,7 @@ func show_at(pos: Vector2, item: Item) -> void:
 	name_label.text = item.get_item_name()
 	match item.get_quality():
 		Item.Quality.COMMON:
-			name_label.modulate = Color.WHITE
+			name_label.modulate = Color.BLACK
 		Item.Quality.CHINGON:
 			name_label.modulate = Color.BLUE
 	if item is PassiveItem and not SavedData.data.is_item_discovered(item as PassiveItem):

@@ -2,7 +2,7 @@ class_name IncreaseProjectilesBounceCharges extends ItemEffect
 
 var _amount: int
 
-func _init(amount: float) -> void:
+func _init(amount: int) -> void:
 	_amount = amount
 
 func enable(player: Player) -> void:
@@ -14,3 +14,6 @@ func enable(player: Player) -> void:
 
 func disable(_player: Player) -> void:
 	Projectile.initial_extra_bounce_charges -= _amount
+
+func get_description() -> String:
+	return _get_color_tag(YELLOW) % (tr("INCREASE_PROJECTILES_BOUNCE_CHARGES") % _amount)

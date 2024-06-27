@@ -158,6 +158,7 @@ func _ready() -> void:
 
 	Log.debug(IncreaseTimeBetweenAcidDamages.new(0.5).get_description())
 	Log.debug(AntiAcidRingCursed.new().get_effects_description())
+	Log.debug(ProjectileOrbCursed.new().get_effects_description())
 
 	#print(ENEMIES)
 

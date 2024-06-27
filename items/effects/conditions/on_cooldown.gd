@@ -19,3 +19,6 @@ func enable(player: Player) -> void:
 		_enable_effects()
 		await player.get_tree().create_timer(_time).timeout
 		_can_enable = true
+
+func get_description() -> String:
+	return "%s\n%s" % [tr("ON_COOLDOWN") % str(_time), super()]

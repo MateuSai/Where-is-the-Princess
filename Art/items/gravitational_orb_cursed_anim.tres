@@ -1,0 +1,17 @@
+[gd_resource type="AnimatedTexture" load_steps=5 format=3 uid="uid://bomwrcgdqxuch"]
+
+[ext_resource type="Texture2D" uid="uid://xju0imlh8ic4" path="res://Art/items/gravitational_orb_cursed_icon_0.png" id="1_7ur4g"]
+[ext_resource type="Texture2D" uid="uid://dyw7bjkm1wwt5" path="res://Art/items/gravitational_orb_cursed_icon_1.png" id="2_42ucp"]
+[ext_resource type="Texture2D" uid="uid://26tqxe4xiort" path="res://Art/items/gravitational_orb_cursed_icon_2.png" id="3_gjb8e"]
+[ext_resource type="Texture2D" uid="uid://b2tngk2s4o43" path="res://Art/items/gravitational_orb_cursed_icon_3.png" id="4_lig2y"]
+
+[resource]
+frames = 4
+frame_0/texture = ExtResource("1_7ur4g")
+frame_0/duration = 0.4
+frame_1/texture = ExtResource("2_42ucp")
+frame_1/duration = 0.4
+frame_2/texture = ExtResource("3_gjb8e")
+frame_2/duration = 0.4
+frame_3/texture = ExtResource("4_lig2y")
+frame_3/duration = 0.4

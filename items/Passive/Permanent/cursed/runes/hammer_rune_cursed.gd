@@ -13,4 +13,4 @@ func get_symbol() -> Texture2D:
 	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/rune_delt.png")
 
 func get_big_icon() -> Texture2D:
-	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/rune_delt_ui_desc.png")
+	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/rune_delt_cursed_ui_desc.png")
