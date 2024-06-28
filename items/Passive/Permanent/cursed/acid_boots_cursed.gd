@@ -8,12 +8,7 @@ func _init() -> void:
 	effects = [
 		IncreasePlayerAcidProgressPerSecond.new( - 0.2),
 		OnDashed.new([
-			SpawnSceneAtPlayerPosition.new(
-				ACID_PUDDLE_SCENE,
-				14.0,
-				Player.DASH_TIME * 2.5,
-				0.008
-			),
+			SpawnALotOfDashAcid.new(),
 			OnChance.new(15, [
 				DamagePlayer.new(1)
 			])

@@ -8,6 +8,7 @@ var throw_spread: float = 0.0
 
 var damage_modifiers_by_type: Dictionary = {}
 var damage_modifiers_by_subtype: Dictionary = {}
+var condition_cost_multiplier: float = 1.0
 var condition_cost_multipliers_by_type: Dictionary = {}
 
 @onready var character: Character = get_parent()
@@ -87,6 +88,9 @@ func add_condition_cost_multiplier_by_type(type: WeaponData.Type, multiplier: fl
 
 func remove_condition_cost_multiplier_by_type(type: WeaponData.Type, multiplier: float) -> void:
 	condition_cost_multipliers_by_type[type] -= multiplier
+
+func get_condition_cost_multiplier() -> float:
+	return condition_cost_multiplier
 
 func get_condition_cost_multiplier_by_type(weapon_data: WeaponData) -> float:
 	if condition_cost_multipliers_by_type.has(weapon_data.type):

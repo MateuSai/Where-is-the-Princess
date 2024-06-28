@@ -2,17 +2,10 @@ class_name AcidBoots extends PermanentPassiveItem
 
 var player: Player
 
-const ACID_PUDDLE_SCENE: PackedScene = preload ("res://Characters/Enemies/medium_slime/acid_puddle.tscn")
-
 func _init() -> void:
 	effects = [
 		IncreasePlayerAcidProgressPerSecond.new( - 0.2),
-		OnDashed.new([SpawnSceneAtPlayerPosition.new(
-			ACID_PUDDLE_SCENE,
-			0.0,
-			Player.DASH_TIME * 2.5,
-			0.03
-		)])
+		OnDashed.new([SpawnDashAcid.new()])
 	]
 
 #@warning_ignore("shadowed_variable")

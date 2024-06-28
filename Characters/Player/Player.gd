@@ -70,10 +70,6 @@ var shop_discount: float = 0.0: # # 0 = no discount, 1 = free
 	set(new_value):
 		shop_discount = new_value
 		shop_discount_changed.emit(shop_discount)
-## 0 = normal degradation, 1 = no degradation. This value can't be higher than 0.9
-var weapon_degradation_reduction: float = 0.0:
-	set(new_value):
-		weapon_degradation_reduction = clamp(new_value, -INF, 0.9)
 var armor_shard_break_probability: float = 0.0:
 	set(new_value):
 			armor_shard_break_probability = clamp(new_value, 0.0, 100.0)

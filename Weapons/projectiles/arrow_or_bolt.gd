@@ -20,7 +20,7 @@ func _ready() -> void:
 @warning_ignore("shadowed_variable")
 func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: bool=false) -> void:
 	super(initial_position, dir, speed, rotate_to_dir)
-	
+
 	var par: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.new()
 	par.collide_with_areas = false
 	par.collide_with_bodies = true
@@ -46,7 +46,7 @@ func _collide(node: Node2D, dam: int=damage) -> void:
 
 	if node.get("life_component") != null:
 		@warning_ignore("unsafe_property_access", "unsafe_method_access")
-		node.life_component.take_damage(dam, knockback_direction, knockback_force, weapon, damage_dealer, damage_dealer_id, true)
+		node.life_component.take_damage(dam, knockback_direction, knockback_force, weapon if is_instance_valid(weapon) else null, damage_dealer, damage_dealer_id, true)
 		if bodies_pierced >= piercing:
 			_attach_projectile(node)
 		else:
