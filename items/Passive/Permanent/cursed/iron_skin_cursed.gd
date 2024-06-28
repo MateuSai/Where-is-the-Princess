@@ -1,17 +1,20 @@
 class_name IronSkinCursed extends CursedPermanentPassiveItem
 
-#func _init() -> void:
-#	_initialize(load("res://Art/obstacles and dangers/saw.png"))
+func _init() -> void:
+	effects = [
+		IncreasePlayerBlockProbability.new(45),
+		IncreasePlayerMaxSpeed.new( - 40)
+	]
 
-func equip(player: Player) -> void:
-	player.life_component.block_probability += 45
+#func equip(player: Player) -> void:
+#	player.life_component.block_probability += 45
 
-	player.data.max_speed -= 40
+#	player.data.max_speed -= 40
 
-func unequip(player: Player) -> void:
-	player.life_component.block_probability -= 45
+#func unequip(player: Player) -> void:
+#	player.life_component.block_probability -= 45
 
-	player.data.max_speed += 40
+#	player.data.max_speed += 40
 
 func get_icon() -> Texture2D:
 	return load("res://Art/items/stone_skin_cursed.png")
