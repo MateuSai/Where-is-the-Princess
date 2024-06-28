@@ -7,7 +7,7 @@ func _init() -> void:
 	]
 
 func get_icon() -> Texture2D:
-	return load("res://Art/items/money_bag_icon.png")
+	return load("res://Art/items/money_bag_icon_cursed.png")
 
 func get_big_icon() -> Texture2D:
 	return load("res://Art/items/money_bag_cursed_UI_desc.png")

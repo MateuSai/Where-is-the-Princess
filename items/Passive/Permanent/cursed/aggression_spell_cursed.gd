@@ -12,7 +12,7 @@ func _init() -> void:
 	]
 
 func get_icon() -> Texture2D:
-	return load("res://Art/items/Agression_spell.png")
+	return load("res://Art/items/Agression_spell_cursed.png")
 
 func get_big_icon() -> Texture2D:
 	return load("res://Art/items/Agression_spell_cursed_UI_desc.png")

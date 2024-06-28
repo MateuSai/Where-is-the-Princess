@@ -14,7 +14,7 @@ func unequip(player: Player) -> void:
 	player.data.max_speed += 40
 
 func get_icon() -> Texture2D:
-	return load("res://Art/items/stone_skin.png")
+	return load("res://Art/items/stone_skin_cursed.png")
 
 func get_big_icon() -> Texture2D:
 	return load("res://Art/items/Stone_Skin_cursed_UI_desc.png")
