@@ -350,7 +350,7 @@ func set_ability_knockback(new_ability_knockback: int) -> void:
 
 func _decrease_weapon_condition(by: float) -> void:
 	#Log.debug("Condition before: " + str(stats.condition))
-	stats.condition -= (by + 0.5 * stats.modifiers.size()) * (1 - Globals.player.weapon_degradation_reduction) * (weapons.get_condition_cost_multiplier_by_type(data) if weapons else 1.0)
+	stats.condition -= (by + 0.4 * stats.modifiers.size()) * (1 - Globals.player.weapon_degradation_reduction) * (weapons.get_condition_cost_multiplier_by_type(data) if weapons else 1.0)
 	#Log.debug("Condition after: " + str(stats.condition))
 
 func _set_damage_dealer(new_damage_dealer: Node) -> void:
