@@ -32,5 +32,5 @@ func get_effects_description() -> String:
 			des += "\n"
 
 	#des.trim_suffix("\n")
-	
+
 	return des

@@ -20,3 +20,11 @@ func get_description() -> String:
 
 func _get_color_tag(color: String) -> String:
 	return "[color=" + color + "]%s[/color]"
+
+func _number_to_string(num) -> String:
+	var s: String = str(num)
+
+	if num >= 0:
+		s = "+" + s
+
+	return s

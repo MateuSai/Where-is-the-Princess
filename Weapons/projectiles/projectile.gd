@@ -1,8 +1,6 @@
 @icon("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/boss_druid/rock.png")
 class_name Projectile extends Hitbox
 
-static var non_player_projectile_speed_multiplier: float = 1.0
-
 const HOMING_COMPONENT_SCENE: PackedScene = preload ("res://Components/character_detector/homing_component.tscn")
 
 var direction: Vector2 = Vector2.ZERO:
@@ -27,7 +25,6 @@ var bodies_pierced: int = 0
 
 signal destroyed()
 
-static var initial_extra_bounce_charges: int = 0
 var bounces_remaining: int = 0
 
 @export var can_be_destroyed: bool = true
@@ -51,7 +48,7 @@ func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: 
 	self.rotate_to_dir = rotate_to_dir
 	self.direction = dir
 
-	bounces_remaining += initial_extra_bounce_charges
+	bounces_remaining += Globals.global_stats.projectiles_initial_extra_bounce_charges
 
 	collision_shape.disabled = false
 
@@ -61,7 +58,7 @@ func launch(initial_position: Vector2, dir: Vector2, speed: int, rotate_to_dir: 
 	#rotation += dir.angle() + PI/4
 
 func _physics_process(delta: float) -> void:
-	var speed_to_use: int = speed if damage_dealer_id == "player" else round(speed * Projectile.non_player_projectile_speed_multiplier)
+	var speed_to_use: int = speed if damage_dealer_id == "player" else round(speed * Globals.global_stats.non_player_projectile_speed_multiplier)
 	position += direction * speed_to_use * delta
 	if random_rotate:
 		rotation += rot_dir * delta
@@ -77,7 +74,7 @@ func _collide(node: Node2D, dam: int=damage) -> void:
 	if node.get("life_component") != null:
 		@warning_ignore("unsafe_property_access")
 		var life_component: LifeComponent = node.life_component
-		life_component.take_damage(dam, knockback_direction, knockback_force, weapon, damage_dealer, damage_dealer_id, true)
+		life_component.take_damage(dam, knockback_direction, knockback_force, weapon if is_instance_valid(weapon) else null, damage_dealer, damage_dealer_id, true)
 		if bodies_pierced >= piercing:
 			destroy()
 		else:

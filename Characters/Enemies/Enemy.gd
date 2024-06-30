@@ -1,8 +1,6 @@
 @icon("res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/goblin/goblin_idle_anim_f0.png")
 class_name Enemy extends Character
 
-static var coin_multiplier: float = 1
-
 const ENEMIES_FOLDER_PATH: String = "res://Characters/Enemies/"
 
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload ("res://Characters/Enemies/SpawnExplosion.tscn")
@@ -16,8 +14,6 @@ const SMALL_ACID_PUDDLE_SCENE: PackedScene = preload ("res://Characters/Enemies/
 const FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE: int = 2
 
 var target: Character
-
-static var dead_acid_explosion: int = 0
 
 var enemy_data: EnemyData
 
@@ -56,7 +52,7 @@ func _load_data() -> void:
 
 func spawn_loot() -> void:
 	var coin_amount: int = randi_range(enemy_data.min_coins, enemy_data.max_coins)
-	coin_amount = ceil(coin_amount * coin_multiplier)
+	coin_amount = ceil(coin_amount * Globals.global_stats.enemy_coin_multiplier)
 	for i: int in coin_amount:
 		var coin: Coin = COIN_SCENE.instantiate()
 		room.cleared.connect(coin.go_to_player)
@@ -158,7 +154,7 @@ func _on_died_0_5_seconds_later() -> void:
 	SavedData.add_enemy_times_killed(id)
 
 	spawn_loot()
-	if dead_acid_explosion:
+	if Globals.global_stats.enemy_dead_acid_explosion:
 		_spawn_acid_explosion()
 
 	var spawn_explosion: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()

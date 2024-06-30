@@ -10,3 +10,6 @@ func enable(player: Player) -> void:
 
 func disable(player: Player) -> void:
 	player.acid_progress_per_second -= _amount
+
+func get_description() -> String:
+	return _get_color_tag(GREEN if _amount < 0 else RED) % (tr("INCREASE_PLAYER_ACID_PROGRESS_PER_SECOND") % _number_to_string(_amount))

@@ -12,7 +12,8 @@ config_version=5
 
 config/name="Where is the Princess?"
 run/main_scene="res://splash_screen/splash_screen_manager.tscn"
-config/custom_user_dir_name="Where is the Princess"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="where_is_the_princess"
 config/features=PackedStringArray("4.2")
 boot_splash/image="res://wekufu logo screen.png"
 config/icon="res://icon.png"
@@ -21,14 +22,14 @@ config/icon="res://icon.png"
 
 ModLoaderStore="*res://addons/mod_loader/mod_loader_store.gd"
 ModLoader="*res://addons/mod_loader/mod_loader.gd"
+Log="*res://addons/logger/logger.gd"
 SceneTransistor="*res://Autoloads/SceneTransistor.tscn"
 SavedData="*res://Autoloads/saved_data/SavedData.gd"
-Settings="*res://Autoloads/Settings/Settings.tscn"
 Globals="*res://Autoloads/Globals.gd"
+Settings="*res://Autoloads/Settings/Settings.tscn"
 InfoPanel="*res://Autoloads/info_panel/info_panel.tscn"
 BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
 BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
-Log="*res://addons/logger/logger.gd"
 
 [debug]
 

@@ -1,0 +1,28 @@
+"AppBuild"
+{
+    "AppID"                 "3083060"	// your AppID
+    "Desc"                  "This is a simple build script"	// internal description for this build
+    "ContentRoot"           "../../Downloads/"	// root content folder, relative to location of this file
+    "BuildOutput"           "../../Downloads/"	// build output folder for build logs and build cache files
+    "Depots"
+    {
+        "3083061"	// your DepotID
+        {
+            "FileMapping"
+            {
+                "LocalPath"         "where_is_the_princess_linux_x11_demo_0_1_0/*"	// all files from contentroot folder
+                "DepotPath"         "."	// mapped into the root of the depot
+                "recursive"         "1"	// include all subfolders
+            }
+        }
+        "3083062"	// your DepotID
+        {
+            "FileMapping"
+            {
+                "LocalPath"         "where_is_the_princess_windows_demo_0_1_0/*"	// all files from contentroot folder
+                "DepotPath"         "."	// mapped into the root of the depot
+                "recursive"         "1"	// include all subfolders
+            }
+        }
+    }
+}

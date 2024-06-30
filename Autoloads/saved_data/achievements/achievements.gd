@@ -75,6 +75,10 @@ func complete_achievement(achievement: Achievement) -> void:
 	Log.info("Achievement " + achievement_id + " completed!")
 	save()
 
+	if Globals.is_steam_enabled():
+		Steam.setAchievement(achievement_id)
+		Steam.storeStats()
+
 func add_progress_to_achievement(achievement: Achievement, amount: int) -> void:
 	var achievement_id: String = achievent_int_to_string(achievement)
 

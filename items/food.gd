@@ -1,7 +1,5 @@
 class_name Food extends Item
 
-static var extra_hp: int = 0
-
 const POSSIBLE_ICONS: Array[Texture2D] = [ preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/food_apple.png"), preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/food_banana.png"), preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/food_chicken.png"), preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/food_ham.png")]
 const POSSIBLE_BIG_ICONS: Array[Texture2D] = [ preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Apple_UI_desc.png"), preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Banana_UI_desc.png"), preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Chicken_UI_desc.png"), preload ("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Ham_UI_desc.png")]
 
@@ -25,5 +23,5 @@ func can_pick_up(player: Player) -> bool:
 func pick_up(player: Player) -> void:
 	super(player)
 
-	player.life_component.hp += 1 + extra_hp
+	player.life_component.hp += 1 + Globals.global_stats.food_extra_hp
 	player.eat_sound.play()

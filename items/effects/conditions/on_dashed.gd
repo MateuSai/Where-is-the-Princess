@@ -12,3 +12,6 @@ func disable(player: Player) -> void:
 
 func _on_dashed(_dash_time: float) -> void:
 	_enable_effects()
+
+func get_description() -> String:
+	return "%s\n%s" % [tr("ON_DASHED"), super()]

@@ -11,7 +11,7 @@ func _init(amount: float) -> void:
 
 func enable(_player: Player) -> void:
 	_effect_active = true
-	Projectile.non_player_projectile_speed_multiplier *= _amount
+	Globals.global_stats.non_player_projectile_speed_multiplier *= _amount
 
 	#var effect: Sprite2D = EFFECT_SCENE.instantiate()
 	#player.add_child(effect)
@@ -22,7 +22,7 @@ func enable(_player: Player) -> void:
 
 func disable(_player: Player) -> void:
 	if _effect_active:
-		Projectile.non_player_projectile_speed_multiplier /= _amount
+		Globals.global_stats.non_player_projectile_speed_multiplier /= _amount
 
 func get_description() -> String:
 	return _get_color_tag(GREEN if _amount < 1 else RED) % (tr("NON_PLAYER_PROJECTILE_SPEED_MULTIPLIER") % str((1 - _amount) * 100))

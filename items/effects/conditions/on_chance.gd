@@ -14,3 +14,6 @@ func enable(player: Player) -> void:
 
 	if randi_range(0, 100) < _chance:
 		_enable_effects()
+
+func get_description() -> String:
+	return "%s\n%s" % [_get_color_tag(PURPLE) % (tr("ON_CHANCE") % str(_chance)), super()]
