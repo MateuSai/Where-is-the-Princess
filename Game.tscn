@@ -26,7 +26,7 @@
 [ext_resource type="Script" path="res://ui/upgrades_container.gd" id="16_tq616"]
 [ext_resource type="Theme" uid="uid://brj1juypq3c84" path="res://NoTooltipPanelTheme.tres" id="17_4a2w7"]
 [ext_resource type="Script" path="res://ui/QuitButton.gd" id="17_iw01m"]
-[ext_resource type="Script" path="res://ui/encyclopedia.gd" id="17_k4k0u"]
+[ext_resource type="Script" path="res://ui/encyclopedia/encyclopedia.gd" id="17_k4k0u"]
 [ext_resource type="Script" path="res://ui/coins_and_souls_equipment_container.gd" id="17_o3o7r"]
 [ext_resource type="PackedScene" uid="uid://8nmhwu5g4jap" path="res://ui/coin_indicator_h_box_container.tscn" id="17_rexui"]
 [ext_resource type="PackedScene" uid="uid://cyojcc0r4upob" path="res://ui/souls_indicatorh_box_container.tscn" id="18_26pc0"]

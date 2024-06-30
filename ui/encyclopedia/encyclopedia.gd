@@ -55,10 +55,10 @@ func _set_category(new_category: int) -> void:
 			var discovered_weapon_paths: PackedStringArray = SavedData.get_discovered_weapon_paths()
 			for weapon_path: String in SavedData.get_all_weapon_paths():
 				var weapon_data: WeaponData = Weapon.get_data(weapon_path)
-				var button: Button = Button.new()
+				var button: EncyclopediaButton = EncyclopediaButton.new()
 				button.icon = weapon_data.prop
 				if not discovered_weapon_paths.has(weapon_path):
-					button.modulate = Color.BLACK
+					#button.modulate = Color.BLACK
 					button.disabled = true
 				else:
 					button.pressed.connect(func() -> void:
@@ -78,10 +78,10 @@ func _set_category(new_category: int) -> void:
 			all_armors.append_array(SavedData.get_all_armor_paths())
 			for armor_path: String in all_armors:
 				var armor: Armor = load(armor_path).new()
-				var button: Button = Button.new()
+				var button: EncyclopediaButton = EncyclopediaButton.new()
 				button.icon = armor.get_icon()
 				if not discovered_armor_paths.has(armor_path):
-					button.modulate = Color.BLACK
+					#button.modulate = Color.BLACK
 					button.disabled = true
 				else:
 					button.pressed.connect(func() -> void:
@@ -133,7 +133,7 @@ func _set_category(new_category: int) -> void:
 			for biome: String in Data.ALL_VANILLA_BIOMES:
 				var biome_conf: BiomeConf = SavedData.get_biome_by_id_or_path(biome)
 
-				var button: Button = Button.new()
+				var button: EncyclopediaButton = EncyclopediaButton.new()
 				button.custom_minimum_size.y = 48
 				button.clip_contents = true
 				#button.icon = load(biome_conf.encyclopedia_background)
@@ -166,7 +166,7 @@ func _set_category(new_category: int) -> void:
 						_show_biome_details(biome_conf, biome_statistics)
 					)
 				else:
-					button.modulate = Color.BLACK.lightened(0.3)
+					#button.modulate = Color.BLACK.lightened(0.3)
 					button.disabled = true
 
 			list_container.add_child(vbox)
@@ -175,7 +175,7 @@ func _set_category(new_category: int) -> void:
 			grid.columns = 3
 
 			for achievent_id: String in Achievements.Achievement.keys():
-				var button: Button = Button.new()
+				var button: EncyclopediaButton = EncyclopediaButton.new()
 				button.custom_minimum_size = Vector2.ONE * 32
 				#button.text = achievent_id.to_upper()
 				grid.add_child(button)
@@ -442,7 +442,7 @@ func _show_biome_details(conf: BiomeConf, statistics: BiomeStatistics) -> void:
 		var enemy_data: EnemyData = Enemy.get_data(enemy_id)
 		for biome: String in enemy_data.biomes:
 			if SavedData.get_biome_by_id_or_path(biome).name == conf.name:
-				var button: Button = _create_enemy_button(enemy_id)
+				var button: EncyclopediaButton = _create_enemy_button(enemy_id)
 				#button.flat = true
 				enemies_hflow.add_child(button)
 				#var tex: TextureRect = TextureRect.new()
@@ -465,10 +465,10 @@ func _create_items_flow_container(items: PackedStringArray) -> HFlowContainer:
 	for item_path: String in items:
 		var item: Item = load(item_path).new()
 		var statistics: ItemStatistics = SavedData.statistics.get_item_statistics(item.get_id())
-		var button: Button = Button.new()
+		var button: EncyclopediaButton = EncyclopediaButton.new()
 		button.icon = item.get_icon()
 		if statistics == null:
-			button.modulate = Color.BLACK
+			#button.modulate = Color.BLACK
 			button.disabled = true
 		else:
 			button.pressed.connect(func() -> void:
@@ -479,16 +479,16 @@ func _create_items_flow_container(items: PackedStringArray) -> HFlowContainer:
 
 	return flow_container
 
-func _create_enemy_button(enemy_id: String) -> Button:
+func _create_enemy_button(enemy_id: String) -> EncyclopediaButton:
 	var enemy_data: EnemyData = Enemy.get_data(enemy_id)
 	var enemy_statistics: EnemyStatistics = SavedData.statistics.get_enemy_statistics(enemy_id)
 
-	var button: Button = Button.new()
+	var button: EncyclopediaButton = EncyclopediaButton.new()
 	#button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	button.icon = enemy_data.icon
 	if not enemy_statistics:
-		button.modulate = Color.BLACK
+		#button.modulate = Color.BLACK
 		button.disabled = true
 	else:
 		button.pressed.connect(func() -> void:

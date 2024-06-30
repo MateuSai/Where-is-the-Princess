@@ -3,7 +3,7 @@ class_name BrokenSwordCursed extends CursedPermanentPassiveItem
 func _init() -> void:
 	effects = [
 		IncreaseExtraDamageWhenWeaponBreaks.new(5),
-		IncreaseWeaponDegradationReduction.new( - 0.5),
+		IncreaseWeaponsConditionCostMultiplier.new(0.5),
 	]
 
 func get_icon() -> Texture2D:
