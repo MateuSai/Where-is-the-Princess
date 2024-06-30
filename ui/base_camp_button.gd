@@ -20,8 +20,6 @@ func _confirm_overwrite_save() -> void:
 	owner.add_child(base_camp_popup_confirmation)
 
 	base_camp_popup_confirmation.confirmed.connect(func() -> void:
-		SavedData._remove_and_reset_run_stats()
-
 		(owner as Control).start_game()
 	, CONNECT_ONE_SHOT)
 

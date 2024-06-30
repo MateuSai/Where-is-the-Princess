@@ -4,6 +4,8 @@ func _ready() -> void:
 	get_tree().current_scene.get_node("%UIColorRect").hide()
 
 func start_game() -> void:
+	SavedData._remove_and_reset_run_stats()
+
 	if not SavedData.data.went_to_basecamp:
 		SavedData.data.went_to_basecamp = true
 		SavedData.data.save()

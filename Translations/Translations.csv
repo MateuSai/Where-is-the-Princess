@@ -152,7 +152,7 @@ INCREASE_PLAYER_ACID_PROGRESS_PER_SECOND,%s acid progress per second,%s progrés
 SPAWN_DASH_ACID,Spawn acid,Deixar anar àcid,Suelta ácido,,
 SPAWN_A_LOT_OF_DASH_ACID,Spawn a lot of acid,Deixar anar un munt d’àcid,Suelta mogollón de ácido,,
 INCREASE_PLAYER_MAX_SPEED,%s speed,%s velocitat,%s velocidad,,
-INCREASE_DASH_STAMINA_COST,%s dash stamina cost,%s cost vigor esquiva,%s coste estamina esquiva,,
+INCREASE_DASH_STAMINA_COST,%s dash stamina cost,%s cost vigor esquiva,%s coste vigor esquiva,,
 PLAYER_EXTRA_DAMAGE_TAKEN,%s damage received from all sources,%s dany rebut de totes les fonts,%s daño recibido de todas las fuentes,,
 ,,,,,
 ON_PLAYER_DAMAGED,On damaged,Al rebre dany,Al recibir daño,,
