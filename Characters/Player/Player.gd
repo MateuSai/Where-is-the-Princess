@@ -667,7 +667,7 @@ func _stop_exhausted_effect() -> void:
 
 func _get_tile_type() -> String:
 	var global_cell: Vector2i = floor(position / Rooms.TILE_SIZE)
-	
+
 	var tilemap_to_check: TileMap = (get_tree().current_scene as Game).rooms.get_tilemap_with_global_cell(global_cell)
 
 	#if current_room != null:
@@ -685,4 +685,7 @@ func _get_tile_type() -> String:
 
 	#Log.debug("Tilemap global_position: " + str(tilemap_to_check.global_position))
 	#Log.debug("Player on relative tile: " + str(global_cell - Vector2i(tilemap_to_check.global_position / Rooms.TILE_SIZE)))
+	if tilemap_to_check == null or tilemap_to_check.get_cell_tile_data(0, global_cell - Vector2i(tilemap_to_check.global_position / Rooms.TILE_SIZE)) == null:
+		return "no_cell"
+
 	return tilemap_to_check.get_cell_tile_data(0, global_cell - Vector2i(tilemap_to_check.global_position / Rooms.TILE_SIZE)).get_custom_data_by_layer_id(0)

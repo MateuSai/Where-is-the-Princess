@@ -214,16 +214,19 @@ func spawn_dust() -> void:
 	if not is_inside_tree() or not is_instance_valid(get_tree().current_scene):
 		return
 
-	var sound: AutoFreeSound = AutoFreeSound.new()
-	get_tree().current_scene.add_child(sound)
 	var sounds_arr: Array[AudioStream]
 	match _get_tile_type():
 		"grass":
 			sounds_arr = STEP_GRASS_SOUNDS
 		"snow":
 			sounds_arr = STEP_SNOW_SOUNDS
-		_:
+		"":
 			sounds_arr = STEP_GROUND_SOUNDS
+		_:
+			return # There is no floor cell at the character position
+			
+	var sound: AutoFreeSound = AutoFreeSound.new()
+	get_tree().current_scene.add_child(sound)
 	sound.start(sounds_arr[randi() % sounds_arr.size()], global_position, -10)
 
 	for dust_position: Marker2D in dust_positions.get_children():

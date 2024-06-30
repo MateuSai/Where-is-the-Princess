@@ -3,15 +3,17 @@ extends Armor
 func _init() -> void:
 	initialize(2)
 
-func equip(player: Player) -> void:
-	super(player)
+	effects = [IncreaseWeaponsConditionCostMultiplier.new(-0.2)]
 
-	player.weapon_degradation_reduction += 0.2
+#func equip(player: Player) -> void:
+#	super(player)
 
-func unequip(player: Player) -> void:
-	super(player)
+#	player.weapon_degradation_reduction += 0.2
 
-	player.weapon_degradation_reduction -= 0.2
+#func unequip(player: Player) -> void:
+#	super(player)
+
+#	player.weapon_degradation_reduction -= 0.2
 
 func get_sprite_sheet() -> Texture2D:
 	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armor_08.png")
