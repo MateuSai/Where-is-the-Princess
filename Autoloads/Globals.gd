@@ -10,6 +10,8 @@ signal character_received_damage(character: Node2D, damage_dealer: Node)
 
 var player: Player = null
 
+var global_stats: GlobalStats = GlobalStats.new()
+
 var debug: bool = false
 
 var ENEMIES: Dictionary = {}

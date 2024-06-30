@@ -11,8 +11,6 @@ const DB: Dictionary = preload ("res://Weapons/data/data.csv").records
 var damage_dealer: Node = null: set = _set_damage_dealer
 var damage_dealer_id: String: set = _set_damage_dealer_id
 
-static var attack_animation_speed_modifier: float = 1.0
-
 var data: WeaponData = null
 var stats: WeaponStats = null
 
@@ -307,8 +305,8 @@ func _on_animation_started(anim_name: StringName) -> void:
 	elif not charge_timer.is_stopped():
 		charge_timer.stop()
 
-	if anim_name.contains("attack"):
-		animation_player.speed_scale = Weapon.attack_animation_speed_modifier
+	if anim_name.contains("attack") and get_parent() is Player:
+		animation_player.speed_scale = Globals.global_stats.player_weapons_attack_animation_speed_modifier
 	else:
 		animation_player.speed_scale = 1.0
 

@@ -23,8 +23,8 @@ var mod_temporal_item_paths: PackedStringArray = []
 
 var run_stats: RunStats:
 	set(new_run_stats):
-		if run_stats:
-			run_stats._on_free()
+		#if run_stats:
+			#run_stats._on_free()
 		run_stats = new_run_stats
 		DebugInfo.start_time = Time.get_ticks_msec()
 
@@ -73,6 +73,7 @@ func _load_run_stats() -> void:
 
 func _remove_and_reset_run_stats() -> void:
 	DirAccess.remove_absolute(USER_FOLDER.path_join(RUN_STATS_SAVE_NAME))
+	Globals.global_stats = GlobalStats.new()
 	run_stats = RunStats.new()
 	change_biome_by_id_or_path(run_stats.biome, run_stats.level)
 

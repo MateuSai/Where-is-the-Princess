@@ -73,6 +73,6 @@ func get_amount_of_temporl_passive_items_of_type(item: TemporalPassiveItem) -> i
 
 	return amount
 
-func _on_free() -> void:
-	for permanent_item: PermanentPassiveItem in _permanent_passive_items:
-		permanent_item.unequip(Globals.player)
+#func _on_free() -> void:
+#	for permanent_item: PermanentPassiveItem in _permanent_passive_items:
+#		permanent_item.unequip(Globals.player)
