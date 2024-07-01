@@ -56,10 +56,10 @@ func _set_category(new_category: int) -> void:
 			for weapon_path: String in SavedData.get_all_weapon_paths():
 				var weapon_data: WeaponData = Weapon.get_data(weapon_path)
 				var button: EncyclopediaButton = EncyclopediaButton.new()
-				button.icon = weapon_data.prop
+				button.set_icon_texture(weapon_data.prop)
 				if not discovered_weapon_paths.has(weapon_path):
 					#button.modulate = Color.BLACK
-					button.disabled = true
+					button.disable()
 				else:
 					button.pressed.connect(func() -> void:
 						_clear_details()
@@ -79,10 +79,10 @@ func _set_category(new_category: int) -> void:
 			for armor_path: String in all_armors:
 				var armor: Armor = load(armor_path).new()
 				var button: EncyclopediaButton = EncyclopediaButton.new()
-				button.icon = armor.get_icon()
+				button.set_icon_texture(armor.get_icon())
 				if not discovered_armor_paths.has(armor_path):
 					#button.modulate = Color.BLACK
-					button.disabled = true
+					button.disable()
 				else:
 					button.pressed.connect(func() -> void:
 						_clear_details()
@@ -167,7 +167,7 @@ func _set_category(new_category: int) -> void:
 					)
 				else:
 					#button.modulate = Color.BLACK.lightened(0.3)
-					button.disabled = true
+					button.disable()
 
 			list_container.add_child(vbox)
 		ACHIEVEMENTS:
@@ -186,7 +186,7 @@ func _set_category(new_category: int) -> void:
 					)
 				else:
 					#button.modulate = Color.BLACK.lightened(0.3)
-					button.disabled = true
+					button.disable()
 
 			list_container.add_child(grid)
 
@@ -466,10 +466,10 @@ func _create_items_flow_container(items: PackedStringArray) -> HFlowContainer:
 		var item: Item = load(item_path).new()
 		var statistics: ItemStatistics = SavedData.statistics.get_item_statistics(item.get_id())
 		var button: EncyclopediaButton = EncyclopediaButton.new()
-		button.icon = item.get_icon()
+		button.set_icon_texture(item.get_icon())
 		if statistics == null:
 			#button.modulate = Color.BLACK
-			button.disabled = true
+			button.disable()
 		else:
 			button.pressed.connect(func() -> void:
 				_clear_details()
@@ -485,11 +485,11 @@ func _create_enemy_button(enemy_id: String) -> EncyclopediaButton:
 
 	var button: EncyclopediaButton = EncyclopediaButton.new()
 	#button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	button.icon = enemy_data.icon
+	#button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	button.set_icon_texture(enemy_data.icon)
 	if not enemy_statistics:
 		#button.modulate = Color.BLACK
-		button.disabled = true
+		button.disable()
 	else:
 		button.pressed.connect(func() -> void:
 			_clear_details()

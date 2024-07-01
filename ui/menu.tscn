@@ -374,5 +374,6 @@ color = Color(0, 0, 0, 0.796078)
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("30_wvalu")
+volume_db = -8.0
 autoplay = true
 bus = &"Music"
