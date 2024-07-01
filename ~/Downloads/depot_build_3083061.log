@@ -1,7 +1,0 @@
-[2024-06-29 13:05:53]: Starting build for depot 3083061, content path is "/home/mateus/Downloads/where_is_the_princess?_linux_x11_demo_0_1_0/", build flags 0x0
-[2024-06-29 13:05:53]: Building file listing for depot 3083061 ...
-[2024-06-29 13:05:53]: Found 5 files for mapping: /home/mateus/Downloads/where_is_the_princess?_linux_x11_demo_0_1_0 * -> .
-[2024-06-29 13:05:53]: Found 5 files (121 MB) for depot 3083061
-[2024-06-29 13:05:53]: Building depot 3083061, no baseline manifest
-[2024-06-29 13:05:55]: Found 125 chunks ( 0 used previously ) for depot 3083061, took 0 minutes, 1 seconds
-[2024-06-29 13:05:55]: ERROR! Invalid or duplicate file name where_is_the_princess?

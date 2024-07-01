@@ -32,7 +32,7 @@ func _on_died() -> void:
 	if statistics == null or statistics.times_killed == 0:
 		SavedData.complete_achievement(Achievements.Achievement.defeat_necro_tromp)
 
-		var armor_path: String = "res://Armors/NecromancerArmor.gd"
+		var armor_path: String = "res://Armors/necromancer_armor/necromancer_armor.gd"
 		SavedData.discover_armor_if_not_already(armor_path)
 		(get_tree().current_scene as Game).show_notification(load("res://ui/notifications/armor_unlocked_notification.tscn"), {
 			"id": Armor.get_id_from_path(armor_path).to_upper(),

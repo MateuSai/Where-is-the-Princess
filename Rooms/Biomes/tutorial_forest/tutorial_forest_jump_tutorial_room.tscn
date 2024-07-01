@@ -29,7 +29,7 @@ position = Vector2(39, 53)
 
 [node name="Chest" parent="." index="10" instance=ExtResource("3_h0yo2")]
 position = Vector2(31, 8)
-item_path = "res://Armors/plague_armor.gd"
+item_path = "res://Armors/plague_armor/plague_armor.gd"
 type = 1
 
 [node name="TikiTorch" parent="." index="11" instance=ExtResource("4_sj2mv")]
