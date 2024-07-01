@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bpvwpsiow4uts"]
 
-[ext_resource type="Script" path="res://Armors/WarriorArmorAbility.gd" id="1_y8ov5"]
+[ext_resource type="Script" path="res://Armors/warrior_armor/WarriorArmorAbility.gd" id="1_y8ov5"]
 
 [sub_resource type="Gradient" id="Gradient_sgsjh"]
 offsets = PackedFloat32Array(0, 0.741259, 1)
