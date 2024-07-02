@@ -84,7 +84,7 @@ static func id_to_path(id: String) -> String:
 static func get_id_from_path(path: String) -> String:
 	return path.get_file().trim_suffix(".gd").to_snake_case()
 
-static func get_fragments_by_id(path: String) -> Array[Texture2D]:
+static func get_fragments_by_path(path: String) -> Array[Texture2D]:
 	var fragment_textures: Array[Texture2D] = []
 
 	var fragments_folder: DirAccess = DirAccess.open(path.get_base_dir().path_join("fragments"))
