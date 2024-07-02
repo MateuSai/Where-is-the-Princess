@@ -14,6 +14,14 @@ func _ready() -> void:
 	#_analize_children(duplicate_parent)
 	#add_child(duplicate_parent)
 
+	# FIXME: due to a godot bug (https://github.com/godotengine/godot/issues/66842), the shader parameters are not exported, so I have to set them manually by code
+	var shader_material: ShaderMaterial = material
+	shader_material.set("shader_param/speed", 0.15)
+	shader_material.set("shader_param/frequency_y", 5)
+	shader_material.set("shader_param/frequency_x", 10)
+	shader_material.set("shader_param/amplitude_y", 0.3)
+	shader_material.set("shader_param/amplitude_x", 0.8)
+
 	texture = original_sprite.texture
 	hframes = original_sprite.hframes
 	vframes = original_sprite.vframes

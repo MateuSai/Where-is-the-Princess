@@ -10,6 +10,9 @@ func _init() -> void:
 func _ready() -> void:
     scroll_vertical = 0
 
+    if not OS.has_feature("steam"):
+        get_node("%Godotsteam").queue_free()
+
 func _process(delta: float) -> void:
     if scroll_vertical + size.y < credits_container.size.y:
         scroll_float += 15 * delta
