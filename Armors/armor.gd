@@ -74,12 +74,28 @@ static func id_to_path(id: String) -> String:
 	var path: String = ""
 
 	var dir: DirAccess = DirAccess.open(ARMOR_FOLDER_PATH)
-	for file_name: String in dir.get_files():
-		if file_name.trim_suffix(".gd").to_lower() == id:
-			path = ARMOR_FOLDER_PATH.path_join(file_name)
+	for dir_name: String in dir.get_directories():
+		if dir_name == id:
+			path = ARMOR_FOLDER_PATH.path_join(dir_name).path_join(dir_name + ".gd")
 			break
 
 	return path
 
 static func get_id_from_path(path: String) -> String:
 	return path.get_file().trim_suffix(".gd").to_snake_case()
+
+static func get_fragments_by_path(path: String) -> Array[Texture2D]:
+	var fragment_textures: Array[Texture2D] = []
+
+	var fragments_folder: DirAccess = DirAccess.open(path.get_base_dir().path_join("fragments"))
+	if fragments_folder:
+		for file: String in fragments_folder.get_files():
+			if not file.get_extension() == "png":
+				continue
+
+			var fragment_texture: Texture2D = load(fragments_folder.get_current_dir().path_join(file))
+			fragment_textures.push_back(fragment_texture)
+	else:
+		Log.warn("Armor " + path + " does not have fragments. Create a folder called fragments in the same directory as the armor script and add the fragments on that folder")
+
+	return fragment_textures

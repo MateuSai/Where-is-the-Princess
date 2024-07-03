@@ -18,6 +18,12 @@ func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_deal
 		hit_border_effect.effect(hit_border_effect.Type.ARMOR, invincible_after_being_hitted_time)
 		#dam = 0
 		if player.armor.condition <= 0:
+			for fragment_texture: Texture2D in Armor.get_fragments_by_path((player.armor.get_script() as Script).get_path()):
+				var fragment: WeaponFragment = load("res://effects/fragments/weapon_fragment.tscn").instantiate()
+				fragment.position = player.global_position
+				get_tree().current_scene.add_child(fragment)
+				fragment.throw(player, Vector2.ZERO, fragment_texture)
+			
 			var particles: GPUParticles2D = load("res://shaders_and_particles/particles/DestroyParticles.tscn").instantiate()
 			particles.position += Vector2.UP * 6
 			player.add_child(particles)

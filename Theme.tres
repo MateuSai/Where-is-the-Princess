@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=54 format=3 uid="uid://b0askjdx1bs38"]
+[gd_resource type="Theme" load_steps=55 format=3 uid="uid://b0askjdx1bs38"]
 
 [ext_resource type="Texture2D" uid="uid://bum2y0huhd8or" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/disabled_space_ui.png" id="1_3jnfm"]
 [ext_resource type="Texture2D" uid="uid://tmi2660xc1ma" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/button_hover.png" id="1_kevbw"]
@@ -124,6 +124,13 @@ texture_margin_top = 2.0
 texture_margin_right = 2.0
 texture_margin_bottom = 2.0
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qsrei"]
+texture = ExtResource("2_hvhv1")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5sg6s"]
 texture = ExtResource("12_gawhf")
 texture_margin_left = 4.0
@@ -222,6 +229,7 @@ TabContainer/colors/font_unselected_color = Color(0.490196, 0.298039, 0.0313726,
 TabContainer/font_sizes/font_size = 10
 TabContainer/fonts/font = ExtResource("16_3qg6k")
 TabContainer/styles/panel = SubResource("StyleBoxTexture_p0q2m")
+TabContainer/styles/tab_focus = SubResource("StyleBoxTexture_qsrei")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxTexture_5sg6s")
 TabContainer/styles/tab_selected = SubResource("StyleBoxTexture_nvuer")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_asdh3")

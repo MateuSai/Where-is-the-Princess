@@ -399,8 +399,9 @@ static func get_data(path: String) -> WeaponData:
 		return WeaponData.from_dic(DB[id])
 	else:
 		var data_path: String = path.replace(path.get_file(), "data.tres")
-		if FileAccess.file_exists(data_path):
-			return load(data_path)
+		var data_file: WeaponData = load(data_path)
+		if data_file != null:
+			return data_file
 
 	Log.warn("Could not get data for weapon with path " + path + " and id " + id + " db: " + str(DB))
 	return null

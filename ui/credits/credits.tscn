@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ca0buhie127t4"]
+[gd_scene load_steps=17 format=3 uid="uid://ca0buhie127t4"]
 
 [ext_resource type="LabelSettings" uid="uid://cbc4642i2ox27" path="res://Fonts/credits_section_title_label_settings.tres" id="1_67ui2"]
 [ext_resource type="Script" path="res://ui/credits/credits.gd" id="1_kf250"]
@@ -9,7 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://yyq1bs6ymscg" path="res://ui/credits/addon_icons/gdunit.png" id="7_wgiwp"]
 [ext_resource type="Texture2D" uid="uid://dcd2rcyujftob" path="res://ui/credits/addon_icons/log.png" id="8_kjbwc"]
 [ext_resource type="Texture2D" uid="uid://bucjnnslk1mm3" path="res://ui/credits/addon_icons/modloader.png" id="9_02bpy"]
-[ext_resource type="Texture2D" uid="uid://vkfppkl8nftn" path="res://ui/credits/software_icons/godot_icon.png" id="10_vdnif"]
+[ext_resource type="Texture2D" uid="uid://bciriwn67rhmn" path="res://ui/credits/software_icons/godotsteam.png" id="10_rigcy"]
+[ext_resource type="Texture2D" uid="uid://fwguuf6seors" path="res://ui/credits/software_icons/logo_large_color_dark.svg" id="10_syr2h"]
 [ext_resource type="Texture2D" uid="uid://dsjtd770cpd6b" path="res://ui/credits/software_icons/devicon--gimp-wordmark.png" id="11_fgk7k"]
 [ext_resource type="Texture2D" uid="uid://s8w2q8kawci" path="res://ui/credits/software_icons/aseprite-svgrepo-com.svg" id="12_j0wuo"]
 [ext_resource type="Texture2D" uid="uid://dk02qfcniu0pv" path="res://Art/Aseprite logo .png" id="13_k3u7r"]
@@ -25,7 +26,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_onydd")
-scroll_vertical = 530
+scroll_vertical = 700
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 script = ExtResource("1_kf250")
@@ -292,6 +293,14 @@ texture = ExtResource("9_02bpy")
 expand_mode = 2
 stretch_mode = 5
 
+[node name="Godotsteam" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer6/HFlowContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+texture = ExtResource("10_rigcy")
+expand_mode = 4
+stretch_mode = 5
+
 [node name="VBoxContainer8" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -309,7 +318,7 @@ alignment = 1
 [node name="Godot" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer8/HFlowContainer"]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
-texture = ExtResource("10_vdnif")
+texture = ExtResource("10_syr2h")
 expand_mode = 2
 stretch_mode = 5
 
