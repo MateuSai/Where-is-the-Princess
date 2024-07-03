@@ -49,6 +49,10 @@ func achievent_int_to_string(achievement: Achievement) -> String:
 static func new_with_achievements(achievements_dic: Dictionary) -> Achievements:
 	var achiev: Achievements = Achievements.new()
 	achiev.achievements.merge(achievements_dic, true)
+
+	if Globals.is_steam_enabled():
+		achiev._complete_steam_achievements_completed_on_file_but_not_on_steam()
+
 	return achiev
 
 static func load_from_file() -> Achievements:
@@ -59,6 +63,28 @@ static func load_from_file() -> Achievements:
 	var parse_res: Variant = JSON.parse_string(file.get_as_text())
 	Log.err_cond_null(parse_res, "Could not parse achievements json!")
 	return new_with_achievements(parse_res)
+
+func _complete_steam_achievements_completed_on_file_but_not_on_steam() -> void:
+	Log.debug("Checking if achievement is saved on file, but not on steam...")
+
+	var some_achievement_achieved: bool = false
+
+	for id: String in achievements.keys():
+		Log.debug("Checking " + id + "...")
+
+		var steam_achievement: Dictionary = Steam.getAchievement(id)
+
+		if not steam_achievement.ret:
+			Log.warn(id + " on save file but does not exist on steam")
+			continue
+
+		if achievements[id].completed and not steam_achievement.achieved:
+			Log.debug("Setting achievement " + id + " on steam...")
+			Steam.setAchievement(id)
+			some_achievement_achieved = true
+
+	if some_achievement_achieved:
+		Steam.storeStats()
 
 func save() -> void:
 	var file: FileAccess = FileAccess.open(SAVE_PATH, FileAccess.WRITE)

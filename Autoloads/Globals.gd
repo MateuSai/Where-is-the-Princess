@@ -139,6 +139,7 @@ func _init() -> void:
 	if OS.has_feature("steam"): # and Steam.isSteamRunning():
 		assert(Engine.has_singleton("Steam"))
 		platform = Platform.STEAM
+		Steam.steamInitEx()
 	else:
 		platform = Platform.OTHER
 	print("Platform detected: " + Platform.keys()[platform])
