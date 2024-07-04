@@ -479,8 +479,8 @@ func _on_died() -> void:
 	Log.debug("Killed by " + life_component.last_damage_dealer_id)
 	if life_component.last_damage_dealer_id == "water":
 		SavedData.complete_achievement(Achievements.Achievement.drown)
-	elif life_component.last_damage_dealer_id == "crocodile":
-		SavedData.complete_achievement(Achievements.Achievement.eaten_by_crocodile)
+	#elif life_component.last_damage_dealer_id == "crocodile":
+	#	SavedData.complete_achievement(Achievements.Achievement.eaten_by_crocodile)
 	SavedData.add_player_times_killed(life_component.last_damage_dealer_id)
 	SavedData.add_enemy_player_kill((life_component as PlayerLifeComponent).last_damage_dealer_id)
 

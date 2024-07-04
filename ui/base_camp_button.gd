@@ -7,8 +7,10 @@ func _ready() -> void:
 		if SavedData.are_there_run_stats():
 			_confirm_overwrite_save()
 		else:
-			if not SavedData.data.went_to_basecamp:
-				if not SavedData.data.played_tutorial:
+			var base_camp_statistics: BiomeStatistics=SavedData.statistics.get_biome_statistics("base_camp")
+			if base_camp_statistics == null or base_camp_statistics.times_entered == 0:
+				var tutorial_forest_statistics: BiomeStatistics=SavedData.statistics.get_biome_statistics("tutorial_forest")
+				if tutorial_forest_statistics == null or tutorial_forest_statistics.times_entered == 0:
 					_confirm_go_to_basecamp_without_doing_tutorial()
 					return
 

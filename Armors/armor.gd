@@ -90,10 +90,10 @@ static func get_fragments_by_path(path: String) -> Array[Texture2D]:
 	var fragments_folder: DirAccess = DirAccess.open(path.get_base_dir().path_join("fragments"))
 	if fragments_folder:
 		for file: String in fragments_folder.get_files():
-			if not file.get_extension() == "png":
+			if not file.trim_suffix(".import").get_extension() == "png":
 				continue
 
-			var fragment_texture: Texture2D = load(fragments_folder.get_current_dir().path_join(file))
+			var fragment_texture: Texture2D = load(fragments_folder.get_current_dir().path_join(file).trim_suffix(".import"))
 			fragment_textures.push_back(fragment_texture)
 	else:
 		Log.warn("Armor " + path + " does not have fragments. Create a folder called fragments in the same directory as the armor script and add the fragments on that folder")

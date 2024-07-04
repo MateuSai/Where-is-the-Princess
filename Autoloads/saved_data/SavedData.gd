@@ -453,7 +453,7 @@ func add_player_times_killed(killed_by: String) -> void:
 
 func rescue_animal(animal: Data.AnimalsToRescue) -> void:
 	data.rescue_animal(animal)
-	add_progress_to_achievement(Achievements.Achievement.rescue_all_animals, 1)
+	add_progress_to_achievement(Achievements.Achievement.pet_kidnapper, 1)
 
 func rescue_npc(npc_id: String) -> void:
 	data.rescue_npc(npc_id)

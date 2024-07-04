@@ -144,7 +144,7 @@ func _on_died() -> void:
 		SavedData.statistics.add_weapon_kill(life_component.last_weapon.weapon_id)
 
 	if life_component.last_damage_dealer_id == "crocodile":
-		SavedData.complete_achievement(Achievements.Achievement.use_a_crocodile_to_kill_an_enemy)
+		SavedData.complete_achievement(Achievements.Achievement.crocodile_help)
 
 	await get_tree().create_timer(0.5, false).timeout
 
