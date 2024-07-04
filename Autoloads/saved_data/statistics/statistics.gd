@@ -110,17 +110,19 @@ func add_item_times_picked_up(id: String) -> void:
 func get_biomes_statistics() -> Dictionary:
 	return _biomes_statistics
 
-func get_biome_statistics(name: String) -> BiomeStatistics:
-	if _biomes_statistics.has(name):
-		return _biomes_statistics[name]
+func get_biome_statistics(id: String) -> BiomeStatistics:
+	if _biomes_statistics.has(id):
+		return _biomes_statistics[id]
 
 	return null
 
 func add_biome_times_entered(name: String) -> void:
-	if not _biomes_statistics.has(name):
-		_biomes_statistics[name] = BiomeStatistics.new()
+	var id: String = name.to_lower()
 
-	(_biomes_statistics[name] as BiomeStatistics).times_entered += 1
+	if not _biomes_statistics.has(id):
+		_biomes_statistics[id] = BiomeStatistics.new()
+
+	(_biomes_statistics[id] as BiomeStatistics).times_entered += 1
 
 	save()
 
