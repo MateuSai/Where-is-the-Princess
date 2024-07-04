@@ -39,9 +39,9 @@ var dark_souls: int = 0
 var ignored_rooms: PackedStringArray = []
 
 var _extra_available_weapons: PackedStringArray = []
-var _discovered_weapons: PackedStringArray = ["res://Weapons/Dagger.tscn"]
+var _discovered_weapons: PackedStringArray = []
 
-var equipped_armor: String = "res://Armors/underpants.gd"
+var equipped_armor: String = "res://Armors/underpants/underpants.gd"
 var _extra_available_armors: PackedStringArray = []
 var _discovered_armors: PackedStringArray = []
 
@@ -264,7 +264,22 @@ func rescue_animal(animal: AnimalsToRescue) -> void:
 	assert(not is_animal_rescued(animal))
 
 	animals_rescued |= animal
+	
+	if Globals.is_steam_enabled():
+		Steam.setStatInt("animals_rescued", _num_animals_rescued())
+		Steam.storeStats()
+
 	save()
+
+func _num_animals_rescued() -> int:
+	var count: int = 0;
+
+	while (animals_rescued != 0):
+		if ((animals_rescued&1) != 0):
+			count += 1
+		animals_rescued = animals_rescued / 2;
+		
+	return count;
 
 func is_npc_rescued(npc_id: String) -> bool:
 	return _npcs_rescued.has(npc_id)

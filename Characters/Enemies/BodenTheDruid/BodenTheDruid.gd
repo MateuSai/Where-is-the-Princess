@@ -32,9 +32,8 @@ func _on_died() -> void:
 	else:
 		super()
 
-		var statistics: EnemyStatistics = SavedData.statistics.get_enemy_statistics(id)
-		if statistics == null or statistics.times_killed == 0:
-			SavedData.complete_achievement(Achievements.Achievement.defeat_boden)
+		if not SavedData.achievements.is_achievement_completed(Achievements.Achievement.forest_druid):
+			SavedData.complete_achievement(Achievements.Achievement.forest_druid)
 
 func _transform() -> void:
 	is_bear = true

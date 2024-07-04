@@ -3,35 +3,31 @@ class_name Achievements
 const SAVE_PATH: String = "user://achievements.json"
 
 enum Achievement {
-	defeat_boden,
-	defeat_necro_tromp,
+	forest_druid,
+	sewer_necromancer,
 
 	drown,
-	eaten_by_crocodile,
-	use_a_crocodile_to_kill_an_enemy,
+	crocodile_help,
 
-	rescue_all_animals,
+	pet_kidnapper,
 }
 
 var achievements: Dictionary = {
-	achievent_int_to_string(Achievement.defeat_boden): {
+	achievement_int_to_string(Achievement.forest_druid): {
 		completed = false
 	},
-	achievent_int_to_string(Achievement.defeat_necro_tromp): {
-		completed = false
-	},
-
-	achievent_int_to_string(Achievement.drown): {
-		completed = false
-	},
-	achievent_int_to_string(Achievement.eaten_by_crocodile): {
-		completed = false
-	},
-	achievent_int_to_string(Achievement.use_a_crocodile_to_kill_an_enemy): {
+	achievement_int_to_string(Achievement.sewer_necromancer): {
 		completed = false
 	},
 
-	achievent_int_to_string(Achievement.rescue_all_animals): {
+	achievement_int_to_string(Achievement.drown): {
+		completed = false
+	},
+	achievement_int_to_string(Achievement.crocodile_help): {
+		completed = false
+	},
+
+	achievement_int_to_string(Achievement.pet_kidnapper): {
 		completed = false,
 		current = 0,
 		goal = Data.AnimalsToRescue.size()
@@ -42,7 +38,7 @@ var achievements: Dictionary = {
 #	for achievement_id: String in Achievement.keys():
 #		achievements[achievement_id] = false
 
-func achievent_int_to_string(achievement: Achievement) -> String:
+func achievement_int_to_string(achievement: Achievement) -> String:
 	Log.err_cond_false(Achievement.values().has(achievement), "Invalid achievement id!")
 	return Achievement.keys()[achievement]
 
@@ -91,11 +87,11 @@ func save() -> void:
 	Log.err_cond_null(file, "Could not open achievements json save path for write!")
 	file.store_string(JSON.stringify(achievements, "\t"))
 
-func is_achievement_completed(achievement_id: String) -> bool:
-	return achievements[achievement_id].completed
+func is_achievement_completed(achievement: Achievement) -> bool:
+	return achievements[achievement_int_to_string(achievement)].completed
 
 func complete_achievement(achievement: Achievement) -> void:
-	var achievement_id: String = achievent_int_to_string(achievement)
+	var achievement_id: String = achievement_int_to_string(achievement)
 
 	achievements[achievement_id].completed = true
 	Log.info("Achievement " + achievement_id + " completed!")
@@ -106,7 +102,7 @@ func complete_achievement(achievement: Achievement) -> void:
 		Steam.storeStats()
 
 func add_progress_to_achievement(achievement: Achievement, amount: int) -> void:
-	var achievement_id: String = achievent_int_to_string(achievement)
+	var achievement_id: String = achievement_int_to_string(achievement)
 
 	achievements[achievement_id].current += amount
 	if achievements[achievement_id].current >= achievements[achievement_id].goal:

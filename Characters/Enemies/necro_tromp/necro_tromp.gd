@@ -27,10 +27,8 @@ func _change_to_bald_mode() -> void:
 	get_tree().current_scene.add_child(hair)
 
 func _on_died() -> void:
-	var statistics: EnemyStatistics = SavedData.statistics.get_enemy_statistics(id)
-
-	if statistics == null or statistics.times_killed == 0:
-		SavedData.complete_achievement(Achievements.Achievement.defeat_necro_tromp)
+	if not SavedData.achievements.is_achievement_completed(Achievements.Achievement.sewer_necromancer):
+		SavedData.complete_achievement(Achievements.Achievement.sewer_necromancer)
 
 		var armor_path: String = "res://Armors/necromancer_armor/necromancer_armor.gd"
 		SavedData.discover_armor_if_not_already(armor_path)

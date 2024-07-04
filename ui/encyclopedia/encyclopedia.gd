@@ -72,9 +72,9 @@ func _set_category(new_category: int) -> void:
 		ARMORS:
 			var flow_container: HFlowContainer = HFlowContainer.new()
 
-			var discovered_armor_paths: PackedStringArray = ["res://Armors/underpants.gd"]
+			var discovered_armor_paths: PackedStringArray = ["res://Armors/underpants/underpants.gd"]
 			discovered_armor_paths.append_array(SavedData.get_discovered_armors_paths())
-			var all_armors: PackedStringArray = ["res://Armors/underpants.gd"]
+			var all_armors: PackedStringArray = ["res://Armors/underpants/underpants.gd"]
 			all_armors.append_array(SavedData.get_all_armor_paths())
 			for armor_path: String in all_armors:
 				var armor: Armor = load(armor_path).new()
@@ -168,6 +168,7 @@ func _set_category(new_category: int) -> void:
 				else:
 					#button.modulate = Color.BLACK.lightened(0.3)
 					button.disable()
+					tex.modulate = Color.BLACK.lightened(0.25)
 
 			list_container.add_child(vbox)
 		ACHIEVEMENTS:
@@ -179,7 +180,7 @@ func _set_category(new_category: int) -> void:
 				button.custom_minimum_size = Vector2.ONE * 32
 				#button.text = achievent_id.to_upper()
 				grid.add_child(button)
-				if SavedData.achievements.is_achievement_completed(achievent_id):
+				if SavedData.achievements.is_achievement_completed(Achievements.Achievement[achievent_id]):
 					button.pressed.connect(func() -> void:
 						_clear_details()
 						_show_achievement_details(achievent_id)
