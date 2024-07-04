@@ -430,7 +430,10 @@ func _spawn_weapon(weapon_string: String) -> void:
 	var weapon_path: String
 
 	if weapon_string.is_absolute_path():
-		if FileAccess.file_exists(weapon_string):
+		var _path: String = weapon_string
+		if not OS.has_feature("editor"):
+			_path += ".remap"
+		if FileAccess.file_exists(_path):
 			weapon_path = weapon_string
 		else:
 			printerr("There is no weapon at path: " + weapon_string)
