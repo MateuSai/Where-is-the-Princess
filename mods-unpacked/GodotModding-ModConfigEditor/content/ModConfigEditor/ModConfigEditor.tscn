@@ -14,8 +14,10 @@
 [ext_resource type="PackedScene" uid="uid://bq2lbjkptbk5i" path="res://mods-unpacked/GodotModding-ModConfigEditor/content/components/ConfigInputString/ConfigInputString.tscn" id="12"]
 
 [node name="ModConfigEditor" type="Popup"]
+transparent_bg = true
 size = Vector2i(300, 220)
 visible = true
+transparent = true
 theme = ExtResource("1_kqfu5")
 script = ExtResource("5")
 
@@ -65,9 +67,9 @@ size_flags_vertical = 3
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
+theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_bottom = 4
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
@@ -122,12 +124,15 @@ boolean_input_component_scene = ExtResource("11")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
+alignment = 1
 
 [node name="ButtonBack" type="Button" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("4_2fsd6")
+theme_override_font_sizes/font_size = 10
 text = "BACK"
 
 [node name="Spacer" type="Control" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
@@ -136,9 +141,10 @@ layout_mode = 2
 
 [node name="ButtonSave" type="Button" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("4_2fsd6")
+theme_override_font_sizes/font_size = 10
 text = "SAVE"
 
 [node name="InfoText" type="Label" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]

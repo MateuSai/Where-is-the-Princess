@@ -2,6 +2,16 @@ class_name Achievements
 
 const SAVE_PATH: String = "user://achievements.json"
 
+const ICONS: Array[Array] = [
+	[ preload ("res://Art/achievements/logro_trump_0.jpg"), preload ("res://Art/achievements/logro_trump_1.jpg")],
+	[ preload ("res://Art/achievements/logro_trump_0.jpg"), preload ("res://Art/achievements/logro_trump_1.jpg")],
+
+	[ preload ("res://Art/achievements/logro_trump_0.jpg"), preload ("res://Art/achievements/logro_trump_1.jpg")],
+	[ preload ("res://Art/achievements/logro_trump_0.jpg"), preload ("res://Art/achievements/logro_trump_1.jpg")],
+
+	[ preload ("res://Art/achievements/logro_trump_0.jpg"), preload ("res://Art/achievements/logro_trump_1.jpg")],
+]
+
 enum Achievement {
 	forest_druid,
 	sewer_necromancer,
@@ -109,3 +119,9 @@ func add_progress_to_achievement(achievement: Achievement, amount: int) -> void:
 		complete_achievement(achievement)
 
 	save()
+
+func get_not_achieved_icon(achievement: Achievement) -> Texture2D:
+	return ICONS[achievement][0]
+
+func get_achieved_icon(achievement: Achievement) -> Texture2D:
+	return ICONS[achievement][1]

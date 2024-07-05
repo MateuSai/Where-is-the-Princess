@@ -14,6 +14,8 @@ var global_stats: GlobalStats = GlobalStats.new()
 
 var debug: bool = false
 
+var app_id: int
+
 var ENEMIES: Dictionary = {}
 
 const INPUT_IMAGE_RECTS: Dictionary = {
@@ -139,7 +141,9 @@ func _init() -> void:
 	if OS.has_feature("steam"): # and Steam.isSteamRunning():
 		assert(Engine.has_singleton("Steam"))
 		platform = Platform.STEAM
-		Steam.steamInitEx()
+		Steam.steamInit()
+		app_id = Steam.getAppID()
+		Steam.item_created.connect(_on_item_created)
 	else:
 		platform = Platform.OTHER
 	print("Platform detected: " + Platform.keys()[platform])
@@ -381,3 +385,6 @@ func get_unique_locales() -> Array[String]:
 
 func is_steam_enabled() -> bool:
 	return platform == Platform.STEAM
+
+func _on_item_created(result: int, file_id: int, accept_tos: bool) -> void:
+	var handler_id: int = Steam.startItemUpdate(app_id, file_id)

@@ -1,4 +1,4 @@
-extends Popup
+class_name ModConfigEditor extends Popup
 
 var mod_data: ModData: set = _set_mod_data
 var selected_config: ModConfig: set = _set_selected_config
@@ -19,10 +19,11 @@ const LABEL_CONFIG_FOR_TEXT: String = "Configs for"
 @onready var button_save: Button = $"%ButtonSave"
 
 func _ready() -> void:
-	await get_tree().create_timer(0.5).timeout
-	mod_data = ModLoaderStore.mod_data["GodotModding-UserProfile"]
-	update_ui()
-	popup_centered()
+	pass
+	#await get_tree().create_timer(0.5).timeout
+	#mod_data = ModLoaderStore.mod_data["GodotModding-UserProfile"]
+	#update_ui()
+	#popup_centered()
 
 func _set_mod_data(new_mod_data: ModData) -> void:
 	mod_data = new_mod_data
