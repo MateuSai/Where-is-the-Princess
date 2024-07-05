@@ -243,6 +243,8 @@ func _set_damage_dealer_id(new_id: String) -> void:
 static func get_data(path: String) -> WeaponData:
 	var id: String = get_id_from_path(path)
 	if DB.has(id):
+		Log.debug("weapon data found on DB: " + str(DB[id]))
+		Log.debug("data ability icon: " + str(MeleeWeaponData.from_dic(DB[id]).active_ability_icon))
 		return MeleeWeaponData.from_dic(DB[id])
 	else:
 		var data_path: String = path.replace(path.get_file(), "data.tres")

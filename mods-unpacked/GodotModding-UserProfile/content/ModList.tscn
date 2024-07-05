@@ -15,7 +15,7 @@ current_config_select_scene = ExtResource("4")
 [node name="Grid" type="GridContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
-columns = 3
+columns = 5
 
 [node name="LabelModName" type="Label" parent="Grid"]
 unique_name_in_owner = true
@@ -40,3 +40,19 @@ theme_override_colors/font_color = Color(0.168627, 0.0901961, 0.0352941, 1)
 theme_override_fonts/font = ExtResource("5_jko2p")
 theme_override_font_sizes/font_size = 10
 text = "CURRENT_CONFIG"
+
+[node name="LabelConfig" type="Label" parent="Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.168627, 0.0901961, 0.0352941, 1)
+theme_override_fonts/font = ExtResource("5_jko2p")
+theme_override_font_sizes/font_size = 10
+text = "CONFIG"
+
+[node name="LabelUpload" type="Label" parent="Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.168627, 0.0901961, 0.0352941, 1)
+theme_override_fonts/font = ExtResource("5_jko2p")
+theme_override_font_sizes/font_size = 10
+text = "UPLOAD"

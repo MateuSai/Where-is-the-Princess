@@ -32,7 +32,7 @@ enum Subtype {
 @export var animation_library: String = ""
 
 @export_group("Active Ability")
-@export var active_ability_icon: Texture # # Icon of the weapon's active ability
+@export var active_ability_icon: Texture2D # # Icon of the weapon's active ability
 @export var stamina_to_activate_active_ability: float = 20
 @export var souls_to_activate_ability: int = 3 # # The souls you need to collect in order to activate the ability
 @export_range(0.0, 100.0) var active_ability_condition_cost: float = 10 # # The weapon condition will decrease this amount after using the ability. Remember all the weapons have 100 condition initially
@@ -78,7 +78,7 @@ static func _load_dic(weapon_data: WeaponData, dic: Dictionary) -> void:
 	weapon_data.stamina_cost_per_normal_attack = dic.stamina_cost_per_normal_attack
 	weapon_data.condition_cost_per_normal_attack = dic.condition_cost_per_normal_attack
 	var ability_icon_path: String = dic["ability_icon"]
-	if FileAccess.file_exists(ability_icon_path):
+	if FileAccess.file_exists(ability_icon_path + ".import"):
 		weapon_data.active_ability_icon = load(ability_icon_path)
 	else:
 		weapon_data.active_ability_icon = null

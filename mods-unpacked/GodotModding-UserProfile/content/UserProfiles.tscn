@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d2wlhqt5essa5"]
+[gd_scene load_steps=12 format=3 uid="uid://d2wlhqt5essa5"]
 
 [ext_resource type="Script" path="res://mods-unpacked/GodotModding-UserProfile/content/UserProfiles.gd" id="1"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="1_sjeye"]
@@ -9,12 +9,14 @@
 [ext_resource type="FontFile" uid="uid://chicvvurmnu8" path="res://Fonts/Poco.ttf" id="5_oesc6"]
 [ext_resource type="Script" path="res://ui/ButtonWithSound.gd" id="6_0p5f2"]
 [ext_resource type="Script" path="res://ui/RestartButton.gd" id="6_y6p66"]
+[ext_resource type="PackedScene" uid="uid://cmbd33mfmb24u" path="res://mods-unpacked/GodotModding-ModConfigEditor/content/ModConfigEditor/ModConfigEditor.tscn" id="10_xbmgb"]
+[ext_resource type="Script" path="res://mods-unpacked/GodotModding-UserProfile/content/upload_window.gd" id="11_q84ml"]
 
 [node name="UserProfiles" type="Popup"]
 disable_3d = true
 transparent_bg = true
 canvas_item_default_texture_filter = 0
-size = Vector2i(300, 207)
+size = Vector2i(340, 207)
 visible = true
 transparent = true
 theme = ExtResource("1_sjeye")
@@ -22,8 +24,8 @@ script = ExtResource("1")
 user_profile_section = ExtResource("3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 340.0
+offset_bottom = 207.0
 theme_override_constants/separation = -14
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
@@ -183,6 +185,27 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "OK"
 script = ExtResource("6_0p5f2")
+
+[node name="ModConfigEditor" parent="." instance=ExtResource("10_xbmgb")]
+disable_3d = true
+visible = false
+
+[node name="UploadWindow" type="Window" parent="."]
+disable_3d = true
+position = Vector2i(0, 36)
+visible = false
+transient = true
+exclusive = true
+always_on_top = true
+script = ExtResource("11_q84ml")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UploadWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "UPLAODING..."
 
 [connection signal="item_selected" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ProfileSelection/ProfileSelect" to="." method="_on_ProfileSelect_item_selected"]
 [connection signal="pressed" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ProfileSelection/ButtonNewProfile" to="." method="_on_ButtonNewProfile_pressed"]

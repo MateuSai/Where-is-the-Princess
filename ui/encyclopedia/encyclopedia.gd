@@ -178,16 +178,21 @@ func _set_category(new_category: int) -> void:
 			for achievent_id: String in Achievements.Achievement.keys():
 				var button: EncyclopediaButton = EncyclopediaButton.new()
 				button.custom_minimum_size = Vector2.ONE * 32
+				button.expand_icon = true
+				button.tooltip_text = achievent_id.to_upper() + "_DESCRIPTION"
 				#button.text = achievent_id.to_upper()
 				grid.add_child(button)
 				if SavedData.achievements.is_achievement_completed(Achievements.Achievement[achievent_id]):
 					button.pressed.connect(func() -> void:
 						_clear_details()
-						_show_achievement_details(achievent_id)
+						_show_achievement_details(achievent_id, button.icon)
 					)
+					button.icon = SavedData.achievements.get_achieved_icon(Achievements.Achievement[achievent_id])
 				else:
+					button.disabled = true
+					button.icon = SavedData.achievements.get_not_achieved_icon(Achievements.Achievement[achievent_id])
 					#button.modulate = Color.BLACK.lightened(0.3)
-					button.disable()
+					#button.disable()
 
 			list_container.add_child(grid)
 
@@ -454,11 +459,27 @@ func _show_biome_details(conf: BiomeConf, statistics: BiomeStatistics) -> void:
 				break
 	details_vbox.add_child(enemies_hflow)
 
-func _show_achievement_details(achievement_id: String) -> void:
+func _show_achievement_details(achievement_id: String, tex: Texture2D) -> void:
+	var icon: TextureRect = TextureRect.new()
+	#icon.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	#icon.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH
+	icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	icon.texture = tex
+	icon.custom_minimum_size = Vector2.ONE * 64
+	details_vbox.add_child(icon)
+
 	var name_label: Label = Label.new()
 	name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	name_label.text = achievement_id.to_upper()
 	details_vbox.add_child(name_label)
+
+	var description_label: Label = Label.new()
+	description_label.theme = load("res://SmallFontTheme.tres")
+	description_label.custom_minimum_size.x = details_vbox.size.x - 16
+	description_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	description_label.text = achievement_id.to_upper() + "_DESCRIPTION"
+	details_vbox.add_child(description_label)
 
 func _create_items_flow_container(items: PackedStringArray) -> HFlowContainer:
 	var flow_container: HFlowContainer = HFlowContainer.new()

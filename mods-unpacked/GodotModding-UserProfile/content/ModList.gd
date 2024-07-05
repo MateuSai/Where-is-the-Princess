@@ -17,8 +17,11 @@ func generate_grid(user_profile: ModUserProfile) -> void:
 		_generate_mod_active_state(mod_id, user_profile)
 		if ModLoaderStore.mod_data.has(mod_id) and not ModLoaderStore.mod_data[mod_id].configs.is_empty():
 			_generate_mod_current_config(mod_id, user_profile)
+			_generate_mod_config_button(mod_id)
 		else:
 			grid.add_child(grid_placeholder.new())
+			grid.add_child(grid_placeholder.new())
+		_generate_upload_button(mod_id)
 
 func _generate_mod_name(mod_id: String) -> void:
 	var label_mod_id: ModIdLabel = mod_id_label_scene.instantiate()
@@ -57,6 +60,31 @@ func _generate_mod_current_config(mod_id: String, user_profile: ModUserProfile) 
 	current_config_select.add_mod_configs(ModLoaderStore.mod_data[mod_id].configs)
 	current_config_select.select_item(user_profile.mod_list[mod_id].current_config)
 	current_config_select.current_config_selected.connect(_on_current_config_selected)
+
+func _generate_mod_config_button(mod_id: String) -> void:
+	var button: Button = Button.new()
+	button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	button.icon = load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/gear_mod_icon_normal.png")
+	button.pressed.connect(func() -> void:
+		var mod_config_editor: ModConfigEditor=get_tree().root.get_node("UserProfiles").get_node("ModConfigEditor") # load("res://mods-unpacked/GodotModding-ModConfigEditor/content/ModConfigEditor/ModConfigEditor.tscn").instantiate()
+		#get_tree().current_scene.add_child(mod_config_editor)
+		mod_config_editor.mod_data=ModLoaderStore.mod_data[mod_id]
+		mod_config_editor.update_ui()
+		mod_config_editor.popup_centered()
+
+		#mod_config_editor.popup_hide.connect(mod_config_editor.queue_free)
+	)
+	grid.add_child(button)
+
+func _generate_upload_button(mod_id: String) -> void:
+	var button: Button = Button.new()
+	button.text = "上"
+	grid.add_child(button)
+	button.pressed.connect(func() -> void:
+		var upload_window: UploadWindow=get_tree().root.get_node("UserProfiles").get_node("UploadWindow")
+		upload_window.show()
+		upload_window.upload(mod_id)
+	)
 
 func clear_grid() -> void:
 	for child: Node in grid.get_children():
