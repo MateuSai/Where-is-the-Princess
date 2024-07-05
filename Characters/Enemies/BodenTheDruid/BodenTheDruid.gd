@@ -32,8 +32,8 @@ func _on_died() -> void:
 	else:
 		super()
 
-		if not SavedData.achievements.is_achievement_completed(Achievements.Achievement.forest_druid):
-			SavedData.complete_achievement(Achievements.Achievement.forest_druid)
+		if not SavedData.achievements.is_achievement_completed(Achievements.Achievement.the_sleepy_druid):
+			SavedData.complete_achievement(Achievements.Achievement.the_sleepy_druid)
 
 func _transform() -> void:
 	is_bear = true

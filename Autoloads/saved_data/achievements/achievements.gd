@@ -3,7 +3,7 @@ class_name Achievements
 const SAVE_PATH: String = "user://achievements.json"
 
 const ICONS: Array[Array] = [
-	[ preload ("res://Art/achievements/logro_trump_0.jpg"), preload ("res://Art/achievements/logro_trump_1.jpg")],
+	[ preload ("res://Art/achievements/logro_boden_0.jpg"), preload ("res://Art/achievements/logro_boden_1.jpg")],
 	[ preload ("res://Art/achievements/logro_trump_0.jpg"), preload ("res://Art/achievements/logro_trump_1.jpg")],
 
 	[ preload ("res://Art/achievements/logro_trump_0.jpg"), preload ("res://Art/achievements/logro_trump_1.jpg")],
@@ -13,7 +13,7 @@ const ICONS: Array[Array] = [
 ]
 
 enum Achievement {
-	forest_druid,
+	the_sleepy_druid,
 	sewer_necromancer,
 
 	drown,
@@ -23,7 +23,7 @@ enum Achievement {
 }
 
 var achievements: Dictionary = {
-	achievement_int_to_string(Achievement.forest_druid): {
+	achievement_int_to_string(Achievement.the_sleepy_druid): {
 		completed = false
 	},
 	achievement_int_to_string(Achievement.sewer_necromancer): {

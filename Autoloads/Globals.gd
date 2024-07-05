@@ -388,3 +388,8 @@ func is_steam_enabled() -> bool:
 
 func _on_item_created(result: int, file_id: int, accept_tos: bool) -> void:
 	var handler_id: int = Steam.startItemUpdate(app_id, file_id)
+
+	var mod_data: ModData = ModLoaderStore.mod_data[UploadWindow.mod_id]
+	var mod_dir_path: String = _ModLoaderPath.get_path_to_mods().path_join(UploadWindow.mod_id)
+
+	Steam.setItemTitle(handler_id, mod_data.manifest.name)
