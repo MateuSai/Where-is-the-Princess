@@ -6,4 +6,4 @@ func _ready() -> void:
 	super()
 
 	sprite.frame_coords = POSSIBLE_COOR[randi() % POSSIBLE_COOR.size()]
-	
+

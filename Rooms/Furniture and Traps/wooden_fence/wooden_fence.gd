@@ -9,4 +9,6 @@ func _ready() -> void:
 	life_component.died.connect(func() -> void:
 		sprite.frame_coords.x += DESTROYED_DIF
 	)
-	
+
+	add_child(FlashOnDamage.new())
+

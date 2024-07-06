@@ -248,6 +248,8 @@ func set_current_weapon(new_weapon: Weapon) -> void:
 		current_weapon.used_normal_attack.disconnect(_on_normal_attack)
 		current_weapon.used_active_ability.disconnect(_on_active_ability)
 		current_weapon.charge_animation_still_executing.disconnect(_on_charge_animation_still_executing)
+		if current_weapon is Crossbow:
+			(current_weapon as Crossbow).reloaded.disconnect(_on_reloaded)
 
 	super(new_weapon)
 
@@ -255,6 +257,8 @@ func set_current_weapon(new_weapon: Weapon) -> void:
 	current_weapon.used_normal_attack.connect(_on_normal_attack)
 	current_weapon.used_active_ability.connect(_on_active_ability)
 	current_weapon.charge_animation_still_executing.connect(_on_charge_animation_still_executing)
+	if current_weapon is Crossbow:
+		(current_weapon as Crossbow).reloaded.connect(_on_reloaded)
 
 	# This shit does not work
 	# SavedData.run_stats.equipped_weapon_index = current_weapon.get_index()
@@ -274,6 +278,9 @@ func _on_active_ability() -> void:
 
 func _on_charge_animation_still_executing() -> void:
 	player.consume_stamina(0.7)
+
+func _on_reloaded() -> void:
+	player.consume_stamina(current_weapon.data.reload_stamina, current_weapon.animation_player.current_animation_length)
 
 func _on_oh_shit_im_out_of_stamina() -> void:
 	if current_weapon.is_charging():
