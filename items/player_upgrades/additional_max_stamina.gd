@@ -1,8 +1,10 @@
 class_name AdditionalMaxStamina extends PlayerUpgrade
 
+func _init() -> void:
+	effects = [IncreaseMaxStamina.new(10)]
 
-func equip(player: Player) -> void:
-	player.max_stamina += 10
+#func equip(player: Player) -> void:
+#	player.max_stamina += 10
 
 
 func get_icon() -> Texture2D:

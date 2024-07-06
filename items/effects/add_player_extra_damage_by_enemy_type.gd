@@ -1,7 +1,7 @@
 class_name AddPlayerExtraDamageByEnemyType extends ItemEffect
 
-var _id
-var _amount
+var _id: String
+var _amount: int
 
 func _init(id: String, amount: int) -> void:
 	_id = id

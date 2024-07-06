@@ -157,6 +157,8 @@ INCREASE_DASH_STAMINA_COST,%s dash stamina cost,%s cost vigor esquiva,%s coste v
 PLAYER_EXTRA_DAMAGE_TAKEN,%s damage received from all sources,%s dany rebut de totes les fonts,%s daño recibido de todas las fuentes,,
 EXTRA_INITIAL_COINS,+%d initial coins,+%d monedes inicials,+%d monedas iniciales,,
 INCREASE_PLAYER_MAX_HP,%s quarters of heart,%s quarts de cor,%s cuartos de corazón,,
+INCREASE_MAX_STAMINA,%s max stamina,%s vigor màxim,%s vigor máximo,,
+INCREASE_CARRY_CAPACITY,%s max amount of weapons,%s quantitat màxima d'armes,%s capacidad máxima de armas,,
 ,,,,,
 ON_PLAYER_DAMAGED,On damaged,Al rebre dany,Al recibir daño,,
 DISABLE_AFTER,For %s seconds,Durant %s segons,Durante %s segundos,,
