@@ -20,6 +20,9 @@ func _ready() -> void:
 	Globals.room_closed.connect(_on_room_closed)
 	Globals.room_cleared.connect(_on_room_cleared)
 
+	if SavedData.get_biome_conf().name == "BASE_CAMP":
+		$CoinIndicatorHBoxContainer.hide()
+
 
 func _on_room_closed() -> void:
 	if transparency_tween != null:

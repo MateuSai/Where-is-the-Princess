@@ -2,6 +2,7 @@ class_name PlayerUpgrade extends Item
 
 var amount: int = 1
 
+var effects: Array[ItemEffect] = []
 
 func can_pick_up(_player: Player) -> bool:
 	var can_pick: bool = SavedData.data.can_pick_up_player_upgrade(get_item_name())
@@ -31,14 +32,30 @@ func pick_up(player: Player) -> void:
 	player.player_upgrade_item_picked_up.emit(self)
 
 
-func equip(_player: Player) -> void:
-	pass
+func equip(player: Player) -> void:
+	for effect: ItemEffect in effects:
+		effect.enable(player)
+
+#func unequip(player: Player) -> void:
+#	for effect: ItemEffect in effects:
+#		effect.disable(player)
 
 
 func get_max_amount() -> int:
 	push_warning("Default max amount is 3, overwrite this function to change it")
 	return 3
 
+func get_effects_description() -> String:
+	var des: String = ""
+
+	for effect: ItemEffect in effects:
+		des += effect.get_description()
+		if effect != effects[effects.size() - 1]:
+			des += "\n"
+
+	#des.trim_suffix("\n")
+
+	return des
 
 func to_dic() -> Dictionary:
 	return {

@@ -21,8 +21,8 @@ const AVAILABLE_TEMPORAL_ITEMS_FROM_START: PackedStringArray = ["res://items/Pas
 
 const AVAILABLE_CURSED_ITEMS_FROM_START: PackedStringArray = []
 
-const ALL_VANILLA_PLAYER_UPGRADES: PackedStringArray = ["res://items/player_upgrades/additional_heart.gd", "res://items/player_upgrades/additional_movement_speed.gd", "res://items/player_upgrades/additional_weapon_carry_capacity.gd", "res://items/player_upgrades/additional_max_stamina.gd"]
-const AVAILABLE_PLAYER_UPGRADES_FROM_START: PackedStringArray = ["res://items/player_upgrades/additional_heart.gd", "res://items/player_upgrades/additional_movement_speed.gd", "res://items/player_upgrades/additional_weapon_carry_capacity.gd", "res://items/player_upgrades/additional_max_stamina.gd"]
+const ALL_VANILLA_PLAYER_UPGRADES: PackedStringArray = ["res://items/player_upgrades/additional_heart.gd", "res://items/player_upgrades/additional_start_coins.gd", "res://items/player_upgrades/additional_weapon_carry_capacity.gd", "res://items/player_upgrades/additional_max_stamina.gd"]
+const AVAILABLE_PLAYER_UPGRADES_FROM_START: PackedStringArray = ["res://items/player_upgrades/additional_heart.gd", "res://items/player_upgrades/additional_start_coins.gd", "res://items/player_upgrades/additional_weapon_carry_capacity.gd", "res://items/player_upgrades/additional_max_stamina.gd"]
 
 const ALL_VANILLA_BIOMES: PackedStringArray = ["basecamp", "forest", "sewer", "crates"]
 
@@ -264,7 +264,7 @@ func rescue_animal(animal: AnimalsToRescue) -> void:
 	assert(not is_animal_rescued(animal))
 
 	animals_rescued |= animal
-	
+
 	if Globals.is_steam_enabled():
 		Steam.setStatInt("animals_rescued", _num_animals_rescued())
 		Steam.storeStats()
@@ -278,7 +278,7 @@ func _num_animals_rescued() -> int:
 		if ((animals_rescued&1) != 0):
 			count += 1
 		animals_rescued = animals_rescued / 2;
-		
+
 	return count;
 
 func is_npc_rescued(npc_id: String) -> bool:
