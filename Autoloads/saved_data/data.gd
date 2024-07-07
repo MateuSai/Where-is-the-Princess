@@ -277,6 +277,7 @@ func _num_animals_rescued() -> int:
 	while (animals_rescued != 0):
 		if ((animals_rescued&1) != 0):
 			count += 1
+		@warning_ignore("integer_division")
 		animals_rescued = animals_rescued / 2;
 
 	return count;

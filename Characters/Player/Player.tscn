@@ -16,10 +16,8 @@
 [ext_resource type="Texture2D" uid="uid://ckd65h4x4udtg" path="res://Art/6x2.png" id="10_w3xli"]
 [ext_resource type="Script" path="res://Components/PlayerLifeComponent.gd" id="11_up6en"]
 [ext_resource type="Script" path="res://ui/Hearts.gd" id="12_ft4r3"]
-[ext_resource type="Texture2D" uid="uid://cnuc0egwdfmpd" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_UI_empty.png" id="13_3w18a"]
 [ext_resource type="Texture2D" uid="uid://6ht61advku7b" path="res://Art/white.png" id="13_gnjg7"]
 [ext_resource type="Shader" path="res://shaders_and_particles/Mirage.gdshader" id="13_siyxg"]
-[ext_resource type="Texture2D" uid="uid://6cihr7lwp1or" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_UI_full.png" id="14_wyeiy"]
 [ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png" id="15_41qtp"]
 [ext_resource type="Texture2D" uid="uid://ch36g5p2vavvh" path="res://Art/screen_border.png" id="15_hwc5t"]
 [ext_resource type="Script" path="res://ui/ArmorConditionBar.gd" id="15_rb2hy"]
@@ -29,9 +27,11 @@
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="17_bwb1j"]
 [ext_resource type="Script" path="res://ui/RightBottomGameVBoxContainer.gd" id="18_j8x6c"]
 [ext_resource type="Texture2D" uid="uid://6cx2yobwuw5b" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_naked_icon.png" id="19_bc3n7"]
+[ext_resource type="Texture2D" uid="uid://b4ve7rokaefmi" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_UI_empty_no_armor_bar.png" id="20_fk07g"]
 [ext_resource type="Script" path="res://Characters/Player/items_container.gd" id="21_guiy0"]
 [ext_resource type="Texture2D" uid="uid://bhpt1388lfjwl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/Dragon Killer UI icon.png" id="21_ohq06"]
 [ext_resource type="Texture2D" uid="uid://c16ltio6detb6" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/StaminaBar_UI_empty.png" id="23_l30wv"]
+[ext_resource type="Script" path="res://ui/armor_points_HBox.gd" id="24_cwrvi"]
 [ext_resource type="Texture2D" uid="uid://dw08gv6o23kjh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/StaminaBar_UI_full_2.png" id="24_yneg1"]
 [ext_resource type="Texture2D" uid="uid://fpk5xougfcxn" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_flashy_effect_icon.png" id="25_2pwsl"]
 [ext_resource type="Script" path="res://Characters/Player/stamina_bar.gd" id="25_22fjy"]
@@ -622,19 +622,29 @@ theme_override_constants/separation = -6
 unique_name_in_owner = true
 layout_mode = 2
 value = 50.0
-texture_under = ExtResource("13_3w18a")
-texture_progress = ExtResource("14_wyeiy")
+texture_under = ExtResource("20_fk07g")
+texture_progress = ExtResource("20_fk07g")
 script = ExtResource("15_rb2hy")
 
-[node name="Hearts" type="HBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar" index="0"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar" index="0"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 5.0
+offset_right = 64.0
+offset_bottom = 45.0
+theme_override_constants/separation = -4
+
+[node name="Hearts" type="HBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar/VBoxContainer" index="0"]
 unique_name_in_owner = true
 layout_mode = 2
-offset_left = 24.0
-offset_top = 7.0
-offset_right = 95.0
-offset_bottom = 16.0
 theme_override_constants/separation = -1
 script = ExtResource("12_ft4r3")
+
+[node name="ArmorPoints" type="HBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar/VBoxContainer" index="1"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+script = ExtResource("24_cwrvi")
 
 [node name="PassiveItemsContainer" type="HFlowContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar" index="1"]
 layout_mode = 2
@@ -651,7 +661,7 @@ offset_top = 3.0
 offset_right = 22.0
 offset_bottom = 22.0
 pivot_offset = Vector2(9.5, 9.5)
-value = 45.0
+value = 100.0
 fill_mode = 3
 texture_under = ExtResource("19_bc3n7")
 texture_progress = ExtResource("19_bc3n7")
