@@ -15,6 +15,7 @@ func _show_next_notification() -> void:
 	notification_node.modulate.a = 0.0
 	add_child(notification_node)
 	notification_node.initialize(arguments_queue.pop_front())
+	pivot_offset.x = size.x
 
 	var tween: Tween = create_tween()
 
