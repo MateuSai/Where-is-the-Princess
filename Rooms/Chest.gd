@@ -27,6 +27,7 @@ enum GearType {
 }
 
 @export var item_path: String = ""
+@warning_ignore("int_as_enum_without_cast", "int_as_enum_without_match")
 @export var type: Type = -1
 var gear_type: GearType
 

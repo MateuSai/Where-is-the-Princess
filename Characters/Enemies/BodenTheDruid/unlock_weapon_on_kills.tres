@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="UnlockWeaponOnKills" load_steps=2 format=3 uid="uid://dbp5c8i8tag1x"]
+
+[ext_resource type="Script" path="res://Characters/Enemies/unlock_weapon_on_kills.gd" id="1_n02qe"]
+
+[resource]
+script = ExtResource("1_n02qe")
+kills_necessary = 1
+weapon_path = "res://Weapons/Ranged/scepters/lightning_stick/lightning_stick.tscn"
