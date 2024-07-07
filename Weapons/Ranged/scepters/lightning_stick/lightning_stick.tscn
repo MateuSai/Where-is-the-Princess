@@ -151,6 +151,7 @@ _data = {
 [node name="LightningStick" type="Node2D"]
 texture_filter = 1
 script = ExtResource("1_smfnl")
+bad_state = null
 
 [node name="Pivot" type="Node2D" parent="."]
 

@@ -1,8 +1,8 @@
 class_name LightningStick extends Scepter
 
 
-func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> Array[Projectile]:
-	var projectiles: Array[Projectile] = super(angle, amount)
+func _spawn_projectile(angle: float = 0.0, amount: int = 1, _rotate_to_dir: bool = true) -> Array[Projectile]:
+	var projectiles: Array[Projectile] = super(angle, amount, false)
 
 	for projectile: Projectile in projectiles:
 		var homing_component: HomingComponent = load("res://Components/character_detector/homing_component.tscn").instantiate()
@@ -19,7 +19,7 @@ func _spawn_lightning() -> void:
 		#return
 	#can_move = false
 
-	var lightning: LightningAreaAttack = load("res://Characters/Enemies/BodenTheDruid/LightningAreaAttack.tscn").instantiate()
+	var lightning: LightningAreaAttack = load("res://Weapons/Ranged/scepters/lightning_stick/LightningAreaAttack.tscn").instantiate()
 	lightning.position = global_position
 	for body: PhysicsBody2D in (get_parent().get_parent() as Character).get_exclude_bodies():
 		lightning.exclude.push_back(body)
