@@ -13,6 +13,8 @@ const STEP_SNOW_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/Star
 const FRICTION: float = 0.15
 var friction: float = FRICTION
 
+var target: Character
+
 #var invincible: bool = false
 #@export var max_hp: int = 2
 #@export var hp: int = 2: set = set_hp
@@ -224,7 +226,7 @@ func spawn_dust() -> void:
 			sounds_arr = STEP_GROUND_SOUNDS
 		_:
 			return # There is no floor cell at the character position
-			
+
 	var sound: AutoFreeSound = AutoFreeSound.new()
 	get_tree().current_scene.add_child(sound)
 	sound.start(sounds_arr[randi() % sounds_arr.size()], global_position, -10)

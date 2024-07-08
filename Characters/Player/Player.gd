@@ -42,6 +42,13 @@ var stamina: float:
 	set(new_value):
 		Log.fatal("CANNOT SET STAMINA DIRECTLY! Call consume_stamina instead")
 
+var projectile_speed: float:
+	get:
+		if weapons.current_weapon is RangedWeapon:
+			return (weapons.current_weapon.data as RangedWeaponData).normal_attack_projectile_speed
+		else:
+			return 5000
+
 signal temporal_passive_item_picked_up(item: TemporalPassiveItem)
 signal temporal_passive_item_unequiped(item: TemporalPassiveItem)
 signal permanent_passive_item_picked_up(item: PermanentPassiveItem)

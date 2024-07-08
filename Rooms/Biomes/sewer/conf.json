@@ -26,6 +26,7 @@
 	"default_num_combat_rooms": 5,
 	"default_num_special_rooms": 1,
 	"music": "res://Audio/Music/Music Loop Mini Set/Mystical  Loop #2-3.ogg",
+	"music_volume_db": -4.0,
 	"encyclopedia_background": "res://Rooms/Biomes/sewer/sewer_background.png",
 	"levels": {
 		"1": {

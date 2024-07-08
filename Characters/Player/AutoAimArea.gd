@@ -1,6 +1,7 @@
 class_name AutoAimArea extends CharacterDetector
 
 @onready var player: Player = owner
+@onready var aim_component: AimComponent = owner.get_node("AimComponent")
 
 func _ready() -> void:
 	super()
@@ -14,7 +15,8 @@ func _ready() -> void:
 
 
 func get_direction() -> Vector2:
-	return (closer_enemy.global_position - player.position).normalized() if is_instance_valid(closer_enemy) else Vector2.RIGHT
+	player.target = closer_enemy
+	return aim_component.get_dir((player.weapons.current_weapon as RangedWeapon).spawn_projectile_pos.global_position if player.weapons.current_weapon is RangedWeapon else Vector2.ZERO).dir if is_instance_valid(closer_enemy) else Vector2.RIGHT
 
 
 func get_direction_using_dir(dir: Vector2, max_angle: float) -> Vector2:
@@ -27,7 +29,8 @@ func get_direction_using_dir(dir: Vector2, max_angle: float) -> Vector2:
 			closer_to_dir = enemy
 			angle = angle_to_enemy
 
-	return (closer_to_dir.global_position - player.position).normalized() if closer_to_dir else Vector2.ZERO
+	player.target = closer_to_dir
+	return aim_component.get_dir((player.weapons.current_weapon as RangedWeapon).spawn_projectile_pos.global_position if player.weapons.current_weapon is RangedWeapon else Vector2.ZERO).dir if is_instance_valid(closer_to_dir) else Vector2.RIGHT
 
 
 func _on_auto_aim_changed(new_value: bool) -> void:

@@ -4,9 +4,9 @@ extends Node
 var GodotModding_Mod_Config_MOD_DIR := "GodotModding-ModConfig"
 var GodotModding_Mod_Config_LOG_NAME := "GodotModding-ModConfig"
 
-var mod_dir_path := ""
-var extensions_dir_path := ""
-var translations_dir_path := ""
+var mod_dir_path: String = ""
+var extensions_dir_path: String = ""
+var translations_dir_path: String = ""
 
 
 func _init(modLoader = ModLoader) -> void:

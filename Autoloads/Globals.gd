@@ -143,7 +143,6 @@ func _init() -> void:
 		platform = Platform.STEAM
 		Steam.steamInit()
 		app_id = Steam.getAppID()
-		Steam.item_created.connect(_on_item_created)
 	else:
 		platform = Platform.OTHER
 	print("Platform detected: " + Platform.keys()[platform])
@@ -386,5 +385,13 @@ func get_unique_locales() -> Array[String]:
 func is_steam_enabled() -> bool:
 	return platform == Platform.STEAM
 
-func _on_item_created(result: int, file_id: int, accept_tos: bool) -> void:
-	var handler_id: int = Steam.startItemUpdate(app_id, file_id)
+func solve_quadratic(a: float, b: float, c: float) -> Dictionary:
+	var discriminant: float = b * b - 4 * a * c
+	if discriminant < 0:
+		return {"solution": false}
+
+	return {
+		"solution": true,
+		"root_1": (-b + sqrt(discriminant)) / (2 * a),
+		"root_2": (-b - sqrt(discriminant)) / (2 * a)
+	}

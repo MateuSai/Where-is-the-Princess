@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=68 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -16,10 +16,8 @@
 [ext_resource type="Texture2D" uid="uid://ckd65h4x4udtg" path="res://Art/6x2.png" id="10_w3xli"]
 [ext_resource type="Script" path="res://Components/PlayerLifeComponent.gd" id="11_up6en"]
 [ext_resource type="Script" path="res://ui/Hearts.gd" id="12_ft4r3"]
-[ext_resource type="Texture2D" uid="uid://cnuc0egwdfmpd" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_UI_empty.png" id="13_3w18a"]
 [ext_resource type="Texture2D" uid="uid://6ht61advku7b" path="res://Art/white.png" id="13_gnjg7"]
 [ext_resource type="Shader" path="res://shaders_and_particles/Mirage.gdshader" id="13_siyxg"]
-[ext_resource type="Texture2D" uid="uid://6cihr7lwp1or" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_UI_full.png" id="14_wyeiy"]
 [ext_resource type="Texture2D" uid="uid://bb8a2nhqq8y5l" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire.png" id="15_41qtp"]
 [ext_resource type="Texture2D" uid="uid://ch36g5p2vavvh" path="res://Art/screen_border.png" id="15_hwc5t"]
 [ext_resource type="Script" path="res://ui/ArmorConditionBar.gd" id="15_rb2hy"]
@@ -29,9 +27,11 @@
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="17_bwb1j"]
 [ext_resource type="Script" path="res://ui/RightBottomGameVBoxContainer.gd" id="18_j8x6c"]
 [ext_resource type="Texture2D" uid="uid://6cx2yobwuw5b" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_naked_icon.png" id="19_bc3n7"]
+[ext_resource type="Texture2D" uid="uid://b4ve7rokaefmi" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_UI_empty_no_armor_bar.png" id="20_fk07g"]
 [ext_resource type="Script" path="res://Characters/Player/items_container.gd" id="21_guiy0"]
 [ext_resource type="Texture2D" uid="uid://bhpt1388lfjwl" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/weapon ability icons/Dragon Killer UI icon.png" id="21_ohq06"]
 [ext_resource type="Texture2D" uid="uid://c16ltio6detb6" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/StaminaBar_UI_empty.png" id="23_l30wv"]
+[ext_resource type="Script" path="res://ui/armor_points_HBox.gd" id="24_cwrvi"]
 [ext_resource type="Texture2D" uid="uid://dw08gv6o23kjh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/StaminaBar_UI_full_2.png" id="24_yneg1"]
 [ext_resource type="Texture2D" uid="uid://fpk5xougfcxn" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_flashy_effect_icon.png" id="25_2pwsl"]
 [ext_resource type="Script" path="res://Characters/Player/stamina_bar.gd" id="25_22fjy"]
@@ -40,6 +40,7 @@
 [ext_resource type="AudioStream" uid="uid://dhift2qs6kcl5" path="res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Equipement (menu)/ArmorLeatherMetal1.wav" id="33_3bfpk"]
 [ext_resource type="PackedScene" uid="uid://8nmhwu5g4jap" path="res://ui/coin_indicator_h_box_container.tscn" id="33_ra0ly"]
 [ext_resource type="PackedScene" uid="uid://cyojcc0r4upob" path="res://ui/souls_indicatorh_box_container.tscn" id="34_cqcnu"]
+[ext_resource type="Script" path="res://Components/character_detector/aim_component.gd" id="39_8x0f8"]
 [ext_resource type="AudioStream" uid="uid://ddvfc4vghai55" path="res://Audio/Sounds/540275__zepurple__pick-up-tool.wav" id="39_184bl"]
 [ext_resource type="AudioStream" uid="uid://bmektc0a3ocp4" path="res://Audio/Sounds/429924__julalvr__2-macho-comewav.wav" id="40_ndcss"]
 [ext_resource type="AudioStream" uid="uid://70di52o5u7oq" path="res://Audio/Sounds/324514__deleted_user_2104797__burp.wav" id="41_cbyot"]
@@ -494,7 +495,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cevl8"]
-radius = 114.28
+radius = 230.054
 
 [node name="Player" instance=ExtResource("1")]
 collision_layer = 258
@@ -622,19 +623,29 @@ theme_override_constants/separation = -6
 unique_name_in_owner = true
 layout_mode = 2
 value = 50.0
-texture_under = ExtResource("13_3w18a")
-texture_progress = ExtResource("14_wyeiy")
+texture_under = ExtResource("20_fk07g")
+texture_progress = ExtResource("20_fk07g")
 script = ExtResource("15_rb2hy")
 
-[node name="Hearts" type="HBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar" index="0"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar" index="0"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 5.0
+offset_right = 64.0
+offset_bottom = 45.0
+theme_override_constants/separation = -4
+
+[node name="Hearts" type="HBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar/VBoxContainer" index="0"]
 unique_name_in_owner = true
 layout_mode = 2
-offset_left = 24.0
-offset_top = 7.0
-offset_right = 95.0
-offset_bottom = 16.0
 theme_override_constants/separation = -1
 script = ExtResource("12_ft4r3")
+
+[node name="ArmorPoints" type="HBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar/VBoxContainer" index="1"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+script = ExtResource("24_cwrvi")
 
 [node name="PassiveItemsContainer" type="HFlowContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar" index="1"]
 layout_mode = 2
@@ -651,7 +662,7 @@ offset_top = 3.0
 offset_right = 22.0
 offset_bottom = 22.0
 pivot_offset = Vector2(9.5, 9.5)
-value = 45.0
+value = 100.0
 fill_mode = 3
 texture_under = ExtResource("19_bc3n7")
 texture_progress = ExtResource("19_bc3n7")
@@ -753,24 +764,30 @@ texture_under = ExtResource("16_6018t")
 texture_progress = ExtResource("21_ohq06")
 script = ExtResource("16_rikns")
 
-[node name="RightBottomGameVBoxContainer" type="VBoxContainer" parent="UI" index="5"]
-texture_filter = 1
+[node name="MarginContainer3" type="MarginContainer" parent="UI" index="5"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
+offset_left = -29.0
+offset_top = -36.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="RightBottomGameVBoxContainer" type="VBoxContainer" parent="UI/MarginContainer3" index="0"]
+texture_filter = 1
+layout_mode = 2
 theme = ExtResource("17_bwb1j")
+alignment = 2
 script = ExtResource("18_j8x6c")
 
-[node name="CoinIndicatorHBoxContainer" parent="UI/RightBottomGameVBoxContainer" index="0" instance=ExtResource("33_ra0ly")]
+[node name="CoinIndicatorHBoxContainer" parent="UI/MarginContainer3/RightBottomGameVBoxContainer" index="0" instance=ExtResource("33_ra0ly")]
 layout_mode = 2
 
-[node name="SoulsIndicatorHBoxContainer" parent="UI/RightBottomGameVBoxContainer" index="1" instance=ExtResource("34_cqcnu")]
+[node name="SoulsIndicatorHBoxContainer" parent="UI/MarginContainer3/RightBottomGameVBoxContainer" index="1" instance=ExtResource("34_cqcnu")]
 layout_mode = 2
 
 [node name="Marker2D" type="Marker2D" parent="DustPositions" index="0"]
@@ -780,14 +797,18 @@ texture = ExtResource("15_41qtp")
 texture_scale = 0.5
 height = 16.0
 
-[node name="AutoAimArea" parent="." index="15" instance=ExtResource("42_ctcpp")]
+[node name="AimComponent" type="Node" parent="." index="15"]
+script = ExtResource("39_8x0f8")
+flags = 1
+
+[node name="AutoAimArea" parent="." index="16" instance=ExtResource("42_ctcpp")]
 visible = false
 script = ExtResource("28_r7ct4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AutoAimArea" index="1"]
 shape = SubResource("CircleShape2D_cevl8")
 
-[node name="Timers" type="Node" parent="." index="16"]
+[node name="Timers" type="Node" parent="." index="17"]
 
 [node name="ArmorEffectTimer" type="Timer" parent="Timers" index="0"]
 one_shot = true
@@ -812,31 +833,31 @@ one_shot = true
 [node name="DashCooldownTimer" type="Timer" parent="Timers" index="6"]
 one_shot = true
 
-[node name="EquipArmorSound" type="AudioStreamPlayer" parent="." index="17"]
+[node name="EquipArmorSound" type="AudioStreamPlayer" parent="." index="18"]
 stream = ExtResource("33_3bfpk")
 volume_db = -5.0
 max_polyphony = 3
 bus = &"Sounds"
 
-[node name="EquipWeaponSound" type="AudioStreamPlayer" parent="." index="18"]
+[node name="EquipWeaponSound" type="AudioStreamPlayer" parent="." index="19"]
 stream = ExtResource("39_184bl")
 volume_db = -8.0
 bus = &"Sounds"
 
-[node name="EatSound" type="AudioStreamPlayer" parent="." index="19"]
+[node name="EatSound" type="AudioStreamPlayer" parent="." index="20"]
 stream = ExtResource("40_ndcss")
 volume_db = -5.0
 bus = &"Sounds"
 
-[node name="BurpSound" type="AudioStreamPlayer" parent="." index="20"]
+[node name="BurpSound" type="AudioStreamPlayer" parent="." index="21"]
 stream = ExtResource("41_cbyot")
 volume_db = -5.0
 bus = &"Sounds"
 
-[node name="InteractAreaSelector" parent="." index="22" instance=ExtResource("43_8bx65")]
+[node name="InteractAreaSelector" parent="." index="23" instance=ExtResource("43_8bx65")]
 visible = false
 
-[node name="AcidBar" type="TextureProgressBar" parent="." index="23"]
+[node name="AcidBar" type="TextureProgressBar" parent="." index="24"]
 offset_left = 7.0
 offset_top = -8.0
 offset_right = 11.0

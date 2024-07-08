@@ -77,7 +77,7 @@ func _collide(body: Node2D, dam: int=damage) -> void:
 
 func destroy() -> void:
 	var explosion: AnimatedSprite2D = load("res://Characters/Enemies/SpawnExplosion.tscn").instantiate()
-	explosion.position = global_position
+	explosion.position = sprite.global_position
 	get_tree().current_scene.add_child(explosion)
 
 	super()

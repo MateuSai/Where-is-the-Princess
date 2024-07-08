@@ -12,8 +12,8 @@ var edited_config: ModConfig
 const LABEL_CONFIG_FOR_TEXT: String = "Configs for"
 
 @onready var label_config_for: Label = $"%LabelConfigFor"
-@onready var config_selection := $"%ConfigSelection"
-@onready var config_sections := $"%ConfigSections"
+@onready var config_selection: Control = $"%ConfigSelection"
+@onready var config_sections: Control = $"%ConfigSections"
 @onready var popup_new_config: PopupPanel = $"%PopupNewConfig"
 @onready var info_text: Label = $"%InfoText"
 @onready var button_save: Button = $"%ButtonSave"
@@ -69,7 +69,7 @@ func _on_ButtonBack_pressed() -> void:
 
 func _on_ButtonSave_pressed() -> void:
 	self.selected_config = edited_config
-	var updated_config := ModLoaderConfig.update_config(edited_config)
+	var updated_config: ModConfig = ModLoaderConfig.update_config(edited_config)
 
 	if not updated_config:
 		info_text.text = error_text_update_config
@@ -85,7 +85,7 @@ func _on_ConfigSelection_add_config_pressed() -> void:
 	popup_new_config.show()
 
 func _on_ConfigSelection_remove_config_pressed() -> void:
-	var is_success := ModLoaderConfig.delete_config(selected_config)
+	var is_success: bool = ModLoaderConfig.delete_config(selected_config)
 
 	if not is_success:
 		info_text.text = error_text_remove_config
@@ -94,8 +94,8 @@ func _on_ConfigSelection_remove_config_pressed() -> void:
 	update_ui()
 
 func _on_PopupNewConfig_pressed_submit(config_name: String) -> void:
-	var default_config := ModLoaderConfig.get_default_config(mod_data.dir_name)
-	var new_config := ModLoaderConfig.create_config(mod_data.dir_name, config_name, default_config.data)
+	var default_config: ModConfig = ModLoaderConfig.get_default_config(mod_data.dir_name)
+	var new_config: ModConfig = ModLoaderConfig.create_config(mod_data.dir_name, config_name, default_config.data)
 
 	if not new_config:
 		info_text.text = error_text_add_config

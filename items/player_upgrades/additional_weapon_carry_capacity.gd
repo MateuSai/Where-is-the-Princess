@@ -1,8 +1,10 @@
 class_name AdditionalWeaponCarryCapacity extends PlayerUpgrade
 
+func _init() -> void:
+	effects = [IncreaseCarryCapacity.new(1)]
 
-func equip(player: Player) -> void:
-	player.weapons.max_weapons += 1
+#func equip(player: Player) -> void:
+#	player.weapons.max_weapons += 1
 
 
 func get_icon() -> Texture2D:

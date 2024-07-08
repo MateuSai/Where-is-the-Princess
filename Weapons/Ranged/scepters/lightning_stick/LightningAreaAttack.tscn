@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c3qi6wq84kxr7"]
 
 [ext_resource type="Texture2D" uid="uid://b5h213fyn2ty5" path="res://Art/effects/big_ray_01_64x64.png" id="1_atba0"]
-[ext_resource type="Script" path="res://Characters/Enemies/BodenTheDruid/LightningAreaAttack.gd" id="1_u745r"]
+[ext_resource type="Script" path="res://Weapons/Ranged/scepters/lightning_stick/LightningAreaAttack.gd" id="1_u745r"]
 
 [sub_resource type="Animation" id="Animation_b05bg"]
 length = 0.001
@@ -85,8 +85,9 @@ height = 64.0
 
 [node name="LightningAreaAttack" type="Area2D"]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 142
 script = ExtResource("1_u745r")
+damage = 2
 knockback_force = 1500
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

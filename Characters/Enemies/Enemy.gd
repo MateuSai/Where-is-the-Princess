@@ -13,8 +13,6 @@ const SMALL_ACID_PUDDLE_SCENE: PackedScene = preload ("res://Characters/Enemies/
 
 const FLYING_ENEMIES_NAVIGATION_LAYER_BIT_VALUE: int = 2
 
-var target: Character
-
 var enemy_data: EnemyData
 
 var get_dir: Callable = func() -> Vector2:

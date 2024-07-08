@@ -14,7 +14,7 @@ func _ready() -> void:
 		shoot_sound.stream = load(data.shoot_sound_path)
 
 ## rot_offset is in radians. Returns an array containing the spawned projectiles
-func _spawn_projectile(angle: float=0.0, amount: int=1) -> Array[Projectile]:
+func _spawn_projectile(angle: float=0.0, amount: int=1, rotate_to_dir: bool = true) -> Array[Projectile]:
 	if shoot_sound.stream:
 		shoot_sound.play()
 
@@ -51,7 +51,7 @@ func _spawn_projectile(angle: float=0.0, amount: int=1) -> Array[Projectile]:
 
 		#Log.debug("Spawning projectile with speed " + str(projectile_speed))
 		get_tree().current_scene.add_child(projectile)
-		projectile.launch(spawn_projectile_pos.global_position, Vector2.RIGHT.rotated(rotation + initial_offset + i * angle_step), projectile_speed, true)
+		projectile.launch(spawn_projectile_pos.global_position, Vector2.RIGHT.rotated(rotation + initial_offset + i * angle_step), projectile_speed, rotate_to_dir)
 
 		_decrease_weapon_condition(data.condition_cost_per_normal_attack)
 #		stats.condition -= condition_cost_per_normal_attack

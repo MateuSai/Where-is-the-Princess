@@ -3,7 +3,7 @@ class_name Data
 const SAVE_NAME: String = "data.json"
 
 #region Data available from start
-const ALL_VANILLA_WEAPONS: PackedStringArray = ["res://Weapons/Dagger.tscn", "res://Weapons/Melee/branch/branch.tscn", "res://Weapons/Melee/Katana/Katana.tscn", "res://Weapons/Melee/spear/Spear.tscn", "res://Weapons/Melee/reptilian_spear/reptilian_spear.tscn", "res://Weapons/Melee/tribal_spear/tribal_spear.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/sledgehammer/sledgehammer.tscn", "res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/Scimitar/Scimitar.tscn", "res://Weapons/Melee/SharpAxe/SharpAxe.tscn", "res://Weapons/Melee/SmallAxe/SmallAxe.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn", "res://Weapons/Melee/WarHammer/WarHammer.tscn", "res://Weapons/Melee/WarriorSword/WarriorSword.tscn", "res://Weapons/Melee/double_sword/double_sword.tscn", "res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn", "res://Weapons/Ranged/Bows/short_wooden_bow/short_wooden_bow.tscn", "res://Weapons/Melee/rusty_sword/rusty_sword.tscn", "res://Weapons/Ranged/crossbows/wooden_crossbow/wooden_crossbow.tscn", "res://Weapons/Ranged/crossbows/royal_crossbow/royal_crossbow.tscn", "res://Weapons/Melee/thief_dagger/thief_dagger.tscn"]
+const ALL_VANILLA_WEAPONS: PackedStringArray = ["res://Weapons/Dagger.tscn", "res://Weapons/Melee/branch/branch.tscn", "res://Weapons/Melee/Katana/Katana.tscn", "res://Weapons/Melee/spear/Spear.tscn", "res://Weapons/Melee/reptilian_spear/reptilian_spear.tscn", "res://Weapons/Melee/tribal_spear/tribal_spear.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/sledgehammer/sledgehammer.tscn", "res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/Scimitar/Scimitar.tscn", "res://Weapons/Melee/SharpAxe/SharpAxe.tscn", "res://Weapons/Melee/SmallAxe/SmallAxe.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn", "res://Weapons/Melee/WarHammer/WarHammer.tscn", "res://Weapons/Melee/WarriorSword/WarriorSword.tscn", "res://Weapons/Melee/double_sword/double_sword.tscn", "res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn", "res://Weapons/Ranged/Bows/short_wooden_bow/short_wooden_bow.tscn", "res://Weapons/Melee/rusty_sword/rusty_sword.tscn", "res://Weapons/Ranged/crossbows/wooden_crossbow/wooden_crossbow.tscn", "res://Weapons/Ranged/crossbows/royal_crossbow/royal_crossbow.tscn", "res://Weapons/Melee/thief_dagger/thief_dagger.tscn", "res://Weapons/Ranged/scepters/lightning_stick/lightning_stick.tscn"]
 const AVAILABLE_WEAPONS_FROM_START: PackedStringArray = ["res://Weapons/Melee/Katana/Katana.tscn", "res://Weapons/Melee/spear/Spear.tscn", "res://Weapons/Melee/DragonKiller/DragonKiller.tscn", "res://Weapons/Melee/sledgehammer/sledgehammer.tscn", "res://Weapons/Melee/OrcSword/OrcSword.tscn", "res://Weapons/Melee/Scimitar/Scimitar.tscn", "res://Weapons/Melee/SharpAxe/SharpAxe.tscn", "res://Weapons/Melee/SmallAxe/SmallAxe.tscn", "res://Weapons/Melee/WarAxe/WarAxe.tscn", "res://Weapons/Melee/WarHammer/WarHammer.tscn", "res://Weapons/Melee/WarriorSword/WarriorSword.tscn", "res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn", "res://Weapons/Ranged/crossbows/royal_crossbow/royal_crossbow.tscn", "res://Weapons/Melee/thief_dagger/thief_dagger.tscn"]
 
 const ALL_VANILLA_ARMORS: PackedStringArray = ["res://Armors/commoner_clothes/commoner_clothes.gd", "res://Armors/leather_armor/leather_armor.gd", "res://Armors/mercenary_armor/mercenary_armor.gd", "res://Armors/warrior_armor/warrior_armor.gd", "res://Armors/necromancer_armor/necromancer_armor.gd", "res://Armors/improvised_armor/improvised_armor.gd", "res://Armors/farmer_clothes/farmer_clothes.gd", "res://Armors/plague_armor/plague_armor.gd", "res://Armors/ronin_armor/ronin_armor.gd", "res://Armors/footman_armor/footman_armor.gd"]
@@ -21,8 +21,8 @@ const AVAILABLE_TEMPORAL_ITEMS_FROM_START: PackedStringArray = ["res://items/Pas
 
 const AVAILABLE_CURSED_ITEMS_FROM_START: PackedStringArray = []
 
-const ALL_VANILLA_PLAYER_UPGRADES: PackedStringArray = ["res://items/player_upgrades/additional_heart.gd", "res://items/player_upgrades/additional_movement_speed.gd", "res://items/player_upgrades/additional_weapon_carry_capacity.gd", "res://items/player_upgrades/additional_max_stamina.gd"]
-const AVAILABLE_PLAYER_UPGRADES_FROM_START: PackedStringArray = ["res://items/player_upgrades/additional_heart.gd", "res://items/player_upgrades/additional_movement_speed.gd", "res://items/player_upgrades/additional_weapon_carry_capacity.gd", "res://items/player_upgrades/additional_max_stamina.gd"]
+const ALL_VANILLA_PLAYER_UPGRADES: PackedStringArray = ["res://items/player_upgrades/additional_heart.gd", "res://items/player_upgrades/additional_start_coins.gd", "res://items/player_upgrades/additional_weapon_carry_capacity.gd", "res://items/player_upgrades/additional_max_stamina.gd"]
+const AVAILABLE_PLAYER_UPGRADES_FROM_START: PackedStringArray = ["res://items/player_upgrades/additional_heart.gd", "res://items/player_upgrades/additional_start_coins.gd", "res://items/player_upgrades/additional_weapon_carry_capacity.gd", "res://items/player_upgrades/additional_max_stamina.gd"]
 
 const ALL_VANILLA_BIOMES: PackedStringArray = ["basecamp", "forest", "sewer", "crates"]
 
@@ -264,7 +264,7 @@ func rescue_animal(animal: AnimalsToRescue) -> void:
 	assert(not is_animal_rescued(animal))
 
 	animals_rescued |= animal
-	
+
 	if Globals.is_steam_enabled():
 		Steam.setStatInt("animals_rescued", _num_animals_rescued())
 		Steam.storeStats()
@@ -277,8 +277,9 @@ func _num_animals_rescued() -> int:
 	while (animals_rescued != 0):
 		if ((animals_rescued&1) != 0):
 			count += 1
+		@warning_ignore("integer_division")
 		animals_rescued = animals_rescued / 2;
-		
+
 	return count;
 
 func is_npc_rescued(npc_id: String) -> bool:

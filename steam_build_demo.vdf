@@ -10,7 +10,7 @@
         {
             "FileMapping"
             {
-                "LocalPath"         "where_is_the_princess_linux_x11_demo_0_1_0/*"	// all files from contentroot folder
+                "LocalPath"         "where_is_the_princess_linux_x11_demo_steam_0_1_0/*"	// all files from contentroot folder
                 "DepotPath"         "."	// mapped into the root of the depot
                 "recursive"         "1"	// include all subfolders
             }
@@ -19,7 +19,7 @@
         {
             "FileMapping"
             {
-                "LocalPath"         "where_is_the_princess_windows_demo_0_1_0/*"	// all files from contentroot folder
+                "LocalPath"         "where_is_the_princess_windows_demo_steam_0_1_0/*"	// all files from contentroot folder
                 "DepotPath"         "."	// mapped into the root of the depot
                 "recursive"         "1"	// include all subfolders
             }

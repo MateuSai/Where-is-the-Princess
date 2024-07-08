@@ -10,8 +10,8 @@ var arrow_type: Arrow.Type = Arrow.Type.NORMAL:
 		arrow_type_changed.emit(arrow_type)
 
 
-func _spawn_projectile(angle: float = 0.0, amount: int = 1) -> Array[Projectile]:
-	var spawned_projectiles: Array[Projectile] = super(angle, amount)
+func _spawn_projectile(angle: float = 0.0, amount: int = 1, rotate_to_dir: bool = true) -> Array[Projectile]:
+	var spawned_projectiles: Array[Projectile] = super(angle, amount, rotate_to_dir)
 
 	for projectile: Projectile in spawned_projectiles:
 		assert(projectile is ArrowOrBolt)

@@ -199,13 +199,14 @@ exclusive = true
 always_on_top = true
 script = ExtResource("11_q84ml")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="UploadWindow"]
+[node name="StateLabel" type="RichTextLabel" parent="UploadWindow"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "UPLAODING..."
+bbcode_enabled = true
+text = "UPLOADING..."
 
 [connection signal="item_selected" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ProfileSelection/ProfileSelect" to="." method="_on_ProfileSelect_item_selected"]
 [connection signal="pressed" from="VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/ProfileSelection/ButtonNewProfile" to="." method="_on_ButtonNewProfile_pressed"]

@@ -32,8 +32,8 @@ func _on_died() -> void:
 	else:
 		super()
 
-		if not SavedData.achievements.is_achievement_completed(Achievements.Achievement.forest_druid):
-			SavedData.complete_achievement(Achievements.Achievement.forest_druid)
+		if not SavedData.achievements.is_achievement_completed(Achievements.Achievement.the_sleepy_druid):
+			SavedData.complete_achievement(Achievements.Achievement.the_sleepy_druid)
 
 func _transform() -> void:
 	is_bear = true
@@ -71,7 +71,7 @@ func _lightning_attack() -> void:
 		return
 	can_move = false
 
-	var lightning: LightningAreaAttack = load("res://Characters/Enemies/BodenTheDruid/LightningAreaAttack.tscn").instantiate()
+	var lightning: LightningAreaAttack = load("res://Weapons/Ranged/scepters/lightning_stick/LightningAreaAttack.tscn").instantiate()
 	lightning.position = global_position
 	get_tree().current_scene.add_child(lightning)
 	lightning.attack(Vector2.RIGHT.rotated(staff_pivot.rotation))
