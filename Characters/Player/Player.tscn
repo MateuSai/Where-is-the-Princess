@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=68 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -40,6 +40,7 @@
 [ext_resource type="AudioStream" uid="uid://dhift2qs6kcl5" path="res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Equipement (menu)/ArmorLeatherMetal1.wav" id="33_3bfpk"]
 [ext_resource type="PackedScene" uid="uid://8nmhwu5g4jap" path="res://ui/coin_indicator_h_box_container.tscn" id="33_ra0ly"]
 [ext_resource type="PackedScene" uid="uid://cyojcc0r4upob" path="res://ui/souls_indicatorh_box_container.tscn" id="34_cqcnu"]
+[ext_resource type="Script" path="res://Components/character_detector/aim_component.gd" id="39_8x0f8"]
 [ext_resource type="AudioStream" uid="uid://ddvfc4vghai55" path="res://Audio/Sounds/540275__zepurple__pick-up-tool.wav" id="39_184bl"]
 [ext_resource type="AudioStream" uid="uid://bmektc0a3ocp4" path="res://Audio/Sounds/429924__julalvr__2-macho-comewav.wav" id="40_ndcss"]
 [ext_resource type="AudioStream" uid="uid://70di52o5u7oq" path="res://Audio/Sounds/324514__deleted_user_2104797__burp.wav" id="41_cbyot"]
@@ -494,7 +495,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cevl8"]
-radius = 114.28
+radius = 230.054
 
 [node name="Player" instance=ExtResource("1")]
 collision_layer = 258
@@ -796,14 +797,18 @@ texture = ExtResource("15_41qtp")
 texture_scale = 0.5
 height = 16.0
 
-[node name="AutoAimArea" parent="." index="15" instance=ExtResource("42_ctcpp")]
+[node name="AimComponent" type="Node" parent="." index="15"]
+script = ExtResource("39_8x0f8")
+flags = 1
+
+[node name="AutoAimArea" parent="." index="16" instance=ExtResource("42_ctcpp")]
 visible = false
 script = ExtResource("28_r7ct4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AutoAimArea" index="1"]
 shape = SubResource("CircleShape2D_cevl8")
 
-[node name="Timers" type="Node" parent="." index="16"]
+[node name="Timers" type="Node" parent="." index="17"]
 
 [node name="ArmorEffectTimer" type="Timer" parent="Timers" index="0"]
 one_shot = true
@@ -828,31 +833,31 @@ one_shot = true
 [node name="DashCooldownTimer" type="Timer" parent="Timers" index="6"]
 one_shot = true
 
-[node name="EquipArmorSound" type="AudioStreamPlayer" parent="." index="17"]
+[node name="EquipArmorSound" type="AudioStreamPlayer" parent="." index="18"]
 stream = ExtResource("33_3bfpk")
 volume_db = -5.0
 max_polyphony = 3
 bus = &"Sounds"
 
-[node name="EquipWeaponSound" type="AudioStreamPlayer" parent="." index="18"]
+[node name="EquipWeaponSound" type="AudioStreamPlayer" parent="." index="19"]
 stream = ExtResource("39_184bl")
 volume_db = -8.0
 bus = &"Sounds"
 
-[node name="EatSound" type="AudioStreamPlayer" parent="." index="19"]
+[node name="EatSound" type="AudioStreamPlayer" parent="." index="20"]
 stream = ExtResource("40_ndcss")
 volume_db = -5.0
 bus = &"Sounds"
 
-[node name="BurpSound" type="AudioStreamPlayer" parent="." index="20"]
+[node name="BurpSound" type="AudioStreamPlayer" parent="." index="21"]
 stream = ExtResource("41_cbyot")
 volume_db = -5.0
 bus = &"Sounds"
 
-[node name="InteractAreaSelector" parent="." index="22" instance=ExtResource("43_8bx65")]
+[node name="InteractAreaSelector" parent="." index="23" instance=ExtResource("43_8bx65")]
 visible = false
 
-[node name="AcidBar" type="TextureProgressBar" parent="." index="23"]
+[node name="AcidBar" type="TextureProgressBar" parent="." index="24"]
 offset_left = 7.0
 offset_top = -8.0
 offset_right = 11.0
