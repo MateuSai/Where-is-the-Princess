@@ -22,20 +22,22 @@ func get_dir(from: Vector2 = Vector2.ZERO) -> AimResult:
 		from = character.global_position
 
 	if flags & FLAG_PREDICT_TRAJECTORY:
-		var vector_to_target: Vector2 = (target.global_position - from)
-		var projectile_time_to_target: float = vector_to_target.length() / projectile_speed
-		var target_predicted_future_position: Vector2 = target.global_position + target.velocity * projectile_time_to_target
+		#var vector_to_target: Vector2 = (target.global_position - from)
+		#var projectile_time_to_target: float = vector_to_target.length() / projectile_speed
+		#var target_predicted_future_position: Vector2 = target.global_position + target.velocity * projectile_time_to_target
+		var intersection_point_res: Dictionary = _get_intersection_point(from, target.global_position, projectile_speed, target.velocity)
+		var predicted_position: Vector2 = intersection_point_res.result if intersection_point_res.solution else target.global_position
 		#assert(target.mov_direction.length() <= 1)
 		#var predicted_dir: Vector2 = (target.global_position * target.data.max_speed * target.mov_direction) / (from * projectile_speed)
 		#print_debug(predicted_dir)
 
 		var space_state: PhysicsDirectSpaceState2D = character.get_world_2d().direct_space_state
 		# use global coordinates, not local to node
-		var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(target.global_position, target_predicted_future_position, 1 + 16)
+		var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(target.global_position, predicted_position, 1 + 16)
 		var raycast_res: Dictionary = space_state.intersect_ray(query)
 		if not raycast_res.is_empty():
-			target_predicted_future_position = raycast_res.position + (target.global_position - raycast_res.position).normalized() * 4
-		res = AimResult.new((target_predicted_future_position - from).normalized(), _is_trajectory_clear(from, target_predicted_future_position))
+			predicted_position = raycast_res.position + (target.global_position - raycast_res.position).normalized() * 4
+		res = AimResult.new((predicted_position - from).normalized(), _is_trajectory_clear(from, predicted_position))
 	else:
 		res = AimResult.new((target.global_position - from).normalized(), _is_trajectory_clear(from, target.global_position))
 
@@ -57,6 +59,28 @@ func _is_trajectory_clear(from: Vector2, to: Vector2) -> bool:
 	query.collide_with_areas = true
 	query.hit_from_inside  = true
 	return space_state.intersect_ray(query).is_empty()
+
+func _get_intersection_point(a: Vector2, b: Vector2, a_speed: float, b_velocity: Vector2) -> Dictionary:
+	var a_to_b: Vector2 = b - a
+	var a_to_b_dis: float = a_to_b.length()
+	var alpha: float = a_to_b.angle_to(b_velocity)
+
+	var r: float = b_velocity.length() / a_speed
+
+	var quadratic_res: Dictionary = Globals.solve_quadratic(1 - r * r, 2 * r * a_to_b_dis * cos(alpha), -(a_to_b_dis * a_to_b_dis))
+	if not quadratic_res.solution:
+		return {
+			"solution": false
+		}
+
+	var a_to_c_dis: float = max(quadratic_res.root_1, quadratic_res.root_2)
+	var t: float = a_to_c_dis / a_speed
+	var c: Vector2 = b + b_velocity * t
+
+	return {
+		"solution": true,
+		"result": c
+	}
 
 
 
