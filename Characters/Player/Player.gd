@@ -14,7 +14,7 @@ var dialogue_tween: Tween = null
 var dash_stamina_cost: float = 30
 signal dashed(dash_time: float)
 
-var stamina_regeneration_per_second: float = 20
+var stamina_regeneration_per_second: float = 25
 var stamina_regen_cooldown: float = 0.6
 var _stamina_exhausted_tween: Tween = null
 var _sweat_drop_tween: Tween = null

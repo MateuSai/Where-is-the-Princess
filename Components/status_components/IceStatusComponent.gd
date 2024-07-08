@@ -2,6 +2,8 @@ class_name IceStatusComponent extends StatusComponent
 
 const ATTACKS_TO_BREAK_ICE: int = 4
 
+var enemy_break_timer:Timer
+
 var ice_cube: Sprite2D
 var shake_component: ShakeComponent
 var ice_life_component: LifeComponent
@@ -9,6 +11,11 @@ var spawn_fragments_component: SpawnFragmentsOnDied
 
 func _ready() -> void:
 	super()
+
+	enemy_break_timer = Timer.new()
+	enemy_break_timer.wait_time = 0.3
+	enemy_break_timer.timeout.connect(_enemy_timer_timeout)
+	add_child(enemy_break_timer)
 
 	shake_component = ShakeComponent.new()
 	add_child(shake_component)
@@ -56,7 +63,10 @@ func add() -> void:
 	ice_life_component.hp = ATTACKS_TO_BREAK_ICE
 	character.can_move = false
 
-	set_process_unhandled_input(true)
+	if character is Player:
+		set_process_unhandled_input(true)
+	else:
+		enemy_break_timer.start()
 
 	super()
 
@@ -64,4 +74,11 @@ func remove() -> void:
 	#character.modulate = Color.WHITE
 	ice_cube.queue_free()
 	character.can_move = true
+	enemy_break_timer.stop()
 	super()
+
+func _enemy_timer_timeout() -> void:
+	ice_life_component.take_damage(1, Vector2.ZERO, 0, null, character, character.id)
+	shake_component.shake(ice_cube)
+	if ice_life_component.hp <= 0:
+		remove()
