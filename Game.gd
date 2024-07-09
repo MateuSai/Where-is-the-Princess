@@ -13,6 +13,9 @@ var generation_thread: Thread = null
 
 signal player_added()
 
+signal game_paused()
+signal game_unpaused()
+
 var drag_enabled: bool = false
 var mouse_pos_at_start_of_drag: Vector2
 var scroll_horizontal_at_start_of_drag: float = 0
@@ -189,3 +192,11 @@ func reload_generation(msg: String) -> void:
 
 func show_notification(notification_scene: PackedScene, arguments: Dictionary) -> void:
 	notification_container.add_notification_to_queue(notification_scene, arguments)
+
+
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_PAUSED:
+			game_paused.emit()
+		NOTIFICATION_UNPAUSED:
+			game_unpaused.emit()
