@@ -33,7 +33,7 @@ var auto_aim: bool:
 signal auto_aim_changed(new_value: bool)
 var aim_help: float:
 	get:
-		return settings.get_value(ACCESSIBILITY_SECTION, "aim_help", 0.0)
+		return settings.get_value(ACCESSIBILITY_SECTION, "aim_help", 0.1)
 	set(new_value):
 		set_aim_help(new_value)
 signal aim_help_changed(new_value: float)

@@ -21,6 +21,11 @@ func get_dir(from: Vector2 = Vector2.ZERO) -> AimResult:
 	if from == Vector2.ZERO:
 		from = character.global_position
 
+	# So it does not go crazy when near to target
+	#Log.debug(character.id + ": from = " + str(from) + "  target_global_pos = " + str(target.global_position))
+	if (target.global_position - from).length() < 20:
+		return AimResult.new((target.global_position - character.global_position).normalized(), false)
+
 	if flags & FLAG_PREDICT_TRAJECTORY:
 		#var vector_to_target: Vector2 = (target.global_position - from)
 		#var projectile_time_to_target: float = vector_to_target.length() / projectile_speed

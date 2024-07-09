@@ -1,4 +1,4 @@
-[gd_scene load_steps=98 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=99 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -63,6 +63,7 @@
 [ext_resource type="Texture2D" uid="uid://cla3c0dfryjoi" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/achievements_ui_pestaña.png" id="46_tvh38"]
 [ext_resource type="Script" path="res://ui/biome_banner.gd" id="50_gojcj"]
 [ext_resource type="Texture2D" uid="uid://cdc7lhfsxohm6" path="res://icon.png" id="52_cslg2"]
+[ext_resource type="Script" path="res://game_music.gd" id="63_fw061"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jgpg2"]
 light_mode = 1
@@ -753,7 +754,9 @@ material = SubResource("ShaderMaterial_nogqy")
 centered = false
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 bus = &"Music"
+script = ExtResource("63_fw061")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 position = Vector2(601, 145)

@@ -627,13 +627,13 @@ texture_under = ExtResource("20_fk07g")
 texture_progress = ExtResource("20_fk07g")
 script = ExtResource("15_rb2hy")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar" index="0"]
+[node name="VBoxContainer" type="HBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar" index="0"]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 5.0
 offset_right = 64.0
-offset_bottom = 45.0
-theme_override_constants/separation = -4
+offset_bottom = 7.0
+theme_override_constants/separation = 0
 
 [node name="Hearts" type="HBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/ArmorConditionBar/VBoxContainer" index="0"]
 unique_name_in_owner = true
