@@ -15,6 +15,15 @@ func _ready() -> void:
 			set_tab_icon(tab, load(GREY_ICONS[tab]) as Texture2D)
 			set_tab_title(tab, "")
 
+	tab_clicked.connect(func(_tab: int) -> void:
+		var sound: AudioStreamPlayer=AudioStreamPlayer.new()
+		sound.stream=load("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Click-Button-Switch/Click8.wav")
+		sound.bus="Sounds"
+		sound.finished.connect(sound.queue_free)
+		get_tree().current_scene.add_child(sound)
+		sound.play()
+	)
+
 	tab_changed.connect(func(tab: int) -> void:
 		#print(get_previous_tab())
 		#print(tab)

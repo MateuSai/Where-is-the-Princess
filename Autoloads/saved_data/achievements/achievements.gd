@@ -6,7 +6,7 @@ const ICONS: Array[Array] = [
 	[ preload ("res://Art/achievements/logro_boden_0.jpg"), preload ("res://Art/achievements/logro_boden_1.jpg")],
 	[ preload ("res://Art/achievements/logro_trump_0.jpg"), preload ("res://Art/achievements/logro_trump_1.jpg")],
 
-	[ preload ("res://Art/achievements/logro_trump_0.jpg"), preload ("res://Art/achievements/logro_trump_1.jpg")],
+	[ preload ("res://Art/achievements/logro_water_0.jpg"), preload ("res://Art/achievements/logro_water_1.jpg")],
 	[ preload ("res://Art/achievements/logro_croc_0.jpg"), preload ("res://Art/achievements/logro_croc_1.jpg")],
 
 	[ preload ("res://Art/achievements/logro_animals_0.jpg"), preload ("res://Art/achievements/logro_animals_1.jpg")],
