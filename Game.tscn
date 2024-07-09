@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=3 uid="uid://u6okdsefflug"]
+[gd_scene load_steps=101 format=3 uid="uid://u6okdsefflug"]
 
 [ext_resource type="Script" path="res://Game.gd" id="3"]
 [ext_resource type="Script" path="res://Rooms.gd" id="4"]
@@ -52,6 +52,7 @@
 [ext_resource type="Texture2D" uid="uid://bp8fo8a7fbjut" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_pestaña_items_ui_hover.png" id="27_tot21"]
 [ext_resource type="Texture2D" uid="uid://di27i6k4x0mdr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/enemies_ui_pestaña.png" id="28_7eh7l"]
 [ext_resource type="Texture2D" uid="uid://dloouft4djv72" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_pestaña_enemies_ui_hover.png" id="30_xla5k"]
+[ext_resource type="Texture2D" uid="uid://yd23g5wda24k" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_pestaña_outline_ui.png" id="33_vudg4"]
 [ext_resource type="Texture2D" uid="uid://qy18et1lxmtm" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_pestaña_biomes_ui.png" id="38_lnmfl"]
 [ext_resource type="Texture2D" uid="uid://cbj7lfujwbpfd" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/pause_menu_ui_9-patch.png" id="38_uvlqo"]
 [ext_resource type="Texture2D" uid="uid://r8rvcj2gc7jh" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/book_pestaña_biomes_ui_hover.png" id="39_t0sjm"]
@@ -145,6 +146,17 @@ texture = ExtResource("22_8grwp")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_43d14"]
 texture = ExtResource("23_v5mjo")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lafbu"]
+texture = ExtResource("33_vudg4")
+texture_margin_left = 10.0
+texture_margin_top = 1.0
+texture_margin_right = 1.0
+texture_margin_bottom = 1.0
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f253n"]
 texture = ExtResource("23_gpxw8")
@@ -553,6 +565,7 @@ layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_oacd8")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pwgnx")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_43d14")
+theme_override_styles/focus = SubResource("StyleBoxTexture_lafbu")
 toggle_mode = true
 icon = ExtResource("19_ft0qi")
 icon_alignment = 2
@@ -562,6 +575,7 @@ layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_f253n")
 theme_override_styles/hover = SubResource("StyleBoxTexture_cisq3")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_e1sc2")
+theme_override_styles/focus = SubResource("StyleBoxTexture_lafbu")
 toggle_mode = true
 icon = ExtResource("24_0uwt0")
 icon_alignment = 2
@@ -572,6 +586,7 @@ layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_20fsp")
 theme_override_styles/hover = SubResource("StyleBoxTexture_opbia")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_ge2fu")
+theme_override_styles/focus = SubResource("StyleBoxTexture_lafbu")
 toggle_mode = true
 icon = ExtResource("26_d38pc")
 icon_alignment = 2
@@ -581,6 +596,7 @@ layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_w6scg")
 theme_override_styles/hover = SubResource("StyleBoxTexture_v8ysw")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_hdbdv")
+theme_override_styles/focus = SubResource("StyleBoxTexture_lafbu")
 toggle_mode = true
 icon = ExtResource("28_7eh7l")
 icon_alignment = 2
@@ -590,6 +606,7 @@ layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_l0ajp")
 theme_override_styles/hover = SubResource("StyleBoxTexture_u64ko")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_hdbdv")
+theme_override_styles/focus = SubResource("StyleBoxTexture_lafbu")
 toggle_mode = true
 icon = ExtResource("41_8dmb7")
 icon_alignment = 2
@@ -599,6 +616,7 @@ layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_erg20")
 theme_override_styles/hover = SubResource("StyleBoxTexture_dbtfm")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_hdbdv")
+theme_override_styles/focus = SubResource("StyleBoxTexture_lafbu")
 toggle_mode = true
 icon = ExtResource("46_tvh38")
 icon_alignment = 2
@@ -624,6 +642,7 @@ theme_override_constants/margin_left = 0
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+follow_focus = true
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/HBoxContainer/PanelContainer/MarginContainer/ScrollContainer"]
 layout_mode = 2
@@ -656,6 +675,9 @@ size_flags_horizontal = 3
 
 [node name="TurnPageAudioStreamPlayer" type="AudioStreamPlayer" parent="UI/MenuTabContainer/ENCYCLOPEDIA"]
 bus = &"Sounds"
+
+[node name="AutoFocusOnController" type="Node" parent="UI/MenuTabContainer/ENCYCLOPEDIA"]
+script = ExtResource("20_o0kce")
 
 [node name="OPTIONS" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
