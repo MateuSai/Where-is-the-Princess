@@ -83,12 +83,12 @@ func _exit_tree() -> void:
 	SavedData.data.save()
 
 func _set_seed() -> void:
-	var seed_spin_box: SpinBox = seed_popup.get_node("MarginContainer/SpinBox")
+	var seed_line_edit: LineEdit = seed_popup.get_node("MarginContainer/LineEdit")
 	var run_seed: int
-	if seed_spin_box.value == - 1:
+	if seed_line_edit.text.is_empty():
 		run_seed = randi() % 100000000 # Eight digit number
 	else:
-		run_seed = int(seed_spin_box.value)
+		run_seed = int(seed_line_edit.text)
 	#run_seed = 67922822
 	print("Changed seed to  " + str(run_seed) + "\n")
 	#seed(run_seed)

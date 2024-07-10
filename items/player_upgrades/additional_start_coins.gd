@@ -4,7 +4,7 @@ func _init() -> void:
 	effects = [ExtraInitialCoins.new(10)]
 
 func get_icon() -> Texture2D:
-	return load("res://icon.png")
+	return load("res://Art/items/piggy_icon.png")
 
 
 func get_dark_soul_cost() -> int:

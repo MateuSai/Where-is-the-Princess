@@ -396,7 +396,7 @@ static func get_id_from_path(path: String) -> String:
 static func get_data(path: String) -> WeaponData:
 	var id: String = get_id_from_path(path)
 	if DB.has(id):
-		Log.debug("weapon data found on DB")
+		#Log.debug("weapon data found on DB")
 		return WeaponData.from_dic(DB[id])
 	else:
 		var data_path: String = path.replace(path.get_file(), "data.tres")
