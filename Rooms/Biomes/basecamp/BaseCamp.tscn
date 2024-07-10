@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=55 format=3 uid="uid://cah3hunwa34v8"]
 
 [ext_resource type="Script" path="res://Rooms/Biomes/basecamp/BaseCamp.gd" id="1_tpf7m"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="2_ipa5f"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://4diatv3rr660" path="res://brow_square.png" id="7_bvea0"]
 [ext_resource type="Texture2D" uid="uid://cpda4qwx1x4j6" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/sign.png" id="9_dti1o"]
 [ext_resource type="Script" path="res://start_area.gd" id="9_r816v"]
+[ext_resource type="Script" path="res://Rooms/Biomes/basecamp/seed_line_edit.gd" id="12_esh87"]
 [ext_resource type="PackedScene" uid="uid://cjc0h245lbmpd" path="res://Weapons/Melee/Katana/Katana.tscn" id="12_trlvh"]
 [ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="13_2uruh"]
 [ext_resource type="AudioStream" uid="uid://dq7f7p17hn6bl" path="res://Audio/Sounds/280235__toefur__open-wardrobe-1.wav" id="15_iuhqb"]
@@ -233,8 +234,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 192.0
-offset_bottom = 142.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_nybk1")
@@ -273,19 +274,23 @@ theme_override_font_sizes/font_size = 10
 autowrap_mode = 3
 
 [node name="SeedPopup" type="PopupPanel" parent="."]
-
-[node name="MarginContainer" type="MarginContainer" parent="SeedPopup"]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 96.0
-offset_bottom = 96.0
+disable_3d = true
+size = Vector2i(97, 40)
 theme = ExtResource("4_6s3ou")
 
-[node name="SpinBox" type="SpinBox" parent="SeedPopup/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="SeedPopup"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 89.0
+offset_bottom = 32.0
+theme = ExtResource("4_6s3ou")
+
+[node name="LineEdit" type="LineEdit" parent="SeedPopup/MarginContainer"]
 layout_mode = 2
-min_value = -1.0
-max_value = 1e+08
-value = -1.0
+placeholder_text = "SEED"
+max_length = 8
+expand_to_text_length = true
+script = ExtResource("12_esh87")
 
 [node name="Katana" parent="." instance=ExtResource("12_trlvh")]
 position = Vector2(154, 116)
