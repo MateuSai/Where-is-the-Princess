@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bulr2mja0613k"
-path="res://.godot/imported/shield_icon_cursed.png-2b52f5ce39fdfb7568f0973f5423fa1d.ctex"
+uid="uid://y041q27aww38"
+path="res://.godot/imported/Where is the princess steam header small.png-b43546a7b48f3e3a5cd004fcc1b60e49.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/items/shield_icon_cursed.png"
-dest_files=["res://.godot/imported/shield_icon_cursed.png-2b52f5ce39fdfb7568f0973f5423fa1d.ctex"]
+source_file="res://Art/Where is the princess steam header small.png"
+dest_files=["res://.godot/imported/Where is the princess steam header small.png-b43546a7b48f3e3a5cd004fcc1b60e49.ctex"]
 
 [params]
 

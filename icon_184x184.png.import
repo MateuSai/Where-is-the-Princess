@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm4pn6w220743"
-path="res://.godot/imported/orbital_sword_icon_cursed.png-c091d15a1305903be84d7825a7df78c8.ctex"
+uid="uid://cc52b6ey8x1md"
+path="res://.godot/imported/icon_184x184.png-2c3215638812a5376adeca842034b062.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/items/orbital_sword_icon_cursed.png"
-dest_files=["res://.godot/imported/orbital_sword_icon_cursed.png-c091d15a1305903be84d7825a7df78c8.ctex"]
+source_file="res://icon_184x184.png"
+dest_files=["res://.godot/imported/icon_184x184.png-2c3215638812a5376adeca842034b062.ctex"]
 
 [params]
 

@@ -16,3 +16,6 @@ func disable(player: Player) -> void:
 
 func _on_room_closed() -> void:
 	_enable_effects()
+
+func get_description() -> String:
+	return "%s\n%s" % [tr("ON_ROOM_CLOSED"), super()]

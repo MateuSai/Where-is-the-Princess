@@ -1,13 +1,15 @@
 class_name HealPlayer extends ItemEffect
 
-var amount: int
+var _amount: int
 
-@warning_ignore("shadowed_variable")
 func _init(amount: int) -> void:
-    self.amount = amount
+	_amount = amount
 
 func enable(player: Player) -> void:
-    player.life_component.hp += amount
+	player.life_component.hp += _amount
 
 func disable(_player: Player) -> void:
-    pass
+	pass
+
+func get_description() -> String:
+	return _get_color_tag(GREEN if _amount > 0 else RED) % (tr("HEAL_PLAYER") % str(_amount))

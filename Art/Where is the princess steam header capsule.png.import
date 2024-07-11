@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cywydc1r75wd8"
-path="res://.godot/imported/Spike_icon_cursed.png-d53d3a51d56ae33f83261f0468f52f25.ctex"
+uid="uid://d1b37hf3vog56"
+path="res://.godot/imported/Where is the princess steam header capsule.png-c2420b7431ddcedb3f574f4cb5bb3f14.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/items/Spike_icon_cursed.png"
-dest_files=["res://.godot/imported/Spike_icon_cursed.png-d53d3a51d56ae33f83261f0468f52f25.ctex"]
+source_file="res://Art/Where is the princess steam header capsule.png"
+dest_files=["res://.godot/imported/Where is the princess steam header capsule.png-c2420b7431ddcedb3f574f4cb5bb3f14.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfnq7ocus0i3w"
-path="res://.godot/imported/shield_icon_metal_cursed.png-69c4b48e317463202980e4153c32c78c.ctex"
+uid="uid://bh6ac2mc63wau"
+path="res://.godot/imported/icon_32x32.png-78d77b7aa41cc5664768bc4527d5bc5d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/items/shield_icon_metal_cursed.png"
-dest_files=["res://.godot/imported/shield_icon_metal_cursed.png-69c4b48e317463202980e4153c32c78c.ctex"]
+source_file="res://Art/icon_32x32.png"
+dest_files=["res://.godot/imported/icon_32x32.png-78d77b7aa41cc5664768bc4527d5bc5d.ctex"]
 
 [params]
 
