@@ -1,7 +1,7 @@
 class_name StoneHeart extends PermanentPassiveItem
 
 func _init() -> void:
-	effects = [OnRoomCleared.new([HealPlayer.new(1)])]
+	effects = [OnRoomCleared.new([RepairArmor.new(1)])]
 
 func get_icon() -> Texture2D:
 	return load("res://Art/items/Stone_Hearth.png")
