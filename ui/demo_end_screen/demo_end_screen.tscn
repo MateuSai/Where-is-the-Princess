@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://0072ho2yk55l"]
+
+[ext_resource type="Script" path="res://ui/demo_end_screen/demo_end_screen.gd" id="1_apoxj"]
+[ext_resource type="FontFile" uid="uid://drbvct1q4mkwc" path="res://Fonts/Alkhemikal.ttf" id="1_cwg4c"]
+[ext_resource type="LabelSettings" uid="uid://gwgloxfvwiln" path="res://Fonts/credits_name_label_settings.tres" id="2_ep0rw"]
+
+[node name="DemoEndScreen" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
+script = ExtResource("1_apoxj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_cwg4c")
+theme_override_font_sizes/font_size = 32
+text = "THANKS_FOR_PLAYING"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "DEMO_END_MESSAGE"
+label_settings = ExtResource("2_ep0rw")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Label3" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "DEMO_END_MESSAGE_EXIT"
+label_settings = ExtResource("2_ep0rw")
+horizontal_alignment = 1
