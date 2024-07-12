@@ -4,7 +4,7 @@ const ARMOR_SHINE_EFFECT: PackedScene = preload ("res://ui/ArmorAbilityShineEffe
 
 #const START_AT_VALUE: int = 29
 
-var armor_condition_tween: Tween
+#var armor_condition_tween: Tween
 var armor_ability_tween: Tween
 
 var current_armor: Armor

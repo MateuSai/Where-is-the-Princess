@@ -44,13 +44,17 @@ var _set_hp: Callable = func(new_hp: int) -> void:
 	if hp == 0:
 		died.emit()
 
-@export var max_hp: int = 4
+@export var max_hp: int = 4:
+	set(new_max_hp):
+		max_hp = new_max_hp
+		max_hp_changed.emit(max_hp)
 @export var hp: int:
 	set(new_hp):
 		hp = clamp(new_hp, 0, max_hp)
 		_set_hp.call(new_hp)
 
 signal hp_changed(new_hp: int)
+signal max_hp_changed(new_max_hp: int)
 signal damage_taken(dam: int, dir: Vector2, force: int)
 signal died()
 
