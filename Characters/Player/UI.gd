@@ -24,7 +24,7 @@ func _ready() -> void:
 	#max_hp = player_life_component.max_hp
 	player_life_component.hp_changed.connect(_on_player_hp_changed)
 	#hearts.update_hearts(player_life_component.max_hp, player_life_component.max_hp)
-	armor_points.update_armor_points((get_parent() as Player).armor.condition)
+	armor_points.update_armor_points((get_parent() as Player).armor.condition, (get_parent() as Player).armor.max_condition)
 	(get_parent() as Player).armor_changed.connect(_on_armor_changed)
 	#_update_health_bar(100)
 
@@ -53,7 +53,7 @@ func _on_armor_changed(new_armor: Armor) -> void:
 	_on_armor_condition_changed(new_armor.condition)
 
 func _on_armor_condition_changed(new_ap: int) -> void:
-	armor_points.update_armor_points(new_ap)
+	armor_points.update_armor_points(new_ap, current_armor.max_condition)
 
 func _on_weapon_switched(prev_index: int, new_index: int) -> void:
 	inventory.get_child(prev_index).deselect()
