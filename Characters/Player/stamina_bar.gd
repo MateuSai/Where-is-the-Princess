@@ -10,10 +10,12 @@ const SCALE: float = 0.59
 func _ready() -> void:
 	update_timer.timeout.connect(_update)
 
-	player.max_stamina_changed.connect(func(new_value: float) -> void:
-		max_value=new_value
-		nine_patch.custom_minimum_size.x=max_value * SCALE
-	)
+	player.max_stamina_changed.connect(_on_max_stamina_changed)
+	_on_max_stamina_changed(100)
 
 func _update() -> void:
 	value = player.stamina
+
+func _on_max_stamina_changed(new_max_stamina: float) -> void:
+	max_value=new_max_stamina
+	nine_patch.custom_minimum_size.x=max_value * SCALE
