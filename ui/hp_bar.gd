@@ -1,6 +1,7 @@
 class_name HPBar extends TextureProgressBar
 
-const SCALE: float = 5
+const PIXELS_PER_HP: int = 4
+const BAR_SCALE: int = 10
 
 var _tween: Tween
 
@@ -20,8 +21,8 @@ func _on_hp_changed(new_hp: int) -> void:
 		_tween = create_tween()
 		#print(str(START_AT_VALUE + (new_condition/float(current_armor.max_condition))))
 		#print(str(START_AT_VALUE + (new_condition/float(current_armor.max_condition)) * (100 - START_AT_VALUE)))
-		_tween.tween_property(self, "value", new_hp, 0.8).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
+		_tween.tween_property(self, "value", new_hp * BAR_SCALE, 0.8).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
 
 func _on_max_hp_changed(new_max_hp: int) -> void:
-	max_value=new_max_hp
-	nine_patch.custom_minimum_size.x=max_value * SCALE
+	max_value = new_max_hp * BAR_SCALE
+	nine_patch.custom_minimum_size.x = new_max_hp * PIXELS_PER_HP
