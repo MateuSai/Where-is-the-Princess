@@ -429,10 +429,10 @@ func get_random_available_cursed_item_path(quality: Item.Quality=Item.Quality.CO
 	var possible_results: Array[String] = []
 
 	for item_path: String in get_available_cursed_items():
-			if run_stats.get_permanent_passive_items_ids().has((load(item_path).new() as PassiveItem).get_id()):
-				continue
-			if load(item_path).new().get_quality() == quality:
-				possible_results.push_back(item_path)
+		if run_stats.get_permanent_passive_items_ids().has((load(item_path).new() as PassiveItem).get_id().trim_suffix("_cursed")):
+			continue
+		if load(item_path).new().get_quality() == quality:
+			possible_results.push_back(item_path)
 
 	assert(not possible_results.is_empty())
 	possible_results.shuffle()
