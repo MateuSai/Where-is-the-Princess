@@ -52,5 +52,7 @@ frame_progress = 0.614669
 shape = SubResource("CircleShape2D_uyeip")
 
 [node name="CostHBox" parent="." index="3" instance=ExtResource("9_25hv1")]
-offset_top = -23.0
-offset_bottom = -7.0
+offset_left = -4.0
+offset_top = -19.0
+offset_right = 11.0
+offset_bottom = -3.0

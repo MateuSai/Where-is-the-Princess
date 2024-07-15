@@ -754,7 +754,12 @@ offset_bottom = 8.0
 texture = ExtResource("30_3leah")
 stretch_mode = 2
 
-[node name="PassiveItemsContainer" type="HFlowContainer" parent="UI/MarginContainer" index="1"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer" index="1"]
+layout_mode = 2
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_top = 30
+
+[node name="PassiveItemsContainer" type="HFlowContainer" parent="UI/MarginContainer/MarginContainer" index="0"]
 layout_mode = 2
 script = ExtResource("21_guiy0")
 
