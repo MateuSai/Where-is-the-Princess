@@ -235,7 +235,7 @@ func _on_weapon_condition_changed(weapon: Weapon, new_condition: float) -> void:
 		return
 
 	if new_condition <= 0:
-		_destroy_weapon()
+		call_deferred("_destroy_weapon")
 	else:
 		weapon_condition_changed.emit(weapon, new_condition)
 
