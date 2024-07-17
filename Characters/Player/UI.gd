@@ -10,7 +10,7 @@ var current_armor: Armor
 
 @onready var player_life_component: LifeComponent = get_node("../LifeComponent")
 
-#@onready var hearts: Hearts = %Hearts
+@onready var hearts: Hearts = %Hearts
 @onready var armor_points: ArmorPointsHBox = %ArmorPoints
 @onready var inventory: HBoxContainer = get_node("Inventory")
 @onready var armor_flash_effect: TextureRect = get_node("%ArmorFlashEffect")
@@ -23,7 +23,7 @@ func _ready() -> void:
 
 	#max_hp = player_life_component.max_hp
 	player_life_component.hp_changed.connect(_on_player_hp_changed)
-	#hearts.update_hearts(player_life_component.max_hp, player_life_component.max_hp)
+	hearts.update_hearts(player_life_component.max_hp, player_life_component.max_hp)
 	armor_points.update_armor_points((get_parent() as Player).armor.condition, (get_parent() as Player).armor.max_condition)
 	(get_parent() as Player).armor_changed.connect(_on_armor_changed)
 	#_update_health_bar(100)
@@ -34,7 +34,7 @@ func _ready() -> void:
 
 func _on_player_hp_changed(new_hp: int) -> void:
 	pass
-	#hearts.update_hearts(player_life_component.max_hp, new_hp)
+	hearts.update_hearts(player_life_component.max_hp, new_hp)
 #	var new_health: int = int((100 - MIN_HEALTH) * float(new_hp) / max_hp) + MIN_HEALTH
 #	_update_health_bar(new_health)
 

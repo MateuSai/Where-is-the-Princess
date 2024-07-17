@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=71 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -37,6 +37,7 @@
 [ext_resource type="Texture2D" uid="uid://fpk5xougfcxn" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_flashy_effect_icon.png" id="25_2pwsl"]
 [ext_resource type="Script" path="res://Characters/Player/stamina_bar.gd" id="25_22fjy"]
 [ext_resource type="Script" path="res://ui/hp_bar.gd" id="25_nliu5"]
+[ext_resource type="Script" path="res://ui/Hearts.gd" id="27_fqbvh"]
 [ext_resource type="Script" path="res://Characters/Player/AutoAimArea.gd" id="28_r7ct4"]
 [ext_resource type="Texture2D" uid="uid://c4bb7gdek1j4d" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/stamina_icon_red.png" id="30_3leah"]
 [ext_resource type="AudioStream" uid="uid://dhift2qs6kcl5" path="res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Equipement (menu)/ArmorLeatherMetal1.wav" id="33_3bfpk"]
@@ -616,7 +617,7 @@ theme_override_constants/margin_top = 4
 
 [node name="ArmorAndStaminaVBox" type="VBoxContainer" parent="UI/MarginContainer" index="0"]
 layout_mode = 2
-theme_override_constants/separation = -13
+theme_override_constants/separation = -26
 
 [node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/ArmorAndStaminaVBox" index="0"]
 layout_mode = 2
@@ -656,6 +657,7 @@ layout_mode = 2
 theme_override_constants/separation = -4
 
 [node name="MarginContainer2" type="MarginContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer" index="0"]
+visible = false
 z_index = 1
 layout_mode = 2
 size_flags_horizontal = 0
@@ -693,17 +695,36 @@ stretch_margin_right = 2
 texture_progress = ExtResource("24_1o4le")
 script = ExtResource("25_nliu5")
 
-[node name="ArmorPoints" type="HBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer2/HealthNinePatch" index="1"]
+[node name="MarginContainer3" type="MarginContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer" index="1"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+theme_override_constants/margin_left = 24
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer3" index="0"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer3/PanelContainer" index="0"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 3
+
+[node name="HFlowContainer" type="VBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer3/PanelContainer/MarginContainer" index="0"]
+layout_mode = 2
+theme_override_constants/separation = 1
+alignment = 2
+
+[node name="ArmorPoints" type="HBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer3/PanelContainer/MarginContainer/HFlowContainer" index="0"]
 unique_name_in_owner = true
 layout_mode = 2
-offset_left = 11.0
-offset_top = -5.0
-offset_right = 114.0
-offset_bottom = -5.0
 theme_override_constants/separation = -1
 script = ExtResource("24_cwrvi")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer" index="1"]
+[node name="Hearts" type="HBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer3/PanelContainer/MarginContainer/HFlowContainer" index="1"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+script = ExtResource("27_fqbvh")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer" index="2"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/margin_left = 12
@@ -754,7 +775,12 @@ offset_bottom = 8.0
 texture = ExtResource("30_3leah")
 stretch_mode = 2
 
-[node name="PassiveItemsContainer" type="HFlowContainer" parent="UI/MarginContainer" index="1"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer" index="1"]
+layout_mode = 2
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_top = 30
+
+[node name="PassiveItemsContainer" type="HFlowContainer" parent="UI/MarginContainer/MarginContainer" index="0"]
 layout_mode = 2
 script = ExtResource("21_guiy0")
 

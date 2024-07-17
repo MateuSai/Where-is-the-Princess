@@ -414,9 +414,14 @@ func get_available_player_upgrades_paths() -> PackedStringArray:
 func get_random_available_item_path(quality: Item.Quality=Item.Quality.COMMON) -> String:
 	var possible_results: Array[String] = []
 
+	var equipped_permanent_items_ids: Array = Array(run_stats.get_permanent_passive_items_ids()).map(func(id: String) -> String:
+		return id.trim_suffix("_cursed")
+	)
+
 	for item_path_array: PackedStringArray in [get_available_temporal_item_paths(), get_available_permanent_item_paths()]:
 		for item_path: String in item_path_array:
-			if run_stats.get_permanent_passive_items_ids().has((load(item_path).new() as PassiveItem).get_id()):
+			var item_id: String = (load(item_path).new() as PassiveItem).get_id()
+			if equipped_permanent_items_ids.has(item_id) or _get_chests_item_ids().map(func(id: String) -> String: return id.trim_suffix("_cursed")).has(item_id):
 				continue
 			if load(item_path).new().get_quality() == quality:
 				possible_results.push_back(item_path)
@@ -428,8 +433,13 @@ func get_random_available_item_path(quality: Item.Quality=Item.Quality.COMMON) -
 func get_random_available_cursed_item_path(quality: Item.Quality=Item.Quality.COMMON) -> String:
 	var possible_results: Array[String] = []
 
+	var equipped_permanent_items_ids: Array = Array(run_stats.get_permanent_passive_items_ids()).map(func(id: String) -> String:
+		return id.trim_suffix("_cursed")
+	)
+
 	for item_path: String in get_available_cursed_items():
-		if run_stats.get_permanent_passive_items_ids().has((load(item_path).new() as PassiveItem).get_id().trim_suffix("_cursed")):
+		var item_id: String = (load(item_path).new() as PassiveItem).get_id().trim_suffix("_cursed")
+		if equipped_permanent_items_ids.has(item_id) or _get_chests_item_ids().map(func(id: String) -> String: return id.trim_suffix("_cursed")).has(item_id):
 			continue
 		if load(item_path).new().get_quality() == quality:
 			possible_results.push_back(item_path)
@@ -437,6 +447,14 @@ func get_random_available_cursed_item_path(quality: Item.Quality=Item.Quality.CO
 	assert(not possible_results.is_empty())
 	possible_results.shuffle()
 	return possible_results[0]
+
+func _get_chests_item_ids() -> Array[String]:
+	var arr: Array[String] = []
+
+	for chest: Chest in get_tree().get_nodes_in_group("chests"):
+		arr.push_back(chest.item_path.get_basename().get_file().to_snake_case())
+
+	return arr
 
 func get_limit_entrance_connections_to_one() -> bool:
 	if biome_conf.levels.size() >= run_stats.level:

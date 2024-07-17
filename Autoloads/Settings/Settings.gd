@@ -11,7 +11,7 @@ var settings: ConfigFile = null
 
 var damage_numbers: bool:
 	get:
-		return settings.get_value(GENERAL_SECTION, "damage_numbers", true)
+		return settings.get_value(GENERAL_SECTION, "damage_numbers", false)
 	set(new_value):
 		settings.set_value(GENERAL_SECTION, "damage_numbers", new_value)
 		damage_numbers_changed.emit(new_value)

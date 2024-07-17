@@ -34,10 +34,10 @@ func get_level_seed() -> int:
 
 func add_permanent_passive_item(item: PermanentPassiveItem) -> void:
 	assert(not _permanent_passive_items.has(item))
-	assert(not _permanent_passive_items_ids.has(item.get_id().trim_suffix("_cursed")))
+	assert(not Array(_permanent_passive_items_ids).map(func(id: String) -> String: return id.trim_suffix("_cursed")).has(item.get_id().trim_suffix("_cursed")))
 
 	_permanent_passive_items.push_back(item)
-	_permanent_passive_items_ids.push_back(item.get_id().trim_suffix("_cursed"))
+	_permanent_passive_items_ids.push_back(item.get_id())
 
 func remove_permanent_passive_item(item: PermanentPassiveItem) -> void:
 	_permanent_passive_items.erase(item)
