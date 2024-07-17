@@ -46,6 +46,9 @@ func unequip(player: Player) -> void:
 	for effect: ItemEffect in effects:
 		effect.disable(player)
 
+func has_ability() -> bool:
+	return ability_icon != null
+
 func enable_ability_effect(_player: Player) -> void:
 	pass
 
