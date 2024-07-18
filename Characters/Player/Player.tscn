@@ -617,8 +617,8 @@ script = ExtResource("16_pcr8i")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI" index="2"]
 texture_filter = 1
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 49.0
+offset_bottom = 34.0
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 4
 
@@ -706,6 +706,7 @@ script = ExtResource("25_nliu5")
 z_index = -1
 custom_minimum_size = Vector2(0, 21)
 layout_mode = 2
+size_flags_horizontal = 0
 theme_override_constants/margin_left = 13
 theme_override_constants/margin_top = 1
 theme_override_constants/margin_bottom = 0
