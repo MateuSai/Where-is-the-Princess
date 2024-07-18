@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://dftvfv1jceskv"]
+[gd_scene load_steps=73 format=3 uid="uid://dftvfv1jceskv"]
 
 [ext_resource type="PackedScene" uid="uid://bheousdjxqa14" path="res://Characters/Character.tscn" id="1"]
 [ext_resource type="Script" path="res://Characters/Player/Player.gd" id="4"]
@@ -38,6 +38,7 @@
 [ext_resource type="Script" path="res://Characters/Player/stamina_bar.gd" id="25_22fjy"]
 [ext_resource type="Script" path="res://ui/hp_bar.gd" id="25_nliu5"]
 [ext_resource type="Script" path="res://ui/Hearts.gd" id="27_fqbvh"]
+[ext_resource type="Texture2D" uid="uid://d1hnt3rgda8lr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor-Health_UI_background.png" id="27_nvj60"]
 [ext_resource type="Script" path="res://Characters/Player/AutoAimArea.gd" id="28_r7ct4"]
 [ext_resource type="Texture2D" uid="uid://c4bb7gdek1j4d" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/stamina_icon_red.png" id="30_3leah"]
 [ext_resource type="AudioStream" uid="uid://dhift2qs6kcl5" path="res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Equipement (menu)/ArmorLeatherMetal1.wav" id="33_3bfpk"]
@@ -497,6 +498,12 @@ _data = {
 "flash": SubResource("Animation_qhjba")
 }
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wp8od"]
+texture = ExtResource("27_nvj60")
+texture_margin_top = 3.0
+texture_margin_right = 13.0
+texture_margin_bottom = 3.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_cevl8"]
 radius = 230.054
 
@@ -610,8 +617,8 @@ script = ExtResource("16_pcr8i")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI" index="2"]
 texture_filter = 1
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 49.0
+offset_bottom = 34.0
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 4
 
@@ -654,7 +661,7 @@ libraries = {
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox" index="1"]
 layout_mode = 2
-theme_override_constants/separation = -4
+theme_override_constants/separation = -1
 
 [node name="MarginContainer2" type="MarginContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer" index="0"]
 visible = false
@@ -696,30 +703,39 @@ texture_progress = ExtResource("24_1o4le")
 script = ExtResource("25_nliu5")
 
 [node name="MarginContainer3" type="MarginContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer" index="1"]
-custom_minimum_size = Vector2(0, 24)
+z_index = -1
+custom_minimum_size = Vector2(0, 21)
 layout_mode = 2
-theme_override_constants/margin_left = 24
+size_flags_horizontal = 0
+theme_override_constants/margin_left = 13
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_bottom = 0
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer3" index="0"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_wp8od")
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer3/PanelContainer" index="0"]
 layout_mode = 2
-theme_override_constants/margin_bottom = 3
+theme_override_constants/margin_left = 11
+theme_override_constants/margin_top = -7
+theme_override_constants/margin_bottom = -7
 
 [node name="HFlowContainer" type="VBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer3/PanelContainer/MarginContainer" index="0"]
 layout_mode = 2
-theme_override_constants/separation = 1
+size_flags_vertical = 4
+theme_override_constants/separation = 0
 alignment = 2
 
 [node name="ArmorPoints" type="HBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer3/PanelContainer/MarginContainer/HFlowContainer" index="0"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_constants/separation = -1
+theme_override_constants/separation = 0
 script = ExtResource("24_cwrvi")
 
 [node name="Hearts" type="HBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer3/PanelContainer/MarginContainer/HFlowContainer" index="1"]
 unique_name_in_owner = true
+z_index = 2
 layout_mode = 2
 theme_override_constants/separation = 0
 script = ExtResource("27_fqbvh")

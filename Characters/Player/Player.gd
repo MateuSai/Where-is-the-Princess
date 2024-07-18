@@ -304,9 +304,9 @@ func get_input() -> void:
 		mov_direction.y -= Input.get_action_strength("ui_move_up")
 
 	if Input.is_action_just_pressed("ui_dash") and stamina > 0 and not jump_animation_player.is_playing() and dash_timer.is_stopped() and not (mov_direction.is_equal_approx(Vector2.ZERO) and not armor is Underpants):
-		_dash()
+		_dash_or_jump()
 
-	if Input.is_action_just_pressed("ui_armor_ability") and armor.is_able_to_use_ability:
+	if Input.is_action_just_pressed("ui_armor_ability") and armor.has_ability() and armor.is_able_to_use_ability:
 		_use_armor_ability()
 
 func add_coin(amount: int=1) -> void:
@@ -449,20 +449,20 @@ func jump() -> void:
 	position_before_jumping = position
 	jump_animation_player.play("jump")
 
-func _dash(dash_time: float=DASH_TIME) -> void:
+func _dash_or_jump() -> void:
 	consume_stamina(dash_stamina_cost)
 
-	#if armor is Underpants:
-	#	dash_cooldown_timer.start()
-	#	jump()
-	#else:
-	super(dash_time)
+	if armor is Underpants:
+		dash_cooldown_timer.start()
+		jump()
+	else:
+		_dash(DASH_TIME)
 
 	dashed.emit(DASH_TIME)
 
-func _jump() -> void:
-	dash_cooldown_timer.start()
-	jump()
+#func _jump() -> void:
+#	dash_cooldown_timer.start()
+#	jump()
 
 func add_rotating_item(node: Node2D) -> void:
 	add_child(node)

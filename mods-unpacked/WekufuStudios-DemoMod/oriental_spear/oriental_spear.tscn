@@ -14,7 +14,7 @@ shader_parameter/active = false
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kqjqc"]
 radius = 3.0
-height = 14.0
+height = 24.165
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ff3xx"]
 radius = 3.53154
@@ -160,7 +160,7 @@ texture = ExtResource("5_qb461")
 offset = Vector2(0, -2)
 
 [node name="CollisionShape2D" parent="Node2D/WeaponSprite/Hitbox" index="0"]
-position = Vector2(-0.468421, -11.1131)
+position = Vector2(-0.300493, -5.37677)
 shape = SubResource("CapsuleShape2D_kqjqc")
 
 [node name="CollisionShape2D" parent="Node2D/WeaponSprite/PlayerDetector" index="0"]
