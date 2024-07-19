@@ -500,6 +500,7 @@ _data = {
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wp8od"]
 texture = ExtResource("27_nvj60")
+texture_margin_left = 12.0
 texture_margin_top = 3.0
 texture_margin_right = 13.0
 texture_margin_bottom = 3.0
@@ -622,16 +623,13 @@ offset_bottom = 34.0
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 4
 
-[node name="ArmorAndStaminaVBox" type="VBoxContainer" parent="UI/MarginContainer" index="0"]
-layout_mode = 2
-theme_override_constants/separation = -26
-
-[node name="TextureRect" type="TextureRect" parent="UI/MarginContainer/ArmorAndStaminaVBox" index="0"]
+[node name="TextureRect" type="TextureRect" parent="UI/MarginContainer" index="0"]
 layout_mode = 2
 size_flags_horizontal = 0
+size_flags_vertical = 0
 texture = ExtResource("20_fk07g")
 
-[node name="ArmorAbilityBar" type="TextureProgressBar" parent="UI/MarginContainer/ArmorAndStaminaVBox/TextureRect" index="0"]
+[node name="ArmorAbilityBar" type="TextureProgressBar" parent="UI/MarginContainer/TextureRect" index="0"]
 layout_mode = 2
 offset_left = 3.0
 offset_top = 3.0
@@ -645,7 +643,7 @@ texture_progress = ExtResource("19_bc3n7")
 tint_under = Color(0.411765, 0.411765, 0.411765, 1)
 script = ExtResource("22_ek7ee")
 
-[node name="ArmorFlashEffect" type="TextureRect" parent="UI/MarginContainer/ArmorAndStaminaVBox/TextureRect/ArmorAbilityBar" index="0"]
+[node name="ArmorFlashEffect" type="TextureRect" parent="UI/MarginContainer/TextureRect/ArmorAbilityBar" index="0"]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
@@ -654,23 +652,23 @@ offset_bottom = 19.0
 texture = ExtResource("25_2pwsl")
 stretch_mode = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/MarginContainer/ArmorAndStaminaVBox/TextureRect/ArmorAbilityBar/ArmorFlashEffect" index="0"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/MarginContainer/TextureRect/ArmorAbilityBar/ArmorFlashEffect" index="0"]
 libraries = {
 "": SubResource("AnimationLibrary_ir7fk")
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox" index="1"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer" index="1"]
 layout_mode = 2
 theme_override_constants/separation = -1
 
-[node name="MarginContainer2" type="MarginContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer" index="0"]
+[node name="MarginContainer2" type="MarginContainer" parent="UI/MarginContainer/VBoxContainer" index="0"]
 visible = false
 z_index = 1
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_constants/margin_left = 19
 
-[node name="HealthNinePatch" type="NinePatchRect" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer2" index="0"]
+[node name="HealthNinePatch" type="NinePatchRect" parent="UI/MarginContainer/VBoxContainer/MarginContainer2" index="0"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 11)
 layout_mode = 2
@@ -680,7 +678,7 @@ patch_margin_top = 3
 patch_margin_right = 9
 patch_margin_bottom = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer2/HealthNinePatch" index="0"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/VBoxContainer/MarginContainer2/HealthNinePatch" index="0"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -692,7 +690,7 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 6
 
-[node name="HPBar" type="TextureProgressBar" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer2/HealthNinePatch/MarginContainer" index="0"]
+[node name="HPBar" type="TextureProgressBar" parent="UI/MarginContainer/VBoxContainer/MarginContainer2/HealthNinePatch/MarginContainer" index="0"]
 unique_name_in_owner = true
 layout_mode = 2
 value = 100.0
@@ -702,7 +700,7 @@ stretch_margin_right = 2
 texture_progress = ExtResource("24_1o4le")
 script = ExtResource("25_nliu5")
 
-[node name="MarginContainer3" type="MarginContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer" index="1"]
+[node name="MarginContainer3" type="MarginContainer" parent="UI/MarginContainer/VBoxContainer" index="1"]
 z_index = -1
 custom_minimum_size = Vector2(0, 21)
 layout_mode = 2
@@ -711,41 +709,41 @@ theme_override_constants/margin_left = 13
 theme_override_constants/margin_top = 1
 theme_override_constants/margin_bottom = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer3" index="0"]
+[node name="PanelContainer" type="PanelContainer" parent="UI/MarginContainer/VBoxContainer/MarginContainer3" index="0"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_wp8od")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer3/PanelContainer" index="0"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/VBoxContainer/MarginContainer3/PanelContainer" index="0"]
 layout_mode = 2
-theme_override_constants/margin_left = 11
+theme_override_constants/margin_left = -1
 theme_override_constants/margin_top = -7
 theme_override_constants/margin_bottom = -7
 
-[node name="HFlowContainer" type="VBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer3/PanelContainer/MarginContainer" index="0"]
+[node name="HFlowContainer" type="VBoxContainer" parent="UI/MarginContainer/VBoxContainer/MarginContainer3/PanelContainer/MarginContainer" index="0"]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 0
 alignment = 2
 
-[node name="ArmorPoints" type="HBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer3/PanelContainer/MarginContainer/HFlowContainer" index="0"]
+[node name="ArmorPoints" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer/MarginContainer3/PanelContainer/MarginContainer/HFlowContainer" index="0"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 script = ExtResource("24_cwrvi")
 
-[node name="Hearts" type="HBoxContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer3/PanelContainer/MarginContainer/HFlowContainer" index="1"]
+[node name="Hearts" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer/MarginContainer3/PanelContainer/MarginContainer/HFlowContainer" index="1"]
 unique_name_in_owner = true
 z_index = 2
 layout_mode = 2
 theme_override_constants/separation = 0
 script = ExtResource("27_fqbvh")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer" index="2"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/VBoxContainer" index="2"]
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_constants/margin_left = 12
+theme_override_constants/margin_left = 11
 
-[node name="StaminaNinePatch" type="NinePatchRect" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer" index="0"]
+[node name="StaminaNinePatch" type="NinePatchRect" parent="UI/MarginContainer/VBoxContainer/MarginContainer" index="0"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(20, 11)
 layout_mode = 2
@@ -755,7 +753,7 @@ patch_margin_top = 3
 patch_margin_right = 9
 patch_margin_bottom = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer/StaminaNinePatch" index="0"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/VBoxContainer/MarginContainer/StaminaNinePatch" index="0"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -767,7 +765,7 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 6
 
-[node name="StaminaBar" type="TextureProgressBar" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer/StaminaNinePatch/MarginContainer" index="0"]
+[node name="StaminaBar" type="TextureProgressBar" parent="UI/MarginContainer/VBoxContainer/MarginContainer/StaminaNinePatch/MarginContainer" index="0"]
 unique_name_in_owner = true
 layout_mode = 2
 value = 100.0
@@ -777,11 +775,11 @@ stretch_margin_right = 2
 texture_progress = ExtResource("24_yneg1")
 script = ExtResource("25_22fjy")
 
-[node name="UpdateTimer" type="Timer" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer/StaminaNinePatch/MarginContainer/StaminaBar" index="0"]
+[node name="UpdateTimer" type="Timer" parent="UI/MarginContainer/VBoxContainer/MarginContainer/StaminaNinePatch/MarginContainer/StaminaBar" index="0"]
 wait_time = 0.05
 autostart = true
 
-[node name="StaminaIconRed" type="TextureRect" parent="UI/MarginContainer/ArmorAndStaminaVBox/VBoxContainer/MarginContainer/StaminaNinePatch" index="1"]
+[node name="StaminaIconRed" type="TextureRect" parent="UI/MarginContainer/VBoxContainer/MarginContainer/StaminaNinePatch" index="1"]
 unique_name_in_owner = true
 layout_mode = 0
 offset_left = 2.0
@@ -791,7 +789,7 @@ offset_bottom = 8.0
 texture = ExtResource("30_3leah")
 stretch_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer" index="1"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer" index="2"]
 layout_mode = 2
 theme_override_constants/margin_left = 7
 theme_override_constants/margin_top = 30

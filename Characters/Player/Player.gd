@@ -452,17 +452,17 @@ func jump() -> void:
 func _dash_or_jump() -> void:
 	consume_stamina(dash_stamina_cost)
 
-	if armor is Underpants:
-		dash_cooldown_timer.start()
-		jump()
-	else:
-		_dash(DASH_TIME)
+	#if armor is Underpants:
+	#	dash_cooldown_timer.start()
+	#	jump()
+	#else:
+	_dash(DASH_TIME)
 
 	dashed.emit(DASH_TIME)
 
-#func _jump() -> void:
-#	dash_cooldown_timer.start()
-#	jump()
+func _jump() -> void:
+	dash_cooldown_timer.start()
+	jump()
 
 func add_rotating_item(node: Node2D) -> void:
 	add_child(node)
