@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://v3jtev4p0oc1"]
+[gd_scene load_steps=25 format=3 uid="uid://v3jtev4p0oc1"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_1vw2o"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="2_0esmo"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/move_to_target.gd" id="6_3jcwy"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_close_to_target.gd" id="6_p3kmq"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/decorators/inverter.gd" id="9_7qwsh"]
+[ext_resource type="Script" path="res://Characters/ai/decorators/cooldown_process_timer_decorator.gd" id="11_cx8ic"]
 [ext_resource type="Texture2D" uid="uid://clndft42swoqj" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Ravens/Raven.png" id="12_5c577"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="13_70023"]
 
@@ -81,6 +82,24 @@ tracks/0/keys = {
 "values": [5, 6, 7, 8, 9]
 }
 
+[sub_resource type="Animation" id="Animation_rvvov"]
+resource_name = "move"
+length = 0.75
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [15, 16, 17, 18, 19]
+}
+
 [sub_resource type="Animation" id="Animation_g4sia"]
 resource_name = "move_left"
 length = 0.75
@@ -141,24 +160,6 @@ tracks/1/keys = {
 "values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_rvvov"]
-resource_name = "move"
-length = 0.75
-loop_mode = 1
-step = 0.15
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [15, 16, 17, 18, 19]
-}
-
 [sub_resource type="Animation" id="Animation_ahxmm"]
 resource_name = "move_up"
 length = 0.75
@@ -194,7 +195,7 @@ metadata/_edit_lock_ = true
 
 [node name="Crow" type="Node" parent="." index="1" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("2_0esmo")
-blackboard = NodePath("@Node@19444")
+blackboard = NodePath("@Node@26617")
 actor = NodePath("..")
 
 [node name="SimpleParallelComposite" type="Node" parent="Crow" index="0"]
@@ -236,10 +237,25 @@ script = ExtResource("5_8tjfy")
 script = ExtResource("6_3jcwy")
 time_limit = 0.2
 
-[node name="CircleTarget" type="Node" parent="Crow/SimpleParallelComposite/SelectorComposite" index="2"]
+[node name="CooldownProcessTimerDecorator" type="Node" parent="Crow/SimpleParallelComposite/SelectorComposite" index="2"]
+script = ExtResource("11_cx8ic")
+wait_time = 3.0
+
+[node name="SequenceComposite" type="Node" parent="Crow/SimpleParallelComposite/SelectorComposite/CooldownProcessTimerDecorator" index="0"]
+script = ExtResource("4_dd6uh")
+
+[node name="SetPathfindingMode" type="Node" parent="Crow/SimpleParallelComposite/SelectorComposite/CooldownProcessTimerDecorator/SequenceComposite" index="0"]
+script = ExtResource("5_8tjfy")
+
+[node name="MoveToTarget" type="Node" parent="Crow/SimpleParallelComposite/SelectorComposite/CooldownProcessTimerDecorator/SequenceComposite" index="1"]
+script = ExtResource("6_3jcwy")
+closer_than = 2
+
+[node name="CircleTarget" type="Node" parent="Crow/SimpleParallelComposite/SelectorComposite" index="3"]
 script = ExtResource("4_y5hms")
 close_limit = 8.0
 far_limit = 64.0
+time_limit = 0.5
 
 [node name="UpdateAnimationAccordingToMovdirection" type="Node" parent="Crow/SimpleParallelComposite" index="1"]
 script = ExtResource("4_2w8ej")

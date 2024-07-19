@@ -7,6 +7,8 @@ var projectile_speed: int:
 	get:
 		return character.projectile_speed
 
+@export var spread_rad: float = 0.0
+
 const FLAG_PREDICT_TRAJECTORY: int = 1
 const FLAG_REDUCE_PRECISION_WHEN_MOVING: int = 2
 @export_flags("Predict trajectory", "Reduce precision when moving") var flags: int = 0
@@ -21,35 +23,36 @@ func get_dir(from: Vector2 = Vector2.ZERO) -> AimResult:
 	if from == Vector2.ZERO:
 		from = character.global_position
 
-	# So it does not go crazy when near to target
+	# So it does not go crazy when near to target FIXME
 	#Log.debug(character.id + ": from = " + str(from) + "  target_global_pos = " + str(target.global_position))
 	if (target.global_position - from).length() < 20:
-		return AimResult.new((target.global_position - character.global_position).normalized(), false)
-
-	if flags & FLAG_PREDICT_TRAJECTORY:
-		#var vector_to_target: Vector2 = (target.global_position - from)
-		#var projectile_time_to_target: float = vector_to_target.length() / projectile_speed
-		#var target_predicted_future_position: Vector2 = target.global_position + target.velocity * projectile_time_to_target
-		var intersection_point_res: Dictionary = _get_intersection_point(from, target.global_position, projectile_speed, target.velocity)
-		var predicted_position: Vector2 = intersection_point_res.result if intersection_point_res.solution else target.global_position
-		#assert(target.mov_direction.length() <= 1)
-		#var predicted_dir: Vector2 = (target.global_position * target.data.max_speed * target.mov_direction) / (from * projectile_speed)
-		#print_debug(predicted_dir)
-
-		var space_state: PhysicsDirectSpaceState2D = character.get_world_2d().direct_space_state
-		# use global coordinates, not local to node
-		var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(target.global_position, predicted_position, 1 + 16)
-		var raycast_res: Dictionary = space_state.intersect_ray(query)
-		if not raycast_res.is_empty():
-			predicted_position = raycast_res.position + (target.global_position - raycast_res.position).normalized() * 4
-		res = AimResult.new((predicted_position - from).normalized(), _is_trajectory_clear(from, predicted_position))
+		res =  AimResult.new((target.global_position - character.global_position).normalized(), false)
 	else:
-		res = AimResult.new((target.global_position - from).normalized(), _is_trajectory_clear(from, target.global_position))
+		if flags & FLAG_PREDICT_TRAJECTORY:
+			#var vector_to_target: Vector2 = (target.global_position - from)
+			#var projectile_time_to_target: float = vector_to_target.length() / projectile_speed
+			#var target_predicted_future_position: Vector2 = target.global_position + target.velocity * projectile_time_to_target
+			var intersection_point_res: Dictionary = _get_intersection_point(from, target.global_position, projectile_speed, target.velocity)
+			var predicted_position: Vector2 = intersection_point_res.result if intersection_point_res.solution else target.global_position
+			#assert(target.mov_direction.length() <= 1)
+			#var predicted_dir: Vector2 = (target.global_position * target.data.max_speed * target.mov_direction) / (from * projectile_speed)
+			#print_debug(predicted_dir)
 
-	if flags & FLAG_REDUCE_PRECISION_WHEN_MOVING and character.velocity.length() > 10:
-		res.dir = res.dir.rotated(randf_range(-0.2, 0.2))
+			var space_state: PhysicsDirectSpaceState2D = character.get_world_2d().direct_space_state
+			# use global coordinates, not local to node
+			var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(target.global_position, predicted_position, 1 + 16)
+			var raycast_res: Dictionary = space_state.intersect_ray(query)
+			if not raycast_res.is_empty():
+				predicted_position = raycast_res.position + (target.global_position - raycast_res.position).normalized() * 4
+			res = AimResult.new((predicted_position - from).normalized(), _is_trajectory_clear(from, predicted_position))
+		else:
+			res = AimResult.new((target.global_position - from).normalized(), _is_trajectory_clear(from, target.global_position))
 
-	#res.make_read_only()
+		if flags & FLAG_REDUCE_PRECISION_WHEN_MOVING and character.velocity.length() > 10:
+			res.dir = res.dir.rotated(randf_range(-0.2, 0.2))
+
+	res.dir = res.dir.rotated(randf_range(-spread_rad, spread_rad))
+
 	return res
 
 
@@ -86,6 +89,9 @@ func _get_intersection_point(a: Vector2, b: Vector2, a_speed: float, b_velocity:
 		"solution": true,
 		"result": c
 	}
+
+func remove_flag(flag: int) -> void:
+	flags &= ~flag
 
 
 
