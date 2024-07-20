@@ -171,7 +171,10 @@ closer_than = 100
 [node name="IsWeaponBusy" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SelectorComposite/SequenceComposite/SimpleParallelComposite/SelectorComposite/SequenceComposite" index="1"]
 script = ExtResource("11_0k1bv")
 
-[node name="WeaponNormalAttack" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SelectorComposite/SequenceComposite/SimpleParallelComposite/SelectorComposite/SequenceComposite" index="2"]
+[node name="WeaponCharge" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SelectorComposite/SequenceComposite/SimpleParallelComposite/SelectorComposite/SequenceComposite" index="2"]
+script = ExtResource("16_qgpc1")
+
+[node name="WeaponNormalAttack" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SelectorComposite/SequenceComposite/SimpleParallelComposite/SelectorComposite/SequenceComposite" index="3"]
 script = ExtResource("12_jdnci")
 
 [node name="SequenceComposite2" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SelectorComposite/SequenceComposite/SimpleParallelComposite/SelectorComposite" index="2"]
