@@ -26,7 +26,7 @@ func _bow_attack(charge: float) -> void:
 
 	projectile_speed = int(data.normal_attack_projectile_speed * clamp((charge), 0.2, 1.0)) # The speed is truncated, a difference of 1 is very small anyway
 	Log.debug("_bow_attack projectile_speed: " + str(projectile_speed))
-	
+
 	assert(get_current_animation().begins_with("attack"))
 	await animation_player.animation_finished # We wait until attack animation is finished
 

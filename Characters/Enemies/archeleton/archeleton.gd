@@ -33,6 +33,8 @@ func _ready() -> void:
 	#arrow.launch(bow_sprite.global_position, Vector2.RIGHT.rotated(bow_container.rotation), projectile_speed, true)
 
 func _remove_head(dam: int, dir: Vector2, force: int) -> void:
+	data.max_speed *= 0.3
+
 	has_head = false
 	sprite.texture = NO_HEAD_SPRITESHEET
 	aim_component.mode = aim_component.RANDOM_AIM

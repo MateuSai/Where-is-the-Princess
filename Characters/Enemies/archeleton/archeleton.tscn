@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cqy53jjsoth3u"]
+[gd_scene load_steps=29 format=3 uid="uid://cqy53jjsoth3u"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_3xxis"]
 [ext_resource type="Script" path="res://Characters/Enemies/archeleton/archeleton.gd" id="2_20lfo"]
@@ -17,8 +17,9 @@
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/move_to_target.gd" id="10_cc512"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_weapon_busy.gd" id="11_0k1bv"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/weapon_attack.gd" id="12_jdnci"]
-[ext_resource type="Script" path="res://Characters/ai/leafs/actions/update_animation_according_to_weapon_dir.gd" id="15_hvt8g"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/repeater.gd" id="15_upf0l"]
 [ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="16_cp86x"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/weapon_charge.gd" id="16_qgpc1"]
 [ext_resource type="PackedScene" uid="uid://ctwdicf0i0c4x" path="res://Weapons/Ranged/Bows/short_wooden_bow/short_wooden_bow.tscn" id="17_hlfjy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j6xc1"]
@@ -192,17 +193,37 @@ script = ExtResource("7_kn5ma")
 [node name="SimpleParallelComposite" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SelectorComposite" index="1"]
 script = ExtResource("5_5e754")
 
-[node name="SequenceComposite" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SelectorComposite/SimpleParallelComposite" index="0"]
+[node name="SimpleParallelComposite" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SelectorComposite/SimpleParallelComposite" index="0"]
+script = ExtResource("5_5e754")
+
+[node name="SequenceComposite2" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SelectorComposite/SimpleParallelComposite/SimpleParallelComposite" index="0"]
 script = ExtResource("7_7a01w")
 
-[node name="IsWeaponBusy" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SelectorComposite/SimpleParallelComposite/SequenceComposite" index="0"]
+[node name="SetPathfindingMode" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SelectorComposite/SimpleParallelComposite/SimpleParallelComposite/SequenceComposite2" index="0"]
+script = ExtResource("9_kjj0o")
+mode = 3
+
+[node name="RepeaterDecorator" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SelectorComposite/SimpleParallelComposite/SimpleParallelComposite/SequenceComposite2" index="1"]
+script = ExtResource("15_upf0l")
+repetitions = 200
+
+[node name="SequenceComposite" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SelectorComposite/SimpleParallelComposite/SimpleParallelComposite/SequenceComposite2/RepeaterDecorator" index="0"]
+script = ExtResource("7_7a01w")
+
+[node name="IsWeaponBusy" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SelectorComposite/SimpleParallelComposite/SimpleParallelComposite/SequenceComposite2/RepeaterDecorator/SequenceComposite" index="0"]
 script = ExtResource("11_0k1bv")
 
-[node name="WeaponNormalAttack" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SelectorComposite/SimpleParallelComposite/SequenceComposite" index="1"]
+[node name="WeaponCharge" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SelectorComposite/SimpleParallelComposite/SimpleParallelComposite/SequenceComposite2/RepeaterDecorator/SequenceComposite" index="1"]
+script = ExtResource("16_qgpc1")
+
+[node name="WeaponNormalAttack" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SelectorComposite/SimpleParallelComposite/SimpleParallelComposite/SequenceComposite2/RepeaterDecorator/SequenceComposite" index="2"]
 script = ExtResource("12_jdnci")
 
-[node name="UpdateAnimationAccordingToWeaponDir" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SelectorComposite/SimpleParallelComposite" index="1"]
-script = ExtResource("15_hvt8g")
+[node name="MoveToTarget" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SelectorComposite/SimpleParallelComposite/SimpleParallelComposite" index="1"]
+script = ExtResource("10_cc512")
+
+[node name="UpdateAnimationAccordingToMovdirection" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SelectorComposite/SimpleParallelComposite" index="1"]
+script = ExtResource("7_kn5ma")
 
 [node name="PointWeaponToTarget" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite" index="1"]
 script = ExtResource("6_mqo5u")
