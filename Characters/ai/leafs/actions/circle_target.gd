@@ -40,7 +40,8 @@ func before_run(actor: Node, _blackboard: Blackboard) -> void:
 		timer.wait_time = time_limit
 		timer.start()
 
-	(actor.get_node("PathfindingComponent") as PathfindingComponent).mode = PathfindingComponent.Circle.new()
+	if not (actor.get_node("PathfindingComponent") as PathfindingComponent).mode is PathfindingComponent.Circle:
+		(actor.get_node("PathfindingComponent") as PathfindingComponent).mode = PathfindingComponent.Circle.new()
 
 func after_run(actor: Node, _blackboard: Blackboard) -> void:
 	(actor as Enemy).mov_direction = Vector2.ZERO

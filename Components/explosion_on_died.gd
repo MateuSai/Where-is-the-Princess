@@ -10,4 +10,3 @@ func _ready() -> void:
 		explosion.position=get_parent().global_position
 		get_tree().current_scene.add_child(explosion)
 	)
-	
