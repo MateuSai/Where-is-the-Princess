@@ -9,7 +9,7 @@ func _init() -> void:
 	]
 
 func get_icon() -> Texture2D:
-	return load("res://Art/items/Stone_Hearth.png")
+	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/streak_pendant.png")
 
 func get_big_icon() -> Texture2D:
-	return load("res://Art/items/Stone_Hearth_UI_desc.png")
+	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/Streak_pendant_UI_desc.png")
