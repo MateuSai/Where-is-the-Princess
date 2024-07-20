@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=3 uid="uid://bxfvifd2cyllt"]
+
+[ext_resource type="Texture2D" uid="uid://b6voshhfygpbi" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_archer_head.png" id="1_23r4k"]
+[ext_resource type="Script" path="res://effects/fragments/skull.gd" id="2_4pur6"]
+[ext_resource type="Script" path="res://Components/LifeComponent.gd" id="3_vd8ea"]
+[ext_resource type="Script" path="res://Components/spawn_fragments_on_died.gd" id="4_n5l7d"]
+[ext_resource type="PackedScene" uid="uid://rt2hj1kc4sfk" path="res://effects/fragments/skull_fragment.tscn" id="5_3misx"]
+[ext_resource type="Script" path="res://Characters/HurtBox.gd" id="5_8sgg1"]
+[ext_resource type="Script" path="res://Components/free_on_died.gd" id="7_otdan"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e4sa5"]
+radius = 4.0
+height = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pji6t"]
+radius = 4.0
+
+[node name="Skull" type="Sprite2D"]
+z_index = -1
+texture = ExtResource("1_23r4k")
+script = ExtResource("2_4pur6")
+textures = Array[Texture2D]([ExtResource("1_23r4k")])
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_e4sa5")
+
+[node name="LifeComponent" type="Node" parent="."]
+script = ExtResource("3_vd8ea")
+body_type = 2
+max_hp = 1
+hp = 1
+
+[node name="SpawnFragmentsOnDied" type="Node2D" parent="."]
+script = ExtResource("4_n5l7d")
+fragment_scene = ExtResource("5_3misx")
+min_fragments = 3
+max_fragments = 4
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 0
+script = ExtResource("5_8sgg1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("CircleShape2D_pji6t")
+disabled = true
+
+[node name="FreeOnDied" type="Node" parent="."]
+script = ExtResource("7_otdan")
