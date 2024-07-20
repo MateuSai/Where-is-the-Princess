@@ -120,7 +120,7 @@ script = ExtResource("2_8pcxu")
 
 [node name="FootmanBeehaveTree" type="Node" parent="." index="1" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("3_e2h85")
-blackboard = NodePath("@Node@20290")
+blackboard = NodePath("@Node@25099")
 actor = NodePath("..")
 
 [node name="SimpleParallelComposite2" type="Node" parent="FootmanBeehaveTree" index="0"]

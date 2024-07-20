@@ -105,6 +105,13 @@ func _ready() -> void:
 
 	state_label.modulate.a = 0.0
 
+	for child: Node in get_children():
+		if child is BeehaveTree:
+			behavior_tree = child
+			state_machine.queue_free()
+			state_machine = null
+			break
+
 	if DebugInfo.is_visible:
 		if not behavior_tree:
 			state_label.show()
@@ -123,12 +130,8 @@ func _ready() -> void:
 				state_label.show()
 				state_machine.state_changed.connect(_update_state_label)
 	)
-	state_machine.start()
-
-	for child: Node in get_children():
-		if child is BeehaveTree:
-			behavior_tree = child
-			break
+	if state_machine != null:
+		state_machine.start()
 
 func _load_data() -> void:
 	data = Character.get_data(id)

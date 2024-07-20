@@ -17,19 +17,19 @@ func _ready() -> void:
 	, CONNECT_ONE_SHOT)
 
 
-func aim_bow() -> void:
-	bow_container.rotation = aim_component.get_dir().dir.angle()
+#func aim_bow() -> void:
+	#bow_container.rotation = aim_component.get_dir().dir.angle()
 
 
-func _spawn_arrow() -> void:
-	if not is_inside_tree():
-		return
-
-	var arrow: Arrow = load("res://Weapons/projectiles/arrow.tscn").instantiate()
-#	arrow.position = bow_sprite.global_position
-	get_tree().current_scene.add_child(arrow)
-	arrow.launch(bow_sprite.global_position, Vector2.RIGHT.rotated(bow_container.rotation), projectile_speed, true)
+#func _spawn_arrow() -> void:
+	#if not is_inside_tree():
+		#return
+#
+	#var arrow: Arrow = load("res://Weapons/projectiles/arrow.tscn").instantiate()
+##	arrow.position = bow_sprite.global_position
+	#get_tree().current_scene.add_child(arrow)
+	#arrow.launch(bow_sprite.global_position, Vector2.RIGHT.rotated(bow_container.rotation), projectile_speed, true)
 
 func _remove_head() -> void:
 	sprite.texture = NO_HEAD_SPRITESHEET
-	aim_component.spread_rad = 0.9
+	aim_component.mode = aim_component.RANDOM_AIM

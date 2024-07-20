@@ -1,62 +1,23 @@
-[gd_scene load_steps=17 format=3 uid="uid://cqy53jjsoth3u"]
+[gd_scene load_steps=26 format=3 uid="uid://cqy53jjsoth3u"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_3xxis"]
 [ext_resource type="Script" path="res://Characters/Enemies/archeleton/archeleton.gd" id="2_20lfo"]
 [ext_resource type="Script" path="res://Characters/Enemies/archeleton/archeleton_fsm.gd" id="2_cjwj3"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="4_h5nrn"]
 [ext_resource type="Texture2D" uid="uid://dg43ou5i38wjl" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_archer.png" id="4_m6m8d"]
-[ext_resource type="Texture2D" uid="uid://b31xodv746lr1" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/weapons/short_wooden_bow.png" id="5_3fu7u"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/simple_parallel.gd" id="5_5e754"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="6_lce8k"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/point_weapon_to_target.gd" id="6_mqo5u"]
 [ext_resource type="Script" path="res://Components/character_detector/aim_component.gd" id="6_nkjaj"]
-
-[sub_resource type="Animation" id="Animation_80pa1"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_jla0i"]
-resource_name = "attack"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.6, 0.7, 0.8, 0.9, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 4, 0]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"_spawn_arrow"
-}]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_grb26"]
-_data = {
-"RESET": SubResource("Animation_80pa1"),
-"attack": SubResource("Animation_jla0i")
-}
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="7_7a01w"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/update_animation_according_to_mov_direction.gd" id="7_kn5ma"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_close_to_target.gd" id="8_lds8p"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/set_pathfinding_mode.gd" id="9_kjj0o"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/move_to_target.gd" id="10_cc512"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_weapon_busy.gd" id="11_0k1bv"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/weapon_attack.gd" id="12_jdnci"]
+[ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="16_cp86x"]
+[ext_resource type="PackedScene" uid="uid://ctwdicf0i0c4x" path="res://Weapons/Ranged/Bows/short_wooden_bow/short_wooden_bow.tscn" id="17_hlfjy"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j6xc1"]
 radius = 3.0
@@ -159,33 +120,86 @@ script = ExtResource("2_20lfo")
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("2_cjwj3")
 
-[node name="Sprite2D" parent="." index="2"]
+[node name="ArcheletonBeehaveTree" type="Node" parent="." index="1" node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("4_h5nrn")
+blackboard = NodePath("@Node@26580")
+actor = NodePath("..")
+
+[node name="SimpleParallelComposite" type="Node" parent="ArcheletonBeehaveTree" index="0"]
+script = ExtResource("5_5e754")
+
+[node name="SimpleParallelComposite" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite" index="0"]
+script = ExtResource("5_5e754")
+
+[node name="SelectorComposite" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SimpleParallelComposite" index="0"]
+script = ExtResource("6_lce8k")
+
+[node name="SequenceComposite3" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SimpleParallelComposite/SelectorComposite" index="0"]
+script = ExtResource("7_7a01w")
+
+[node name="IsCloseToTarget" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SimpleParallelComposite/SelectorComposite/SequenceComposite3" index="0"]
+script = ExtResource("8_lds8p")
+closer_than = 32
+
+[node name="SetPathfindingMode" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SimpleParallelComposite/SelectorComposite/SequenceComposite3" index="1"]
+script = ExtResource("9_kjj0o")
+mode = 1
+
+[node name="MoveToTarget" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SimpleParallelComposite/SelectorComposite/SequenceComposite3" index="2"]
+script = ExtResource("10_cc512")
+time_limit = 1.0
+
+[node name="SequenceComposite" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SimpleParallelComposite/SelectorComposite" index="1"]
+script = ExtResource("7_7a01w")
+
+[node name="IsCloseToTarget" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SimpleParallelComposite/SelectorComposite/SequenceComposite" index="0"]
+script = ExtResource("8_lds8p")
+closer_than = 100
+
+[node name="IsWeaponBusy" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SimpleParallelComposite/SelectorComposite/SequenceComposite" index="1"]
+script = ExtResource("11_0k1bv")
+
+[node name="WeaponNormalAttack" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SimpleParallelComposite/SelectorComposite/SequenceComposite" index="2"]
+script = ExtResource("12_jdnci")
+
+[node name="SequenceComposite2" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SimpleParallelComposite/SelectorComposite" index="2"]
+script = ExtResource("7_7a01w")
+
+[node name="IsWeaponBusy" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SimpleParallelComposite/SelectorComposite/SequenceComposite2" index="0"]
+script = ExtResource("11_0k1bv")
+
+[node name="SetPathfindingMode" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SimpleParallelComposite/SelectorComposite/SequenceComposite2" index="1"]
+script = ExtResource("9_kjj0o")
+
+[node name="MoveToTarget" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SimpleParallelComposite/SelectorComposite/SequenceComposite2" index="2"]
+script = ExtResource("10_cc512")
+closer_than = 96
+
+[node name="PointWeaponToTarget" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite/SimpleParallelComposite" index="1"]
+script = ExtResource("6_mqo5u")
+
+[node name="UpdateAnimationAccordingToMovdirection" type="Node" parent="ArcheletonBeehaveTree/SimpleParallelComposite" index="1"]
+script = ExtResource("7_kn5ma")
+
+[node name="Sprite2D" parent="." index="3"]
 position = Vector2(0, -5)
 texture = ExtResource("4_m6m8d")
 hframes = 6
 vframes = 4
 
-[node name="BowContainer" type="Node2D" parent="." index="3"]
-position = Vector2(0, -2)
+[node name="EnemyWeapons" type="Node2D" parent="." index="4"]
+script = ExtResource("16_cp86x")
 
-[node name="Sprite2D" type="Sprite2D" parent="BowContainer" index="0"]
-position = Vector2(6, 0)
-texture = ExtResource("5_3fu7u")
-hframes = 5
+[node name="ShortWoodenBow" parent="EnemyWeapons" index="0" instance=ExtResource("17_hlfjy")]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="BowContainer" index="1"]
-libraries = {
-"": SubResource("AnimationLibrary_grb26")
-}
-
-[node name="CollisionShape2D" parent="." index="4"]
+[node name="CollisionShape2D" parent="." index="5"]
 shape = SubResource("CircleShape2D_j6xc1")
 
-[node name="AnimationPlayer" parent="." index="5"]
+[node name="AnimationPlayer" parent="." index="6"]
 libraries = {
 "": SubResource("AnimationLibrary_5fsyr")
 }
 
-[node name="AimComponent" type="Node" parent="." index="12"]
+[node name="AimComponent" type="Node" parent="." index="13"]
 script = ExtResource("6_nkjaj")
 flags = 2

@@ -7,11 +7,18 @@ var projectile_speed: int:
 	get:
 		return character.projectile_speed
 
-@export var spread_rad: float = 0.0
+var mode: int = 0
+enum {
+	AIM_TO_TARGET,
+	RANDOM_AIM,
+}
 
 const FLAG_PREDICT_TRAJECTORY: int = 1
 const FLAG_REDUCE_PRECISION_WHEN_MOVING: int = 2
 @export_flags("Predict trajectory", "Reduce precision when moving") var flags: int = 0
+
+var _previous_dir: Vector2 = Vector2.RIGHT.rotated(randf_range(0, 2*PI))
+var _rotation_dir: int = 1
 
 @onready var character: Character = get_parent()
 
@@ -22,6 +29,17 @@ func get_dir(from: Vector2 = Vector2.ZERO) -> AimResult:
 
 	if from == Vector2.ZERO:
 		from = character.global_position
+
+	match mode:
+		AIM_TO_TARGET:
+			res = _aim_to_target(from)
+		RANDOM_AIM:
+			res = _random_aim()
+
+	return res
+
+func _aim_to_target(from: Vector2 = Vector2.ZERO) -> AimResult:
+	var res: AimResult
 
 	# So it does not go crazy when near to target FIXME
 	#Log.debug(character.id + ": from = " + str(from) + "  target_global_pos = " + str(target.global_position))
@@ -51,9 +69,15 @@ func get_dir(from: Vector2 = Vector2.ZERO) -> AimResult:
 		if flags & FLAG_REDUCE_PRECISION_WHEN_MOVING and character.velocity.length() > 10:
 			res.dir = res.dir.rotated(randf_range(-0.2, 0.2))
 
-	res.dir = res.dir.rotated(randf_range(-spread_rad, spread_rad))
-
 	return res
+
+func _random_aim() -> AimResult:
+	if randi() % 200 == 0:
+		_rotation_dir *= -1
+
+	var dir: Vector2 = _previous_dir.rotated(randf_range(0.01, 0.03) * _rotation_dir)
+	_previous_dir = dir
+	return AimResult.new(dir, true)
 
 
 func _is_trajectory_clear(from: Vector2, to: Vector2) -> bool:
