@@ -21,7 +21,7 @@ const MAX_ABILITY_COOLDOWN: float = 13.0
 func start() -> void:
 	swap_cooldown_timer.start(randf_range(MIN_ABILTY_COOLDOWN, MAX_ABILITY_COOLDOWN))
 	attack_timer.start(randf_range(MIN_ATTACK_COOLDOWN, MAX_ATTACK_COOLDOWN))
-	attack_timer.timeout.connect(func():
+	attack_timer.timeout.connect(func() -> void:
 		if swap_cooldown_timer.is_stopped() and (parent.player.position - parent.global_position).length() < parent.MAX_DISTANCE_TO_PLAYER and (parent.player.position - parent.global_position).length() > 16:
 			parent.swap_and_throw_knives()
 			swap_cooldown_timer.start(randf_range(MIN_ABILTY_COOLDOWN, MAX_ABILITY_COOLDOWN))

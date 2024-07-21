@@ -1,8 +1,8 @@
 [gd_scene load_steps=13 format=3 uid="uid://dlx82s7ngu5af"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1"]
-[ext_resource type="Script" path="res://Characters/Enemies/Goblin/Goblin.gd" id="5"]
-[ext_resource type="Script" path="res://Characters/Enemies/Goblin/GoblinFSM.gd" id="6"]
+[ext_resource type="Script" path="res://Characters/Enemies/goblin/goblin.gd" id="5"]
+[ext_resource type="Script" path="res://Characters/Enemies/goblin/goblin_fsm.gd" id="6"]
 [ext_resource type="Texture2D" uid="uid://brv2xi48834fs" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/goblin/goblin_full_spritesheet.png" id="7_kq0px"]
 
 [sub_resource type="CircleShape2D" id="18"]
