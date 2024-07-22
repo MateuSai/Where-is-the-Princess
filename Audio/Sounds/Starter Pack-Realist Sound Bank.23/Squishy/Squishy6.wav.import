@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cv17i4db86ois"
+path="res://.godot/imported/Squishy6.wav-000738c3dc7eefb2b8fd8e4263869ae6.sample"
+
+[deps]
+
+source_file="res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Squishy/Squishy6.wav"
+dest_files=["res://.godot/imported/Squishy6.wav-000738c3dc7eefb2b8fd8e4263869ae6.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

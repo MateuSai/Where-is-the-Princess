@@ -3,6 +3,8 @@ class_name ShopItem extends ItemOnFloor
 const HOLOGRAM_SHADER: Shader = preload("res://shaders_and_particles/hologram.gdshader")
 const HOLOGRAM_TEXTURE: Texture = preload("res://Art/hologram_lines-b1399a8d.png")
 
+const SPEND_SOULS_SOUNDS: Array[AudioStream] = [preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Squishy/Squishy1.wav"), preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Squishy/Squishy2.wav"), preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Squishy/Squishy4.wav"), preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Squishy/Squishy5.wav"), preload("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Squishy/Squishy6.wav")]
+
 var price: int = 10
 var price_always_visible: bool
 
@@ -77,20 +79,27 @@ func can_pick_up_item(player: Player) -> bool:
 
 
 func _pick_item_and_free() -> void:
+	var sound_stream: AudioStream
+	var sound_vol: float = 0.0
+
 	if SavedData.get_biome_conf().name == "BASE_CAMP":
 		SavedData.set_dark_souls(SavedData.data.dark_souls - price)
+		sound_stream = SPEND_SOULS_SOUNDS.pick_random()
+		sound_vol = 3
 	else:
 		SavedData.run_stats.coins -= price
+		sound_stream = load("res://Audio/Sounds/Change-www.fesliyanstudios.com.mp3")
+		sound_vol = 16
 
-	var sound: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
-	sound.stream = load("res://Audio/Sounds/Change-www.fesliyanstudios.com.mp3")
-	sound.position = global_position
-	sound.bus = "Sounds"
-	sound.finished.connect(func() -> void:
-		sound.queue_free()
-	)
+	var sound: AutoFreeSound = AutoFreeSound.new()
+	#sound.stream = load("res://Audio/Sounds/Change-www.fesliyanstudios.com.mp3")
+	#sound.position = global_position
+	#sound.bus = "Sounds"
+	#sound.finished.connect(func() -> void:
+		#sound.queue_free()
+	#)
 	get_tree().current_scene.add_child(sound)
-	sound.play()
+	sound.start(sound_stream, global_position, sound_vol)
 
 	#if get_tree().current_scene.name == "Game":
 	super()
