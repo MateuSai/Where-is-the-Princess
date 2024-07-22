@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dwiop8wuc7ah8"]
+[gd_scene load_steps=8 format=3 uid="uid://dwiop8wuc7ah8"]
 
 [ext_resource type="Texture2D" uid="uid://bpx3tad7bw0w4" path="res://Art/Furniture and room elements/cursed_idol.tres" id="1_fikx7"]
 [ext_resource type="Script" path="res://Rooms/cursed_idol/cursed_idol.gd" id="1_fwwtv"]
 [ext_resource type="Script" path="res://interact_area.gd" id="2_l3p5h"]
 [ext_resource type="PackedScene" uid="uid://biarx0rmayotv" path="res://ui/cost_h_box.tscn" id="4_0ugjy"]
+[ext_resource type="AudioStream" uid="uid://q7kgp2w78dxs" path="res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Spell/Spelll19.wav" id="5_xrxnb"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_45kma"]
 radius = 5.0
@@ -34,3 +35,13 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_fswc4")
 
 [node name="CostHBox" parent="." instance=ExtResource("4_0ugjy")]
+offset_left = -5.0
+offset_top = -30.0
+offset_right = 10.0
+offset_bottom = -14.0
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_xrxnb")
+volume_db = -2.0
+max_distance = 500.0
+bus = &"Sounds"
