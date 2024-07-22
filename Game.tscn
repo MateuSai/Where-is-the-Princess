@@ -361,6 +361,7 @@ theme_override_constants/separation = -44
 script = ExtResource("50_gojcj")
 
 [node name="TextureRect" type="TextureRect" parent="UI/BiomeBanner"]
+visible = false
 z_index = 1
 layout_mode = 2
 size_flags_horizontal = 4

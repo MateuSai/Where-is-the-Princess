@@ -93,6 +93,18 @@ func spawn_loot() -> void:
 		item_on_floor.initialize(whetstone)
 		item_on_floor.enable_pick_up()
 
+	for i: int in enemy_data.temporal_items:
+		var item_on_floor: ItemOnFloor = load("res://items/item_on_floor.tscn").instantiate()
+		item_on_floor.initialize(load(SavedData.get_random_available_temporal_item_path()).new())
+		room.add_item_on_floor(item_on_floor, position + Vector2(randf_range( - 4, 4), randf_range( - 4, 4)))
+		item_on_floor.enable_pick_up()
+
+	for i: int in enemy_data.permanent_items:
+		var item_on_floor: ItemOnFloor = load("res://items/item_on_floor.tscn").instantiate()
+		item_on_floor.initialize(load(SavedData.get_random_available_permanent_item_path()).new())
+		room.add_item_on_floor(item_on_floor, position + Vector2(randf_range( - 4, 4), randf_range( - 4, 4)))
+		item_on_floor.enable_pick_up()
+
 func move_to_target() -> void:
 	if not navigation_agent.is_target_reached():
 		if can_move:

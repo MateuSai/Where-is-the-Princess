@@ -41,6 +41,7 @@ func add_permanent_passive_item(item: PermanentPassiveItem) -> void:
 
 func remove_permanent_passive_item(item: PermanentPassiveItem) -> void:
 	_permanent_passive_items.erase(item)
+	_permanent_passive_items_ids.remove_at(_permanent_passive_items_ids.find(item.get_id()))
 	# Note that I don't remove the item from _permanent_passive_items_names, so the item won't appear again on chest or shops. This is useful when we convert the item to cursed, we don't want the item to appear again
 
 func get_passive_items() -> Array[PassiveItem]:

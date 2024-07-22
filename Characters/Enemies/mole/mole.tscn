@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://2ntjwxvfaakv"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_sqxlg"]
-[ext_resource type="Script" path="res://Characters/Enemies/Mole/Mole.gd" id="2_pw6f4"]
-[ext_resource type="Script" path="res://Characters/Enemies/Mole/MoleFSM.gd" id="3_bqtei"]
+[ext_resource type="Script" path="res://Characters/Enemies/mole/mole.gd" id="2_pw6f4"]
+[ext_resource type="Script" path="res://Characters/Enemies/mole/mole_fsm.gd" id="3_bqtei"]
 [ext_resource type="Texture2D" uid="uid://djoj64lbg3ekp" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/enemies/mole/mole sprite sheet.png" id="4_414yk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xceue"]

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://q7kgp2w78dxs"
+path="res://.godot/imported/Spelll19.wav-4a0f2e0b265f3e4dd405076e4c7a9544.sample"
+
+[deps]
+
+source_file="res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Spell/Spelll19.wav"
+dest_files=["res://.godot/imported/Spelll19.wav-4a0f2e0b265f3e4dd405076e4c7a9544.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

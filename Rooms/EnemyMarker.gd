@@ -15,9 +15,11 @@ func _set_enemy_id(new_id: String) -> void:
 
 		var new_enemy_dic: Dictionary = Enemy.get_path_and_info(enemy_name)
 		if new_enemy_dic.is_empty():
-			printerr("Invalid enemy")
-			enemy_in_editor = null
-			return
+			new_enemy_dic = Enemy.get_path_and_info(enemy_name.to_pascal_case())
+			if new_enemy_dic.is_empty():
+				printerr("Invalid enemy")
+				enemy_in_editor = null
+				return
 
 		enemy_in_editor = load(new_enemy_dic.path).instantiate()
 		add_child(enemy_in_editor)

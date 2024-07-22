@@ -44,7 +44,7 @@ enemy_name = "snake"
 [node name="EnemyMarker2" type="Marker2D" parent="EnemyPositions" index="1"]
 position = Vector2(243, 183)
 script = ExtResource("4_kqfj1")
-enemy_name = "markTheReptilian"
+enemy_name = "toasted_mark"
 
 [node name="EnemyMarker3" type="Marker2D" parent="EnemyPositions" index="2"]
 position = Vector2(310, 122)

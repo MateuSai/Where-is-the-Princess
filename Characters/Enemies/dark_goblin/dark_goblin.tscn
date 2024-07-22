@@ -1,8 +1,8 @@
 [gd_scene load_steps=14 format=3 uid="uid://bf6eca3ug0flr"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_l8tqo"]
-[ext_resource type="Script" path="res://Characters/Enemies/DarkGoblin/DarkGoblin.gd" id="2_ippv8"]
-[ext_resource type="Script" path="res://Characters/Enemies/DarkGoblin/DarkGoblinFSM.gd" id="3_wfqar"]
+[ext_resource type="Script" path="res://Characters/Enemies/dark_goblin/dark_goblin.gd" id="2_ippv8"]
+[ext_resource type="Script" path="res://Characters/Enemies/dark_goblin/dark_goblin_fsm.gd" id="3_wfqar"]
 [ext_resource type="Texture2D" uid="uid://pkfij4c7x55n" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/goblin/goblin02_full_spritesheet.png" id="4_ahdp5"]
 [ext_resource type="Material" uid="uid://cmyqibox7jjbf" path="res://unshaded.tres" id="4_p0jni"]
 [ext_resource type="Texture2D" uid="uid://fqeoudxqnnss" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/enemies/goblin/goblin02_eyes_full_spritesheet.png" id="5_pf1b0"]

@@ -430,6 +430,30 @@ func get_random_available_item_path(quality: Item.Quality=Item.Quality.COMMON) -
 	possible_results.shuffle()
 	return possible_results[0]
 
+func get_random_available_temporal_item_path() -> String:
+	var possible_results: Array[String]
+	possible_results.assign(Array(get_available_temporal_item_paths().duplicate()))
+	possible_results.shuffle()
+	return possible_results[0]
+
+func get_random_available_permanent_item_path(quality: Item.Quality=Item.Quality.COMMON) -> String:
+	var possible_results: Array[String] = []
+
+	var equipped_permanent_items_ids: Array = Array(run_stats.get_permanent_passive_items_ids()).map(func(id: String) -> String:
+		return id.trim_suffix("_cursed")
+	)
+
+	for item_path: String in get_available_permanent_item_paths():
+		var item_id: String = (load(item_path).new() as PassiveItem).get_id()
+		if equipped_permanent_items_ids.has(item_id) or _get_chests_item_ids().map(func(id: String) -> String: return id.trim_suffix("_cursed")).has(item_id):
+			continue
+		if load(item_path).new().get_quality() == quality:
+			possible_results.push_back(item_path)
+
+	assert(not possible_results.is_empty())
+	possible_results.shuffle()
+	return possible_results[0]
+
 func get_random_available_cursed_item_path(quality: Item.Quality=Item.Quality.COMMON) -> String:
 	var possible_results: Array[String] = []
 

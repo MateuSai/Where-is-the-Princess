@@ -18,6 +18,7 @@ var tween: Tween = null
 
 @onready var interact_area: InteractArea = get_node("InteractArea")
 @onready var cost_hbox: HBoxContainer = $CostHBox
+@onready var sound: AudioStreamPlayer2D = $Sound
 
 
 func _ready() -> void:
@@ -71,6 +72,8 @@ func _on_player_interacted() -> void:
 
 
 func _spawn_cursed_item() -> void:
+	sound.play()
+
 	var spawn_explosion: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()
 	spawn_explosion.modulate = Color("460e03ba")
 	add_child(spawn_explosion)

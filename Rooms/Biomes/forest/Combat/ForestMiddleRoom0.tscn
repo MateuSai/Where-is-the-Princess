@@ -60,5 +60,4 @@ position = Vector2(192, 122)
 [node name="SmallAxe" parent="." index="13" instance=ExtResource("6_008xn")]
 position = Vector2(213, 63)
 rotation = 1.9251
-on_floor = true
 bad_state = true

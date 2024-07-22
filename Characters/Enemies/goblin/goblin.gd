@@ -1,6 +1,6 @@
 class_name Goblin extends Enemy
 
-const THROWABLE_KNIFE_SCENE: PackedScene = preload ("res://Characters/Enemies/Goblin/ThrowableKnife.tscn")
+const THROWABLE_KNIFE_SCENE: PackedScene = preload ("res://Characters/Enemies/goblin/ThrowableKnife.tscn")
 
 const MAX_DISTANCE_TO_PLAYER: int = 80
 const MIN_DISTANCE_TO_PLAYER: int = 40
