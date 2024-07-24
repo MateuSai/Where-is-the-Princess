@@ -192,7 +192,7 @@ func _on_Tween_tween_completed() -> void:
 		queue_free()
 	elif _is_on_void():
 		var scale_tween: Tween = create_tween()
-		scale_tween.tween_property(self, "scale", 0.0, 1)
+		scale_tween.tween_property(self, "scale", Vector2.ZERO, 1)
 		scale_tween.finished.connect(queue_free)
 		#queue_free()
 	else:
