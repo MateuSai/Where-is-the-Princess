@@ -191,6 +191,9 @@ func _ready() -> void:
 				if water_damage:
 					life_component.take_damage(water_damage, Vector2.ZERO, 0, null, null, "water")
 				position=position_before_jumping
+			elif is_on_void():
+				life_component.take_damage(1, Vector2.ZERO, 0, null, null, "void")
+				position=position_before_jumping
 	)
 
 	if (get_tree().current_scene as Game).day_night_system.is_day():
@@ -545,6 +548,12 @@ func start_progressing_acid() -> void:
 func is_on_water() -> bool:
 	if current_room:
 		return current_room.is_on_water(position - current_room.position)
+	else:
+		return false
+
+func is_on_void() -> bool:
+	if current_room:
+		return current_room.is_on_void(position - current_room.position)
 	else:
 		return false
 

@@ -5,7 +5,7 @@ var slide_number: int = 1
 var times: Array[float]
 
 @export_dir var cinematic_dir: String
-@export_file() var end_transition: String
+@export_file() var end_transition: String = "res://Game.tscn"
 
 @onready var music: AudioStreamPlayer = $Music
 

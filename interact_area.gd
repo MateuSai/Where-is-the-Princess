@@ -11,6 +11,12 @@ signal player_exited()
 
 var sprite_material: ShaderMaterial
 
+enum Mode {
+	OUTLINE,
+	HIDE_SPRITE
+}
+
+@export var mode: Mode = Mode.OUTLINE
 @export var path_to_sprite: NodePath
 @onready var sprite: Node2D = get_node(path_to_sprite)
 
@@ -21,9 +27,12 @@ func _ready() -> void:
 	set_collision_mask_value(2, true) # To detect player
 	set_collision_layer_value(7, true) # Interact Area
 
-	sprite_material = ShaderMaterial.new()
-	sprite_material.shader = load("res://shaders_and_particles/outline.gdshader")
-	sprite.material = sprite_material
+	if mode == Mode.OUTLINE:
+		sprite_material = ShaderMaterial.new()
+		sprite_material.shader = load("res://shaders_and_particles/outline.gdshader")
+		sprite.material = sprite_material
+	else:
+		sprite.hide()
 
 #	body_entered.connect(_on_player_entered)
 #	body_exited.connect(_on_player_exited)
@@ -43,10 +52,16 @@ func _on_player_entered(player: Player) -> void:
 	player_entered.emit()
 	self.player = player
 	set_process_unhandled_input(true)
-	sprite_material.set("shader_parameter/width", 1)
+	if mode == Mode.OUTLINE:
+		sprite_material.set("shader_parameter/width", 1)
+	else:
+		sprite.show()
 
 
 func _on_player_exited(_body: Node2D) -> void:
 	player_exited.emit()
 	set_process_unhandled_input(false)
-	sprite_material.set("shader_parameter/width", 0)
+	if mode == Mode.OUTLINE:
+		sprite_material.set("shader_parameter/width", 0)
+	else:
+		sprite.hide()
