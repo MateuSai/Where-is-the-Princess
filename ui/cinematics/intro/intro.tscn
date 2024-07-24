@@ -5,7 +5,6 @@
 
 [node name="Intro" instance=ExtResource("1_vc7s5")]
 cinematic_dir = "res://ui/cinematics/intro"
-end_transition = "res://Game.tscn"
 
 [node name="Music" parent="." index="0"]
 stream = ExtResource("2_6clk7")

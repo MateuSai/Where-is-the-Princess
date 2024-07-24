@@ -190,6 +190,11 @@ func _on_Tween_tween_completed() -> void:
 		splash.position = weapon_sprite.global_position
 		get_tree().current_scene.add_child(splash)
 		queue_free()
+	elif _is_on_void():
+		var scale_tween: Tween = create_tween()
+		scale_tween.tween_property(self, "scale", 0.0, 1)
+		scale_tween.finished.connect(queue_free)
+		#queue_free()
 	else:
 		player_detector_col.set_deferred("disabled", false)
 		player_detector.set_collision_mask_value(2, true)
@@ -360,6 +365,12 @@ func _set_damage_dealer_id(new_id: String) -> void:
 func _is_on_water() -> bool:
 	if Globals.player.current_room:
 		return Globals.player.current_room.tilemap.get_cell_atlas_coords(DungeonRoom.WATER_LAYER_ID, Globals.player.current_room.tilemap.local_to_map(position - Globals.player.current_room.position)) != Vector2i( - 1, -1)
+	else:
+		return false
+
+func _is_on_void() -> bool:
+	if Globals.player.current_room:
+		return Globals.player.current_room.is_on_void(Globals.player.current_room.tilemap.local_to_map(position - Globals.player.current_room.position))
 	else:
 		return false
 
