@@ -66,6 +66,7 @@ func _aim_to_target(from: Vector2 = Vector2.ZERO) -> AimResult:
 		else:
 			res = AimResult.new((target.global_position - from).normalized(), _is_trajectory_clear(from, target.global_position))
 
+		# FIXME
 		if flags & FLAG_REDUCE_PRECISION_WHEN_MOVING and character.velocity.length() > 10:
 			res.dir = res.dir.rotated(randf_range(-0.2, 0.2))
 

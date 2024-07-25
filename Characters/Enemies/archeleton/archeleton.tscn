@@ -254,7 +254,6 @@ libraries = {
 
 [node name="AimComponent" type="Node" parent="." index="13"]
 script = ExtResource("6_nkjaj")
-flags = 2
 
 [node name="SpawnFragmentsOnDied" type="Node2D" parent="." index="18"]
 script = ExtResource("22_5abxh")
