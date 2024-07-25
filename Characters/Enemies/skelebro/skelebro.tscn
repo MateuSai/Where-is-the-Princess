@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b0qg1ufhu6ry6"]
+[gd_scene load_steps=16 format=3 uid="uid://b0qg1ufhu6ry6"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_yk06j"]
 [ext_resource type="Script" path="res://Characters/Enemies/skelebro/skelebro_fsm.gd" id="2_13wq3"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://jfehaj24kmy2" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_warrior.png" id="3_jqv5y"]
 [ext_resource type="PackedScene" uid="uid://mh1705nhovp2" path="res://Weapons/Melee/rusty_sword/rusty_sword.tscn" id="4_mxb4u"]
 [ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="6_geb4h"]
+[ext_resource type="Script" path="res://Components/spawn_fragments_on_died.gd" id="7_6212b"]
+[ext_resource type="PackedScene" uid="uid://byaun5wu16bub" path="res://effects/fragments/skeleton_fragment.tscn" id="8_0pyww"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7mq7f"]
 radius = 3.0
@@ -127,3 +129,8 @@ position = Vector2(0, -3)
 script = ExtResource("6_geb4h")
 
 [node name="RusticSword" parent="EnemyWeapons" index="0" instance=ExtResource("4_mxb4u")]
+
+[node name="SpawnFragmentsOnDied" type="Node2D" parent="." index="16"]
+script = ExtResource("7_6212b")
+fragment_scene = ExtResource("8_0pyww")
+max_fragments = 7
