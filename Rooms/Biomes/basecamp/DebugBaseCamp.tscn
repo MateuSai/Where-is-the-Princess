@@ -1,25 +1,48 @@
-[gd_scene load_steps=32 format=3 uid="uid://cah3hunwa34v8"]
+[gd_scene load_steps=55 format=3 uid="uid://cmjxef6ripry7"]
 
-[ext_resource type="Script" path="res://Rooms/Biomes/basecamp/BaseCamp.gd" id="1_tpf7m"]
-[ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="2_ipa5f"]
-[ext_resource type="Script" path="res://interact_area.gd" id="2_n3t3v"]
-[ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="4_6s3ou"]
-[ext_resource type="Texture2D" uid="uid://rx1c6wfrx15r" path="res://Art/Furniture and room elements/wardrobe.png" id="4_8ics2"]
-[ext_resource type="PackedScene" uid="uid://cq825lguwrtg7" path="res://Rooms/Furniture and Traps/campfire.tscn" id="4_k7esm"]
-[ext_resource type="Script" path="res://ui/WardrobeUI.gd" id="4_nybk1"]
-[ext_resource type="Texture2D" uid="uid://4diatv3rr660" path="res://brow_square.png" id="7_bvea0"]
-[ext_resource type="Texture2D" uid="uid://cpda4qwx1x4j6" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/sign.png" id="9_dti1o"]
-[ext_resource type="Script" path="res://start_area.gd" id="9_r816v"]
-[ext_resource type="Script" path="res://Rooms/Biomes/basecamp/seed_line_edit.gd" id="12_esh87"]
-[ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="13_2uruh"]
-[ext_resource type="AudioStream" uid="uid://dq7f7p17hn6bl" path="res://Audio/Sounds/280235__toefur__open-wardrobe-1.wav" id="15_iuhqb"]
-[ext_resource type="AudioStream" uid="uid://dsphctheyll2w" path="res://Audio/Music/Gymnopédie no. 1 (for Harp).mp3" id="18_0hiag"]
-[ext_resource type="PackedScene" uid="uid://bjdf1fgpfe4v0" path="res://Rooms/Biomes/basecamp/WizardHut.tscn" id="25_mnnam"]
-[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="26_61yb5"]
-[ext_resource type="PackedScene" uid="uid://bau1jfwsnyo2o" path="res://Characters/practice_dummy.tscn" id="31_1hy67"]
-[ext_resource type="PackedScene" uid="uid://cpcdmduiwspc4" path="res://Rooms/Biomes/basecamp/base_camp_items_shop.tscn" id="37_qhx6q"]
-[ext_resource type="PackedScene" uid="uid://geovcmu2q826" path="res://Rooms/Furniture and Traps/sleeping_bag.tscn" id="39_sleg1"]
-[ext_resource type="Script" path="res://Characters/npcs/animals/animal_spawner.gd" id="46_v21xh"]
+[ext_resource type="Script" path="res://Rooms/Biomes/basecamp/BaseCamp.gd" id="1_78wu5"]
+[ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="2_b12nq"]
+[ext_resource type="Texture2D" uid="uid://4diatv3rr660" path="res://brow_square.png" id="3_5bipw"]
+[ext_resource type="PackedScene" uid="uid://cq825lguwrtg7" path="res://Rooms/Furniture and Traps/campfire.tscn" id="4_dnn38"]
+[ext_resource type="Script" path="res://start_area.gd" id="5_16x5s"]
+[ext_resource type="Texture2D" uid="uid://rx1c6wfrx15r" path="res://Art/Furniture and room elements/wardrobe.png" id="6_dk6fw"]
+[ext_resource type="Script" path="res://interact_area.gd" id="7_e3xt5"]
+[ext_resource type="Texture2D" uid="uid://cpda4qwx1x4j6" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/sign.png" id="8_yipu7"]
+[ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="9_kchio"]
+[ext_resource type="Script" path="res://ui/WardrobeUI.gd" id="10_dbutg"]
+[ext_resource type="FontVariation" uid="uid://du8fthyvf666a" path="res://Fonts/small_font.tres" id="11_vmwcu"]
+[ext_resource type="Script" path="res://Rooms/Biomes/basecamp/seed_line_edit.gd" id="12_5cgp7"]
+[ext_resource type="PackedScene" uid="uid://cjc0h245lbmpd" path="res://Weapons/Melee/Katana/Katana.tscn" id="13_ree6c"]
+[ext_resource type="PackedScene" uid="uid://bu6m7pa3yuk4r" path="res://Weapons/Melee/DragonKiller/DragonKiller.tscn" id="14_qv1sr"]
+[ext_resource type="AudioStream" uid="uid://dsphctheyll2w" path="res://Audio/Music/Gymnopédie no. 1 (for Harp).mp3" id="15_i24bk"]
+[ext_resource type="AudioStream" uid="uid://dq7f7p17hn6bl" path="res://Audio/Sounds/280235__toefur__open-wardrobe-1.wav" id="16_lbmtr"]
+[ext_resource type="PackedScene" uid="uid://b78s3rdcjmo8a" path="res://Weapons/Melee/OrcSword/OrcSword.tscn" id="17_avaa0"]
+[ext_resource type="PackedScene" uid="uid://cw7q01ncaqimn" path="res://Weapons/Melee/WarriorSword/WarriorSword.tscn" id="18_ry2qk"]
+[ext_resource type="PackedScene" uid="uid://cs3cwiuyg1834" path="res://Weapons/Melee/Scimitar/Scimitar.tscn" id="19_l3xel"]
+[ext_resource type="PackedScene" uid="uid://4g8k6f3qb1w2" path="res://Weapons/Melee/WarAxe/WarAxe.tscn" id="20_dcaqw"]
+[ext_resource type="PackedScene" uid="uid://bjdf1fgpfe4v0" path="res://Rooms/Biomes/basecamp/WizardHut.tscn" id="21_qma8h"]
+[ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="22_213l4"]
+[ext_resource type="PackedScene" uid="uid://ctt3utwk3p586" path="res://Weapons/Melee/sledgehammer/sledgehammer.tscn" id="23_c8jn4"]
+[ext_resource type="PackedScene" uid="uid://cs8527eyei1sa" path="res://Weapons/Melee/WarHammer/WarHammer.tscn" id="24_6qq7g"]
+[ext_resource type="PackedScene" uid="uid://bj8qo4b41vtbu" path="res://Weapons/Melee/SharpAxe/SharpAxe.tscn" id="25_ijlya"]
+[ext_resource type="PackedScene" uid="uid://c8pix6j8t15oo" path="res://Weapons/Melee/SmallAxe/SmallAxe.tscn" id="26_sot36"]
+[ext_resource type="PackedScene" uid="uid://d3qmv5odokhfh" path="res://Weapons/Ranged/Bows/WoodenBow/wooden_bow.tscn" id="27_utux8"]
+[ext_resource type="PackedScene" uid="uid://bau1jfwsnyo2o" path="res://Characters/practice_dummy.tscn" id="28_3qu3m"]
+[ext_resource type="PackedScene" uid="uid://cpyqtlqtdkuiq" path="res://Weapons/Ranged/scepters/lightning_stick/lightning_stick.tscn" id="29_66374"]
+[ext_resource type="PackedScene" uid="uid://bp2oo4273j0dc" path="res://Weapons/Melee/spear/Spear.tscn" id="30_eh7qr"]
+[ext_resource type="PackedScene" uid="uid://dkpyvq2xuuytm" path="res://Weapons/Ranged/crossbows/wooden_crossbow/wooden_crossbow.tscn" id="31_78ub3"]
+[ext_resource type="PackedScene" uid="uid://cpcdmduiwspc4" path="res://Rooms/Biomes/basecamp/base_camp_items_shop.tscn" id="32_cpcpv"]
+[ext_resource type="PackedScene" uid="uid://b885ot2dse5g6" path="res://Weapons/Melee/reptilian_spear/reptilian_spear.tscn" id="33_lyomm"]
+[ext_resource type="PackedScene" uid="uid://geovcmu2q826" path="res://Rooms/Furniture and Traps/sleeping_bag.tscn" id="34_kus3l"]
+[ext_resource type="PackedScene" uid="uid://dwiop8wuc7ah8" path="res://Rooms/cursed_idol/cursed_idol.tscn" id="35_h5g1x"]
+[ext_resource type="PackedScene" uid="uid://bphrmf6n5s7be" path="res://Rooms/Furniture and Traps/crate.tscn" id="36_3ises"]
+[ext_resource type="PackedScene" uid="uid://bc3jnn13by1bc" path="res://Rooms/Furniture and Traps/wooden_fence/horizontal_wooden_fence.tscn" id="37_xmj7b"]
+[ext_resource type="PackedScene" uid="uid://bvyids8lijklc" path="res://Rooms/Furniture and Traps/wooden_fence/left_bottom_vertical_wooden_fence.tscn" id="38_sidag"]
+[ext_resource type="PackedScene" uid="uid://c3v57eiyj5m18" path="res://Rooms/Furniture and Traps/wooden_fence/left_top_vertical_wooden_fence.tscn" id="39_exgbv"]
+[ext_resource type="PackedScene" uid="uid://b8gsakalplp52" path="res://Rooms/Furniture and Traps/wooden_fence/right_bottom_vertical_wooden_fence.tscn" id="40_wlyfq"]
+[ext_resource type="PackedScene" uid="uid://cxx3eqxb68h25" path="res://Rooms/Furniture and Traps/wooden_fence/right_top_vertical_wooden_fence.tscn" id="41_iu5xf"]
+[ext_resource type="PackedScene" uid="uid://u6q2tn1xph6o" path="res://Weapons/Melee/branch/branch.tscn" id="42_5b61v"]
+[ext_resource type="Script" path="res://Characters/npcs/animals/animal_spawner.gd" id="43_qnyka"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_s6u7b"]
 source_geometry_group_name = &"navigation_polygon_source_group"
@@ -32,7 +55,7 @@ source_geometry_group_name = &"navigation_polygon_source_group"
 agent_radius = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b4afx"]
-texture = ExtResource("7_bvea0")
+texture = ExtResource("3_5bipw")
 0:0/0 = 0
 0:0/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_7h6or")
 
@@ -62,15 +85,15 @@ height = 20.0
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xxlah"]
 light_mode = 1
 
-[node name="BaseCamp" type="NavigationRegion2D"]
+[node name="DebugBaseCamp" type="NavigationRegion2D"]
 y_sort_enabled = true
 texture_filter = 1
 navigation_polygon = SubResource("NavigationPolygon_s6u7b")
-script = ExtResource("1_tpf7m")
+script = ExtResource("1_78wu5")
 
 [node name="TileMap" type="TileMap" parent="." groups=["navigation_polygon_source_group"]]
 y_sort_enabled = true
-tile_set = ExtResource("2_ipa5f")
+tile_set = ExtResource("2_b12nq")
 format = 2
 layer_0/z_index = -2
 layer_0/navigation_enabled = false
@@ -93,14 +116,14 @@ tile_set = SubResource("TileSet_wt50x")
 format = 2
 layer_0/navigation_enabled = false
 
-[node name="Campfire" parent="." instance=ExtResource("4_k7esm")]
+[node name="Campfire" parent="." instance=ExtResource("4_dnn38")]
 position = Vector2(166, 140)
 
 [node name="StartArea1" type="Area2D" parent="."]
 position = Vector2(128, 8)
 collision_layer = 0
 collision_mask = 256
-script = ExtResource("9_r816v")
+script = ExtResource("5_16x5s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartArea1"]
 shape = SubResource("RectangleShape2D_qm2jb")
@@ -109,7 +132,7 @@ shape = SubResource("RectangleShape2D_qm2jb")
 position = Vector2(128, -9)
 collision_layer = 0
 collision_mask = 256
-script = ExtResource("9_r816v")
+script = ExtResource("5_16x5s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartArea2"]
 shape = SubResource("RectangleShape2D_qm2jb")
@@ -118,7 +141,7 @@ shape = SubResource("RectangleShape2D_qm2jb")
 position = Vector2(128, -26)
 collision_layer = 0
 collision_mask = 256
-script = ExtResource("9_r816v")
+script = ExtResource("5_16x5s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartArea3"]
 shape = SubResource("RectangleShape2D_qm2jb")
@@ -127,7 +150,7 @@ shape = SubResource("RectangleShape2D_qm2jb")
 position = Vector2(128, -44)
 collision_layer = 0
 collision_mask = 256
-script = ExtResource("9_r816v")
+script = ExtResource("5_16x5s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartArea4"]
 shape = SubResource("RectangleShape2D_qm2jb")
@@ -138,7 +161,7 @@ collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Wardrobe"]
 position = Vector2(0, -7)
-texture = ExtResource("4_8ics2")
+texture = ExtResource("6_dk6fw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wardrobe"]
 visible = false
@@ -146,7 +169,7 @@ position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_4pp6i")
 
 [node name="WardrobeInteractArea" type="Area2D" parent="Wardrobe"]
-script = ExtResource("2_n3t3v")
+script = ExtResource("7_e3xt5")
 path_to_sprite = NodePath("../Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wardrobe/WardrobeInteractArea"]
@@ -163,7 +186,7 @@ position = Vector2(107, 112)
 texture = SubResource("PlaceholderTexture2D_erbcu")
 
 [node name="SettingsInteractArea" type="Area2D" parent="Settings"]
-script = ExtResource("2_n3t3v")
+script = ExtResource("7_e3xt5")
 path_to_sprite = NodePath("../Sprite2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Settings/SettingsInteractArea"]
@@ -171,10 +194,10 @@ shape = SubResource("CircleShape2D_2m37t")
 
 [node name="SeedSelectorSprite" type="Sprite2D" parent="."]
 position = Vector2(154, 25)
-texture = ExtResource("9_dti1o")
+texture = ExtResource("8_yipu7")
 
 [node name="InteractArea" type="Area2D" parent="SeedSelectorSprite"]
-script = ExtResource("2_n3t3v")
+script = ExtResource("7_e3xt5")
 path_to_sprite = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SeedSelectorSprite/InteractArea"]
@@ -202,7 +225,7 @@ canvas_item_default_texture_filter = 0
 size = Vector2i(200, 150)
 content_scale_mode = 1
 content_scale_aspect = 3
-theme = ExtResource("4_6s3ou")
+theme = ExtResource("9_kchio")
 
 [node name="WardrobeUI" type="MarginContainer" parent="WardrobePopup"]
 texture_filter = 1
@@ -211,11 +234,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = -8.0
-offset_bottom = -8.0
+offset_right = 192.0
+offset_bottom = 142.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("4_nybk1")
+script = ExtResource("10_dbutg")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="WardrobePopup/WardrobeUI"]
 layout_mode = 2
@@ -246,53 +269,97 @@ autowrap_mode = 3
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_fonts/font = ExtResource("13_2uruh")
+theme_override_fonts/font = ExtResource("11_vmwcu")
 theme_override_font_sizes/font_size = 10
 autowrap_mode = 3
 
 [node name="SeedPopup" type="PopupPanel" parent="."]
 disable_3d = true
 size = Vector2i(97, 40)
-theme = ExtResource("4_6s3ou")
+theme = ExtResource("9_kchio")
 
 [node name="MarginContainer" type="MarginContainer" parent="SeedPopup"]
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 89.0
 offset_bottom = 32.0
-theme = ExtResource("4_6s3ou")
+theme = ExtResource("9_kchio")
 
 [node name="LineEdit" type="LineEdit" parent="SeedPopup/MarginContainer"]
 layout_mode = 2
 placeholder_text = "SEED"
 max_length = 8
 expand_to_text_length = true
-script = ExtResource("12_esh87")
+script = ExtResource("12_5cgp7")
+
+[node name="Katana" parent="." instance=ExtResource("13_ree6c")]
+position = Vector2(154, 116)
+
+[node name="DragonKiller" parent="." instance=ExtResource("14_qv1sr")]
+position = Vector2(235, 168)
+bad_state = true
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("18_0hiag")
+stream = ExtResource("15_i24bk")
 volume_db = -8.0
 autoplay = true
 bus = &"Music"
 
 [node name="WardrobeOpenSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("15_iuhqb")
+stream = ExtResource("16_lbmtr")
 volume_db = -2.0
 bus = &"Sounds"
 
-[node name="Hut" parent="." instance=ExtResource("25_mnnam")]
+[node name="OrcSword" parent="." instance=ExtResource("17_avaa0")]
+position = Vector2(181, 121)
+
+[node name="WarriorSword" parent="." instance=ExtResource("18_ry2qk")]
+position = Vector2(236, 72)
+
+[node name="Scimitar" parent="." instance=ExtResource("19_l3xel")]
+position = Vector2(309, 137)
+
+[node name="WarAxe" parent="." instance=ExtResource("20_dcaqw")]
+position = Vector2(176, 230)
+
+[node name="Hut" parent="." instance=ExtResource("21_qma8h")]
 position = Vector2(-111, 131)
 
-[node name="TikiTorch" parent="." instance=ExtResource("26_61yb5")]
+[node name="TikiTorch" parent="." instance=ExtResource("22_213l4")]
 position = Vector2(-196, 156)
 
-[node name="TikiTorch2" parent="." instance=ExtResource("26_61yb5")]
+[node name="TikiTorch2" parent="." instance=ExtResource("22_213l4")]
 position = Vector2(-59, 187)
 
-[node name="PracticeDummy" parent="." instance=ExtResource("31_1hy67")]
+[node name="KombatHammer" parent="." instance=ExtResource("23_c8jn4")]
+position = Vector2(216, 231)
+
+[node name="WarHammer" parent="." instance=ExtResource("24_6qq7g")]
+position = Vector2(-122, 172)
+
+[node name="SharpAxe" parent="." instance=ExtResource("25_ijlya")]
+position = Vector2(-46, 149)
+
+[node name="SmallAxe" parent="." instance=ExtResource("26_sot36")]
+position = Vector2(42, 140)
+
+[node name="WoodenBow" parent="." instance=ExtResource("27_utux8")]
+position = Vector2(185, 174)
+
+[node name="PracticeDummy" parent="." instance=ExtResource("28_3qu3m")]
 position = Vector2(141, 127)
 
-[node name="BaseCampItemsShop" parent="." instance=ExtResource("37_qhx6q")]
+[node name="LightningStick" parent="." instance=ExtResource("29_66374")]
+position = Vector2(33, 277)
+bad_state = false
+
+[node name="Spear" parent="." instance=ExtResource("30_eh7qr")]
+position = Vector2(136, 175)
+
+[node name="WoodenCrossbow" parent="." instance=ExtResource("31_78ub3")]
+position = Vector2(196, 261)
+
+[node name="BaseCampItemsShop" parent="." instance=ExtResource("32_cpcpv")]
 position = Vector2(91, 57)
 
 [node name="Entries" type="Node2D" parent="."]
@@ -317,6 +384,9 @@ position = Vector2(183, 158)
 
 [node name="Weapons" type="Node2D" parent="."]
 
+[node name="ReptilianSpear" parent="Weapons" instance=ExtResource("33_lyomm")]
+position = Vector2(269, 79)
+
 [node name="DebugRoomId" type="Label" parent="."]
 z_index = 4
 material = SubResource("CanvasItemMaterial_xxlah")
@@ -324,23 +394,56 @@ offset_right = 40.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 64
 
-[node name="TikiTorch16" parent="." instance=ExtResource("26_61yb5")]
+[node name="TikiTorch16" parent="." instance=ExtResource("22_213l4")]
 position = Vector2(70, 34)
 
-[node name="SleepingBag" parent="." instance=ExtResource("39_sleg1")]
+[node name="SleepingBag" parent="." instance=ExtResource("34_kus3l")]
 position = Vector2(169, 156)
+
+[node name="CursedIdol" parent="." instance=ExtResource("35_h5g1x")]
+position = Vector2(139, 76)
+
+[node name="Crate" parent="." instance=ExtResource("36_3ises")]
+position = Vector2(99, 89)
+
+[node name="HorizontalWoodenFence" parent="." instance=ExtResource("37_xmj7b")]
+position = Vector2(85, 128)
+
+[node name="HorizontalWoodenFence2" parent="." instance=ExtResource("37_xmj7b")]
+position = Vector2(101, 128)
+
+[node name="HorizontalWoodenFence3" parent="." instance=ExtResource("37_xmj7b")]
+position = Vector2(85, 111)
+
+[node name="HorizontalWoodenFence4" parent="." instance=ExtResource("37_xmj7b")]
+position = Vector2(101, 111)
+
+[node name="LeftBottomVerticalWoodenFence" parent="." instance=ExtResource("38_sidag")]
+position = Vector2(69, 128)
+
+[node name="LeftTopVerticalWoodenFence" parent="." instance=ExtResource("39_exgbv")]
+position = Vector2(69, 112)
+
+[node name="RightBottomVerticalWoodenFence" parent="." instance=ExtResource("40_wlyfq")]
+position = Vector2(117, 128)
+
+[node name="RightTopVerticalWoodenFence" parent="." instance=ExtResource("41_iu5xf")]
+position = Vector2(117, 112)
 
 [node name="WakeUpDialogueTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Branch" parent="." instance=ExtResource("42_5b61v")]
+position = Vector2(154, 153)
 
 [node name="Animals" type="Node2D" parent="."]
 y_sort_enabled = true
 
 [node name="Turtle" type="Marker2D" parent="Animals"]
 position = Vector2(-11, 109)
-script = ExtResource("46_v21xh")
+script = ExtResource("43_qnyka")
 animal = 2
 
 [node name="BlackCat" type="Marker2D" parent="Animals"]
 position = Vector2(195, 49)
-script = ExtResource("46_v21xh")
+script = ExtResource("43_qnyka")
