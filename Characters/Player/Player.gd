@@ -255,10 +255,10 @@ func _physics_process(delta: float) -> void:
 	if stamina_regen_cooldown_timer.is_stopped() and _stamina < max_stamina:
 		_stamina += stamina_regeneration_per_second * delta
 
-	var target_temperature: float = SavedData.get_biome_conf().temperature if close_temperatures.is_empty() else close_temperatures.max()
-	#print_debug(target_temperature)
-	var change: float = temperature_change_per_second if (target_temperature - temperature) > 0 else - temperature_change_per_second
-	temperature = clamp(temperature + change * delta, -50.0, 50.0)
+	#var target_temperature: float = SavedData.get_biome_conf().temperature if close_temperatures.is_empty() else close_temperatures.max()
+	##print_debug(target_temperature)
+	#var change: float = temperature_change_per_second if (target_temperature - temperature) > 0 else - temperature_change_per_second
+	#temperature = clamp(temperature + change * delta, -50.0, 50.0)
 
 func _controller_aim() -> void:
 	var window_size: Vector2 = get_viewport().size
