@@ -547,13 +547,13 @@ func start_progressing_acid() -> void:
 
 func is_on_water() -> bool:
 	if current_room:
-		return current_room.is_on_water(position - current_room.position)
+		return current_room.is_on_water(global_position - current_room.global_position)
 	else:
 		return false
 
 func is_on_void() -> bool:
 	if current_room:
-		return current_room.is_on_void(position - current_room.position)
+		return current_room.is_on_void(global_position - current_room.global_position)
 	else:
 		return false
 

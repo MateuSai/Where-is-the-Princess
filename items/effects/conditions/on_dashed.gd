@@ -1,10 +1,12 @@
 class_name OnDashed extends ItemEffectsCondition
 
+@warning_ignore("shadowed_variable")
 func enable(player: Player) -> void:
 	super(player)
 
 	player.dashed.connect(_on_dashed)
 
+@warning_ignore("shadowed_variable")
 func disable(player: Player) -> void:
 	super(player)
 

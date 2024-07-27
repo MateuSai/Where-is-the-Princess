@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bvov66v58wd88"]
+[gd_scene load_steps=31 format=3 uid="uid://bvov66v58wd88"]
 
 [ext_resource type="PackedScene" uid="uid://d2j5lvnnjh64l" path="res://ui/cinematics/top_black_bar.tscn" id="1_q2une"]
 [ext_resource type="LabelSettings" uid="uid://gwgloxfvwiln" path="res://Fonts/credits_name_label_settings.tres" id="2_0ljk7"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cf1cva3smjs4k" path="res://Art/Abyss_vignette.png" id="5_r8mci"]
 [ext_resource type="Script" path="res://Characters/Player/sprite_with_run_stats_armor_spritesheet.gd" id="6_5auhx"]
 [ext_resource type="Texture2D" uid="uid://itm8i6e0vur0" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_bonepile.png" id="6_jfmbx"]
+[ext_resource type="AudioStream" uid="uid://bxq6cw3nlbclo" path="res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Hit(Impact)/HitGore3.wav" id="7_l0ei4"]
 [ext_resource type="Texture2D" uid="uid://da10bpkbj02fj" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_archer_head.png" id="8_dbfho"]
 [ext_resource type="Texture2D" uid="uid://b22gr7xgw6v8y" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/bone_floor_01.png" id="10_xb5po"]
 [ext_resource type="Texture2D" uid="uid://dmfvuf01gim13" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/bone_floor_02.png" id="11_t3dkd"]
@@ -77,6 +78,30 @@ tracks/3/keys = {
 "update": 1,
 "values": [1]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("TopBlackBar/MarginContainer/Label:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("BottomBlackBar/MarginContainer/Label:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_p8dhp"]
 resource_name = "animate"
@@ -130,6 +155,45 @@ tracks/3/keys = {
 "update": 1,
 "values": [1, 0]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("TopBlackBar/MarginContainer/Label:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 2.6, 3.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("BottomBlackBar/MarginContainer/Label:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 5.4, 6.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/6/type = "audio"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AudioStreamPlayer")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("7_l0ei4")
+}],
+"times": PackedFloat32Array(1.65)
+}
+tracks/6/use_blend = true
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7wy00"]
 _data = {
@@ -165,7 +229,7 @@ theme_override_constants/margin_right = 8
 [node name="Label" type="Label" parent="TopBlackBar/MarginContainer"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-text = "CINEMATIC_INTRO_4"
+text = "CINEMATIC_CLIFF_JUMP_1"
 label_settings = ExtResource("2_0ljk7")
 
 [node name="BottomBlackBar" parent="." instance=ExtResource("2_g0gwx")]
@@ -186,8 +250,9 @@ theme_override_constants/margin_right = 8
 
 [node name="Label" type="Label" parent="BottomBlackBar/MarginContainer"]
 modulate = Color(1, 1, 1, 0)
+z_index = 1
 layout_mode = 2
-text = "CINEMATIC_INTRO_4_2"
+text = "CINEMATIC_CLIFF_JUMP_1_2"
 label_settings = ExtResource("2_0ljk7")
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -418,3 +483,6 @@ texture = ExtResource("25_wftce")
 [node name="F11" type="Sprite2D" parent="."]
 position = Vector2(129, 106)
 texture = ExtResource("26_drktv")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Sounds"
