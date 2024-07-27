@@ -1,4 +1,4 @@
-class_name HeartStone extends PermanentPassiveItem
+class_name RustyStoneHeart extends PermanentPassiveItem
 
 func _init() -> void:
 	effects = [OnRoomClosed.new([HealPlayer.new(1)])]
