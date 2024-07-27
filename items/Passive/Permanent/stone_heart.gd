@@ -11,5 +11,5 @@ func get_big_icon() -> Texture2D:
 
 func get_unite_dictionary() -> Dictionary:
 	return {
-		HeartStone.new().get_script_path(): HeartRock.new().get_script_path(),
+		RustyStoneHeart.new().get_script_path(): HeartRock.new().get_script_path(),
 	}

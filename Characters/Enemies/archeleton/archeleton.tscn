@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cqy53jjsoth3u"]
+[gd_scene load_steps=31 format=3 uid="uid://cqy53jjsoth3u"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_3xxis"]
 [ext_resource type="Script" path="res://Characters/Enemies/archeleton/archeleton.gd" id="2_20lfo"]
@@ -21,6 +21,8 @@
 [ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="16_cp86x"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/weapon_charge.gd" id="16_qgpc1"]
 [ext_resource type="PackedScene" uid="uid://ctwdicf0i0c4x" path="res://Weapons/Ranged/Bows/short_wooden_bow/short_wooden_bow.tscn" id="17_hlfjy"]
+[ext_resource type="Script" path="res://Components/spawn_fragments_on_died.gd" id="22_5abxh"]
+[ext_resource type="PackedScene" uid="uid://byaun5wu16bub" path="res://effects/fragments/skeleton_fragment.tscn" id="23_q48dq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_j6xc1"]
 radius = 3.0
@@ -125,7 +127,7 @@ script = ExtResource("2_cjwj3")
 
 [node name="ArcheletonBeehaveTree" type="Node" parent="." index="1" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("4_h5nrn")
-blackboard = NodePath("@Node@26580")
+blackboard = NodePath("@Node@29976")
 actor = NodePath("..")
 
 [node name="SimpleParallelComposite" type="Node" parent="ArcheletonBeehaveTree" index="0"]
@@ -252,4 +254,8 @@ libraries = {
 
 [node name="AimComponent" type="Node" parent="." index="13"]
 script = ExtResource("6_nkjaj")
-flags = 2
+
+[node name="SpawnFragmentsOnDied" type="Node2D" parent="." index="18"]
+script = ExtResource("22_5abxh")
+fragment_scene = ExtResource("23_q48dq")
+max_fragments = 7

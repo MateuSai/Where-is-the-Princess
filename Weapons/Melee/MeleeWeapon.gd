@@ -99,14 +99,14 @@ func start_throw_animations() -> void:
 func throw() -> void:
 	Log.debug("Thrown " + weapon_id)
 
+	player_detector.set_collision_mask_value(2, false)
+
 	throw_dir = (get_parent().get_parent() as Player).mouse_direction.rotated(randf_range( - (get_parent() as Weapons).throw_spread, (get_parent() as Weapons).throw_spread))
 	bodies_pierced = 0
 	piercing = (get_parent().get_parent() as Player).throw_piercing
 	if data.type in [WeaponData.Type.SWORD, WeaponData.Type.HAMMER, WeaponData.Type.AXE, WeaponData.Type.OTHER]:
 		throw_rot_speed = 25 if attack_num == 0 else - 25
 	(get_parent() as PlayerWeapons).throw_weapon()
-
-	player_detector.set_collision_mask_value(2, false)
 
 	(hitbox.get_node("CollisionShape2D") as CollisionShape2D).disabled = false
 	hitbox.set_collision_mask_value(1, true) # Para que pueda colisionar con paredes

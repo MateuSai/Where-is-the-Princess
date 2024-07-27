@@ -418,10 +418,6 @@ _data = {
 
 [node name="WarAxe" instance=ExtResource("1_fuq8a")]
 script = ExtResource("2_nbej2")
-num_normal_attacks = 1
-increase_num_normal_attacks_on_ability = true
-invert_scale_when_looking_left = false
-throw_speed = 200
 
 [node name="WeaponSprite" parent="Node2D" index="0"]
 material = SubResource("ShaderMaterial_mpfh3")
@@ -449,7 +445,6 @@ libraries = {
 visible = false
 material = SubResource("CanvasItemMaterial_bn7ru")
 position = Vector2(-18, -2.00004)
-rotation = 2.3562
 texture = ExtResource("5_4007o")
 flip_h = true
 hframes = 7

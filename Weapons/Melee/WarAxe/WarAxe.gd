@@ -43,7 +43,7 @@ func _on_trail_animation_ended(anim_name: String) -> void:
 
 
 func _throw_body_entered_hitbox(body: Node2D) -> void:
-	if hitbox._get_entity(body) is Player:
+	if hitbox._get_entity(body) is Player and trail_animation_player.is_playing() and trail_animation_player.current_animation == "on_air":
 		_go_back_to_before_throw_state()
 		_on_PlayerDetector_body_entered(hitbox._get_entity(body)) # Pick up the weapon
 	else:

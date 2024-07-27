@@ -1,11 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://cyik5011d78x4"]
+[gd_scene load_steps=16 format=3 uid="uid://cyik5011d78x4"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_nbacx"]
 [ext_resource type="Script" path="res://Characters/Enemies/skelebro/skelebro.gd" id="2_w7t6f"]
 [ext_resource type="Script" path="res://Characters/Enemies/skelebro/skelebro_fsm.gd" id="3_evuok"]
 [ext_resource type="Texture2D" uid="uid://jfehaj24kmy2" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_warrior.png" id="4_wovb8"]
 [ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="5_n2dke"]
-[ext_resource type="PackedScene" uid="uid://ctt3utwk3p586" path="res://Weapons/Melee/KombatHammer/KombatHammer.tscn" id="6_pip1v"]
+[ext_resource type="PackedScene" uid="uid://ctt3utwk3p586" path="res://Weapons/Melee/sledgehammer/sledgehammer.tscn" id="6_pip1v"]
+[ext_resource type="Script" path="res://Components/spawn_fragments_on_died.gd" id="7_5mv6c"]
+[ext_resource type="PackedScene" uid="uid://byaun5wu16bub" path="res://effects/fragments/skeleton_fragment.tscn" id="8_tbj2v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kvy2q"]
 radius = 3.0
@@ -104,11 +106,6 @@ _data = {
 
 [node name="Skelebrommer" instance=ExtResource("1_nbacx")]
 script = ExtResource("2_w7t6f")
-mass = 1.0
-acceleration = 40
-max_speed = 100
-flying = false
-can_be_knocked_back = true
 
 [node name="FiniteStateMachine" parent="." index="0"]
 script = ExtResource("3_evuok")
@@ -132,3 +129,8 @@ position = Vector2(0, -3)
 script = ExtResource("5_n2dke")
 
 [node name="KombatHammer" parent="EnemyWeapons" index="0" instance=ExtResource("6_pip1v")]
+
+[node name="SpawnFragmentsOnDied" type="Node2D" parent="." index="16"]
+script = ExtResource("7_5mv6c")
+fragment_scene = ExtResource("8_tbj2v")
+max_fragments = 7
