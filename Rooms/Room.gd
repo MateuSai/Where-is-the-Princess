@@ -705,7 +705,7 @@ func get_items() -> Array[ItemOnFloor]:
 func add_weapon_on_floor(weapon: Weapon, at_pos: Vector2) -> void:
 	if is_on_water(at_pos):
 		weapon.queue_free()
-		var splash: Sprite2D = load("res://effects/water_splash/water_splash.tscn").instantiate()
+		var splash: Node2D = load("res://effects/water_splash/water_splash.tscn").instantiate()
 		splash.position = at_pos
 		add_child(splash)
 	else:

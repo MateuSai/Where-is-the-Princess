@@ -364,13 +364,13 @@ func _set_damage_dealer_id(new_id: String) -> void:
 
 func _is_on_water() -> bool:
 	if Globals.player.current_room:
-		return Globals.player.current_room.tilemap.get_cell_atlas_coords(DungeonRoom.WATER_LAYER_ID, Globals.player.current_room.tilemap.local_to_map(position - Globals.player.current_room.position)) != Vector2i( - 1, -1)
+		return Globals.player.current_room.is_on_water(weapon_sprite.global_position - Globals.player.current_room.tilemap.global_position)
 	else:
 		return false
 
 func _is_on_void() -> bool:
 	if Globals.player.current_room:
-		return Globals.player.current_room.is_on_void(weapon_sprite.global_position - Globals.player.current_room.tilemap.position)
+		return Globals.player.current_room.is_on_void(weapon_sprite.global_position - Globals.player.current_room.tilemap.global_position)
 	else:
 		return false
 
