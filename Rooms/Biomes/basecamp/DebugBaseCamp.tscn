@@ -235,8 +235,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 192.0
-offset_bottom = 142.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("10_dbutg")
@@ -439,6 +439,11 @@ position = Vector2(154, 153)
 
 [node name="Animals" type="Node2D" parent="."]
 y_sort_enabled = true
+
+[node name="Rabbit" type="Marker2D" parent="Animals"]
+position = Vector2(102, 171)
+script = ExtResource("43_qnyka")
+animal = 1
 
 [node name="Turtle" type="Marker2D" parent="Animals"]
 position = Vector2(-11, 109)

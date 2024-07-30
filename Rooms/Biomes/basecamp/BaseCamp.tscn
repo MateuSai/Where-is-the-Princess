@@ -336,6 +336,11 @@ one_shot = true
 [node name="Animals" type="Node2D" parent="."]
 y_sort_enabled = true
 
+[node name="Rabbit" type="Marker2D" parent="Animals"]
+position = Vector2(102, 171)
+script = ExtResource("46_v21xh")
+animal = 1
+
 [node name="Turtle" type="Marker2D" parent="Animals"]
 position = Vector2(-11, 109)
 script = ExtResource("46_v21xh")
