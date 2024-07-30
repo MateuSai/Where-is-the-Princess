@@ -2,6 +2,9 @@ class_name StartPlayerDialogueArea extends Area2D
 
 @export_multiline var dialogues: Array[String] = []
 @export var one_time_dialogue: bool = true
+@export var block_movement: bool = false
+
+#signal ended()
 
 func _ready() -> void:
 	assert(not dialogues.is_empty())

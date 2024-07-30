@@ -66,6 +66,7 @@ enum AnimalsToRescue {
 var animals_rescued: int = 0
 
 var _npcs_rescued: PackedStringArray = []
+var _npcs_killed: PackedStringArray = []
 var items_shop_unlocked: bool = false
 var player_upgrades_shop_unlocked: bool = false
 
@@ -287,6 +288,13 @@ func is_npc_rescued(npc_id: String) -> bool:
 
 func rescue_npc(npc_id: String) -> void:
 	_npcs_rescued.push_back(npc_id)
+	save()
+
+func is_npc_killed(npc_id: String) -> bool:
+	return _npcs_killed.has(npc_id)
+
+func kill_npc(npc_id: String) -> void:
+	_npcs_killed.push_back(npc_id)
 	save()
 
 static func from_dic(dic: Dictionary) -> Data:

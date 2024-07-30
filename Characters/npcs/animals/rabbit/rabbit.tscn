@@ -1,32 +1,103 @@
-[gd_scene load_steps=6 format=3 uid="uid://bx6a4l3enttgp"]
+[gd_scene load_steps=15 format=3 uid="uid://bx6a4l3enttgp"]
 
 [ext_resource type="PackedScene" uid="uid://xvaekjyf4uxl" path="res://Characters/npcs/NPC.tscn" id="1_1bskj"]
-[ext_resource type="Script" path="res://Characters/npcs/animals/animal.gd" id="2_51w86"]
+[ext_resource type="Script" path="res://Characters/npcs/animals/rabbit/rabbit.gd" id="2_6y25l"]
 [ext_resource type="Texture2D" uid="uid://ncyayhfrb207" path="res://Art/animals/rabbit/rabbit.png" id="3_10311"]
+[ext_resource type="Script" path="res://Components/pathfinding_component.gd" id="4_bodxx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dbpvt"]
+atlas = ExtResource("3_10311")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgoby"]
+atlas = ExtResource("3_10311")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xfkcb"]
+atlas = ExtResource("3_10311")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a3o7b"]
+atlas = ExtResource("3_10311")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_31r50"]
+atlas = ExtResource("3_10311")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfjrc"]
+atlas = ExtResource("3_10311")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1o87b"]
+atlas = ExtResource("3_10311")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0ara"]
+atlas = ExtResource("3_10311")
+region = Rect2(48, 16, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6s3sa"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_10311")
+"texture": SubResource("AtlasTexture_dbpvt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pgoby")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xfkcb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a3o7b")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_31r50")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bfjrc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1o87b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g0ara")
+}],
+"loop": true,
+"name": &"move",
+"speed": 7.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5kj2g"]
 radius = 2.23607
 
 [node name="Rabbit" instance=ExtResource("1_1bskj")]
-script = ExtResource("2_51w86")
+script = ExtResource("2_6y25l")
 
 [node name="AnimatedSprite" parent="." index="0"]
+position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_6s3sa")
+animation = &"move"
+autoplay = "default"
+frame_progress = 0.590659
 
 [node name="CollisionShape2D" parent="." index="1"]
 shape = SubResource("CircleShape2D_5kj2g")
 
+[node name="InteractArea" parent="." index="2"]
+visible = false
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." index="3"]
 max_distance = 200.0
 bus = &"Sounds"
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." index="4"]
+
+[node name="PathfindingComponent" type="Node" parent="." index="5"]
+script = ExtResource("4_bodxx")

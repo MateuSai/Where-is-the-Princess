@@ -13,6 +13,7 @@ var dialogue_tween: Tween = null
 signal dialogue_finished()
 
 @export var dialogues_in_order: bool = false
+@export var can_interact: bool = true
 signal used_all_dialogues()
 @export var dialogue_texts: PackedStringArray = ["Violence breeds violence but in the end it has to be this way", "お前はもう死んでいる", "Zeus is the son of Kronos", "Diogenes was a gigachad"]:
 	set(new_dialogue_texts):
@@ -24,7 +25,13 @@ var used_dialogue_texts: PackedStringArray = []
 @onready var interact_area: InteractArea = $InteractArea
 
 func _ready() -> void:
-	interact_area.player_interacted.connect(_on_player_interacted)
+	if can_interact:
+		interact_area.player_interacted.connect(_on_player_interacted)
+	else:
+		interact_area.queue_free()
+
+	if SavedData.data.is_npc_killed(id):
+		queue_free()
 
 func _on_player_interacted() -> void:
 	if dialogue_box == null:

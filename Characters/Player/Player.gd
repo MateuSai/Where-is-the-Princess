@@ -9,6 +9,7 @@ class_name Player extends Character
 const DIALOGUE_BOX_SCENE: PackedScene = preload ("res://ui/dialogue_system/dialogue_box.tscn")
 var dialogue_box: DialogueBox
 var dialogue_tween: Tween = null
+signal dialogue_finished()
 
 #const DASH_IMPULSE: int = 22000000
 var dash_stamina_cost: float = 30
@@ -612,7 +613,7 @@ func start_dialogues(dialogues: Array[String]) -> void:
 	dialogue_tween = null
 	dialogue_box.queue_free()
 	dialogue_box = null
-	#dialogue_finished.emit()
+	dialogue_finished.emit()
 
 func _set_temperature(new_value: float) -> void:
 	temperature = new_value

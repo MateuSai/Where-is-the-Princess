@@ -1,6 +1,7 @@
-[gd_scene load_steps=31 format=3 uid="uid://bvov66v58wd88"]
+[gd_scene load_steps=34 format=3 uid="uid://bvov66v58wd88"]
 
 [ext_resource type="PackedScene" uid="uid://d2j5lvnnjh64l" path="res://ui/cinematics/top_black_bar.tscn" id="1_q2une"]
+[ext_resource type="Script" path="res://ui/cinematics/cliff_jump/1.gd" id="1_yktyl"]
 [ext_resource type="LabelSettings" uid="uid://gwgloxfvwiln" path="res://Fonts/credits_name_label_settings.tres" id="2_0ljk7"]
 [ext_resource type="PackedScene" uid="uid://dgsiobfohkyie" path="res://ui/cinematics/bottom_black_bar.tscn" id="2_g0gwx"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="3_51sl5"]
@@ -27,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://cj2sb1gc7kp1n" path="res://Weapons/Melee/Oriental Spear/fragments/f_03.png" id="24_8j10y"]
 [ext_resource type="Texture2D" uid="uid://b7pj5lqcvn8m8" path="res://Weapons/Melee/rusty_sword/fragments/f_03.png" id="25_wftce"]
 [ext_resource type="Texture2D" uid="uid://44vkrb0b6dgg" path="res://Weapons/Melee/spear/fragments/f_01.png" id="26_drktv"]
+[ext_resource type="Texture2D" uid="uid://ujw2bmqe0ou6" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/NPCs/diogenes_01.png" id="28_wh8jf"]
 
 [sub_resource type="Animation" id="Animation_o6kj0"]
 length = 0.001
@@ -201,6 +203,8 @@ _data = {
 "animate": SubResource("Animation_p8dhp")
 }
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pab3a"]
+
 [node name="1" type="Control"]
 y_sort_enabled = true
 custom_minimum_size = Vector2(432, 243)
@@ -210,6 +214,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_yktyl")
 
 [node name="TopBlackBar" parent="." instance=ExtResource("1_q2une")]
 layout_mode = 0
@@ -483,6 +488,56 @@ texture = ExtResource("25_wftce")
 [node name="F11" type="Sprite2D" parent="."]
 position = Vector2(129, 106)
 texture = ExtResource("26_drktv")
+
+[node name="Diogenes" type="Node2D" parent="."]
+
+[node name="Sprite2D3" type="Sprite2D" parent="Diogenes"]
+position = Vector2(119, 83.5)
+rotation = -3.14159
+texture = ExtResource("28_wh8jf")
+vframes = 3
+frame = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Diogenes"]
+z_index = 1
+position = Vector2(119, 88.5)
+rotation = 3.14159
+texture = ExtResource("28_wh8jf")
+vframes = 3
+frame = 1
+
+[node name="Sprite2D2" type="Sprite2D" parent="Diogenes"]
+z_index = 1
+position = Vector2(119, 93.5)
+rotation = 3.14159
+texture = ExtResource("28_wh8jf")
+vframes = 3
+
+[node name="Blood" type="Node2D" parent="Diogenes"]
+
+[node name="Sprite2D4" type="Sprite2D" parent="Diogenes/Blood"]
+modulate = Color(0.501961, 0.129412, 0.054902, 1)
+z_index = 1
+position = Vector2(117.5, 92.5)
+texture = SubResource("PlaceholderTexture2D_pab3a")
+
+[node name="Sprite2D6" type="Sprite2D" parent="Diogenes/Blood"]
+modulate = Color(0.501961, 0.129412, 0.054902, 1)
+z_index = 1
+position = Vector2(118.5, 92.5)
+texture = SubResource("PlaceholderTexture2D_pab3a")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Diogenes/Blood"]
+modulate = Color(0.501961, 0.129412, 0.054902, 1)
+z_index = 1
+position = Vector2(117.5, 93.5)
+texture = SubResource("PlaceholderTexture2D_pab3a")
+
+[node name="Sprite2D7" type="Sprite2D" parent="Diogenes/Blood"]
+modulate = Color(0.501961, 0.129412, 0.054902, 1)
+z_index = 1
+position = Vector2(117.5, 94.5)
+texture = SubResource("PlaceholderTexture2D_pab3a")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 bus = &"Sounds"
