@@ -1,4 +1,4 @@
-class_name BrokenSwordCursed extends CursedPermanentPassiveItem
+class_name BrokenSwordCursed extends CursedPermanentArtifact
 
 func _init() -> void:
 	effects = [

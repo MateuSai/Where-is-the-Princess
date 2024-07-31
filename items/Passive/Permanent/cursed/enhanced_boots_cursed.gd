@@ -1,4 +1,4 @@
-class_name EnhancedBootsCursed extends CursedPermanentPassiveItem
+class_name EnhancedBootsCursed extends CursedPermanentArtifact
 
 func _init() -> void:
 	effects = [

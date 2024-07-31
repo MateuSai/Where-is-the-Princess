@@ -1,4 +1,4 @@
-class_name HeartRockCursed extends CursedPermanentPassiveItem
+class_name HeartRockCursed extends CursedPermanentArtifact
 
 var player: Player = null
 

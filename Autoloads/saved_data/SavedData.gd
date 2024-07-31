@@ -380,7 +380,7 @@ func add_extra_available_permanent_item(item_path: String) -> void:
 	data.add_extra_available_permanent_item(item_path)
 
 ## Adds a permanent item only for this session. Use this for mods to load the item each time the mod loads.
-func add_mod_permanent_item(item_path: String) -> void:
+func add_mod_permanent_artifact(item_path: String) -> void:
 	if mod_permanent_item_paths.has(item_path):
 		return
 
@@ -398,7 +398,7 @@ func get_all_cursed_items_versions() -> PackedStringArray:
 	var ret: PackedStringArray = []
 
 	for permanent_passive_item_path: String in get_all_permanent_passive_item_paths():
-		var item: PermanentPassiveItem = load(permanent_passive_item_path).new()
+		var item: PermanentArtifact = load(permanent_passive_item_path).new()
 		var cursed_version_path: String = item.get_cursed_version_path()
 		if not cursed_version_path.is_empty():
 			ret.append(cursed_version_path)
@@ -420,7 +420,7 @@ func get_random_available_item_path(quality: Item.Quality=Item.Quality.COMMON) -
 
 	for item_path_array: PackedStringArray in [get_available_temporal_item_paths(), get_available_permanent_item_paths()]:
 		for item_path: String in item_path_array:
-			var item_id: String = (load(item_path).new() as PassiveItem).get_id()
+			var item_id: String = (load(item_path).new() as Artifact).get_id()
 			if equipped_permanent_items_ids.has(item_id) or _get_chests_item_ids().map(func(id: String) -> String: return id.trim_suffix("_cursed")).has(item_id):
 				continue
 			if load(item_path).new().get_quality() == quality:
@@ -444,7 +444,7 @@ func get_random_available_permanent_item_path(quality: Item.Quality=Item.Quality
 	)
 
 	for item_path: String in get_available_permanent_item_paths():
-		var item_id: String = (load(item_path).new() as PassiveItem).get_id()
+		var item_id: String = (load(item_path).new() as Artifact).get_id()
 		if equipped_permanent_items_ids.has(item_id) or _get_chests_item_ids().map(func(id: String) -> String: return id.trim_suffix("_cursed")).has(item_id):
 			continue
 		if load(item_path).new().get_quality() == quality:
@@ -462,7 +462,7 @@ func get_random_available_cursed_item_path(quality: Item.Quality=Item.Quality.CO
 	)
 
 	for item_path: String in get_available_cursed_items():
-		var item_id: String = (load(item_path).new() as PassiveItem).get_id().trim_suffix("_cursed")
+		var item_id: String = (load(item_path).new() as Artifact).get_id().trim_suffix("_cursed")
 		if equipped_permanent_items_ids.has(item_id) or _get_chests_item_ids().map(func(id: String) -> String: return id.trim_suffix("_cursed")).has(item_id):
 			continue
 		if load(item_path).new().get_quality() == quality:
@@ -529,7 +529,7 @@ func _print_info_that_may_be_useful() -> void:
 
 	var permanent_items_without_cursed_counterpart: Array[String] = []
 	for item_path: String in Data.ALL_VANILLA_PERMANENT_ITEMS:
-		var item: PermanentPassiveItem = load(item_path).new()
+		var item: PermanentArtifact = load(item_path).new()
 		if item.get_cursed_version_path().is_empty():
 			permanent_items_without_cursed_counterpart.push_back(item.get_id())
 	Log.info("Permanent items without cursed counterpart: " + str(permanent_items_without_cursed_counterpart))

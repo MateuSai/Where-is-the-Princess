@@ -8,8 +8,8 @@ var dialogue_tween: Tween = null
 
 var coin_price: int = 10
 
-var permanent_passive_item: PermanentPassiveItem
-var item_in_the_process_of_cursing: PermanentPassiveItem
+var permanent_passive_item: PermanentArtifact
+var item_in_the_process_of_cursing: PermanentArtifact
 var tween: Tween = null
 
 #var canvas_modulate: CanvasModulate
@@ -95,11 +95,11 @@ func _can_interact() -> bool:
 	return tween == null and SavedData.run_stats.coins >= coin_price and permanent_passive_item
 
 
-func _get_random_permanent_passive_item_that_has_cursed_version() -> PermanentPassiveItem:
-	var player_permanent_passive_items: Array[PermanentPassiveItem] = SavedData.run_stats.get_permanent_passive_items().duplicate(false)
+func _get_random_permanent_passive_item_that_has_cursed_version() -> PermanentArtifact:
+	var player_permanent_passive_items: Array[PermanentArtifact] = SavedData.run_stats.get_permanent_passive_items().duplicate(false)
 	player_permanent_passive_items.shuffle()
 
-	for item: PermanentPassiveItem in player_permanent_passive_items:
+	for item: PermanentArtifact in player_permanent_passive_items:
 		if not item.get_cursed_version_path().is_empty():
 			return item
 

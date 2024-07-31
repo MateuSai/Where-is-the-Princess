@@ -1,4 +1,4 @@
-class_name Target extends PermanentPassiveItem
+class_name Target extends PermanentArtifact
 
 func _init() -> void:
 	effects = [IncreaseThrowPiercing.new(1)]

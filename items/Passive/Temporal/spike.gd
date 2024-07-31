@@ -1,4 +1,4 @@
-class_name Spike extends TemporalPassiveItem
+class_name Spike extends TemporalArtifact
 
 var animation: Node2D = null
 

@@ -1,4 +1,4 @@
-class_name ProjectileOrbCursed extends CursedPermanentPassiveItem
+class_name ProjectileOrbCursed extends CursedPermanentArtifact
 
 func _init() -> void:
 	effects = [OnPlayerDamaged.new(

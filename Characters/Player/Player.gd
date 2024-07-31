@@ -50,10 +50,10 @@ var projectile_speed: float:
 		else:
 			return 5000
 
-signal temporal_passive_item_picked_up(item: TemporalPassiveItem)
-signal temporal_passive_item_unequiped(item: TemporalPassiveItem)
-signal permanent_passive_item_picked_up(item: PermanentPassiveItem)
-signal permanent_passive_item_unequiped(item: PermanentPassiveItem)
+signal temporal_passive_item_picked_up(item: TemporalArtifact)
+signal temporal_passive_item_unequiped(item: TemporalArtifact)
+signal permanent_passive_item_picked_up(item: PermanentArtifact)
+signal permanent_passive_item_unequiped(item: PermanentArtifact)
 signal player_upgrade_item_picked_up(item: PlayerUpgrade)
 
 var armor: Armor = Underpants.new(): set = set_armor
@@ -218,9 +218,9 @@ func _restore_previous_state() -> void:
 			player_upgrade.equip(self)
 
 	life_component.hp = SavedData.run_stats.hp
-	for permanent_passive_item: PermanentPassiveItem in SavedData.run_stats.get_permanent_passive_items():
+	for permanent_passive_item: PermanentArtifact in SavedData.run_stats.get_permanent_passive_items():
 		pick_up_passive_item(permanent_passive_item)
-	for temporal_passive_item: TemporalPassiveItem in SavedData.run_stats.temporal_passive_items:
+	for temporal_passive_item: TemporalArtifact in SavedData.run_stats.temporal_passive_items:
 		pick_up_passive_item(temporal_passive_item)
 
 func _exit_tree() -> void:
@@ -323,9 +323,9 @@ func remove_coins(amount: int=1) -> void:
 	coin_destroy_effect.position = position
 	get_tree().current_scene.add_child(coin_destroy_effect)
 
-func pick_up_passive_item(item: PassiveItem) -> void:
-	if item is PermanentPassiveItem:
-		var permanent_passive_item: PermanentPassiveItem = item
+func pick_up_passive_item(item: Artifact) -> void:
+	if item is PermanentArtifact:
+		var permanent_passive_item: PermanentArtifact = item
 		permanent_passive_item.equip(self)
 		if not SavedData.run_stats._permanent_passive_items.has(item): # So the item is not added again when we change maps
 			SavedData.run_stats.add_permanent_passive_item(item)
@@ -336,9 +336,9 @@ func pick_up_passive_item(item: PassiveItem) -> void:
 		var weapon_modifier_item: WeaponModifier = item
 		weapon_modifier_item.equip_to_weapon(weapons.current_weapon)
 		weapons.current_weapon.add_weapon_modifier(weapon_modifier_item)
-	else: # TemporalPassiveItem
-		assert(item is TemporalPassiveItem)
-		var temporal_passive_item: TemporalPassiveItem = item
+	else: # TemporalArtifact
+		assert(item is TemporalArtifact)
+		var temporal_passive_item: TemporalArtifact = item
 		temporal_passive_item.equip(self)
 		if not SavedData.run_stats.temporal_passive_items.has(temporal_passive_item):
 			SavedData.run_stats.temporal_passive_items.push_back(temporal_passive_item)
@@ -348,26 +348,26 @@ func pick_up_passive_item(item: PassiveItem) -> void:
 
 	# Check for unite
 	for other_item_path: String in item.get_unite_dictionary().keys():
-		for passive_item: PassiveItem in SavedData.run_stats.get_passive_items():
+		for passive_item: Artifact in SavedData.run_stats.get_passive_items():
 			if other_item_path == passive_item.get_script_path():
 				_unite_items(item, passive_item, load(item.get_unite_dictionary()[other_item_path]).new())
 				break
 
-func unequip_passive_item(item: PassiveItem) -> void:
-	if item is TemporalPassiveItem:
-		var temporal_passive_item: TemporalPassiveItem = item
+func unequip_passive_item(item: Artifact) -> void:
+	if item is TemporalArtifact:
+		var temporal_passive_item: TemporalArtifact = item
 		temporal_passive_item.unequip(self)
 		temporal_passive_item_unequiped.emit(temporal_passive_item)
 		SavedData.run_stats.temporal_passive_items.erase(temporal_passive_item)
-	elif item is PermanentPassiveItem:
-		var permanent_passive_item: PermanentPassiveItem = item
+	elif item is PermanentArtifact:
+		var permanent_passive_item: PermanentArtifact = item
 		permanent_passive_item.unequip(self)
 		permanent_passive_item_unequiped.emit(item)
 		SavedData.run_stats.remove_permanent_passive_item(item)
 	else:
 		assert(false, "Invalid item type")
 
-func _unite_items(item_1: PassiveItem, item_2: PassiveItem, result: PassiveItem) -> void:
+func _unite_items(item_1: Artifact, item_2: Artifact, result: Artifact) -> void:
 	unequip_passive_item(item_1)
 	unequip_passive_item(item_2)
 

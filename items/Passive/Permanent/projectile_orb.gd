@@ -1,4 +1,4 @@
-class_name ProjectileOrb extends PermanentPassiveItem
+class_name ProjectileOrb extends PermanentArtifact
 
 #const EFFECT_SCENE: PackedScene = preload ("res://items/Passive/Permanent/projectile_orb_effect.tscn")
 

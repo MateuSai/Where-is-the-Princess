@@ -1,4 +1,4 @@
-class_name TargetCursed extends CursedPermanentPassiveItem
+class_name TargetCursed extends CursedPermanentArtifact
 
 func _init() -> void:
 	effects = [IncreaseThrowPiercing.new(2), IncreaseThrowSpread.new(0.3)]

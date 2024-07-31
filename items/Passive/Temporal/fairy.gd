@@ -1,4 +1,4 @@
-class_name Fairy extends TemporalPassiveItem
+class_name Fairy extends TemporalArtifact
 
 var default_set_hp_function: Callable
 

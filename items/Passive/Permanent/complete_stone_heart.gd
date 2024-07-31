@@ -1,4 +1,4 @@
-class_name HeartRock extends PermanentPassiveItem
+class_name CompleteStoneHeart extends PermanentArtifact
 
 func _init() -> void:
 	effects = [OnRoomCleared.new([RepairArmor.new(2)]), OnRoomClosed.new([HealPlayer.new(2)])]

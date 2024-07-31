@@ -1,4 +1,4 @@
-class_name CursedPermanentPassiveItem extends PermanentPassiveItem
+class_name CursedPermanentArtifact extends PermanentArtifact
 
 func get_cursed_version_path() -> String:
 	return ""

@@ -1,4 +1,4 @@
-class_name StoneHeartCursed extends CursedPermanentPassiveItem
+class_name StoneHeartCursed extends CursedPermanentArtifact
 
 func _init() -> void:
 	effects = [OnRoomCleared.new([HealPlayer.new(2), DamagePlayerArmor.new(1)])]

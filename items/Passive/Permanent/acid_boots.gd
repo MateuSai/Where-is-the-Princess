@@ -1,4 +1,4 @@
-class_name AcidBoots extends PermanentPassiveItem
+class_name AcidBoots extends PermanentArtifact
 
 var player: Player
 

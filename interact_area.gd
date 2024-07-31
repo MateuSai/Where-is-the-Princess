@@ -1,7 +1,7 @@
 class_name InteractArea extends Area2D
 
 
-var item: PassiveItem
+var item: Artifact
 
 var player: Player = null
 

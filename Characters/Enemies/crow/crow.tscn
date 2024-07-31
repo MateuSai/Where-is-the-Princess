@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://v3jtev4p0oc1"]
+[gd_scene load_steps=28 format=3 uid="uid://v3jtev4p0oc1"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_1vw2o"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="2_0esmo"]
@@ -14,10 +14,15 @@
 [ext_resource type="Script" path="res://addons/beehave/nodes/decorators/inverter.gd" id="9_7qwsh"]
 [ext_resource type="Script" path="res://Characters/ai/decorators/cooldown_process_timer_decorator.gd" id="11_cx8ic"]
 [ext_resource type="Texture2D" uid="uid://clndft42swoqj" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Ravens/Raven.png" id="12_5c577"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/call_character_function.gd" id="12_ngtpx"]
 [ext_resource type="Script" path="res://Characters/HurtBox.gd" id="13_70023"]
+[ext_resource type="Script" path="res://Characters/Hitbox.gd" id="16_dt3tg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_curjo"]
 radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o0l4q"]
+radius = 7.07107
 
 [sub_resource type="Animation" id="Animation_5hugm"]
 length = 0.001
@@ -195,7 +200,7 @@ metadata/_edit_lock_ = true
 
 [node name="Crow" type="Node" parent="." index="1" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("2_0esmo")
-blackboard = NodePath("@Node@26617")
+blackboard = NodePath("@Node@25313")
 actor = NodePath("..")
 
 [node name="SimpleParallelComposite" type="Node" parent="Crow" index="0"]
@@ -251,6 +256,10 @@ script = ExtResource("5_8tjfy")
 script = ExtResource("6_3jcwy")
 closer_than = 2
 
+[node name="CallCharacterFunction" type="Node" parent="Crow/SimpleParallelComposite/SelectorComposite/CooldownProcessTimerDecorator/SequenceComposite" index="2"]
+script = ExtResource("12_ngtpx")
+function_name = "_bite"
+
 [node name="CircleTarget" type="Node" parent="Crow/SimpleParallelComposite/SelectorComposite" index="3"]
 script = ExtResource("4_y5hms")
 close_limit = 8.0
@@ -278,7 +287,16 @@ script = ExtResource("13_70023")
 position = Vector2(0, -15)
 shape = SubResource("CircleShape2D_curjo")
 
-[node name="AnimationPlayer" parent="." index="6"]
+[node name="Hitbox" type="Area2D" parent="." index="6"]
+collision_layer = 0
+collision_mask = 130
+script = ExtResource("16_dt3tg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(0, -15)
+shape = SubResource("CircleShape2D_o0l4q")
+
+[node name="AnimationPlayer" parent="." index="7"]
 libraries = {
 "": SubResource("AnimationLibrary_u4ime")
 }

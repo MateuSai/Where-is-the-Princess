@@ -1,10 +1,10 @@
-class_name AntiAcidRingCursed extends CursedPermanentPassiveItem
+class_name AntiAcidRingCursed extends CursedPermanentArtifact
 
 func _init() -> void:
 	effects = [
 		IncreaseTimeBetweenAcidDamages.new(0.5),
-        AddPlayerExtraDamageByEnemyType.new("acid", 1),
-        EnemyDeadAcidExplosion.new()
+		AddPlayerExtraDamageByEnemyType.new("acid", 1),
+		EnemyDeadAcidExplosion.new()
 	]
 
 func get_icon() -> Texture2D:

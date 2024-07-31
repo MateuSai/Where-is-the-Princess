@@ -1,4 +1,4 @@
-class_name BiggerRationsCursed extends CursedPermanentPassiveItem
+class_name BiggerRationsCursed extends CursedPermanentArtifact
 
 func _init() -> void:
 	effects = [

@@ -179,7 +179,7 @@ func _duplicate_item_icons_with_red_outline() -> void:
 	var red_outline_color: Color = Color.DARK_RED
 
 	for item_path: String in SavedData.get_all_items_paths():
-		var item: PassiveItem = load(item_path).new()
+		var item: Artifact = load(item_path).new()
 		var icon_image: Image = item.get_icon().get_image().duplicate(true)
 
 		for x: int in icon_image.get_width():

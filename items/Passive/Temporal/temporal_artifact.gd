@@ -1,4 +1,4 @@
-class_name TemporalPassiveItem extends PassiveItem
+class_name TemporalArtifact extends Artifact
 
 func get_max_amount() -> int:
 	return - 1

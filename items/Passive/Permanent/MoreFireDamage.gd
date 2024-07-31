@@ -1,4 +1,4 @@
-class_name MoreFiredamage extends PermanentPassiveItem
+class_name MoreFiredamage extends PermanentArtifact
 
 
 func _init() -> void:

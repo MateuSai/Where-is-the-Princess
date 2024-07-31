@@ -1,4 +1,4 @@
-class_name PassiveItem extends Item
+class_name Artifact extends Item
 
 var effects: Array[ItemEffect] = []
 

@@ -15,9 +15,9 @@ func _ready() -> void:
 		show_tooltip = true
 
 		# Since we waited for the player to be ready, we missed the signals he emitted, so we iterate over the items and add them
-		for item: PermanentPassiveItem in SavedData.run_stats.get_permanent_passive_items():
+		for item: PermanentArtifact in SavedData.run_stats.get_permanent_passive_items():
 			_on_player_permanent_passive_item_picked_up(item)
-		for item: TemporalPassiveItem in SavedData.run_stats.temporal_passive_items:
+		for item: TemporalArtifact in SavedData.run_stats.temporal_passive_items:
 			_on_player_temporal_passive_item_picked_up(item)
 
 	player.permanent_passive_item_picked_up.connect(_on_player_permanent_passive_item_picked_up)
@@ -25,8 +25,8 @@ func _ready() -> void:
 	player.temporal_passive_item_picked_up.connect(_on_player_temporal_passive_item_picked_up)
 	player.temporal_passive_item_unequiped.connect(_on_player_temporal_passive_item_unequiped)
 
-func _on_player_permanent_passive_item_picked_up(item: PermanentPassiveItem) -> void:
-	var texture_rect: PassiveItemIcon = PassiveItemIcon.new()
+func _on_player_permanent_passive_item_picked_up(item: PermanentArtifact) -> void:
+	var texture_rect: ArtifactIcon = ArtifactIcon.new()
 	texture_rect.show_tooltip = show_tooltip
 	texture_rect.item = item
 	texture_rect.texture = item.get_icon()
@@ -34,16 +34,16 @@ func _on_player_permanent_passive_item_picked_up(item: PermanentPassiveItem) -> 
 	texture_rect.name = item_class_name
 	add_child(texture_rect)
 
-func _on_player_permanent_passive_item_unequiped(item: PermanentPassiveItem) -> void:
-	(get_node((item.get_script() as Script).get_path().get_file().trim_suffix(".gd")) as PassiveItemIcon).free()
+func _on_player_permanent_passive_item_unequiped(item: PermanentArtifact) -> void:
+	(get_node((item.get_script() as Script).get_path().get_file().trim_suffix(".gd")) as ArtifactIcon).free()
 
-func _on_player_temporal_passive_item_picked_up(item: TemporalPassiveItem) -> void:
+func _on_player_temporal_passive_item_picked_up(item: TemporalArtifact) -> void:
 	var item_class_name: String = (item.get_script() as Script).get_path().get_file().trim_suffix(".gd")
-	var temporal_passive_item_icon: TemporalPassiveItemIcon = get_node_or_null(item_class_name)
+	var temporal_passive_item_icon: TemporalArtifactIcon = get_node_or_null(item_class_name)
 	if temporal_passive_item_icon:
 		temporal_passive_item_icon.add()
 	else:
-		temporal_passive_item_icon = TemporalPassiveItemIcon.new()
+		temporal_passive_item_icon = TemporalArtifactIcon.new()
 		temporal_passive_item_icon.show_tooltip = show_tooltip
 		# print(item.get_script().get_path().get_file().trim_suffix(".gd"))
 		temporal_passive_item_icon.name = item_class_name
@@ -51,10 +51,10 @@ func _on_player_temporal_passive_item_picked_up(item: TemporalPassiveItem) -> vo
 		temporal_passive_item_icon.texture = item.get_icon()
 		add_child(temporal_passive_item_icon)
 
-func _on_player_temporal_passive_item_unequiped(item: TemporalPassiveItem) -> void:
-	(get_node((item.get_script() as Script).get_path().get_file().trim_suffix(".gd")) as TemporalPassiveItemIcon).remove()
+func _on_player_temporal_passive_item_unequiped(item: TemporalArtifact) -> void:
+	(get_node((item.get_script() as Script).get_path().get_file().trim_suffix(".gd")) as TemporalArtifactIcon).remove()
 
-class PassiveItemIcon extends TextureRect:
+class ArtifactIcon extends TextureRect:
 	var item: Item
 
 	var show_tooltip: bool = false:
@@ -104,7 +104,7 @@ class PassiveItemIcon extends TextureRect:
 
 		return custom_tooltip
 
-class TemporalPassiveItemIcon extends PassiveItemIcon:
+class TemporalArtifactIcon extends ArtifactIcon:
 	var amount: int = 1
 
 	var label: Label

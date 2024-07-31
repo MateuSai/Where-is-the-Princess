@@ -1,4 +1,4 @@
-class_name EnhancedBoots extends PermanentPassiveItem
+class_name EnhancedBoots extends PermanentArtifact
 
 func _init() -> void:
 	effects = [IncreasePlayerMaxSpeed.new(70)]

@@ -1,4 +1,4 @@
-extends PermanentPassiveItem
+extends PermanentArtifact
 
 func _init() -> void:
 	effects = [IncreaseCoinMultiplier.new(1.3)]

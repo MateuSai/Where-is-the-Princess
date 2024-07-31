@@ -21,7 +21,7 @@ func show_at(pos: Vector2, item: Item) -> void:
 			name_label.modulate = Color.BLACK
 		Item.Quality.CHINGON:
 			name_label.modulate = Color.BLUE
-	if item is PassiveItem and not SavedData.data.is_item_discovered(item as PassiveItem):
+	if item is Artifact and not SavedData.data.is_item_discovered(item as Artifact):
 		description_label.text = "?"
 	else:
 		if item.has_method("get_effects_description") and not item.get_effects_description().is_empty():

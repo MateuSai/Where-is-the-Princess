@@ -1,4 +1,4 @@
-class_name IronSkinCursed extends CursedPermanentPassiveItem
+class_name IronSkinCursed extends CursedPermanentArtifact
 
 func _init() -> void:
 	effects = [

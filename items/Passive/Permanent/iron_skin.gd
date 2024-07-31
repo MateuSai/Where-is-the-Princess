@@ -1,4 +1,4 @@
-class_name IronSkin extends PermanentPassiveItem
+class_name IronSkin extends PermanentArtifact
 
 func _init() -> void:
 	effects = [

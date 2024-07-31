@@ -1,4 +1,4 @@
-class_name Rune extends PermanentPassiveItem
+class_name Rune extends PermanentArtifact
 
 const CURSED_RUNE_ITEMS_DEFAULT_FODER_PATH: String = "res://items/Passive/Permanent/cursed/runes"
 

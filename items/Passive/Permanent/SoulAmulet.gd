@@ -1,4 +1,4 @@
-class_name SoulAmulet extends PermanentPassiveItem
+class_name SoulAmulet extends PermanentArtifact
 
 func get_icon() -> Texture2D:
 	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/soul_amulet.png")

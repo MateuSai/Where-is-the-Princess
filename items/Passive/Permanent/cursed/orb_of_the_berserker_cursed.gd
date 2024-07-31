@@ -1,4 +1,4 @@
-class_name OrbOfTheBerserkerCursed extends CursedPermanentPassiveItem
+class_name OrbOfTheBerserkerCursed extends CursedPermanentArtifact
 
 var damage_increased: bool = false
 

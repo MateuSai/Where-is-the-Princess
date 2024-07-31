@@ -1,4 +1,4 @@
-class_name StreakPendantCursed extends CursedPermanentPassiveItem
+class_name StreakPendantCursed extends CursedPermanentArtifact
 
 func _init() -> void:
 	effects = [

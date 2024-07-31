@@ -100,6 +100,7 @@ HEART_STONE_DESCRIPTION,Restores a quarter of a heart when the doors of a room c
 STONE_HEART,Stone Heart,Cor de Pedra,Corazón de Piedra,,
 STONE_HEART_DESCRIPTION,Restores a quarter of a heart when you clear a room.,Restaura un quart de cor quan neteges una habitació.,Restaura un cuarto de corazón cuando limpias una habitación.,,
 RUSTY_STONE_HEART,Rusty Stone Heart,Cor de Pedra Oxidat,Corazón de Piedra Oxidado,,
+COMPLETE_STONE_HEART,Complete Stone Heart,Cor de Pedra Complet,Corazón de Piedra Completo,,
 AGGRESSION_SPELL,Aggression Spell,Conjur Agressor,Hechizo Agresor,,
 AGGRESSION_SPELL_DESCRIPTION,"Deal double damage when you are at full health, but at the cost of half a heart.","Fas el doble de dany quan tens la salut al màxim, però a costa de mig cor.","Haces el doble de daño cuando tienes la salud al máximo, pero al precio de medio corazón.",,
 AGGRESSION_SPELL_CURSED,Bloodstained Aggression Spell,Conjur Agressor Ensangonat,Hechizo Agresor Ensangrentado,,

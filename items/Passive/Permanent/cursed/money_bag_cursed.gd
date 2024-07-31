@@ -1,4 +1,4 @@
-class_name MoneyBagCursed extends CursedPermanentPassiveItem
+class_name MoneyBagCursed extends CursedPermanentArtifact
 
 func _init() -> void:
 	effects = [

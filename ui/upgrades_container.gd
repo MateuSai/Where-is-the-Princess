@@ -33,7 +33,7 @@ func _ready() -> void:
 	)
 
 
-class PlayerUpgradeItemIcon extends ItemsContainer.PassiveItemIcon:
+class PlayerUpgradeItemIcon extends ItemsContainer.ArtifactIcon:
 	var amount: int = 1
 
 	var label: Label

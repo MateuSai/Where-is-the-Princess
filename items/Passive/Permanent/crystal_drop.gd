@@ -1,4 +1,4 @@
-class_name CrystalDrop extends PermanentPassiveItem
+class_name CrystalDrop extends PermanentArtifact
 
 func _init() -> void:
 	effects = [PlayerExtraWaterDamage.new( - 1)]

@@ -1,4 +1,4 @@
-class_name MagicShield extends TemporalPassiveItem
+class_name MagicShield extends TemporalArtifact
 
 var magic_shield_node: MagicShieldNode
 

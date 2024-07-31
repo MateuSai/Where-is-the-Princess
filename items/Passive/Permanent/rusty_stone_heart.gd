@@ -1,4 +1,4 @@
-class_name RustyStoneHeart extends PermanentPassiveItem
+class_name RustyStoneHeart extends PermanentArtifact
 
 func _init() -> void:
 	effects = [OnRoomClosed.new([HealPlayer.new(1)])]
@@ -11,5 +11,5 @@ func get_big_icon() -> Texture2D:
 
 func get_unite_dictionary() -> Dictionary:
 	return {
-		StoneHeart.new().get_script_path(): HeartRock.new().get_script_path(),
+		StoneHeart.new().get_script_path(): CompleteStoneHeart.new().get_script_path(),
 	}

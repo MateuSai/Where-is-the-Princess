@@ -1,4 +1,4 @@
-class_name BiggerRations extends PermanentPassiveItem
+class_name BiggerRations extends PermanentArtifact
 
 func _init() -> void:
 	effects = [IncreaseFoodExtraHp.new(1)]

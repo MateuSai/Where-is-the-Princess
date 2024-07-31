@@ -27,10 +27,10 @@ func _ready() -> void:
 	SavedData.add_volatile_room(MYMODNAME_LOG, "res://mods-unpacked/WekufuStudios-DemoMod/rooms/forest_chest_room.tscn", "forest", "special")
 	SavedData.add_volatile_room(MYMODNAME_LOG, "res://mods-unpacked/WekufuStudios-DemoMod/rooms/mod_forest_combat_room.tscn", "forest", "combat")
 
+	SavedData.add_mod_permanent_artifact("res://mods-unpacked/WekufuStudios-DemoMod/anti_acid_ring.gd")
 	SavedData.data_loaded.connect(func() -> void:
 		SavedData.add_mod_armor("res://mods-unpacked/WekufuStudios-DemoMod/knight_armor/knight_armor.gd")
 		SavedData.add_extra_available_armor("res://mods-unpacked/WekufuStudios-DemoMod/knight_armor/knight_armor.gd")
-		SavedData.add_mod_permanent_item("res://mods-unpacked/WekufuStudios-DemoMod/anti_acid_ring.gd")
 		SavedData.add_extra_available_permanent_item("res://mods-unpacked/WekufuStudios-DemoMod/anti_acid_ring.gd")
 
 		SavedData.add_mod_weapon("res://mods-unpacked/WekufuStudios-DemoMod/oriental_spear/oriental_spear.tscn")

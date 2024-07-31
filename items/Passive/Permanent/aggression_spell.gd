@@ -1,4 +1,4 @@
-class_name AggressionSpell extends PermanentPassiveItem
+class_name AggressionSpell extends PermanentArtifact
 
 var player: Player = null
 var damage_doubled: bool = false

@@ -107,6 +107,6 @@ func _pick_item_and_free() -> void:
 		#if item is WeaponItem:
 			#var weapon_item: WeaponItem = item
 			#SavedData.add_extra_available_weapon(weapon_item.scene_file_path)
-		#elif item is TemporalPassiveItem:
+		#elif item is TemporalArtifact:
 			#SavedData.add_extra_available_temporal_item((item.get_script() as Script).get_path())
 		#queue_free()

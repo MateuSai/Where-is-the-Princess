@@ -1,4 +1,4 @@
-class_name Uchiko extends PermanentPassiveItem
+class_name Uchiko extends PermanentArtifact
 
 func _init() -> void:
     effects = [

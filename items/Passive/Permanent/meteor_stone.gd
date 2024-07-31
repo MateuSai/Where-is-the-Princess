@@ -1,4 +1,4 @@
-class_name MeteorStone extends PermanentPassiveItem
+class_name MeteorStone extends PermanentArtifact
 
 func _init() -> void:
 	effects = [ArmorAbilityRechargeTimeReduction.new(0.4)]

@@ -13,7 +13,7 @@ const ALL_VANILLA_CONSUMABLE_ITEMS: PackedStringArray = ["res://items/food.gd", 
 
 const ALL_VANILLA_WEAPON_MODIFIERS: PackedStringArray = ["res://items/Passive/WeaponModifiers/ruby.gd", "res://items/Passive/WeaponModifiers/sapphire.gd", "res://items/Passive/WeaponModifiers/topaz.gd", "res://items/Passive/WeaponModifiers/emerald.gd", "res://items/Passive/WeaponModifiers/arrows/bouncing_arrow_modifier.gd", "res://items/Passive/WeaponModifiers/arrows/explosive_arrow_modifier.gd", "res://items/Passive/WeaponModifiers/arrows/homing_arrow_modifier.gd", "res://items/Passive/WeaponModifiers/arrows/piercing_arrow_modifier.gd"]
 
-const ALL_VANILLA_PERMANENT_ITEMS: PackedStringArray = ["res://items/Passive/Permanent/target.gd", "res://items/Passive/Permanent/iron_skin.gd", "res://items/Passive/Permanent/enhanced_boots.gd", "res://items/Passive/Permanent/meteor_stone.gd", "res://items/Passive/Permanent/SoulAmulet.gd", "res://items/Passive/Permanent/runes/axe_rune.gd", "res://items/Passive/Permanent/runes/hammer_rune.gd", "res://items/Passive/Permanent/runes/melee_rune.gd", "res://items/Passive/Permanent/runes/spear_rune.gd", "res://items/Passive/Permanent/runes/sword_rune.gd", "res://items/Passive/Permanent/acid_boots.gd", "res://items/Passive/Permanent/orb_of_the_berserker.gd", "res://items/Passive/Permanent/bigger_rations.gd", "res://items/Passive/Permanent/projectile_orb.gd", "res://items/Passive/Permanent/money_bag.gd", "res://items/Passive/Permanent/broken_sword.gd", "res://items/Passive/Permanent/rusty_stone_heart.gd", "res://items/Passive/Permanent/stone_heart.gd", "res://items/Passive/Permanent/aggression_spell.gd", "res://items/Passive/Permanent/heart_rock.gd", "res://items/Passive/Permanent/crystal_drop.gd", "res://items/Passive/Permanent/streak_pendant.gd"]
+const ALL_VANILLA_PERMANENT_ITEMS: PackedStringArray = ["res://items/Passive/Permanent/target.gd", "res://items/Passive/Permanent/iron_skin.gd", "res://items/Passive/Permanent/enhanced_boots.gd", "res://items/Passive/Permanent/meteor_stone.gd", "res://items/Passive/Permanent/SoulAmulet.gd", "res://items/Passive/Permanent/runes/axe_rune.gd", "res://items/Passive/Permanent/runes/hammer_rune.gd", "res://items/Passive/Permanent/runes/melee_rune.gd", "res://items/Passive/Permanent/runes/spear_rune.gd", "res://items/Passive/Permanent/runes/sword_rune.gd", "res://items/Passive/Permanent/acid_boots.gd", "res://items/Passive/Permanent/orb_of_the_berserker.gd", "res://items/Passive/Permanent/bigger_rations.gd", "res://items/Passive/Permanent/projectile_orb.gd", "res://items/Passive/Permanent/money_bag.gd", "res://items/Passive/Permanent/broken_sword.gd", "res://items/Passive/Permanent/rusty_stone_heart.gd", "res://items/Passive/Permanent/stone_heart.gd", "res://items/Passive/Permanent/aggression_spell.gd", "res://items/Passive/Permanent/complete_stone_heart.gd", "res://items/Passive/Permanent/crystal_drop.gd", "res://items/Passive/Permanent/streak_pendant.gd"]
 const AVAILABLE_PERMANENT_ITEMS_FROM_START: PackedStringArray = ["res://items/Passive/Permanent/target.gd", "res://items/Passive/Permanent/iron_skin.gd", "res://items/Passive/Permanent/enhanced_boots.gd", "res://items/Passive/Permanent/meteor_stone.gd", "res://items/Passive/Permanent/SoulAmulet.gd", "res://items/Passive/Permanent/runes/axe_rune.gd", "res://items/Passive/Permanent/runes/hammer_rune.gd", "res://items/Passive/Permanent/runes/melee_rune.gd", "res://items/Passive/Permanent/runes/spear_rune.gd", "res://items/Passive/Permanent/runes/sword_rune.gd", "res://items/Passive/Permanent/acid_boots.gd", "res://items/Passive/Permanent/orb_of_the_berserker.gd", "res://items/Passive/Permanent/bigger_rations.gd", "res://items/Passive/Permanent/projectile_orb.gd", "res://items/Passive/Permanent/money_bag.gd", "res://items/Passive/Permanent/broken_sword.gd", "res://items/Passive/Permanent/rusty_stone_heart.gd", "res://items/Passive/Permanent/stone_heart.gd", "res://items/Passive/Permanent/aggression_spell.gd", "res://items/Passive/Permanent/crystal_drop.gd", "res://items/Passive/Permanent/streak_pendant.gd"]
 
 const ALL_VANILLA_TEMPORAL_ITEMS: PackedStringArray = ["res://items/Passive/Temporal/magic_shields/wooden_magic_shield.gd", "res://items/Passive/Temporal/magic_shields/reinforced_magic_shield.gd", "res://items/Passive/Temporal/MagicSword.gd", "res://items/Passive/Temporal/spike.gd", "res://items/Passive/Temporal/fairy.gd"]
@@ -153,7 +153,7 @@ func get_available_cursed_items() -> PackedStringArray:
 	var arr: Array = _extra_available_cursed_items.duplicate()
 
 	for permanent_passive_item_path: String in get_available_permanent_items():
-		var item: PermanentPassiveItem = load(permanent_passive_item_path).new()
+		var item: PermanentArtifact = load(permanent_passive_item_path).new()
 		var cursed_version_path: String = item.get_cursed_version_path()
 		if not cursed_version_path.is_empty():
 			arr.append(cursed_version_path)
@@ -193,9 +193,9 @@ func get_discovered_temporal_items() -> PackedStringArray:
 
 func is_item_discovered(item: Item) -> bool:
 	return SavedData.statistics.get_item_statistics(item.get_id()) != null
-	#if item is PermanentPassiveItem:
+	#if item is PermanentArtifact:
 	#	return _discovered_permanent_items.has((item.get_script() as GDScript).get_path())
-	#elif item is TemporalPassiveItem:
+	#elif item is TemporalArtifact:
 	#	return _discovered_temporal_items.has((item.get_script() as GDScript).get_path())
 	#else:
 	#	assert(false, "Invalid item type")

@@ -37,7 +37,7 @@ func enable_pick_up() -> void:
 		_pick_item_and_free()
 	)
 
-	if item is CursedPermanentPassiveItem:
+	if item is CursedPermanentArtifact:
 		add_child(CURSED_PARTICLES_SCENE.instantiate())
 	else:
 		spawn_shine_effect_timer.timeout.connect(_spawn_shine_effect)

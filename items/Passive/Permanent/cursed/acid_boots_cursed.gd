@@ -1,4 +1,4 @@
-class_name AcidBootsCursed extends CursedPermanentPassiveItem
+class_name AcidBootsCursed extends CursedPermanentArtifact
 
 var player: Player
 

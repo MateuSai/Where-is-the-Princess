@@ -1,4 +1,4 @@
-class_name MeteorStoneCursed extends CursedPermanentPassiveItem
+class_name MeteorStoneCursed extends CursedPermanentArtifact
 
 func _init() -> void:
 	effects = [ArmorAbilityRechargeTimeReduction.new(0.6), ArmorShardBreakProbability.new(30)]
