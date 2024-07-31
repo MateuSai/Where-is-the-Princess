@@ -69,7 +69,7 @@ position = Vector2(197, 199)
 position = Vector2(201, 34)
 
 [node name="AnimalToRescue" type="Marker2D" parent="." index="11"]
-position = Vector2(172, 32)
+position = Vector2(170, 39)
 script = ExtResource("7_hhsk5")
 animal = 1
 

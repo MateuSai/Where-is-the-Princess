@@ -12,7 +12,7 @@ enum ModeEnum {
 
 @onready var target: Character = Globals.player
 
-@onready var character: Character = get_parent()
+@onready var character: Node = get_parent()
 @onready var navigation_agent: NavigationAgent2D = character.get_node_or_null("NavigationAgent2D")
 
 func _ready() -> void:
@@ -28,7 +28,7 @@ func set_mode(new_mode: Mode) -> void:
 	add_child(mode)
 
 class Mode extends Node:
-	var character: Character
+	var character: Node
 	var navigation_agent: NavigationAgent2D
 	var target: Character
 
@@ -38,7 +38,7 @@ class Mode extends Node:
 		_on_timer_timeout()
 
 	@warning_ignore("shadowed_variable")
-	func initialize(character: Character, navigation_agent: NavigationAgent2D, target: Character) -> void:
+	func initialize(character: Node, navigation_agent: NavigationAgent2D, target: Character) -> void:
 		self.character = character
 		self.navigation_agent = navigation_agent
 		self.target = target
@@ -155,11 +155,7 @@ class Wander extends Mode:
 		super()
 
 	func _on_timer_timeout() -> void:
-		if is_instance_valid(target):
-			_target_random_near_position()
-		else:
-			timer.stop()
-			character.mov_direction = Vector2.ZERO
+		_target_random_near_position()
 
 	func _target_random_near_position() -> void:
 		var max_iterations: int = 10

@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://cmjxef6ripry7"]
+[gd_scene load_steps=56 format=3 uid="uid://cmjxef6ripry7"]
 
 [ext_resource type="Script" path="res://Rooms/Biomes/basecamp/BaseCamp.gd" id="1_78wu5"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="2_b12nq"]
@@ -43,6 +43,7 @@
 [ext_resource type="PackedScene" uid="uid://cxx3eqxb68h25" path="res://Rooms/Furniture and Traps/wooden_fence/right_top_vertical_wooden_fence.tscn" id="41_iu5xf"]
 [ext_resource type="PackedScene" uid="uid://u6q2tn1xph6o" path="res://Weapons/Melee/branch/branch.tscn" id="42_5b61v"]
 [ext_resource type="Script" path="res://Characters/npcs/animals/animal_spawner.gd" id="43_qnyka"]
+[ext_resource type="PackedScene" uid="uid://bx6a4l3enttgp" path="res://Characters/npcs/animals/rabbit/rabbit.tscn" id="44_ypgn2"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_s6u7b"]
 source_geometry_group_name = &"navigation_polygon_source_group"
@@ -234,8 +235,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 192.0
-offset_bottom = 142.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("10_dbutg")
@@ -439,6 +440,11 @@ position = Vector2(154, 153)
 [node name="Animals" type="Node2D" parent="."]
 y_sort_enabled = true
 
+[node name="Rabbit" type="Marker2D" parent="Animals"]
+position = Vector2(102, 171)
+script = ExtResource("43_qnyka")
+animal = 1
+
 [node name="Turtle" type="Marker2D" parent="Animals"]
 position = Vector2(-11, 109)
 script = ExtResource("43_qnyka")
@@ -447,3 +453,6 @@ animal = 2
 [node name="BlackCat" type="Marker2D" parent="Animals"]
 position = Vector2(195, 49)
 script = ExtResource("43_qnyka")
+
+[node name="Rabbit" parent="." instance=ExtResource("44_ypgn2")]
+position = Vector2(117, 155)

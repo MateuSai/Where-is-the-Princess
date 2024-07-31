@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dmkpf10kcpx68"]
 
 [ext_resource type="Script" path="res://ui/dialogue_system/dialogue_box.gd" id="1_5s4ck"]
-[ext_resource type="Texture2D" uid="uid://c8nuwmhxuntfu" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/dialog_panel_9-patch.png" id="2_lf0ah"]
+[ext_resource type="Texture2D" uid="uid://cvy18bkbfmi3e" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/dialog_papyrus_panel_9-patch.png" id="2_r145j"]
 [ext_resource type="FontFile" uid="uid://b481lmjg4ktb5" path="res://Fonts/fusion-pixel/fusion-pixel-8px-proportional-latin.ttf" id="3_3632u"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8q7tn"]
@@ -16,24 +16,23 @@ offset_bottom = 12.0
 script = ExtResource("1_5s4ck")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
-modulate = Color(1, 1, 1, 0.780392)
 use_parent_material = true
 layout_mode = 2
 mouse_filter = 0
-texture = ExtResource("2_lf0ah")
-patch_margin_left = 6
-patch_margin_top = 6
-patch_margin_right = 6
-patch_margin_bottom = 6
+texture = ExtResource("2_r145j")
+patch_margin_left = 10
+patch_margin_top = 16
+patch_margin_right = 10
+patch_margin_bottom = 16
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 modulate = Color(1, 1, 1, 0.780392)
 use_parent_material = true
 layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer"]
 use_parent_material = true

@@ -489,6 +489,9 @@ func get_limit_entrance_connections_to_one() -> bool:
 func add_completed_dialogue(dialogue: String) -> void:
 	data.add_completed_dialogue(dialogue)
 
+func has_completed_dialogue(dialogue: String) -> bool:
+	return data.has_completed_dialogue(dialogue)
+
 func add_player_times_killed(killed_by: String) -> void:
 	last_time_killed_by = killed_by
 	statistics.add_player_times_killed()

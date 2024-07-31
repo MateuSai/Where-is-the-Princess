@@ -2,11 +2,11 @@ class_name StreakPendantCursed extends CursedPermanentPassiveItem
 
 func _init() -> void:
 	effects = [
+		PlayerExtraDamageTaken.new(1),
 		DisableOnCondition.new(
 			OnPlayerDamaged.new([]),
 			OnEnemyKilled.new([WeaponDamageMultiplier.new(1.4)], 4)
 		),
-		PlayerExtraDamageTaken.new(1)
 	]
 
 func get_icon() -> Texture2D:
