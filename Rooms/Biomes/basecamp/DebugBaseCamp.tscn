@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://cmjxef6ripry7"]
+[gd_scene load_steps=62 format=3 uid="uid://cmjxef6ripry7"]
 
 [ext_resource type="Script" path="res://Rooms/Biomes/basecamp/BaseCamp.gd" id="1_78wu5"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="2_b12nq"]
@@ -44,6 +44,10 @@
 [ext_resource type="PackedScene" uid="uid://u6q2tn1xph6o" path="res://Weapons/Melee/branch/branch.tscn" id="42_5b61v"]
 [ext_resource type="Script" path="res://Characters/npcs/animals/animal_spawner.gd" id="43_qnyka"]
 [ext_resource type="PackedScene" uid="uid://bx6a4l3enttgp" path="res://Characters/npcs/animals/rabbit/rabbit.tscn" id="44_ypgn2"]
+[ext_resource type="Texture2D" uid="uid://damq3pevnossx" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/camp_playerTent_medio.png" id="45_0jhfq"]
+[ext_resource type="Texture2D" uid="uid://rcer8qg2relw" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/camp_playerTent_sombra.png" id="46_sv5ho"]
+[ext_resource type="Texture2D" uid="uid://dpwp05b6e0rne" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/camp_playerTent_arriba.png" id="47_75wsm"]
+[ext_resource type="Script" path="res://Rooms/Furniture and Traps/transparent_parent_when_player_enters.gd" id="48_rdpq3"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_s6u7b"]
 source_geometry_group_name = &"navigation_polygon_source_group"
@@ -67,13 +71,6 @@ sources/0 = SubResource("TileSetAtlasSource_b4afx")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qm2jb"]
 size = Vector2(52, 5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4pp6i"]
-size = Vector2(20, 7)
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qcjm2"]
-radius = 7.0
-height = 24.0
-
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_erbcu"]
 size = Vector2(8, 8)
 
@@ -85,6 +82,19 @@ height = 20.0
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xxlah"]
 light_mode = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4pp6i"]
+size = Vector2(20, 7)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qcjm2"]
+radius = 7.0
+height = 24.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gd6do"]
+size = Vector2(32, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fbxd1"]
+size = Vector2(5, 29)
 
 [node name="DebugBaseCamp" type="NavigationRegion2D"]
 y_sort_enabled = true
@@ -104,7 +114,7 @@ layer_1/z_index = 1
 layer_1/tile_data = PackedInt32Array(655378, 131072, 6, 655379, 131072, 6, 655377, 65536, 6, 720909, 65536, 6, 720910, 131072, 6, 720911, 131072, 6, 720912, 131072, 6, 786444, 131072, 6, 786441, 131072, 6, 786440, 131072, 6, 786439, 131072, 6, 720902, 327680, 6, 720901, 131072, 6, 589828, 327680, 6, 589827, 131072, 6, 589826, 131072, 6, 589825, 131072, 6, 589824, 131072, 6, 655359, 131072, 6, 917499, 131072, 6, 917498, 131072, 6, 983032, 131072, 6, 983031, 131072, 6, 983030, 131072, 6, 983029, 131072, 6, 983028, 131072, 6, 655358, 65536, 6, 720893, 65536, 6, 851964, 65536, 6, 917497, 65536, 6, 851955, 327680, 6, 786418, 327680, 6, 65539, 262144, 5, 786442, 131072, 6, 786443, 131072, 6, 65538, 196608, 5, 131064, 262144, 5, 262135, 262144, 5)
 layer_2/name = "Decorations"
 layer_2/y_sort_enabled = true
-layer_2/tile_data = PackedInt32Array(524295, 0, 1, 524300, 589824, 3, 262156, 393216, 0, 327695, 327680, 0, 524302, 327680, 0, 524292, 327680, 0, 655368, 262144, 0, 327684, 262144, 0, 327694, 458752, 0, 196624, 458752, 0, 131083, 458752, 0, 589829, 458752, 0, 655366, 524288, 0, 262154, 524288, 0, 131084, 524288, 0, 196625, 524288, 0, 458770, 524288, 0, 655378, 524288, 0, 720908, 524288, 0, 393227, 524288, 0, 393219, 458752, 0, 196622, 589824, 6, 131082, 655360, 6, 851963, 589824, 6, 851962, 393216, 0, 458745, 458752, 0, 458746, 524288, 0, 720892, 524288, 0, 851957, 524288, 0, 851956, 0, 8, 655346, 524288, 0, 917496, 458752, 0, 720890, 327680, 0, 524276, 262144, 0, 524275, 131072, 8, 458741, 262144, 8, 983029, 589824, 0, 262147, 589824, 0, 196623, 589824, 0, 655377, 589824, 0, 393234, 589824, 0, 458747, 655360, 6, 262143, 196608, 11, 327676, 262144, 11, 327680, 458752, 11, 262141, 393216, 11, 196604, 131072, 11, 196608, 131072, 11, 524286, 65536, 11, 458748, 0, 11, 327675, 131072, 11, 393217, 131072, 11, 589822, 524288, 0, 458753, 458752, 0, 589827, 458752, 0)
+layer_2/tile_data = PackedInt32Array(524295, 0, 1, 524300, 589824, 3, 262156, 393216, 0, 327695, 327680, 0, 524302, 327680, 0, 524292, 327680, 0, 655368, 262144, 0, 327684, 262144, 0, 327694, 458752, 0, 131083, 458752, 0, 589829, 458752, 0, 655366, 524288, 0, 262154, 524288, 0, 131084, 524288, 0, 458770, 524288, 0, 655378, 524288, 0, 720908, 524288, 0, 393227, 524288, 0, 393219, 458752, 0, 196622, 589824, 6, 131082, 655360, 6, 851963, 589824, 6, 851962, 393216, 0, 458745, 458752, 0, 458746, 524288, 0, 720892, 524288, 0, 851957, 524288, 0, 851956, 0, 8, 655346, 524288, 0, 917496, 458752, 0, 720890, 327680, 0, 524276, 262144, 0, 524275, 131072, 8, 458741, 262144, 8, 983029, 589824, 0, 262147, 589824, 0, 196623, 589824, 0, 655377, 589824, 0, 393234, 589824, 0, 458747, 655360, 6, 262143, 196608, 11, 327676, 262144, 11, 327680, 458752, 11, 262141, 393216, 11, 196604, 131072, 11, 196608, 131072, 11, 524286, 65536, 11, 458748, 0, 11, 327675, 131072, 11, 393217, 131072, 11, 589822, 524288, 0, 458753, 458752, 0, 589827, 458752, 0)
 layer_3/name = "Walls on top of vertical doors"
 layer_3/z_index = 2
 layer_3/tile_data = PackedInt32Array()
@@ -155,29 +165,6 @@ script = ExtResource("5_16x5s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartArea4"]
 shape = SubResource("RectangleShape2D_qm2jb")
-
-[node name="Wardrobe" type="StaticBody2D" parent="."]
-position = Vector2(264.5, 124)
-collision_mask = 0
-
-[node name="Sprite2D" type="Sprite2D" parent="Wardrobe"]
-position = Vector2(0, -7)
-texture = ExtResource("6_dk6fw")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wardrobe"]
-visible = false
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_4pp6i")
-
-[node name="WardrobeInteractArea" type="Area2D" parent="Wardrobe"]
-script = ExtResource("7_e3xt5")
-path_to_sprite = NodePath("../Sprite2D")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Wardrobe/WardrobeInteractArea"]
-visible = false
-position = Vector2(0, 5)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_qcjm2")
 
 [node name="Settings" type="StaticBody2D" parent="."]
 visible = false
@@ -235,8 +222,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = -8.0
-offset_bottom = -8.0
+offset_right = 192.0
+offset_bottom = 142.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("10_dbutg")
@@ -456,3 +443,60 @@ script = ExtResource("43_qnyka")
 
 [node name="Rabbit" parent="." instance=ExtResource("44_ypgn2")]
 position = Vector2(117, 155)
+
+[node name="Wardrobe" type="StaticBody2D" parent="."]
+z_index = 1
+position = Vector2(282, 54)
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Wardrobe"]
+position = Vector2(0, -7)
+texture = ExtResource("6_dk6fw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wardrobe"]
+visible = false
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_4pp6i")
+
+[node name="WardrobeInteractArea" type="Area2D" parent="Wardrobe"]
+script = ExtResource("7_e3xt5")
+path_to_sprite = NodePath("../Sprite2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wardrobe/WardrobeInteractArea"]
+visible = false
+position = Vector2(0, 5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_qcjm2")
+
+[node name="Tent" type="StaticBody2D" parent="."]
+position = Vector2(280, 69)
+
+[node name="Walls" type="Sprite2D" parent="Tent"]
+z_index = -1
+position = Vector2(0, -21)
+texture = ExtResource("45_0jhfq")
+
+[node name="Shadow" type="Sprite2D" parent="Tent"]
+z_index = 1
+position = Vector2(0, -21)
+texture = ExtResource("46_sv5ho")
+
+[node name="Ceiling" type="Sprite2D" parent="Tent"]
+z_index = 1
+position = Vector2(0, -21)
+texture = ExtResource("47_75wsm")
+
+[node name="TransparentParentWhenPlayerEnters" type="Area2D" parent="Tent/Ceiling"]
+script = ExtResource("48_rdpq3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tent/Ceiling/TransparentParentWhenPlayerEnters"]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_gd6do")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tent"]
+position = Vector2(-19, -15)
+shape = SubResource("RectangleShape2D_fbxd1")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Tent"]
+position = Vector2(19, -15)
+shape = SubResource("RectangleShape2D_fbxd1")

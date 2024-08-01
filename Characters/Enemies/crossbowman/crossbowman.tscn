@@ -12,12 +12,12 @@
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/point_weapon_to_target.gd" id="9_7yqix"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_close_to_target.gd" id="10_hncrv"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/weapon_attack.gd" id="10_i5lik"]
-[ext_resource type="Texture2D" uid="uid://jfehaj24kmy2" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Enemies/Skeleton/skelebro_warrior.png" id="11_736xf"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/update_animation_according_to_mov_direction.gd" id="12_n52r4"]
 [ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="12_y8twa"]
 [ext_resource type="PackedScene" uid="uid://dkpyvq2xuuytm" path="res://Weapons/Ranged/crossbows/wooden_crossbow/wooden_crossbow.tscn" id="13_8mxi0"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_weapon_busy.gd" id="13_jj16k"]
 [ext_resource type="Script" path="res://Components/projectile_detector/projectile_detector.gd" id="14_ht524"]
+[ext_resource type="Texture2D" uid="uid://bups7molxhf11" path="res://Art/16 x 16 Art Roguelike Castle Pack/Enemies/Village_guard_crossbowman.png" id="15_w8m8k"]
 [ext_resource type="Script" path="res://Components/character_detector/aim_component.gd" id="18_qam54"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i8c27"]
@@ -120,7 +120,7 @@ script = ExtResource("2_8pcxu")
 
 [node name="FootmanBeehaveTree" type="Node" parent="." index="1" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("3_e2h85")
-blackboard = NodePath("@Node@25099")
+blackboard = NodePath("@Node@56906")
 actor = NodePath("..")
 
 [node name="SimpleParallelComposite2" type="Node" parent="FootmanBeehaveTree" index="0"]
@@ -184,7 +184,7 @@ script = ExtResource("12_n52r4")
 
 [node name="Sprite2D" parent="." index="3"]
 position = Vector2(0, -5)
-texture = ExtResource("11_736xf")
+texture = ExtResource("15_w8m8k")
 hframes = 6
 vframes = 4
 

@@ -887,6 +887,7 @@ offset_left = 3.0
 offset_top = -17.0
 offset_right = 113.0
 offset_bottom = -5.0
+expand_up = true
 auto_free_on_dialogue_end = true
 
 [node name="RandomVillagerIdle9" parent="Villagers" instance=ExtResource("9_i0yh6")]
@@ -1036,6 +1037,7 @@ offset_left = 4.0
 offset_top = -17.0
 offset_right = 114.0
 offset_bottom = -5.0
+expand_up = true
 auto_free_on_dialogue_end = true
 
 [node name="RandomVillagerIdle56" parent="Villagers" instance=ExtResource("9_i0yh6")]
@@ -1273,6 +1275,7 @@ offset_left = 5.0
 offset_top = -5.0
 offset_right = 115.0
 offset_bottom = 7.0
+expand_up = true
 auto_free_on_dialogue_end = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

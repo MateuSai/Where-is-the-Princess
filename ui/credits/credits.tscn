@@ -26,7 +26,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_onydd")
-scroll_vertical = 700
+scroll_vertical = 100
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 script = ExtResource("1_kf250")
@@ -42,7 +42,7 @@ theme_override_constants/margin_bottom = 16
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 16
+theme_override_constants/separation = 24
 
 [node name="Control" type="Control" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 170)
@@ -150,150 +150,177 @@ layout_mode = 2
 text = "佐々木 小次郎"
 label_settings = ExtResource("2_n1tb0")
 
-[node name="VBoxContainer5" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="MusicVBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer5"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MusicVBoxContainer"]
+layout_mode = 2
+text = "MUSIC"
+label_settings = ExtResource("1_67ui2")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MusicVBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MusicVBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Shamanistic - Incompetech"
+label_settings = ExtResource("2_n1tb0")
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/MusicVBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Music Loop Mini Set"
+label_settings = ExtResource("2_n1tb0")
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/MusicVBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Shadows Guild - Dark Fantasy"
+label_settings = ExtResource("2_n1tb0")
+
+[node name="SoundEffectsVBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SoundEffectsVBoxContainer"]
 layout_mode = 2
 text = "SOUND_EFFECTS"
 label_settings = ExtResource("1_67ui2")
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/VBoxContainer5"]
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/SoundEffectsVBoxContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = 10
 columns = 3
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer5/GridContainer"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SoundEffectsVBoxContainer/GridContainer"]
 layout_mode = 2
 text = "simon13666"
 label_settings = ExtResource("2_n1tb0")
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer5/GridContainer"]
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/SoundEffectsVBoxContainer/GridContainer"]
 layout_mode = 2
 text = "RedRoxPeterPepper"
 label_settings = ExtResource("2_n1tb0")
 
-[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer5/GridContainer"]
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/SoundEffectsVBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Ian_G"
 label_settings = ExtResource("2_n1tb0")
 
-[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer5/GridContainer"]
+[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer/SoundEffectsVBoxContainer/GridContainer"]
 layout_mode = 2
 text = "yurkobb"
 label_settings = ExtResource("2_n1tb0")
 
-[node name="Label5" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer5/GridContainer"]
+[node name="Label5" type="Label" parent="MarginContainer/VBoxContainer/SoundEffectsVBoxContainer/GridContainer"]
 layout_mode = 2
 text = "jackthemurray"
 label_settings = ExtResource("2_n1tb0")
 
-[node name="Label6" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer5/GridContainer"]
+[node name="Label6" type="Label" parent="MarginContainer/VBoxContainer/SoundEffectsVBoxContainer/GridContainer"]
 layout_mode = 2
 text = "toefur"
 label_settings = ExtResource("2_n1tb0")
 
-[node name="Label7" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer5/GridContainer"]
+[node name="Label7" type="Label" parent="MarginContainer/VBoxContainer/SoundEffectsVBoxContainer/GridContainer"]
 layout_mode = 2
 text = "fielastro"
 label_settings = ExtResource("2_n1tb0")
 
-[node name="Label8" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer5/GridContainer"]
+[node name="Label8" type="Label" parent="MarginContainer/VBoxContainer/SoundEffectsVBoxContainer/GridContainer"]
 layout_mode = 2
 text = "SlavicMagic"
 label_settings = ExtResource("2_n1tb0")
 
-[node name="Label9" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer5/GridContainer"]
+[node name="Label9" type="Label" parent="MarginContainer/VBoxContainer/SoundEffectsVBoxContainer/GridContainer"]
 layout_mode = 2
 text = "nettimato"
 label_settings = ExtResource("2_n1tb0")
 
-[node name="Label10" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer5/GridContainer"]
+[node name="Label10" type="Label" parent="MarginContainer/VBoxContainer/SoundEffectsVBoxContainer/GridContainer"]
 layout_mode = 2
 text = "timbreknight"
 label_settings = ExtResource("2_n1tb0")
 
-[node name="Label11" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer5/GridContainer"]
+[node name="Label11" type="Label" parent="MarginContainer/VBoxContainer/SoundEffectsVBoxContainer/GridContainer"]
 layout_mode = 2
 text = "sarena6487528"
 label_settings = ExtResource("2_n1tb0")
 
-[node name="Label12" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer5/GridContainer"]
+[node name="Label12" type="Label" parent="MarginContainer/VBoxContainer/SoundEffectsVBoxContainer/GridContainer"]
 layout_mode = 2
 text = "Kinoton"
 label_settings = ExtResource("2_n1tb0")
 
-[node name="Label13" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer5/GridContainer"]
+[node name="Label13" type="Label" parent="MarginContainer/VBoxContainer/SoundEffectsVBoxContainer/GridContainer"]
 layout_mode = 2
 text = "PhilllChabbb"
 label_settings = ExtResource("2_n1tb0")
 
-[node name="Label14" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer5/GridContainer"]
+[node name="Label14" type="Label" parent="MarginContainer/VBoxContainer/SoundEffectsVBoxContainer/GridContainer"]
 layout_mode = 2
 text = "mateusboga"
 label_settings = ExtResource("2_n1tb0")
 
-[node name="Label15" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer5/GridContainer"]
+[node name="Label15" type="Label" parent="MarginContainer/VBoxContainer/SoundEffectsVBoxContainer/GridContainer"]
 layout_mode = 2
 text = "AApolo"
 label_settings = ExtResource("2_n1tb0")
 
-[node name="Label16" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer5/GridContainer"]
+[node name="Label16" type="Label" parent="MarginContainer/VBoxContainer/SoundEffectsVBoxContainer/GridContainer"]
 layout_mode = 2
 text = "SoundsExciting"
 label_settings = ExtResource("2_n1tb0")
 
-[node name="VBoxContainer6" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="AddonsVBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer6"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/AddonsVBoxContainer"]
 layout_mode = 2
 text = "ADDONS"
 label_settings = ExtResource("1_67ui2")
 horizontal_alignment = 1
 
-[node name="HFlowContainer" type="HFlowContainer" parent="MarginContainer/VBoxContainer/VBoxContainer6"]
+[node name="HFlowContainer" type="HFlowContainer" parent="MarginContainer/VBoxContainer/AddonsVBoxContainer"]
 layout_mode = 2
 theme_override_constants/h_separation = 50
 alignment = 1
 
-[node name="Beehave" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer6/HFlowContainer"]
+[node name="Beehave" type="TextureRect" parent="MarginContainer/VBoxContainer/AddonsVBoxContainer/HFlowContainer"]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 texture = ExtResource("5_a0yen")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="CSVDataImporter" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer6/HFlowContainer"]
+[node name="CSVDataImporter" type="TextureRect" parent="MarginContainer/VBoxContainer/AddonsVBoxContainer/HFlowContainer"]
 custom_minimum_size = Vector2(40, 50)
 layout_mode = 2
 texture = ExtResource("6_bdhdv")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="GDUnit" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer6/HFlowContainer"]
+[node name="GDUnit" type="TextureRect" parent="MarginContainer/VBoxContainer/AddonsVBoxContainer/HFlowContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("7_wgiwp")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Log" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer6/HFlowContainer"]
+[node name="Log" type="TextureRect" parent="MarginContainer/VBoxContainer/AddonsVBoxContainer/HFlowContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("8_kjbwc")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="ModLoader" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer6/HFlowContainer"]
+[node name="ModLoader" type="TextureRect" parent="MarginContainer/VBoxContainer/AddonsVBoxContainer/HFlowContainer"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("9_02bpy")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Godotsteam" type="TextureRect" parent="MarginContainer/VBoxContainer/VBoxContainer6/HFlowContainer"]
+[node name="Godotsteam" type="TextureRect" parent="MarginContainer/VBoxContainer/AddonsVBoxContainer/HFlowContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2

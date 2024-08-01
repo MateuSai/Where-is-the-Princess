@@ -2,7 +2,7 @@ class_name DialogueBox extends MarginContainer
 
 signal finished_displaying_text()
 var last_label_size: Vector2
-var expand_up: bool = false
+@export var expand_up: bool = false
 
 @export var auto_free_on_dialogue_end: bool = false
 
