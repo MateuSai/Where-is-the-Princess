@@ -7,6 +7,7 @@ const USER_FOLDER: String = "user://"
 const RUN_STATS_SAVE_NAME: String = "run_stats.res"
 
 var data: Data
+## Emitted after loading all the game data saved on external files
 signal data_loaded()
 var statistics: Statistics
 var achievements: Achievements
@@ -376,10 +377,11 @@ func get_available_temporal_item_paths() -> PackedStringArray:
 	temporal_item_paths.append_array(mod_temporal_item_paths)
 	return PackedStringArray(temporal_item_paths)
 
-func add_extra_available_permanent_item(item_path: String) -> void:
-	data.add_extra_available_permanent_item(item_path)
+## Makes a permanent artifact available, which means it will appear on chests and shops.
+func add_extra_available_permanent_artifact(item_path: String) -> void:
+	data.add_extra_available_permanent_artifact(item_path)
 
-## Adds a permanent item only for this session. Use this for mods to load the item each time the mod loads.
+## Adds a permanent artifact only for this session. Call this from your mod_main.gd to integrate the permanent artifact with the game.
 func add_mod_permanent_artifact(item_path: String) -> void:
 	if mod_permanent_item_paths.has(item_path):
 		return

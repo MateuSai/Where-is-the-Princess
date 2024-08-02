@@ -20,9 +20,11 @@ uppercase = true
 [node name="DescriptionLabel" type="RichTextLabel" parent="."]
 unique_name_in_owner = true
 use_parent_material = true
+clip_contents = false
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/line_separation = -2
 bbcode_enabled = true
 fit_content = true
+scroll_active = false

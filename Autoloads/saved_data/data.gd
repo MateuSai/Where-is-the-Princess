@@ -45,7 +45,7 @@ var equipped_armor: String = "res://Armors/underpants/underpants.gd"
 var _extra_available_armors: PackedStringArray = []
 var _discovered_armors: PackedStringArray = []
 
-var _extra_available_permanent_items: PackedStringArray = []
+var _extra_available_permanent_artifacts: PackedStringArray = []
 ## @deprecated
 var _discovered_permanent_items: PackedStringArray = []
 var _extra_available_temporal_items: PackedStringArray = []
@@ -162,7 +162,7 @@ func get_available_cursed_items() -> PackedStringArray:
 	return PackedStringArray(arr)
 
 func get_available_permanent_items() -> PackedStringArray:
-	var arr: Array = _extra_available_permanent_items.duplicate()
+	var arr: Array = _extra_available_permanent_artifacts.duplicate()
 	arr.append_array(AVAILABLE_PERMANENT_ITEMS_FROM_START)
 	return PackedStringArray(arr)
 
@@ -216,9 +216,9 @@ func add_extra_available_armor(armor_path: String) -> void:
 		_extra_available_armors.push_back(armor_path)
 		save()
 
-func add_extra_available_permanent_item(item_path: String) -> void:
-	if not _extra_available_permanent_items.has(item_path):
-		_extra_available_permanent_items.push_back(item_path)
+func add_extra_available_permanent_artifact(item_path: String) -> void:
+	if not _extra_available_permanent_artifacts.has(item_path):
+		_extra_available_permanent_artifacts.push_back(item_path)
 		save()
 
 func add_extra_available_temporal_item(item_path: String) -> void:
