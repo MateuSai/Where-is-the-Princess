@@ -38,7 +38,7 @@
 			"rooms_disposition": "res://Rooms/Biomes/tutorial_forest/tutorial_forest_rooms_disposition.tscn"
 		}
 	},
-	"music": "",
+	"music": "res://Audio/Music/Shadows Guild/Dark Fantasy Studio- Elders wisdom (seamless).mp3",
 	"music_volume_db": -4,
 	"weather_modificators": [],
 	"temperature": 14,
