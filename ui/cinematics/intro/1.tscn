@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://b8ln1bli2cvfl"]
+[gd_scene load_steps=53 format=3 uid="uid://b8ln1bli2cvfl"]
 
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="1_0iek0"]
 [ext_resource type="PackedScene" uid="uid://dth2ykbdys0cs" path="res://ui/cinematics/intro/royal_carriage.tscn" id="2_o28vi"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cts3fyy832biu" path="res://ui/cinematics/village_guard_walking.tscn" id="7_jtqgj"]
 [ext_resource type="Texture2D" uid="uid://osjl7jxm8dhb" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Goose/Goose_1_wing.png" id="8_kbyhy"]
 [ext_resource type="PackedScene" uid="uid://do8m7ec4t3s5s" path="res://Characters/npcs/random_villager_idle.tscn" id="9_i0yh6"]
+[ext_resource type="PackedScene" uid="uid://cd26k8bvxwb1j" path="res://ui/cinematics/village_crossbowman_walking.tscn" id="9_x3l6v"]
 [ext_resource type="Texture2D" uid="uid://bpo61641t3ks0" path="res://Art/animals/cat/cat_black_0.png" id="11_dubhk"]
 [ext_resource type="Texture2D" uid="uid://ce5n365g6khja" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Villagers/villagers_window_base.png" id="11_rx6dk"]
 [ext_resource type="PackedScene" uid="uid://dmkpf10kcpx68" path="res://ui/dialogue_system/dialogue_box.tscn" id="12_7wuaj"]
@@ -698,6 +699,116 @@ position = Vector2(233, 37)
 
 [node name="VillageGuardWalking36" parent="CompleteCarriage/VillageGuards" instance=ExtResource("7_jtqgj")]
 position = Vector2(233, 45)
+
+[node name="Crossbowmen" type="Node2D" parent="CompleteCarriage"]
+
+[node name="VillageCrossbowmanWalking9" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(306, -9)
+
+[node name="VillageCrossbowmanWalking" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(306, -1)
+
+[node name="VillageCrossbowmanWalking2" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(306, 7)
+
+[node name="VillageCrossbowmanWalking3" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(306, 15)
+
+[node name="VillageCrossbowmanWalking4" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(306, 23)
+
+[node name="VillageCrossbowmanWalking5" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(306, 31)
+
+[node name="VillageCrossbowmanWalking6" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(306, 39)
+
+[node name="VillageCrossbowmanWalking7" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(306, 47)
+
+[node name="VillageCrossbowmanWalking8" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(306, 54)
+
+[node name="VillageCrossbowmanWalking10" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(330, -9)
+
+[node name="VillageCrossbowmanWalking11" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(330, -1)
+
+[node name="VillageCrossbowmanWalking12" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(330, 7)
+
+[node name="VillageCrossbowmanWalking13" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(330, 15)
+
+[node name="VillageCrossbowmanWalking14" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(330, 23)
+
+[node name="VillageCrossbowmanWalking15" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(330, 31)
+
+[node name="VillageCrossbowmanWalking16" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(330, 39)
+
+[node name="VillageCrossbowmanWalking17" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(330, 47)
+
+[node name="VillageCrossbowmanWalking18" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(330, 54)
+
+[node name="VillageCrossbowmanWalking19" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(354, -9)
+
+[node name="VillageCrossbowmanWalking20" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(354, -1)
+
+[node name="VillageCrossbowmanWalking21" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(354, 7)
+
+[node name="VillageCrossbowmanWalking22" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(354, 15)
+
+[node name="VillageCrossbowmanWalking23" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(354, 23)
+
+[node name="VillageCrossbowmanWalking24" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(354, 31)
+
+[node name="VillageCrossbowmanWalking25" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(354, 39)
+
+[node name="VillageCrossbowmanWalking26" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(354, 47)
+
+[node name="VillageCrossbowmanWalking27" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(354, 54)
+
+[node name="VillageCrossbowmanWalking28" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(378, -9)
+
+[node name="VillageCrossbowmanWalking29" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(378, -1)
+
+[node name="VillageCrossbowmanWalking30" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(378, 7)
+
+[node name="VillageCrossbowmanWalking31" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(378, 15)
+
+[node name="VillageCrossbowmanWalking32" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(378, 23)
+
+[node name="VillageCrossbowmanWalking33" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(378, 31)
+
+[node name="VillageCrossbowmanWalking34" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(378, 39)
+
+[node name="VillageCrossbowmanWalking35" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(378, 47)
+
+[node name="VillageCrossbowmanWalking36" parent="CompleteCarriage/Crossbowmen" instance=ExtResource("9_x3l6v")]
+position = Vector2(378, 54)
 
 [node name="HorizontalWoodenFence" parent="." instance=ExtResource("6_8nc5d")]
 position = Vector2(160, 171)

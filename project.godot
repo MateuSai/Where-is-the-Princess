@@ -15,7 +15,7 @@ run/main_scene="res://splash_screen/splash_screen_manager.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="where_is_the_princess"
 config/features=PackedStringArray("4.2")
-boot_splash/image="res://wekufu logo screen.png"
+boot_splash/show_image=false
 config/icon="res://icon.png"
 
 [autoload]
