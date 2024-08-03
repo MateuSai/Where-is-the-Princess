@@ -553,7 +553,10 @@ func is_on_water() -> bool:
 		return false
 
 func is_on_void() -> bool:
-	if current_room:
+	var global_cell: Vector2i = floor(position / Rooms.TILE_SIZE)
+	var tilemap_to_check: TileMap = (get_tree().current_scene as Game).rooms.get_tilemap_with_global_cell(global_cell)
+
+	if current_room and not (tilemap_to_check != null and not tilemap_to_check.get_parent() is DungeonRoom):
 		return current_room.is_on_void(global_position - current_room.global_position)
 	else:
 		return false
