@@ -445,7 +445,6 @@ script = ExtResource("43_qnyka")
 position = Vector2(117, 155)
 
 [node name="Wardrobe" type="StaticBody2D" parent="."]
-z_index = 1
 position = Vector2(282, 54)
 collision_mask = 0
 
