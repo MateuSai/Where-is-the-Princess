@@ -24,5 +24,7 @@ func _ready() -> void:
 	, CONNECT_ONE_SHOT)
 
 	player_interacted.connect(func() -> void:
+		if not SavedData.achievements.is_achievement_completed(Achievements.Achievement.just_one_more_step):
+			SavedData.complete_achievement(Achievements.Achievement.just_one_more_step)
 		SceneTransistor.start_transition_to("res://ui/cinematics/cliff_jump/cliff_jump.tscn")
 	, CONNECT_ONE_SHOT)

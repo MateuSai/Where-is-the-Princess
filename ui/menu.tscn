@@ -332,6 +332,7 @@ icon = ExtResource("22_31lyc")
 script = ExtResource("21_mty2p")
 
 [node name="OpenWebButton" type="Button" parent="MarginContainer2/HBoxContainer"]
+visible = false
 layout_mode = 2
 tooltip_text = "OPEN_WEKUFU_WEB"
 icon = ExtResource("24_1tog6")

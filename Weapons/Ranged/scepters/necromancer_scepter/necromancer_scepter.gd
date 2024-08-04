@@ -8,7 +8,7 @@ const STEAL_LIFE_ATTACK_SCENE: PackedScene = preload("res://Characters/Enemies/n
 var num_skeletons_alive: int = 0
 
 
-func _spawn_projectile(_angle: float = 0.0, _amount: int = 1) -> Array[Projectile]:
+func _spawn_projectile(_angle: float = 0.0, _amount: int = 1, rotate_to_dir: bool = true) -> Array[Projectile]:
 	var position_to_spawn_skeleton: Vector2 = get_parent().get_parent().global_position + Vector2.RIGHT.rotated(rotation) * 64
 
 	var space_state: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state

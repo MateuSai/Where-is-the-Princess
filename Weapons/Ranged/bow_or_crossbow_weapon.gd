@@ -17,16 +17,18 @@ func _spawn_projectile(angle: float = 0.0, amount: int = 1, rotate_to_dir: bool 
 		assert(projectile is ArrowOrBolt)
 		projectile.type = arrow_type
 
-		for status: StatusWeaponModifier in stats.modifiers:
+		for modifier: WeaponModifier in stats.modifiers:
+			if not modifier is StatusWeaponModifier:
+				continue
 			@warning_ignore("unsafe_call_argument")
-			var status_inflicter_component: StatusInflicterComponent = projectile.get_node_or_null(StatusComponent.Status.keys()[status.status] + "Inflicter")
+			var status_inflicter_component: StatusInflicterComponent = projectile.get_node_or_null(StatusComponent.Status.keys()[modifier.status] + "Inflicter")
 			if status_inflicter_component:
 				status_inflicter_component.change_to_inflict_status_effect += StatusWeaponModifier.INFLICT_CHANCE
 			else:
 				status_inflicter_component = StatusInflicterComponent.new()
-				status_inflicter_component.status = status.status
+				status_inflicter_component.status = modifier.status
 				status_inflicter_component.change_to_inflict_status_effect = StatusWeaponModifier.INFLICT_CHANCE * amount
-				status_inflicter_component.name = StatusComponent.Status.keys()[status.status] + "Inflicter"
+				status_inflicter_component.name = StatusComponent.Status.keys()[modifier.status] + "Inflicter"
 				projectile.add_child(status_inflicter_component)
 
 	return spawned_projectiles
