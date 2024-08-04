@@ -38,6 +38,23 @@ func show_at(pos: Vector2, item: Item) -> void:
 	await get_tree().process_frame
 	size.y = 0
 
+func show_title_description_at(pos: Vector2, title: String, description: String) -> void:
+	if fade_tween:
+		fade_tween.kill()
+		fade_tween = null
+
+	name_label.text = title
+
+	description_label.text = description
+
+	position = pos
+	modulate.a = 1.0
+	show()
+
+	# For some reason, I have to wait a frame
+	await get_tree().process_frame
+	size.y = 0
+
 func stop_showing() -> void:
 	fade_tween = create_tween()
 	fade_tween.tween_property(self, "modulate:a", 0.0, 0.2)
