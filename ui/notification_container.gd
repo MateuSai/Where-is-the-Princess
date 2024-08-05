@@ -15,7 +15,9 @@ func _show_next_notification() -> void:
 	notification_node.modulate.a = 0.0
 	add_child(notification_node)
 	notification_node.initialize(arguments_queue.front())
-	size.y = 0
+	await get_tree().process_frame # Why the fuck do I have to call this? Only God knows but without this line the notification height goes to shit
+	notification_node.size = Vector2.ZERO
+	size = Vector2.ZERO
 	position.x = ProjectSettings.get_setting("display/window/size/viewport_width", 0) - size.x
 	pivot_offset.x = size.x
 
@@ -23,14 +25,12 @@ func _show_next_notification() -> void:
 
 	tween.finished.connect(func() -> void:
 		notification_node.queue_free()
+		notification_queue.pop_front()
+		arguments_queue.pop_front()
 		if not notification_queue.is_empty():
 			_show_next_notification()
 	)
 
 	tween.tween_property(notification_node, "modulate:a", 1.0, 0.7)
-	tween.tween_interval(9)
+	tween.tween_interval(8)
 	tween.tween_property(notification_node, "modulate:a", 0, 0.7)
-	tween.finished.connect(func() -> void:
-		notification_queue.pop_front()
-		arguments_queue.pop_front()
-	)
