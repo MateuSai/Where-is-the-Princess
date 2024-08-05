@@ -42,6 +42,11 @@ var enemy_projectile_speed: float:
 		return settings.get_value(ACCESSIBILITY_SECTION, "enemy_projectile_speed", 0.5)
 	set(new_value):
 		set_enemy_projectile_speed(new_value)
+var controller_vibration: bool:
+	get:
+		return settings.get_value(ACCESSIBILITY_SECTION, "controller_vibration", true)
+	set(new_value):
+		set_enemy_projectile_speed(new_value)
 
 var MAPPEABLE_ACTIONS: PackedStringArray = PackedStringArray(["ui_attack", "ui_previous_weapon", "ui_next_weapon", "ui_throw_weapon", "ui_weapon_ability", "ui_armor_ability", "ui_minimap", "ui_interact", "ui_dash"])
 
@@ -174,6 +179,9 @@ func set_aim_help(new_value: float) -> void:
 
 func set_enemy_projectile_speed(new_value: float) -> void:
 	settings.set_value(ACCESSIBILITY_SECTION, "enemy_projectile_speed", new_value)
+
+func set_controller_vibration(new_value: bool) -> void:
+	settings.set_value(ACCESSIBILITY_SECTION, "controller_vibration", new_value)
 
 func _set_language_by_os() -> void:
 	var game_locales: Array[String] = Globals.get_unique_locales()

@@ -382,6 +382,10 @@ func get_unique_locales() -> Array[String]:
 
 	return unique_locales
 
+func start_joy_vibration(weak_magnitude: float, strong_magnitude: float, duration: float = 0) -> void:
+	if Settings.controller_vibration:
+		Input.start_joy_vibration(0, weak_magnitude, strong_magnitude, duration)
+
 func is_steam_enabled() -> bool:
 	return platform == Platform.STEAM
 

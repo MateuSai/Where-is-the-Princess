@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bnr0w37wgidyn"]
+[gd_scene load_steps=22 format=3 uid="uid://bnr0w37wgidyn"]
 
 [ext_resource type="Script" path="res://Autoloads/Settings/Settings.gd" id="1_4y760"]
 [ext_resource type="Theme" uid="uid://b0askjdx1bs38" path="res://Theme.tres" id="2_fjhtw"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://Autoloads/Settings/AimHelpHSlider.gd" id="13_mrue3"]
 [ext_resource type="Script" path="res://Autoloads/Settings/enemy_projectile_speed_h_slider.gd" id="16_2x23b"]
 [ext_resource type="Script" path="res://input_method_checker.gd" id="17_d0wdj"]
+[ext_resource type="Script" path="res://Autoloads/Settings/vibration_checkBox.gd" id="17_j7tvl"]
 [ext_resource type="PackedScene" uid="uid://b32xaj072bk7h" path="res://ui/press_any_key_screen.tscn" id="18_qmw7n"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tgouq"]
@@ -168,6 +169,7 @@ script = ExtResource("8_tailv")
 [node name="INPUT" type="ScrollContainer" parent="TabContainer"]
 visible = false
 layout_mode = 2
+follow_focus = true
 horizontal_scroll_mode = 0
 script = ExtResource("5_nnjus")
 
@@ -315,6 +317,19 @@ max_value = 1.0
 step = 0.05
 value = 0.1
 script = ExtResource("16_2x23b")
+
+[node name="VibrationHBoxContainer" type="HBoxContainer" parent="TabContainer/ACCESSIBILITY/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/ACCESSIBILITY/MarginContainer/VBoxContainer/VibrationHBoxContainer"]
+layout_mode = 2
+text = "DISABLE_VIBRATION"
+
+[node name="VibrationCheckBox" type="CheckBox" parent="TabContainer/ACCESSIBILITY/MarginContainer/VBoxContainer/VibrationHBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+flat = true
+script = ExtResource("17_j7tvl")
 
 [node name="AutoFocusOnController" type="Node" parent="TabContainer/ACCESSIBILITY"]
 script = ExtResource("8_tailv")
