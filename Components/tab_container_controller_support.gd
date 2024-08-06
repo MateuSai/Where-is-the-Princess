@@ -19,22 +19,22 @@ func _ready() -> void:
 	if r_hint:
 		r_hint.free()
 
-	l_hint = Node2D.new()
-	r_hint = Node2D.new()
-	for hint: Node2D in [l_hint, r_hint]:
-		#hint = Node2D.new()
-		hint.z_index = 10
-		var texture_rect: TextureRect = TextureRect.new()
-		texture_rect.name = "TextureRect"
-		texture_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH
-		texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		var atlas_texture: AtlasTexture = AtlasTexture.new()
-		atlas_texture.atlas = preload("res://Art/kenney_input-prompts-pixel-16/Tilemap/tilemap_packed.png")
-		texture_rect.texture = atlas_texture
-		texture_rect.size = Vector2(16, 16)
-
-		hint.add_child(texture_rect)
-		tab_container.call_deferred("add_child", hint)
+	#l_hint = Node2D.new()
+	#r_hint = Node2D.new()
+	#for hint: Node2D in [l_hint, r_hint]:
+		##hint = Node2D.new()
+		#hint.z_index = 10
+		#var texture_rect: TextureRect = TextureRect.new()
+		#texture_rect.name = "TextureRect"
+		#texture_rect.expand_mode = TextureRect.EXPAND_FIT_WIDTH
+		#texture_rect.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		#var atlas_texture: AtlasTexture = AtlasTexture.new()
+		#atlas_texture.atlas = preload("res://Art/kenney_input-prompts-pixel-16/Tilemap/tilemap_packed.png")
+		#texture_rect.texture = atlas_texture
+		#texture_rect.size = Vector2(16, 16)
+#
+		#hint.add_child(texture_rect)
+		#tab_container.call_deferred("add_child", hint)
 
 
 func _on_draw() -> void:
@@ -54,7 +54,7 @@ func _on_hide() -> void:
 	set_process_input(false)
 
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventJoypadButton:
 		if (event as InputEventJoypadButton).pressed:
 			if (event as InputEventJoypadButton).button_index == JOY_BUTTON_LEFT_SHOULDER:
@@ -95,6 +95,8 @@ func _put_hints_on_correct_position() -> void:
 
 
 func _update_controller_hints(new_mode: int) -> void:
+	return
+
 	if new_mode == Globals.Mode.MOUSE:
 		l_hint.hide()
 		r_hint.hide()
