@@ -200,7 +200,7 @@ metadata/_edit_lock_ = true
 
 [node name="Crow" type="Node" parent="." index="1" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("2_0esmo")
-blackboard = NodePath("@Node@25313")
+blackboard = NodePath("@Node@33000")
 actor = NodePath("..")
 
 [node name="SimpleParallelComposite" type="Node" parent="Crow" index="0"]
