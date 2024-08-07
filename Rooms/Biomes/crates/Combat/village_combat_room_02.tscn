@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://e0s845gcuvym"]
+[gd_scene load_steps=9 format=3 uid="uid://e0s845gcuvym"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_bcrso"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_6u6e5"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://55asonx0hhw2" path="res://Rooms/Furniture and Traps/traps/window_villagers/window_villager.tscn" id="5_736ne"]
 [ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="5_p5cw6"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="6_170yo"]
+[ext_resource type="PackedScene" uid="uid://by14j4q6i0ycq" path="res://Rooms/Furniture and Traps/traps/snowman/snowman.tscn" id="6_a4sr3"]
 
 [node name="VillageCombatRoom01" instance=ExtResource("1_bcrso")]
 
@@ -33,9 +34,41 @@ position = Vector2(218, 132)
 script = ExtResource("4_f5u3m")
 enemy_name = "goose"
 
+[node name="EnemyMarker2" type="Marker2D" parent="EnemyPositions" index="1"]
+position = Vector2(196, 104)
+script = ExtResource("4_f5u3m")
+enemy_name = "goose"
+
+[node name="EnemyMarker3" type="Marker2D" parent="EnemyPositions" index="2"]
+position = Vector2(171, 171)
+script = ExtResource("4_f5u3m")
+enemy_name = "goose"
+
+[node name="EnemyMarker4" type="Marker2D" parent="EnemyPositions" index="3"]
+position = Vector2(265, 109)
+script = ExtResource("4_f5u3m")
+enemy_name = "crow"
+
+[node name="EnemyMarker5" type="Marker2D" parent="EnemyPositions" index="4"]
+position = Vector2(182, 149)
+script = ExtResource("4_f5u3m")
+enemy_name = "crow"
+
 [node name="WindowVillager" parent="Traps" index="0" instance=ExtResource("5_736ne")]
 position = Vector2(277, 50)
 row = 7
+
+[node name="Snowman" parent="Traps" index="1" instance=ExtResource("6_a4sr3")]
+position = Vector2(100, 171)
+
+[node name="Snowman2" parent="Traps" index="2" instance=ExtResource("6_a4sr3")]
+position = Vector2(132, 225)
+
+[node name="Snowman3" parent="Traps" index="3" instance=ExtResource("6_a4sr3")]
+position = Vector2(345, 220)
+
+[node name="Snowman4" parent="Traps" index="4" instance=ExtResource("6_a4sr3")]
+position = Vector2(121, 60)
 
 [node name="TeleportPosition" parent="." index="8"]
 position = Vector2(218, 158)
