@@ -73,6 +73,7 @@ func _on_player_interacted() -> void:
 
 func _spawn_cursed_item() -> void:
 	sound.play()
+	Globals.start_joy_vibration(0.2, 0.4, 0.2)
 
 	var spawn_explosion: AnimatedSprite2D = SPAWN_EXPLOSION_SCENE.instantiate()
 	spawn_explosion.modulate = Color("460e03ba")
