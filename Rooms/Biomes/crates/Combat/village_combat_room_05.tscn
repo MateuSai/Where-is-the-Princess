@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://mhcsglq4jn2t"]
+[gd_scene load_steps=13 format=3 uid="uid://mhcsglq4jn2t"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_pbqgv"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_nje3o"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b8gsakalplp52" path="res://Rooms/Furniture and Traps/wooden_fence/right_bottom_vertical_wooden_fence.tscn" id="8_dmayt"]
 [ext_resource type="PackedScene" uid="uid://e63ahn7ldumi" path="res://Rooms/Furniture and Traps/Torch.tscn" id="10_s68re"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="11_514l3"]
+[ext_resource type="PackedScene" uid="uid://dx080p6kwctpv" path="res://Rooms/Furniture and Traps/gallows/big_gallows.tscn" id="12_mwj0o"]
 
 [node name="VillageCombatRoom05" instance=ExtResource("1_pbqgv")]
 
@@ -52,6 +53,21 @@ enemy_name = "goose"
 position = Vector2(139, 217)
 script = ExtResource("4_coenu")
 enemy_name = "goose"
+
+[node name="EnemyMarker4" type="Marker2D" parent="EnemyPositions" index="3"]
+position = Vector2(213, 129)
+script = ExtResource("4_coenu")
+enemy_name = "crow"
+
+[node name="EnemyMarker5" type="Marker2D" parent="EnemyPositions" index="4"]
+position = Vector2(183, 188)
+script = ExtResource("4_coenu")
+enemy_name = "crow"
+
+[node name="EnemyMarker6" type="Marker2D" parent="EnemyPositions" index="5"]
+position = Vector2(228, 181)
+script = ExtResource("4_coenu")
+enemy_name = "crossbowman"
 
 [node name="TeleportPosition" parent="." index="8"]
 position = Vector2(236, 218)
@@ -109,3 +125,6 @@ position = Vector2(369, 187)
 
 [node name="TikiTorch" parent="." index="27" instance=ExtResource("11_514l3")]
 position = Vector2(256, 279)
+
+[node name="BigGallows" parent="." index="28" instance=ExtResource("12_mwj0o")]
+position = Vector2(290, 192)
