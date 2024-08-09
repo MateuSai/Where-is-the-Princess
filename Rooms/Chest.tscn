@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://cwb0heh4qdkh8"]
+[gd_scene load_steps=15 format=3 uid="uid://cwb0heh4qdkh8"]
 
 [ext_resource type="Script" path="res://Rooms/Chest.gd" id="1_7hiks"]
 [ext_resource type="Shader" path="res://shaders_and_particles/outline.gdshader" id="1_wkqy5"]
 [ext_resource type="Texture2D" uid="uid://dsg3qton4peu2" path="res://Art/common_chest_closed.png" id="3_q2t3j"]
 [ext_resource type="Texture2D" uid="uid://b1s6axjm1bsh1" path="res://Art/common_chest_opened.png" id="4_fnjth"]
+[ext_resource type="AudioStream" uid="uid://brs0g087fw3nh" path="res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Chest/ChestOpening1.wav" id="6_eeon8"]
 [ext_resource type="Script" path="res://interact_area.gd" id="12_gnivr"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_utqfl"]
@@ -107,6 +108,20 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(1.2, 1.2), Vector2(1, 1)]
 }
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_74sc2"]
 _data = {
@@ -145,3 +160,8 @@ path_to_sprite = NodePath("../AnimatedSprite")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
 visible = false
 shape = SubResource("CircleShape2D_moqwn")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_eeon8")
+max_distance = 500.0
+bus = &"Sounds"

@@ -1,5 +1,7 @@
 class_name Bomb extends Area2D
 
+const SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Explosion/Explosion3.wav"), preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Explosion/Explosion5.wav"), preload ("res://Audio/Sounds/Starter Pack-Realist Sound Bank.23/Explosion/Explosion9.wav")]
+
 var reflected: bool = false
 
 var dir: Vector2
@@ -69,6 +71,10 @@ func _on_body_entered(_body: Node2D) -> void:
 
 func _spawn_shrapnel() -> void:
 	set_physics_process(false)
+
+	var sound: AutoFreeSound = AutoFreeSound.new()
+	get_tree().current_scene.add_child(sound)
+	sound.start(SOUNDS[randi() % SOUNDS.size()], global_position)
 
 	#animation_player.pause()
 
