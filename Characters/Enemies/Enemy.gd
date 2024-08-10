@@ -124,7 +124,7 @@ func _on_died() -> void:
 	super()
 
 	if enemy_weapons:
-		enemy_weapons.free()
+		enemy_weapons.queue_free()
 
 	if life_component.last_weapon != null and life_component.last_damage_dealer_id == "player":
 		SavedData.statistics.add_weapon_kill(life_component.last_weapon.weapon_id)

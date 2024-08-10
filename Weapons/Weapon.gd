@@ -232,19 +232,20 @@ func destroy() -> void:
 	#	get_tree().current_scene.add_child(fragment)
 	#	fragment.throw(get_parent().get_parent(), Vector2.RIGHT.rotated(rotation), weapon_sprite.texture, t)
 
-	var fragments_folder: DirAccess = DirAccess.open(scene_file_path.get_base_dir().path_join("fragments"))
-	if fragments_folder:
-		for file: String in fragments_folder.get_files():
-			if not file.trim_suffix(".import").get_extension() == "png":
-				continue
+	if !_is_on_water():
+		var fragments_folder: DirAccess = DirAccess.open(scene_file_path.get_base_dir().path_join("fragments"))
+		if fragments_folder:
+			for file: String in fragments_folder.get_files():
+				if not file.trim_suffix(".import").get_extension() == "png":
+					continue
 
-			var fragment_texture: Texture2D = load(fragments_folder.get_current_dir().path_join(file).trim_suffix(".import"))
-			var fragment: WeaponFragment = load("res://effects/fragments/weapon_fragment.tscn").instantiate()
-			fragment.position = weapon_sprite.global_position
-			get_tree().current_scene.add_child(fragment)
-			fragment.throw(get_parent().get_parent(), Vector2.RIGHT.rotated(rotation + randf_range( - 0.8, 0.8)), fragment_texture)
-	else:
-		Log.warn("Weapon " + data.weapon_name + " does not have fragments. Create a folder called fragments in the same directory as the weapon scene and add the fragments on that folder")
+				var fragment_texture: Texture2D = load(fragments_folder.get_current_dir().path_join(file).trim_suffix(".import"))
+				var fragment: WeaponFragment = load("res://effects/fragments/weapon_fragment.tscn").instantiate()
+				fragment.position = weapon_sprite.global_position
+				get_tree().current_scene.add_child(fragment)
+				fragment.throw(get_parent().get_parent(), Vector2.RIGHT.rotated(rotation + randf_range( - 0.8, 0.8)), fragment_texture)
+		else:
+			Log.warn("Weapon " + data.weapon_name + " does not have fragments. Create a folder called fragments in the same directory as the weapon scene and add the fragments on that folder")
 
 	animation_player.stop(true)
 
