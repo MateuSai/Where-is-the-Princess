@@ -82,27 +82,35 @@ class ArtifactIcon extends TextureRect:
 			#modulate.a = 0.6
 			#pause_menu_open = false
 		#)
-
-	func _get_tooltip(_at_position: Vector2) -> String:
+	func _ready() -> void:
 		if show_tooltip:
-			match item.get_quality():
-				Item.Quality.COMMON:
-					return tr(item.get_item_name()) + "\n\n" + tr(item.get_item_description())
-				Item.Quality.CHINGON:
-					return "[color=blue]" + tr(item.get_item_name()) + "[/color]\n\n" + tr(item.get_item_description())
-				_:
-					assert(false, "invalid type")
-					return ""
-		else:
-			return ""
+			mouse_entered.connect(func() -> void:
+				get_tree().current_scene.get_node("UI/InfoPanel").show_at(global_position + Vector2.RIGHT * size.x + Vector2.DOWN * size.y / 2, item)
+			)
+			mouse_exited.connect(func() -> void:
+				get_tree().current_scene.get_node("UI/InfoPanel").stop_showing()
+			)
 
-	func _make_custom_tooltip(for_text: String) -> Object:
-		var custom_tooltip: CustomTooltip = load("res://ui/custom_tooltip.tscn").instantiate()
-
-		var splitted_text: PackedStringArray = for_text.split("\n\n")
-		custom_tooltip.initialize(splitted_text[0], splitted_text[1])
-
-		return custom_tooltip
+	#func _get_tooltip(_at_position: Vector2) -> String:
+		#if show_tooltip:
+			#match item.get_quality():
+				#Item.Quality.COMMON:
+					#return tr(item.get_item_name()) + "\n\n" + tr(item.get_item_description())
+				#Item.Quality.CHINGON:
+					#return "[color=blue]" + tr(item.get_item_name()) + "[/color]\n\n" + tr(item.get_item_description())
+				#_:
+					#assert(false, "invalid type")
+					#return ""
+		#else:
+			#return ""
+#
+	#func _make_custom_tooltip(for_text: String) -> Object:
+		#var custom_tooltip: CustomTooltip = load("res://ui/custom_tooltip.tscn").instantiate()
+#
+		#var splitted_text: PackedStringArray = for_text.split("\n\n")
+		#custom_tooltip.initialize(splitted_text[0], splitted_text[1])
+#
+		#return custom_tooltip
 
 class TemporalArtifactIcon extends ArtifactIcon:
 	var amount: int = 1

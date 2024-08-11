@@ -507,6 +507,11 @@ func rescue_npc(npc_id: String) -> void:
 
 func complete_achievement(achievement: Achievements.Achievement) -> void:
 	achievements.complete_achievement(achievement)
+	if get_tree().current_scene is Game:
+		(get_tree().current_scene as Game).show_notification(load("res://ui/notifications/achievement_unlocked_notification.tscn"), {
+			"id": achievements.achievement_int_to_string(achievement),
+			"icon": achievements.get_achieved_icon(achievement),
+		})
 
 func add_progress_to_achievement(achievement: Achievements.Achievement, amount: int) -> void:
 	achievements.add_progress_to_achievement(achievement, amount)

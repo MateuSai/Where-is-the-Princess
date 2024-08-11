@@ -105,7 +105,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	#		elif is_charging():
 	#			_strong_attack()
 	#else:
-	if event.is_action_pressed("ui_attack") and can_attack():
+	if Input.is_action_just_pressed("ui_attack") and can_attack():
 		_attack()
 
 	if event.is_action_pressed("ui_weapon_ability") and has_active_ability() and not is_busy() and can_active_ability():

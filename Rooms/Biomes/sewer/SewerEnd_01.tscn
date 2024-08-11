@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://26gamp73h168"]
+[gd_scene load_steps=38 format=3 uid="uid://26gamp73h168"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_xn8jn"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_5cqls"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://cjxtr1epmm5wh" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/hole_floor.png" id="6_v7xab"]
 [ext_resource type="Texture2D" uid="uid://c13l0lk3c3e0y" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/hole_floor_normal.png" id="7_d6al6"]
 [ext_resource type="Script" path="res://Rooms/exit_level_on_interact.gd" id="8_1wa3h"]
-[ext_resource type="Script" path="res://start_player_dialogue_area.gd" id="9_ws84t"]
 [ext_resource type="Texture2D" uid="uid://ipm06xwlrvow" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Furniture props/bed.png" id="10_828ft"]
 [ext_resource type="Texture2D" uid="uid://xg3hiwjad3kc" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/Furniture props/bed_normal.png" id="11_quu2a"]
 [ext_resource type="Script" path="res://save_run_interact_area.gd" id="12_bem22"]
@@ -35,9 +34,6 @@ normal_texture = ExtResource("7_d6al6")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o84ar"]
 radius = 28.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwdoq"]
-size = Vector2(46, 67)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_r3gtm"]
 diffuse_texture = ExtResource("10_828ft")
@@ -159,15 +155,7 @@ shape = SubResource("CircleShape2D_o84ar")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hole_in_floor" index="2"]
 polygon = PackedVector2Array(-19, 16, -5, 16, 2, 10, 11, 10, 16, 4, 18, -5, 19, -14, 5, -20, -2, -19, -20, -9, -20, 13)
 
-[node name="StartPlayerDialogueArea" type="Area2D" parent="." index="17"]
-script = ExtResource("9_ws84t")
-dialogues = Array[String](["PLAYER_TROMP_ROOM_DOOR_CLOSED"])
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StartPlayerDialogueArea" index="0"]
-position = Vector2(161, 378)
-shape = SubResource("RectangleShape2D_gwdoq")
-
-[node name="Bed" type="StaticBody2D" parent="." index="18"]
+[node name="Bed" type="StaticBody2D" parent="." index="17"]
 position = Vector2(136, 128)
 collision_layer = 16
 collision_mask = 0
@@ -190,10 +178,10 @@ path_to_sprite = NodePath("../Sprite2D")
 position = Vector2(0, -8)
 shape = SubResource("CapsuleShape2D_rrlcx")
 
-[node name="WakeUpMarker" type="Marker2D" parent="." index="19"]
+[node name="WakeUpMarker" type="Marker2D" parent="." index="18"]
 position = Vector2(102, 141)
 
-[node name="StairsDown" type="StaticBody2D" parent="." index="20"]
+[node name="StairsDown" type="StaticBody2D" parent="." index="19"]
 position = Vector2(72, 155)
 collision_layer = 16
 collision_mask = 0
@@ -214,7 +202,7 @@ path_to_sprite = NodePath("../Sprite2D")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StairsDown/ExitLevelOnInteract" index="0"]
 shape = SubResource("RectangleShape2D_b6gk7")
 
-[node name="TrompCarpet_01" type="Sprite2D" parent="." index="21"]
+[node name="TrompCarpet_01" type="Sprite2D" parent="." index="20"]
 modulate = Color(0.717647, 0.717647, 0.717647, 1)
 z_index = -2
 position = Vector2(154, 129)
@@ -222,7 +210,7 @@ texture = ExtResource("15_k1hvi")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 32)
 
-[node name="TrompCarpet_02" type="Sprite2D" parent="." index="22"]
+[node name="TrompCarpet_02" type="Sprite2D" parent="." index="21"]
 modulate = Color(0.839216, 0.839216, 0.839216, 1)
 z_index = -2
 position = Vector2(185, 151)
@@ -231,10 +219,10 @@ texture = ExtResource("15_k1hvi")
 region_enabled = true
 region_rect = Rect2(16, 0, 16, 32)
 
-[node name="StairsUp" parent="." index="23" instance=ExtResource("16_jg6n4")]
+[node name="StairsUp" parent="." index="22" instance=ExtResource("16_jg6n4")]
 position = Vector2(232, 159)
 
-[node name="Door" type="StaticBody2D" parent="." index="24"]
+[node name="Door" type="StaticBody2D" parent="." index="23"]
 position = Vector2(160, 350)
 collision_mask = 0
 
@@ -247,7 +235,7 @@ visible = false
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_be44r")
 
-[node name="Cualdron" type="StaticBody2D" parent="." index="25"]
+[node name="Cualdron" type="StaticBody2D" parent="." index="24"]
 position = Vector2(175, 137)
 collision_mask = 0
 
@@ -266,12 +254,12 @@ shape = SubResource("CapsuleShape2D_rj4kn")
 [node name="SteamSpawner" parent="Cualdron" index="2" instance=ExtResource("20_fn7qw")]
 position = Vector2(0, -16)
 
-[node name="StairsUpLight" type="PointLight2D" parent="." index="26"]
+[node name="StairsUpLight" type="PointLight2D" parent="." index="25"]
 position = Vector2(215, 143)
 color = Color(0.90923, 0.91597, 0.511382, 1)
 energy = 2.0
 texture = ExtResource("21_wcn47")
 height = 18.0
 
-[node name="Chest" parent="." index="28" instance=ExtResource("22_mgiif")]
+[node name="Chest" parent="." index="27" instance=ExtResource("22_mgiif")]
 position = Vector2(136, 138)

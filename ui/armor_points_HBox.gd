@@ -4,6 +4,9 @@ var previous_ap: int = 0
 
 
 func update_armor_points(new_ap: int, max_ap: int) -> void:
+	if new_ap == previous_ap and new_ap == 0 and max_ap == 0: # Armor has been destroyed, we have to delete the empty shileds manually otherwise the will remain
+		for child: ArmorPointUI in get_children():
+			child.free()
 	if new_ap == previous_ap:
 		return
 

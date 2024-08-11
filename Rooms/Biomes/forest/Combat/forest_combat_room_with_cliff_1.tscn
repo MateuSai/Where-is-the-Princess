@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://byo3ri1qxoqku"]
+[gd_scene load_steps=15 format=3 uid="uid://byo3ri1qxoqku"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_ybxiy"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_lqi7m"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_58yon"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="4_ag5g6"]
+[ext_resource type="Script" path="res://Rooms/EnemyMarker.gd" id="4_araa8"]
 [ext_resource type="Script" path="res://cliff_interact_area.gd" id="5_x0kwd"]
 [ext_resource type="Texture2D" uid="uid://c54biqid6hh6w" path="res://Art/cliff_interact_line.png" id="6_f85k4"]
 [ext_resource type="PackedScene" uid="uid://dhiaumiqj55kp" path="res://Characters/npcs/diogenes/diogenes.tscn" id="7_5ywhh"]
@@ -12,6 +13,57 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3p0iu"]
 radius = 4.0
+
+[sub_resource type="Animation" id="Animation_lbv8k"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CliffDiogenes/Diogenes:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(137, 183)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CliffDiogenes/Diogenes:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CliffDiogenes/Diogenes:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CliffDiogenes/Diogenes:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_p6ltw"]
 resource_name = "throw"
@@ -78,57 +130,6 @@ tracks/4/keys = {
 "values": [0.0, 3.14159]
 }
 
-[sub_resource type="Animation" id="Animation_lbv8k"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CliffDiogenes/Diogenes:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(137, 183)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CliffDiogenes/Diogenes:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CliffDiogenes/Diogenes:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("CliffDiogenes/Diogenes:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nu86c"]
 _data = {
 "RESET": SubResource("Animation_lbv8k"),
@@ -152,6 +153,26 @@ position = Vector2(149, 6)
 
 [node name="VerticalEntry" parent="Entries/Right" index="0" instance=ExtResource("2_lqi7m")]
 position = Vector2(376, 150)
+
+[node name="EnemyMarker" type="Marker2D" parent="EnemyPositions" index="0"]
+position = Vector2(340, 58)
+script = ExtResource("4_araa8")
+enemy_name = "spider_egg"
+
+[node name="EnemyMarker2" type="Marker2D" parent="EnemyPositions" index="1"]
+position = Vector2(351, 91)
+script = ExtResource("4_araa8")
+enemy_name = "spider_egg"
+
+[node name="EnemyMarker3" type="Marker2D" parent="EnemyPositions" index="2"]
+position = Vector2(338, 79)
+script = ExtResource("4_araa8")
+enemy_name = "spider_egg"
+
+[node name="EnemyMarker4" type="Marker2D" parent="EnemyPositions" index="3"]
+position = Vector2(247, 117)
+script = ExtResource("4_araa8")
+enemy_name = "goblin"
 
 [node name="TeleportPosition" parent="." index="8"]
 position = Vector2(186, 109)

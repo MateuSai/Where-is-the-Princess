@@ -35,9 +35,15 @@ func initialize(weapon: Weapon) -> void:
 		bad_state_overlay_texture.hide()
 
 
-#func _ready() -> void:
-#	if get_index() == 0:
-#		condition_bar.queue_free()
+func _ready() -> void:
+	if get_parent() is PauseWeaponInventory: # Pause menu weapons
+		mouse_entered.connect(func() -> void:
+			var splitted_text: PackedStringArray = weapon.get_info().split("\n\n")
+			get_tree().current_scene.get_node("UI/InfoPanel").show_title_description_at(global_position + Vector2.RIGHT * size.x + Vector2.DOWN * size.y / 2, splitted_text[0], splitted_text[1])
+		)
+		mouse_exited.connect(func() -> void:
+			get_tree().current_scene.get_node("UI/InfoPanel").stop_showing()
+		)
 
 
 func select() -> void:
@@ -64,17 +70,17 @@ func add_status_icon(status: StatusComponent.Status) -> void:
 	status_container.add_child(icon)
 
 
-func _get_tooltip(_at_position: Vector2) -> String:
-	if get_tree().paused:
-		return weapon.get_info()
-	else:
-		return ""
-
-
-func _make_custom_tooltip(for_text: String) -> Object:
-	var custom_tooltip: CustomTooltip = load("res://ui/custom_tooltip.tscn").instantiate()
-
-	var splitted_text: PackedStringArray = for_text.split("\n\n")
-	custom_tooltip.initialize(splitted_text[0], splitted_text[1])
-
-	return custom_tooltip
+#func _get_tooltip(_at_position: Vector2) -> String:
+	#if get_tree().paused:
+		#return weapon.get_info()
+	#else:
+		#return ""
+#
+#
+#func _make_custom_tooltip(for_text: String) -> Object:
+	#var custom_tooltip: CustomTooltip = load("res://ui/custom_tooltip.tscn").instantiate()
+#
+	#var splitted_text: PackedStringArray = for_text.split("\n\n")
+	#custom_tooltip.initialize(splitted_text[0], splitted_text[1])
+#
+	#return custom_tooltip

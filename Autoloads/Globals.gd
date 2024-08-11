@@ -83,37 +83,37 @@ const INPUT_IMAGE_RECTS: Dictionary = {
 	xbox_joypad_button_1 = Rect2(224, 16, 16, 16), # xbox B
 	xbox_joypad_button_2 = Rect2(240, 16, 16, 16), # xbox X
 	xbox_joypad_button_3 = Rect2(256, 16, 16, 16), # xbox Y
-	xbox_joypad_button_4 = Rect2(112, 288, 16, 16), # xbox LB
-	xbox_joypad_button_5 = Rect2(128, 288, 16, 16), # xbox RB
-	xbox_joypad_button_6 = Rect2(144, 288, 16, 16), # xbox LT
-	xbox_joypad_button_7 = Rect2(160, 288, 16, 16), # xbox RT
-	xbox_joypad_button_8 = Rect2(256, 96, 16, 16), # xbox L3
-	xbox_joypad_button_9 = Rect2(256, 128, 16, 16), # xbox R3
-	xbox_joypad_button_10 = Rect2(64, 288, 16, 16), # xbox select
-	xbox_joypad_button_11 = Rect2(80, 288, 16, 16), # xbox start
-	xbox_joypad_button_12 = Rect2(16, 16, 16, 16), # xbox d-pad up
-	xbox_joypad_button_13 = Rect2(48, 16, 16, 16), # xbox d-pad down
-	xbox_joypad_button_14 = Rect2(64, 16, 16, 16), # xbox d-pad left
-	xbox_joypad_button_15 = Rect2(32, 16, 16, 16), # xbox d-pad right
-	xbox_joypad_button_16 = Rect2(240, 320, 16, 16), # xbox button that emits light
+	xbox_joypad_button_4 = Rect2(64, 288, 16, 16), # xbox select
+	xbox_joypad_button_5 = Rect2(240, 320, 16, 16), # xbox button that emits light
+	xbox_joypad_button_6 = Rect2(80, 288, 16, 16), # xbox start
+	xbox_joypad_button_9 = Rect2(112, 288, 16, 16), # xbox LB
+	xbox_joypad_button_10 = Rect2(128, 288, 16, 16), # xbox RB
+	xbox_joypad_button_11 = Rect2(16, 16, 16, 16), # xbox d-pad up
+	xbox_joypad_button_12 = Rect2(48, 16, 16, 16), # xbox d-pad down
+	xbox_joypad_button_13 = Rect2(64, 16, 16, 16), # xbox d-pad left
+	xbox_joypad_button_14 = Rect2(32, 16, 16, 16), # xbox d-pad right
+	xbox_joypad_button_16 = Rect2(256, 96, 16, 16), # xbox L3
+	xbox_joypad_button_17 = Rect2(256, 128, 16, 16), # xbox R3
+	xbox_joypad_button_axis_4 = Rect2(144, 288, 16, 16), # xbox LT
+	xbox_joypad_button_axis_5 = Rect2(160, 288, 16, 16), # xbox RT
 
 	ps_joypad_button_0 = Rect2(368, 256, 16, 16), # ps X
 	ps_joypad_button_1 = Rect2(304, 256, 16, 16), # ps circle
 	ps_joypad_button_2 = Rect2(336, 256, 16, 16), # ps square
 	ps_joypad_button_3 = Rect2(272, 256, 16, 16), # ps triangle
-	ps_joypad_button_4 = Rect2(304, 288, 16, 16), # ps L1
-	ps_joypad_button_5 = Rect2(320, 288, 16, 16), # ps R1
-	ps_joypad_button_6 = Rect2(336, 288, 16, 16), # ps L2
-	ps_joypad_button_7 = Rect2(352, 288, 16, 16), # ps R2
-	ps_joypad_button_8 = Rect2(256, 96, 16, 16), # ps L3
-	ps_joypad_button_9 = Rect2(256, 128, 16, 16), # ps R3
-	ps_joypad_button_10 = Rect2(288, 320, 16, 16), # ps share
-	ps_joypad_button_11 = Rect2(304, 320, 16, 16), # ps options
-	ps_joypad_button_12 = Rect2(16, 112, 16, 16), # ps d-pad up
-	ps_joypad_button_13 = Rect2(48, 112, 16, 16), # ps d-pad down
-	ps_joypad_button_14 = Rect2(64, 112, 16, 16), # ps d-pad left
-	ps_joypad_button_15 = Rect2(32, 112, 16, 16), # ps d-pad right
-	ps_joypad_button_16 = Rect2(352, 320, 16, 16), # ps DualShock (WTF is a dualshock?)
+	ps_joypad_button_4 = Rect2(288, 320, 16, 16), # ps share
+	ps_joypad_button_5 = Rect2(352, 320, 16, 16), # ps DualShock (WTF is a dualshock?)
+	ps_joypad_button_6 = Rect2(304, 320, 16, 16), # ps options
+	ps_joypad_button_9 = Rect2(304, 288, 16, 16), # ps L1
+	ps_joypad_button_10 = Rect2(320, 288, 16, 16), # ps R1
+	ps_joypad_button_11 = Rect2(16, 112, 16, 16), # ps d-pad up
+	ps_joypad_button_12 = Rect2(48, 112, 16, 16), # ps d-pad down
+	ps_joypad_button_13 = Rect2(64, 112, 16, 16), # ps d-pad left
+	ps_joypad_button_14 = Rect2(32, 112, 16, 16), # ps d-pad right
+	ps_joypad_button_16 = Rect2(256, 96, 16, 16), # ps L3
+	ps_joypad_button_17 = Rect2(256, 128, 16, 16), # ps R3
+	ps_joypad_button_axis_4 = Rect2(336, 288, 16, 16), # ps L2
+	ps_joypad_button_axis_5 = Rect2(352, 288, 16, 16), # ps R2
 }
 
 var mode: int = Mode.MOUSE
@@ -266,7 +266,7 @@ func _change_to_controller_mode(device: int) -> void:
 	mode_changed.emit(mode)
 
 func get_joypad_event_image_id(event: InputEvent) -> String:
-	return Globals.controller_type + "_joypad_button_" + (str((event as InputEventJoypadButton).button_index) if event is InputEventJoypadButton else str((event as InputEventJoypadMotion).axis))
+	return Globals.controller_type + "_joypad_button_" + (str((event as InputEventJoypadButton).button_index) if event is InputEventJoypadButton else "axis_" + str((event as InputEventJoypadMotion).axis))
 
 func exit_level(biome: String="", backwards: bool=false) -> void:
 	biome = biome.to_lower()
@@ -381,6 +381,10 @@ func get_unique_locales() -> Array[String]:
 			unique_locales.push_back(locale)
 
 	return unique_locales
+
+func start_joy_vibration(weak_magnitude: float, strong_magnitude: float, duration: float = 0) -> void:
+	if Settings.controller_vibration:
+		Input.start_joy_vibration(0, weak_magnitude, strong_magnitude, duration)
 
 func is_steam_enabled() -> bool:
 	return platform == Platform.STEAM

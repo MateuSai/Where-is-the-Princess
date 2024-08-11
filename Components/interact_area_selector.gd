@@ -11,7 +11,7 @@ var closer_area: InteractArea = null:
 			if closer_area:
 				closer_area._on_player_entered(player)
 				if closer_area.get_parent() is ItemOnFloor and (player.current_room == null or player.current_room.is_cleared()):
-					InfoPanel.show_at(closer_area.global_position, (closer_area.get_parent() as ItemOnFloor).item)
+					InfoPanel.show_at(closer_area.global_position + Vector2.ONE * 6, (closer_area.get_parent() as ItemOnFloor).item)
 var interact_areas: Array[InteractArea] = []
 
 @onready var player: Player = get_parent()

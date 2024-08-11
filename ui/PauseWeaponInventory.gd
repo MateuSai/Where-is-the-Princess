@@ -1,4 +1,4 @@
-extends HBoxContainer
+class_name PauseWeaponInventory extends HBoxContainer
 
 const INVENTORY_ITEM_SCENE: PackedScene = preload("res://InventoryItem.tscn")
 

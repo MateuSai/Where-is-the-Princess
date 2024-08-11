@@ -46,8 +46,9 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	print(event.as_text())
+	Log.debug(event.as_text())
 	if _is_valid_event(event):
+		Log.debug("Valid event")
 		if Globals.mode == Globals.Mode.MOUSE:
 			var controller_event: InputEvent = InputMap.action_get_events(action_name)[1]
 			InputMap.action_erase_events(action_name)
@@ -63,7 +64,7 @@ func _input(event: InputEvent) -> void:
 			InputMap.action_add_event(action_name, event)
 			#Settings.settings.key_bindings[action_name]["controller"] = event
 
-			key_texture.change_key_texture(Globals.get_joypad_event_image_id(event))
+			key_texture.update_texture_with_event_text(Globals.get_joypad_event_image_id(event))
 
 		set_process_input(false)
 
@@ -79,7 +80,7 @@ func _is_valid_event(e: InputEvent) -> bool:
 	if Globals.mode == Globals.Mode.MOUSE:
 		return (e is InputEventKey and Globals.INPUT_IMAGE_RECTS.has(e.as_text().to_lower())) or (e is InputEventMouseButton and ((e as InputEventMouseButton).button_index == MOUSE_BUTTON_LEFT or (e as InputEventMouseButton).button_index == MOUSE_BUTTON_RIGHT or (e as InputEventMouseButton).button_index == MOUSE_BUTTON_MIDDLE or (e as InputEventMouseButton).button_index == MOUSE_BUTTON_WHEEL_DOWN or (e as InputEventMouseButton).button_index == MOUSE_BUTTON_WHEEL_UP))
 	else: # estamos usando mando
-		return (e is InputEventJoypadButton and Globals.INPUT_IMAGE_RECTS.has(Globals.get_joypad_event_image_id(e)))
+		return ((e is InputEventJoypadButton or (e is InputEventJoypadMotion and e.as_text().contains("Trigger"))) and Globals.INPUT_IMAGE_RECTS.has(Globals.get_joypad_event_image_id(e)))
 
 
 func _on_pressed() -> void:

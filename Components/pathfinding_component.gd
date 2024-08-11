@@ -138,10 +138,11 @@ class Circle extends Mode:
 #		if tile_data:
 #			print(tile_data.get_navigation_polygon(0))
 		var space_state: PhysicsDirectSpaceState2D = character.get_world_2d().direct_space_state
-		var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(character.global_position, character.global_position + character.mov_direction * 8, 1 + 16) # 1 = World, 16 = Low object
+		var query: PhysicsRayQueryParameters2D = PhysicsRayQueryParameters2D.create(character.global_position, new_target_position, 1 + 16) # 1 = World, 16 = Low object
 		var result: Dictionary = space_state.intersect_ray(query)
 #		if not tile_data or tile_data.get_navigation_polygon(0) == null:
 		if not result.is_empty():
+			#Log.debug("Circle target, found obstacle, changing dir...")
 			rot_around_character_dir *= - 1
 			new_target_position = target.global_position + (character.global_position - target.global_position).rotated(rot_around_character_dir * PI / 4)
 #		else:

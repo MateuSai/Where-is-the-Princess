@@ -23,7 +23,7 @@ func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_deal
 				fragment.position = player.global_position
 				get_tree().current_scene.add_child(fragment)
 				fragment.throw(player, Vector2.ZERO, fragment_texture)
-			
+
 			var particles: GPUParticles2D = load("res://shaders_and_particles/particles/DestroyParticles.tscn").instantiate()
 			particles.position += Vector2.UP * 6
 			player.add_child(particles)
@@ -39,6 +39,8 @@ func take_damage(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_deal
 
 	if not is_ranged and damage_dealer and damage_dealer.has_node("LifeComponent") and thorn_damage:
 		_apply_thorn_damage(damage_dealer)
+
+	Globals.start_joy_vibration(0.0, 0.5, 0.2)
 
 func take_damage_ignoring_armor(dam: int, dir: Vector2, force: int, weapon: Weapon, damage_dealer: Node, damage_dealer_id: String, is_ranged: bool=false) -> void:
 	if _must_ignore_damage():
@@ -58,3 +60,5 @@ func take_damage_ignoring_armor(dam: int, dir: Vector2, force: int, weapon: Weap
 
 	if not is_ranged and damage_dealer and damage_dealer.has_node("LifeComponent") and thorn_damage:
 		_apply_thorn_damage(damage_dealer)
+
+	Globals.start_joy_vibration(0.0, 0.5, 0.2)

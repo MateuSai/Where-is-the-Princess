@@ -47,8 +47,13 @@ position = Vector2(145, 139)
 script = ExtResource("4_ao3nc")
 enemy_name = "footman"
 
+[node name="EnemyMarker4" type="Marker2D" parent="EnemyPositions" index="3"]
+position = Vector2(206, 109)
+script = ExtResource("4_ao3nc")
+enemy_name = "crow"
+
 [node name="WindowVillager" parent="Traps" index="0" instance=ExtResource("5_xrw5a")]
-position = Vector2(247, 131)
+position = Vector2(263, 119)
 row = 6
 
 [node name="TeleportPosition" parent="." index="8"]

@@ -1,8 +1,10 @@
-class_name HangedSkeleton extends Sprite2D
+@tool
+class_name HangedSkeleton extends Node2D
 
+@onready var sprite: Sprite2D = $Sprite2D
 @onready var animation_player: AnimationPlayer = get_node("AnimationPlayer")
 
 func _ready() -> void:
-    frame_coords.y = randi() % vframes
+	sprite.frame_coords.y = randi() % sprite.vframes
 
-    animation_player.play("swing")
+	animation_player.play("swing")

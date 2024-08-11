@@ -59,17 +59,17 @@ height = 20.0
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xxlah"]
 light_mode = 1
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4pp6i"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5rkvv"]
 size = Vector2(20, 7)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qcjm2"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ie571"]
 radius = 7.0
 height = 24.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ja6m"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uiodv"]
 size = Vector2(32, 28)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ly6xk"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v4sqh"]
 size = Vector2(5, 29)
 
 [node name="BaseCamp" type="NavigationRegion2D"]
@@ -338,7 +338,7 @@ position = Vector2(195, 49)
 script = ExtResource("46_v21xh")
 
 [node name="Wardrobe" type="StaticBody2D" parent="."]
-position = Vector2(282, 49)
+position = Vector2(282, 54)
 collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="Wardrobe"]
@@ -348,7 +348,7 @@ texture = ExtResource("4_8ics2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wardrobe"]
 visible = false
 position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_4pp6i")
+shape = SubResource("RectangleShape2D_5rkvv")
 
 [node name="WardrobeInteractArea" type="Area2D" parent="Wardrobe"]
 script = ExtResource("2_n3t3v")
@@ -358,12 +358,13 @@ path_to_sprite = NodePath("../Sprite2D")
 visible = false
 position = Vector2(0, 5)
 rotation = 1.5708
-shape = SubResource("CapsuleShape2D_qcjm2")
+shape = SubResource("CapsuleShape2D_ie571")
 
 [node name="Tent" type="StaticBody2D" parent="."]
-position = Vector2(280, 66)
+position = Vector2(280, 69)
 
 [node name="Walls" type="Sprite2D" parent="Tent"]
+z_index = -1
 position = Vector2(0, -21)
 texture = ExtResource("21_bua2m")
 
@@ -382,12 +383,12 @@ script = ExtResource("24_aoyyl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tent/Ceiling/TransparentParentWhenPlayerEnters"]
 position = Vector2(0, 6)
-shape = SubResource("RectangleShape2D_4ja6m")
+shape = SubResource("RectangleShape2D_uiodv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tent"]
 position = Vector2(-19, -15)
-shape = SubResource("RectangleShape2D_ly6xk")
+shape = SubResource("RectangleShape2D_v4sqh")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Tent"]
 position = Vector2(19, -15)
-shape = SubResource("RectangleShape2D_ly6xk")
+shape = SubResource("RectangleShape2D_v4sqh")

@@ -72,6 +72,7 @@ libraries = {
 }
 
 [node name="ThrowPosition" type="Marker2D" parent="."]
+visible = false
 position = Vector2(5, -1)
 
 [node name="CooldownTimer" type="Timer" parent="."]
@@ -79,6 +80,7 @@ wait_time = 2.35833
 one_shot = true
 
 [node name="HouseShapeDetector" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HouseShapeDetector"]

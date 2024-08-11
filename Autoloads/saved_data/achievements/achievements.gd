@@ -10,6 +10,8 @@ const ICONS: Array[Array] = [
 	[ preload ("res://Art/achievements/logro_croc_0.jpg"), preload ("res://Art/achievements/logro_croc_1.jpg")],
 
 	[ preload ("res://Art/achievements/logro_animals_0.jpg"), preload ("res://Art/achievements/logro_animals_1.jpg")],
+
+	[ preload ("res://Art/achievements/logro_animals_0.jpg"), preload ("res://Art/achievements/logro_animals_1.jpg")],
 ]
 
 enum Achievement {
@@ -20,6 +22,9 @@ enum Achievement {
 	crocodile_help,
 
 	pet_kidnapper,
+
+	#ENDINGS
+	just_one_more_step,
 }
 
 var achievements: Dictionary = {
@@ -41,6 +46,10 @@ var achievements: Dictionary = {
 		completed = false,
 		current = 0,
 		goal = Data.AnimalsToRescue.size()
+	},
+
+	achievement_int_to_string(Achievement.just_one_more_step): {
+		completed = false
 	},
 }
 
