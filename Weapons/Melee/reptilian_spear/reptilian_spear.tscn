@@ -105,7 +105,6 @@ radius = 9.0
 
 [node name="ReptilianSpear" instance=ExtResource("1_3wwxg")]
 script = ExtResource("2_a3nr1")
-throw_speed = 200
 
 [node name="Node2D" parent="." index="0"]
 rotation = 1.5708

@@ -61,8 +61,8 @@ func _collide(node: Node2D, dam: int=damage) -> void:
 func _attach_projectile(body: Node2D) -> void:
 	var sprite_clone: Sprite2D = $Sprite2D.duplicate()
 
-	if body is CharacterBody2D:
-		body.add_child(sprite_clone)
+	if body is Character:
+		body.sprite.add_child(sprite_clone)
 	else:
 		var sound: AutoFreeSound = AutoFreeSound.new()
 		get_tree().current_scene.add_child(sound)

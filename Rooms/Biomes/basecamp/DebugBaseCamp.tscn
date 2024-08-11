@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://cmjxef6ripry7"]
+[gd_scene load_steps=62 format=3 uid="uid://cmjxef6ripry7"]
 
 [ext_resource type="Script" path="res://Rooms/Biomes/basecamp/BaseCamp.gd" id="1_78wu5"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="2_b12nq"]
@@ -32,7 +32,6 @@
 [ext_resource type="PackedScene" uid="uid://bp2oo4273j0dc" path="res://Weapons/Melee/spear/Spear.tscn" id="30_eh7qr"]
 [ext_resource type="PackedScene" uid="uid://dkpyvq2xuuytm" path="res://Weapons/Ranged/crossbows/wooden_crossbow/wooden_crossbow.tscn" id="31_78ub3"]
 [ext_resource type="PackedScene" uid="uid://cpcdmduiwspc4" path="res://Rooms/Biomes/basecamp/base_camp_items_shop.tscn" id="32_cpcpv"]
-[ext_resource type="PackedScene" uid="uid://b885ot2dse5g6" path="res://Weapons/Melee/reptilian_spear/reptilian_spear.tscn" id="33_lyomm"]
 [ext_resource type="PackedScene" uid="uid://geovcmu2q826" path="res://Rooms/Furniture and Traps/sleeping_bag.tscn" id="34_kus3l"]
 [ext_resource type="PackedScene" uid="uid://dwiop8wuc7ah8" path="res://Rooms/cursed_idol/cursed_idol.tscn" id="35_h5g1x"]
 [ext_resource type="PackedScene" uid="uid://bphrmf6n5s7be" path="res://Rooms/Furniture and Traps/crate.tscn" id="36_3ises"]
@@ -223,8 +222,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = 192.0
-offset_bottom = 142.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("10_dbutg")
@@ -372,9 +371,6 @@ position = Vector2(183, 158)
 [node name="Items" type="Node2D" parent="."]
 
 [node name="Weapons" type="Node2D" parent="."]
-
-[node name="ReptilianSpear" parent="Weapons" instance=ExtResource("33_lyomm")]
-position = Vector2(269, 79)
 
 [node name="DebugRoomId" type="Label" parent="."]
 z_index = 4
