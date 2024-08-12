@@ -339,6 +339,7 @@ icon = ExtResource("24_1tog6")
 script = ExtResource("24_g2vgg")
 
 [node name="DiscordButton" type="Button" parent="MarginContainer2/HBoxContainer"]
+visible = false
 layout_mode = 2
 tooltip_text = "JOIN_OUR_DISCORD"
 icon = ExtResource("25_8v2nf")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://cmjxef6ripry7"]
+[gd_scene load_steps=63 format=3 uid="uid://cmjxef6ripry7"]
 
 [ext_resource type="Script" path="res://Rooms/Biomes/basecamp/BaseCamp.gd" id="1_78wu5"]
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="2_b12nq"]
@@ -47,6 +47,7 @@
 [ext_resource type="Texture2D" uid="uid://rcer8qg2relw" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/camp_playerTent_sombra.png" id="46_sv5ho"]
 [ext_resource type="Texture2D" uid="uid://dpwp05b6e0rne" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/camp_playerTent_arriba.png" id="47_75wsm"]
 [ext_resource type="Script" path="res://Rooms/Furniture and Traps/transparent_parent_when_player_enters.gd" id="48_rdpq3"]
+[ext_resource type="PackedScene" uid="uid://tusfo4xliqm2" path="res://Rooms/Furniture and Traps/jars.tscn" id="49_fvup2"]
 [ext_resource type="PackedScene" uid="uid://dx080p6kwctpv" path="res://Rooms/Furniture and Traps/gallows/big_gallows.tscn" id="49_pdx3p"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_s6u7b"]
@@ -222,8 +223,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = 8.0
-offset_right = -8.0
-offset_bottom = -8.0
+offset_right = 192.0
+offset_bottom = 142.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("10_dbutg")
@@ -499,3 +500,6 @@ shape = SubResource("RectangleShape2D_fbxd1")
 
 [node name="BigGallows" parent="." instance=ExtResource("49_pdx3p")]
 position = Vector2(256, 125)
+
+[node name="Jars" parent="." instance=ExtResource("49_fvup2")]
+position = Vector2(176, 93)

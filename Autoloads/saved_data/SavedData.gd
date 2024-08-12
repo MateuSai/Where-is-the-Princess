@@ -432,9 +432,14 @@ func get_random_available_item_path(quality: Item.Quality=Item.Quality.COMMON) -
 	possible_results.shuffle()
 	return possible_results[0]
 
-func get_random_available_temporal_item_path() -> String:
-	var possible_results: Array[String]
-	possible_results.assign(Array(get_available_temporal_item_paths().duplicate()))
+func get_random_available_temporal_item_path(quality: Item.Quality=Item.Quality.COMMON) -> String:
+	var possible_results: Array[String] = []
+
+	for item_path: String in get_available_temporal_item_paths():
+		if load(item_path).new().get_quality() == quality:
+			possible_results.push_back(item_path)
+
+	assert(not possible_results.is_empty())
 	possible_results.shuffle()
 	return possible_results[0]
 

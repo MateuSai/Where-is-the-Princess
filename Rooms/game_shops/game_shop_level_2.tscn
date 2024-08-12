@@ -1,33 +1,44 @@
-[gd_scene load_steps=5 format=3 uid="uid://bqxtc8tlwhhgb"]
+[gd_scene load_steps=8 format=3 uid="uid://bqxtc8tlwhhgb"]
 
 [ext_resource type="PackedScene" uid="uid://5orvhxdckhxm" path="res://Rooms/Shop.tscn" id="1_1ar5e"]
 [ext_resource type="Script" path="res://Rooms/ShopItemMarker.gd" id="2_l75g2"]
-[ext_resource type="Texture2D" uid="uid://d2boldtqkpcn1" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/merchant_stuff_01.png" id="3_qnhc5"]
+[ext_resource type="PackedScene" uid="uid://d141abrsveyv3" path="res://Rooms/Furniture and Traps/tables/wooden_table_horizontal.tscn" id="2_tui4p"]
 [ext_resource type="PackedScene" uid="uid://b6ja3nf05o23h" path="res://Characters/npcs/merchant/merchant.tscn" id="4_0vkfh"]
+[ext_resource type="PackedScene" uid="uid://baget27dwltfv" path="res://Rooms/Furniture and Traps/tents/tent_0.tscn" id="5_dye56"]
+[ext_resource type="PackedScene" uid="uid://tusfo4xliqm2" path="res://Rooms/Furniture and Traps/jars.tscn" id="6_buyil"]
+[ext_resource type="PackedScene" uid="uid://bby0o8ne56xfj" path="res://Rooms/Furniture and Traps/jar.tscn" id="7_ks1p7"]
 
 [node name="GameShopLevel2" instance=ExtResource("1_1ar5e")]
 y_sort_enabled = true
 
-[node name="Positions" type="Node2D" parent="." index="0"]
+[node name="WoodenTableHorizontal" parent="." index="0" instance=ExtResource("2_tui4p")]
+position = Vector2(6, 1)
+
+[node name="Positions" type="Node2D" parent="." index="1"]
+position = Vector2(0, 28)
 
 [node name="ShopItemMarker" type="Marker2D" parent="Positions" index="0"]
-position = Vector2(9, -9)
+position = Vector2(-14, -34)
 script = ExtResource("2_l75g2")
 
 [node name="ShopItemMarker2" type="Marker2D" parent="Positions" index="1"]
-position = Vector2(-4, -9)
+position = Vector2(4, -34)
 script = ExtResource("2_l75g2")
 item_type = 1
 
 [node name="ShopItemMarker3" type="Marker2D" parent="Positions" index="2"]
-position = Vector2(31, -8)
+position = Vector2(24, -34)
 script = ExtResource("2_l75g2")
-item_type = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="." index="1"]
-position = Vector2(0, -16)
-texture = ExtResource("3_qnhc5")
-offset = Vector2(0, 8)
+item_type = 3
 
 [node name="Merchant" parent="." index="2" instance=ExtResource("4_0vkfh")]
 position = Vector2(7, -19)
+
+[node name="Tent0" parent="." index="3" instance=ExtResource("5_dye56")]
+position = Vector2(-14, -30)
+
+[node name="Jars" parent="." index="4" instance=ExtResource("6_buyil")]
+position = Vector2(-28, -13)
+
+[node name="Jars2" parent="." index="5" instance=ExtResource("7_ks1p7")]
+position = Vector2(38, 6)

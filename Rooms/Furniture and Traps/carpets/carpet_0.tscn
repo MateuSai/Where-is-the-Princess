@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b071qsmoptnun"]
+
+[ext_resource type="Texture2D" uid="uid://cydnd7kffpr36" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/merchant_carpet.png" id="1_lsgil"]
+
+[node name="Carpet0" type="Sprite2D"]
+texture = ExtResource("1_lsgil")
+offset = Vector2(0, 13.5)

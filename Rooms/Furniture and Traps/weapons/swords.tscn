@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsuy0srms1801"]
+
+[ext_resource type="Texture2D" uid="uid://dedwfw06413k0" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/merchant_weapons.png" id="1_26ulh"]
+
+[node name="Swords" type="Sprite2D"]
+texture = ExtResource("1_26ulh")

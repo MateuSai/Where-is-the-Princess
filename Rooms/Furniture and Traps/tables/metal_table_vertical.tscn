@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dm0mtuw0mtf2d"]
+
+[ext_resource type="Texture2D" uid="uid://bcoiyja5ygqd7" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/merchant_table_10.png" id="1_r80vr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_63tvg"]
+size = Vector2(16, 54)
+
+[node name="MetalTableVertical" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -27)
+texture = ExtResource("1_r80vr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -29)
+shape = SubResource("RectangleShape2D_63tvg")

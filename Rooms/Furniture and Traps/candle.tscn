@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccxx5wh12ipyi"]
+
+[ext_resource type="Texture2D" uid="uid://b7e2ctvyiycmr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/merchant_candle.png" id="1_42qv6"]
+[ext_resource type="Texture2D" uid="uid://b1fex6qjx4wy6" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/light_fire_cropped.png" id="2_edylj"]
+
+[node name="Candle" type="Sprite2D"]
+texture = ExtResource("1_42qv6")
+offset = Vector2(0, -3)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, -6)
+color = Color(0.968627, 0.713726, 0.278431, 1)
+energy = 0.8
+texture = ExtResource("2_edylj")
+texture_scale = 0.35

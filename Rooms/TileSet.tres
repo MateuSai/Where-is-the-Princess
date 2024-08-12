@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=110 format=3 uid="uid://b6ahcd27jnf2v"]
+[gd_resource type="TileSet" load_steps=104 format=3 uid="uid://b6ahcd27jnf2v"]
 
 [ext_resource type="Texture2D" uid="uid://d2e6iidvt8eo3" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full tilemap.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://dbhadmkl0mfsc" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/tilesets/full tilemap forest.png" id="1_8t4wc"]
@@ -6,11 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://bbir3nubd0hb" path="res://Art/v1.1 dungeon crawler 16x16 pixel pack/full_tilemap_albedo.png" id="2_fun5j"]
 [ext_resource type="Texture2D" uid="uid://dwvybyln2rbsu" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/tilesets/village_tileset_canvas_texture.tres" id="3_1xkgj"]
 [ext_resource type="Texture2D" uid="uid://bboaq8rmne41i" path="res://Art/16x16 Pixel Art Roguellike Sewer Pack/tileset/sewer_tileset_canvas_texture.tres" id="5_d6jrl"]
-[ext_resource type="PackedScene" uid="uid://bc3jnn13by1bc" path="res://Rooms/Furniture and Traps/wooden_fence/horizontal_wooden_fence.tscn" id="6_i1ido"]
-[ext_resource type="PackedScene" uid="uid://bvyids8lijklc" path="res://Rooms/Furniture and Traps/wooden_fence/left_bottom_vertical_wooden_fence.tscn" id="7_mopjx"]
-[ext_resource type="PackedScene" uid="uid://c3v57eiyj5m18" path="res://Rooms/Furniture and Traps/wooden_fence/left_top_vertical_wooden_fence.tscn" id="8_y8vim"]
-[ext_resource type="PackedScene" uid="uid://b8gsakalplp52" path="res://Rooms/Furniture and Traps/wooden_fence/right_bottom_vertical_wooden_fence.tscn" id="9_1u2uj"]
-[ext_resource type="PackedScene" uid="uid://cxx3eqxb68h25" path="res://Rooms/Furniture and Traps/wooden_fence/right_top_vertical_wooden_fence.tscn" id="10_nj8ts"]
 [ext_resource type="Texture2D" uid="uid://ck2srd2amub1t" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/tilesets/village_no_snow_tileset_canvas_texture.tres" id="11_qnf4j"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_bk6hg"]
@@ -2543,14 +2538,6 @@ texture = SubResource("CanvasTexture_a23uc")
 3:1/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 3:1/0/physics_layer_1/angular_velocity = 0.0
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_avpk1"]
-resource_name = "Wooden fences"
-scenes/1/scene = ExtResource("6_i1ido")
-scenes/2/scene = ExtResource("7_mopjx")
-scenes/3/scene = ExtResource("8_y8vim")
-scenes/4/scene = ExtResource("9_1u2uj")
-scenes/5/scene = ExtResource("10_nj8ts")
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_87kpw"]
 resource_name = "Village no snow"
 texture = ExtResource("11_qnf4j")
@@ -4011,8 +3998,7 @@ custom_data_layer_0/name = "Terrain type"
 custom_data_layer_0/type = 21
 sources/40 = SubResource("TileSetAtlasSource_memy5")
 sources/0 = SubResource("TileSetAtlasSource_3cnbh")
-sources/2 = SubResource("TileSetAtlasSource_0od1u")
 sources/5 = SubResource("TileSetAtlasSource_k07mo")
 sources/1 = SubResource("TileSetAtlasSource_3gmf4")
-sources/3 = SubResource("TileSetScenesCollectionSource_avpk1")
 sources/4 = SubResource("TileSetAtlasSource_87kpw")
+sources/2 = SubResource("TileSetAtlasSource_0od1u")

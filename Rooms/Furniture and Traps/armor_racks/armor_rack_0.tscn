@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlrkc5gvueu4p"]
+
+[ext_resource type="Texture2D" uid="uid://b8lky6dkgoiel" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/merchant_armor_rack_02.png" id="1_bs32b"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u37pd"]
+radius = 2.23607
+
+[node name="ArmorRack0" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -7)
+texture = ExtResource("1_bs32b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_u37pd")

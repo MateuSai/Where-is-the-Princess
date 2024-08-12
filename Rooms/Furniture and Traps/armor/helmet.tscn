@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://5pubfr6rhvny"]
+
+[ext_resource type="Texture2D" uid="uid://b34bu2hc3ijsc" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/merchant_helmet.png" id="1_lqvge"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jufp7"]
+radius = 3.0
+
+[node name="Helmet" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
+texture = ExtResource("1_lqvge")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jufp7")

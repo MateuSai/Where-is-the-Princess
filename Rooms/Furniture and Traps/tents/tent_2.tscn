@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2wwa7njolipk"]
+
+[ext_resource type="Texture2D" uid="uid://j7k5ng10y6r2" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/merchant_tent_03.png" id="1_4l1df"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_18nsj"]
+size = Vector2(54, 22)
+
+[node name="Tent2" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -18)
+texture = ExtResource("1_4l1df")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_18nsj")

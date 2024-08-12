@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://d07kwpganvtcp"]
+
+[ext_resource type="Texture2D" uid="uid://bdbois3tb8m13" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/merchant_armor.png" id="1_4kcy1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4vnp3"]
+radius = 2.0
+height = 8.0
+
+[node name="Armor" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -3)
+texture = ExtResource("1_4kcy1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_4vnp3")

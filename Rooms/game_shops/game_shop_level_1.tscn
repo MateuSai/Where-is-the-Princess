@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dt58rwqk2borq"]
+[gd_scene load_steps=6 format=3 uid="uid://dt58rwqk2borq"]
 
 [ext_resource type="PackedScene" uid="uid://5orvhxdckhxm" path="res://Rooms/Shop.tscn" id="1_26q5x"]
 [ext_resource type="Script" path="res://Rooms/ShopItemMarker.gd" id="2_g42it"]
 [ext_resource type="Texture2D" uid="uid://d2boldtqkpcn1" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/merchant_stuff_01.png" id="3_7sb67"]
 [ext_resource type="PackedScene" uid="uid://b6ja3nf05o23h" path="res://Characters/npcs/merchant/merchant.tscn" id="4_20d0g"]
+[ext_resource type="PackedScene" uid="uid://tusfo4xliqm2" path="res://Rooms/Furniture and Traps/jars.tscn" id="5_tym78"]
 
 [node name="GameShopLevel1" instance=ExtResource("1_26q5x")]
 y_sort_enabled = true
@@ -26,3 +27,6 @@ offset = Vector2(0, 8)
 
 [node name="Merchant" parent="." index="2" instance=ExtResource("4_20d0g")]
 position = Vector2(7, -19)
+
+[node name="Jars" parent="." index="3" instance=ExtResource("5_tym78")]
+position = Vector2(32, -7)

@@ -7,22 +7,20 @@ const SHOP_ITEM_SCENE: PackedScene = preload("res://Rooms/ShopItem.tscn")
 
 
 func _ready() -> void:
-	var item_paths: PackedStringArray = SavedData.get_available_temporal_item_paths().duplicate()
+	var permanent_item_paths: PackedStringArray = SavedData.get_available_permanent_item_paths().duplicate()
 	var weapon_paths: PackedStringArray = SavedData.get_available_weapon_paths().duplicate()
+	var armor_paths: PackedStringArray = SavedData.get_available_armor_paths().duplicate()
 	var player_upgrades_packed: PackedStringArray = SavedData.get_available_player_upgrades_paths().duplicate()
 	var player_upgrade_paths: Array[String] = []
 	player_upgrade_paths.assign(player_upgrades_packed)
 	player_upgrade_paths.shuffle()
 
-	for marker: ShopItemMarker in positions.get_children():
+	var markers: Array = positions.get_children()
+	for marker: ShopItemMarker in markers:
 		match marker.item_type:
 			ShopItemMarker.Type.TEMPORAL_ITEM:
-				if item_paths.is_empty():
-					_create_and_add_out_of_stock_shop_item(marker.position)
-				else:
-					var random_item_path: String = item_paths[randi() % item_paths.size()]
-					_create_and_add_shop_item(marker.position).initialize(load(random_item_path).new())
-					item_paths.remove_at(item_paths.find(random_item_path))
+				var random_item_path: String = SavedData.get_random_available_temporal_item_path(marker.quality)
+				_create_and_add_shop_item(marker.position).initialize(load(random_item_path).new())
 			ShopItemMarker.Type.WEAPON:
 				if weapon_paths.is_empty():
 					_create_and_add_out_of_stock_shop_item(marker.position)
@@ -45,13 +43,29 @@ func _ready() -> void:
 					else:
 						_create_and_add_out_of_stock_shop_item(marker.position)
 						marker.queue_free()
+			ShopItemMarker.Type.PERMANENT_ITEM:
+				if permanent_item_paths.is_empty():
+					_create_and_add_out_of_stock_shop_item(marker.position)
+				else:
+					var random_item_path: String = permanent_item_paths[randi() % permanent_item_paths.size()]
+					_create_and_add_shop_item(marker.position).initialize(load(random_item_path).new())
+					permanent_item_paths.remove_at(permanent_item_paths.find(random_item_path))
+			ShopItemMarker.Type.ARMOR:
+				if armor_paths.is_empty():
+					_create_and_add_out_of_stock_shop_item(marker.position)
+				else:
+					var random_armor_path: String = armor_paths[randi() % armor_paths.size()]
+					var armor_item: ArmorItem = ArmorItem.new()
+					armor_item.initialize(load(random_armor_path).new())
+					_create_and_add_shop_item(marker.position).initialize(armor_item)
+					armor_paths.remove_at(armor_paths.find(random_armor_path))
 
 
 
 func _create_and_add_shop_item(at_position: Vector2) -> ShopItem:
 	var shop_item: ShopItem = SHOP_ITEM_SCENE.instantiate()
 	shop_item.position = at_position
-	add_child(shop_item)
+	positions.add_child(shop_item)
 	return shop_item
 
 
@@ -59,4 +73,4 @@ func _create_and_add_out_of_stock_shop_item(at_position: Vector2) -> void:
 	var sprite: Sprite2D = Sprite2D.new()
 	sprite.texture = load("res://Art/Dust.png")
 	sprite.position = at_position
-	add_child(sprite)
+	positions.add_child(sprite)

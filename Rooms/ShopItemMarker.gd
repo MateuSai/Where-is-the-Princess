@@ -4,6 +4,9 @@ enum Type {
 	TEMPORAL_ITEM,
 	WEAPON,
 	PLAYER_UPGRADE,
+	PERMANENT_ITEM,
+	ARMOR,
 }
 
 @export var item_type: Type
+@export var quality: Item.Quality

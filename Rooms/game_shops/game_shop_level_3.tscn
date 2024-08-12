@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://bd4x7r5b4nlvd"]
+
+[ext_resource type="PackedScene" uid="uid://5orvhxdckhxm" path="res://Rooms/Shop.tscn" id="1_u0vti"]
+[ext_resource type="Script" path="res://Rooms/ShopItemMarker.gd" id="3_ax13m"]
+[ext_resource type="PackedScene" uid="uid://b6ja3nf05o23h" path="res://Characters/npcs/merchant/merchant.tscn" id="4_0x6nx"]
+[ext_resource type="PackedScene" uid="uid://b5dsyn0fcoo1w" path="res://Rooms/Furniture and Traps/tents/tent_1.tscn" id="5_o5dgt"]
+[ext_resource type="PackedScene" uid="uid://vv24gav8d0ur" path="res://Rooms/Furniture and Traps/tables/wooden_table_horizontal_with_tablecloth.tscn" id="6_npn2m"]
+[ext_resource type="PackedScene" uid="uid://dx6048ulhd5kr" path="res://Rooms/Furniture and Traps/tables/wooden_table_vertical_with_table_cloth.tscn" id="6_tfq6g"]
+[ext_resource type="PackedScene" uid="uid://dlrkc5gvueu4p" path="res://Rooms/Furniture and Traps/armor_racks/armor_rack_0.tscn" id="7_sc5ms"]
+
+[node name="GameShopLevel3" instance=ExtResource("1_u0vti")]
+y_sort_enabled = true
+
+[node name="Positions" type="Node2D" parent="." index="0"]
+position = Vector2(0, 28)
+
+[node name="ShopItemMarker" type="Marker2D" parent="Positions" index="0"]
+position = Vector2(-8, -37)
+script = ExtResource("3_ax13m")
+item_type = 4
+
+[node name="ShopItemMarker2" type="Marker2D" parent="Positions" index="1"]
+position = Vector2(21, -37)
+script = ExtResource("3_ax13m")
+item_type = 3
+
+[node name="ShopItemMarker3" type="Marker2D" parent="Positions" index="2"]
+position = Vector2(41, -53)
+script = ExtResource("3_ax13m")
+item_type = 1
+
+[node name="ShopItemMarker4" type="Marker2D" parent="Positions" index="3"]
+position = Vector2(41, -63)
+script = ExtResource("3_ax13m")
+quality = 1
+
+[node name="ShopItemMarker5" type="Marker2D" parent="Positions" index="4"]
+position = Vector2(41, -74)
+script = ExtResource("3_ax13m")
+
+[node name="Merchant" parent="." index="1" instance=ExtResource("4_0x6nx")]
+position = Vector2(7, -19)
+
+[node name="Tent1" parent="." index="2" instance=ExtResource("5_o5dgt")]
+position = Vector2(-3, -36)
+
+[node name="WoodenTableHorizontalWithTablecloth" parent="." index="3" instance=ExtResource("6_npn2m")]
+position = Vector2(6, 5)
+
+[node name="WoodenTableVerticalWithTablecloth" parent="." index="4" instance=ExtResource("6_tfq6g")]
+position = Vector2(42, -10)
+
+[node name="ArmorRack0" parent="." index="5" instance=ExtResource("7_sc5ms")]
+position = Vector2(-32, -10)
