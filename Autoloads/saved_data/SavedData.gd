@@ -359,15 +359,17 @@ func get_discovered_all_items_paths() -> PackedStringArray:
 	ret.append_array(data.get_discovered_temporal_items())
 	return ret
 
-func add_extra_available_temporal_item(item_path: String) -> void:
-	data.add_extra_available_temporal_item(item_path)
 
-## Adds a temporal item only for this session. Use this for mods to load the item each time the mod loads.
+## Adds a temporal artifact only for this session. Use this for mods to load the item each time the mod loads.
 func add_mod_temporal_item(item_path: String) -> void:
 	if mod_temporal_item_paths.has(item_path):
 		return
 
 	mod_temporal_item_paths.push_back(item_path)
+
+## Makes a temporal artifact available, which means it will appear on chests and shops.
+func add_extra_available_temporal_artifact(item_path: String) -> void:
+	data.add_extra_available_temporal_artifact(item_path)
 
 func discover_temporal_item_if_not_already(item_path: String) -> void:
 	data.discover_temporal_item_if_not_already(item_path)

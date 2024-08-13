@@ -62,7 +62,7 @@ func get_permanent_passive_items() -> Array[PermanentArtifact]:
 func get_permanent_passive_items_ids() -> PackedStringArray:
 	return _permanent_passive_items_ids
 
-func get_amount_of_temporl_passive_items_of_type(item: TemporalArtifact) -> int:
+func get_amount_of_temporal_artifact_of_type(item: TemporalArtifact) -> int:
 	#Log.debug(item.get_id())
 
 	var amount: int = 0

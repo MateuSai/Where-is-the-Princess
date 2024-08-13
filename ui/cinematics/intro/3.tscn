@@ -1,10 +1,11 @@
-[gd_scene load_steps=27 format=3 uid="uid://d1q1spa3toyol"]
+[gd_scene load_steps=29 format=3 uid="uid://d1q1spa3toyol"]
 
 [ext_resource type="TileSet" uid="uid://b6ahcd27jnf2v" path="res://Rooms/TileSet.tres" id="1_g8xnh"]
 [ext_resource type="PackedScene" uid="uid://cq825lguwrtg7" path="res://Rooms/Furniture and Traps/campfire.tscn" id="2_8b1b0"]
 [ext_resource type="Texture2D" uid="uid://bfrnhsn0eml4q" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/hut_ruined.tres" id="3_uqge6"]
 [ext_resource type="Texture2D" uid="uid://by4eo6se2wopd" path="res://Art/bird.png" id="4_rnxxn"]
 [ext_resource type="Texture2D" uid="uid://cn2li5ov53o6v" path="res://Art/letter.png" id="5_6dbt0"]
+[ext_resource type="AudioStream" uid="uid://c0u2bethry5qq" path="res://Audio/Sounds/bird/543109__clusman__bird_flapping_10.ogg" id="5_m6ne3"]
 [ext_resource type="Material" uid="uid://cmyqibox7jjbf" path="res://unshaded.tres" id="5_mcrb2"]
 [ext_resource type="Texture2D" uid="uid://bophyi5v4uo24" path="res://Art/letter_offscreen.png" id="5_wrraj"]
 [ext_resource type="LabelSettings" uid="uid://gwgloxfvwiln" path="res://Fonts/credits_name_label_settings.tres" id="7_ktl0b"]
@@ -16,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://wqcawqagm050" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Reactions/ruborizado.png" id="13_acg80"]
 [ext_resource type="PackedScene" uid="uid://d2j5lvnnjh64l" path="res://ui/cinematics/top_black_bar.tscn" id="13_qqkyt"]
 [ext_resource type="PackedScene" uid="uid://dgsiobfohkyie" path="res://ui/cinematics/bottom_black_bar.tscn" id="14_hhwl7"]
+[ext_resource type="AudioStream" uid="uid://00ooyea4b8nq" path="res://Audio/Sounds/123010__j1987__magazinedrop.wav" id="16_4y7lg"]
 
 [sub_resource type="Animation" id="Animation_amdrc"]
 length = 0.001
@@ -164,10 +166,10 @@ tracks/1/path = NodePath("Bird:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 8.7, 11.7),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 8.7, 11.7, 13.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-13, 122), Vector2(-13, 122), Vector2(446, 122)]
+"values": [Vector2(-13, 122), Vector2(-13, 122), Vector2(446, 122), Vector2(600, 122)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -257,6 +259,90 @@ tracks/8/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(1e-05, 1e-05), Vector2(1e-05, 1e-05), Vector2(1, 1), Vector2(1, 1), Vector2(1e-05, 1e-05), Vector2(1e-05, 1e-05)]
+}
+tracks/9/type = "method"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Bird/AudioStreamPlayer2D")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(8.75, 9.1, 9.45, 9.8, 10.15, 10.5, 10.85, 11.2, 11.55, 11.9, 12.25, 12.6, 12.95, 13.3, 13.65),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/10/type = "method"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Bird")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(13.7),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/11/type = "method"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("ScrollDrop")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(11.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xanjt"]
@@ -364,6 +450,13 @@ libraries = {
 }
 autoplay = "fly"
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Bird"]
+stream = ExtResource("5_m6ne3")
+volume_db = 6.0
+max_distance = 500.0
+max_polyphony = 3
+bus = &"Sounds"
+
 [node name="LetterScroll" type="Sprite2D" parent="."]
 position = Vector2(-12, 50)
 texture = ExtResource("5_6dbt0")
@@ -460,6 +553,10 @@ libraries = {
 "": SubResource("AnimationLibrary_obcs0")
 }
 
+[node name="AudioListener2D" type="AudioListener2D" parent="Player"]
+position = Vector2(2.00001, -3.99998)
+rotation = 1.5708
+
 [node name="FireSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_qexgi")
 volume_db = -7.0
@@ -467,6 +564,10 @@ autoplay = true
 bus = &"Sounds"
 
 [node name="OpenLetter" type="AudioStreamPlayer" parent="."]
+bus = &"Sounds"
+
+[node name="ScrollDrop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_4y7lg")
 bus = &"Sounds"
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]

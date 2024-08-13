@@ -221,7 +221,7 @@ func add_extra_available_permanent_artifact(item_path: String) -> void:
 		_extra_available_permanent_artifacts.push_back(item_path)
 		save()
 
-func add_extra_available_temporal_item(item_path: String) -> void:
+func add_extra_available_temporal_artifact(item_path: String) -> void:
 	if not _extra_available_temporal_items.has(item_path):
 		_extra_available_temporal_items.push_back(item_path)
 		save()

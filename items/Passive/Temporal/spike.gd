@@ -11,7 +11,7 @@ func equip(player: Player) -> void:
 	player.life_component.thorn_damage_used.connect(_on_thorn_damage)
 
 	animation = SPIKE_ON_PLAYER_ANIMATION_SCENE.instantiate()
-	if SavedData.run_stats.get_amount_of_temporl_passive_items_of_type(self) == 1:
+	if SavedData.run_stats.get_amount_of_temporal_artifact_of_type(self) == 1:
 		animation.scale.x = -1
 	player.add_child(animation)
 
