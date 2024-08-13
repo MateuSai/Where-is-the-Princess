@@ -9,3 +9,6 @@ func can_pick_up(player: Player) -> bool:
 		return SavedData.run_stats.get_amount_of_temporl_passive_items_of_type(self) < get_max_amount()
 	else:
 		return super(player)
+
+func get_coin_cost() -> int:
+	return 10 + 10 * get_quality()

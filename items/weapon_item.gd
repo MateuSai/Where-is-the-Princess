@@ -24,6 +24,9 @@ func get_item_name() -> String:
 func get_item_description() -> String:
 	return ""
 
+func get_coin_cost() -> int:
+	return 20
+
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_PREDELETE:
 		if weapon != null:

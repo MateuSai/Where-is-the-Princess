@@ -11,7 +11,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_te171"]
 radius = 3.0
 
-[node name="Jars" type="StaticBody2D"]
+[node name="Jar" type="StaticBody2D"]
 collision_layer = 144
 collision_mask = 0
 script = ExtResource("1_pjhsj")

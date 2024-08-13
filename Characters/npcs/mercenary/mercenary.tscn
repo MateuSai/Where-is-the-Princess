@@ -1,15 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://bqcn0vo0ait26"]
+[gd_scene load_steps=13 format=3 uid="uid://bqcn0vo0ait26"]
 
 [ext_resource type="Script" path="res://Characters/npcs/mercenary/mercenary.gd" id="2_aqu0x"]
 [ext_resource type="Texture2D" uid="uid://bqrekanm1lana" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/mercenary_01.png" id="2_ecygt"]
 [ext_resource type="Texture2D" uid="uid://cv376fga4y74a" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/mercenary_02.png" id="3_jm70r"]
 [ext_resource type="Script" path="res://interact_area.gd" id="3_orqtc"]
 [ext_resource type="Texture2D" uid="uid://bwtwamad2dk4i" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/mercenary_03.png" id="4_i1lte"]
-[ext_resource type="Theme" uid="uid://d0qfeecooxxpf" path="res://SmallFontTheme.tres" id="4_y3cxq"]
-[ext_resource type="Texture2D" uid="uid://bda8a38gqhymr" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/small_coin.tres" id="5_ac16s"]
 [ext_resource type="Texture2D" uid="uid://co3oqj1575v1p" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/mercenary_04.png" id="5_q8jq4"]
 [ext_resource type="Texture2D" uid="uid://yuti6alra4bp" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/mercenary_05.png" id="6_p4i7b"]
 [ext_resource type="Texture2D" uid="uid://crdjlg4lu1u11" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/mercenary_06.png" id="7_qmkkt"]
+[ext_resource type="PackedScene" uid="uid://biarx0rmayotv" path="res://ui/cost_h_box.tscn" id="9_gf32r"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gla51"]
 animations = [{
@@ -62,19 +61,8 @@ shape = SubResource("CircleShape2D_s6m50")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_jeo08")
 
-[node name="CostHBox" type="HBoxContainer" parent="."]
-offset_left = -8.0
-offset_top = -25.0
-offset_right = 7.0
-offset_bottom = -9.0
-theme = ExtResource("4_y3cxq")
-theme_override_constants/separation = 0
-
-[node name="TextureRect" type="TextureRect" parent="CostHBox"]
-layout_mode = 2
-texture = ExtResource("5_ac16s")
-stretch_mode = 3
-
-[node name="Label" type="Label" parent="CostHBox"]
-layout_mode = 2
-text = "10"
+[node name="CostHBox" parent="." instance=ExtResource("9_gf32r")]
+offset_left = -4.0
+offset_top = -19.0
+offset_right = 11.0
+offset_bottom = -3.0

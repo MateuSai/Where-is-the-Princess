@@ -11,3 +11,6 @@ static func get_cursed_version_path_from_normal_version_path(normal_version_path
 		return path
 	else:
 		return ""
+
+func get_coin_cost() -> int:
+	return 25 + 10 * get_quality()

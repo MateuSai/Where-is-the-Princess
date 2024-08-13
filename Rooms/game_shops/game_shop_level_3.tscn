@@ -12,7 +12,7 @@
 y_sort_enabled = true
 
 [node name="Positions" type="Node2D" parent="." index="0"]
-position = Vector2(0, 28)
+position = Vector2(0, 40)
 
 [node name="ShopItemMarker" type="Marker2D" parent="Positions" index="0"]
 position = Vector2(-8, -37)
@@ -39,16 +39,16 @@ position = Vector2(41, -74)
 script = ExtResource("3_ax13m")
 
 [node name="Merchant" parent="." index="1" instance=ExtResource("4_0x6nx")]
-position = Vector2(7, -19)
+position = Vector2(7, -7)
 
 [node name="Tent1" parent="." index="2" instance=ExtResource("5_o5dgt")]
-position = Vector2(-3, -36)
+position = Vector2(-3, -24)
 
 [node name="WoodenTableHorizontalWithTablecloth" parent="." index="3" instance=ExtResource("6_npn2m")]
-position = Vector2(6, 5)
+position = Vector2(6, 17)
 
 [node name="WoodenTableVerticalWithTablecloth" parent="." index="4" instance=ExtResource("6_tfq6g")]
-position = Vector2(42, -10)
+position = Vector2(42, 2)
 
 [node name="ArmorRack0" parent="." index="5" instance=ExtResource("7_sc5ms")]
-position = Vector2(-32, -10)
+position = Vector2(-32, 2)

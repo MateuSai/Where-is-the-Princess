@@ -12,33 +12,33 @@
 y_sort_enabled = true
 
 [node name="WoodenTableHorizontal" parent="." index="0" instance=ExtResource("2_tui4p")]
-position = Vector2(6, 1)
+position = Vector2(6, 6)
 
 [node name="Positions" type="Node2D" parent="." index="1"]
 position = Vector2(0, 28)
 
 [node name="ShopItemMarker" type="Marker2D" parent="Positions" index="0"]
-position = Vector2(-14, -34)
+position = Vector2(-14, -29)
 script = ExtResource("2_l75g2")
 
 [node name="ShopItemMarker2" type="Marker2D" parent="Positions" index="1"]
-position = Vector2(4, -34)
+position = Vector2(4, -29)
 script = ExtResource("2_l75g2")
 item_type = 1
 
 [node name="ShopItemMarker3" type="Marker2D" parent="Positions" index="2"]
-position = Vector2(24, -34)
+position = Vector2(24, -29)
 script = ExtResource("2_l75g2")
 item_type = 3
 
 [node name="Merchant" parent="." index="2" instance=ExtResource("4_0vkfh")]
-position = Vector2(7, -19)
+position = Vector2(7, -14)
 
 [node name="Tent0" parent="." index="3" instance=ExtResource("5_dye56")]
-position = Vector2(-14, -30)
+position = Vector2(-14, -25)
 
 [node name="Jars" parent="." index="4" instance=ExtResource("6_buyil")]
-position = Vector2(-28, -13)
+position = Vector2(-28, -8)
 
 [node name="Jars2" parent="." index="5" instance=ExtResource("7_ks1p7")]
-position = Vector2(38, 6)
+position = Vector2(38, 11)

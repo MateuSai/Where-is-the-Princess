@@ -15,7 +15,7 @@
 y_sort_enabled = true
 
 [node name="Positions" type="Node2D" parent="." index="0"]
-position = Vector2(0, 28)
+position = Vector2(0, 52)
 
 [node name="ShopItemMarker" type="Marker2D" parent="Positions" index="0"]
 position = Vector2(-5, -36)
@@ -52,31 +52,31 @@ script = ExtResource("2_fjrxl")
 item_type = 3
 
 [node name="Merchant" parent="." index="1" instance=ExtResource("3_to11g")]
-position = Vector2(7, -19)
+position = Vector2(7, 5)
 
 [node name="ArmorRack0" parent="." index="2" instance=ExtResource("7_xoyry")]
-position = Vector2(55, -57)
+position = Vector2(49, -28)
 
 [node name="Tent2" parent="." index="3" instance=ExtResource("7_gq17d")]
-position = Vector2(-10, -50)
+position = Vector2(-10, -26)
 
 [node name="PolishedWoodenTableHorizontalWithTablecloth" parent="." index="4" instance=ExtResource("6_jyafo")]
-position = Vector2(6, 5)
+position = Vector2(6, 29)
 
 [node name="Candle" parent="PolishedWoodenTableHorizontalWithTablecloth" index="2" instance=ExtResource("7_8stjn")]
-position = Vector2(-24, -14)
+position = Vector2(-24, -15)
 
 [node name="Candle2" parent="PolishedWoodenTableHorizontalWithTablecloth" index="3" instance=ExtResource("7_8stjn")]
-position = Vector2(-24, -4)
+position = Vector2(-24, -6)
 
 [node name="Candle3" parent="PolishedWoodenTableHorizontalWithTablecloth" index="4" instance=ExtResource("7_8stjn")]
-position = Vector2(24.5, -14)
+position = Vector2(24.5, -15)
 
 [node name="Candle4" parent="PolishedWoodenTableHorizontalWithTablecloth" index="5" instance=ExtResource("7_8stjn")]
-position = Vector2(24.5, -4)
+position = Vector2(24.5, -6)
 
 [node name="PolishedWoodenTableVerticalWithTablecloth" parent="." index="5" instance=ExtResource("7_2lyy7")]
-position = Vector2(46, 6)
+position = Vector2(46, 30)
 
 [node name="Candle" parent="PolishedWoodenTableVerticalWithTablecloth" index="2" instance=ExtResource("7_8stjn")]
 position = Vector2(-5.5, -8)
@@ -91,7 +91,7 @@ position = Vector2(-5, -42)
 position = Vector2(5.5, -42)
 
 [node name="PolishedWoodenTableVerticalWithTablecloth2" parent="." index="6" instance=ExtResource("7_2lyy7")]
-position = Vector2(-33, 6)
+position = Vector2(-33, 30)
 
 [node name="Candle5" parent="PolishedWoodenTableVerticalWithTablecloth2" index="2" instance=ExtResource("7_8stjn")]
 position = Vector2(-5.5, -8)
@@ -106,16 +106,16 @@ position = Vector2(-5, -42)
 position = Vector2(5.5, -42)
 
 [node name="WeaponRack" parent="." index="7" instance=ExtResource("8_2u0fn")]
-position = Vector2(34, -55)
+position = Vector2(34, -31)
 
 [node name="Jars" parent="." index="8" instance=ExtResource("9_jqsji")]
-position = Vector2(-44, 10)
+position = Vector2(-44, 34)
 
 [node name="Jars2" parent="." index="9" instance=ExtResource("9_jqsji")]
-position = Vector2(-42, -45)
+position = Vector2(-42, -21)
 
 [node name="Jars3" parent="." index="10" instance=ExtResource("9_jqsji")]
-position = Vector2(-36, 11)
+position = Vector2(-36, 35)
 
 [node name="Jars4" parent="." index="11" instance=ExtResource("9_jqsji")]
-position = Vector2(-29, 10)
+position = Vector2(-29, 34)
