@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1knbqg4jff5f"]
+[gd_scene load_steps=8 format=3 uid="uid://c1knbqg4jff5f"]
 
 [ext_resource type="PackedScene" uid="uid://7oeqdu22e1q5" path="res://Rooms/Room.tscn" id="1_bf3ru"]
 [ext_resource type="PackedScene" uid="uid://b38wk64vy80ng" path="res://Rooms/VerticalEntry.tscn" id="2_w17xb"]
 [ext_resource type="PackedScene" uid="uid://bs45htkayqfhn" path="res://Rooms/HorizontalEntry.tscn" id="3_2xssy"]
 [ext_resource type="PackedScene" uid="uid://bqcn0vo0ait26" path="res://Characters/npcs/mercenary/mercenary.tscn" id="4_e8de4"]
 [ext_resource type="PackedScene" uid="uid://cyfrse4f5lihp" path="res://Rooms/Biomes/forest/TikiTorch.tscn" id="5_10njs"]
+[ext_resource type="PackedScene" uid="uid://5pubfr6rhvny" path="res://Rooms/Furniture and Traps/armor/helmet.tscn" id="6_lkrv0"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_kt0fn"]
 resource_local_to_scene = true
@@ -30,7 +31,7 @@ position = Vector2(103, 7)
 [node name="HorizontalEntry" parent="Entries/Down" index="0" instance=ExtResource("3_2xssy")]
 position = Vector2(119, 103)
 
-[node name="TeleportPosition" parent="." index="7"]
+[node name="TeleportPosition" parent="." index="8"]
 position = Vector2(107, 71)
 
 [node name="RichardTheGigachadWizard" parent="." index="9" instance=ExtResource("4_e8de4")]
@@ -46,3 +47,6 @@ position = Vector2(29, 75)
 
 [node name="TikiTorch3" parent="." index="12" instance=ExtResource("5_10njs")]
 position = Vector2(152, 52)
+
+[node name="Helmet" parent="." index="14" instance=ExtResource("6_lkrv0")]
+position = Vector2(182, 56)

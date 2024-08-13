@@ -1,20 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://bby0o8ne56xfj"]
+[gd_scene load_steps=9 format=3 uid="uid://bby0o8ne56xfj"]
 
 [ext_resource type="Texture2D" uid="uid://d2cp3obwsmyid" path="res://Art/16x16 Pixel Art Roguelike (Forest) Pack/Buildings/jar.png" id="1_ewjuh"]
+[ext_resource type="Script" path="res://Rooms/Furniture and Traps/jar.gd" id="1_pjhsj"]
 [ext_resource type="Script" path="res://Components/LifeComponent.gd" id="2_t0j7y"]
 [ext_resource type="Script" path="res://Components/flash_on_damage.gd" id="3_mg7wg"]
 [ext_resource type="Script" path="res://Components/free_on_died.gd" id="4_7tn78"]
 [ext_resource type="Script" path="res://Components/spawn_fragments_on_died.gd" id="5_gj3ig"]
 [ext_resource type="PackedScene" uid="uid://c2htcd36nh7sj" path="res://effects/fragments/pottery_fragment.tscn" id="6_r03fs"]
-[ext_resource type="Script" path="res://Characters/HurtBox.gd" id="7_eme3c"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_te171"]
 radius = 3.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_x3mqh"]
-radius = 3.0
-
 [node name="Jars" type="StaticBody2D"]
+collision_layer = 144
+collision_mask = 0
+script = ExtResource("1_pjhsj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -3)
@@ -41,12 +41,3 @@ script = ExtResource("5_gj3ig")
 fragment_scene = ExtResource("6_r03fs")
 min_fragments = 3
 max_fragments = 6
-
-[node name="HurtBox" type="Area2D" parent="."]
-collision_layer = 6
-collision_mask = 0
-script = ExtResource("7_eme3c")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(0, -1)
-shape = SubResource("CircleShape2D_x3mqh")
