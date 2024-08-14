@@ -108,7 +108,7 @@ size_flags_vertical = 3
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_2fsd6")
 theme_override_font_sizes/font_size = 10
-text = "CONFIG_SETTTINGS"
+text = "CONFIG_SETTINGS"
 
 [node name="ConfigSections" type="VBoxContainer" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/ConfigSettings/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true

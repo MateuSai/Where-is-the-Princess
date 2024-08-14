@@ -21,7 +21,7 @@ func generate_grid(user_profile: ModUserProfile) -> void:
 		else:
 			grid.add_child(grid_placeholder.new())
 			grid.add_child(grid_placeholder.new())
-		_generate_upload_button(mod_id)
+		#_generate_upload_button(mod_id)
 
 func _generate_mod_name(mod_id: String) -> void:
 	var label_mod_id: ModIdLabel = mod_id_label_scene.instantiate()
@@ -76,15 +76,15 @@ func _generate_mod_config_button(mod_id: String) -> void:
 	)
 	grid.add_child(button)
 
-func _generate_upload_button(mod_id: String) -> void:
-	var button: Button = Button.new()
-	button.text = "上"
-	grid.add_child(button)
-	button.pressed.connect(func() -> void:
-		var upload_window: UploadWindow=get_tree().root.get_node("UserProfiles").get_node("UploadWindow")
-		upload_window.show()
-		upload_window.upload(mod_id)
-	)
+#func _generate_upload_button(mod_id: String) -> void:
+	#var button: Button = Button.new()
+	#button.text = "上"
+	#grid.add_child(button)
+	#button.pressed.connect(func() -> void:
+		#var upload_window: UploadWindow=get_tree().root.get_node("UserProfiles").get_node("UploadWindow")
+		#upload_window.show()
+		#upload_window.upload(mod_id)
+	#)
 
 func clear_grid() -> void:
 	for child: Node in grid.get_children():

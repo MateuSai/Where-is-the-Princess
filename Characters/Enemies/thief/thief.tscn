@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cfpemp7x01fln"]
+[gd_scene load_steps=31 format=3 uid="uid://cfpemp7x01fln"]
 
 [ext_resource type="PackedScene" uid="uid://dkpis7w2h85hp" path="res://Characters/Enemies/Enemy.tscn" id="1_rm7hw"]
 [ext_resource type="Script" path="res://Characters/Enemies/thief/thief.gd" id="2_w4yoh"]
@@ -7,15 +7,16 @@
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="5_300t1"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="6_od35r"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_close_to_target.gd" id="7_fkyd4"]
+[ext_resource type="Script" path="res://Characters/ai/decorators/cooldown_process_timer_decorator.gd" id="7_n43hq"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_weapon_busy.gd" id="8_prro6"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/weapon_attack.gd" id="9_he30m"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_random.gd" id="10_eakdo"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/cooldown.gd" id="11_4sn0n"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/set_pathfinding_mode.gd" id="11_iv1jr"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/conditions/is_far_from_target.gd" id="12_quld6"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/move_to_target.gd" id="12_wmvlk"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/point_weapon_to_target.gd" id="13_1igmv"]
 [ext_resource type="Script" path="res://Characters/ai/leafs/actions/update_animation_according_to_mov_direction.gd" id="14_h8a1n"]
+[ext_resource type="Script" path="res://Characters/ai/leafs/actions/circle_target.gd" id="15_hf4lv"]
 [ext_resource type="Script" path="res://Characters/Enemies/enemy_weapons.gd" id="16_cxjfx"]
 [ext_resource type="PackedScene" uid="uid://da0q2c1pqrqnp" path="res://Weapons/Melee/thief_dagger/thief_dagger.tscn" id="17_4ebvw"]
 [ext_resource type="Texture2D" uid="uid://iwxt41ixcte3" path="res://Art/16x16 Pixel Art Roguelike (Village) Pack/Enemies/Snowmen/bandit_01.png" id="17_t1i4n"]
@@ -126,7 +127,7 @@ script = ExtResource("2_w4yoh")
 
 [node name="ThiefBeehaveTree" type="Node" parent="." index="1" node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("3_0dhdd")
-blackboard = NodePath("@Node@32484")
+blackboard = NodePath("@Node@36730")
 actor = NodePath("..")
 
 [node name="SimpleParallelComposite2" type="Node" parent="ThiefBeehaveTree" index="0"]
@@ -141,46 +142,43 @@ script = ExtResource("5_300t1")
 [node name="SequenceComposite" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2" index="0"]
 script = ExtResource("6_od35r")
 
-[node name="SelectorRandomComposite2" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite" index="0"]
-script = ExtResource("10_eakdo")
-use_weights = true
-Weights/SequenceComposite = 1
-Weights/CooldownDecorator = 1
+[node name="SelectorComposite2" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite" index="0"]
+script = ExtResource("5_300t1")
 
-[node name="SequenceComposite" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite2" index="0"]
+[node name="SequenceComposite2" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorComposite2" index="0"]
 script = ExtResource("6_od35r")
 
-[node name="IsCloseToTarget" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite2/SequenceComposite" index="0"]
-script = ExtResource("7_fkyd4")
-closer_than = 20
-
-[node name="IsWeaponBusy" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite2/SequenceComposite" index="1"]
-script = ExtResource("8_prro6")
-
-[node name="WeaponNormalAttack" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite2/SequenceComposite" index="2"]
-script = ExtResource("9_he30m")
-
-[node name="CooldownDecorator" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite2" index="1"]
-script = ExtResource("11_4sn0n")
-wait_time = 0.05
-
-[node name="SequenceComposite2" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite2/CooldownDecorator" index="0"]
-script = ExtResource("6_od35r")
-
-[node name="IsCloseToTarget" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite2/CooldownDecorator/SequenceComposite2" index="0"]
+[node name="IsCloseToTarget" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorComposite2/SequenceComposite2" index="0"]
 script = ExtResource("7_fkyd4")
 closer_than = 64
 
-[node name="IsFarFromTarget" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite2/CooldownDecorator/SequenceComposite2" index="1"]
+[node name="IsFarFromTarget" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorComposite2/SequenceComposite2" index="1"]
 script = ExtResource("12_quld6")
 farther_than = 48
 
-[node name="IsWeaponBusy" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite2/CooldownDecorator/SequenceComposite2" index="2"]
+[node name="IsWeaponBusy" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorComposite2/SequenceComposite2" index="2"]
 script = ExtResource("8_prro6")
 
-[node name="WeaponAttack" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorRandomComposite2/CooldownDecorator/SequenceComposite2" index="3"]
+[node name="CooldownDecorator" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorComposite2/SequenceComposite2" index="3"]
+script = ExtResource("7_n43hq")
+wait_time = 5.0
+
+[node name="WeaponAttack" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorComposite2/SequenceComposite2/CooldownDecorator" index="0"]
 script = ExtResource("9_he30m")
 attack_type = 1
+
+[node name="SequenceComposite" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorComposite2" index="1"]
+script = ExtResource("6_od35r")
+
+[node name="IsCloseToTarget" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorComposite2/SequenceComposite" index="0"]
+script = ExtResource("7_fkyd4")
+closer_than = 20
+
+[node name="IsWeaponBusy" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorComposite2/SequenceComposite" index="1"]
+script = ExtResource("8_prro6")
+
+[node name="WeaponNormalAttack" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SelectorComposite2/SequenceComposite" index="2"]
+script = ExtResource("9_he30m")
 
 [node name="SequenceComposite" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite" index="1"]
 script = ExtResource("6_od35r")
@@ -204,16 +202,9 @@ script = ExtResource("12_wmvlk")
 closer_than = 2
 time_limit = 0.6
 
-[node name="SequenceComposite2" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SequenceComposite/SelectorRandomComposite" index="1"]
-script = ExtResource("6_od35r")
-
-[node name="SetPathfindingMode" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SequenceComposite/SelectorRandomComposite/SequenceComposite2" index="0"]
-script = ExtResource("11_iv1jr")
-mode = 2
-
-[node name="MoveToTarget" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SequenceComposite/SelectorRandomComposite/SequenceComposite2" index="1"]
-script = ExtResource("12_wmvlk")
-closer_than = 2
+[node name="CircleTarget" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2/SequenceComposite/SequenceComposite/SelectorRandomComposite" index="1"]
+script = ExtResource("15_hf4lv")
+far_limit = 20.0
 time_limit = 0.8
 
 [node name="SequenceComposite2" type="Node" parent="ThiefBeehaveTree/SimpleParallelComposite2/SimpleParallelComposite/SelectorComposite2" index="1"]

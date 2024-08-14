@@ -191,6 +191,7 @@ NEW_GAME,New Game,Nova Partida,Nueva Partida,,ニューゲーム
 RESUME,Resume,Resumir,Resumir,,レジューム
 RESTART,Restart,Reiniciar,Reiniciar,,レスタート
 MODS,Mods,Mods,Mods,,MODS
+MOD_CONFIG,Mod Config,Configuració del Mod,Configuración del Mod,,
 CREDITS,Credits,Crèdits,Créditos,,クレジット
 SETTINGS,Settings,Configuració,Configuración,,設定
 QUIT,Quit,Surt,Salir,,退く
@@ -255,6 +256,8 @@ TEXT_MOD_ENABLE_ERROR,There was an error enabling the mod - check logs,Hi ha hag
 TEXT_MOD_DISABLE_ERROR,There was an error disabling the mod - check logs,Hi ha hagut un error desactivant el mod - mira els registres,Ha habido un error desactivando el mod - mira los registros,,
 TEXT_MOD_CURRENT_CONFIG_CHANGE_ERROR,There was an error changing the config - check logs,Hi ha hagut un error canviant la configuració - mira els registres,Ha habido un error cambiando la configuración - mira los registros,,
 TEXT_CURRENT_PROFILE,%s (Current Profile),%s (Perfil Actual),%s (Perfil Actual),,
+CONFIG_SETTINGS,Config settings,Ajusta la configuració,Ajusta la configuración,,
+CONFIGS_FOR,Configs for,Configuracions per,Configuraciones para,,
 ,,,,,
 ,,,,,
 OK,Ok,Sí,Sí,,はい
