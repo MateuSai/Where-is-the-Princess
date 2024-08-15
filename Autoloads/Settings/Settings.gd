@@ -39,7 +39,7 @@ var aim_help: float:
 signal aim_help_changed(new_value: float)
 var enemy_projectile_speed: float:
 	get:
-		return settings.get_value(ACCESSIBILITY_SECTION, "enemy_projectile_speed", 0.5)
+		return settings.get_value(ACCESSIBILITY_SECTION, "enemy_projectile_speed", 0.4)
 	set(new_value):
 		set_enemy_projectile_speed(new_value)
 var controller_vibration: bool:

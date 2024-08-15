@@ -13,4 +13,4 @@ func _ready() -> void:
 		#(get_parent() as PhysicsBody2D).collision_layer=16 # Low object
 		#remove_from_group(DungeonRoom.FLYING_UNITS_NAVIGATION_GROUP)
 		room.update_navigation()
-	)
+	, CONNECT_ONE_SHOT | CONNECT_DEFERRED)
