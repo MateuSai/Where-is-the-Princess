@@ -3,7 +3,9 @@ extends Armor
 const ABILITY_SCENE: PackedScene = preload ("res://Armors/warrior_armor/WarriorArmorAbility.tscn")
 
 func _init() -> void:
-	initialize(10, load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_warrior_icon.png") as Texture2D, 10)
+	initialize(10)
+
+	_setup_ability(load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_warrior_icon.png") as Texture2D, 10)
 
 func enable_ability_effect(player: Player) -> void:
 	var ability: GPUParticles2D = ABILITY_SCENE.instantiate()

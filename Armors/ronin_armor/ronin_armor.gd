@@ -3,7 +3,9 @@ extends Armor
 func _init() -> void:
 	effects = [AddWeaponDamageModifierBySubtype.new(WeaponData.Subtype.KATANA, 1)]
 
-	initialize(4, load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_ronin_icon.png") as Texture2D, 5, 2.5)
+	initialize(4)
+
+	_setup_ability(load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_ronin_icon.png") as Texture2D, 5, 2.5)
 
 func enable_ability_effect(_player: Player) -> void:
 	Globals.global_stats.player_weapons_attack_animation_speed_modifier *= 1.5

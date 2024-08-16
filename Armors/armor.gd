@@ -15,7 +15,7 @@ signal condition_changed(new_condition: int)
 		condition_changed.emit(condition)
 var max_condition: int
 
-var ability_icon: Texture2D
+var ability_icon: Texture2D = null
 ## Internal variable used to know if we can use the ability (when the cooldown time ends)
 var is_able_to_use_ability: bool = true:
 	set(new_value):
@@ -24,19 +24,16 @@ var is_able_to_use_ability: bool = true:
 			if not is_able_to_use_ability:
 				ability_used.emit()
 signal ability_used()
-var recharge_time: float # # Time the ability needs to recharge
-var effect_duration: float # # Time the ability is active. For example, if the armor grants immortality, the time the player will be immortal.
+var recharge_time: float = 2 ## # Time the ability needs to recharge
+var effect_duration: float = -1 # ## Time the ability is active. For example, if the armor grants immortality, the time the player will be immortal.
 signal ability_effect_ended()
 
 var effects: Array[ItemEffect] = []
 
 @warning_ignore("shadowed_variable")
-func initialize(condition: int, ability_icon: Texture2D=null, recharge_time: float=2, effect_duration: float=- 1) -> void:
+func initialize(condition: int) -> void:
 	self.max_condition = condition
 	self.condition = condition
-	self.ability_icon = ability_icon
-	self.recharge_time = recharge_time
-	self.effect_duration = effect_duration
 
 func equip(player: Player) -> void:
 	for effect: ItemEffect in effects:
@@ -45,6 +42,11 @@ func equip(player: Player) -> void:
 func unequip(player: Player) -> void:
 	for effect: ItemEffect in effects:
 		effect.disable(player)
+
+func _setup_ability(ability_icon: Texture2D, recharge_time: float=2, effect_duration: float=- 1) -> void:
+	self.ability_icon = ability_icon
+	self.recharge_time = recharge_time
+	self.effect_duration = effect_duration
 
 func has_ability() -> bool:
 	return ability_icon != null

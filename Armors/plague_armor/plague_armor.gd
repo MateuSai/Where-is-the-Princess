@@ -5,7 +5,9 @@ const POISON_CLOUD_DROPS: int = 4
 const TIME_BETWEEN_DROPS: float = 0.2
 
 func _init() -> void:
-	initialize(4, load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_plague_icon.png") as Texture2D, 10, POISON_CLOUD_DROPS * TIME_BETWEEN_DROPS)
+	initialize(4)
+
+	_setup_ability(load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_plague_icon.png") as Texture2D, 10, POISON_CLOUD_DROPS * TIME_BETWEEN_DROPS)
 
 func equip(player: Player) -> void:
 	super(player)
