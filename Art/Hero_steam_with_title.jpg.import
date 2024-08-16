@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4diatv3rr660"
-path="res://.godot/imported/brow_square.png-7691dd11d2a69eecd17c7f1eccf93551.ctex"
+uid="uid://babdtj1wd5lve"
+path="res://.godot/imported/Hero_steam_with_title.jpg-2de4fd4ed5437397173900387130663b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://brow_square.png"
-dest_files=["res://.godot/imported/brow_square.png-7691dd11d2a69eecd17c7f1eccf93551.ctex"]
+source_file="res://Art/Hero_steam_with_title.jpg"
+dest_files=["res://.godot/imported/Hero_steam_with_title.jpg-2de4fd4ed5437397173900387130663b.ctex"]
 
 [params]
 

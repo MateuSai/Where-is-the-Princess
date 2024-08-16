@@ -123,13 +123,6 @@ _data = {
 "start": SubResource("Animation_lq1vj")
 }
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_013d5"]
-texture = ExtResource("4_vkpjm")
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 6.0
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eiwq5"]
 texture = ExtResource("5_pp2xs")
 texture_margin_left = 6.0
@@ -139,6 +132,13 @@ texture_margin_bottom = 6.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8iryt"]
 texture = ExtResource("6_c014h")
+texture_margin_left = 6.0
+texture_margin_top = 6.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_013d5"]
+texture = ExtResource("4_vkpjm")
 texture_margin_left = 6.0
 texture_margin_top = 6.0
 texture_margin_right = 6.0
@@ -236,9 +236,9 @@ alignment = 2
 layout_mode = 2
 theme_override_fonts/font = ExtResource("9_clgdo")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
+theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
 text = "CONTINUE"
 script = ExtResource("4_f1j7i")
 
@@ -246,9 +246,9 @@ script = ExtResource("4_f1j7i")
 layout_mode = 2
 theme_override_fonts/font = ExtResource("9_clgdo")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
+theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
 text = "TUTORIAL"
 script = ExtResource("14_nj7rh")
 
@@ -256,9 +256,9 @@ script = ExtResource("14_nj7rh")
 layout_mode = 2
 theme_override_fonts/font = ExtResource("9_clgdo")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
+theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
 text = "BASE_CAMP"
 script = ExtResource("7_8j46j")
 
@@ -266,9 +266,9 @@ script = ExtResource("7_8j46j")
 layout_mode = 2
 theme_override_fonts/font = ExtResource("9_clgdo")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
+theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
 text = "SETTINGS"
 script = ExtResource("9_sf5s7")
 
@@ -276,9 +276,9 @@ script = ExtResource("9_sf5s7")
 layout_mode = 2
 theme_override_fonts/font = ExtResource("9_clgdo")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
+theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
 text = "CREDITS"
 script = ExtResource("17_5yg2m")
 
@@ -286,9 +286,9 @@ script = ExtResource("17_5yg2m")
 layout_mode = 2
 theme_override_fonts/font = ExtResource("9_clgdo")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_eiwq5")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8iryt")
+theme_override_styles/normal = SubResource("StyleBoxTexture_013d5")
 text = "QUIT"
 script = ExtResource("10_7y8oq")
 

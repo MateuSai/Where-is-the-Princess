@@ -58,7 +58,6 @@ signal last_enemy_died(enemy: Enemy)
 @onready var disable_horizontal_separation_steering: bool = SavedData.get_disable_horizontal_separation_steering()
 
 @onready var tilemap: TileMap = get_node("TileMap")
-@onready var flying_units_navigation_tilemap: TileMap = $FlyingUnitsNavigationTileMap
 #@onready var black_tilemap: TileMap = get_node("BlackTileMap")
 @onready var teleport_position: Marker2D = $TeleportPosition
 
@@ -100,8 +99,6 @@ func _ready() -> void:
 #
 	#if rooms.game.debug:
 		#black_tilemap.hide()
-
-	flying_units_navigation_tilemap.hide()
 
 	var navigation_region_to_debug_flying_units_navigation: NavigationRegion2D = NavigationRegion2D.new()
 	add_child(navigation_region_to_debug_flying_units_navigation)
