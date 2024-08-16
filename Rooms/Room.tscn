@@ -45,6 +45,7 @@ layer_3/name = "Walls on top of vertical doors"
 layer_3/z_index = 2
 layer_4/name = "Water"
 layer_4/z_index = -4
+layer_4/navigation_enabled = false
 layer_5/name = "Low wall"
 
 [node name="FlyingUnitsNavigationTileMap" type="TileMap" parent="." groups=["flying_units_navigation_polygon_source_group"]]
