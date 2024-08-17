@@ -3,7 +3,7 @@ extends Armor
 const DRAIN_LIFE_PARTICLES_SCENE: PackedScene = preload("res://shaders_and_particles/particles/DrainLifeParticles.tscn")
 
 func _init() -> void:
-	initialize(7)
+	super(7)
 
 	_setup_ability(load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_necromancer_icon.png") as Texture2D, 2, 2)
 

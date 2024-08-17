@@ -1,9 +1,9 @@
 class_name CommonerClothes extends Armor
 
 func _init() -> void:
-	effects = [AddWeaponDamageModifierByType.new(WeaponData.Type.DAGGER, 1)]
+	super(2)
 
-	initialize(2)
+	effects = [AddWeaponDamageModifierByType.new(WeaponData.Type.DAGGER, 1)]
 
 func get_sprite_sheet() -> Texture2D:
 	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armor_05.png")

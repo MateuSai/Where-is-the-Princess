@@ -31,7 +31,7 @@ signal ability_effect_ended()
 var effects: Array[ItemEffect] = []
 
 @warning_ignore("shadowed_variable")
-func initialize(condition: int) -> void:
+func _init(condition: int) -> void:
 	self.max_condition = condition
 	self.condition = condition
 

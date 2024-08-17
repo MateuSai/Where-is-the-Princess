@@ -72,7 +72,8 @@ func _lightning_attack() -> void:
 	can_move = false
 
 	var lightning: LightningAreaAttack = load("res://Weapons/Ranged/scepters/lightning_stick/LightningAreaAttack.tscn").instantiate()
-	lightning.position = global_position
+	lightning.exclude = get_exclude_bodies()
+	lightning.position = staff_end.global_position
 	get_tree().current_scene.add_child(lightning)
 	lightning.attack(Vector2.RIGHT.rotated(staff_pivot.rotation))
 	player.camera.flash()
@@ -90,6 +91,7 @@ func _lightning_attack() -> void:
 func _bird_attack() -> void:
 	for i: int in randi_range(5, 8):
 		var bird: Bird = Bird.new()
+		bird.exclude = get_exclude_bodies()
 		var bird_pos: Vector2 = player.position + Vector2(randf_range(110, 150), 0).rotated(randf_range(0, 2 * PI))
 		get_tree().current_scene.add_child(bird)
 
@@ -115,3 +117,6 @@ func throw_rock() -> void:
 	for child: Node in rock.get_children():
 		if child is Node2D:
 			child.position += Vector2.UP * 33
+
+func get_exclude_bodies() -> Array[Node2D]:
+	return [self, $HurtBox]

@@ -1,7 +1,7 @@
 extends Armor
 
 func _init() -> void:
-	initialize(6)
+	super(6)
 
 	_setup_ability(load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_mercenary_icon.png") as Texture2D, 15, 5)
 

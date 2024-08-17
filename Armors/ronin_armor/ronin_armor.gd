@@ -1,9 +1,9 @@
 extends Armor
 
 func _init() -> void:
-	effects = [AddWeaponDamageModifierBySubtype.new(WeaponData.Subtype.KATANA, 1)]
+	super(4)
 
-	initialize(4)
+	effects = [AddWeaponDamageModifierBySubtype.new(WeaponData.Subtype.KATANA, 1)]
 
 	_setup_ability(load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/ui/Armor_ronin_icon.png") as Texture2D, 5, 2.5)
 

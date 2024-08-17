@@ -1,7 +1,7 @@
 extends Armor
 
 func _init() -> void:
-	initialize(2)
+	super(2)
 
 	effects = [IncreaseWeaponsConditionCostMultiplier.new(-0.2)]
 

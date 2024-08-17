@@ -1,3 +1,4 @@
+## Increases (or decreases if you pass a negative value) the damage a weapon type does
 class_name AddWeaponDamageModifierBySubtype extends ItemEffect
 
 var type: WeaponData.Subtype

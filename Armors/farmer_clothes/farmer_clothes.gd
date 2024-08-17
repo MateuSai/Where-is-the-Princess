@@ -1,7 +1,7 @@
 class_name FarmerClothes extends Armor
 
 func _init() -> void:
-	initialize(2)
+	super(2)
 
 func equip(player: Player) -> void:
 	super(player)

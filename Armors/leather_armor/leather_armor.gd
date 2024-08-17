@@ -1,7 +1,7 @@
 class_name LeatherArmor extends Armor
 
 func _init() -> void:
-	initialize(4)
+	super(4)
 
 func equip(player: Player) -> void:
 	super(player)

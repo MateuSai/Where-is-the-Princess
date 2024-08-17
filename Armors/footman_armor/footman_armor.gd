@@ -1,9 +1,9 @@
 class_name FootmanArmor extends Armor
 
 func _init() -> void:
-	effects = [OnPlayerDamaged.new([RestoreCurrentWeaponCondition.new(4.0)])]
+	super(4)
 
-	initialize(4)
+	effects = [OnPlayerDamaged.new([RestoreCurrentWeaponCondition.new(4.0)])]
 
 func get_sprite_sheet() -> Texture2D:
 	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/characters/armor_11.png")
