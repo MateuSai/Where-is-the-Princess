@@ -53,6 +53,7 @@ func _ready() -> void:
 		knockback_direction=direction
 		speed=force
 		set_collision_mask_value(3, true)
+		exclude.clear()
 		await get_tree().create_timer(0.2).timeout
 		destroy()
 	)
