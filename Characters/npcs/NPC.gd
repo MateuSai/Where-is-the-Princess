@@ -15,16 +15,31 @@ signal dialogue_finished()
 @export var dialogues_in_order: bool = false
 @export var can_interact: bool = true
 signal used_all_dialogues()
-@export var dialogue_texts: PackedStringArray = ["Violence breeds violence but in the end it has to be this way", "お前はもう死んでいる", "Zeus is the son of Kronos", "Diogenes was a gigachad"]:
+@export var dialogue_texts: PackedStringArray = []:
 	set(new_dialogue_texts):
 		dialogue_texts = new_dialogue_texts
 		used_dialogue_texts = []
 var used_dialogue_texts: PackedStringArray = []
 
+var room: DungeonRoom
+
 @onready var id: String = scene_file_path.get_file().trim_suffix(".tscn").to_snake_case()
 @onready var interact_area: InteractArea = $InteractArea
 
 func _ready() -> void:
+	var i: int = 0
+	var parent: Node = self
+	while i < 5:
+		parent = parent.get_parent()
+		if parent is DungeonRoom:
+			room = parent
+			break
+		i += 1
+
+	if room:
+		room.npcs.push_back(self)
+		tree_exiting.connect(room.npcs.erase.bind(self))
+
 	if can_interact:
 		interact_area.player_interacted.connect(_on_player_interacted)
 	else:
@@ -34,10 +49,9 @@ func _ready() -> void:
 		queue_free()
 
 func _on_player_interacted() -> void:
-	if dialogue_box == null:
+	if dialogue_box == null and not dialogue_texts.is_empty():
 		start_dialogue()
-	else:
-		if dialogue_tween == null:
+	elif dialogue_tween == null and dialogue_box != null:
 			dialogue_box.show_all_text()
 
 func start_dialogue() -> void:
@@ -74,3 +88,6 @@ func _fade_dialogue_box() -> void:
 	dialogue_box.queue_free()
 	dialogue_box = null
 	dialogue_finished.emit()
+
+func get_head() -> Texture2D:
+	return load(scene_file_path.get_base_dir().path_join("head.png"))

@@ -21,6 +21,7 @@ const WOOD_HIT_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/impac
 const ICE_HIT_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/ice/ice_crack_1.wav"), preload ("res://Audio/Sounds/ice/ice_crack_2.wav"), preload ("res://Audio/Sounds/ice/ice_crack_3.wav"), preload ("res://Audio/Sounds/ice/ice_crack_4.wav"), preload ("res://Audio/Sounds/ice/ice_crack_5.wav"), preload ("res://Audio/Sounds/ice/ice_crack_6.wav")]
 const SNOW_HIT_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/impact/snow/268858__philllchabbb__kicking-snow_1.wav"), preload ("res://Audio/Sounds/impact/snow/268858__philllchabbb__kicking-snow_2.wav"), preload ("res://Audio/Sounds/impact/snow/268858__philllchabbb__kicking-snow_3.wav")]
 const CLOTHES_HIT_SOUNDS: Array[AudioStream] = [ preload ("res://Audio/Sounds/impact/clothes/591355__aapolo__hit-punch-golpes-fuertes_1.wav"), preload ("res://Audio/Sounds/impact/clothes/591355__aapolo__hit-punch-golpes-fuertes_2.wav"), preload ("res://Audio/Sounds/impact/clothes/591355__aapolo__hit-punch-golpes-fuertes_3.wav")]
+const CERAMIC_HIT_SOUNDS: Array[AudioStream] = [preload("res://Audio/Sounds/pottery_break/399080__kinoton__clay-pottery-drop-n-break_1.wav"), preload("res://Audio/Sounds/pottery_break/399080__kinoton__clay-pottery-drop-n-break_2.wav"), preload("res://Audio/Sounds/pottery_break/399080__kinoton__clay-pottery-drop-n-break_3.wav"), preload("res://Audio/Sounds/pottery_break/399080__kinoton__clay-pottery-drop-n-break_4.wav")]
 
 var last_weapon: Weapon
 var last_damage_dealer_id: String
@@ -36,6 +37,7 @@ enum BodyType {
 	ICE,
 	SNOW,
 	CLOTHES,
+	CERAMIC
 }
 @export var body_type: BodyType = BodyType.FLESH
 
@@ -114,20 +116,22 @@ func _play_hit_sound(weapon: Weapon) -> void:
 	match body_type:
 		BodyType.FLESH:
 			if weapon and weapon.data.type in [WeaponData.Type.HAMMER, WeaponData.Type.BOW, WeaponData.Type.CROSSBOW]:
-				stream = IMPACT_FLESH_SOUNDS[randi() % IMPACT_FLESH_SOUNDS.size()]
+				stream = IMPACT_FLESH_SOUNDS.pick_random()
 			else:
-				stream = CUT_FLESH_SOUNDS[randi() % CUT_FLESH_SOUNDS.size()]
+				stream = CUT_FLESH_SOUNDS.pick_random()
 		BodyType.BONES:
-			stream = BONES_HIT_SOUNDS[randi() % BONES_HIT_SOUNDS.size()]
+			stream = BONES_HIT_SOUNDS.pick_random()
 		BodyType.WOOD:
-			stream = WOOD_HIT_SOUNDS[randi() % WOOD_HIT_SOUNDS.size()]
+			stream = WOOD_HIT_SOUNDS.pick_random()
 		BodyType.ICE:
-			stream = ICE_HIT_SOUNDS[randi() % ICE_HIT_SOUNDS.size()]
+			stream = ICE_HIT_SOUNDS.pick_random()
 		BodyType.SNOW:
-			stream = SNOW_HIT_SOUNDS[randi() % SNOW_HIT_SOUNDS.size()]
+			stream = SNOW_HIT_SOUNDS.pick_random()
 		BodyType.CLOTHES:
-			stream = CLOTHES_HIT_SOUNDS[randi() % CLOTHES_HIT_SOUNDS.size()]
+			stream = CLOTHES_HIT_SOUNDS.pick_random()
 			volume = 10
+		BodyType.CERAMIC:
+			stream = CERAMIC_HIT_SOUNDS.pick_random()
 
 	if stream:
 		var sound: AutoFreeSound = AutoFreeSound.new()

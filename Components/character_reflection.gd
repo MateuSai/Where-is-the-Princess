@@ -16,11 +16,11 @@ func _ready() -> void:
 
 	# FIXME: due to a godot bug (https://github.com/godotengine/godot/issues/66842), the shader parameters are not exported, so I have to set them manually by code
 	var shader_material: ShaderMaterial = material
-	shader_material.set("shader_param/speed", 0.15)
-	shader_material.set("shader_param/frequency_y", 5)
-	shader_material.set("shader_param/frequency_x", 10)
-	shader_material.set("shader_param/amplitude_y", 0.3)
-	shader_material.set("shader_param/amplitude_x", 0.8)
+	shader_material.set_shader_parameter("speed", 0.15)
+	shader_material.set_shader_parameter("frequency_y", 5)
+	shader_material.set_shader_parameter("frequency_x", 10)
+	shader_material.set_shader_parameter("amplitude_y", 0.3)
+	shader_material.set_shader_parameter("amplitude_x", 0.8)
 
 	texture = original_sprite.texture
 	hframes = original_sprite.hframes

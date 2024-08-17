@@ -27,6 +27,7 @@ shape = SubResource("CircleShape2D_rwswa")
 
 [node name="LifeComponent" type="Node" parent="."]
 script = ExtResource("2_h58h4")
+body_type = 7
 max_hp = 1
 hp = 1
 

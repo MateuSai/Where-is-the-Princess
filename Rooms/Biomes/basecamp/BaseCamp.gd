@@ -19,15 +19,16 @@ func _init() -> void:
 func _ready() -> void:
 	super()
 
-	if Globals.debug and scene_file_path == "res://Rooms/Biomes/basecamp/BaseCamp.tscn":
-		var debug_basecamp: DungeonRoom = load("res://Rooms/Biomes/basecamp/DebugBaseCamp.tscn").instantiate()
-		debug_basecamp.position = position
-		name += "ssdfdsfdfsf"
-		debug_basecamp.name = "BaseCamp_0"
-		rooms.add_child(debug_basecamp)
-		rooms.start_room = debug_basecamp
-		rooms.rooms = [debug_basecamp]
-		queue_free()
+	# Moved this shit to rooms.gd
+	#if Globals.debug and scene_file_path == "res://Rooms/Biomes/basecamp/BaseCamp.tscn":
+		#var debug_basecamp: DungeonRoom = load("res://Rooms/Biomes/basecamp/DebugBaseCamp.tscn").instantiate()
+		#debug_basecamp.position = position
+		#name += "ssdfdsfdfsf"
+		#debug_basecamp.name = "BaseCamp_0"
+		#rooms.add_child(debug_basecamp)
+		#rooms.start_room = debug_basecamp
+		#rooms.rooms = [debug_basecamp]
+		#queue_free()
 
 	_set_seed()
 

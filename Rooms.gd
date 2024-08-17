@@ -247,6 +247,11 @@ func spawn_rooms() -> void:
 
 	# print(room_paths)
 	start_room = (load(start_room_paths[randi() % start_room_paths.size()]) as PackedScene).instantiate()
+	if Globals.debug and start_room.scene_file_path == "res://Rooms/Biomes/basecamp/BaseCamp.tscn":
+		var debug_basecamp: DungeonRoom = load("res://Rooms/Biomes/basecamp/DebugBaseCamp.tscn").instantiate()
+		debug_basecamp.name = "BaseCamp"
+		start_room.queue_free()
+		start_room = debug_basecamp
 	rooms.push_back(start_room)
 
 	var end_rooms: Array[DungeonRoom] = []

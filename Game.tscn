@@ -139,15 +139,6 @@ texture = ExtResource("14_564yw")
 atlas = ExtResource("19_l7ulb")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oacd8"]
-texture = ExtResource("21_vur2q")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pwgnx"]
-texture = ExtResource("22_8grwp")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_43d14"]
-texture = ExtResource("23_v5mjo")
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lafbu"]
 texture = ExtResource("33_vudg4")
 texture_margin_left = 10.0
@@ -159,8 +150,14 @@ expand_margin_top = 1.0
 expand_margin_right = 1.0
 expand_margin_bottom = 1.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f253n"]
-texture = ExtResource("23_gpxw8")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pwgnx"]
+texture = ExtResource("22_8grwp")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_43d14"]
+texture = ExtResource("23_v5mjo")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oacd8"]
+texture = ExtResource("21_vur2q")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cisq3"]
 texture = ExtResource("24_v55ln")
@@ -168,8 +165,8 @@ texture = ExtResource("24_v55ln")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e1sc2"]
 texture = ExtResource("23_v5mjo")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_20fsp"]
-texture = ExtResource("25_spwha")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f253n"]
+texture = ExtResource("23_gpxw8")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_opbia"]
 texture = ExtResource("27_tot21")
@@ -177,8 +174,8 @@ texture = ExtResource("27_tot21")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ge2fu"]
 texture = ExtResource("23_v5mjo")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w6scg"]
-texture = ExtResource("27_ncf2s")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_20fsp"]
+texture = ExtResource("25_spwha")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v8ysw"]
 texture = ExtResource("30_xla5k")
@@ -186,17 +183,20 @@ texture = ExtResource("30_xla5k")
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hdbdv"]
 texture = ExtResource("23_v5mjo")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l0ajp"]
-texture = ExtResource("38_lnmfl")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w6scg"]
+texture = ExtResource("27_ncf2s")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u64ko"]
 texture = ExtResource("39_t0sjm")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_erg20"]
-texture = ExtResource("44_lldoc")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l0ajp"]
+texture = ExtResource("38_lnmfl")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dbtfm"]
 texture = ExtResource("45_ffiya")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_erg20"]
+texture = ExtResource("44_lldoc")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c3pu2"]
 texture = ExtResource("25_47jkq")
@@ -223,11 +223,11 @@ texture_margin_bottom = 12.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dosns"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gexvg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vjovk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dosns"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nogqy"]
 shader = ExtResource("14_qjw3b")
@@ -254,7 +254,6 @@ layer_0/z_index = -1
 layer_0/navigation_enabled = false
 layer_1/name = "Bottom walls"
 layer_1/z_index = 1
-layer_1/tile_data = PackedInt32Array()
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -419,6 +418,7 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 2
 script = ExtResource("12_icbnv")
+metadata/_tab_index = 0
 
 [node name="MinimapScrollContainer" type="ScrollContainer" parent="UI/MenuTabContainer/MAP"]
 layout_mode = 2
@@ -445,7 +445,7 @@ text = "hahaha"
 label_settings = SubResource("LabelSettings_lngc4")
 
 [node name="PlayerIcon" type="Sprite2D" parent="UI/MenuTabContainer/MAP/MinimapScrollContainer/PanelContainer"]
-z_index = 5
+z_index = 6
 texture = ExtResource("16_0uph7")
 
 [node name="EQUIPMENT" type="MarginContainer" parent="UI/MenuTabContainer"]
@@ -455,6 +455,7 @@ theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
+metadata/_tab_index = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/MenuTabContainer/EQUIPMENT"]
 custom_minimum_size = Vector2(280, 140)
@@ -550,6 +551,7 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 2
 script = ExtResource("17_k4k0u")
+metadata/_tab_index = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/MenuTabContainer/ENCYCLOPEDIA"]
 layout_mode = 2
@@ -564,20 +566,20 @@ theme_override_constants/separation = 2
 
 [node name="WeaponsButton" type="Button" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_oacd8")
+theme_override_styles/focus = SubResource("StyleBoxTexture_lafbu")
 theme_override_styles/hover = SubResource("StyleBoxTexture_pwgnx")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_43d14")
-theme_override_styles/focus = SubResource("StyleBoxTexture_lafbu")
+theme_override_styles/normal = SubResource("StyleBoxTexture_oacd8")
 toggle_mode = true
 icon = ExtResource("19_ft0qi")
 icon_alignment = 2
 
 [node name="ArmorsButton" type="Button" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_f253n")
+theme_override_styles/focus = SubResource("StyleBoxTexture_lafbu")
 theme_override_styles/hover = SubResource("StyleBoxTexture_cisq3")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_e1sc2")
-theme_override_styles/focus = SubResource("StyleBoxTexture_lafbu")
+theme_override_styles/normal = SubResource("StyleBoxTexture_f253n")
 toggle_mode = true
 icon = ExtResource("24_0uwt0")
 icon_alignment = 2
@@ -585,40 +587,40 @@ icon_alignment = 2
 [node name="ItemsButton" type="Button" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_20fsp")
+theme_override_styles/focus = SubResource("StyleBoxTexture_lafbu")
 theme_override_styles/hover = SubResource("StyleBoxTexture_opbia")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_ge2fu")
-theme_override_styles/focus = SubResource("StyleBoxTexture_lafbu")
+theme_override_styles/normal = SubResource("StyleBoxTexture_20fsp")
 toggle_mode = true
 icon = ExtResource("26_d38pc")
 icon_alignment = 2
 
 [node name="EnemiesButton" type="Button" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_w6scg")
+theme_override_styles/focus = SubResource("StyleBoxTexture_lafbu")
 theme_override_styles/hover = SubResource("StyleBoxTexture_v8ysw")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_hdbdv")
-theme_override_styles/focus = SubResource("StyleBoxTexture_lafbu")
+theme_override_styles/normal = SubResource("StyleBoxTexture_w6scg")
 toggle_mode = true
 icon = ExtResource("28_7eh7l")
 icon_alignment = 2
 
 [node name="BiomesButton" type="Button" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_l0ajp")
+theme_override_styles/focus = SubResource("StyleBoxTexture_lafbu")
 theme_override_styles/hover = SubResource("StyleBoxTexture_u64ko")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_hdbdv")
-theme_override_styles/focus = SubResource("StyleBoxTexture_lafbu")
+theme_override_styles/normal = SubResource("StyleBoxTexture_l0ajp")
 toggle_mode = true
 icon = ExtResource("41_8dmb7")
 icon_alignment = 2
 
 [node name="AchievementsButton" type="Button" parent="UI/MenuTabContainer/ENCYCLOPEDIA/HBoxContainer/CategoryButtons"]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxTexture_erg20")
+theme_override_styles/focus = SubResource("StyleBoxTexture_lafbu")
 theme_override_styles/hover = SubResource("StyleBoxTexture_dbtfm")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_hdbdv")
-theme_override_styles/focus = SubResource("StyleBoxTexture_lafbu")
+theme_override_styles/normal = SubResource("StyleBoxTexture_erg20")
 toggle_mode = true
 icon = ExtResource("46_tvh38")
 icon_alignment = 2
@@ -688,6 +690,7 @@ visible = false
 layout_mode = 2
 mouse_filter = 2
 script = ExtResource("11_7bikg")
+metadata/_tab_index = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/MenuTabContainer/OPTIONS"]
 layout_mode = 2
@@ -744,9 +747,9 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("18_beacm")
 theme_override_font_sizes/font_size = 10
-theme_override_styles/normal = SubResource("StyleBoxEmpty_dosns")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gexvg")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_vjovk")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_dosns")
 text = "seed_text"
 alignment = 2
 editable = false

@@ -7,6 +7,7 @@ const TOP_MARGIN: int = -16
 
 var tileset: TileSet
 var room_tilemaps: Array[TileMap] = []
+var room_npcs: Array[Array] = []
 var rooms_items_ui: Array[ItemsUI] = []
 
 var room_selected: DungeonRoom = null
@@ -62,6 +63,7 @@ func set_up() -> void:
 	#tileset.add_source(atlas)
 
 	room_tilemaps.resize(rooms.rooms.size())
+	room_npcs.resize(rooms.rooms.size())
 	rooms_items_ui.resize(rooms.rooms.size())
 
 	var minimap_corridors_tilemap: TileMap = TileMap.new()
@@ -133,6 +135,10 @@ func _on_draw() -> void:
 	_update_fog()
 	#update_fog_timer.start()
 
+	for i: int in room_tilemaps.size():
+		if room_tilemaps[i]:
+			_update_npcs(i)
+
 	for i: int in rooms_items_ui.size():
 		var items_ui: ItemsUI = rooms_items_ui[i]
 		if items_ui != null:
@@ -163,6 +169,18 @@ func _update_fog() -> void:
 #		# light.resize(light.get_width() * 5, light.get_height() * 5)
 #		fog_image.blend_rect(light, Rect2(Vector2.ZERO, light.get_size()), Globals.player.position - entire_map_rect.position - light.get_size()/2.0)
 #		fog_sprite.texture = ImageTexture.create_from_image(fog_image)
+
+func _update_npcs(i: int) -> void:
+	room_npcs[i].all(func(node: Node) -> bool: node.queue_free(); return true)
+	room_npcs[i].clear()
+
+	for npc: NPC in rooms.rooms[i].get_npcs():
+		var head: Sprite2D = Sprite2D.new()
+		head.texture = npc.get_head()
+		head.z_index = 5
+		head.position = (npc.global_position - rooms.rooms[i].global_position) / 4
+		room_tilemaps[i].add_child(head)
+		room_npcs[i].push_back(head)
 
 func _input(event: InputEvent) -> void:
 	if room_selected != null:

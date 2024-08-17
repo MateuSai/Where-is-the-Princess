@@ -47,6 +47,8 @@ signal resetted()
 signal enemy_died(enemy: Enemy)
 signal last_enemy_died(enemy: Enemy)
 
+var npcs: Array[NPC] = []
+
 ## [member room_white_image] is used to clear the fog when you enter the room
 @export var include_water_in_room_white_image: bool = true
 
@@ -713,6 +715,9 @@ func get_weapons() -> Array[Weapon]:
 	var array: Array[Weapon] = []
 	array.assign(weapons_container.get_children())
 	return array
+
+func get_npcs() -> Array[NPC]:
+	return npcs
 
 func is_on_water(pos_relative_to_room: Vector2) -> bool:
 	return tilemap.get_cell_atlas_coords(WATER_LAYER_ID, tilemap.local_to_map(pos_relative_to_room)) != Vector2i( - 1, -1)
