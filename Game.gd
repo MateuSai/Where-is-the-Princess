@@ -11,6 +11,8 @@ static var came_from_next_level: bool = false
 
 var generation_thread: Thread = null
 
+signal generation_reloaded()
+
 signal player_added()
 
 signal game_paused()
@@ -172,6 +174,9 @@ func reload_generation(msg: String) -> void:
 
 	var signals: Array[Dictionary] = get_signal_list();
 	for signal_dic: Dictionary in signals:
+		if signal_dic.name == "generation_reloaded":
+			continue
+
 		var connection_list: Array[Dictionary] = get_signal_connection_list(signal_dic.name)
 		for connection_dic: Dictionary in connection_list:
 			connection_dic["signal"].disconnect(connection_dic.callable)
@@ -186,6 +191,8 @@ func reload_generation(msg: String) -> void:
 	minimap._ready()
 	rooms._ready()
 	_ready()
+
+	generation_reloaded.emit()
 	#get_tree().reload_current_scene()
 
 	#print_debug("Scene reloaded")

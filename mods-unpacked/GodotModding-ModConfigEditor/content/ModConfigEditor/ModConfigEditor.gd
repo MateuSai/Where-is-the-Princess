@@ -107,7 +107,7 @@ func _on_PopupNewConfig_pressed_submit(config_name: String) -> void:
 
 	popup_new_config.hide()
 
-func _on_ConfigSections_config_data_changed(input_component) -> void:
+func _on_ConfigSections_config_data_changed(input_component: Node) -> void:
 	if input_component.parent.is_empty():
 		edited_config.data[input_component.key] = input_component.value
 		return

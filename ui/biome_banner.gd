@@ -1,5 +1,7 @@
 class_name BiomeBanner extends Control
 
+@onready var game: Game = owner
+
 @onready var label: Label = $Panel/MarginContainer/Label
 @onready var initial_delay_timer: Timer = $Panel/InitialDelayTimer
 
@@ -7,7 +9,12 @@ func _ready() -> void:
 	hide()
 
 	initial_delay_timer.timeout.connect(start)
-	initial_delay_timer.start()
+
+	game.generation_reloaded.connect(_on_generation_reloaded)
+	_on_generation_reloaded()
+
+func _on_generation_reloaded() -> void:
+	game.player_added.connect(initial_delay_timer.start)
 
 func start() -> void:
 	label.text = SavedData.get_biome_conf().name

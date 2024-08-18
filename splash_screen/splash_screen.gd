@@ -11,12 +11,12 @@ func start() -> void:
 	modulate.a = 0
 	show()
 	var tween: Tween = create_tween()
-	tween.connect("finished", _finish)
+	tween.finished.connect(_finish)
 	tween.tween_property(self, "modulate:a", 1, _fade_time)
 	tween.tween_interval(_time)
 	tween.tween_property(self, "modulate:a", 0, _fade_time)
 
 
 func _finish() -> void:
-	emit_signal("finished")
+	finished.emit()
 	queue_free()

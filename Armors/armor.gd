@@ -43,6 +43,7 @@ func unequip(player: Player) -> void:
 	for effect: ItemEffect in effects:
 		effect.disable(player)
 
+@warning_ignore("shadowed_variable")
 func _setup_ability(ability_icon: Texture2D, recharge_time: float=2, effect_duration: float=- 1) -> void:
 	self.ability_icon = ability_icon
 	self.recharge_time = recharge_time

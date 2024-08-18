@@ -11,6 +11,9 @@ func pick_up(player: Player) -> void:
 
 	player.armor.condition += 2
 
+func get_coin_cost() -> int:
+	return 18
+
 func get_icon() -> Texture2D:
 	return load("res://Art/16x16 Pixel Art Roguelike (Forest) Pack/items/armor_shard_max.png")
 

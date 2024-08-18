@@ -8,10 +8,6 @@ var mov_direction: Vector2 = Vector2.ZERO
 func _ready() -> void:
 	super()
 
-	var room: Node = null
-	while room == null:
-		room = get_parent()
-
 	if room is BaseCamp:
 		($NavigationAgent2D as NavigationAgent2D).set_navigation_map(room.get_navigation_map())
 		pathfinding_component.mode = pathfinding_component.Wander.new()

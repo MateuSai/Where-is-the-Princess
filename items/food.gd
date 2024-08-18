@@ -11,6 +11,9 @@ func _init() -> void:
 	icon = POSSIBLE_ICONS[rand_int]
 	big_icon = POSSIBLE_BIG_ICONS[rand_int]
 
+func get_coin_cost() -> int:
+	return 9
+
 func get_icon() -> Texture2D:
 	return icon
 
