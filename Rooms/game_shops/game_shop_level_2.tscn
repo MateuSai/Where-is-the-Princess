@@ -29,7 +29,7 @@ item_type = 1
 [node name="ShopItemMarker3" type="Marker2D" parent="Positions" index="2"]
 position = Vector2(24, -29)
 script = ExtResource("2_l75g2")
-item_type = 3
+item_type = 5
 
 [node name="Merchant" parent="." index="2" instance=ExtResource("4_0vkfh")]
 position = Vector2(7, -14)

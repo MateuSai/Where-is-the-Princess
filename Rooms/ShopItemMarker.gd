@@ -6,6 +6,7 @@ enum Type {
 	PLAYER_UPGRADE,
 	PERMANENT_ITEM,
 	ARMOR,
+	CONSUMABLE
 }
 
 @export var item_type: Type

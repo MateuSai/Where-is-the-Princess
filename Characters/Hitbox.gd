@@ -122,6 +122,6 @@ func _get_entity(node: Node2D) -> Node2D:
 	var entity: Node2D = null
 
 	if node != null:
-		entity = node.owner if node is HurtBox else node
+		entity = node.get_parent() if node is HurtBox else node
 
 	return entity

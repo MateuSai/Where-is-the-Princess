@@ -47,9 +47,14 @@ script = ExtResource("2_fjrxl")
 item_type = 1
 
 [node name="ShopItemMarker7" type="Marker2D" parent="Positions" index="6"]
-position = Vector2(-33, -41)
+position = Vector2(-33, -47)
 script = ExtResource("2_fjrxl")
 item_type = 3
+
+[node name="ShopItemMarker8" type="Marker2D" parent="Positions" index="7"]
+position = Vector2(-33, -37)
+script = ExtResource("2_fjrxl")
+item_type = 5
 
 [node name="Merchant" parent="." index="1" instance=ExtResource("3_to11g")]
 position = Vector2(7, 5)

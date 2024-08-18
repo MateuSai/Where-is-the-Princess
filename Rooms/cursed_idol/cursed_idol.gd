@@ -47,8 +47,6 @@ func _ready() -> void:
 			interact_area.sprite_material.set("shader_parameter/interior_color", Color.TRANSPARENT)
 	)
 
-	interact_area.player_interacted.connect(_on_player_interacted)
-
 
 func _on_player_interacted() -> void:
 	if not _can_interact():

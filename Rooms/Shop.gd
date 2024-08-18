@@ -59,6 +59,10 @@ func _ready() -> void:
 					armor_item.initialize(load(random_armor_path).new())
 					_create_and_add_shop_item(marker.position).initialize(armor_item)
 					armor_paths.remove_at(armor_paths.find(random_armor_path))
+			ShopItemMarker.Type.CONSUMABLE:
+				var consumable_path: String = ["res://items/food.gd", "res://items/whetstone.gd", "res://items/godly_whetstone.gd", "res://items/armor_shard.gd", "res://items/double_armor_shard.gd"].pick_random()
+				var consumable: Item = load(consumable_path).new()
+				_create_and_add_shop_item(marker.position).initialize(consumable)
 
 
 

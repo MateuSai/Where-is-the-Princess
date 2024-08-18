@@ -14,27 +14,32 @@ y_sort_enabled = true
 [node name="Positions" type="Node2D" parent="." index="0"]
 position = Vector2(0, 40)
 
-[node name="ShopItemMarker" type="Marker2D" parent="Positions" index="0"]
-position = Vector2(-8, -37)
+[node name="ShopItemMarker6" type="Marker2D" parent="Positions" index="0"]
+position = Vector2(-14, -37)
+script = ExtResource("3_ax13m")
+item_type = 5
+
+[node name="ShopItemMarker" type="Marker2D" parent="Positions" index="1"]
+position = Vector2(7, -37)
 script = ExtResource("3_ax13m")
 item_type = 4
 
-[node name="ShopItemMarker2" type="Marker2D" parent="Positions" index="1"]
-position = Vector2(21, -37)
+[node name="ShopItemMarker2" type="Marker2D" parent="Positions" index="2"]
+position = Vector2(26, -37)
 script = ExtResource("3_ax13m")
 item_type = 3
 
-[node name="ShopItemMarker3" type="Marker2D" parent="Positions" index="2"]
+[node name="ShopItemMarker3" type="Marker2D" parent="Positions" index="3"]
 position = Vector2(41, -53)
 script = ExtResource("3_ax13m")
 item_type = 1
 
-[node name="ShopItemMarker4" type="Marker2D" parent="Positions" index="3"]
+[node name="ShopItemMarker4" type="Marker2D" parent="Positions" index="4"]
 position = Vector2(41, -63)
 script = ExtResource("3_ax13m")
 quality = 1
 
-[node name="ShopItemMarker5" type="Marker2D" parent="Positions" index="4"]
+[node name="ShopItemMarker5" type="Marker2D" parent="Positions" index="5"]
 position = Vector2(41, -74)
 script = ExtResource("3_ax13m")
 
