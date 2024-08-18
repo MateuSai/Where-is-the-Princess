@@ -1,12 +1,12 @@
-class_name CursedIdol extends StaticBody2D
+class_name CursedIdol extends NPC
 
 const SPAWN_EXPLOSION_SCENE: PackedScene = preload("res://Characters/Enemies/SpawnExplosion.tscn")
 
-const DIALOGUE_BOX_SCENE: PackedScene = preload("res://ui/dialogue_system/dialogue_box.tscn")
-var dialogue_box: DialogueBox
-var dialogue_tween: Tween = null
-
-var coin_price: int = 10
+var coin_price: int = 10:
+	set(new_value):
+		coin_price = new_value
+		cost_hbox.get_node("Label").text = str(coin_price)
+var times_used: int = 0
 
 var permanent_passive_item: PermanentArtifact
 var item_in_the_process_of_cursing: PermanentArtifact
@@ -14,14 +14,13 @@ var tween: Tween = null
 
 #var canvas_modulate: CanvasModulate
 
-@onready var room: DungeonRoom = owner
-
-@onready var interact_area: InteractArea = get_node("InteractArea")
 @onready var cost_hbox: HBoxContainer = $CostHBox
 @onready var sound: AudioStreamPlayer2D = $Sound
 
 
 func _ready() -> void:
+	super()
+
 	cost_hbox.hide()
 
 	interact_area.body_entered.connect(func(_player: Player) -> void:
@@ -59,6 +58,9 @@ func _on_player_interacted() -> void:
 
 	Globals.player.unequip_passive_item(item_in_the_process_of_cursing)
 	SavedData.run_stats.coins -= coin_price
+
+	times_used += 1
+	coin_price += 3 * times_used
 
 	var item_icon: Sprite2D = Sprite2D.new()
 	item_icon.texture = item_in_the_process_of_cursing.get_icon()

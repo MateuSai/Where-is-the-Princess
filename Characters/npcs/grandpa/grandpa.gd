@@ -1,7 +1,5 @@
 class_name Grandpa extends NPC
 
-@onready var room: DungeonRoom = owner
-
 func _ready() -> void:
 	interact_area.queue_free()
 
