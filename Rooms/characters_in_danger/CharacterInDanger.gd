@@ -60,7 +60,7 @@ func _ready() -> void:
 
 		room.player_entered.connect(func() -> void:
 			_on_say_something_timer_timeout()
-		)
+		, CONNECT_ONE_SHOT)
 
 	room.cleared.connect(func() -> void:
 		room_cleared=true
