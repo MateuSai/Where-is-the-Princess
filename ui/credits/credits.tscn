@@ -1,10 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://ca0buhie127t4"]
+[gd_scene load_steps=18 format=3 uid="uid://ca0buhie127t4"]
 
 [ext_resource type="LabelSettings" uid="uid://cbc4642i2ox27" path="res://Fonts/credits_section_title_label_settings.tres" id="1_67ui2"]
 [ext_resource type="Script" path="res://ui/credits/credits.gd" id="1_kf250"]
 [ext_resource type="LabelSettings" uid="uid://gwgloxfvwiln" path="res://Fonts/credits_name_label_settings.tres" id="2_n1tb0"]
 [ext_resource type="FontFile" uid="uid://drbvct1q4mkwc" path="res://Fonts/Alkhemikal.ttf" id="4_vkiv4"]
 [ext_resource type="Texture2D" uid="uid://dwrq43ndaauur" path="res://ui/credits/addon_icons/beehave.svg" id="5_a0yen"]
+[ext_resource type="FontFile" uid="uid://c54ypprpxwfn0" path="res://Fonts/Chusung-220206.ttf" id="5_srl8c"]
 [ext_resource type="Texture2D" uid="uid://b5ktq7lddl5wj" path="res://ui/credits/addon_icons/csv_data_importer.png" id="6_bdhdv"]
 [ext_resource type="Texture2D" uid="uid://yyq1bs6ymscg" path="res://ui/credits/addon_icons/gdunit.png" id="7_wgiwp"]
 [ext_resource type="Texture2D" uid="uid://dcd2rcyujftob" path="res://ui/credits/addon_icons/log.png" id="8_kjbwc"]
@@ -26,7 +27,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_onydd")
-scroll_vertical = 100
+scroll_vertical = 300
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 script = ExtResource("1_kf250")
@@ -110,25 +111,13 @@ layout_mode = 2
 text = "Hernaldo Avalos"
 label_settings = ExtResource("2_n1tb0")
 
-[node name="VBoxContainer7" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer7"]
-layout_mode = 2
-text = "THIRD_PARTY_ART_ASSETS"
-label_settings = ExtResource("1_67ui2")
-horizontal_alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer7"]
-layout_mode = 2
-
-[node name="Label2" type="LinkButton" parent="MarginContainer/VBoxContainer/VBoxContainer7/VBoxContainer"]
+[node name="Label2" type="LinkButton" parent="MarginContainer/VBoxContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_vkiv4")
 text = "Kenney Input Prompts"
 uri = "https://kenney.nl/assets/input-prompts-pixel-16"
 
-[node name="Label3" type="LinkButton" parent="MarginContainer/VBoxContainer/VBoxContainer7/VBoxContainer"]
+[node name="Label3" type="LinkButton" parent="MarginContainer/VBoxContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 text = "o_lobster Dungeon Pack"
 uri = "https://o-lobster.itch.io/simple-dungeon-crawler-16x16-pixel-pack"
@@ -147,8 +136,8 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer3/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("5_srl8c")
 text = "佐々木 小次郎"
-label_settings = ExtResource("2_n1tb0")
 
 [node name="MusicVBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -279,6 +268,35 @@ label_settings = ExtResource("2_n1tb0")
 [node name="Label18" type="Label" parent="MarginContainer/VBoxContainer/SoundEffectsVBoxContainer/GridContainer"]
 layout_mode = 2
 text = "j1987"
+label_settings = ExtResource("2_n1tb0")
+
+[node name="FontsVBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/FontsVBoxContainer"]
+layout_mode = 2
+text = "FONTS"
+label_settings = ExtResource("1_67ui2")
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/FontsVBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 10
+columns = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/FontsVBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Chusung"
+label_settings = ExtResource("2_n1tb0")
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/FontsVBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Alkhemical"
+label_settings = ExtResource("2_n1tb0")
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/FontsVBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Pixellari"
 label_settings = ExtResource("2_n1tb0")
 
 [node name="TranslationsVBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
