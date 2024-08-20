@@ -1,6 +1,8 @@
 class_name Grandpa extends NPC
 
 func _ready() -> void:
+	super()
+
 	interact_area.queue_free()
 
 	hide()
@@ -28,7 +30,7 @@ func _ready() -> void:
 				_spawn_explosion()
 				position=Vector2(51, 7)
 				_spawn_explosion()
-				display_tip("GRANDPA_EQUIP_ARMOR_TUTORIAL")
+				display_tip("GRANDPA_EQUIP_ARMOR_TUTORIAL", DIALOGUE_TOP_RIGHT_POSITION_OFFSET, true)
 			, CONNECT_ONE_SHOT)
 		elif room is TutorialForestArmorTutorialRoom:
 			display_tip("GRANDPA_DASH_TUTORIAL")
@@ -86,6 +88,8 @@ func _ready() -> void:
 			_spawn_explosion()
 
 			show()
+
+			await get_tree().create_timer(1.0, false).timeout
 
 			display_tip("GRANDPA_INTRODUCTION", DIALOGUE_TOP_LEFT_POSITION_OFFSET, true)
 			dialogue_box.finished_displaying_text.connect(func() -> void:

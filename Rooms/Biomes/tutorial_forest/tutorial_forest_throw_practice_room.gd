@@ -22,6 +22,8 @@ func _ready() -> void:
 
 func _on_branch_collided_with_something(_body: Node2D) -> void:
 	#Log.debug("_on_branch_collided_with_something")
+	if room_cleared:
+		return # If the room is arleady cleared we don't want to spawna another branch anymore
 
 	var spawn_explosion: AnimatedSprite2D = DungeonRoom.SPAWN_EXPLOSION_SCENE.instantiate()
 	spawn_explosion.position = branch.weapon_sprite.global_position + branch.weapon_sprite.offset.rotated(branch.global_rotation) - position

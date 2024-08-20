@@ -18,7 +18,7 @@ func _ready() -> void:
 		if active_ability_used:
 			_open_doors()
 			(Globals.player.weapons.get_child(1) as MeleeWeapon).condition_changed.disconnect(_on_player_weapon_condition_changed)
-	, CONNECT_DEFERRED)
+	, CONNECT_ONE_SHOT)
 	Globals.player.weapons.active_ability_used.connect(func() -> void:
 		active_ability_used=true
 		if attacked:
