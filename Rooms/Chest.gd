@@ -78,6 +78,8 @@ func _ready() -> void:
 	)
 
 func _on_opened() -> void:
+	var relative_height: Vector2 = Vector2.UP * 6
+
 	interact_area.queue_free()
 	animation_player.play("open")
 
@@ -85,8 +87,10 @@ func _on_opened() -> void:
 		Type.ITEM:
 			var item_on_floor: ItemOnFloor = load("res://items/item_on_floor.tscn").instantiate()
 			item_on_floor.initialize(load(item_path).new())
-			room.add_item_on_floor(item_on_floor, position)
+			room.add_item_on_floor(item_on_floor, position + relative_height)
+			item_on_floor.z_index = 1
 			await create_tween().tween_property(item_on_floor, "position:y", position.y + 16, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT).finished
+			item_on_floor.z_index = 0
 			item_on_floor.enable_pick_up()
 		Type.GEAR:
 			match gear_type:
@@ -94,14 +98,18 @@ func _on_opened() -> void:
 		#			var shfbsdkf = load(item_path)
 					var weapon: Weapon = load(item_path).instantiate()
 					get_tree().current_scene.add_child(weapon)
-					weapon.interpolate_pos(global_position, global_position + Vector2.DOWN * 16, false)
+					weapon.z_index = 1
+					await weapon.interpolate_pos(global_position + relative_height, global_position + Vector2.DOWN * 16, false).finished
+					weapon.z_index = 0
 				GearType.ARMOR:
 					var item_on_floor: ItemOnFloor = load("res://items/item_on_floor.tscn").instantiate()
 					var armor_item: ArmorItem = ArmorItem.new()
 					armor_item.initialize(load(item_path).new())
 					item_on_floor.initialize(armor_item)
-					room.add_item_on_floor(item_on_floor, position)
+					room.add_item_on_floor(item_on_floor, position + relative_height)
+					item_on_floor.z_index = 1
 					await create_tween().tween_property(item_on_floor, "position:y", position.y + 16, 0.5).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT).finished
+					item_on_floor.z_index = 0
 					item_on_floor.enable_pick_up()
 				_:
 					push_error("Invalid gear type")

@@ -167,7 +167,7 @@ func _pick_up() -> void:
 
 	z_index = 0
 
-func interpolate_pos(initial_pos: Vector2, final_pos: Vector2, collision_with_world_and_low_objects: bool=true) -> void:
+func interpolate_pos(initial_pos: Vector2, final_pos: Vector2, collision_with_world_and_low_objects: bool=true) -> Tween:
 	player_detector_col.disabled = false # DO NOT USE SET DEFERRED
 
 	player_detector.set_collision_mask_value(2, false)
@@ -183,6 +183,8 @@ func interpolate_pos(initial_pos: Vector2, final_pos: Vector2, collision_with_wo
 	tween = create_tween()
 	tween.tween_property(self, "position", final_pos, 0.8).set_trans(Tween.TRANS_QUART).set_ease(Tween.EASE_OUT)
 	tween.finished.connect(_on_Tween_tween_completed)
+
+	return tween
 
 func _on_Tween_tween_completed() -> void:
 	if _is_on_water():

@@ -109,8 +109,8 @@ func pick_up_weapon(weapon: Weapon) -> void:
 	SavedData.run_stats.weapon_stats.append(weapon.stats)
 	var prev_index: int = SavedData.run_stats.equipped_weapon_index
 	var new_index: int = get_child_count()
-	weapon.get_parent().call_deferred("remove_child", weapon)
-	call_deferred("add_child", weapon)
+	weapon.get_parent().remove_child.call_deferred(weapon)
+	add_child.call_deferred(weapon)
 	# set_deferred("owner", self)
 	if current_weapon is Dagger:
 		current_weapon.hide()
@@ -153,11 +153,11 @@ func _drop_weapon() -> void:
 
 	weapon_droped.emit(weapon_to_drop.get_index())
 
-	call_deferred("remove_child", weapon_to_drop)
+	remove_child.call_deferred(weapon_to_drop)
 	if (player.current_room):
-		player.current_room.call_deferred("add_weapon_on_floor", weapon_to_drop, player.global_position - player.current_room.global_position)
+		player.current_room.add_weapon_on_floor.call_deferred(weapon_to_drop, player.global_position - player.current_room.global_position)
 	else:
-		get_tree().current_scene.call_deferred("add_child", weapon_to_drop)
+		get_tree().current_scene.add_child.call_deferred(weapon_to_drop)
 	# weapon_to_drop.set_owner(get_tree().current_scene)
 	await weapon_to_drop.tree_entered
 	weapon_to_drop.show()
@@ -212,8 +212,8 @@ func _destroy_weapon() -> void:
 
 	var pos: Vector2 = weapon_to_drop.global_position
 	#print(pos)
-	call_deferred("remove_child", weapon_to_drop)
-	get_tree().current_scene.call_deferred("add_child", weapon_to_drop)
+	remove_child.call_deferred(weapon_to_drop)
+	get_tree().current_scene.add_child.call_deferred(weapon_to_drop)
 	await get_tree().process_frame
 	weapon_to_drop.position = pos
 	weapon_to_drop.show()
