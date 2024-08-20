@@ -155,6 +155,7 @@ flat = true
 script = ExtResource("8_vxxq1")
 
 [node name="SavePathHBoxContainer" type="HBoxContainer" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Label" type="Label" parent="TabContainer/GENERAL/MarginContainer/VBoxContainer/SavePathHBoxContainer"]

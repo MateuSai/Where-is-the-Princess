@@ -249,11 +249,13 @@ func _process_command(command: String) -> void:
 				match splitted_command[1]:
 					"orphans", "or":
 						_print_orpahans()
+					"room":
+						_print_current_room_name()
 					_:
-						printerr("discover has no " + splitted_command[1] + " option")
+						printerr("print has no " + splitted_command[1] + " option")
 			else:
 				printerr("print cannot be used by itself")
-		"where am i", "where the fuck am i", "pr", "print room":
+		"where am i", "where the fuck am i", "pr":
 			_print_current_room_name()
 		_:
 			printerr("Invalid command")

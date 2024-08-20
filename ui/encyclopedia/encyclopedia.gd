@@ -305,11 +305,19 @@ func _show_item_details(item: Item, statistics: ItemStatistics) -> void:
 	name_label.text = item.get_item_name()
 	details_vbox.add_child(name_label)
 
-	var description_label: Label = Label.new()
+	var description_label: RichTextLabel = RichTextLabel.new()
+	description_label.bbcode_enabled = true
+	description_label.fit_content = true
+	description_label.scroll_active = false
+	description_label.add_theme_constant_override("line_separation", -2)
 	description_label.theme = load("res://SmallFontTheme.tres")
 	description_label.custom_minimum_size.x = details_vbox.size.x - 16
 	description_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	description_label.text = item.get_item_description()
+	if item.has_method("get_effects_description") and not item.get_effects_description().is_empty():
+		description_label.text = item.get_effects_description()
+	else:
+		description_label.text = item.get_item_description()
+	#description_label.text = item.get_item_description()
 	details_vbox.add_child(description_label)
 
 	#print(TranslationServer.get_translation_object(TranslationServer.get_locale()).get_message_list())
