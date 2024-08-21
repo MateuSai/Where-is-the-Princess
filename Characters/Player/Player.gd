@@ -69,7 +69,7 @@ var previous_aim_pos: Vector2 = Vector2.ZERO
 var extra_water_damage: int = 0
 var throw_piercing: int = 1
 var extra_fire_damage: int = 0
-var attract_souls_even_on_combat: bool = false
+var attract_souls_even_on_combat: int = 0
 var armor_ability_recharge_time_reduction: float = 0.0:
 	set(new_value):
 		armor_ability_recharge_time_reduction = clamp(new_value, 0.0, 0.95)

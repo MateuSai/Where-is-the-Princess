@@ -410,7 +410,7 @@ grow_vertical = 2
 theme = ExtResource("4_usvbv")
 theme_override_constants/side_margin = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_6orv6")
-current_tab = 1
+current_tab = 2
 script = ExtResource("6_y3275")
 
 [node name="MAP" type="MarginContainer" parent="UI/MenuTabContainer"]
@@ -450,6 +450,7 @@ texture = ExtResource("16_0uph7")
 
 [node name="EQUIPMENT" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
@@ -548,7 +549,6 @@ script = ExtResource("16_tq616")
 
 [node name="ENCYCLOPEDIA" type="MarginContainer" parent="UI/MenuTabContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 script = ExtResource("17_k4k0u")
 metadata/_tab_index = 2

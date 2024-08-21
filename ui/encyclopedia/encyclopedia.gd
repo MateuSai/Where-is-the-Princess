@@ -308,7 +308,10 @@ func _show_item_details(item: Item, statistics: ItemStatistics) -> void:
 	name_label.text = item.get_item_name()
 	details_vbox.add_child(name_label)
 
+	var description_scale: float = 0.7
+	var description_container: Control = Control.new()
 	var description_label: RichTextLabel = RichTextLabel.new()
+	description_label.scale = Vector2(description_scale, description_scale)
 	description_label.bbcode_enabled = true
 	description_label.fit_content = true
 	description_label.scroll_active = false
@@ -321,7 +324,11 @@ func _show_item_details(item: Item, statistics: ItemStatistics) -> void:
 	else:
 		description_label.text = item.get_item_description()
 	#description_label.text = item.get_item_description()
-	details_vbox.add_child(description_label)
+	description_container.add_child(description_label)
+	details_vbox.add_child(description_container)
+	description_label.size.x = details_vbox.size.x / description_scale
+	#await get_tree().process_frame
+	description_container.custom_minimum_size.y = description_label.size.y * description_scale
 
 	#print(TranslationServer.get_translation_object(TranslationServer.get_locale()).get_message_list())
 	#print(TranslationServer.get_translation_object(TranslationServer.get_locale()).get_message_list().has(item.get_item_description_more()))
