@@ -19,7 +19,9 @@ func attach(to: NodePath, dir: Vector2) -> void:
 	rotation = dir.angle()
 	character = get_node(to)
 	character_joint.node_b = to
-	weapon_body.get_node("Hitbox").exclude.push_back(get_node(to))
+	hitbox.exclude.push_back(get_node(to))
+	hitbox.exclude.push_back(weapon_body)
+	hitbox.knockback_direction = dir
 	#weapon_body.add_collision_exception_with(get_node(to))
 	weapon_body.apply_impulse(dir * 500, Vector2(6, -6))
 	#spear_body.set_pos(spear_initial_pos)

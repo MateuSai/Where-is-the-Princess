@@ -207,8 +207,10 @@ shape = SubResource("CircleShape2D_i2q7o")
 [node name="Hitbox" type="Area2D" parent="RigidBodyWeapon"]
 unique_name_in_owner = true
 collision_layer = 0
-collision_mask = 6
+collision_mask = 134
 script = ExtResource("4_e1y0t")
+damage = 2
+knockback_force = 1200
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBodyWeapon/Hitbox"]
 shape = SubResource("CircleShape2D_8bd81")
