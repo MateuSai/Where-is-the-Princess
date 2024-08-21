@@ -1,5 +1,7 @@
 class_name CursedPermanentArtifact extends PermanentArtifact
 
+const TITLE_COLOR: Color = Color("#770000")
+
 func get_cursed_version_path() -> String:
 	return ""
 

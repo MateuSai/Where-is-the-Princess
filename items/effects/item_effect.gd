@@ -1,6 +1,6 @@
 class_name ItemEffect
 
-const GREEN: String = "green"
+const GREEN: String = "#00aa00"
 const YELLOW: String = "yellow"
 const RED: String = "red"
 const PURPLE: String = "purple"

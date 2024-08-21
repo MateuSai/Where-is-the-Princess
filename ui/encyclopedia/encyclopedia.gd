@@ -173,7 +173,7 @@ func _set_category(new_category: int) -> void:
 			list_container.add_child(vbox)
 		ACHIEVEMENTS:
 			var grid: GridContainer = GridContainer.new()
-			grid.columns = 3
+			grid.columns = 4
 
 			for achievent_id: String in Achievements.Achievement.keys():
 				var button: EncyclopediaButton = EncyclopediaButton.new()
@@ -302,6 +302,9 @@ func _show_item_details(item: Item, statistics: ItemStatistics) -> void:
 	var name_label: Label = Label.new()
 	name_label.custom_minimum_size.x = details_vbox.size.x - 16
 	name_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	if item is CursedPermanentArtifact:
+		name_label.add_theme_color_override("font_color", CursedPermanentArtifact.TITLE_COLOR)
+		#name_label.modulate = CursedPermanentArtifact.TITLE_COLOR
 	name_label.text = item.get_item_name()
 	details_vbox.add_child(name_label)
 
