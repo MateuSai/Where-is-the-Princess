@@ -37,5 +37,5 @@ func _on_add_letter_timeout() -> void:
 
 func _on_label_resized() -> void:
 	if expand_up:
-		position.y += last_label_size.y - label.size.y
+		position.y += (last_label_size.y - label.size.y) * scale.y
 		last_label_size = label.size
