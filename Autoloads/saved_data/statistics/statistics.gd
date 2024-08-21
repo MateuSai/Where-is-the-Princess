@@ -111,6 +111,7 @@ func get_biomes_statistics() -> Dictionary:
 	return _biomes_statistics
 
 func get_biome_statistics(id: String) -> BiomeStatistics:
+	id = id.to_snake_case().to_lower()
 	if _biomes_statistics.has(id):
 		return _biomes_statistics[id]
 
