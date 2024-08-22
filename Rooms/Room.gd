@@ -15,7 +15,9 @@ const HORIZONTAL_UP_DOOR: PackedScene = preload ("res://Rooms/Furniture and Trap
 const HORIZONTAL_DOWN_DOOR: PackedScene = preload ("res://Rooms/Furniture and Traps/HorizontalDownDoor.tscn")
 const VERTICAL_DOOR: PackedScene = preload ("res://Rooms/Furniture and Traps/VerticalDoor.tscn")
 
+const GROUND_LAYER_ID: int = 0
 const WATER_LAYER_ID: int = 4
+const LOW_WALL_LAYER_ID: int = 5
 var ATLAS_ID: int
 
 var num_enemies: int

@@ -554,7 +554,7 @@ func is_on_water() -> bool:
 
 func is_on_void() -> bool:
 	var global_cell: Vector2i = floor(position / Rooms.TILE_SIZE)
-	var tilemap_to_check: TileMap = (get_tree().current_scene as Game).rooms.get_tilemap_with_global_cell(global_cell)
+	var tilemap_to_check: TileMap = (get_tree().current_scene as Game).rooms.get_tilemap_with_global_cell(global_cell, DungeonRoom.LOW_WALL_LAYER_ID) # Low walls layer has the void tiles
 
 	if current_room and not (tilemap_to_check != null and not tilemap_to_check.get_parent() is DungeonRoom):
 		return current_room.is_on_void(global_position - current_room.global_position)
@@ -692,7 +692,7 @@ func _stop_exhausted_effect() -> void:
 func _get_tile_type() -> String:
 	var global_cell: Vector2i = floor(position / Rooms.TILE_SIZE)
 
-	var tilemap_to_check: TileMap = (get_tree().current_scene as Game).rooms.get_tilemap_with_global_cell(global_cell)
+	var tilemap_to_check: TileMap = (get_tree().current_scene as Game).rooms.get_tilemap_with_global_cell(global_cell, DungeonRoom.GROUND_LAYER_ID)
 
 	#if current_room != null:
 	#	Log.debug("Player on relative tile: " + str(global_cell - Vector2i(current_room.position / Rooms.TILE_SIZE)))

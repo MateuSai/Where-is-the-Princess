@@ -1470,16 +1470,16 @@ class Connection:
 	func as_string() -> String:
 		return "room_1_id: " + str(room_1_id) + ", room_2_id: " + str(room_2_id) + ", cost: " + str(cost)
 
-func get_tilemap_with_global_cell(cell: Vector2i) -> TileMap:
+func get_tilemap_with_global_cell(cell: Vector2i, layer: int) -> TileMap:
 	#Log.debug("get_corridor_block_tilemap_with_cell cell: " + str(cell))
 
 	for corridor_block: TileMap in corridor_block_tilemaps:
 		#Log.debug(corridor_block.get_used_cells(0))
-		if corridor_block.get_used_cells(0).has(cell):
+		if corridor_block.get_used_cells(layer).has(cell):
 			return corridor_block
 
 	for room: DungeonRoom in rooms:
-		if room.tilemap.get_used_cells(0).has(cell - Vector2i(room.position / TILE_SIZE)):
+		if room.tilemap.get_used_cells(layer).has(cell - Vector2i(room.position / TILE_SIZE)):
 			return room.tilemap
 
 	return null
