@@ -10,17 +10,19 @@ const DIALOGUES: Array[String] = [
 func _ready() -> void:
 	super()
 
-	body_entered.connect(func(body: Node) -> void:
-		if body is Player and not SavedData.has_completed_dialogue(DIALOGUES[0]):
-			player.can_move = false
-			(body as Player).start_dialogues(DIALOGUES.duplicate())
-			SavedData.add_completed_dialogue(DIALOGUES[0])
-			player.dialogue_finished.connect(func() -> void:
-				player.can_move = true
-				var dio: NPC = get_parent().get_node("CliffDiogenes/Diogenes")
-				dio.dialogue_texts = ["DIOGENES_WHEN_PLAYER_ABOUT_TO_JUMP_FROM_CLIFF"]
-				dio.start_dialogue()
-			, CONNECT_ONE_SHOT)
+	(owner as DungeonRoom).cleared.connect(func() -> void:
+		body_entered.connect(func(body: Node) -> void:
+			if body is Player and not SavedData.has_completed_dialogue(DIALOGUES[0]):
+				player.can_move = false
+				(body as Player).start_dialogues(DIALOGUES.duplicate())
+				SavedData.add_completed_dialogue(DIALOGUES[0])
+				player.dialogue_finished.connect(func() -> void:
+					player.can_move = true
+					var dio: NPC = get_parent().get_node("CliffDiogenes/Diogenes")
+					dio.dialogue_texts = ["DIOGENES_WHEN_PLAYER_ABOUT_TO_JUMP_FROM_CLIFF"]
+					dio.start_dialogue()
+				, CONNECT_ONE_SHOT)
+		, CONNECT_ONE_SHOT)
 	, CONNECT_ONE_SHOT)
 
 	player_interacted.connect(func() -> void:

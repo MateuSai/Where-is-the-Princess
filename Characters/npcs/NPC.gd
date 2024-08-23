@@ -54,8 +54,10 @@ func _on_player_interacted() -> void:
 	elif dialogue_tween == null and dialogue_box != null:
 			dialogue_box.show_all_text()
 
-func start_dialogue() -> void:
+func start_dialogue(offset: Vector2 = DIALOGUE_TOP_RIGHT_POSITION_OFFSET, expand_up: bool = true) -> void:
 	dialogue_box = DIALOGUE_BOX_SCENE.instantiate()
+	dialogue_box.position += offset
+	dialogue_box.expand_up = expand_up
 	add_child(dialogue_box)
 
 	if dialogues_in_order:

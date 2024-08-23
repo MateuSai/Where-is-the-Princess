@@ -1475,6 +1475,9 @@ func get_tilemap_with_global_cell(cell: Vector2i, layer: int) -> TileMap:
 
 	for corridor_block: TileMap in corridor_block_tilemaps:
 		#Log.debug(corridor_block.get_used_cells(0))
+		if corridor_block.get_layers_count() < (layer+1):
+			continue
+
 		if corridor_block.get_used_cells(layer).has(cell):
 			return corridor_block
 

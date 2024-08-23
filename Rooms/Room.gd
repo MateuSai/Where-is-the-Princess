@@ -725,7 +725,7 @@ func is_on_water(pos_relative_to_room: Vector2) -> bool:
 	return tilemap.get_cell_atlas_coords(WATER_LAYER_ID, tilemap.local_to_map(pos_relative_to_room)) != Vector2i( - 1, -1)
 
 func is_on_void(pos_relative_to_room: Vector2) -> bool:
-	return tilemap.get_cell_atlas_coords(0, tilemap.local_to_map(pos_relative_to_room)) in [Vector2i( - 1, -1), Vector2i(2, 13)]
+	return tilemap.get_cell_tile_data(LOW_WALL_LAYER_ID, tilemap.local_to_map(pos_relative_to_room)).get_custom_data_by_layer_id(0) == "void"
 
 func _generate_flying_units_navigation() -> void:
 	# Create a navigation mesh resource.

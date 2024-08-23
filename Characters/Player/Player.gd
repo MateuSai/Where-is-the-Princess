@@ -554,10 +554,11 @@ func is_on_water() -> bool:
 
 func is_on_void() -> bool:
 	var global_cell: Vector2i = floor(position / Rooms.TILE_SIZE)
-	var tilemap_to_check: TileMap = (get_tree().current_scene as Game).rooms.get_tilemap_with_global_cell(global_cell, DungeonRoom.LOW_WALL_LAYER_ID) # Low walls layer has the void tiles
+	var tilemap_to_check_ground: TileMap = (get_tree().current_scene as Game).rooms.get_tilemap_with_global_cell(global_cell, DungeonRoom.GROUND_LAYER_ID)
+	var tilemap_to_check_low_walls: TileMap = (get_tree().current_scene as Game).rooms.get_tilemap_with_global_cell(global_cell, DungeonRoom.LOW_WALL_LAYER_ID) # Low walls layer has the void tiles
 
-	if current_room and not (tilemap_to_check != null and not tilemap_to_check.get_parent() is DungeonRoom):
-		return current_room.is_on_void(global_position - current_room.global_position)
+	if tilemap_to_check_ground == null and (tilemap_to_check_low_walls == null or tilemap_to_check_low_walls.get_cell_tile_data(DungeonRoom.LOW_WALL_LAYER_ID, tilemap_to_check_low_walls.local_to_map(global_position - tilemap_to_check_low_walls.global_position)).get_custom_data_by_layer_id(0) == "void"):
+		return true
 	else:
 		return false
 
