@@ -576,6 +576,7 @@ func get_exclude_bodies() -> Array[Node2D]:
 func start_dialogue(text: String) -> void:
 	dialogue_box = DIALOGUE_BOX_SCENE.instantiate()
 	dialogue_box.position = Vector2(5, -26)
+	dialogue_box.expand_up = true
 	add_child(dialogue_box)
 
 	#var available_dialogue_texts: PackedStringArray = dialogue_texts.duplicate()
@@ -602,6 +603,7 @@ func start_dialogue(text: String) -> void:
 func start_dialogues(dialogues: Array[String]) -> void:
 	dialogue_box = DIALOGUE_BOX_SCENE.instantiate()
 	dialogue_box.position = Vector2(5, -26)
+	dialogue_box.expand_up = true
 	add_child(dialogue_box)
 
 	while not dialogues.is_empty():
