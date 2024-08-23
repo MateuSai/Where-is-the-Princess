@@ -20,6 +20,10 @@ func _state_logic(_delta: float) -> void:
 	match state:
 		IDLE:
 			var dir_to_player: Vector2 = (parent.player.position - parent.global_position).normalized()
+			if dir_to_player.x > 0 and (parent as Goblin).sprite.flip_h:
+				parent._on_change_dir()
+			elif dir_to_player.x < 0 and not (parent as Goblin).sprite.flip_h:
+				parent._on_change_dir()
 			if dir_to_player.y >= 0 and animation_player.current_animation != "idle":
 				animation_player.play("idle")
 			elif dir_to_player.y < 0 and animation_player.current_animation != "idle_up":
@@ -37,7 +41,7 @@ func _state_logic(_delta: float) -> void:
 			elif distance_to_player < Goblin.MIN_DISTANCE_TO_PLAYER and not pathfinding_component.mode is PathfindingComponent.Flee:
 				pathfinding_component.set_mode(PathfindingComponent.Flee.new())
 
-			parent.move_to_target()
+			(parent as Goblin).move_to_target()
 			#parent.move()
 			var dir_to_player: Vector2 = (parent.player.position - parent.global_position).normalized()
 			if dir_to_player.y >= 0 and animation_player.current_animation != "move":
@@ -50,6 +54,7 @@ func _get_transition() -> int:
 	var distance_to_player: float = (parent.target.global_position - parent.global_position).length()
 	match state:
 		IDLE:
+			(parent as Goblin).mov_direction = Vector2.ZERO
 			if distance_to_player > parent.MAX_DISTANCE_TO_PLAYER or distance_to_player < parent.MIN_DISTANCE_TO_PLAYER:
 				return MOVE
 		MOVE:
@@ -69,4 +74,3 @@ func _enter_state(_previous_state: int, new_state: int) -> void:
 		DEAD:
 			# parent.spawn_loot()
 			animation_player.play("dead")
-
