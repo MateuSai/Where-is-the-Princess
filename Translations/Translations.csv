@@ -246,7 +246,7 @@ DISABLE_VIBRATION,Disable Vibration,Vibració Desactivada,Vibración Desactivada
 DO_YOU_REALLY_WANT_TO_CONTINUE,Do you really want to continue?,Estàs segur de què vols continuar?,¿Estás seguro de que quieres continuar?,,
 WAIT_YOU_WILL_LOST_YOUR_SAVED_RUN,You will LOSE your saved game.,PERDRÀS la teva partida guardada.,Vas a PERDER tu partida guardada.,,
 DO_YOU_WANT_TO_PLAY_THE_TUTORIAL,Do you want to play the tutorial?,Vols fer el tutorial?,¿Quieres hacer el tutorial?,,
-YOU_SHOULD_PLAY_THE_TUTORIAL_DIALOGUE,"It is recommended you do the tutorial if this is your first time in the game, so you can learn the controls and basic mechanics.",És recomanable fer el tutorial si és la teva primera vegada en el joc. Et permetrà aprendre els controls i mecàniques bàsiques.,Es recomendado hacer el tutorial si es tu primera vez en el juego. Te permitirá aprender los controles y mecánicas básicas.,,
+YOU_SHOULD_PLAY_THE_TUTORIAL_DIALOGUE,It is recommended you do the tutorial if this is your first time in the game. It will just take a few minutes.,És recomanable fer el tutorial si és la teva primera vegada en el joc. Només seran uns minuts.,Es recomendado hacer el tutorial si es tu primera vez en el juego. Solo serán unos minutos.,,
 ,,,,,
 SELECT_PROFILE,Select Profile,Selecciona un Perfil,Selecciona un Perfil,,
 PROFILE_NAME,Profile’s name,Nom del Perfil,Nombre del Perfil,,
